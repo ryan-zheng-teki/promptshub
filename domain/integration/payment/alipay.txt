@@ -1,0 +1,32 @@
+1.QRCode Transaction Payment: 
+What i am doing is to integrate the Alipay QRCode payment into my backend nodejs server,  the user can just scan the qrcode to finish the payment. The qrcode should already
+specify the amount of the money  Next, could you please show me what the endpoint is, the request and response data structure is.  The format that you returned to me should be like   the following
+
+endpoint: blabla
+
+request:
+fieldName: description 
+
+response:
+fieldName description
+
+Please write all code using typescript
+
+2. Create the Request data structure:
+Can you please create the Request data type using Typescript. I will use the Request data type to send request to Alipay. Please only output the code, no description. Because will send the output of the API to my editor
+
+3. Please create the Response data structure,By the way, please output only the code. The response data structure should contain all the fields from the Reponse of the QRCode Transaction Payment API response
+
+4. I have the following implementation for WeChat Login. Can you explain to me what I have done
+   
+5. PaymentTransaction class
+
+Can you please create the paymenttransaction class which contains the following field
+
+- The transaction ID
+- The payment amount
+- The payment status (e.g., pending, success, failure)
+- The date and time of the transaction
+- Any additional metadata that is relevant to your application (e.g., the user who initiated the transaction, the product that was purchased)
+
+Previously we have specified the notify_url that will be used to accept payment status. Our notify_url is /alipay/callback. Could you please create the middleware for me, and update the payment status
