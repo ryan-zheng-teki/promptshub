@@ -1,0 +1,21 @@
+prompts
+1.
+I have one json response from one airline company server like the following
+
+{
+  "bookingId": "ABC123DEF456",
+  "passengerName": "John Doe",
+  "flight": {
+    "flightNumber": "AC1234",
+    "origin": "YYZ",
+    "destination": "LHR",
+    "departureTime": "2023-04-01T08:00:00Z",
+    "arrivalTime": "2023-04-01T16:00:00Z"
+  },
+  "seatNumber": "17A",
+  "class": "Economy",
+  "price": 500.00,
+  "paymentStatus": "paid"
+}
+
+What you should do is to create one html div which represents the information beautifully. You should try your best to add styles based on your understanding of this information is used for. You can even add emojis
