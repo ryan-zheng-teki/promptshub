@@ -1,0 +1,10 @@
+These are more commands to put chatgpt into specific mode, so that it is able to output certain things
+
+(1) repeater mode. 
+Lets enter into the mode of repeater. Whatever send to you, you repeat what i send to you. No extra words. If you understand, please reply Okay
+
+Showing pictures
+chatgpt frontend possibly integrated some markdown renderer
+https://aneesha.medium.com/chatgpt-and-markdown-formats-generating-all-sorts-of-editable-diagrams-and-formats-4a8f2ab4f16b
+https://github.com/terminalcommandnewsletter/everything-chatgpt#markdown-rendering
+
