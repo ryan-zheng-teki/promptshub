@@ -1,0 +1,6 @@
+we want to use chatgpt and midjourney together to generate the pictures for our website. It's better that this process can completely be automated(I believe that either figma or other ui platform is already working on it to use GPT and Midjourney together to generate the pictures)
+
+(1)midjourney, should support natural description
+(2)description can be augmented by chatgpt
+
+chatgpt -> midjourney
