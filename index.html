@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .ticket {
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            display: inline-block;
+            padding: 20px;
+            background-color: #F1F1F1;
+        }
+        .ticket h2 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .ticket .flight-info {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .ticket .info {
+            flex-basis: 50%;
+            margin-bottom: 10px;
+        }
+        .ticket .info span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <h2>✈️ Flight Information</h2>
+        <div class="flight-info">
+            <div class="info">Booking ID: <span>ABC123DEF456</span></div>
+            <div class="info">Passenger: <span>John Doe</span></div>
+            <div class="info">Flight No: <span>AC1234</span></div>
+            <div class="info">Seat: <span>17A</span></div>
+            <div class="info">Class: <span>Economy</span></div>
+            <div class="info">Price: <span>$500.00</span></div>
+        </div>
+        <div class="info">From: <span>YYZ</span> 🛫 To: <span>LHR</span> 🛬</div>
+        <div class="info">Departure: <span>2023-04-01 08:00</span></div>
+        <div class="info">Arrival: <span>2023-04-01 16:00</span></div>
+        <div class="info">Payment Status: <span style="color: #4CAF50;">Paid 💳</span></div>
+    </div>
+</body>
+</html>

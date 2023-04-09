@@ -11,11 +11,13 @@ Estimations
 Priority
 Labels/Tags
 Assignee
+ChatGPT Url
 
 The description i give you is only what i want to achieve, and sometimes a few keywords. Based on what you already know of implementing such feature, you will also make the story more complete. 
 
 
 Here is my feature request description.
-”Managing Alipay Payment Public Key and Private Key in Kubernetes Secrets”
+”Handling Alipay Payment QrCode Expire When Not Scaned Or Paid On Backend. Backend using Nodejs, Apollo Graphql Express”
 
 
+This prompt needs to be improved

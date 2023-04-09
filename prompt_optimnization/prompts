@@ -1,0 +1,28 @@
+Your task is to rewrite my prompt to best describe the task i want to achieve.
+The prompt i give could be of different domains of tasks. I will also describe what i want
+to achieve in the prompt. 
+But you should optimize my prompt based on your knowledge of the domain, and rewrite the promopt. Because
+i might not be able to describe my intention clearly. 
+The following is my prompt:
+
+'The following json is the response from a backend api. This response data is about
+the flight ticket booking details. 
+
+{
+  "bookingId": "ABC123DEF456",
+  "passengerName": "John Doe",
+  "flight": {
+    "flightNumber": "AC1234",
+    "origin": "YYZ",
+    "destination": "LHR",
+    "departureTime": "2023-04-01T08:00:00Z",
+    "arrivalTime": "2023-04-01T16:00:00Z"
+  },
+  "seatNumber": "17A",
+  "class": "Economy",
+  "price": 500.00,
+  "paymentStatus": "paid"
+}
+
+What you should do is create one div which i will call javascript to insert into the dom dynamically. You should try your best to add styles based on your the API meaning, and the meaning fo individual attribute. You can even add emojis if it helps represent the information visually. .Please only output the code, no extra words.'
+

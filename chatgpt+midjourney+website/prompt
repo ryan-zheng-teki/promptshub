@@ -4,3 +4,21 @@ we want to use chatgpt and midjourney together to generate the pictures for our 
 (2)description can be augmented by chatgpt
 
 chatgpt -> midjourney
+
+Can you please give me a description of my website header. My website is used for job searching. The header contains jobs, forum, stories, aboutUs, and login button. Base on your understanding of the best practice of layout of designing such a header, you can even get down to width and height.  
+
+
+Your task is to create a extremely concise but with a very high accuracy of writing for my website header based on the following template. What i will give you is conconsie, sometimes only contains a few elements i want to have in the design. You will adjust my description based on the best practice website ui design you already know from designing similar ui feature.
+
+Here is the example i give you, you can learn from this
+"a blue background with different logos and types of the seastone logo, in the style of arbeitsrat für kunst, dark violet, iso 200, blurry details, agfa vista, reductionist form, stockphoto --ar 149:12"
+
+Here is my description:
+background sky, blue. Have jobs, forum, stories, subscription, aboutUs navigations.
+There is also login button. 
+
+
+
+UI/UX design wireframe of website header, 8k,
+single row, logo left, clean sea-blue background, login button upper right, 
+--ar 149:12 --stylize 1000 --v 5 
