@@ -1,0 +1,18 @@
+normally when we are building architecture diagrams, we follow data flow approach, top down
+resolver  notificationRequestHandler
+service
+factory
+alipaystrategy     wechatstrategy
+alipaygateway      wechatgateway
+
+
+
+As you can see that i have already implemented the AlipayAPIGateway which currently only provides a stub for validateNotificationRequest. here is the cod
+You can also see that i am already using alipay-sdk. Please fill the missing "implemeted by you" parts.  you should try to understand what this function does, and your implementation should be based on your knowledge of how this should be implemented, please also conform to the input and output constraint
+
+
+
+Hierarchy:
+Interface design
+Comments about what each interface does
+Important tips: input and output constraint
