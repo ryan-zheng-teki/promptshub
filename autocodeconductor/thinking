@@ -1,0 +1,7 @@
+This conversation https://sharegpt.com/c/kCqpuvn
+contains only more or less completely by just giving standardized coding principles as prompts, plus error message, sometimes just hints like
+in software engineering, fixing errors is not just about fixing errors, we sometimes do refactoring, restructuring.
+Then GPT4, does the refactoring.
+
+***** Sometimes we didn't give enough background information. For example, this file itself is a module which exists in a bigger project => This prompt is important
+

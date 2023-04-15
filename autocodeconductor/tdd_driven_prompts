@@ -1,0 +1,50 @@
+1.
+Agent: 
+After agent generate the file, it should call syntax checker to check the syntax of the file. 
+   The syntax checker will give back whether the syntax of the file is correct or not. 
+   If there are errors for the file, we need to give GPT4 the full error information. 
+   
+Prompt: 
+For example the following In the utils.py file, i got errors like
+"waiting" is not definedPylancereportUndefinedVariable
+
+Based on the error message, could you please fix it?  Sometimes fix does not mean just fixing the code directly. Best practice sometimes involves again refactoring, restructuring, redesigning. 
+
+GPT4: key answer from GPT4
+You're correct, the waiting variable is not defined within the utils.py file. I realize now that the waiting variable should be an attribute of a class, which will allow better organization and prevent global variable issues.
+
+To refactor the code, let's introduce a ChatHandler class in a new file named chat_handler.py. This class will manage the waiting variable and related functions.
+
+Here's the new chat_handler.py file:
+
+GPT4 did a good refactoring by moving the global variable into a chat_handler.py class. Which means it really understands when refactoring is needed.
+
+
+2 
+Agent: run syntax check for all the files, then generated errors. Agent send the error message to ChatGPT. Directly
+    Prompt: Error Message of file directly. Ask ChatGPT please fix all import errors
+    Please fix all the import errors for the updated files. Thankss. You can just give me back the fixed imports.
+GPT4:
+
+3. Writting tests prompts
+   Thanks a lot. Now we have all the newest files.  You will need to try to recall the the best practices and principles of writting pytests, then apply them to the files. Please first give me the good principles that you will conform, then give me the tests you write, and explain why they conform each of the norms
+
+GPT4 result:
+Keep tests simple and focused: Each test should focus on a single aspect of the functionality being tested. This makes it easier to understand and maintain tests.
+
+Use meaningful names for test functions: Test function names should be descriptive and indicate what aspect of the code is being tested.
+
+Use test fixtures when needed: Test fixtures provide a way to share resources, like setup and teardown code, across multiple tests.
+
+Use parameterized tests for repetitive test cases: If you have multiple test cases that are testing the same functionality with different inputs, use parameterized tests to reduce code duplication.
+
+Follow the Arrange-Act-Assert pattern: Structure your test code in three sections: Arrange (set up the necessary inputs and preconditions), Act (perform the action being tested), and Assert (verify that the expected outcome has occurred).
+
+Test both positive and negative cases: Ensure that you test not only successful scenarios but also failure cases, exceptions, and edge cases.
+
+Use mocking and patching when necessary: Mocking and patching can help isolate your tests from external dependencies and ensure that you are testing only the code in question.
+
+*** one is missing, have full test coverage.
+
+Problem: GPT4 possible has a lot of stuff to output for the tests. But it does not give me back the tests it write. If it returns all the tests it write. Then
+the token size might be not enough. So the better thing is to ask GPT4 to write test one by one.
