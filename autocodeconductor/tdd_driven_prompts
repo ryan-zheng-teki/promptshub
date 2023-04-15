@@ -48,3 +48,27 @@ Use mocking and patching when necessary: Mocking and patching can help isolate y
 
 Problem: GPT4 possible has a lot of stuff to output for the tests. But it does not give me back the tests it write. If it returns all the tests it write. Then
 the token size might be not enough. So the better thing is to ask GPT4 to write test one by one.
+
+4. Prompt
+I want you to provide the full tests for chat_handler.py. Remember the previous norms you mentioned. I wanna add one more norm. Please have full test coverage
+*** I mentioned one more norm, please provide full test coverage
+
+
+5. 
+Prompt
+  I send the error directly to GPT4, i give the following command
+  Please give me first the reason why this error happens, then give me the fix. The output format should be in json. Please be smart to design the json structure
+GPT4:
+GPT4 figures out that __init__.py is missing. I haven't given enough context to GPT. If i give the folder structure, what files are inside each folder. Then the error. It might be quite certain that __init__.py is missing
+**** Folder, folder files context information missing. To make this more automatic. I can actually ask GPT4, you can give your assumption, and then give me the command to check you assumption. Then i will return the result to you. So you can iterate further.
+
+I want to give you more background information.
+The relavant project structure
+scripts
+    communication
+        __init__.py
+        chat_handler.py
+tests
+    communication
+        __init__.py
+        test_chat_handler.py
