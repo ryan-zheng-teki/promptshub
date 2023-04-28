@@ -1,0 +1,127 @@
+12
+Given input_message_handler.py
+
+"""
+Description: This module provides utility functions for working with input messages and waiting for clipboard content changes.
+"""
+"""
+Description: This module provides utility functions for working with input messages and waiting for clipboard content changes.
+"""
+import pynput
+from colorama import Fore, Style, init
+import sys
+import pyperclip
+
+init(autoreset=True)
+
+current_line = ""
+message_lines = []
+shift_pressed = False
+ctrl_pressed = False
+user_confirmation_char = ""
+
+def get_input_message():
+    global message_lines
+    print(Fore.GREEN + "INPUT: Start typing your message (press Enter to send):" + Style.RESET_ALL)
+
+    with pynput.keyboard.Listener(on_release=on_key_release, on_press=on_key_press) as listener:
+        listener.join()
+
+    message = "\n".join(message_lines)
+    message_lines = []  # Reset the message_lines for future calls
+    return message
+
+def get_input_character(prompt):
+    global user_confirmation_char
+    user_confirmation_char = ""
+    print(prompt, end='', flush=True)
+    with pynput.keyboard.Listener(on_release=on_key_release_single_char) as listener:
+        listener.join()
+    return user_confirmation_char
+
+
+def on_key_release_single_char(key):
+    global user_confirmation_char
+
+    if isinstance(key, pynput.keyboard.KeyCode):
+        char = key.char.lower()
+        user_confirmation_char = char
+        return False
+
+
+def on_key_press(key):
+    global shift_pressed, ctrl_pressed
+    if key == pynput.keyboard.Key.shift:
+        shift_pressed = True
+    if key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
+        ctrl_pressed = True
+    
+def on_key_release(key):
+    global current_line, message_lines, shift_pressed, ctrl_pressed
+
+    if key == pynput.keyboard.Key.enter and not shift_pressed:
+        if current_line:
+            message_lines.append(current_line)
+            current_line = ""
+        return False
+    elif key == pynput.keyboard.Key.enter and shift_pressed:
+        message_lines.append(current_line)
+        current_line = ""
+    elif key == pynput.keyboard.Key.backspace:
+        current_line = current_line[:-1]
+    elif key == pynput.keyboard.Key.shift:
+        shift_pressed = False
+    elif key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
+        ctrl_pressed = False
+    elif ctrl_pressed and shift_pressed and key == pynput.keyboard.KeyCode.from_char('V'):  # Handle the paste action
+        pasted_text = pyperclip.paste()
+        current_line += pasted_text
+        sys.stdout.write(pasted_text)
+        sys.stdout.flush()
+    elif key == pynput.keyboard.Key.space:  # Handle the space key
+        current_line += " "
+    elif ctrl_pressed and key == pynput.keyboard.KeyCode.from_char('c'):
+        return 
+    elif isinstance(key, pynput.keyboard.KeyCode):
+        current_line += key.char
+
+Tasks:
+1.Please add pydoc for this file on the top of file. Hint: the description can be summarized
+  from the public functions of this file. Each public function has a pydoc.
+
+2.Please add a pydoc for python function according to your understanding of each function achieves.
+Please follow PEP8.
+
+3.Please consider refactoring: according to the following criterias
+(1) prefix the names of internal methods and attributes with an underscore (_).
+
+Output: the complete modified code in a single copiable code block, so i can copy and paste.
+
+
+Another Prompt:
+Obviously GPT4 has less understanding of language now. I have to add the following to make sure
+it starts from what is left over.
+Please finish the rest of the code, only output starting from the unfinished part. 
+Please do not start all over from the beginning. 
+
+2. Bug fixing
+Given function _on_key_release_single_char in file input_message_handler.py 
+def _on_key_release_single_char(key):
+    """
+    Handles key releases in single character input mode.
+
+    Args:
+        key: The key released by the user.
+    """
+    global _user_confirmation_char
+
+    if isinstance(key, pynput.keyboard.KeyCode):
+        char = key.char.lower()
+        _user_confirmation_char = char
+        return False
+    
+current behavior: When i hit  y, and release y, then the logic immediately continues
+additional requriement: After release y, the user should also hit enter, then to logic continues 
+propose changes and give reason to validate your changes against the requirement.
+hint: Please check previous conversation about similar code implementations
+Output: the complete modified code in a single copiable code block, so i can copy and paste. 

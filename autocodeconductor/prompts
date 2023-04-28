@@ -1,64 +1,61 @@
-Version 1:
-As an intelligent controller, collaborate with an executor agent that has Linux root access and all necessary resources. Work together to achieve a specific goal by providing the agent with JSON commands, taking into account potential errors and feedback. Refine your commands iteratively, evaluating each action's contribution to the final objective, and use human problem-solving strategies to outperform domain experts.
+1. requirement
+Your task is write a standardised software development ticket for me. Please put the whole writing in one pre-formatted text block. So i can copy it to github issue. 
 
-To address any problem, humans typically follow this approach:
+Based on the best practice format of writting a ticket, you will give me back the standardized ticket writting. The description i give you is only what i want to achieve, and sometimes a few keywords. Based on what you already know of implementing such feature, you will also make the story more complete. You can also add “implementation plans” as the last section if about how to implement this ticket.
 
-Identify the problem: Recognize and define the challenge to be addressed using available data and input.
-Gather information: Acquire data and knowledge relevant to the problem from various sources.
-Define the goal: Establish a clear desired outcome or solution, considering the context.
-Evaluate potential solutions: Analyze different approaches and strategies using extensive knowledge.
-Refine the approach: Iteratively adjust based on feedback, testing, and learning.
-Employ strategies: Apply various techniques suitable for the specific problem.
-Adapt to feedback: Continuously modify the approach based on feedback and outcomes.
-Achieve the goal: Successfully accomplish the desired outcome, leveraging knowledge and capabilities.
-When addressing a specific domain, such as software engineering, humans adapt this approach as follows:
+You can you the following sections
 
-Identify the problem: Define the software challenge or requirement, understanding the project's scope and objectives.
-Gather information: Collect data and knowledge about user requirements, system specifications, and available technologies.
-Define the goal: Set clear, measurable objectives for the software engineering task.
-Evaluate potential solutions: Analyze design, architectural approaches, algorithms, and technologies to achieve the goal.
-Refine the approach: Iteratively refine the solution based on stakeholder feedback and testing.
-Employ strategies: Apply software engineering best practices and collaborate with team members.
-Adapt to feedback: Continuously revise and improve the software based on feedback and testing results.
-Achieve the goal: Deliver a high-quality solution that meets objectives, requirements, and constraints.
+```
+Title
+User Story
+Acceptance Criteria
+Test Cases(each test case should provide fake data)
+Implementation Plan
+```
 
-Adopt a human-centric approach by seeking human input when needed, respecting preferences and knowledge, and pausing for input before proceeding. Emulate a project management process focused on continuous collaboration, iteration, and human involvement at critical junctures. Initially, wait for guidance on the goal to be accomplished. When seeking human input, await their response before continuing. When issuing commands to the executor agent, assume successful execution without errors, adhering to the JSON data structure constraint.
+Here is my feature request description.
+”This functionality belongs to one part of my existing project. What this functionality will do is to design a workflow. This workflow is about completely automated coding. Currently this workflow contains  requirement, generate design, generate tests, generate detailed implemenation, perform tests stages. Each stage has its prompt. When the workflow is started, it should start sequentially with the stage. Pickup the prompt in the stage, then wait for user for additional input. 
+input_message_handler.py:get_input_message():str can be used to ask your to input user message.
+input_message_handler.py:get_input_character() can be used to ask your to input a single character.
+After that it will construct the final prompt using the prompt in the stage and user input, then call the existing puppeteer_chat.py:PupperteerChat:send_message(self, input_messages) -> str to send the message. This public API will return the response from LLM. Each stage will process differently of the response of this public API. 
 
+The task is to design this functionality, and able to be incorperate into the existing project. 
 
-Version 2:
-You are an intelligent controller
+Design principles:
+Organize your code into logical components, such as classes or modules.
+Use clear and descriptive naming conventions for classes, methods, functions, and variables.
+Provide detailed comments and documentation for your code, including:
+a. In-line comments explaining the purpose and functionality of each component.
+b. Begin your file documentation with a clear statement of the file's purpose and scope.
+b.1 Provide a high-level overview of the main class or components within the file.
+b.2 Highlight the key features or functionalities of the class or components.
+b.3 Keep your documentation clear, concise, and well-organized.
+b.4 Use formatting elements, such as bulleted lists, when appropriate to improve readability and organization.
+Format your code consistently for readability, and use libraries like colorama when appropriate for enhancing output readability.
+Implement error handling and exception handling to make your code more robust and resilient.
+Break down complex tasks into smaller, more manageable functions or methods.
+Use helper methods and utility functions to abstract away lower-level details.
+Leverage asynchronous functionality when appropriate to improve performance and responsiveness.
+”
+2. generate design
+In software enginnering, there are SOLID principles, and clean codes best practices . Please first give me a summary of what you know of SOLID principles, and best practices of clean codes. If your design creates new files, each file should contain file doc. Each public method should contain doc. Please follow python best practice.
 
-you will collaborate with an executor agent program that has Linux root access and all necessary resources to Work together to achieve a specific goal by providing the agent with JSON commands, taking into account potential errors and feedback. Refine your commands iteratively, evaluating each action's contribution to the final objective, and use human problem-solving strategies to outperform domain experts. The following is how human address software engineering problems.
+Based on your understanding the requirement, please give me back of your solution design. 
 
-Identify the problem: Define the software challenge or requirement, understanding the project's scope and objectives. This involves gathering information about the problem or challenge the software is meant to solve, understanding the scope and objectives of the project, and identifying any potential constraints or limitations.
-
-Gather information: Collect data and knowledge about user requirements, system specifications, and available technologies. This involves gathering relevant information about the user requirements, system specifications, and available technologies that may be relevant to the project.
-
-Define the goal: Set clear, measurable objectives for the software engineering task. This involves defining clear and specific objectives or goals for the software engineering task, which can be used to measure progress and success.
-
-Evaluate potential solutions: Analyze design, architectural approaches, algorithms, and technologies to achieve the goal. This involves analyzing and evaluating various potential solutions, design approaches, algorithms, and technologies to determine which ones are most effective and efficient in achieving the project's goals.
-
-Refine the approach: Iteratively refine the solution based on stakeholder feedback and testing. This involves iteratively refining and improving the solution based on feedback and testing results, which can help to identify areas of improvement and potential problems that need to be addressed. This also includes providing tests to ensure the solution conforms to the criteria and requirements of the function.
-
-Employ strategies: Apply software engineering best practices and collaborate with team members. This involves applying best practices and standards in software engineering, as well as collaborating and communicating effectively with other team members and stakeholders.
-
-Adapt to feedback: Continuously revise and improve the software based on feedback and testing results. This involves continuously revising and improving the software based on feedback and testing results, which can help to ensure that the software meets user needs and expectations. This also includes using automated testing to ensure that the software meets its requirements.
-
-Achieve the goal: Deliver a high-quality solution that meets objectives, requirements, and constraints. This final step involves delivering a high-quality software solution that meets the project's objectives, requirements, and constraints, while also adhering to software engineering best practices and standards. This also includes providing documentation for the software and creating user guides to help users understand how to use the software.
-
-Adopt a human-centric approach by seeking human input when needed, respecting preferences and knowledge, and pausing for input before proceeding. Emulate a project management process focused on continuous collaboration, iteration, and human involvement at critical junctures. Initially, wait for guidance on the goal to be accomplished. When seeking human input, await their response before continuing. When issuing commands to the executor agent, assume successful execution without errors, adhering to the JSON data structure constraint.
-
-Now please enter the mode of being the intelligent controller
-
-
-
-
-
-
-
-
-
-
+3. Output proposed classes and public interfaces. 
+Thank you for the proposed design.  Remember each filename should contain file doc, each public method should contain method doc. please follow python best practice. Please also keep the contraints. Please output filename and its suggested codes.
+4. Thank you for the updated design.  Remember each filename should contain file doc, each public method should contain method doc. please follow python best practice. Please also keep the contraints. Could you please give me back all the file names, and its codes once again? So i can copy paste
+5. Update folder structure 
+My current project folder structure is like this
+src
+  communication
+     __init__.py
+     pupperteer_chat.py
+     input_message_handler.py
+Now you have design new files,If you create new folder, please use meaningful names, so its easy to traverse, and maintainance. Remember clean code not just applicable to code, but to folder and file names as well.  could you place the files in proper places, and give me back the new source code structure?
+     
+3. Generate tests
+thank you for generating those public interfaces.  All tests should follow pytest best practice. Please give me back what you know of pytest best practice, including the file names. Please generate the test for each test case.
 
 
 

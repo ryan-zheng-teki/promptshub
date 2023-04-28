@@ -1,0 +1,53 @@
+(1)The following code is written by GPT4
+    async def copy_message_to_clipboard(self, page, copy_button_selector):
+        """
+        Copy a message to the clipboard using the given copy button selector.
+        
+        :param page: Puppeteer page object
+        :param copy_button_selector: CSS selector for the copy button used to copy messages to the clipboard
+        :return: Copied message content
+        """
+        # Add a short delay to allow the browser to complete the copy operation
+        await asyncio.sleep(0.5)
+
+        # Start waiting message thread
+        self.chat_handler.start_waiting()
+
+        # Get the current clipboard content
+        current_clipboard = pyperclip.paste()
+
+        if current_clipboard == "":
+            # Wait for the clipboard content to change
+            copied_message = await wait_for_clipboard_content(current_clipboard)
+        else:
+            copied_message = current_clipboard
+
+        # Stop waiting message thread
+        self.chat_handler.stop_waiting()
+
+        # Clear the waiting message line
+        sys.stdout.write('\r')
+        sys.stdout.flush()
+
+        return copied_message
+
+
+
+However, this copy_message_to_clipboard has a bug, it first calls the clipboard paste to get the content, then 
+calls wait_for_clipboard_content to get the clipboard content. Actually it should not call the paste function. Just 
+call wait_for_clipboard_content is enough. Because the code itself is iteratively improved overtime, GPT4 when doing
+refactoring didn't realize that. 
+
+current_clipboard = pyperclip.paste()
+
+can be removed. and calling the function is enough
+
+In general fixing bug does not neccessarly mean fixing one place, software development normally follows SOLID
+not only to functions, but also to classes, services etc. Based on this hint, what is your proposal of how to fix?
+
+Please give me your reasoning steps. 
+
+
+Root cause: Root cause is that bugs are introduced during refactoring. Previously
+everything is in one file, then after splitting to multiple files
+To ensure GPT4 is able to fix the code, there needs to be some general guidance.
