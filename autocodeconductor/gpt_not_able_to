@@ -1,0 +1,12 @@
+Actually the knowledge graph from requirement to code is 100% related.
+The theory is simple, if they are not related, human will not be able to find it.
+
+(1) Detailed logic error after refactoring
+    Each test case -> test case in code
+    Every method method is associated with tests. 
+
+Every update of requirement 
+    -> update tests
+    -> update the source code. Even change the arguments. function names. 
+
+

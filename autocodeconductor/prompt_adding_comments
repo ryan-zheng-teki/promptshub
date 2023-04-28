@@ -87,7 +87,7 @@ def on_key_release(key):
 
 Tasks:
 1.Please add pydoc for this file on the top of file. Hint: the description can be summarized
-  from the public functions of this file. Each public function has a pydoc.
+  from the public functions of this file. 
 
 2.Please add a pydoc for python function according to your understanding of each function achieves.
 Please follow PEP8.
@@ -98,9 +98,7 @@ Please follow PEP8.
 Output: the complete modified code in a single copiable code block, so i can copy and paste.
 
 
-Another Prompt:
-Obviously GPT4 has less understanding of language now. I have to add the following to make sure
-it starts from what is left over.
+Prompt: Continue from last unfinished area
 Please finish the rest of the code, only output starting from the unfinished part. 
 Please do not start all over from the beginning. 
 
