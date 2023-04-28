@@ -1,0 +1,23 @@
+refactoring prompt: Refactoring a big file will need to send multiple pieces to 
+LLM, the agent program should first calculate the token amounts, and divide the
+task into multiple pieces. Guess its better 
+1.  
+You will be provided with a large Python file in two steps, due to its size. After receiving the first piece of the file, you will wait for me to give you the second piece of the same file. 
+After you received the whole file, your task is first tell me what are the best practices of python code. 
+Please also add public method and private naming convention to the best practice.
+
+Then please analyze the implementation to determine if it adheres to Python best practices. Based on your analysis, please suggest improvements, and  provide the complete updated Python code in a code block so i can copy and paste to my editor directly to override the orignial file. 
+
+Please note that only the run_chat_loop(self, input_messages) function is public in this module. Your improvements should consider this as constraint as well.
+
+The following is the first part of file src/communication/pupperteer_chat.py 
+'''
+This is the first half of the files
+'''
+
+The following is the second part of the file src/communication/pupperteer_chat.py
+'''
+Add the seconf half of files
+'''
+
+Please note that only the run_chat_loop(self, input_messages) function is public in this module. Your improvements should consider this as constraint as well.

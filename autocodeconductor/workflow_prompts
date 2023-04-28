@@ -1,5 +1,5 @@
 1. requirement stage
-Your task is write a standardised software development ticket for me. Please put the whole writing in one pre-formatted text block. So i can copy it to github issue. 
+Your task is write a standardised software development ticket for me following the given format. Please put the whole writing in one pre-formatted text block. So i can copy it to github issue. 
 
 Based on the best practice format of writting a ticket, you will give me back the standardized ticket writting. The description i give you is only what i want to achieve, and sometimes a few keywords. Based on what you already know of implementing such feature, you will also make the story more complete. You can also add “implementation plans” as the last section if about how to implement this ticket.
 
@@ -7,45 +7,34 @@ You can you the following sections
 
 ```
 Title
-User Story
+Detailed Interaction Flow
 Acceptance Criteria
 Test Cases(each test case should provide fake data)
+Design Plan
 Implementation Plan
 ```
 
 Here is my feature request description.
-”This functionality belongs to one part of my existing project. What this functionality will do is to design a workflow. This workflow is about completely automated coding. Currently this workflow contains  requirement, generate design, generate tests, generate detailed implemenation, perform tests stages. Each stage has its prompt. When the workflow is started, it should start sequentially with the stage. Pickup the prompt in the stage, then wait for user for additional input. 
-input_message_handler.py:get_input_message():str can be used to ask your to input user message.
-input_message_handler.py:get_input_character() can be used to ask your to input a single character.
-After that it will construct the final prompt using the prompt in the stage and user input, then call the existing puppeteer_chat.py:PupperteerChat:send_message(self, input_messages) -> str to send the message. This public API will return the response from LLM. Each stage will process differently of the response of this public API. 
+”We have implemented automated coding workflow in python backend. Now we want to implement the frontend feature to integrate the workflow to our existing Vue3 frontend project. The frontend should show all the stages of the workflow. User is able to click each stage to see description of that stage, user is able to edit the prompt of that stage. There is a start button to start the workflow. After backend run the stage, there is a button on the frontend to ask user whether you are satisfied of the result of this stage, and continue to the next stage of the workflow. After user click okay, then the frontend should trigger the next stage. Untill Until all stages are finished, then this workflow is considered finished.
+
+
 
 Constraints:
-1. programming language: Python, test framework pytest
-2. This functionality will incooperated into existing project
-3. Use existing API when needed
-   input_message_handler.py:get_input_message():str can be used to ask your to input user message.
-  input_message_handler.py:get_input_character() can be used to ask your to input a single character.
-  puppeteer_chat.py:PupperteerChat:send_message(self, input_messages) -> str
+1. workflow data structure from backend 
+   src/workflow/config/workflow_config.py
 
+2. This functionality will incooperated into existing Vue3 project
 
 Design principles:
-1. Organize your code into logical components, such as classes or modules.
-Use clear and descriptive naming conventions for classes, methods, functions, and variables.
-2. Provide detailed comments and documentation for your code, including:
-a. In-line comments explaining the purpose and functionality of each component.
-b. Begin your file documentation with a clear statement of the file's purpose and scope.
-b.1 Provide a high-level overview of the main class or components within the file.
-b.2 Highlight the key features or functionalities of the class or components.
-b.3 Keep your documentation clear, concise, and well-organized.
-b.4 Use formatting elements, such as bulleted lists, when appropriate to improve readability and organization.
-4.Format your code consistently for readability, and use libraries like colorama when appropriate for enhancing output readability.
-5.Implement error handling and exception handling to make your code more robust and resilient.
-6.Break down complex tasks into smaller, more manageable functions or methods.
-7.Use helper methods and utility functions to abstract away lower-level details.
-Leverage asynchronous functionality when appropriate to improve performance and responsiveness.
-”
+1. Vue3 frontend best practice
 
-2. generate design stage
+2. update requirement
+   Thank you generating the requiremnt. After reviewing the generated requirement, i think i have missed some points in the feature description section of 
+   the orignal request. I have updated the feature description in the original request, please reexecute the task.
+
+
+
+3. generate design stage
 In software enginnering, there are SOLID principles, and clean codes best practices . Please first give me a summary of what you know of SOLID principles, and best practices of clean codes. If your design creates new files, new folders. The file names and folder names should follow clean code best practices as well.  
 Each file should contain file doc. Each public method should contain doc. Please follow python best practice. 
 
