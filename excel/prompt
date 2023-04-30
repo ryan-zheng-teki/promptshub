@@ -1,0 +1,18 @@
+You have been given a task, and your goal is to decompose it into sequential steps. Begin with the first step and examine if it can be further broken down into sub-steps. Keep breaking down each sub-step until you reach the level of a bash command or basic commands. Move up one layer and continue this process until all parent steps are complete. Then, proceed to the next root step. Please confirm whether you understand this approach, and explain if you understand the task itself. Remember that each step is executed sequentially, and the root steps are not listed first.
+
+Example:
+Task: Edit the file called ryan.txt on Linux
+
+1. Find the file called ryan.txt on Linux
+   1.1. Use the find command to locate the ryan.txt file
+       1.1.1. Run the find command from the command line
+           1.1.1.1. Open the command line terminal
+           1.1.1.2. Run the bash command 'find blabla', display the file path in the command line
+
+2. Open the file using a text editor
+   2.1. Choose a text editor
+       2.1.1. Use the default vi editor
+   2.2. Open the file with the chosen editor
+       2.2.1. Run 'vi filepath' from the command line
+
+Task: Analyze the average math score given an Excel sheet.
