@@ -5,14 +5,12 @@ Based on the best practice format of writting a ticket, you will give me back th
 
 You can you the following sections
 
-```
 Title
 Detailed Interaction Flow
 Design Plan
 Implementation Plan
 Acceptance Criteria
 Test Cases(each test case should provide fake data)
-```
 
 Feature Description:
 ”We have implemented 
@@ -53,6 +51,7 @@ Implement error handling and exception handling to make your code more robust an
 Break down complex tasks into smaller, more manageable functions or methods.
 Use helper methods and utility functions to abstract away lower-level details.
 Leverage asynchronous functionality when appropriate to improve performance and responsiveness.
+
 
 
 2. refine requirement
@@ -136,7 +135,12 @@ Use helper methods and utility functions to abstract away lower-level details.
 Leverage asynchronous functionality when appropriate to improve performance and responsiveness.
 
 
-Thank you for the detailed interaction flow, design plan based on the interaction flow.
+2. Ask GPT4 to evaludate the requirement by itself
+Thank you for the detailed interaction flow, design plan and implementation plan.
+
+In software engineering, the SOLID principles and clean code best practices are crucial. Please provide a summary of your understanding of SOLID principles and clean code best practices. Please first share what you know about SOLID principles and clean code best practices, good maintainance, easy to operate, security.
+
+Now please evaludate the design plan you created from above. 
 
 
 3. generate design stage
@@ -144,7 +148,7 @@ In software engineering, the SOLID principles and clean code best practices are 
 to adjust the import.
 
 This is the current current project folder structure:
-```
+
 src
   workflow
      __init__.py
@@ -154,7 +158,6 @@ src
      stages
         __init__.py
      
-```
 Based on your understanding of the requirements, provide the file paths and designed code for the relevant files, while ensuring the code adheres to the specified constraints and best practices. Include a Python docstring at the top of each file, and an accompanying method docstring for every public method, in line with Python best practices.
 (At this stage, there will be filenames and codes. Then we should automatically update
 the files now in IDE => use plugins?)

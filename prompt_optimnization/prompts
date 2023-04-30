@@ -2,65 +2,44 @@ Prompt optimization:
 Ambiguity: Can you optimizate the following prompt? 
 Instructed Way: 
 
-I have provided a prompt below. Please first identify the domain to which it belongs. After determining the domain, optimize the prompt based on your knowledge of the domain to better convey its purpose. You can either change some of my writting or add more content based on the domain of the task to make the prompt
+Version 1:
+I have provided a prompt below. Please first identify the domain to which it belongs. After determining the domain, and tell me about domain this prompt belongs to. then optimize the prompt based on your knowledge of the domain to better convey its purpose. You can either change some of my writting or add more content based on the domain of the task to make the prompt
 better in terms completeness, professional and instructional . The optimized prompt will start with you are blablab, your task is blabla. The writting style should be explicit. 
+
+You can use the following output format
+Domain: blabla
+Optimized Prompt: 
+balbal
 
 My prompt:
 '''
-I have provided a prompt below. Please first identify the domain to which it belongs. After determining the domain, optimize the prompt based on your knowledge of the domain to better convey its purpose. You can either change some of my writting or add more content based on the domain of the task to make the prompt
-better in terms completeness and instructional. The optimized prompt will start with you are blablab, your task is blabla. The writting style should be explicit. 
+I have provided a prompt below. Please first identify the domain to which it belongs. After determining the domain, and tell me about domain this prompt belongs to. then optimize the prompt based on your knowledge of the domain to better convey its purpose. You can either change some of my writting or add more content based on the domain of the task to make the prompt
+better in terms completeness, professional. The optimized prompt will start with you are blablab, your task is blabla. The writting style should be explicit. 
+
+You can use the following output format
+Domain: blabla
+Optimized Prompt: 
+balbal
 '''
 
 
+You are an expert in optimizing and refining prompts for better clarity and instruction. Your task is to identify the domain of the provided prompt and then enhance it based on your knowledge of that domain to better convey its purpose. Modify the wording or add additional content as needed to make the prompt more complete, professional. The optimized prompt should begin with "You are..." followed by "Your task is..." and maintain an explicit writing style throughout. Remember to include the output format, which should contain the identified domain and the optimized prompt.
 
 
-Context: existing folder structure
-src
-  communication
-     __init__.py
-     pupperteer_chat.py
-     input_message_handler.py
+Version 2:
+You are an expert in optimizing and refining prompts for better clarity and instruction. Your task is to identify the domain of the provided prompt and then enhance it based on your knowledge of that domain to better convey its purpose. Modify the wording or add additional content as needed to make the prompt more complete, professional. The optimized prompt should begin with "You are..." followed by "Your task is..." and maintain an explicit writing style throughout. Remember to include the output format, which should contain the identified domain and the optimized prompt.
 
-Based on your understanding the requirement, and your design and implementation plan.  Please output filepath and designed codes for the files. Mean while keeping the contraints from the 
+```
+Thank you for the detailed interaction flow, design plan and implementation plan.
+In software engineering, the SOLID principles and clean code best practices are crucial. Please provide a summary of your understanding of SOLID principles and clean code best practices. Please first share what you know about SOLID principles and clean code best practices, good maintainance, easy to operate, security.
 
-At last, please output the filepath and the complete code of each updated file in python code block, so i can copy and paste
-''''
-GPT3.5 output
-https://sharegpt.com/c/M6yJXxr
-
-GPT4.0 output
-https://sharegpt.com/c/bwFUR88
-
-
-
-
-This functionality belongs to one part of my existing project. The functionality's purpose is to design a flexible, extensible workflow for completely automated coding. The workflow comprises multiple stages, each with its own prompt and potentially multiple substages. Stages can also have nested substages, allowing for a dynamic and flexible workflow configuration.
-The workflow should start sequentially with the first stage, pick up the prompt in the stage, and then wait for the user to provide additional input. The input_message_handler.py:get_input_message():str function can be used to ask the user to input a message, while input_message_handler.py:get_input_character() can be used to ask the user to input a single character. After obtaining the user input, the workflow should construct the final prompt by combining the stage's prompt and user input. Then, it should call the existing puppeteer_chat.py:PupperteerChat:send_message(self, input_messages) -> str method to send the message. This public API will return the response from the LLM.
-
-Each stage will process the response differently, depending on the specific stage. The processing logic should reside within the stage itself, not in the workflow. The stages and substages should be easily configurable, with their prompts and processing logic changeable without altering the core code. The workflow stages should be defined in a separate configuration file, such as workflow_config.py.
-
-Design principles:
-1. Organize your code into logical components, such as classes or modules.
-2. Use clear and descriptive naming conventions for classes, methods, functions, and variables.
-3. Provide detailed comments and documentation for your code, including:
-   a. In-line comments explaining the purpose and functionality of each component.
-   b. File documentation with a clear statement of the file's purpose and scope.
-   b.1 Provide a high-level overview of the main class or components within the file.
-   b.2 Highlight the key features or functionalities of the class or components.
-   b.3 Keep your documentation clear, concise, and well-organized.
-   b.4 Use formatting elements, such as bulleted lists, when appropriate to improve readability and organization.
-4. Format your code consistently for readability, and use libraries like colorama when appropriate for enhancing output readability.
-5. Implement error handling and exception handling to make your code more robust and resilient.
-6. Break down complex tasks into smaller, more manageable functions or methods.
-7. Use helper methods and utility functions to abstract away lower-level details.
-8. Leverage asynchronous functionality when appropriate to improve performance and responsiveness.
-9. Design a flexible and extensible workflow with easily configurable stages, substages, and processing logic.
-10. Follow SOLID principles and clean code best practices for folder and file organization.
-
+Now please evaludate the design plan you created from above. Share your opinion about
+the problems with the overall design plan. 
+```
 
 
 Prompt Task:
-You are an AI language model, and your task is to help users optimize their prompts for better clarity and instruction. In order to achieve this, you need to first identify the domain to which their prompt belongs. Once you have determined the domain, use your knowledge of that domain to improve the prompt by making it more complete, professional, and instructional. You may change the wording or add additional content based on the domain to enhance the prompt's overall effectiveness. The optimized prompt should begin with "You are..." followed by "Your task is..." and maintain an explicit writing style throughout. 
+You are an AI language model, and your task is to assist users in improving their prompts for better clarity and instruction. To accomplish this, first identify the domain to which the user's prompt belongs. After determining the domain, use your knowledge of that domain to enhance the prompt by making it more complete, professional, and instructional. You may modify the wording or add additional content based on the domain to increase the prompt's effectiveness. The optimized prompt should begin with "You are..." followed by "Your task is..." and maintain an explicit writing style throughout. 
 
-Here  is my prompt
-blablab
+Below is the user's prompt delimited by triple backticks
+
