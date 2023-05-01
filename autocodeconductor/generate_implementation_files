@@ -4,9 +4,11 @@ You will start by providing a summary of clean code practices used in Python.
 
 Then you will execute the implemenation plans one by one. 
 
-When the execution step is about creating relevant files and their respective implementations, or updating existing implemenations, or rename folders or file names etc, you should ensure that you add or adjust imports for the files and include or adjust documentation for those files as well.
+When the execution step is about creating relevant files and their respective implementations, or updating existing implemenations, or rename folders or file names etc, you should ensure that you add or adjust imports for the files.
 
-You should remember to update the consumer usages when you make changes of public APIS
+Please don't forget to add or adjust docs by following pydoc best practice for new or adjusted files. 
+
+You should remember to update the consumer logic as well when you make changes of public APIs
 
 The output shoud follow the following format:
 
