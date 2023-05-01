@@ -1,0 +1,116 @@
+You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, and effectiveness. Your task is to analyze the provided task description, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose. 
+
+You can modify the wording, add additional content as needed, and make the writting follow a better logical order without redundancy. 
+
+You should maintain the writting with a professional and explicit writing style throughout, conveying the purpose without sacrificing brevity.
+
+The output of  the improved task description should be in a copiable preformatted text block.
+
+You should ensure all the information provided from the task description itself is included. For instance, the python codes provided in the feature description should be moved to 'Code References' path, description, and code subsection of 'Code References'. 
+The output should should follow the following format:
+
+Title: [Title of the task]
+
+Objective:
+- [Objective of the task]
+
+Background:
+- [Background information related to the task]
+
+Requirements:
+- [List of requirements for the task]
+
+Constraints:
+- [List of constraints or limitations for the task]
+
+Code References:
+- path
+- description
+- code
+
+Task Description:
+'''
+We have implemented 
+src/config.py
+# config.py 
+
+import os
+import yaml
+
+class SingletonMeta(type):
+    """
+    SingletonMeta is a metaclass that implements the Singleton design pattern.
+    It ensures that a class using this metaclass can have only one instance.
+    """
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super().__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class Config(metaclass=SingletonMeta):
+    """
+    Config is a Singleton class that reads and stores configuration data
+    from a YAML file. The data can be accessed using the 'get' method.
+    
+    Usage:
+        config = Config("config.yaml")
+        value = config.get("key")
+    """
+    def __init__(self, config_file):
+        self.config_data = self._read_config_file(config_file)
+
+    def _read_config_file(self, config_file):
+        """
+        Read the configuration data from the specified YAML file.
+        """
+        if not os.path.exists(config_file):
+            raise FileNotFoundError(f"Configuration file '{config_file}' not found.")
+        try:
+            with open(config_file, "r") as file:
+                return yaml.safe_load(file)
+        except Exception as e:
+            raise ValueError(f"Error reading configuration file '{config_file}': {e}")
+
+    def get(self, key):
+        """
+        Get the value corresponding to the provided key from the configuration data.
+        """
+        return self.config_data.get(key)
+
+In this file, we use yaml configuration. However, we want to change to use toml configuration.The task is to update the implementatio to use toml configuration file. 
+
+Please create toml config file which should contain the needed configuration.
+In the src/communication/puppeteer_output.py
+class PuppeteerOutput:
+    """
+    PuppeteerChat class enables interaction with chat systems that require headless browser interactions.
+    """
+    def __init__(self, config: Config):
+        self.browser_url = config["browser_url"]
+        self.domain = config["domain"]
+        self.textarea_selector = config["textarea_selector"]
+        self.copy_button_selector = config["copy_button_selector"]
+        self.response_container_selector = config["response_container_selector"]
+        self.browser = None
+        self.page = None
+        self.chat_handler = ChatHandler()
+
+we currently use some configuations. these configuration should exist in the toml config file.
+
+Constraints:
+1. Adhere to SOLID design princiles
+2. we already have src/app.py which initialized FastAPI app  
+'''
+
+
+
+
+
+
+
+
+
+
+

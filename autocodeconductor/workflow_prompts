@@ -1,11 +1,11 @@
 1. requirement stage
-Your task is write a standardised software development ticket for me following the given format. Please put the whole writing in one pre-formatted text block. So i can copy it to github issue. 
+Your task is write a standardised software development ticket following the given format. Please put the whole writing in one pre-formatted text block. So i can copy it to github issue. 
 
-Based on the best practice format of writting a ticket, you will give me back the standardized ticket writting. The description i give you is only what i want to achieve, and sometimes a few keywords. Based on what you already know of implementing such feature, you will also make the story more complete. You can also add “implementation plans” as the last section if you know how to implement this ticket.
-
+Based on the best practice format of writting a ticket, you will give me back the standardized ticket writting. The description i give you is only what i want to achieve, and sometimes a few keywords. Based on what you already know of implementing such feature, you will optimize the Feature Description to make it more complete or logically correct.
 You can you the following sections
 
 Title
+Feature Description
 Detailed Interaction Flow
 Design Plan
 Implementation Plan
@@ -13,48 +13,53 @@ Acceptance Criteria
 Test Cases(each test case should provide fake data)
 
 Feature Description:
-”We have implemented 
-src/workflow/AutomatedCodingWorkflow.py with public interfaces
-class AutomatedCodingWorkflow:
-    def start_workflow(self):
-        """
-        Start the automated coding workflow by processing each stage sequentially.
-        """
-    def process_stage(self, stage_config: dict):
-    """
-    Process the given stage by getting user input, constructing the prompt, sending the message to the LLM API,
-    and handling the response. Process substages and sub-substages recursively.
+”
+we have implemented the backend grpc server using python. The proto file grpc_service.proto
+/* This proto file defines the gRPC service and messages for the automated coding workflow system.
+ The service includes methods to start the workflow and get the workflow configuration.
+ The messages represent the structure of the workflow configuration, with stages and their respective classes.
+*/
+syntax = "proto3";
 
-    Args:
-        stage_config (dict): The configuration of the current stage.
-    """
-Now we want to expose the workflow AutomatedCodingWorkflow via GRPC, so that the workflow
-can be started via javascript using js grpc client. We also want to expose one more API from
-AutomatedCodingWorkflow to expose the workflow config that this workflow handles to frontend. So that the frontend is able to display the internal nodes of the workflow. This task is 
-implement the backend functioality
+package automatedcodingworkflow;
 
-Constraints:
-1. backend is using python
+service AutomatedCodingWorkflowService {
+    rpc StartWorkflow (StartWorkflowRequest) returns (StartWorkflowResponse);
+    rpc GetWorkflowConfig (GetWorkflowConfigRequest) returns (GetWorkflowConfigResponse);
+}
 
-Design principles:
-Organize your code into logical components, such as classes or modules.
-Use clear and descriptive naming conventions for classes, methods, functions, and variables.
-Provide detailed comments and documentation for your code, including:
-a. In-line comments explaining the purpose and functionality of each component.
-b. Begin your file documentation with a clear statement of the file's purpose and scope.
-b.1 Provide a high-level overview of the main class or components within the file.
-b.2 Highlight the key features or functionalities of the class or components.
-b.3 Keep your documentation clear, concise, and well-organized.
-b.4 Use formatting elements, such as bulleted lists, when appropriate to improve readability and organization.
-Format your code consistently for readability, and use libraries like colorama when appropriate for enhancing output readability.
-Implement error handling and exception handling to make your code more robust and resilient.
-Break down complex tasks into smaller, more manageable functions or methods.
-Use helper methods and utility functions to abstract away lower-level details.
-Leverage asynchronous functionality when appropriate to improve performance and responsiveness.
+message StartWorkflowRequest {
+}
+
+message StartWorkflowResponse {
+    string result = 1;
+}
+
+message GetWorkflowConfigRequest {
+}
+
+message GetWorkflowConfigResponse {
+    repeated Stage stages = 1;
+}
+
+message Stage {
+    string name = 1;
+    string class_name = 2;
+    repeated Stage stages = 3;
+}
+As you can see from the proto structure, The workflow contains multiple stages, each stage can also contain nested stages.
+The task is to implement grpc frontend functionality to integrate with backend grpc server. After getting the workflow, the workflow
+will be displayed as a graph of nodes. Each stage in the workflow will be displayed as one node. The node can be a small circle. 
+The nodes of the workflow will be displayed in a structured way.
+"
+
+Contraints:
+1. This functionlity belongs to existing Vue3 project
+2. Follow Vue3 design principle and javascript best practice
 
 
 
-2. refine requirement
+1. refine requirement
    Thank you for creating the requirement. After reviewing it, I realized I missed some points in the feature description section of the original request. I have updated the feature description in the original request. Please reevaluate the task based on the updated information and provide the revised requirement document. The following is the updated request
    
 Your task is write a standardised software development ticket for me following the given format. Please put the whole writing in one pre-formatted text block. So i can copy it to github issue. 
@@ -140,7 +145,8 @@ Thank you for the detailed interaction flow, design plan and implementation plan
 
 In software engineering, the SOLID principles and clean code best practices are crucial. Please provide a summary of your understanding of SOLID principles and clean code best practices. Please first share what you know about SOLID principles and clean code best practices, good maintainance, easy to operate, security.
 
-Now please evaludate the design plan you created from above. 
+Now please evaludate the design plan you created from above. Share your opinion about
+the problems with the overall design plan. 
 
 
 3. generate design stage
@@ -173,6 +179,7 @@ the files now in IDE => use plugins?)
 
    At last, please output the filepath and the complete code of each updated file in python code block, so i can copy and paste
 
+6. add the 
 
 5. after the redesign, some relevant files are not updated.
    

@@ -1,0 +1,26 @@
+Act now like you are an expert in software engineering with a strong understanding of clean code practices for Python development. 
+
+You will start by providing a summary of clean code practices used in Python. 
+
+Then you will execute the implemenation plans one by one. 
+
+When the execution step is about creating relevant files and their respective implementations, or updating existing implemenations, or rename folders or file names etc, you should ensure that you add or adjust imports for the files and include or adjust documentation for those files as well.
+
+You should remember to update the consumer usages when you make changes of public APIS
+
+The output shoud follow the following format:
+
+1. Clean code practices in Python:
+- [Description of clean code practices]
+
+2. commands to create folders or files with path.
+3. File path and implementations:
+- FileName1.py
+```
+[Implementation of FileName1.py]
+```
+- FileName2.py
+```
+[Implementation of FileName2.py]
+```
+(Include additional files and their implementations as needed)
