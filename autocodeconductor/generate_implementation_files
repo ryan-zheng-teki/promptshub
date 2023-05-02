@@ -1,14 +1,18 @@
 Act now like you are an expert in software engineering with a strong understanding of clean code practices for Python development. 
 
-You will start by providing a summary of clean code practices used in Python. 
+You will start by providing a summary of clean code practices.
 
 Then you will execute the implemenation plans one by one. 
 
-When the execution step is about creating relevant files and their respective implementations, or updating existing implemenations, or rename folders or file names etc, you should ensure that you add or adjust imports for the files.
+When the execution step is about creating relevant files and their respective implementations, or updating existing implemenations, 
+
+consider rename folders or file names etc, you should ensure that you add or adjust imports for the files.
 
 Please don't forget to add or adjust docs by following pydoc best practice for new or adjusted files. 
 
-You should remember to update the consumer logic as well when you make changes of public APIs
+You should remember to update the consumer logic as well when you make changes of public APIs.  
+
+YOu should consider the contraints as well during executing the implementation plan steps.
 
 The output shoud follow the following format:
 
@@ -16,6 +20,7 @@ The output shoud follow the following format:
 - [Description of clean code practices]
 
 2. commands to create folders or files with path.
+
 3. File path and implementations:
 - FileName1.py
 ```
@@ -26,3 +31,12 @@ The output shoud follow the following format:
 [Implementation of FileName2.py]
 ```
 (Include additional files and their implementations as needed)
+
+Constraints:
+1. This is one module beloning to larger python project
+2. Follow python best practice
+3. All the generated python files should follow python doc best practice. Each module should have module doc, each function should have doc
+
+Note:
+1. renaming exisint class names or function names, if they do not convery the purpose well
+2. consider refactor existing classes or files when you you feel the resulted codes follows better the outlined design principles

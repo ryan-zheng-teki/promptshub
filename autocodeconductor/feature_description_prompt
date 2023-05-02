@@ -1,13 +1,10 @@
-You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, and effectiveness. Your task is to analyze the provided task description, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose. 
+You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, and effectiveness. Your task is to analyze the provided task description, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style. Modify the wording, add additional content as needed, and follow a logical semantic order without redundancy. 
 
-You can modify the wording, add additional content as needed, and make the writting follow a better logical order without redundancy. 
+Include all the information including codes from the original task description in the output, as it will be neccessary for the next task. You should move the Python codes provided in the feature description to the 'Code References' section under the respective path, description, and code subsections. Please don't omit any code snippet
 
-You should maintain the writting with a professional and explicit writing style throughout, conveying the purpose without sacrificing brevity.
+Present the output in a copiable preformatted text block.
 
-The output of  the improved task description should be in a copiable preformatted text block.
-
-You should ensure all the information provided from the task description itself is included. For instance, the python codes provided in the feature description should be moved to 'Code References' path, description, and code subsection of 'Code References'. 
-The output should should follow the following format:
+Use the following format for the output:
 
 Title: [Title of the task]
 
@@ -26,86 +23,78 @@ Constraints:
 Code References:
 - path
 - description
-- code
+- code(complete code for file given in the task description)
 
 Task Description:
 '''
-We have implemented 
-src/config.py
-# config.py 
 
-import os
-import yaml
+We have implemented src/communication/puppeteer_output.py
+"""
+puppeteer_output.py: Provides a PuppeteerOutput class to interact with a chat system using Puppeteer.
 
-class SingletonMeta(type):
-    """
-    SingletonMeta is a metaclass that implements the Singleton design pattern.
-    It ensures that a class using this metaclass can have only one instance.
-    """
-    _instances = {}
+The PuppeteerOutput class enables interaction with chat systems that require headless browser interactions. It allows users to send messages, copy chatbot responses to the clipboard, and process a list of input messages.
 
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super().__call__(*args, **kwargs)
-        return cls._instances[cls]
+Features:
+- Initialize a PuppeteerOutput instance with a configuration file containing relevant CSS selectors for the chat system.
+- Connect to a running browser instance using the Puppeteer library and find the desired chat page.
+- Iterate through a list of input messages, sending them one by one to the chat system.
+- After sending a message, the program asks the user if they want to copy the chatbot's response to the clipboard.
+- If the user agrees, the response is copied to the clipboard and displayed to the user.
+- The program waits for the chat system's response to be complete before moving on to the next message.
+"""
 
-class Config(metaclass=SingletonMeta):
-    """
-    Config is a Singleton class that reads and stores configuration data
-    from a YAML file. The data can be accessed using the 'get' method.
-    
-    Usage:
-        config = Config("config.yaml")
-        value = config.get("key")
-    """
-    def __init__(self, config_file):
-        self.config_data = self._read_config_file(config_file)
-
-    def _read_config_file(self, config_file):
-        """
-        Read the configuration data from the specified YAML file.
-        """
-        if not os.path.exists(config_file):
-            raise FileNotFoundError(f"Configuration file '{config_file}' not found.")
-        try:
-            with open(config_file, "r") as file:
-                return yaml.safe_load(file)
-        except Exception as e:
-            raise ValueError(f"Error reading configuration file '{config_file}': {e}")
-
-    def get(self, key):
-        """
-        Get the value corresponding to the provided key from the configuration data.
-        """
-        return self.config_data.get(key)
-
-In this file, we use yaml configuration. However, we want to change to use toml configuration.The task is to update the implementatio to use toml configuration file. 
-
-Please create toml config file which should contain the needed configuration.
-In the src/communication/puppeteer_output.py
 class PuppeteerOutput:
-    """
+        """
     PuppeteerChat class enables interaction with chat systems that require headless browser interactions.
     """
     def __init__(self, config: Config):
-        self.browser_url = config["browser_url"]
-        self.domain = config["domain"]
-        self.textarea_selector = config["textarea_selector"]
-        self.copy_button_selector = config["copy_button_selector"]
-        self.response_container_selector = config["response_container_selector"]
-        self.browser = None
-        self.page = None
-        self.chat_handler = ChatHandler()
 
-we currently use some configuations. these configuration should exist in the toml config file.
+    async def process_chat_messages(self, input_messages):
+    """
+    Process input messages using Puppeteer, send them to the chat system, and handle clipboard interactions.
+    """
+
+But actually is actually integrating GPT LLM. The way it integrate with is sending the message to website textbox and copy the content back. instead of calling the GPT API and get the response from the API. So its actually one way of doing LLM integration, giving the input and get the response from the LLM integration.
+
+In our src/workflow/automated_coding_workflow.py
+"""
+This module contains the AutomatedCodingWorkflow class that represents
+the main entry point for running the automated coding workflow.
+"""
+class AutomatedCodingWorkflow:
+    """
+    A class to represent a fully automated coding workflow.
+    """
+
+    def __init__(self):
+        """
+        Initialize the workflow instance and set the initial stage.
+        """
+        self.stages = list(WORKFLOW_CONFIG.keys())
+        self.output_system = PuppeteerOutput()
+In the AutomatedCodingWorkflow we use PuppeteerOutput like the code shows above.
+
+The task is to refactor the codes to better reflect the funtionality of PupperteerOutput.  Please also design a solution to support multiple LLM integrations. Since we want to have multiple LLM integrations, which LLM integration will be used for AutomatedCodingWorkflow should be cofigurable. 
+It should be a property in the configuration file config.toml.
+
+our current src/config.toml looks like this
+[browser]
+url = "your_browser_url"
+
+[domain]
+value = "your_domain"
+
+[selectors]
+textarea_selector = "textarea[placeholder=\"Send a message...\"]"
+copy_button_selector = "div.flex.flex-col.items-center > div:nth-last-child(2) button.flex.ml-auto.gap-2"
+response_container_selector = "div.flex.flex-col.items-center > div:nth-last-child(2)"
+
+
 
 Constraints:
 1. Adhere to SOLID design princiles
 2. we already have src/app.py which initialized FastAPI app  
 '''
-
-
-
 
 
 

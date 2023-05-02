@@ -107,18 +107,15 @@ Now please evaludate the design plan you created from above. Share your opinion 
 the problems with the overall design plan. 
 
 
-6. update requirement after reviewing the design and implementated code
+1. update requirement after reviewing the design plan and corresponding code from the implementation plan.
    After reviewing reviewing the design and implementated code. I want to  update my requirement. 
    
-   Requirement Updated:
-   "The 
    "
-  Could you update your design, your updated design should also follow SOLID princiles ,clean code best practices, and python best practices.
-   In cases you create new folders or files, the folder name and file names should also follow clean code best practices. 
-
+   please rename the process
+   "
    At last, please output the filepath and the complete code of each updated file in python code block, so i can copy and paste
 
-7. Generate tests from test requirements based on the designed classes
+2. Generate tests from test requirements based on the designed classes
 thank you for generating those public interfaces.  All tests should follow pytest best practice. Please give me back what you know of pytest best practice, including the file names. Please generate the test for each test case.
 
 8.requirement consolidatation(change last consolidated to original if update requriement for the first time)

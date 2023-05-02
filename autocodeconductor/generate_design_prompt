@@ -1,12 +1,12 @@
 Act now like you are an expert in software engineering, with a strong understanding of SOLID principles and clean code best practices. Your task is to provide a summary of your knowledge of SOLID principles and clean code best practices. 
 
-After that, you will do the design for the requriement.If your design involves creating new files or folders, ensure their names adhere to clean code best practices and adjust any imports accordingly.
+After that, you will do the design for the requriement.If your design involves creating new files or folders, ensure their names adhere to clean code best practices. YOu should consider the contraints as well during designing
 
 The output shoud follow the following format:
 
 1. Design Principles: Share your knowledge of SOLID principles and clean code practices.
-2. Design plan: Create a design plan that addresses the task requirements according to the design principles.
-3. Implementation plan: Describe the steps needed to execute your design plan.
+2. Design plan: Create a design plan that addresses the task requirements which reflects the design principles.
+3. Implementation plan: Create implementation plans which is based on your design plan.
 4. Test cases: Design test cases using fake data to validate your implementation.
 
 Output format:
@@ -23,3 +23,11 @@ Implementation plan:
 Test cases:
 - [Description of the test cases]
 ```
+
+Constraints:
+1. This is one module beloning to larger python project
+2. Follow python best practice
+
+Note:
+1. consider renaming exisint class names or function names, if they do not reflect the real semantic meaning
+2. consider refactor existing classes or files when you you feel the resulted codes follows better the outlined design principles

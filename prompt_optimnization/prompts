@@ -1,55 +1,20 @@
 Version 1:
-I have provided a prompt below. Please first identify the domain to which it belongs. After determining the domain, and tell me about domain this prompt belongs to. then optimize the prompt based on your knowledge of the domain to better convey its purpose. You can either change some of my writting or add more content based on the domain of the task to make the prompt
-better in terms of completeness, professional. You should also remove any redundancy in the writting, it should be professionl, but concise. However do not sacrifice converying the purpose. make the prompt writting with a correct logical order. You know when we write a article, the sentences inside the article should be with correct logcial order, even the words. The output should have two sections one is domain, the other one is the optimized prompt. The optimized prompt will start with you are blablab, your task is blabla. The writting should be like instrutional way. for example 
-
-For example. This is the ouptput format
-Domain: blabla
-Optimized Prompt: 
-balbal
-
-My prompt:
-'''
-I have provided a prompt below. Please first identify the domain to which it belongs. After determining the domain, and tell me about domain this prompt belongs to. then optimize the prompt based on your knowledge of the domain to better convey its purpose. You can either change some of my writting or add more content based on the domain of the task to make the prompt
-better in terms of completeness, professional. You should also remove any redundancy in the writting, it should be professionl, but concise. However do not sacrifice converying the purpose. make the prompt writting with a correct logical order. You know when we write a article, the sentences inside the article should be with correct logcial order, even the words. The output should have two sections one is domain, the other one is the optimized prompt. The optimized prompt will start with you are blablab, your task is blabla. The writting style should be explicit. 
-
-For example. This is the ouptput format
-Domain: the identified domain of the prompt
-Optimized Prompt: 
-balbal
-'''
-
-
-Version 2:
 Lets forget about the previous conversations and start a new task
 
-You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose. Modify the wording and add additional content as needed, maintaining a professional and comprehensive tone. The optimized prompt should begin with "You are..." followed by "Your task is..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." Provide the output in two sections: the identified domain and the optimized prompt, clearly specifying the output format. Following is my prompt
+You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose without changing the original meaning and tone. Optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text. The optimized prompt should begin with "You are..." followed by "Your task is..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
 
+Provide the output in two sections: the identified domain and the optimized prompt.
+The following is my prompt:
 
+'''
+Lets forget about the previous conversations and start a new task
 
-you are an expert in software engineering with a strong understanding of clean code practices. Your task is to create the necessary files and implement their content based on the previous implementation plan. Begin by providing a summary of clean code practices in python. Please don't forget to add Next, create the relevant files and their respective implementations following the implementation plan. Provide the output in two sections: a summary of clean code practices and the file path and their implementations in copiable code blocks. 
+You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose. 
 
-Please don't forget to add or adjust imports for the files. Please also don't forget to add docs for newly created file. 
+You can optimize the order of the sentences or words or remove redundencies to make thew writting keeping a better logical sematic order. But you shouln't change the original meaning, and tone. The optimized prompt should begin with "You are..." followed by "Your task is..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
 
-Output format:
-1. Clean code practices in python:
-- [Description of clean code practices]
-
-1. File names and implementations:
-- FileName1.py
-```
-[Implementation of FileName1.py]
-```
-- FileName2.py
-```
-[Implementation of FileName2.py]
-```
-(Include additional files and their implementations as needed)
-
-
-
-
-You are an expert in software engineering principles, specifically in SOLID principles and clean code best practices. Your task is to provide a summary of your understanding of SOLID principles and clean code best practices, including aspects such as good maintenance, ease of operation, and security. Consider that when introducing new functionalities, it may be necessary to adjust or refactor the current design to better fit the new requirements. Keeping this in mind, evaluate the previously provided design plan, implementation plan, and interaction flow. Share your opinion about any potential problems or areas for improvement within the overall design plan, and suggest possible refactoring approaches to better accommodate the new functionality.
- 
+You should Provide the output in two sections: the identified domain and the optimized prompt. 
+'''
 
 
 You are an expert in writing standardized software development tickets. Your task is to create a well-structured ticket using the given format and information, ensuring clarity, conciseness, and effectiveness. Convert the provided feature description and keywords into a comprehensive and logically correct ticket, supplementing with your knowledge of implementing similar features when necessary. The final ticket should be presented in a pre-formatted text block, suitable for copying directly to a GitHub issue. Utilize the following sections in your response:
