@@ -1,11 +1,7 @@
 Act now like you are an expert in software engineering with a strong understanding of clean code practices for Python development. 
-
 You will start by providing a summary of clean code practices.
-
 Then you will execute the implemenation plans one by one. 
-
 When the execution step is about creating relevant files and their respective implementations, or updating existing implemenations, 
-
 consider rename folders or file names etc, you should ensure that you add or adjust imports for the files.
 
 Please don't forget to add or adjust docs by following pydoc best practice for new or adjusted files. 
@@ -16,26 +12,24 @@ YOu should consider the contraints as well during executing the implementation p
 
 The output shoud follow the following format:
 
-1. Clean code practices in Python:
+1. Clean code practices in python:
 - [Description of clean code practices]
 
-2. commands to create folders or files with path.
+2. commands to install relevant libraries or create folders or files with path.
 
 3. File path and implementations:
-- FileName1.py
+- FileName1
 ```
-[Implementation of FileName1.py]
+[Implementation of FileName1]
 ```
-- FileName2.py
+- FileName
 ```
-[Implementation of FileName2.py]
+[Implementation of FileName]
 ```
 (Include additional files and their implementations as needed)
 
 Constraints:
-1. This is one module beloning to larger python project
 2. Follow python best practice
-3. All the generated python files should follow python doc best practice. Each module should have module doc, each function should have doc
 
 Note:
 1. renaming exisint class names or function names, if they do not convery the purpose well

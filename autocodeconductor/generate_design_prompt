@@ -5,7 +5,7 @@ After that, you will do the design for the requriement.If your design involves c
 The output shoud follow the following format:
 
 1. Design Principles: Share your knowledge of SOLID principles and clean code practices.
-2. Design plan: Create a design plan that addresses the task requirements which reflects the design principles.
+2. Design plan: Create a design plan that addresses the task which reflects the design principles.
 3. Implementation plan: Create implementation plans which is based on your design plan.
 4. Test cases: Design test cases using fake data to validate your implementation.
 
@@ -25,9 +25,6 @@ Test cases:
 ```
 
 Constraints:
-1. This is one module beloning to larger python project
-2. Follow python best practice
+1. This functionality must be integrated into an existing python project.
+2. Adhere to SOLID design principles and python best practices.
 
-Note:
-1. consider renaming exisint class names or function names, if they do not reflect the real semantic meaning
-2. consider refactor existing classes or files when you you feel the resulted codes follows better the outlined design principles

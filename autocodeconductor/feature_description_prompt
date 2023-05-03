@@ -1,8 +1,10 @@
-You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, and effectiveness. Your task is to analyze the provided task description, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style. Modify the wording, add additional content as needed, and follow a logical semantic order without redundancy. 
+You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, and effectiveness, and also with a better semantic logic and order. 
 
-Include all the information including codes from the original task description in the output, as it will be neccessary for the next task. You should move the Python codes provided in the feature description to the 'Code References' section under the respective path, description, and code subsections. Please don't omit any code snippet
+Your task is to analyze the given task description below enclosed with three backticks and improve it based on your domain knowledge, ensuring the revised description better conveys its purpose while maintaining a professional and explicit writing style. Modify the wording, add additional content as needed, and create a logically coherent and semantically organized output without redundancy.
 
-Present the output in a copiable preformatted text block.
+Include all the information, including codes from the original task description in the output, as it will be necessary for the next task. If there are codes in the task description, move the codes to the 'Code References' section under the respective path, description, and code subsections.
+
+Provide the output in a copiable preformatted text block.
 
 Use the following format for the output:
 
@@ -20,83 +22,76 @@ Requirements:
 Constraints:
 - [List of constraints or limitations for the task]
 
-Code References:
+Code References: (if codes exist in the task description)
 - path
 - description
-- code(complete code for file given in the task description)
+- code (complete code for the file given in the task description)
 
 Task Description:
 '''
+We have create one fastapi enpoint in python 
+as in file 
 
-We have implemented src/communication/puppeteer_output.py
-"""
-puppeteer_output.py: Provides a PuppeteerOutput class to interact with a chat system using Puppeteer.
+src/workflow_endpoints.py
+router = APIRouter()
+workflow = AutomatedCodingWorkflow(config)
 
-The PuppeteerOutput class enables interaction with chat systems that require headless browser interactions. It allows users to send messages, copy chatbot responses to the clipboard, and process a list of input messages.
+@router.get("/workflow-config")
+def get_workflow_config():
+    """Return the workflow configuration data as a JSON object."""
+    return workflow.get_workflow_config()
 
-Features:
-- Initialize a PuppeteerOutput instance with a configuration file containing relevant CSS selectors for the chat system.
-- Connect to a running browser instance using the Puppeteer library and find the desired chat page.
-- Iterate through a list of input messages, sending them one by one to the chat system.
-- After sending a message, the program asks the user if they want to copy the chatbot's response to the clipboard.
-- If the user agrees, the response is copied to the clipboard and displayed to the user.
-- The program waits for the chat system's response to be complete before moving on to the next message.
-"""
-
-class PuppeteerOutput:
-        """
-    PuppeteerChat class enables interaction with chat systems that require headless browser interactions.
-    """
-    def __init__(self, config: Config):
-
-    async def process_chat_messages(self, input_messages):
-    """
-    Process input messages using Puppeteer, send them to the chat system, and handle clipboard interactions.
-    """
-
-But actually is actually integrating GPT LLM. The way it integrate with is sending the message to website textbox and copy the content back. instead of calling the GPT API and get the response from the API. So its actually one way of doing LLM integration, giving the input and get the response from the LLM integration.
-
-In our src/workflow/automated_coding_workflow.py
-"""
-This module contains the AutomatedCodingWorkflow class that represents
-the main entry point for running the automated coding workflow.
-"""
+the endpoint depends on  workflow 
+src/workflow/automated_coding_workflow.py
 class AutomatedCodingWorkflow:
-    """
-    A class to represent a fully automated coding workflow.
-    """
-
-    def __init__(self):
+        def get_workflow_config(self):
         """
-        Initialize the workflow instance and set the initial stage.
+        Returns the workflow configuration.
+
+        :return: the workflow configuration.
         """
-        self.stages = list(WORKFLOW_CONFIG.keys())
-        self.output_system = PuppeteerOutput()
-In the AutomatedCodingWorkflow we use PuppeteerOutput like the code shows above.
 
-The task is to refactor the codes to better reflect the funtionality of PupperteerOutput.  Please also design a solution to support multiple LLM integrations. Since we want to have multiple LLM integrations, which LLM integration will be used for AutomatedCodingWorkflow should be cofigurable. 
-It should be a property in the configuration file config.toml.
+        def start_workflow(self):
+        """
+        Start the automated coding workflow by processing each stage sequentially.
+        """
 
-our current src/config.toml looks like this
-[browser]
-url = "your_browser_url"
+get_workflow_config returns the WORKFLOW_CONFIG from file 
 
-[domain]
-value = "your_domain"
+src/workflow/workflow_config.py
+WORKFLOW_CONFIG: WorkflowConfigDict = {
+    'requirement': {
+        'stage_class': RequirementStage,
+        'stages': {
+            'refine': {
+                'stage_class': RequirementRefineStage,
+            },
+        },
+    },
+    'design': {
+        'stage_class': DesignStage,
+    },
+    'test_generation': {
+        'stage_class': TestGenerationStage,
+    },
+    'implementation': {
+        'stage_class': ImplementationStage,
+    },
+    'testing': {
+        'stage_class': TestingStage,
+    },
+} 
 
-[selectors]
-textarea_selector = "textarea[placeholder=\"Send a message...\"]"
-copy_button_selector = "div.flex.flex-col.items-center > div:nth-last-child(2) button.flex.ml-auto.gap-2"
-response_container_selector = "div.flex.flex-col.items-center > div:nth-last-child(2)"
+So the endpoint is actually returning the WORKFLOW_CONFIG to frontend. Now instead of using fastapi endpoint directly. I want to integrate
+strawberry-graphql framework to my fastapi backend. Then expose the WORKFLOW_CONFIG data to frontend using graphql endpoint. 
 
-
+So the task is to change my existing fastapi endpoint implementation, install neccessary libraries, and create a solution to expose my WORKFLOW_CONFIG
+using graphql endpoint. You will  design the graphql schema which follows strawberry-graphql best practice to properly represent the workflow information, so that query is able to be used to get the workflow configuration data.  You will also create mutation to allow the workflow to be started.
 
 Constraints:
-1. Adhere to SOLID design princiles
-2. we already have src/app.py which initialized FastAPI app  
+1. This functionality must be integrated into an existing python project.
+2. Adhere to SOLID design principles and python clean code best practices.
 '''
-
-
 
 
 
