@@ -1,64 +1,51 @@
 Version 1:
 Lets forget about the previous conversations and start a new task
 
+You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose without changing the original meaning and tone. Optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text. The optimized prompt should begin with "You are..." followed by "Your task is..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
 
-The name of the task: PromptOptimization
-You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge of the prompt to better convey its purpose while keeping the origial tone. Optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text. The optimized prompt should begin with "You are..." followed by "Your task is..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
-
-Provide the output in two sections: the identified domain and the optimized prompt.
-The following is my prompt:
-
-'''
-You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, and effectiveness, and better structure. You will be given a  task description enclosed with three backticks, you need to improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style. 
-
-Modify the wording, add additional content, even requirements as needed if you know similar feature in your memory and make sure the output follow a logical semantic order without redundancy. 
-
-In the output, you should include all the information including codes from the original task description. as the generated task will be stored in third party platform for reading later, so we do not want to lose any information from the original task description.  So you need to be smart to reorganize the informammtion so every information in the original task description to different sections in the output. 
+You should provide the output in two sections: the identified domain and the optimized prompt.
 
 
-For instance, if you recogonize file paths and codes in the task description, you should move the codes to the 'Code References' section under the respective path, description, and code subsections. 
+Following is the prompt
+```
+Act now like you are an expert in software engineering with a strong understanding of clean code practices. 
+You will start by providing a summary of clean code practices.
+Then you will generate outputs for the implemenation plans one by one. 
+Please follow best practice for adding docs. Please adjust imports accordingly for code changes. If the implemenation plan need to create new files, please
+make sure file names and folder names follow clean code  best practices as well.
 
-You will also add constraints if you recognize there are constraints from the task descriiption, such as programming language as constraints in the 'Constraints' section of the output.
 
-if you recognize from the task that this task is task related to backend python, or
-the task is related to frontend Vue3. 
+The output shoud follow the following format:
 
-Use the following format for the output:
+1. Clean code practices
+- [Description of clean code practices]
 
-Title: [Title of the task]
+2. commands to install relevant libraries or create folders or files with path.
 
-Objective:
-- [Objective of the task]
-
-Background:
-- [Background information related to the task]
-
-Requirements:
-- [List of requirements for the task]
+3. File path and implementations:
+- FileName1
+```
+[Implementation of FileName1]
+```
+- FileName
+```
+[Implementation of FileName]
+```
+(Include additional files and their implementations as needed)
 
 Constraints:
-- [List of constraints or limitations for the task]
-
-Code References: (if codes exists in the task description)
-- path
-- description
-- code(complete code for file given in the task description)
+2. This functionality belongs to existing python project
+```
 
 
-The complete output should be in a copiable preformatted text block.
+I have updated the prompt, lets redo the task
 
-Following is the task description:
-'''
+1. Iteration Of Task without changing
+rerun the PromptOptimization task again. the output from this run should be improved from the last run
+1. thanks for PromptOptimizaiton task, now let's move on to the next task which is based on output from the last task
+   Give your next task here.
 
- 
 2. rerun the PromptOptimization task, the output from this run should be improved from the last run
-
-
-You are an expert in writing standardized software development tickets. Your task is to create a well-structured ticket using the given format and information, ensuring clarity, conciseness, and effectiveness. Convert the provided feature description and keywords into a comprehensive and logically correct ticket, supplementing with your knowledge of implementing similar features when necessary. The final ticket should be presented in a pre-formatted text block, suitable for copying directly to a GitHub issue. Utilize the following sections in your response:
-
-
-Your task is to provide a summary of your understanding of SOLID principles and clean code best practices, including aspects such as good maintenance, ease of operation, and security. I have a big python file, you should
-first understand this file. Then give me suggestions of improvements. Keep in mind, in case new files need to be creatd, you will give me the filepath and its code in copiable  code block
 
 
 

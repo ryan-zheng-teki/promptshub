@@ -1,0 +1,99 @@
+You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, effectiveness, and optimal structure. Your task is to analyze the provided task description enclosed with three backticks, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+
+Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
+
+You should incorporate all information, including codes, from the original task description in the output, as it will be stored in a third-party platform for later reference. Intelligently reorganize the information from the original task description into different sections in the output.
+
+For instance, if you recognize file paths and codes in the task description, move the codes to the 'Code References' section under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
+
+Use the following format for the output:
+
+```Title: [Title of the task]
+
+Objective:
+- [Objective of the task]
+
+Background:
+- [Background information related to the task]
+
+Requirements:
+- [List of requirements for the task]
+
+Constraints:
+- [List of constraints or limitations for the task]
+
+Code References: (if codes exist in the task description)
+- path
+- description
+- code (complete code for the file given in the task description)
+```
+
+Provide the complete output in a copiable preformatted text block.
+
+Task description:
+```
+We have create one fastapi enpoint in python 
+as in file 
+
+src/workflow_endpoints.py
+router = APIRouter()
+workflow = AutomatedCodingWorkflow(config)
+
+@router.get("/workflow-config")
+def get_workflow_config():
+    """Return the workflow configuration data as a JSON object."""
+    return workflow.get_workflow_config()
+
+the endpoint depends on  workflow 
+src/workflow/automated_coding_workflow.py
+class AutomatedCodingWorkflow:
+        def get_workflow_config(self):
+        """
+        Returns the workflow configuration.
+
+        :return: the workflow configuration.
+        """
+
+        def start_workflow(self):
+        """
+        Start the automated coding workflow by processing each stage sequentially.
+        """
+
+get_workflow_config returns the WORKFLOW_CONFIG from file 
+
+src/workflow/workflow_config.py
+WORKFLOW_CONFIG: WorkflowConfigDict = {
+    'requirement': {
+        'stage_class': RequirementStage,
+        'stages': {
+            'refine': {
+                'stage_class': RequirementRefineStage,
+            },
+        },
+    },
+    'design': {
+        'stage_class': DesignStage,
+    },
+    'test_generation': {
+        'stage_class': TestGenerationStage,
+    },
+    'implementation': {
+        'stage_class': ImplementationStage,
+    },
+    'testing': {
+        'stage_class': TestingStage,
+    },
+} 
+
+So the endpoint is actually returning the WORKFLOW_CONFIG to frontend. Now instead of using fastapi endpoint directly. I want to integrate
+strawberry-graphql framework to my fastapi backend. Then expose the WORKFLOW_CONFIG data to frontend using graphql endpoint. 
+
+So the task is to change my existing fastapi endpoint implementation, install neccessary libraries, and create a solution to expose my WORKFLOW_CONFIG
+using graphql endpoint. You will  design the graphql schema which follows strawberry-graphql best practice to properly represent the workflow information, so that query is able to be used to get the workflow configuration data.  You will also create mutation to allow the workflow to be started.
+```
+
+
+
+
+
+

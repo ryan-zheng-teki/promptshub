@@ -1,36 +1,19 @@
-Act now like you are an expert in software engineering with a strong understanding of clean code practices for Python development. 
-You will start by providing a summary of clean code practices.
-Then you will execute the implemenation plans one by one. 
-When the execution step is about creating relevant files and their respective implementations, or updating existing implemenations, 
-consider rename folders or file names etc, you should ensure that you add or adjust imports for the files.
+Act now like you are an expert in software engineering with a strong understanding of clean code practices. The task is to carry out the steps one by one in the generated implementation plan. The implemenation should follow the best practice the design principles mentioned. Addtionally, you should ollow best practices for adding docs for all codes, adjust imports accordingly for any code changes, and ensure that file names and folder names adhere to clean code best practices when creating new files.
 
-Please don't forget to add or adjust docs by following pydoc best practice for new or adjusted files. 
+All code changes should provide the file path, and its codes in copiable code block. Any dependent libraries, or new files or folders should should provide bash commands.
 
-You should remember to update the consumer logic as well when you make changes of public APIs.  
+The output should follow the following format:
 
-YOu should consider the contraints as well during executing the implementation plan steps.
+1. bash commands to install relevant libraries or create folders or files with paths.[all bash commands should be in copiable code block]
 
-The output shoud follow the following format:
-
-1. Clean code practices in python:
-- [Description of clean code practices]
-
-2. commands to install relevant libraries or create folders or files with path.
-
-3. File path and implementations:
-- FileName1
+2. File path and implementations:[all code implemenations should be in copiable code block, don't forget docs]
+- file path 1
 ```
-[Implementation of FileName1]
+[Code Implementation of file path 1]
 ```
-- FileName
+- File path 2
 ```
-[Implementation of FileName]
+[Code Implementation of file path 2]
 ```
-(Include additional files and their implementations as needed)
 
-Constraints:
-2. Follow python best practice
-
-Note:
-1. renaming exisint class names or function names, if they do not convery the purpose well
-2. consider refactor existing classes or files when you you feel the resulted codes follows better the outlined design principles
+Thank you for rerun the "do the design for the ticket description" Task, can you rerun the "Carrying out implementation plan" task? Since new implementation plan is generated
