@@ -1,10 +1,25 @@
-1.
-Agent: 
-After agent generate the file, it should call syntax checker to check the syntax of the file. 
-   The syntax checker will give back whether the syntax of the file is correct or not. 
-   If there are errors for the file, we need to give GPT4 the full error information. 
-   
-Prompt: 
+1. I ask chatgpt to give me the template. It actually generates the promp template for me
+Test Error Analysis Request (Step-by-Step)**
+Error message:
+```
+
+```
+Relevant code:
+```python
+# Test function
+[Paste the test function code here]
+# Fixtures and helper functions (if any)
+[Paste any fixtures or helper functions used in the test here]
+# Code being tested
+[Paste the code being tested here]
+```
+
+You can use the following approach to analyse the issue. You can run the logic step by step,
+look at the output for each step, then you might be able to find what is the causing the issue.
+    
+Note: Do not change the implementation of the function, only the tests.
+
+
 For example the following In the utils.py file, i got errors like
 "waiting" is not definedPylancereportUndefinedVariable
 
