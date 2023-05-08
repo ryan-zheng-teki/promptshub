@@ -1,0 +1,226 @@
+Your task is to generate a software ticket. You will be given task description in the "Task descriptin" section. You will
+understand the task description, then create a software ticket for the user's request.
+
+You will first output the neccessary best practice sections needed for writting one software ticket.
+
+Then based on the your understanding of the 
+task itself, you will fill those sections by content either from the task description itself or the domain knowledge you have 
+
+Your output should be like the following
+1. the step by step thinking about the task description itself, until finishing the goal
+2. summarized sections based on your step by step thinking
+3. the final created tickets based  on your summarized sections.
+
+
+You are an expert in software ticket creation. Your task is to generate a software ticket based on a given task description provided in the "Task Description" section. Follow these steps to ensure a clear and effective ticket:
+
+1. Understand the task description and identify the user's request.
+2. Determine the necessary best practice sections needed for writing a software ticket.
+3. Use the task description and your domain knowledge to fill out those sections with relevant content.
+
+Remember to structure your output in the following format:
+1. Step-by-step analysis of the task description, leading to the accomplishment of the goal.
+2. Summarized sections based on your step-by-step analysis.
+3. The final software ticket, created based on your summarized sections.
+
+Task Description
+```
+We have a python package which defines a general way of creating workflow template. The python package provides a Registry which registers
+enabled workflows. I show you the registry code here from the llm_workflow_core library
+
+"""
+workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from installed packages.
+
+The WorkflowRegistry class enables the loading and management of different workflows installed as packages.
+It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
+
+Features:
+- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
+- Load enabled workflows from the global config dictionary by importing their config modules and registering their classes and configurations.
+- Register a workflow with a given package name, class, and configuration.
+- Retrieve the workflow class for a given package name.
+- Retrieve the workflow configuration for a given package name.
+- Expose all the workflow configurations for clients to use.
+
+"""
+
+import importlib
+import logging
+from typing import Dict, Type
+from importlib import import_module
+from pathlib import Path
+
+from llm_workflow_core.types.base_workflow import BaseWorkflow
+from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
+
+logger = logging.getLogger(__name__)
+class WorkflowRegistry:
+    """
+    A registry for managing and loading workflows from installed packages.
+    """
+
+    def __init__(self):
+        """
+        Initialize the registry with empty dictionaries for workflows and configurations.
+        """
+        self.workflow_classes: Dict[str, Type[BaseWorkflow]] = {}
+        self.workflow_configs: Dict[str, WorkflowTemplateStagesConfig] = {}
+
+    def load_enabled_workflows(self, config: dict):
+        """
+        Load enabled workflows from installed packages by importing their config modules
+        and registering their classes and configurations.
+
+        :param config: A dictionary containing the global configuration, including enabled workflows.
+        """
+        enabled_workflows = config["workflows"]["enabled_workflows"]
+
+        for workflow_package in enabled_workflows:
+            try:
+                config_module = importlib.import_module(f"{workflow_package}.config")
+                workflow_class = config_module.WORKFLOW_CONFIG['workflow_class']
+                workflow_config = config_module.WORKFLOW_CONFIG
+
+                self.register_workflow(workflow_package, workflow_class, workflow_config)
+            except ModuleNotFoundError as e:
+                logger.error(f"Error loading workflow from {workflow_package}: {e}")
+            except Exception as e:
+                logger.error(f"Error initializing workflow from {workflow_package}: {e}")
+
+    def register_workflow(self, package_name: str, workflow_class: Type['BaseWorkflow'], config: WorkflowTemplateStagesConfig):
+        """
+        Register a workflow with the given package name, class, and configuration.
+
+        :param package_name: The package name of the workflow.
+        :param workflow_class: The workflow class.
+        :param config: The workflow configuration.
+        """
+        self.workflow_classes[package_name] = workflow_class
+        self.workflow_configs[package_name] = config
+
+    def get_workflow_class(self, package_name: str) -> type:
+        """
+        Retrieve the workflow class for the given package name.
+
+        :param package_name: The package name of the workflow.
+        :return: The workflow class.
+        """
+        return self.workflow_classes[package_name]
+
+    def get_workflow_config(self, package_name: str) -> WorkflowTemplateStagesConfig:
+        """
+        Retrieve the workflow configuration for the given package name.
+
+        :param package_name: The package name of the workflow.
+        :return: The workflow configuration.
+        """
+        return self.workflow_configs[package_name]
+
+    def get_all_workflow_configs(self) -> Dict[str, WorkflowTemplateStagesConfig]:
+        """
+        Retrieve all the workflow configurations stored in the registry.
+
+        :return: A dictionary containing all the workflow configurations, with the workflow package names as keys.
+        """
+        return self.workflow_configs
+
+
+This registry has a corresponding test
+import pytest
+from unittest.mock import patch, MagicMock, create_autospec
+from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
+from llm_workflow_core.types.base_workflow import BaseWorkflow
+from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
+
+@pytest.fixture
+def registry():
+    return WorkflowRegistry()
+
+def test_loading_enabled_workflows_with_valid_configuration_loads_correct_workflows(registry):
+    config = {"workflows": {"enabled_workflows": ["test_workflow"]}}
+
+    with patch("importlib.import_module") as mock_import_module:
+        mock_module = MagicMock()
+        mock_workflow_class = create_autospec(BaseWorkflow, instance=True)
+        mock_workflow_config = create_autospec(WorkflowTemplateStagesConfig, instance=True)
+
+        mock_module.WORKFLOW_CONFIG = {
+            "workflow_class": mock_workflow_class,
+            "workflow_config": mock_workflow_config,
+        }
+        mock_import_module.return_value = mock_module
+
+        registry.load_enabled_workflows(config)
+
+        assert registry.get_workflow_class("test_workflow") == mock_workflow_class
+        assert registry.get_workflow_config("test_workflow") is mock_module.WORKFLOW_CONFIG
+
+def test_loading_enabled_workflows_with_invalid_package_name_prints_error_and_does_not_load_workflow(registry: WorkflowRegistry):
+    config = {"workflows": {"enabled_workflows": ["invalid_workflow"]}}
+
+    with patch("importlib.import_module") as mock_import_module:
+        mock_import_module.side_effect = ModuleNotFoundError()
+
+        with patch("builtins.print") as mock_print:
+            registry.load_enabled_workflows(config)
+
+
+I followed the specification for creating workflow, and i created my automated_coding_workflow project which follows the template defined by
+the llm_workflow_core library. Here is my workflow config in my project 
+
+automated_coding_workflow/config.py
+"""
+config.py
+The WORKFLOW_CONFIG dictionary defines the structure of the workflow, including stages and substages.
+Each stage is defined as a key-value pair, where the key is the stage name and the value is a dictionary containing:
+    - 'stage_class': The class representing the stage.
+    - 'stages': A dictionary of substages, if any, following the same structure.
+
+For example, the 'requirement' stage has a 'refine' substage with its own class.
+"""
+from llm_workflow_core.types.config_types import WorkflowTemplateStagesConfig
+from automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
+from stages.requirement_refine_stage import RequirementRefineStage
+
+from automated_coding_workflow.stages.requirement_stage import RequirementStage
+from automated_coding_workflow.stages.design_stage import DesignStage
+from automated_coding_workflow.stages.test_generation_stage import TestGenerationStage
+from automated_coding_workflow.stages.implementation_stage import ImplementationStage
+from automated_coding_workflow.stages.testing_stage import TestingStage
+
+WORKFLOW_CONFIG: WorkflowTemplateStagesConfig = {
+    'workflow_class': AutomatedCodingWorkflow,
+    'requirement': {
+        'stage_class': RequirementStage,
+        'stages': {
+            'refine': {
+                'stage_class': RequirementRefineStage,
+            },
+        },
+    },
+    'design': {
+        'stage_class': DesignStage,
+    },
+    'test_generation': {
+        'stage_class': TestGenerationStage,
+    },
+    'implementation': {
+        'stage_class': ImplementationStage,
+    },
+    'testing': {
+        'stage_class': TestingStage,
+    },
+}
+
+
+my automated_coding_workflow folder structure is 
+
+automated_coding_workflow
+    __init__.py
+    config.py
+    AutomatedCodingWorkflow.py
+tests
+    __init__.py
+So i need to create one integration test in automated_coding_workflow project  using the registry to verify that my workflow can be registerd, and the registry can load my workflow 
+correctlly.
+```

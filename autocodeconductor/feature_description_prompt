@@ -31,188 +31,205 @@ Code References: (if codes exist in the task description)
 Provide the complete output in a copiable preformatted text block.
 
 Task description:
+
 ```
-we have implemented workflow with nestet stages. WORKFLOW_CONFIG is defined in  file 
+previously we have implemented half finished configurable workflow design. Here are the codes
 
-src/workflow/workflow_config.py
+llm_workflow_core/registry/workflow_registry.py
 """
-workflow_config.py
-The WORKFLOW_CONFIG dictionary defines the structure of the workflow, including stages and substages.
-Each stage is defined as a key-value pair, where the key is the stage name and the value is a dictionary containing:
-    - 'stage_class': The class representing the stage.
-    - 'stages': A dictionary of substages, if any, following the same structure.
+workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
 
-For example, the 'requirement' stage has a 'refine' substage with its own class.
-"""
-from src.workflow.config.workflow_config_types import WorkflowConfigDict
-from src.workflow.stages.requirement_stage import RequirementStage
-from src.workflow.stages.requirement_refine_stage import RequirementRefineStage
-from src.workflow.stages.design_stage import DesignStage
-from src.workflow.stages.test_generation_stage import TestGenerationStage
-from src.workflow.stages.implementation_stage import ImplementationStage
-from src.workflow.stages.testing_stage import TestingStage
+The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
 
-
-from src.workflow.stages.requirement_stage import RequirementStage
-from src.workflow.stages.design_stage import DesignStage
-from src.workflow.stages.test_generation_stage import TestGenerationStage
-from src.workflow.stages.implementation_stage import ImplementationStage
-from src.workflow.stages.testing_stage import TestingStage
-
-WORKFLOW_CONFIG: WorkflowConfigDict = {
-    'requirement': {
-        'stage_class': RequirementStage,
-        'stages': {
-            'refine': {
-                'stage_class': RequirementRefineStage,
-            },
-        },
-    },
-    'design': {
-        'stage_class': DesignStage,
-    },
-    'test_generation': {
-        'stage_class': TestGenerationStage,
-    },
-    'implementation': {
-        'stage_class': ImplementationStage,
-    },
-    'testing': {
-        'stage_class': TestingStage,
-    },
-}
-
-In src/workflow/stages/base_stage.py
-"""
-base_stage.py
-
-This module contains the BaseStage class.
+Features:
+- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
+- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
+- Register a workflow with a given name, class, and configuration.
+- Retrieve the workflow class for a given name.
+- Retrieve the workflow configuration for a given name.
 """
 
-from abc import ABC, abstractmethod
+from typing import Dict
+from importlib import import_module
+from pathlib import Path
 
-
-class BaseStage(ABC):
+class WorkflowRegistry:
     """
-    BaseStage is the abstract base class for all stages in the automated coding workflow.
-    Each stage should inherit from this class and implement the required methods.
+    A registry for managing and loading workflows from a specified folder.
     """
 
     def __init__(self):
-        self.prompt = self.construct_prompt()
-
-    @abstractmethod
-    def construct_prompt(self) -> str:
         """
-        Construct the prompt for this stage.
+        Initialize the registry with empty dictionaries for workflows and configurations.
+        """
+        self.workflows: Dict[str, type] = {}
+        self.configs: Dict[str, dict] = {}
+
+    def load_installed_workflows(self, folder: str = "installed_workflows"):
+        """
+        Load workflows from the specified folder by importing their modules and registering
+        their classes and configurations.
+
+        :param folder: The folder containing installed workflows.
+        """
+        installed_workflows_folder = Path(folder)
+        for workflow in installed_workflows_folder.iterdir():
+            if not workflow.is_dir():
+                continue
+
+            module_path = f"{workflow.parent.name}.{workflow.name}.workflow"
+            try:
+                module = import_module(module_path)
+                workflow_class = getattr(module, "Workflow")
+                workflow_config = getattr(module, "WORKFLOW_CONFIG")
+                self.register_workflow(workflow.name, workflow_class, workflow_config)
+            except (ModuleNotFoundError, AttributeError) as e:
+                print(f"Error loading workflow from {module_path}: {e}")
+
+    def register_workflow(self, name: str, workflow_class: type, config: dict):
+        """
+        Register a workflow with the given name, class, and configuration.
+
+        :param name: The name of the workflow.
+        :param workflow_class: The workflow class.
+        :param config: The workflow configuration.
+        """
+        self.workflows[name] = workflow_class
+        self.configs[name] = config
+
+    def get_workflow_class(self, name: str) -> type:
+        """
+        Retrieve the workflow class for the given name.
+
+        :param name: The name of the workflow.
+        :return: The workflow class.
+        """
+        return self.workflows[name]
+
+    def get_workflow_config(self, name: str) -> dict:
+        """
+        Retrieve the workflow configuration for the given name.
+
+        :param name: The name of the workflow.
+        :return: The workflow configuration.
+        """
+        return self.configs[name]
+
+```
+llm_workflow_core/manager/workflow_manager.py
+
+from ..types.base_workflow import BaseWorkflow
+from ..registry.workflow_registry import WorkflowRegistry
+
+
+class WorkflowManager:
+    def __init__(self, workflow_registry: WorkflowRegistry):
+        self.workflow_registry = workflow_registry
+
+    def initialize_workflow(self, name: str):
+        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
+        return workflow_class()
+
+llm_workflow_core/types/base_workflow.py
+"""
+base_workflow.py: Provides a BaseWorkflow class to be used as a base class for custom workflows.
+
+The BaseWorkflow class offers a foundation for creating custom workflows with unique IDs, status, and configuration.
+"""
+
+from enum import Enum
+from utils.unique_id_generator import UniqueIDGenerator
+from .config_types import WorkflowStagesConfig
+
+
+class WorkflowStatus(Enum):
+    """
+    Enumeration representing the status of a workflow.
+    """
+    Success = 'Success'
+    Started = 'Started'
+    Failure = 'Failure'
+
+
+class BaseWorkflow:
+    """
+    A base class for custom workflows with unique IDs, status, and configuration.
+    """
+
+    name = None
+    config = None
+
+    def __init__(self):
+        """
+        Initialize a BaseWorkflow instance with a unique ID and status.
+        """
+        self.id = UniqueIDGenerator.generate_id()
+        self.status = None
+
+    @classmethod
+    def set_workflow_name(cls, name: str):
+        cls.name = name
+
+    @classmethod
+    def set_workflow_config(cls, config: WorkflowTemplateStagesConfig):
+        cls.config = config
+
+    def get_workflow_status(self):
+        """
+        Get the current status of the workflow.
 
         Returns:
-            str: The constructed prompt for this stage.
+            WorkflowStatus: The current status of the workflow.
         """
-        pass
-
-    @abstractmethod
-    def process_response(self, response: str) -> None:
-        """
-        Process the response from the LLM API for this stage.
-
-        Args:
-            response (str): The LLM API response as a string.
-        """
-        pass
-In src/workflow/stages/requirement_stage.py
-class RequirementStage(BaseStage):
-
-
-    @override
-    def construct_prompt(self) -> str:
-        """
-        Construct the prompt for the requirement stage.
-
-        Returns:
-            str: The constructed prompt for the requirement stage.
-        """
-        prompt = "Please provide the requirements for the project:"
-        return prompt
-    
-    @override
-    def process_response(self, response: str):
-        """
-        Process the response for the Requirement stage.
-
-        Args:
-            response (str): The response from the LLM API.
-        """
-        # Implement the response processing logic specific to the Requirement stage
-
-"""
-automated_coding_workflow.py: Contains the AutomatedCodingWorkflow class, which represents the main entry point for running the automated coding workflow.
-"""
-
-from src.input.input_message_handler import get_input_message
-from src.llm_integrations.base_llm_integration import BaseLLMIntegration
-from src.workflow.config.workflow_config import WORKFLOW_CONFIG
-
-In src/workflow/automated_coding_workflow.py
-class AutomatedCodingWorkflow:
-    """
-    A class to represent a fully automated coding workflow.
-    """
-
-    def __init__(self, llm_integration: BaseLLMIntegration):
-        """
-        Initialize the workflow instance and set the initial stage.
-
-        :param llm_integration: An instance of a subclass of BaseLLMIntegration to be used for LLM integration.
-        :type llm_integration: BaseLLMIntegration
-        """
-        self.stages = list(WORKFLOW_CONFIG.keys())
-        self.llm_integration = llm_integration
+        return self.status
 
     def start_workflow(self):
         """
-        Start the automated coding workflow by processing each stage sequentially.
+        Set the status of the workflow to Started and raise a NotImplementedError for derived classes to implement.
         """
-        for stage in self.stages:
-            stage_config = WORKFLOW_CONFIG[stage]
-            self.process_stage(stage_config)
+        self.status = WorkflowStatus.Started
+        raise NotImplementedError("start_workflow method must be implemented in derived classes")
 
-    def process_stage(self, stage_config: dict):
+    def execute_stage(self, stage_config: dict):
         """
-        Process the given stage by getting user input, constructing the prompt, sending the message to the LLM API,
-        and handling the response. Process substages and sub-substages recursively.
+        Execute a stage in the workflow and raise a NotImplementedError for derived classes to implement.
 
         Args:
-            stage_config (dict): The configuration of the current stage.
+            stage_config (dict): The configuration of the stage to be executed.
         """
-        stage_instance = stage_config['stage_class'](self)
-        user_input = self._get_user_input()
-        prompt = stage_instance.construct_prompt(user_input)
-       
-        response = self.llm_integration.process_input_messages(prompt)
-        stage_instance.process_response(response)
+        raise NotImplementedError("execute_stage method must be implemented in derived classes")
 
-        if 'stages' in stage_config:
-            for substage_config in stage_config['stages'].values():
-                self.process_stage(substage_config)
+"""
+config_types.py
+This module contains the type definitions for the workflow configuration templates.
+"""
 
-Now i want that each stage should have predefined prompt_template, id. Each stage can be started individually. The prompt_template support variable interpolation.
-the variable value comes from  input argument when the start_stage is called. The start_stage will actually be triggered from the frontend via graphql 
-start_stage mutation. 
-
-The ID of the stage should be a unique value for the entire application. 
-
-Each workflow should have its own id as well. I also want that each workflow supports dynamic adding or stages. 
-
-Your task is to design solution to address new requriement.  Consider doing refactoring when existing code structure does not serve the new requirements well. In software engineering, we normally do refactoring
-overtime to fit new requriements. You can change file names, or 
-create new methods, or create new folders
+from typing import TypedDict, Dict, Type, Union
+from .base_stage import BaseStage
 
 
-1. Update the task descriptin, rerun this task
-Thank you,  i have some additional requiremets. Each workflow should have its own id as well. Each stage.  
+class StageTemplateConfig(TypedDict, total=False):
+    stage_class: Type[BaseStage]
+    stages: Dict[str, 'StageTemplateConfig']
+
+
+class WorkflowTemplateStagesConfig(TypedDict, total=False):
+    stages: Dict[str, StageTemplateConfig]
+
+currently llm_workflow_core is packaged as a separate python package. How user will use this
+package is that they will use WorkflowRegistry to get the available installed workflows, which
+means they can see all the available workflow configurations.
+
+A workflow can be created by just giving the name of the workflow. When the workflow is being
+created, one workflow instance will be created. Internally, the workflow creation will involve
+creating all the stages instances as well.
+
+A workflow instance can be started by giving the workflow unique id
+A workflow stage can be executed by giving the workflow id, and stage id
+
+
 
 Can you combine this requirement with the Task Description from the "refining and enhancing task descriptions" task, and reperform the "refining and enhancing task descriptions" task?
 
 
-
+thank you for generating the optimized prompts. Now please execute the task defined by the optimized prompt

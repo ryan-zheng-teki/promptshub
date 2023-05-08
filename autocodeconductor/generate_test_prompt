@@ -1,19 +1,122 @@
-You are an expert in software engineering, specializing in clean code practices. Your task is to analyze the provided code, identify the programming language used, and share your knowledge of clean code best practices specific to that language. After that, you need to create test files following the best practices for writing tests in the identified language.
+You are an expert in software engineering, specializing in clean code practices. Your task is to analyze the provided code in the "Code" section, identify the programming language used, and share your knowledge of clean code best practices specific to that language. After that, you need to explain what the code does, then based on your explanation. You will first design test cases. 
+
+For each test case,  you must create a description, and the behavior you want to test. Each test case you designed should contain fake data  as well. 
+Later these test case can be directly converted to real test implementations.
+
+At last, you need to create the test code implemenationss files following the best practices for writing tests in the identified language. Please
+make sure test method naming follows behavior driven naming style. If the language is python, you must use pytest best practice.
 
 Ensure that your output format follows the following structure:
 1. Clean code practices used in the language:
 - [Description of clean code practices]
-1. Explanation of what the code does from the Code section.
+1. Explanation of what the code does from the Code section(Step by Step explanation)
 2. Test cases
 Case 1: blabla
 given input data, bablab
-verify condition, blabla
-1. Commands to create folders or files with path (considering your current folder structure is "blabla").
-2. File path and code implementation for each test case designed:
+verify blabla
+Case 2: blablab
+verify blalbla
+1. Commands to create folders or files with path.
+2. File path and code implementation for each test case above. Code should be in copiable code block.
 - FileName1
   [Code Of File]
 - FileName2
   [Code Of File]
-(Include additional files and their implementations as needed)
+
 Code:
+"""
+workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from installed packages.
+
+The WorkflowRegistry class enables the loading and management of different workflows installed as packages.
+It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
+
+Features:
+- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
+- Load enabled workflows from the global config dictionary by importing their config modules and registering their classes and configurations.
+- Register a workflow with a given package name, class, and configuration.
+- Retrieve the workflow class for a given package name.
+- Retrieve the workflow configuration for a given package name.
+- Expose all the workflow configurations for clients to use.
+
+"""
+
+import importlib
+from typing import Dict, Type
+from importlib import import_module
+from pathlib import Path
+
+from llm_workflow_core.types.base_workflow import BaseWorkflow
+from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
+
+class WorkflowRegistry:
+    """
+    A registry for managing and loading workflows from installed packages.
+    """
+
+    def __init__(self):
+        """
+        Initialize the registry with empty dictionaries for workflows and configurations.
+        """
+        self.workflow_classes: Dict[str, Type[BaseWorkflow]] = {}
+        self.workflow_configs: Dict[str, WorkflowTemplateStagesConfig] = {}
+
+    def load_enabled_workflows(self, config: dict):
+        """
+        Load enabled workflows from installed packages by importing their config modules
+        and registering their classes and configurations.
+
+        :param config: A dictionary containing the global configuration, including enabled workflows.
+        """
+        enabled_workflows = config["workflows"]["enabled_workflows"]
+
+        for workflow_package in enabled_workflows:
+            try:
+                config_module = importlib.import_module(f"{workflow_package}.config")
+                workflow_class = config_module.WORKFLOW_CONFIG['workflow_class']
+                workflow_config = config_module.WORKFLOW_CONFIG
+
+                self.register_workflow(workflow_package, workflow_class, workflow_config)
+            except (ModuleNotFoundError, AttributeError) as e:
+                print(f"Error loading workflow from {workflow_package}: {e}")
+
+    def register_workflow(self, package_name: str, workflow_class: Type['BaseWorkflow'], config: WorkflowTemplateStagesConfig):
+        """
+        Register a workflow with the given package name, class, and configuration.
+
+        :param package_name: The package name of the workflow.
+        :param workflow_class: The workflow class.
+        :param config: The workflow configuration.
+        """
+        self.workflow_classes[package_name] = workflow_class
+        self.workflow_configs[package_name] = config
+
+    def get_workflow_class(self, package_name: str) -> type:
+        """
+        Retrieve the workflow class for the given package name.
+
+        :param package_name: The package name of the workflow.
+        :return: The workflow class.
+        """
+        return self.workflow_classes[package_name]
+
+    def get_workflow_config(self, package_name: str) -> WorkflowTemplateStagesConfig:
+        """
+        Retrieve the workflow configuration for the given package name.
+
+        :param package_name: The package name of the workflow.
+        :return: The workflow configuration.
+        """
+        return self.workflow_configs[package_name]
+
+    def get_all_workflow_configs(self) -> Dict[str, WorkflowTemplateStagesConfig]:
+        """
+        Retrieve all the workflow configurations stored in the registry.
+
+        :return: A dictionary containing all the workflow configurations, with the workflow package names as keys.
+        """
+        return self.workflow_configs
+
+
 '''
+
+please writes all tests using pytest style. Please follow pytest best practice, The test naming should use behavior naming style.

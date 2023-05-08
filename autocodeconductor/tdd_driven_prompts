@@ -24,130 +24,13 @@ For example the following In the utils.py file, i got errors like
 "waiting" is not definedPylancereportUndefinedVariable
 
 Based on the error message, could you please fix it?  Sometimes fix does not mean just fixing the code directly. Best practice sometimes involves again refactoring, restructuring, redesigning. 
-
-
-2 
+ 
 Agent: run syntax check for all the files, then generated errors. Agent send the error message to ChatGPT. Directly
     Prompt: Error Message of file directly. Ask ChatGPT please fix all import errors
     Please fix all the import errors for the updated files. Thankss. You can just give me back the fixed imports.
-GPT4:
 
-1. Writting tests prompts
+Writting tests prompts
    Thanks a lot. Now we have all the newest files.  You will need to try to recall the the best practices and principles of writting pytests, then apply them to the files. Please first give me the good principles that you will conform, then give me the tests you write, and explain why they conform each of the norms
-
-
-14.
-I have got the following error
-(jina) ryan@ryan-ai:~/miniHDD/Learning/chatgpt/autocodeconductor$ pytest -k test_get_input_message_multi_line tests/communication/test_utils.py
-=========================================================================================== test session starts ===========================================================================================
-platform linux -- Python 3.9.7, pytest-7.1.2, pluggy-1.0.0
-rootdir: /home/ryan/miniHDD/Learning/chatgpt/autocodeconductor
-plugins: asyncio-0.21.0, anyio-3.6.2, mock-3.10.0
-asyncio: mode=strict
-collected 6 items / 5 deselected / 1 selected                                                                                                                                                             
-
-tests/communication/test_utils.py F                                                                                                                                                                 [100%]
-
-================================================================================================ FAILURES =================================================================================================
-____________________________________________________________________________________ test_get_input_message_multi_line ____________________________________________________________________________________
-
-    def test_get_input_message_multi_line():
-        with patch("keyboard.read_event") as read_event_mock:
-            read_event_mock.side_effect = [
-                keyboard.KeyboardEvent("down", "a"),
->               keyboard.KeyboardEvent("down", "enter", is_shift=True),
-                keyboard.KeyboardEvent("down", "b"),
-                keyboard.KeyboardEvent("down", "c"),
-                keyboard.KeyboardEvent("down", "enter"),
-            ]
-E           TypeError: __init__() got an unexpected keyword argument 'is_shift'
-
-tests/communication/test_utils.py:28: TypeError
-========================================================================================= short test summary info =========================================================================================
-FAILED tests/communication/test_utils.py::test_get_input_message_multi_line - TypeError: __init__() got an unexpected keyword argument 'is_shift'
-===================================================================================== 1 failed, 5 deselected in 0.08s =====================================================================================
-
-I will give you more context information
-filename: utils.py
-"""
-Description: This module provides utility functions for working with input messages and waiting for clipboard content changes.
-"""
-import keyboard
-from colorama import Fore, Style, init
-import asyncio
-import sys
-import time
-from colorama import Fore, Style, init
-import pyperclip
-
-init(autoreset=True)
-
-def get_input_message():
-    """
-    Get the input message from the user.
-    
-    :return: The input message as a string
-    """
-    print(Fore.GREEN + "INPUT: Start typing your message (press Enter to send):" + Style.RESET_ALL)
-    message_lines = []
-    current_line = ""
-
-    while True:
-        # Read a single keypress event
-        event = keyboard.read_event()
-
-        if event.event_type == keyboard.KEY_DOWN:
-            if event.name == 'enter' and not keyboard.is_pressed('shift'):
-                # Break the loop if Enter is pressed without Shift
-                if current_line:
-                    message_lines.append(current_line)
-                break
-            elif event.name == 'enter' and keyboard.is_pressed('shift'):
-                # Add a new line if Shift+Enter is pressed
-                message_lines.append(current_line)
-                current_line = ""
-            elif event.name == 'backspace':
-                # Remove the last character if Backspace is pressed
-                current_line = current_line[:-1]
-            else:
-                # Add the pressed key to the current line
-                current_line += event.name
-
-    message = "\n".join(message_lines)
-    return message
-
-
-async def wait_for_clipboard_content():
-    """
-    Wait for the clipboard content to change and return the new content.
-    
-    :return: The new clipboard content as a string
-    """
-    initial_clipboard = pyperclip.paste()
-    start_time = time.time()
-    timeout = 5
-
-    while True:
-        await asyncio.sleep(0.1)
-        new_clipboard = pyperclip.paste()
-        if new_clipboard != initial_clipboard:
-            return new_clipboard
-        if time.time() - start_time >= timeout:
-            return initial_clipboard
-
-project folder structure:
-scripts
-    communication
-        __init__.py
-        chat_handler.py
-        utils.py
-        puppeteer_chat.py
-tests
-    communication
-        __init__.py
-        test_chat_handler.py
-        test_utils.py
-        test_puppeteer_chat.py
 
 Please give me first the reason why this error happens, then give me the fix. then Please also give reason why will this fix works. 
 Please keep in mind that when fixing one tests, please do not break other already running tests. 

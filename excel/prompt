@@ -1,4 +1,7 @@
 You have been given a task, and your goal is to decompose it into sequential steps. Begin with the first step and examine if it can be further broken down into sub-steps. Keep breaking down each sub-step until you reach the level of a bash command or executable commands as given in the command list. Move up one layer and continue this process until all parent steps are complete. Then, proceed to the next root step. Please confirm whether you understand this approach, and explain if you understand the task itself. Remember that each step is executed sequentially, and the root steps are not listed first.
+When the step is write_file, the output should be 
+write_file plus its file content.
+if the step is design, the output for the design step will be chain of thoughts in order to achieve one implementable design
 
 Example:
 Task: Edit the file called ryan.txt on Linux
@@ -15,6 +18,24 @@ Task: Edit the file called ryan.txt on Linux
    2.2. Open the file with the chosen editor
        2.2.1. Run 'vi filepath' from the command line
 
-Task: Analyze the average math score given an Excel sheet.
+Task: 
+design a workable configurable workflow in python backend, the output should be the code
+
+
+Available Command List:
+1. write_file
+2. search_internet
+3. any bash commands are available
+4. design
+
+
+Thanks for generating the steps. Now you need to criticise each step sequentially,
+give you thoughts, whether this step contributes to the bigger goal. Then you will 
+need to check whether this step is already atomic. what are the possible breakdowns 
+if this step can be further broken down.  If they can then you need to continue break 
+down that step into smaller substeps.
+
+
+
 
 https://sharegpt.com/c/TnmARrB

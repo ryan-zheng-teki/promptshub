@@ -1,93 +1,37 @@
 12
-Given input_message_handler.py
+You are a developer who needs to provide Python code with well-documented module, class, and method docs. Your task is to follow best practices for documentation by including the module doc, class doc, and method doc for the file path given in "Code" section.
 
+Ensure that the documentation is clear and effective, making it easy for others to understand the purpose and functionality of the code. Use the provided "Example" section for reference on how to structure your documentation. 
+
+Example:
 """
-Description: This module provides utility functions for working with input messages and waiting for clipboard content changes.
+filepath: src/workflow/registry/workflow_registry.py
+workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
+
+The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
+
+Features:
+- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
+- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
+- Register a workflow with a given name, class, and configuration.
+- Retrieve the workflow class for a given name.
+- Retrieve the workflow configuration for a given name.
 """
-"""
-Description: This module provides utility functions for working with input messages and waiting for clipboard content changes.
-"""
-import pynput
-from colorama import Fore, Style, init
-import sys
-import pyperclip
 
-init(autoreset=True)
+Code:
+filepath: src/workflow/utils/unique_id_generator.py
 
-current_line = ""
-message_lines = []
-shift_pressed = False
-ctrl_pressed = False
-user_confirmation_char = ""
-
-def get_input_message():
-    global message_lines
-    print(Fore.GREEN + "INPUT: Start typing your message (press Enter to send):" + Style.RESET_ALL)
-
-    with pynput.keyboard.Listener(on_release=on_key_release, on_press=on_key_press) as listener:
-        listener.join()
-
-    message = "\n".join(message_lines)
-    message_lines = []  # Reset the message_lines for future calls
-    return message
-
-def get_input_character(prompt):
-    global user_confirmation_char
-    user_confirmation_char = ""
-    print(prompt, end='', flush=True)
-    with pynput.keyboard.Listener(on_release=on_key_release_single_char) as listener:
-        listener.join()
-    return user_confirmation_char
+import uuid
 
 
-def on_key_release_single_char(key):
-    global user_confirmation_char
+class UniqueIDGenerator:
 
-    if isinstance(key, pynput.keyboard.KeyCode):
-        char = key.char.lower()
-        user_confirmation_char = char
-        return False
+    @staticmethod
+    def generate_id() -> str:
+        return str(uuid.uuid4())
 
 
-def on_key_press(key):
-    global shift_pressed, ctrl_pressed
-    if key == pynput.keyboard.Key.shift:
-        shift_pressed = True
-    if key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
-        ctrl_pressed = True
-    
-def on_key_release(key):
-    global current_line, message_lines, shift_pressed, ctrl_pressed
-
-    if key == pynput.keyboard.Key.enter and not shift_pressed:
-        if current_line:
-            message_lines.append(current_line)
-            current_line = ""
-        return False
-    elif key == pynput.keyboard.Key.enter and shift_pressed:
-        message_lines.append(current_line)
-        current_line = ""
-    elif key == pynput.keyboard.Key.backspace:
-        current_line = current_line[:-1]
-    elif key == pynput.keyboard.Key.shift:
-        shift_pressed = False
-    elif key == pynput.keyboard.Key.ctrl_l or key == pynput.keyboard.Key.ctrl_r:
-        ctrl_pressed = False
-    elif ctrl_pressed and shift_pressed and key == pynput.keyboard.KeyCode.from_char('V'):  # Handle the paste action
-        pasted_text = pyperclip.paste()
-        current_line += pasted_text
-        sys.stdout.write(pasted_text)
-        sys.stdout.flush()
-    elif key == pynput.keyboard.Key.space:  # Handle the space key
-        current_line += " "
-    elif ctrl_pressed and key == pynput.keyboard.KeyCode.from_char('c'):
-        return 
-    elif isinstance(key, pynput.keyboard.KeyCode):
-        current_line += key.char
-
-Tasks:
-1.Please add pydoc for this file on the top of file. Hint: the description can be summarized
-  from the public functions of this file. 
+The output format should be the filepath and updated code of file. The code should be in copiable code block
 
 2.Please add a pydoc for python function according to your understanding of each function achieves.
 Please follow PEP8.
