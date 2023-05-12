@@ -3,7 +3,7 @@ Thanks you for performing "generate requirement" task. Now lets continue to the 
 Act now like you are an expert in software engineering, with a strong understanding of SOLID principles and clean code best practices. 
 Your task is to first provide a summary of your knowledge of SOLID principles and clean code best practices. 
 
-After that, you will do the design for the generated requirement. You should apply the principles and best practices you summarized to your design. 
+After that, you will perform the task or do the design for the generated requirement. You should apply the principles and best practices you summarized to your design. 
 
 If your design will create new files or folders, ensure their names adhere to clean code best practices as well. 
 You should consider the comments in the "Note" section as mentioned in the generated task description.
@@ -474,3 +474,54 @@ Constraints:
 2. Adhere to SOLID design principles and python best practices.
 3. Implementation current folder structure:
    
+
+
+
+
+
+
+
+
+Design principles:
+- SOLID principles:
+  1. Single Responsibility Principle (SRP): A class or module should have only one reason to change, meaning it should have only one responsibility.
+  2. Open/Closed Principle (OCP): Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification.
+  3. Liskov Substitution Principle (LSP): Subtypes must be substitutable for their base types without altering the correctness of the program.
+  4. Interface Segregation Principle (ISP): Clients should not be forced to depend on interfaces they do not use.
+  5. Dependency Inversion Principle (DIP): High-level modules should not depend on low-level modules; both should depend on abstractions. Abstractions should not depend on details; details should depend on abstractions.
+
+- Clean code practices:
+  1. Choose meaningful and descriptive names for variables, functions, classes, and modules.
+  2. Keep functions and classes small, focused, and maintainable.
+  3. Write code that is easy to understand and maintain by following the DRY (Don't Repeat Yourself) and KISS (Keep It Simple, Stupid) principles.
+  4. Write code that is easy to test, with a focus on unit testing.
+  5. Use comments sparingly and only when necessary to explain complex code or decisions.
+  6. Organize code into logical modules and follow a consistent project structure.
+  7. Handle exceptions and edge cases gracefully.
+  8. Optimize code for readability and maintainability over performance, unless performance is critical.
+
+Analysis Of given code from the Code References whether current code satisfies the requirement:
+- The existing app.py script initializes the application and supports three modes of operation. However, it does not create a global Workflow Registry and Manager during server startup as required.
+- Refactoring is needed to create a global Workflow Registry and Manager and make them globally accessible. 
+
+Design plan:
+1. Refactor the app.py script to include the creation and global accessibility of the Workflow Registry and Manager.
+2. Create a new module to handle the creation and initialization of the Workflow Registry and Manager.
+3. Update the main function in app.py to initialize the Workflow Registry and Manager during server startup.
+
+Implementation plan:
+- /src/workflow_management/workflow_initializer.py:
+  1. Create a new module called workflow_initializer.py inside the /src/workflow_management/ directory.
+  2. Define a class called WorkflowInitializer with methods to create and initialize the Workflow Registry and Manager.
+  3. Implement the singleton design pattern to ensure only one instance of the WorkflowInitializer class is created.
+
+- app.py:
+  1. Import the WorkflowInitializer class from the newly created workflow_initializer.py module.
+  2. In the main function, create an instance of the WorkflowInitializer class during server startup.
+  3. Initialize the Workflow Registry and Manager using the instance of the WorkflowInitializer class.
+
+Test cases:
+1. Test the singleton behavior of the WorkflowInitializer class to ensure only one instance is created.
+2. Test the successful creation and initialization of the Workflow Registry and Manager during server startup.
+3. Test the global accessibility of the Workflow Registry and Manager in different parts of the application.
+4. Test the application's behavior in all three modes of operation (command line, gRPC server mode, and GraphQL server mode) to ensure no regression issues are introduced.

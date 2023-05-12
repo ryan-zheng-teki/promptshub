@@ -1,19 +1,137 @@
-1. I ask chatgpt to give me the template. It actually generates the promp template for me
-Test Error Analysis Request (Step-by-Step)**
+1. I ask chatgpt to give me the template. It actually generates the promp template 
+
+I got some error when run pytest, i will give you releveant error message, the test function itself, fixtures if present, and the function implementation under test
 Error message:
 ```
-
+============================================================== ERRORS ==============================================================
+_____________________________________ ERROR collecting tests/manager/test_workflow_manager.py ______________________________________
+tests/manager/test_workflow_manager.py:7: in <module>
+    class TestWorkflow(BaseWorkflow):
+tests/manager/test_workflow_manager.py:10: in TestWorkflow
+    'stage1': StageTemplateConfig(stage_class=Stage1),
+E   NameError: name 'StageTemplateConfig' is not defined
+===================================================== short test summary info ======================================================
+ERROR tests/manager/test_workflow_manager.py - NameError: name 'StageTemplateConfig' is not defined
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+========================================================= 1 error in 0.07s =========================================================
 ```
 Relevant code:
 ```python
 # Test function
-[Paste the test function code here]
-# Fixtures and helper functions (if any)
-[Paste any fixtures or helper functions used in the test here]
-# Code being tested
-[Paste the code being tested here]
-```
+def test_new_workflow_instance_is_initialized_correctly(workflow_manager):
+    workflow_id = workflow_manager.initialize_workflow("test_workflow")
+    assert workflow_id is not None
 
+
+# Fixtures and helper functions (if any)
+import pytest
+from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
+from llm_workflow_core.manager.workflow_manager import WorkflowManager
+from llm_workflow_core.types.base_workflow import BaseWorkflow
+from llm_workflow_core.types.workflow_template_config import StageTemplateConfig
+from tests.types.test_workflow_instance import Stage1, Stage2
+
+
+class TestWorkflow(BaseWorkflow):
+    config = {
+        'stages': {
+            'stage1': StageTemplateConfig(stage_class=Stage1),
+            'stage2': StageTemplateConfig(stage_class=Stage2)
+        }
+    }
+
+@pytest.fixture
+def workflow_registry():
+    registry = WorkflowRegistry()
+    registry.register_workflow("test_workflow", TestWorkflow, {})
+    return registry
+
+
+@pytest.fixture
+def workflow_manager(workflow_registry):
+    return WorkflowManager(workflow_registry)
+
+
+def test_workflow_manager_is_initialized_with_given_workflow_registry(workflow_registry):
+    workflow_manager = WorkflowManager(workflow_registry)
+    assert isinstance(workflow_manager, WorkflowManager)
+
+
+def test_new_workflow_instance_is_initialized_correctly(workflow_manager: WorkflowManager):
+    workflow_id = workflow_manager.initialize_workflow("test_workflow")
+    assert workflow_id is not None
+
+
+
+@pytest.fixture
+def stages_config():
+    return {
+        'stage1': StageTemplateConfig(stage_class=Stage1),
+        'stage2': StageTemplateConfig(stage_class=Stage2)
+    }
+
+@pytest.fixture
+def workflow():
+    return BaseWorkflow()
+
+# Code being tested
+"""
+workflow_manager.py: Provides a WorkflowManager class to manage and execute workflows using the WorkflowRegistry.
+
+The WorkflowManager class enables the management and execution of different workflows registered in a WorkflowRegistry instance. It allows users to initialize workflows, execute stages within workflows, and store workflow instances.
+
+Features:
+- Initialize a WorkflowManager instance with a given WorkflowRegistry.
+- Initialize a new workflow instance using a registered workflow class and configuration.
+- Execute a specific stage within a workflow using its id.
+- Store and manage workflow instances using a dictionary.
+"""
+
+from typing import Dict
+from llm_workflow_core.types.base_workflow import BaseWorkflow
+from llm_workflow_core.types.workflow_instance import WorkflowInstance
+from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
+from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
+
+class WorkflowManager:
+    def __init__(self, workflow_registry: WorkflowRegistry):
+        """
+        Initialize a WorkflowManager instance with a given WorkflowRegistry.
+
+        :param workflow_registry: A WorkflowRegistry instance for loading and managing workflows.
+        """
+        self.workflow_registry = workflow_registry
+        self.workflow_instances: Dict[str, WorkflowInstance] = {}
+
+    def initialize_workflow(self, name: str) -> str:
+        """
+        Initialize a new workflow instance using a registered workflow class and configuration.
+
+        :param name: The name of the registered workflow to initialize.
+        :return: The id of the initialized workflow instance.
+        """
+        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
+        config: WorkflowTemplateStagesConfig = workflow_class.config
+        workflow_instance = WorkflowInstance(workflow_class(), config['stages'])
+        self.workflow_instances[workflow_instance.workflow.id] = workflow_instance
+        return workflow_instance.workflow.id
+
+    def execute_stage(self, workflow_id: str, stage_id: str) -> str:
+        """
+        Execute a specific stage within the workflow using its id.
+
+        :param workflow_id: The id of the workflow.
+        :param stage_id: The id of the stage to execute.
+        :return: The stage result or an error message if the workflow_id is invalid.
+        """
+        workflow_instance = self.workflow_instances.get(workflow_id)
+        if workflow_instance:
+            return workflow_instance.execute_stage(stage_id)
+        else:
+            return f"Invalid workflow_id: {workflow_id}"
+
+
+```
 You can use the following approach to analyse the issue. You can run the logic step by step,
 look at the output for each step, then you might be able to find what is the causing the issue.
     

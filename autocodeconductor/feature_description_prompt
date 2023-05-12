@@ -33,203 +33,148 @@ Provide the complete output in a copiable preformatted text block.
 Task description:
 
 ```
-previously we have implemented half finished configurable workflow design. Here are the codes
+we have implemented llm_workflow_core library which contains a workflow registry and workflow manager. 
 
-llm_workflow_core/registry/workflow_registry.py
+To know how to use it, we have a test class created.
+import pytest
+from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
+from llm_workflow_core.manager.workflow_manager import WorkflowManager
+from automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
+
+@pytest.fixture
+def workflow_registry():
+    registry = WorkflowRegistry()
+    # When: Registering the AutomatedCodingWorkflow
+    workflow_package = "automated_coding_workflow"
+
+    # When: Loading the workflow using the WorkflowRegistry
+    config = {"workflows": {"enabled_workflows": [workflow_package]}}
+    registry.load_enabled_workflows(config)
+    return registry
+
+
+@pytest.fixture
+def workflow_manager(workflow_registry):
+    return WorkflowManager(workflow_registry)
+
+def test_given_valid_workflow_name_when_initializing_workflow_then_workflow_instance_is_created_and_stages_are_executed_correctly(workflow_manager: WorkflowManager):
+    # Initialize the workflow
+    workflow_id = workflow_manager.initialize_workflow("automated_coding_workflow")
+    assert workflow_id is not None
+
+    # Execute the stages in the correct order
+    requirement_result = workflow_manager.execute_stage(workflow_id, "requirement")
+
+    requirement_refine_result = workflow_manager.execute_stage(workflow_id, "refine")
+
+    design_result = workflow_manager.execute_stage(workflow_id, "design")
+
+    test_generation_result = workflow_manager.execute_stage(workflow_id, "test_generation")
+
+    implementation_result = workflow_manager.execute_stage(workflow_id, "implementation")
+
+    testing_result = workflow_manager.execute_stage(workflow_id, "testing")
+
+
+Now we need to integrate this to our server application which use app.py as the entery.
 """
-workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
+app.py: The main entry point for a Python application with three modes of operation: command line, gRPC server mode, and GraphQL server mode.
 
-The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
+The script allows users to:
+- Interact with a chat system through PuppeteerLLMIntegration in command line mode.
+- Run a gRPC server for AutomatedCodingWorkflowService in gRPC server mode.
+- Run a FastAPI server with GraphQL endpoints using the Strawberry GraphQL library in GraphQL server mode.
 
-Features:
-- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
-- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
-- Register a workflow with a given name, class, and configuration.
-- Retrieve the workflow class for a given name.
-- Retrieve the workflow configuration for a given name.
+The mode, configuration file, server hostname, and port are specified through command line arguments. The script parses these arguments and executes the appropriate mode function with the necessary parameters.
+
+Usage:
+- For command line mode: python app.py --mode commandline
+- For gRPC server mode: python app.py --mode grpcserver --host 127.0.0.1 --port 50051
+- For GraphQL server mode: python app.py --mode graphqlserver --host 127.0.0.1 --port 8000
 """
 
-from typing import Dict
-from importlib import import_module
+import argparse
+import os
+import sys
+import logging
+
 from pathlib import Path
+import sys
 
-class WorkflowRegistry:
-    """
-    A registry for managing and loading workflows from a specified folder.
-    """
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-    def __init__(self):
-        """
-        Initialize the registry with empty dictionaries for workflows and configurations.
-        """
-        self.workflows: Dict[str, type] = {}
-        self.configs: Dict[str, dict] = {}
+from src.startup_mode.cli_mode import command_line_mode
+from src.startup_mode.grpc_server_mode import grpc_server_mode
+from src.startup_mode.graphql_server_mode import graphql_server_mode
+from src.config.config import config
 
-    def load_installed_workflows(self, folder: str = "installed_workflows"):
-        """
-        Load workflows from the specified folder by importing their modules and registering
-        their classes and configurations.
+# Set up logging
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
-        :param folder: The folder containing installed workflows.
-        """
-        installed_workflows_folder = Path(folder)
-        for workflow in installed_workflows_folder.iterdir():
-            if not workflow.is_dir():
-                continue
+def parse_command_line_arguments():
+    parser = argparse.ArgumentParser(description='Python app with three modes: command line, gRPC server mode, and GraphQL server mode.')
+    parser.add_argument('--mode', choices=['commandline', 'grpcserver', 'graphqlserver'], help='Select the mode to run the app', required=True)
+    parser.add_argument('--host', help='Server hostname', default='127.0.0.1')
+    parser.add_argument('--port', type=int, help='Server port', default=8000)
 
-            module_path = f"{workflow.parent.name}.{workflow.name}.workflow"
-            try:
-                module = import_module(module_path)
-                workflow_class = getattr(module, "Workflow")
-                workflow_config = getattr(module, "WORKFLOW_CONFIG")
-                self.register_workflow(workflow.name, workflow_class, workflow_config)
-            except (ModuleNotFoundError, AttributeError) as e:
-                print(f"Error loading workflow from {module_path}: {e}")
+    return parser.parse_args()
 
-    def register_workflow(self, name: str, workflow_class: type, config: dict):
-        """
-        Register a workflow with the given name, class, and configuration.
+def main():
+    args = parse_command_line_arguments()
+    
+    if args.mode == 'commandline':
+        command_line_mode(config)
+    elif args.mode == 'grpcserver':
+        grpc_server_mode(config, args.host, args.port)
+    elif args.mode == 'graphqlserver':
+        graphql_server_mode(config, args.host, args.port)
+    else:
+        print("Invalid mode selected.")
+        sys.exit(1)
 
-        :param name: The name of the workflow.
-        :param workflow_class: The workflow class.
-        :param config: The workflow configuration.
-        """
-        self.workflows[name] = workflow_class
-        self.configs[name] = config
+if __name__ == "__main__":
+    main()
 
-    def get_workflow_class(self, name: str) -> type:
-        """
-        Retrieve the workflow class for the given name.
 
-        :param name: The name of the workflow.
-        :return: The workflow class.
-        """
-        return self.workflows[name]
+The task is to create a  workflow registry, and manager during server startup. The created registry 
+and manager needs to be globally accessible. So you need to do design based on current app.
 
-    def get_workflow_config(self, name: str) -> dict:
-        """
-        Retrieve the workflow configuration for the given name.
-
-        :param name: The name of the workflow.
-        :return: The workflow configuration.
-        """
-        return self.configs[name]
 
 ```
-llm_workflow_core/manager/workflow_manager.py
-
-from ..types.base_workflow import BaseWorkflow
-from ..registry.workflow_registry import WorkflowRegistry
-
-
-class WorkflowManager:
-    def __init__(self, workflow_registry: WorkflowRegistry):
-        self.workflow_registry = workflow_registry
-
-    def initialize_workflow(self, name: str):
-        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
-        return workflow_class()
-
-llm_workflow_core/types/base_workflow.py
-"""
-base_workflow.py: Provides a BaseWorkflow class to be used as a base class for custom workflows.
-
-The BaseWorkflow class offers a foundation for creating custom workflows with unique IDs, status, and configuration.
-"""
-
-from enum import Enum
-from utils.unique_id_generator import UniqueIDGenerator
-from .config_types import WorkflowStagesConfig
-
-
-class WorkflowStatus(Enum):
-    """
-    Enumeration representing the status of a workflow.
-    """
-    Success = 'Success'
-    Started = 'Started'
-    Failure = 'Failure'
-
-
-class BaseWorkflow:
-    """
-    A base class for custom workflows with unique IDs, status, and configuration.
-    """
-
-    name = None
-    config = None
-
-    def __init__(self):
-        """
-        Initialize a BaseWorkflow instance with a unique ID and status.
-        """
-        self.id = UniqueIDGenerator.generate_id()
-        self.status = None
-
-    @classmethod
-    def set_workflow_name(cls, name: str):
-        cls.name = name
-
-    @classmethod
-    def set_workflow_config(cls, config: WorkflowTemplateStagesConfig):
-        cls.config = config
-
-    def get_workflow_status(self):
-        """
-        Get the current status of the workflow.
-
-        Returns:
-            WorkflowStatus: The current status of the workflow.
-        """
-        return self.status
-
-    def start_workflow(self):
-        """
-        Set the status of the workflow to Started and raise a NotImplementedError for derived classes to implement.
-        """
-        self.status = WorkflowStatus.Started
-        raise NotImplementedError("start_workflow method must be implemented in derived classes")
-
-    def execute_stage(self, stage_config: dict):
-        """
-        Execute a stage in the workflow and raise a NotImplementedError for derived classes to implement.
-
-        Args:
-            stage_config (dict): The configuration of the stage to be executed.
-        """
-        raise NotImplementedError("execute_stage method must be implemented in derived classes")
-
-"""
-config_types.py
-This module contains the type definitions for the workflow configuration templates.
-"""
-
-from typing import TypedDict, Dict, Type, Union
-from .base_stage import BaseStage
-
-
-class StageTemplateConfig(TypedDict, total=False):
-    stage_class: Type[BaseStage]
-    stages: Dict[str, 'StageTemplateConfig']
-
-
-class WorkflowTemplateStagesConfig(TypedDict, total=False):
-    stages: Dict[str, StageTemplateConfig]
-
-currently llm_workflow_core is packaged as a separate python package. How user will use this
-package is that they will use WorkflowRegistry to get the available installed workflows, which
-means they can see all the available workflow configurations.
-
-A workflow can be created by just giving the name of the workflow. When the workflow is being
-created, one workflow instance will be created. Internally, the workflow creation will involve
-creating all the stages instances as well.
-
-A workflow instance can be started by giving the workflow unique id
-A workflow stage can be executed by giving the workflow id, and stage id
-
-
 
 Can you combine this requirement with the Task Description from the "refining and enhancing task descriptions" task, and reperform the "refining and enhancing task descriptions" task?
 
 
 thank you for generating the optimized prompts. Now please execute the task defined by the optimized prompt
+
+
+
+
+
+
+
+Title: Integrate Workflow Registry and Manager into the Server Application
+
+Objective:
+- Create and integrate a global Workflow Registry and Manager into the server application during server startup.
+
+Background:
+- The llm_workflow_core library has been implemented, which contains a workflow registry and workflow manager. A test class has been created to demonstrate how to use it.
+
+Requirements:
+- Update the server application's startup process to create a global Workflow Registry and Manager during initialization.
+- Ensure that the created registry and manager are globally accessible.
+- Design the integration based on the current app structure.
+
+Constraints:
+- The server application uses app.py as the main entry point.
+- The application has three modes of operation: command line, gRPC server mode, and GraphQL server mode.
+
+Code References:
+- path: llm_workflow_core/test/test_workflow.py
+  description: Test class for llm_workflow_core library usage
+  code: (The complete code block containing pytest.fixture and test_given_valid_workflow_name_when_initializing_workflow_then_workflow_instance_is_created_and_stages_are_executed_correctly function)
+
+- path: app.py
+  description: The main entry point for the server application with three modes of operation
+  code: (The complete code block from the task description containing import statements, parse_command_line_arguments function, and main function)

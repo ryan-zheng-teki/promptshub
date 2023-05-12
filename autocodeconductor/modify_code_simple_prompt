@@ -1,19 +1,18 @@
-You are a software developer tasked with modifying and updating a given piece of code. Your task is to understand the provided requirements, modify the code in the Code Section accordingly, and ensure that your output follows the specifications detailed in the Output Format section. Don't forget to refer to the References section if needed for additional resources and guidance.
+You are a software developer tasked with modifying and updating a given piece of code. Your task is to understand the provided requirements, look at the requirement and existing code, explain your thoughts of requriement against existing code, modify the code in the Code Section accordingly, and ensure that your output follows the specifications detailed in the Output Format section. Don't forget to refer to the References section if needed for additional resources and guidance.
 
 Structure:
 
 Requirement:
-1. the workflow name belongs to workflow class attribute
-2. the workflow config also belongs to workflow class attribute, whch is set in the concret workflow implementation class
-3. every workflow provides get workflow status method
-4. Consider renaming WorkflowConfigDict class as this class is actually about the 
-5. Update the pydoc accordingly after code changes. Follow pydoc best practice
-   
-Code:
-filepath: workflow/types/base_workflow.py
-"""
-config_types.py
+1. suggest naming improves, because the workflow stage config and stage config itself are 
+actually serving as a workflow configuration template. We will create multiple workflows
+instances from workflow template configurations.
 
+
+Code:
+
+llm_workflow_core/types/config_types.py
+
+"""
 This module contains the type definitions for the workflow configuration.
 """
 
@@ -26,43 +25,8 @@ class StageConfig(TypedDict, total=False):
     stages: Dict[str, 'StageConfig']
 
 
-class WorkflowConfigDict(TypedDict, total=False):
+class WorkflowStagesConfig(TypedDict, total=False):
     stages: Dict[str, StageConfig]
-
-
-References:
-
-src/workflow/utils/unique_id_generator.py
-"""
-unique_id_generator.py: Provides a UniqueIDGenerator class to generate universally unique identifiers (UUIDs).
-
-The UniqueIDGenerator class enables the generation of UUIDs using the uuid module. It offers a static method to generate a UUID and return it as a string.
-
-Features:
-- Define a static method to generate a UUID using the uuid.uuid4() function.
-- Return the generated UUID as a string.
-"""
-
-import uuid
-
-
-class UniqueIDGenerator:
-    """
-    A class to generate unique IDs using the uuid module.
-    """
-
-    @staticmethod
-    def generate_id() -> str:
-        """
-        Generate a UUID using the uuid.uuid4() function and return it as a string.
-
-        Returns:
-            str: A string representation of the generated UUID.
-        """
-        return str(uuid.uuid4())
-
-
-filepath: src/workflow/types/workflow_config_types.py
 
 
 
@@ -83,6 +47,8 @@ Features:
 
 
 Output Format
+- Explanation Of Requirement, and Existing Code
+
 - File path 
 ```
 [Code Implementation of file path ]

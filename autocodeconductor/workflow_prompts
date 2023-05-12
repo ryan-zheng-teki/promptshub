@@ -107,20 +107,59 @@ Now please evaludate the design plan you created from above. Share your opinion 
 the problems with the overall design plan. 
 
 
-1. update requirement after reviewing the design plan and corresponding code from the implementation plan.
+1. update requirement after reviewing the design plan and  the implementation plan.
    After reviewing reviewing the design and implementated code. I want to  update my requirement. 
    
    "
-   please rename the process
+   The stage of the workflow by default only shows the name. If the user click the stage, then the stage editor is shown on the right side the stage.
+   Then the user is able to see the details of the stage. Able to edit the stage.
    "
-   At last, please output the filepath and the complete code of each updated file in python code block, so i can copy and paste
+
+   Based on this, could you please regenerate the requirement description
 
 2. Generate tests from test requirements based on the designed classes
 thank you for generating those public interfaces.  All tests should follow pytest best practice. Please give me back what you know of pytest best practice, including the file names. Please generate the test for each test case.
 
 8.requirement consolidatation(change last consolidated to original if update requriement for the first time)
 until so far, i have updated the original requirement a few times through our conversations. Could you please
-merge all the updated requiremnt to the lasted consolidated one. and give me back a new requirement description. Please follow still the original requriement format.
+merge all the updated requiremnt to the lasted consolidated one. and give me back a new requirement description. Please follow still the original requriement format. To remind you about the requirement ticket format, i will paste it here again
+```
+You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, effectiveness, and optimal structure. Your task is to analyze the provided task description enclosed with three backticks, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+
+Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
+
+You should incorporate all information, including codes, from the original task description in the output, as it will be stored in a third-party platform for later reference. 
+
+For instance, if you recognize file paths and codes in the task description, move the codes to the 'Code References' section under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
+
+Use the following format for the output:
+
+Title: [Title of the task]
+
+Objective:
+- [Objective of the task]
+
+Background:
+- [Background information related to the task]
+
+Requirements:
+- [List of requirements for the task]
+
+Constraints:
+- [List of constraints or limitations for the task]
+
+Code References: (if codes exist in the task description)
+- path
+- description
+- code (complete code for the file given in the task description)
+
+
+Provide the complete output in a copiable preformatted text block.
+
+Task description:
+
+```
+
 
 starting from the second time:until so far, i have updated the last consolidated requirement a few times. Could you please
 merge all the updated requiremnt to the lasted consolidated one. and give me back a new requirement description. Please follow still the earliest requriement format.

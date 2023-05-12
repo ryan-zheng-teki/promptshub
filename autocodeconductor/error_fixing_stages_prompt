@@ -1,8 +1,107 @@
-Run i run the command 
-Command:
-```
-```
+1. problem description
+when i access the graphql console after starting our src/app.py 
 
-I get the following error
-```
-```
+When i run the following query in http://localhost:8000/graphql
+
+query MyQuery {
+  workflowConfig {
+    design {
+      stageClass
+    }
+    implementation {
+      stageClass
+    }
+    requirement {
+      stageClass
+    }
+    testGeneration {
+      stageClass
+    }
+    testing {
+      stageClass
+    }
+  }
+}
+
+I got the following error
+{
+  "data": null,
+  "errors": [
+    {
+      "message": "'dict' object has no attribute 'design'",
+      "locations": [
+        {
+          "line": 3,
+          "column": 5
+        }
+      ],
+      "path": [
+        "workflowConfig",
+        "design"
+      ]
+    }
+  ]
+}
+
+The src/graphql/schema.py  looks like
+@strawberry.type
+class Stage:
+    stage_class: str
+
+@strawberry.type
+class WorkflowStage:
+    refine: Stage
+
+@strawberry.type
+class Requirement:
+    stage_class: str
+    stages: WorkflowStage
+
+@strawberry.type
+class WorkflowConfig:
+    requirement: Requirement
+    design: Stage
+    test_generation: Stage
+    implementation: Stage
+    testing: Stage
+
+# Define GraphQL schema with query and mutation
+@strawberry.type
+class Query:
+    @strawberry.field
+    def workflow_config(self) -> WorkflowConfig:
+        return WORKFLOW_CONFIG
+
+src/workflow/workflow_config.py contains
+WORKFLOW_CONFIG: WorkflowConfigDict = {
+    'requirement': {
+        'stage_class': RequirementStage,
+        'stages': {
+            'refine': {
+                'stage_class': RequirementRefineStage,
+            },
+        },
+    },
+    'design': {
+        'stage_class': DesignStage,
+    },
+    'test_generation': {
+        'stage_class': TestGenerationStage,
+    },
+    'implementation': {
+        'stage_class': ImplementationStage,
+    },
+    'testing': {
+        'stage_class': TestingStage,
+    },
+}
+ 
+Please give me first the reason why this error happens, then propose the suggestions to fix the error. At last, please give me back the improved codes 
+in copiable code block
+
+Notes:
+Sometimes fixing does not mean just fixing the code directly. Best practice sometimes involves again refactoring, restructuring, redesigning which 
+follows clean code principles, and SOLID principles in software engineering
+
+
+

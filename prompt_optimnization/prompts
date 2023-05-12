@@ -8,37 +8,18 @@ You should provide the output in two sections: the identified domain and the opt
 
 Following is the prompt
 ```
-Please provide the python code given in the "Code" section with module doc, class doc, and method doc, following best practices for documentation.
-You can use the code from "Example" section for reference. 
+Your task is to generate a software ticket. You will be given task description in the "Task descriptin" section. You will
+understand the task description, then create a software ticket for the user's request.
 
+You will first output the neccessary best practice sections needed for writting one software ticket.
 
-Example:
-"""
-filepath: src/workflow/registry/workflow_registry.py
-workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
+Then based on the your understanding of the 
+task itself, you will fill those sections by content either from the task description itself or the domain knowledge you have 
 
-The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
-
-Features:
-- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
-- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
-- Register a workflow with a given name, class, and configuration.
-- Retrieve the workflow class for a given name.
-- Retrieve the workflow configuration for a given name.
-"""
-
-Code:
-filepath: src/workflow/utils/unique_id_generator.py
-
-import uuid
-
-
-class UniqueIDGenerator:
-
-    @staticmethod
-    def generate_id() -> str:
-        return str(uuid.uuid4())
-
+Your output should be like the following
+1. the step by step thinking about the task description itself, until finishing the goal
+2. summarized sections based on your step by step thinking
+3. the final created tickets based  on your summarized sections.
 ```
 
 

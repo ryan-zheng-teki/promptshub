@@ -19,16 +19,40 @@ Features:
 """
 
 Code:
-filepath: src/workflow/utils/unique_id_generator.py
 
-import uuid
+from typing import Dict
+from llm_workflow_core.types.base_workflow import BaseWorkflow
+from llm_workflow_core.types.workflow_instance import WorkflowInstance
+from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
+from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
 
 
-class UniqueIDGenerator:
+class WorkflowManager:
+    def __init__(self, workflow_registry: WorkflowRegistry):
+        self.workflow_registry = workflow_registry
+        self.workflow_instances: Dict[str, WorkflowInstance] = {}
 
-    @staticmethod
-    def generate_id() -> str:
-        return str(uuid.uuid4())
+    def initialize_workflow(self, name: str) -> str:
+        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
+        config: WorkflowTemplateStagesConfig = workflow_class.config
+        workflow_instance = WorkflowInstance(workflow_class(), config['stages'])
+        self.workflow_instances[workflow_instance.workflow.id] = workflow_instance
+        return workflow_instance.workflow.id
+
+    def execute_stage(self, workflow_id: str, stage_id: str) -> str:
+        """
+        Execute a specific stage within the workflow using its id.
+
+        :param workflow_id: The id of the workflow.
+        :param stage_id: The id of the stage to execute.
+        :return: The stage result or an error message if the workflow_id is invalid.
+        """
+        workflow_instance = self.workflow_instances.get(workflow_id)
+        if workflow_instance:
+            return workflow_instance.execute_stage(stage_id)
+        else:
+            return f"Invalid workflow_id: {workflow_id}"
+
 
 
 The output format should be the filepath and updated code of file. The code should be in copiable code block
@@ -46,7 +70,7 @@ Prompt: Continue from last unfinished area
 Please finish the rest of the code, only output starting from the unfinished part. 
 Please do not start all over from the beginning. 
 
-2. Bug fixing
+1. Bug fixing
 Given function _on_key_release_single_char in file input_message_handler.py 
 def _on_key_release_single_char(key):
     """
