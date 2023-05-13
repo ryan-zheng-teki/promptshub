@@ -1,0 +1,161 @@
+12
+You are a developer who needs to  Python code with well-documented module, class, and method docs. Your task is to follow best practices for documentation by including the module doc, class doc, and method doc for the file path given in "Code" section.
+
+Ensure that the documentation is clear and effective, making it easy for others to understand the purpose and functionality of the code. Use the provided "Example" section for reference on how to structure your documentation. 
+
+Example:
+"""
+filepath: src/workflow/registry/workflow_registry.py
+workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
+
+The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
+
+Features:
+- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
+- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
+- Register a workflow with a given name, class, and configuration.
+- Retrieve the workflow class for a given name.
+- Retrieve the workflow configuration for a given name.
+"""
+
+Code:
+
+from typing import Dict
+from llm_workflow_core.types.base_workflow import BaseWorkflow
+from llm_workflow_core.types.workflow_instance import WorkflowInstance
+from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
+from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
+
+
+class WorkflowManager:
+    def __init__(self, workflow_registry: WorkflowRegistry):
+        self.workflow_registry = workflow_registry
+        self.workflow_instances: Dict[str, WorkflowInstance] = {}
+
+    def initialize_workflow(self, name: str) -> str:
+        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
+        config: WorkflowTemplateStagesConfig = workflow_class.config
+        workflow_instance = WorkflowInstance(workflow_class(), config['stages'])
+        self.workflow_instances[workflow_instance.workflow.id] = workflow_instance
+        return workflow_instance.workflow.id
+
+    def execute_stage(self, workflow_id: str, stage_id: str) -> str:
+        """
+        Execute a specific stage within the workflow using its id.
+
+        :param workflow_id: The id of the workflow.
+        :param stage_id: The id of the stage to execute.
+        :return: The stage result or an error message if the workflow_id is invalid.
+        """
+        workflow_instance = self.workflow_instances.get(workflow_id)
+        if workflow_instance:
+            return workflow_instance.execute_stage(stage_id)
+        else:
+            return f"Invalid workflow_id: {workflow_id}"
+
+
+
+The output format should be the filepath and updated code of file. The code should be in copiable code block
+
+2.Please update the pydoc for the given python code in the "Code" section. You can first explain your understanding of the code itself, then add update the doc
+    
+Code:
+```
+"""
+automated_coding_workflow.py: Contains the AutomatedCodingWorkflow class, which represents the main entry point for running the automated coding workflow.
+"""
+
+from enum import Enum
+from typing import Dict, Optional
+from src.automated_coding_workflow.config import WORKFLOW_CONFIG
+from src.llm_integrations.base_llm_integration import BaseLLMIntegration
+from src.workflow_types.types.base_stage import BaseStage
+from src.workflow_types.types.workflow_template_config import StageTemplateConfig
+
+class WorkflowStatus(Enum):
+    """
+    Enumeration representing the status of a workflow.
+    """
+    Success = 'Success'
+    Started = 'Started'
+    Failure = 'Failure'
+
+class AutomatedCodingWorkflow:
+    """
+    A class to represent a fully automated coding workflow.
+    """
+
+    name = "automated_coding_workflow"
+    config = WORKFLOW_CONFIG
+
+    """
+    A class to manage and execute workflows composed of multiple stages.
+
+    Attributes:
+        workflow (BaseWorkflow): The workflow configuration containing stage information.
+        stages (Dict[str, BaseStage]): A dictionary of stage instances keyed by their stage IDs.
+    """
+
+    def __init__(self, llm_integration: BaseLLMIntegration):
+        self.llm_integration = llm_integration
+        self.stages: Dict[str, BaseStage] = {}
+        self._initialize_stages(AutomatedCodingWorkflow.config['stages'])
+
+    def _initialize_stages(self, stages_config: Dict[str, StageTemplateConfig]):
+        for stage_id, stage_config in stages_config.items():
+            stage_class = stage_config['stage_class']
+            stage_instance:BaseStage = stage_class(self.workflow)
+            self.stages[stage_id] = stage_instance
+
+            if 'stages' in stage_config:
+                self._initialize_stages(stage_config['stages'])
+
+    def execute_stage(self, stage_id: str) -> Optional[str]:
+        """
+        Execute a specific stage within the workflow using its ID.
+
+        :param stage_id: The ID of the stage to execute.
+        :return: The stage result or None if the stage_id is invalid.
+        :raises ValueError: If the provided stage_id is invalid.
+        """
+        stage = self.stages.get(stage_id)
+        if stage:
+            return stage.execute()
+        else:
+            raise ValueError(f"Invalid stage_id: {stage_id}")
+
+```
+    
+Please follow PEP8.
+
+3.Please consider refactoring: according to the following criterias
+(1) prefix the names of internal methods and attributes with an underscore (_).
+
+Output: the complete modified code in a single copiable code block, so i can copy and paste.
+
+
+Prompt: Continue from last unfinished area
+Please finish the rest of the code, only output starting from the unfinished part. 
+Please do not start all over from the beginning. 
+
+1. Bug fixing
+Given function _on_key_release_single_char in file input_message_handler.py 
+def _on_key_release_single_char(key):
+    """
+    Handles key releases in single character input mode.
+
+    Args:
+        key: The key released by the user.
+    """
+    global _user_confirmation_char
+
+    if isinstance(key, pynput.keyboard.KeyCode):
+        char = key.char.lower()
+        _user_confirmation_char = char
+        return False
+    
+current behavior: When i hit  y, and release y, then the logic immediately continues
+additional requriement: After release y, the user should also hit enter, then to logic continues 
+propose changes and give reason to validate your changes against the requirement.
+hint: Please check previous conversation about similar code implementations
+Output: the complete modified code in a single copiable code block, so i can copy and paste. 
