@@ -1,93 +1,64 @@
-12
-You are a developer who needs to provide Python code with well-documented module, class, and method docs. Your task is to follow best practices for documentation by including the module doc, class doc, and method doc for the file path given in "Code" section.
+The task name is 'CodeDocumentationEnhancement'. In this task, you will perform a thorough analysis and improvement of given code, following the principles of documentation best practices.
 
-Ensure that the documentation is clear and effective, making it easy for others to understand the purpose and functionality of the code. Use the provided "Example" section for reference on how to structure your documentation. 
+Your task begins with the analysis of the code provided in the "Code" section. Identify the programming language employed in the code and note this down in the "Language" section.
 
-Example:
-"""
-filepath: src/workflow/registry/workflow_registry.py
-workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
+Next, using the best practice guidelines specific to the detected language, enhance the code by adding appropriate documentation. Ensure that this documentation starts with a file doc at the beginning of the file; the nature of the file doc will vary based on the programming language.
 
-The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
+Finally, output your modified, documented code. This should be formatted within a code block for clarity. Remember, the aim is to enhance readability and understanding of the code through the addition of effective documentation.
 
-Features:
-- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
-- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
-- Register a workflow with a given name, class, and configuration.
-- Retrieve the workflow class for a given name.
-- Retrieve the workflow configuration for a given name.
-"""
+Lnaguage:
+[ detected language]
 
 Code:
+# src/services/grpc_service.py
+"""
+grpc_service.py: Provides a gRPC service implementation for the AutomatedCodingWorkflow.
+"""
 
-from typing import Dict
-from llm_workflow_core.types.base_workflow import BaseWorkflow
-from llm_workflow_core.types.workflow_instance import WorkflowInstance
-from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
-from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
+import src.proto.grpc_service_pb2 as automated_coding_workflow_pb2
+import src.proto.grpc_service_pb2_grpc as automated_coding_workflow_pb2_grpc
+from src.automated_coding_workflow.config import WORKFLOW_CONFIG
+from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
+from src.workflow_types.types.workflow_template_config import StageTemplateConfig
+
+class AutomatedCodingWorkflowService(automated_coding_workflow_pb2_grpc.AutomatedCodingWorkflowServiceServicer):
+    def __init__(self):
+        self.workflow = AutomatedCodingWorkflow()
+
+    def StartWorkflow(self, request, context):
+        self.workflow.start_workflow()
+        return automated_coding_workflow_pb2.StartWorkflowResponse(result="Workflow started successfully")
+
+    def GetWorkflowConfig(self, request, context):
+        return _build_workflow_config_protobuf()
+
+    def SetWorkspacePath(self, request, context):
+            try:
+                self.workflow.config.workspace_path = request.workspace_path
+                # You can add validation logic here
+                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=True)
+            except Exception as e:
+                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=False, error_message=str(e))
+
+def _build_workflow_config_protobuf():
+    workflow_config = automated_coding_workflow_pb2.GetWorkflowConfigResponse()
+
+    for stage_name, stage_data in WORKFLOW_CONFIG['stages'].items():
+        stage = _build_stage_protobuf(stage_name, stage_data)
+        workflow_config.stages.add().CopyFrom(stage)
+
+    return workflow_config
+
+def _build_stage_protobuf(stage_name: str, stage_data: StageTemplateConfig):
+    stage = automated_coding_workflow_pb2.Stage()
+    stage.stage_name = stage_name
+
+    stage.stage_class = stage_data["stage_class"].__name__
+    if "stages" in stage_data:
+        for substage_name, substage_data in stage_data["stages"].items():
+            substage = _build_stage_protobuf(substage_name, substage_data)
+            stage.stages.add().CopyFrom(substage)
+
+    return stage
 
 
-class WorkflowManager:
-    def __init__(self, workflow_registry: WorkflowRegistry):
-        self.workflow_registry = workflow_registry
-        self.workflow_instances: Dict[str, WorkflowInstance] = {}
-
-    def initialize_workflow(self, name: str) -> str:
-        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
-        config: WorkflowTemplateStagesConfig = workflow_class.config
-        workflow_instance = WorkflowInstance(workflow_class(), config['stages'])
-        self.workflow_instances[workflow_instance.workflow.id] = workflow_instance
-        return workflow_instance.workflow.id
-
-    def execute_stage(self, workflow_id: str, stage_id: str) -> str:
-        """
-        Execute a specific stage within the workflow using its id.
-
-        :param workflow_id: The id of the workflow.
-        :param stage_id: The id of the stage to execute.
-        :return: The stage result or an error message if the workflow_id is invalid.
-        """
-        workflow_instance = self.workflow_instances.get(workflow_id)
-        if workflow_instance:
-            return workflow_instance.execute_stage(stage_id)
-        else:
-            return f"Invalid workflow_id: {workflow_id}"
-
-
-
-The output format should be the filepath and updated code of file. The code should be in copiable code block
-
-2.Please add a pydoc for python function according to your understanding of each function achieves.
-Please follow PEP8.
-
-3.Please consider refactoring: according to the following criterias
-(1) prefix the names of internal methods and attributes with an underscore (_).
-
-Output: the complete modified code in a single copiable code block, so i can copy and paste.
-
-
-Prompt: Continue from last unfinished area
-Please finish the rest of the code, only output starting from the unfinished part. 
-Please do not start all over from the beginning. 
-
-1. Bug fixing
-Given function _on_key_release_single_char in file input_message_handler.py 
-def _on_key_release_single_char(key):
-    """
-    Handles key releases in single character input mode.
-
-    Args:
-        key: The key released by the user.
-    """
-    global _user_confirmation_char
-
-    if isinstance(key, pynput.keyboard.KeyCode):
-        char = key.char.lower()
-        _user_confirmation_char = char
-        return False
-    
-current behavior: When i hit  y, and release y, then the logic immediately continues
-additional requriement: After release y, the user should also hit enter, then to logic continues 
-propose changes and give reason to validate your changes against the requirement.
-hint: Please check previous conversation about similar code implementations
-Output: the complete modified code in a single copiable code block, so i can copy and paste. 

@@ -1,26 +1,25 @@
 Version 1:
 Lets forget about the previous conversations and start a new task
 
-You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose without changing the original meaning and tone. Optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text. The optimized prompt should begin with "You are..." followed by "Your task is..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
+You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose without changing the original meaning and tone. Optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text. The optimized prompt should begin with "The task name is ...,  In this task, you will perform ..., Your task is ..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
 
 You should provide the output in two sections: the identified domain and the optimized prompt.
 
 
 Following is the prompt
 ```
-Your task is to generate a software ticket. You will be given task description in the "Task descriptin" section. You will
-understand the task description, then create a software ticket for the user's request.
+When i run the command which is given in the "Command" section, I have the following error which is given in the "Error" section,  Please analyse the error against
+the codes given in the "ReferencedCode" section. You need to analyse step by step instead of coming to the 
+conclusion in one go. The approach is similar to the following
 
-You will first output the neccessary best practice sections needed for writting one software ticket.
+"From the error message, it is caused by. Now lets look at the source code. The 
+source code does this, does this, does this.
+Because balbala, then it causes this error.". You see, the reasoning process is given.
+Hence, i will modify the this code in order to fix the error. At last, you will
+give me back the modified code in copiable code block.
 
-Then based on the your understanding of the 
-task itself, you will fill those sections by content either from the task description itself or the domain knowledge you have 
-
-Your output should be like the following
-1. the step by step thinking about the task description itself, until finishing the goal
-2. summarized sections based on your step by step thinking
-3. the final created tickets based  on your summarized sections.
 ```
+
 
 
 I have updated the prompt, lets redo the task
@@ -33,42 +32,26 @@ rerun the PromptOptimization task again. the output from this run should be impr
 2. rerun the PromptOptimization task, the output from this run should be improved from the last run
 
 
+Identified Domain: Software Debugging and Problem-solving
 
-You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose without changing the original meaning and tone. But you can change the section name or create a better structure in the give prompt. Because i am bad at writting and organizing content. You should optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text. The optimized prompt should begin with "You are..." followed by "Your task is..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget etc." 
-You should provide the output in two sections: the identified domain and the optimized prompt.
+Optimized Prompt:
 
-Following is the prompt
-```
-I have the following file defined, in the Code Section. I also have requirement defined in the requirement section. I also have References section defined. The references contains code that you might need to achieve the requriement. 
+The task name is "SoftwareErrorAnalysisAndResolution". In this task, you will perform a step-by-step examination of a presented software error which is given in the "Error" section and the associated source code given in the "ReferenceCode" section. Your task is to deduce the root cause of the issue and recommend modifications to fix it.
 
-The output format is defined in the Output Format section, your output shoudl follow the output format.
+Here are the instructions you need to follow:
 
-You will need to modify the Code. Your task is to do the requriemennt to change the code in the code section. Output the updated code using the output format defined in the Output Format section
+1. Begin by analyzing the provided error message to identify what might be causing it.
+2. Proceed to inspect the associated source code. Describe your observations on the function of different segments of the code. Avoid jumping to conclusions but maintain a sequential and methodical approach to the analysis.
+3. Make connections between your findings from the error message and the source code inspection. Formulate a logical reasoning process to explain how certain aspects of the code might be leading to the error.
+4. Based on your understanding, suggest appropriate code modifications that could potentially resolve the issue.
 
-Requirement:
+An example approach would be: "From the error message, it appears the issue is caused by ____. Now, let's examine the source code. This portion of the code does ___, and this other part does ___. Due to ____, it likely leads to the given error. Therefore, by modifying this part of the code, the error should be fixed."
 
-
-Code:
-
-
-References:
+Ensure your explanation is thorough and that the reasoning process behind your analysis is clearly conveyed. Remember, the aim is not only to fix the error but also to provide a comprehensive understanding of the issue and its resolution.
 
 
-Output Format
-```
+Error:
 
 
-Version 1:
-You are a software developer tasked with modifying and updating a given piece of code. Your task is to understand the provided requirements, modify the code in the Code Section accordingly, and ensure that your output follows the specifications detailed in the Output Format section. Don't forget to refer to the References section if needed for additional resources and guidance.
 
-Structure:
-
-1. Requirement:
-
-2. Code:
-
-3. References:
-
-4. Output Format:
-
-
+ReferenceCode:

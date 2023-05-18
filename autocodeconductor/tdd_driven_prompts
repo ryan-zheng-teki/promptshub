@@ -1,157 +1,166 @@
-1. I ask chatgpt to give me the template. It actually generates the promp template 
+The task name is 'CodeAnalysisAndErrorResolution'. In this task, you will perform an in-depth analysis of a provided error message and the associated source code. Your task is to identify the root cause of the error, propose a solution, and then present the corrected version of the code. 
 
-I got some error when run pytest, i will give you releveant error message, the test function itself, fixtures if present, and the function implementation under test
-Error message:
-```
-============================================================== ERRORS ==============================================================
-_____________________________________ ERROR collecting tests/manager/test_workflow_manager.py ______________________________________
-tests/manager/test_workflow_manager.py:7: in <module>
-    class TestWorkflow(BaseWorkflow):
-tests/manager/test_workflow_manager.py:10: in TestWorkflow
-    'stage1': StageTemplateConfig(stage_class=Stage1),
-E   NameError: name 'StageTemplateConfig' is not defined
-===================================================== short test summary info ======================================================
-ERROR tests/manager/test_workflow_manager.py - NameError: name 'StageTemplateConfig' is not defined
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-========================================================= 1 error in 0.07s =========================================================
-```
-Relevant code:
-```python
-# Test function
-def test_new_workflow_instance_is_initialized_correctly(workflow_manager):
-    workflow_id = workflow_manager.initialize_workflow("test_workflow")
-    assert workflow_id is not None
+Please follow these standards:
+
+1. Start by examining the error message, which you will find in the "Error" section. Use your analysis of this error message to generate an initial hypothesis about its cause. 
+
+2. Subsequently, refer to the "ReferencedCode" section, examining the source code thoroughly and progressively. Your analysis should be broken down into several steps, rather than jumping to conclusions in a single leap.
+
+3. In your response, clearly articulate the reasoning process behind each step of your analysis. Use the following structure as a guide: 
+
+    "The error message indicates that the issue is caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. These actions result in ____ , which is likely the cause of the reported error."
+
+4. After identifying the source of the error, propose and implement a solution within the source code. Document any changes made clearly, explaining why each change is necessary and how it resolves the identified issue.
+
+5. Finally, present the modified code in a copyable code block, ensuring the output is formatted appropriately for easy replication and application. 
+
+Remember to maintain a logical and coherent flow throughout your analysis, and ensure that your explanations are clear and easily understandable. This task isn't just about finding and resolving the issue, but also about demonstrating a methodical, step-by-step approach to error resolution.
 
 
-# Fixtures and helper functions (if any)
-import pytest
-from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
-from llm_workflow_core.manager.workflow_manager import WorkflowManager
-from llm_workflow_core.types.base_workflow import BaseWorkflow
-from llm_workflow_core.types.workflow_template_config import StageTemplateConfig
-from tests.types.test_workflow_instance import Stage1, Stage2
+Error:
+2023-05-18 17:13:56,760 - grpc._server - ERROR - Exception calling application: bad argument type for built-in operation
+Traceback (most recent call last):
+  File "/home/ryan/miniconda3/envs/autobyteus/lib/python3.9/site-packages/grpc/_server.py", line 494, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/endpoints/grpc/grpc_service.py", line 21, in GetWorkflowConfig
+    return _build_workflow_config_protobuf()
+  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/endpoints/grpc/grpc_service.py", line 35, in _build_workflow_config_protobuf
+    stage = _build_stage_protobuf(stage_name, stage_data)
+  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/endpoints/grpc/grpc_service.py", line 44, in _build_stage_protobuf
+    stage.stage_class = stage_data["stage_class"]
+TypeError: bad argument type for built-in operation
 
 
-class TestWorkflow(BaseWorkflow):
-    config = {
-        'stages': {
-            'stage1': StageTemplateConfig(stage_class=Stage1),
-            'stage2': StageTemplateConfig(stage_class=Stage2)
-        }
-    }
-
-@pytest.fixture
-def workflow_registry():
-    registry = WorkflowRegistry()
-    registry.register_workflow("test_workflow", TestWorkflow, {})
-    return registry
-
-
-@pytest.fixture
-def workflow_manager(workflow_registry):
-    return WorkflowManager(workflow_registry)
-
-
-def test_workflow_manager_is_initialized_with_given_workflow_registry(workflow_registry):
-    workflow_manager = WorkflowManager(workflow_registry)
-    assert isinstance(workflow_manager, WorkflowManager)
-
-
-def test_new_workflow_instance_is_initialized_correctly(workflow_manager: WorkflowManager):
-    workflow_id = workflow_manager.initialize_workflow("test_workflow")
-    assert workflow_id is not None
-
-
-
-@pytest.fixture
-def stages_config():
-    return {
-        'stage1': StageTemplateConfig(stage_class=Stage1),
-        'stage2': StageTemplateConfig(stage_class=Stage2)
-    }
-
-@pytest.fixture
-def workflow():
-    return BaseWorkflow()
-
-# Code being tested
+ReferenceCode:
 """
-workflow_manager.py: Provides a WorkflowManager class to manage and execute workflows using the WorkflowRegistry.
+config.py
+The WORKFLOW_CONFIG dictionary defines the structure of the workflow, including stages and substages.
+Each stage is defined as a key-value pair, where the key is the stage name and the value is a dictionary containing:
+    - 'stage_class': The class representing the stage.
+    - 'stages': A dictionary of substages, if any, following the same structure.
 
-The WorkflowManager class enables the management and execution of different workflows registered in a WorkflowRegistry instance. It allows users to initialize workflows, execute stages within workflows, and store workflow instances.
+For example, the 'requirement' stage has a 'refine' substage with its own class.
+"""
+from src.automated_coding_workflow.stages.requirement_refine_stage import RequirementRefineStage
 
-Features:
-- Initialize a WorkflowManager instance with a given WorkflowRegistry.
-- Initialize a new workflow instance using a registered workflow class and configuration.
-- Execute a specific stage within a workflow using its id.
-- Store and manage workflow instances using a dictionary.
+from src.automated_coding_workflow.stages.requirement_stage import RequirementStage
+from src.automated_coding_workflow.stages.design_stage import DesignStage
+from src.automated_coding_workflow.stages.test_generation_stage import TestGenerationStage
+from src.automated_coding_workflow.stages.implementation_stage import ImplementationStage
+from src.automated_coding_workflow.stages.testing_stage import TestingStage
+from src.workflow_types.types.workflow_template_config import WorkflowTemplateStagesConfig
+
+WORKFLOW_CONFIG: WorkflowTemplateStagesConfig = {
+    'stages': {
+        'requirement': {
+            'stage_class': RequirementStage,
+            'stages': {
+                'refine': {
+                    'stage_class': RequirementRefineStage
+                }
+            },
+        },
+        'design': {
+            'stage_class': DesignStage,
+        },
+        'test_generation': {
+            'stage_class': TestGenerationStage,
+        },
+        'implementation': {
+            'stage_class': ImplementationStage,
+        },
+        'testing': {
+            'stage_class': TestingStage,
+        },
+    }
+}
+
+# src/services/grpc_service.py
+"""
+grpc_service.py: Provides a gRPC service implementation for the AutomatedCodingWorkflow.
 """
 
-from typing import Dict
-from llm_workflow_core.types.base_workflow import BaseWorkflow
-from llm_workflow_core.types.workflow_instance import WorkflowInstance
-from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
-from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
+import src.proto.grpc_service_pb2 as automated_coding_workflow_pb2
+import src.proto.grpc_service_pb2_grpc as automated_coding_workflow_pb2_grpc
+from src.automated_coding_workflow.config import WORKFLOW_CONFIG
+from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
+from src.workflow_types.types.workflow_template_config import StageTemplateConfig
 
-class WorkflowManager:
-    def __init__(self, workflow_registry: WorkflowRegistry):
-        """
-        Initialize a WorkflowManager instance with a given WorkflowRegistry.
+class AutomatedCodingWorkflowService(automated_coding_workflow_pb2_grpc.AutomatedCodingWorkflowServiceServicer):
+    def __init__(self):
+        self.workflow = AutomatedCodingWorkflow()
 
-        :param workflow_registry: A WorkflowRegistry instance for loading and managing workflows.
-        """
-        self.workflow_registry = workflow_registry
-        self.workflow_instances: Dict[str, WorkflowInstance] = {}
+    def StartWorkflow(self, request, context):
+        self.workflow.start_workflow()
+        return automated_coding_workflow_pb2.StartWorkflowResponse(result="Workflow started successfully")
 
-    def initialize_workflow(self, name: str) -> str:
-        """
-        Initialize a new workflow instance using a registered workflow class and configuration.
+    def GetWorkflowConfig(self, request, context):
+        return _build_workflow_config_protobuf()
 
-        :param name: The name of the registered workflow to initialize.
-        :return: The id of the initialized workflow instance.
-        """
-        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
-        config: WorkflowTemplateStagesConfig = workflow_class.config
-        workflow_instance = WorkflowInstance(workflow_class(), config['stages'])
-        self.workflow_instances[workflow_instance.workflow.id] = workflow_instance
-        return workflow_instance.workflow.id
+    def SetWorkspacePath(self, request, context):
+            try:
+                self.workflow.config.workspace_path = request.workspace_path
+                # You can add validation logic here
+                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=True)
+            except Exception as e:
+                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=False, error_message=str(e))
 
-    def execute_stage(self, workflow_id: str, stage_id: str) -> str:
-        """
-        Execute a specific stage within the workflow using its id.
+def _build_workflow_config_protobuf():
+    workflow_config = automated_coding_workflow_pb2.GetWorkflowConfigResponse()
 
-        :param workflow_id: The id of the workflow.
-        :param stage_id: The id of the stage to execute.
-        :return: The stage result or an error message if the workflow_id is invalid.
-        """
-        workflow_instance = self.workflow_instances.get(workflow_id)
-        if workflow_instance:
-            return workflow_instance.execute_stage(stage_id)
-        else:
-            return f"Invalid workflow_id: {workflow_id}"
+    for stage_name, stage_data in WORKFLOW_CONFIG['stages'].items():
+        stage = _build_stage_protobuf(stage_name, stage_data)
+        workflow_config.stages.add().CopyFrom(stage)
 
+    return workflow_config
 
-```
-You can use the following approach to analyse the issue. You can run the logic step by step,
-look at the output for each step, then you might be able to find what is the causing the issue.
-    
-Note: Do not change the implementation of the function, only the tests.
+def _build_stage_protobuf(stage_name: str, stage_data: StageTemplateConfig):
+    stage = automated_coding_workflow_pb2.Stage()
+    stage.stage_name = stage_name
 
+    stage.stage_class = stage_data["stage_class"]
+    if "stages" in stage_data:
+        for substage_name, substage_data in stage_data["stages"].items():
+            substage = _build_stage_protobuf(substage_name, substage_data)
+            stage.stages.add().CopyFrom(substage)
 
-For example the following In the utils.py file, i got errors like
-"waiting" is not definedPylancereportUndefinedVariable
+    return stage
 
-Based on the error message, could you please fix it?  Sometimes fix does not mean just fixing the code directly. Best practice sometimes involves again refactoring, restructuring, redesigning. 
- 
-Agent: run syntax check for all the files, then generated errors. Agent send the error message to ChatGPT. Directly
-    Prompt: Error Message of file directly. Ask ChatGPT please fix all import errors
-    Please fix all the import errors for the updated files. Thankss. You can just give me back the fixed imports.
+"""
+workflow_template_config.py
+This module contains the type definitions for the workflow configuration templates.
+"""
 
-Writting tests prompts
-   Thanks a lot. Now we have all the newest files.  You will need to try to recall the the best practices and principles of writting pytests, then apply them to the files. Please first give me the good principles that you will conform, then give me the tests you write, and explain why they conform each of the norms
-
-Please give me first the reason why this error happens, then give me the fix. then Please also give reason why will this fix works. 
-Please keep in mind that when fixing one tests, please do not break other already running tests. 
-Sometimes fix does not mean just fixing the code directly. Best practice sometimes involves again refactoring, restructuring, redesigning. 
+from __future__ import annotations
+from typing import TypedDict, Dict, Type, Union
 
 
+class StageTemplateConfig(TypedDict, total=False):
+    stage_class: type
+    stages: Dict[str, 'StageTemplateConfig']
+
+
+class WorkflowTemplateStagesConfig(TypedDict, total=False):
+    workspace_path: str
+    stages: Dict[str, StageTemplateConfig]
+
+
+
+
+Verion 2:
+Identified Domain: Software Debugging and Problem-solving
+
+Optimized Prompt:
+
+The task name is Software Error Analysis and Resolution. In this task, you will perform a step-by-step examination of a presented software error and the associated source code. Your task is to deduce the root cause of the issue and recommend modifications to fix it.
+
+Here are the instructions you need to follow:
+
+1. Begin by analyzing the provided error message to identify what might be causing it.
+2. Proceed to inspect the associated source code. Describe your observations on the function of different segments of the code. Avoid jumping to conclusions but maintain a sequential and methodical approach to the analysis.
+3. Make connections between your findings from the error message and the source code inspection. Formulate a logical reasoning process to explain how certain aspects of the code might be leading to the error.
+4. Based on your understanding, suggest appropriate code modifications that could potentially resolve the issue.
+
+An example approach would be: "From the error message, it appears the issue is caused by ____. Now, let's examine the source code. This portion of the code does ___, and this other part does ___. Due to ____, it likely leads to the given error. Therefore, by modifying this part of the code, the error should be fixed."
+
+Ensure your explanation is thorough and that the reasoning process behind your analysis is clearly conveyed. Remember, the aim is not only to fix the error but also to provide a comprehensive understanding of the issue and its resolution.

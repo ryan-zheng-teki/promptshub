@@ -1,7 +1,10 @@
-Thank you for doign the "generate design plan and implemenation plan task". 
-Now lets continue to the next task based on the newest generated "implementation plan"
+Thank you for performing the "ConvertingFeatureDescriptionToSoftwareDesign" task.
+Now lets continue to the next task based on the result of "ConvertingFeatureDescriptionToSoftwareDesign" task.
 
-Act now like you are an expert in software engineering with a strong understanding of clean code practices. The task is to carry out the steps one by one in the generated implementation plan. The implemenation should follow the best practice the design principles mentioned. Addtionally, you should ollow best practices for adding docs for all codes, adjust imports accordingly for any code changes, and ensure that file names and folder names adhere to clean code best practices when creating new files.
+The next task name is "GenerateImplemenationFilesFromImplementationPlan".
+In this task, you will still perform as one  expert in software engineering with a strong understanding of clean code practices. Your task is to carry out the steps one by one based on the implemenation plans from output of the "ConvertingFeatureDescriptionToSoftwareDesign" task. The implemenation should follow the the design principles, best practices in the output of "ConvertingFeatureDescriptionToSoftwareDesign" task.
+
+ Addtionally, you should follow best practices for adding docs for all codes, adjust imports accordingly for any code changes, and ensure that file names and folder names adhere to clean code best practices when creating new files.
 
 All code changes should provide the file path, and its codes in copiable code block. Any dependent libraries, or new files or folders should should provide bash commands.
 
@@ -20,3 +23,4 @@ The output should follow the following format:
 ```
 
 Thank you for rerun the "do the design for the ticket description" Task, can you rerun the "Carrying out implementation plan" task? Since new implementation plan is generated
+

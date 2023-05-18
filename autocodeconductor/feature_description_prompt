@@ -1,10 +1,10 @@
-You are an expert in refining and enhancing task descriptions to ensure clarity, conciseness, effectiveness, and optimal structure. Your task is to analyze the provided task description enclosed with three backticks, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+The task name is "RefineAndEnhanceFeatureDescription". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description enclosed with three backticks, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
 
 Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
 
 You should incorporate all information, including codes, from the original task description in the output, as it will be stored in a third-party platform for later reference. 
 
-For instance, if you recognize file paths and codes in the task description, move the codes to the 'Code References' section under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
+For instance, if you recognize file paths and codes in the task description, you should extract the codes to the 'Code References' section, and put them under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
 
 Use the following format for the output:
 
@@ -33,50 +33,14 @@ Provide the complete output in a copiable preformatted text block.
 Task description:
 
 ```
-we have implemented llm_workflow_core library which contains a workflow registry and workflow manager. 
+Enable file and console logging at the same time for my python application. I have 
+I currently have this line 
 
-To know how to use it, we have a test class created.
-import pytest
-from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
-from llm_workflow_core.manager.workflow_manager import WorkflowManager
-from automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
+# Set up logging
+logging.basicConfig(filename='app.log', level=logging.INFO)
 
-@pytest.fixture
-def workflow_registry():
-    registry = WorkflowRegistry()
-    # When: Registering the AutomatedCodingWorkflow
-    workflow_package = "automated_coding_workflow"
+in my src/app.py
 
-    # When: Loading the workflow using the WorkflowRegistry
-    config = {"workflows": {"enabled_workflows": [workflow_package]}}
-    registry.load_enabled_workflows(config)
-    return registry
-
-
-@pytest.fixture
-def workflow_manager(workflow_registry):
-    return WorkflowManager(workflow_registry)
-
-def test_given_valid_workflow_name_when_initializing_workflow_then_workflow_instance_is_created_and_stages_are_executed_correctly(workflow_manager: WorkflowManager):
-    # Initialize the workflow
-    workflow_id = workflow_manager.initialize_workflow("automated_coding_workflow")
-    assert workflow_id is not None
-
-    # Execute the stages in the correct order
-    requirement_result = workflow_manager.execute_stage(workflow_id, "requirement")
-
-    requirement_refine_result = workflow_manager.execute_stage(workflow_id, "refine")
-
-    design_result = workflow_manager.execute_stage(workflow_id, "design")
-
-    test_generation_result = workflow_manager.execute_stage(workflow_id, "test_generation")
-
-    implementation_result = workflow_manager.execute_stage(workflow_id, "implementation")
-
-    testing_result = workflow_manager.execute_stage(workflow_id, "testing")
-
-
-Now we need to integrate this to our server application which use app.py as the entery.
 """
 app.py: The main entry point for a Python application with three modes of operation: command line, gRPC server mode, and GraphQL server mode.
 
@@ -111,70 +75,63 @@ from src.config.config import config
 # Set up logging
 logging.basicConfig(filename='app.log', level=logging.INFO)
 
-def parse_command_line_arguments():
-    parser = argparse.ArgumentParser(description='Python app with three modes: command line, gRPC server mode, and GraphQL server mode.')
-    parser.add_argument('--mode', choices=['commandline', 'grpcserver', 'graphqlserver'], help='Select the mode to run the app', required=True)
-    parser.add_argument('--host', help='Server hostname', default='127.0.0.1')
-    parser.add_argument('--port', type=int, help='Server port', default=8000)
-
-    return parser.parse_args()
-
-def main():
-    args = parse_command_line_arguments()
-    
-    if args.mode == 'commandline':
-        command_line_mode(config)
-    elif args.mode == 'grpcserver':
-        grpc_server_mode(config, args.host, args.port)
-    elif args.mode == 'graphqlserver':
-        graphql_server_mode(config, args.host, args.port)
-    else:
-        print("Invalid mode selected.")
-        sys.exit(1)
-
-if __name__ == "__main__":
-    main()
-
-
-The task is to create a  workflow registry, and manager during server startup. The created registry 
-and manager needs to be globally accessible. So you need to do design based on current app.
-
 
 ```
 
 Can you combine this requirement with the Task Description from the "refining and enhancing task descriptions" task, and reperform the "refining and enhancing task descriptions" task?
 
 
-thank you for generating the optimized prompts. Now please execute the task defined by the optimized prompt
-
-
-
-
-
-
-
-Title: Integrate Workflow Registry and Manager into the Server Application
-
 Objective:
-- Create and integrate a global Workflow Registry and Manager into the server application during server startup.
+- The objective of this task is to develop an LLM integration for OpenAI GPT models (gpt3.5, gpt4) into the existing agent program.
 
 Background:
-- The llm_workflow_core library has been implemented, which contains a workflow registry and workflow manager. A test class has been created to demonstrate how to use it.
+- The agent program under development aims to integrate with various LLM (Language Learning Models) using their APIs. An abstract base class, BaseLLMIntegration, has been designed to define a common interface for all LLM integrations. This base class supports an optional project configuration attribute.
 
 Requirements:
-- Update the server application's startup process to create a global Workflow Registry and Manager during initialization.
-- Ensure that the created registry and manager are globally accessible.
-- Design the integration based on the current app structure.
+- Create an LLM integration for OpenAI GPT models (gpt3.5, gpt4) using the OpenAI API.
+- Leverage the BaseLLMIntegration class from the file src/llm_integrations/base_llm_integration.py.
+- The integration should be able to process a list of input messages and return the LLM's responses.
+- The default model, gpt4, and the API key are configured in the config.toml file, which is provided by the global config object. Ensure these configurations are appropriately utilized.
 
 Constraints:
-- The server application uses app.py as the main entry point.
-- The application has three modes of operation: command line, gRPC server mode, and GraphQL server mode.
+- The task requires knowledge of Python programming and asynchronous programming concepts.
+- Understanding of OpenAI GPT API and LLMs is essential.
+- The base class, BaseLLMIntegration, must be used as the foundation for the new class.
 
 Code References:
-- path: llm_workflow_core/test/test_workflow.py
-  description: Test class for llm_workflow_core library usage
-  code: (The complete code block containing pytest.fixture and test_given_valid_workflow_name_when_initializing_workflow_then_workflow_instance_is_created_and_stages_are_executed_correctly function)
+- src/llm_integrations/base_llm_integration.py
+    - Description: This file contains the BaseLLMIntegration abstract base class for Language Model integrations. It now supports an optional project configuration (a dictionary) as an attribute.
+    - Code:
 
-- path: app.py
-  description: The main entry point for the server application with three modes of operation
-  code: (The complete code block from the task description containing import statements, parse_command_line_arguments function, and main function)
+```python
+from abc import ABC, abstractmethod
+
+class BaseLLMIntegration(ABC):
+    """
+    BaseLLMIntegration is an abstract base class that defines the common interface for all LLM integrations.
+    It now includes an optional config attribute for providing project configurations.
+
+    :param config: A dictionary containing project configurations, defaults to an empty dictionary.
+    :type config: dict, optional
+    """
+
+    def __init__(self, config=None):
+        if config is None:
+            config = {}
+        self.config = config
+
+    @abstractmethod
+    async def process_input_messages(self, input_messages):
+        """
+        Process a list of input messages and return the LLM's responses.
+
+        :param input_messages: List of input messages to be processed.
+        :type input_messages: list
+        """
+        pass
+
+
+'''
+
+
+You will need to construct a software ticket based on the short description i give in the "TicketDescription" section. The short description contains keywords, code references sometimes because i am lazy. 

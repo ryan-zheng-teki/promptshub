@@ -57,7 +57,8 @@ class WorkflowManager:
 
 The output format should be the filepath and updated code of file. The code should be in copiable code block
 
-2.Please update the pydoc for the given python code in the "Code" section. You can first explain your understanding of the code itself, then add update the doc
+2.Please update the pydoc, and module docstring for the given python code in the "Code" section. You can first output your understanding of the codes itself, then add update the doc.
+After the explanation, then you will output the complete updated code in copiable code block.
     
 Code:
 ```
@@ -125,7 +126,8 @@ class AutomatedCodingWorkflow:
             raise ValueError(f"Invalid stage_id: {stage_id}")
 
 ```
-    
+
+
 Please follow PEP8.
 
 3.Please consider refactoring: according to the following criterias
