@@ -1,4 +1,4 @@
-The task name is "RefineAndEnhanceFeatureDescription". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description enclosed with three backticks, improve it based on your domain knowledge, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain and knowledge of doing similar task, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
 
 Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
 
@@ -33,105 +33,98 @@ Provide the complete output in a copiable preformatted text block.
 Task description:
 
 ```
-Enable file and console logging at the same time for my python application. I have 
-I currently have this line 
-
-# Set up logging
-logging.basicConfig(filename='app.log', level=logging.INFO)
-
-in my src/app.py
-
-"""
-app.py: The main entry point for a Python application with three modes of operation: command line, gRPC server mode, and GraphQL server mode.
-
-The script allows users to:
-- Interact with a chat system through PuppeteerLLMIntegration in command line mode.
-- Run a gRPC server for AutomatedCodingWorkflowService in gRPC server mode.
-- Run a FastAPI server with GraphQL endpoints using the Strawberry GraphQL library in GraphQL server mode.
-
-The mode, configuration file, server hostname, and port are specified through command line arguments. The script parses these arguments and executes the appropriate mode function with the necessary parameters.
-
-Usage:
-- For command line mode: python app.py --mode commandline
-- For gRPC server mode: python app.py --mode grpcserver --host 127.0.0.1 --port 50051
-- For GraphQL server mode: python app.py --mode graphqlserver --host 127.0.0.1 --port 8000
-"""
-
-import argparse
-import os
-import sys
-import logging
-
-from pathlib import Path
-import sys
-
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from src.startup_mode.cli_mode import command_line_mode
-from src.startup_mode.grpc_server_mode import grpc_server_mode
-from src.startup_mode.graphql_server_mode import graphql_server_mode
-from src.config.config import config
-
-# Set up logging
-logging.basicConfig(filename='app.log', level=logging.INFO)
-
-
-```
-
-Can you combine this requirement with the Task Description from the "refining and enhancing task descriptions" task, and reperform the "refining and enhancing task descriptions" task?
-
-
-Objective:
-- The objective of this task is to develop an LLM integration for OpenAI GPT models (gpt3.5, gpt4) into the existing agent program.
-
-Background:
-- The agent program under development aims to integrate with various LLM (Language Learning Models) using their APIs. An abstract base class, BaseLLMIntegration, has been designed to define a common interface for all LLM integrations. This base class supports an optional project configuration attribute.
-
-Requirements:
-- Create an LLM integration for OpenAI GPT models (gpt3.5, gpt4) using the OpenAI API.
-- Leverage the BaseLLMIntegration class from the file src/llm_integrations/base_llm_integration.py.
-- The integration should be able to process a list of input messages and return the LLM's responses.
-- The default model, gpt4, and the API key are configured in the config.toml file, which is provided by the global config object. Ensure these configurations are appropriately utilized.
-
-Constraints:
-- The task requires knowledge of Python programming and asynchronous programming concepts.
-- Understanding of OpenAI GPT API and LLMs is essential.
-- The base class, BaseLLMIntegration, must be used as the foundation for the new class.
-
-Code References:
-- src/llm_integrations/base_llm_integration.py
-    - Description: This file contains the BaseLLMIntegration abstract base class for Language Model integrations. It now supports an optional project configuration (a dictionary) as an attribute.
-    - Code:
-
-```python
-from abc import ABC, abstractmethod
-
-class BaseLLMIntegration(ABC):
-    """
-    BaseLLMIntegration is an abstract base class that defines the common interface for all LLM integrations.
-    It now includes an optional config attribute for providing project configurations.
-
-    :param config: A dictionary containing project configurations, defaults to an empty dictionary.
-    :type config: dict, optional
-    """
-
-    def __init__(self, config=None):
-        if config is None:
-            config = {}
-        self.config = config
-
-    @abstractmethod
-    async def process_input_messages(self, input_messages):
-        """
-        Process a list of input messages and return the LLM's responses.
-
-        :param input_messages: List of input messages to be processed.
-        :type input_messages: list
-        """
-        pass
-
 
 '''
 
 
-You will need to construct a software ticket based on the short description i give in the "TicketDescription" section. The short description contains keywords, code references sometimes because i am lazy. 
+You will need to create based on the short description i give in the "TicketDescription" section. The short description could sometimes contain only keywords, sometimes include code references as well, sometimes its just a simple description what needs to be achieved. you will need to create a more comprehensive software ticket
+based on your analysis of the information. You will your reasoning skill from analysising the description to creating a software ticket. It's not one-step to conclusion. 
+
+```
+Task Description: 
+integrating multiple LLM providers, including OpenAI, Google Bard
+
+
+Reasoning: The requirement seems to trying to integrating multiple LLMs.
+Based on my knowledge of integrating third party providers, such as OpeanAI, or Google Bard, they provide api_token. They also have different sdk libraries provided.
+
+So the best approach of this ticket is to use their sdks. 
+
+Based on SOLID principles, and clean code. 
+
+The normal design would be to create one BaseLLMIntegration abastract class, and provide a generic
+interface in the abstract class, and implement different concrete subclasses implementing the interface.
+
+Hense, i will create BaseLLMIntegration with public interface send_messassage(), and i will create two concrete subclasses OpenAILLMIntegration, GoogleBardIntegration
+
+Based on my knowledge of OpenAI integration, we can use create_completion API. 
+...
+
+
+Summary: Based on the reasoning result, i will create a software ticket
+to create 
+src/llmBaseLLMIntegration::send_message
+src/llm
+
+```
+
+
+
+
+
+The task name is "Refine And Enhance Task Description". In this task, you will perform detailed analysis based on a short description provided in the "Target Ticket Description" section. The short description may vary in format; it could contain only keywords, include code references, or simply describe what needs to be achieved.
+
+Your task is to synthesize this information and construct a comprehensive software ticket. Ensure that your analysis of the description is thorough and carefully reasoned, as this task is not a one-step process but a meticulous journey from understanding the issue to devising a logical, and structured software task. 
+
+Use the following format for the output:
+
+```Title: [Title of the task]
+
+Objective:
+- [Objective of the task]
+
+Background:
+- [Background information related to the task]
+
+Requirements:
+- [List of requirements for the task]
+
+Constraints:
+- [List of constraints or limitations for the task]
+
+Code References: (if codes exist in the task description)
+- path
+- description
+- code (complete code for the file given in the task description)
+```
+
+Target Ticket Description:
+'integrating multiple LLM providers, including OpenAI, Google Bard'
+
+
+
+
+
+
+Objective:
+- To seamlessly integrate and implement multiple large language model (LLM) providers within our system, specifically OpenAI's GPT model and Google's Bard model.
+
+Background:
+- The current application is powered by a single LLM provider. This has served our needs to this point, but expanding to incorporate multiple LLM providers will help increase the robustness, versatility, and adaptability of our system. OpenAI's GPT and Google's Bard are two high-performing models that could augment the system's natural language processing capabilities.
+
+Requirements:
+- Identify and understand the API specifications for both OpenAI's GPT and Google's Bard.
+- Develop a modular and scalable architecture to switch between or combine results from the different LLM providers.
+- Implement code to integrate both OpenAI's GPT and Google's Bard as LLM providers.
+- Test integration to ensure system stability and functionality.
+- Document the implementation and usage of the newly integrated LLM providers.
+
+Constraints:
+- The integration must be seamless, without causing disruption to existing services.
+- The new implementation should not degrade the current system performance.
+- Any proprietary constraints of the LLM providers (such as request limits, cost, and data privacy considerations) should be adhered to.
+
+Code References: (This will be filled out in the implementation phase, considering there are no code references in the task description)
+- path
+- description
+- code (complete code for the file given in the task description)

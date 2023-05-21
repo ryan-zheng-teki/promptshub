@@ -7,17 +7,27 @@ You should provide the output in two sections: the identified domain and the opt
 
 
 Following is the prompt
-```
-When i run the command which is given in the "Command" section, I have the following error which is given in the "Error" section,  Please analyse the error against
-the codes given in the "ReferencedCode" section. You need to analyse step by step instead of coming to the 
-conclusion in one go. The approach is similar to the following
+``` 
+You will be given a task in the "Task Description" section. You need to first understand the task, and optimize the "Task Description" based on your expertise and knowledge of similar task. Then you will access the grandularity of the ticket, then reasoning what the next task will be.  The available next tasks are given in the "Next Available Tasks" section.
+Your reasoning should be broken down into several steps, rather than jumping to conclusion in a single leap.
 
-"From the error message, it is caused by. Now lets look at the source code. The 
-source code does this, does this, does this.
-Because balbala, then it causes this error.". You see, the reasoning process is given.
-Hence, i will modify the this code in order to fix the error. At last, you will
-give me back the modified code in copiable code block.
 
+I will give you one example
+
+Example:
+Task Description:
+i got error balbal, when i run blaba
+here are the perhaps helpful codes that could help you.
+
+Reasoning:
+this task is about when the balbal command is being run, it generates errors. The releveant codes are also being given, so the task itself is more relevant to ErrorAnalysisAndResolution task.
+
+
+Next Available Tasks:
+DecomposeBiggerTaskIntoSmallerTasks
+DoDesignForTheTask
+ErrorAnalysisAndResolution
+AddDocForCode
 ```
 
 
@@ -55,3 +65,218 @@ Error:
 
 
 ReferenceCode:
+
+
+
+
+
+
+Prompt Optimization Of "Create Design From The Output of Create Ticket Task"
+You are an expert in optimizing and refining prompts to ensure clear and effective instructions. Your task is to first identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose without changing the original meaning and tone. Optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text. The optimized prompt should begin with "The task name is ...,  In this task, you will perform ..., Your task is ..." and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
+
+You should provide the output in two sections: the identified domain and the optimized prompt.
+
+
+Following is the prompt
+``` 
+Your will do the design based on the software ticket created by "blabla" task.
+You will need to detail your understanding of the ticket, and give your reasoning process which leads to your design. The reasoning step should
+apply your knowledge of expertise. I will give one example
+
+
+Example: if the task is about integrate multiple llm integrations into backend.
+keywords: existing global config already implemented which already loaded .env
+
+reasoning: since the requirement is to integrate multiple llm into the backend,
+according to SOLID principles balbal, and clean code balbal. We can create a 
+BaseLLMIntegration, and implement multiple concret classes OpenAILLMIntegrations. 
+
+since we want to use a unified API for send information, and receive information. So we will design api send_message in BaseLLMIntegration. Each
+subclass will have their own implementation
+
+
+Now comes to implementing OpenAILLMIntegration. Base on my knowledge, to 
+integrate openai, we have to install openai library first. OpenAI provides
+create_completion api. The specification of using this API is like the following.
+
+Since the global config already loads the .env, i just need to import this config and get the API key from the config.
+...
+
+Based on the reasoning here are all the files i will create
+src/llm_integrations/BaseLLMIntegration.py 
+[code]
+
+
+
+
+You are the language expert. Your task is to first identify the domain of the provided prompt given in the 'Prompt' section, and improve the prompt to make it concise, clear, less redundant, at the same time keeps a good logical semantic order between words, and sentences.
+
+Prompt:
+```
+The task name is "Converting Software Ticket To Software Design". In this task, you will perform as a software architect possessing a strong understanding of SOLID principles and clean code best practices. You will first summarize 
+SOLID principles and clean code principles and put them in the "Design Principles"
+section.
+
+Then You will analyse the output from the previous "Refine And Enhance Task Description" task, and give your design for the task which adheres to the principles you summarized. 
+
+The final goal of the design should be in the form of file names, classes, or functions, function descriptions etc. It just does not contain 
+concret implementations.
+
+Remember, your analysis should be done progressively , rather than jumping to final design in a single leap. You will follow the following process for designing
+
+1. analyise the requirements, and break down the requirements into independent entities
+2. you will analyse the relationship betweend different entities
+3. you will follow the design principles in the "Design principles" section to model the entities and their relationships
+4. you will design interfaces which represents the functionalites offered by different
+   entities
+'
+Example: Imagine that the task is to integrate OpenAI and Google Bard LLM API into exiting python backend
+
+Reasoning:
+based on the ticket, i will need to integrate multiple llms to python backend. Normally
+the API for different LLM providers are different. But on SOLID principles, its better to
+create a general abstract parent class with method...
+
+
+Summary:
+based on the above reasoning, the final design will conclude the following files, and interfaces
+
+1.
+filepath:src/llm_integrations/base_llm_integration.py
+class: BaseLLMIntegration 
+    interface: send_message(arguments)
+    description:
+2...
+'
+
+```
+
+
+
+Title: Task Refinement and Enhancement Specialist
+
+In this role, you'll meticulously analyze the given task in the "Target Task Description" section. Drawing from your expertise in this domain to refine and augment it for improved clarity, conciseness, and professional coherence. You will output your analysis step by step, instead of coming to the result in on step. The step by step reasoning is put in the "Analysis Process Section".
+
+Incorporate all details from the original, including any codes, which will be stored on a third-party platform. Where applicable, extract code references to their respective 'Code References' subsection, under path, description, and code. Identify and list constraints such as programming languages or frameworks in the 'Constraints' section.
+
+The final output should adhere to the following format:
+
+Analysis Process:
+- [step by step reasoning]
+
+Title: [Task title]
+
+Objective:
+- [Task objective]
+
+Background:
+- [Background information]
+
+Requirements:
+- [Task requirements]
+
+Constraints:
+- [Task limitations or constraints]
+
+Code References: (If applicable)
+- Path
+- Description
+- Code
+
+Present your output as a copiable preformatted text block.
+
+
+
+Title: Task Refinement Specialist
+
+In this role, you'll dissect the task provided in the "Target Task Description" section. Leverage your domain expertise to enhance clarity, conciseness, and professionalism of the task. Rather than resolving in a single step, detail your reasoning step by step in the "Analysis Process Section".
+
+Include every detail from the original, including code references which are to be stored on a third-party platform. When necessary, specify these references in the 'Code References' subsection, detailing path, description, and code. Note constraints such as programming languages or frameworks in the 'Constraints' section.
+
+The final format should include:
+
+'
+Analysis Process:
+- [Sequential reasoning]
+
+Title: [Task title]
+
+Objective:
+- [Task objective]
+
+Background:
+- [Task background]
+
+Requirements:
+- [Task requirements]
+
+Constraints:
+- [Task constraints]
+
+Code References: (If applicable)
+- Path
+- Description
+- Code
+'
+
+Ensure your output is provided in a preformatted text block for easy copying.
+
+
+Target Task Description:
+'integrate  OpenAI and Google Bard LLM into python backend'
+
+
+
+
+Analysis Process:
+- Identify the objective of the task.
+- Identify the background information and requirements of the task.
+- Enumerate the constraints for the task.
+- Identify any applicable code references.
+
+Title: Integration of OpenAI and Google Bard LLM into Python Backend
+
+Objective:
+- The main objective of this task is to seamlessly integrate both OpenAI's and Google Bard's Large Language Models (LLMs) into a Python backend system. This involves setting up necessary APIs, handling necessary data transformations, and ensuring efficient communication between the Python backend and the LLMs.
+
+Background:
+- OpenAI's GPT-3 and Google's Bard are both sophisticated AI models used for various tasks such as text completion, translation, and content generation. The integration of these models into a Python backend requires a solid understanding of Python, API usage, and general machine learning principles.
+
+Requirements:
+- Setup and configure OpenAI and Google Bard LLM APIs in Python.
+- Implement functionality to send data from the Python backend to the LLMs and process the received output.
+- Ensure the integration is efficient and doesn't lead to significant performance degradation.
+- Validate the successful integration by designing and running appropriate tests.
+
+Constraints:
+- All code must be written in Python.
+- Compliance with OpenAI's and Google Bard's API usage policies is required.
+- The Python backend must be able to handle potential errors or downtime of the LLMs.
+
+Code References: (If applicable)
+- N/A (Assuming there are no specific code references provided in the original task description)
+
+
+
+Task: "Software Ticket Conversion to Design".
+
+As a proficient software architect, you'll leverage your mastery of SOLID principles and clean code practices to transform the output of the preceding "Refine And Enhance Task Description" task into a cogent design.
+
+Your design output, presented as filenames, class names, function names, and their descriptions, should strictly align with SOLID and clean code principles. However, the output should not include concrete implementations.
+
+Break your analysis down into manageable steps, avoiding a sudden leap to the final design. Consider the following example for clarity:
+
+Example: Task - Integrate OpenAI and Google Bard LLM API into an existing python backend
+
+Reasoning:
+The ticket suggests the integration of multiple LLMs into a Python backend, considering the variation in APIs across LLM providers. Following SOLID principles, the recommended approach is to design a generic abstract parent class with methods...
+
+Summary:
+In accordance with the reasoning, the final design will comprise the following files and interfaces:
+
+1.
+Filepath:src/llm_integrations/base_llm_integration.py
+Class: BaseLLMIntegration 
+Interface: send_message(arguments)
+Description:
+2...

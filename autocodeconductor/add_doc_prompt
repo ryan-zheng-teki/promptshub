@@ -10,55 +10,39 @@ Lnaguage:
 [ detected language]
 
 Code:
-# src/services/grpc_service.py
-"""
-grpc_service.py: Provides a gRPC service implementation for the AutomatedCodingWorkflow.
-"""
+# config.py
 
-import src.proto.grpc_service_pb2 as automated_coding_workflow_pb2
-import src.proto.grpc_service_pb2_grpc as automated_coding_workflow_pb2_grpc
-from src.automated_coding_workflow.config import WORKFLOW_CONFIG
-from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
-from src.workflow_types.types.workflow_template_config import StageTemplateConfig
+import os
+import yaml
 
-class AutomatedCodingWorkflowService(automated_coding_workflow_pb2_grpc.AutomatedCodingWorkflowServiceServicer):
-    def __init__(self):
-        self.workflow = AutomatedCodingWorkflow()
+from src.config.config_parser import ConfigParser, TOMLConfigParser
+from src.singleton import SingletonMeta
 
-    def StartWorkflow(self, request, context):
-        self.workflow.start_workflow()
-        return automated_coding_workflow_pb2.StartWorkflowResponse(result="Workflow started successfully")
 
-    def GetWorkflowConfig(self, request, context):
-        return _build_workflow_config_protobuf()
+from src.config.config_parser import ConfigParser, ENVConfigParser
 
-    def SetWorkspacePath(self, request, context):
-            try:
-                self.workflow.config.workspace_path = request.workspace_path
-                # You can add validation logic here
-                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=True)
-            except Exception as e:
-                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=False, error_message=str(e))
+class Config(metaclass=SingletonMeta):
+    """
+    Config is a Singleton class that reads and stores configuration data
+    from a file using a ConfigParser. The data can be accessed using the 'get' method.
+    """
 
-def _build_workflow_config_protobuf():
-    workflow_config = automated_coding_workflow_pb2.GetWorkflowConfigResponse()
+    def __init__(self, config_file: str = None, parser: ConfigParser = ENVConfigParser()):
+        if not config_file:
+            config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..', '.env')
+        self.config_data = self._read_config_file(config_file, parser)
+    def _read_config_file(self, config_file: str, parser: ConfigParser) -> dict:
+        if not os.path.exists(config_file):
+            raise FileNotFoundError(f"Configuration file '{config_file}' not found.")
+        try:
+            return parser.parse(config_file)
+        except Exception as e:
+            raise ValueError(f"Error reading configuration file '{config_file}': {e}")
 
-    for stage_name, stage_data in WORKFLOW_CONFIG['stages'].items():
-        stage = _build_stage_protobuf(stage_name, stage_data)
-        workflow_config.stages.add().CopyFrom(stage)
+    def get(self, key: str, default=None):
+        return self.config_data.get(key, default)
+    
+config = Config()
 
-    return workflow_config
-
-def _build_stage_protobuf(stage_name: str, stage_data: StageTemplateConfig):
-    stage = automated_coding_workflow_pb2.Stage()
-    stage.stage_name = stage_name
-
-    stage.stage_class = stage_data["stage_class"].__name__
-    if "stages" in stage_data:
-        for substage_name, substage_data in stage_data["stages"].items():
-            substage = _build_stage_protobuf(substage_name, substage_data)
-            stage.stages.add().CopyFrom(substage)
-
-    return stage
 
 
