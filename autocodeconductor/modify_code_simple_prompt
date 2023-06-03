@@ -3,47 +3,36 @@ You are a software developer tasked with modifying and updating a given piece of
 Structure:
 
 Requirement:
-1. suggest naming improves, because the workflow stage config and stage config itself are 
-actually serving as a workflow configuration template. We will create multiple workflows
-instances from workflow template configurations.
+1. please update the 
 
 
 Code:
 
-llm_workflow_core/types/config_types.py
 
-"""
-This module contains the type definitions for the workflow configuration.
-"""
+src/llm_integrations/llm_factory.py
+from src.config.config import Config
+from src.llm_integrations.openai_gpt_integration import OpenAIGPTIntegration
+from src.config.config import config
+# Import other LLM integrations as needed
 
-from typing import TypedDict, Dict, Type, Union
-from .base_stage import BaseStage
+def create_llm_integration():
+    """
+    create_llm_integration is a factory function that creates and returns an instance of 
+    the required LLM integration based on the type provided in the configuration.
 
+    :param config: A dictionary containing the configuration for the LLM integration.
+    :type config: dict
+    :return: An instance of the required LLM integration.
+    :rtype: BaseLLMIntegration
+    """
+    integration_type = config.get('llm_integration')['type']
+    
+    if integration_type == 'openai':
+        return OpenAIGPTIntegration(config)
+    # Add more elif conditions for other LLM integration types as needed
+    else:
+        raise ValueError(f"Unsupported LLM integration type: {integration_type}")
 
-class StageConfig(TypedDict, total=False):
-    stage_class: Type[BaseStage]
-    stages: Dict[str, 'StageConfig']
-
-
-class WorkflowStagesConfig(TypedDict, total=False):
-    stages: Dict[str, StageConfig]
-
-
-
-docstring for reference:
-"""
-filepath: src/workflow/registry/workflow_registry.py
-workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
-
-The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
-
-Features:
-- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
-- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
-- Register a workflow with a given name, class, and configuration.
-- Retrieve the workflow class for a given name.
-- Retrieve the workflow configuration for a given name.
-"""
 
 
 Output Format

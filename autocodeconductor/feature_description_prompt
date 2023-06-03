@@ -99,7 +99,8 @@ Code References: (if codes exist in the task description)
 ```
 
 Target Ticket Description:
-'integrating multiple LLM providers, including OpenAI, Google Bard'
+'create a symantic index for the source code. In source code, normally, the function name , and its description together would normally represent
+a general funcationality. So we can design a standard construct which will be used to generate a vector. In general, we will need to create vector. and store in vector db. Then we will also need to implement search feature given user input as query.'
 
 
 
@@ -128,3 +129,22 @@ Code References: (This will be filled out in the implementation phase, consideri
 - path
 - description
 - code (complete code for the file given in the task description)
+
+
+Objective:
+- To develop a semantic index for source code that provides a general functionality representation. The index is based on function names and their descriptions.
+
+Background:
+- In software development, the function name and its description in the source code often give a clear idea of the general functionality. Creating a semantic index for these elements will enhance code understanding and facilitate feature searches within the codebase.
+
+Requirements:
+1. Design a standard construct to represent function names and descriptions in the source code. This construct will be used to generate a vector.
+2. Create and store the vectors in a vector database. 
+3. Implement a search feature that uses user input as a query to search within the generated semantic index.
+
+Constraints:
+- Ensure the designed construct can represent diverse function names and descriptions effectively.
+- The implemented search feature should return accurate and relevant results to user queries.
+
+Code References: 
+- For this task, no code references have been provided in the description. Upon initiation of the task, relevant code segments will be identified and referenced accordingly.

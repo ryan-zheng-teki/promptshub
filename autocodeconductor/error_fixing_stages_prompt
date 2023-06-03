@@ -1,100 +1,106 @@
 1. problem description
-when i access the graphql console after starting our src/app.py 
-
-When i run the following query in http://localhost:8000/graphql
-
-query MyQuery {
-  workflowConfig {
-    design {
-      stageClass
-    }
-    implementation {
-      stageClass
-    }
-    requirement {
-      stageClass
-    }
-    testGeneration {
-      stageClass
-    }
-    testing {
-      stageClass
-    }
-  }
-}
 
 I got the following error
-{
-  "data": null,
-  "errors": [
-    {
-      "message": "'dict' object has no attribute 'design'",
-      "locations": [
-        {
-          "line": 3,
-          "column": 5
-        }
-      ],
-      "path": [
-        "workflowConfig",
-        "design"
-      ]
-    }
-  ]
-}
+Running in gRPC server mode
+2023-05-18 16:31:30,800 - grpc._server - ERROR - Exception calling application: too many values to unpack (expected 2)
+Traceback (most recent call last):
+  File "/home/ryan/miniconda3/envs/autobyteus/lib/python3.9/site-packages/grpc/_server.py", line 494, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/endpoints/grpc/grpc_service.py", line 21, in GetWorkflowConfig
+    return _build_workflow_config_protobuf()
+  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/endpoints/grpc/grpc_service.py", line 34, in _build_workflow_config_protobuf
+    for stage_name, stage_data in WORKFLOW_CONFIG['stages']:
+ValueError: too many values to unpack (expected 2)
 
-The src/graphql/schema.py  looks like
-@strawberry.type
-class Stage:
-    stage_class: str
+When i run 
+grpcurl -d '{}' -proto autobyteus/src/proto/grpc_service.proto -plaintext localhost:50051 automatedcodingworkflow.AutomatedCodingWorkflowService/GetWorkflowConfig
 
-@strawberry.type
-class WorkflowStage:
-    refine: Stage
+I will also give you the relevent code
+# src/services/grpc_service.py
+"""
+grpc_service.py: Provides a gRPC service implementation for the AutomatedCodingWorkflow.
+"""
 
-@strawberry.type
-class Requirement:
-    stage_class: str
-    stages: WorkflowStage
+import src.proto.grpc_service_pb2 as automated_coding_workflow_pb2
+import src.proto.grpc_service_pb2_grpc as automated_coding_workflow_pb2_grpc
+from src.automated_coding_workflow.config import WORKFLOW_CONFIG
+from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
+from src.workflow_types.types.workflow_template_config import StageTemplateConfig
 
-@strawberry.type
-class WorkflowConfig:
-    requirement: Requirement
-    design: Stage
-    test_generation: Stage
-    implementation: Stage
-    testing: Stage
+class AutomatedCodingWorkflowService(automated_coding_workflow_pb2_grpc.AutomatedCodingWorkflowServiceServicer):
+    def __init__(self):
+        self.workflow = AutomatedCodingWorkflow()
 
-# Define GraphQL schema with query and mutation
-@strawberry.type
-class Query:
-    @strawberry.field
-    def workflow_config(self) -> WorkflowConfig:
-        return WORKFLOW_CONFIG
+    def StartWorkflow(self, request, context):
+        self.workflow.start_workflow()
+        return automated_coding_workflow_pb2.StartWorkflowResponse(result="Workflow started successfully")
 
-src/workflow/workflow_config.py contains
-WORKFLOW_CONFIG: WorkflowConfigDict = {
-    'requirement': {
-        'stage_class': RequirementStage,
-        'stages': {
-            'refine': {
-                'stage_class': RequirementRefineStage,
+    def GetWorkflowConfig(self, request, context):
+        return _build_workflow_config_protobuf()
+
+    def SetWorkspacePath(self, request, context):
+            try:
+                self.workflow.config.workspace_path = request.workspace_path
+                # You can add validation logic here
+                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=True)
+            except Exception as e:
+                return automated_coding_workflow_pb2.SetWorkspacePathResponse(success=False, error_message=str(e))
+
+def _build_workflow_config_protobuf():
+    workflow_config = automated_coding_workflow_pb2.GetWorkflowConfigResponse()
+
+    for stage_name, stage_data in WORKFLOW_CONFIG['stages']:
+        stage = _build_stage_protobuf(stage_name, stage_data)
+        workflow_config.stages.add().CopyFrom(stage)
+
+    return workflow_config
+
+
+src/automated_coding_workflow/config.py
+"""
+config.py
+The WORKFLOW_CONFIG dictionary defines the structure of the workflow, including stages and substages.
+Each stage is defined as a key-value pair, where the key is the stage name and the value is a dictionary containing:
+    - 'stage_class': The class representing the stage.
+    - 'stages': A dictionary of substages, if any, following the same structure.
+
+For example, the 'requirement' stage has a 'refine' substage with its own class.
+"""
+from src.automated_coding_workflow.stages.requirement_refine_stage import RequirementRefineStage
+
+from src.automated_coding_workflow.stages.requirement_stage import RequirementStage
+from src.automated_coding_workflow.stages.design_stage import DesignStage
+from src.automated_coding_workflow.stages.test_generation_stage import TestGenerationStage
+from src.automated_coding_workflow.stages.implementation_stage import ImplementationStage
+from src.automated_coding_workflow.stages.testing_stage import TestingStage
+from src.workflow_types.types.workflow_template_config import WorkflowTemplateStagesConfig
+
+WORKFLOW_CONFIG: WorkflowTemplateStagesConfig = {
+    'stages': {
+        'requirement': {
+            'stage_class': RequirementStage,
+            'stages': {
+                'refine': {
+                    'stage_class': RequirementRefineStage
+                }
             },
         },
-    },
-    'design': {
-        'stage_class': DesignStage,
-    },
-    'test_generation': {
-        'stage_class': TestGenerationStage,
-    },
-    'implementation': {
-        'stage_class': ImplementationStage,
-    },
-    'testing': {
-        'stage_class': TestingStage,
-    },
+        'design': {
+            'stage_class': DesignStage,
+        },
+        'test_generation': {
+            'stage_class': TestGenerationStage,
+        },
+        'implementation': {
+            'stage_class': ImplementationStage,
+        },
+        'testing': {
+            'stage_class': TestingStage,
+        },
+    }
 }
+
+
  
 Please give me first the reason why this error happens, then propose the suggestions to fix the error. At last, please give me back the improved codes 
 in copiable code block

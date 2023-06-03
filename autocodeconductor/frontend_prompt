@@ -1,0 +1,121 @@
+Certainly, let's review the steps and aim to streamline and optimize the process:
+
+1. **Analyze the UI Design and Review Existing Code:**
+    - Combine the initial analysis of the design and existing code. Look at the provided UI design, and compare it to the existing codebase and APIs. Understand what can be reused and what needs to be built from scratch. Note any animations, transitions, or interactive elements in the design.
+
+2. **Define Component Hierarchy and States:**
+    - Look at the UI design and identify the components. Determine the hierarchy and relationships between them. Define different states that each component can be in, such as loading, error, or success. Here you can also figure out how the components will interact with user inputs or events. 
+
+3. **Match Components with Existing APIs:**
+    - Map the data requirements of your components to the existing backend APIs. Identify if there are any gaps in the provided APIs that would hinder the component implementation. If new endpoints are needed, discuss with the backend team.
+
+4. **Implement and Integrate the Components:**
+    - Start building the components. Begin with the ones that have existing code or API matches. If you're using a library or framework, use its features for reusability and modularity. Integrate the API calls within the relevant components or event handlers to fetch or update data.
+
+5. **Handle Interactions and Transitions:**
+    - After the basic structure is implemented, focus on interactive elements, animations, and transitions. Make sure these elements are smooth and don't negatively impact the performance.
+6. Revisit the design 
+
+This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure.
+
+
+Here is one sample example which uses step-by-step reasoning to detect errors
+
+Example:
+```
+The error message indicates that the issue is caused by a TypeError: bad argument type for built-in operation. Looking at the traceback, we can see that the error originates from line 44 in grpc_service.py when trying to assign a value to stage.stage_class.
+
+The source code suggests that stage_data["stage_class"] is being assigned to stage.stage_class, implying that stage_data["stage_class"] is not of an appropriate type for this assignment. From the traceback and the code, it appears that stage_data is expected to be a dictionary and stage_class is expected to be a key within this dictionary.
+
+The source code provided includes a comment that explains the structure of the WORKFLOW_CONFIG dictionary. According to the comment, the 'stage_class' key should correspond to a class representing the stage. We can see in config.py that stage_class values are indeed classes such as RequirementStage, DesignStage, etc.
+
+Given that the error is a type error, and it arises when assigning stage_data["stage_class"] to stage.stage_class, the error might be due to stage.stage_class not being able to accept a class type as its value. Instead, it may require a string representation of the class name, an instance of the class, or some other form of data.
+
+To resolve this issue, we need to identify the correct type for stage.stage_class and convert stage_data["stage_class"] to that type before assignment. Based on common practice with gRPC, protobufs generally do not support passing around class types or instances directly. Instead, they prefer to work with basic data types such as strings and integers. Therefore, it is likely that stage.stage_class is expecting a string.
+
+Here's a possible solution: instead of assigning the class directly, we can assign the name of the class, as a string, to stage.stage_class.
+```
+
+Existing Code Section:
+src/services/AutomatedCodingWorkflowService.ts
+import { StartWorkflowRequest, GetWorkflowConfigRequest, Stage } from '../proto/grpc_service_pb';
+import GrpcClient from './GrpcClient';
+
+class AutomatedCodingWorkflowService {
+    private client: GrpcClient;
+
+    constructor(client: GrpcClient) {
+        this.client = client;
+    }
+
+    startWorkflow(): Promise<string> {
+        const request = new StartWorkflowRequest();
+
+        return new Promise((resolve, reject) => {
+            this.client.getClient().startWorkflow(request, (error, response) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(response.getResult());
+                }
+            });
+        });
+    }
+
+    getWorkflowConfig(): Promise<Array<Stage>> {
+        const request = new GetWorkflowConfigRequest();
+
+        return new Promise((resolve, reject) => {
+            this.client.getClient().getWorkflowConfig(request, (error, response) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(response.getStagesList());
+                }
+            });
+        });
+    }
+}
+
+export default AutomatedCodingWorkflowService;
+
+Technical Constraints: 
+The Vue3 UI exists in VSCode WebView.
+
+We have created a step by step incremental guideline which will align LLM to steps 
+instead of output. This incremental step also similuate CoT how human reach a goal.
+
+
+1. break down ui into individual components.
+2. analyse the components states, like what data they are displaying etc, and their interactions
+3. based on the state analysis and interactions from step 2, 
+   think about frontend data structures which will be used to represent state. Don't rush
+   on the final design of these data structures
+4. think about whether API layer on the frontend to fetch data from backend if given 
+   backend API, then component can use API layer directly
+5  Analyse the backend API and its result data structure, with the state we designed 
+   rethink about the design.
+6. revisit the process again
+
+
+
+Yes, frontend engineers who follow best practices for Vue.js 3 and Apollo GraphQL typically employ a similar approach when converting UI designs into frontend code. While the specific steps may vary depending on the project and individual preferences, here is a general chain of thought approach that a frontend engineer might follow:
+
+1. Understanding the UI Design: The engineer starts by thoroughly understanding the UI design and the desired functionality. They review the design elements, interactions, and any specifications or requirements provided.
+
+2. Breaking Down the UI: The engineer breaks down the UI design into smaller components, such as buttons, forms, cards, or lists. They identify reusable components and determine the hierarchy and relationships between different parts of the UI.
+
+3. Planning the Data Flow: If the UI requires data from a GraphQL API using Apollo, the engineer plans the data flow. They identify the necessary queries, mutations, and subscriptions required to fetch and update the data. This step involves considering the Apollo client setup, caching strategy, and error handling.
+
+5. Creating Base Components: The engineer starts implementing the UI by creating base components based on the UI design and the identified component hierarchy. These components usually focus on the visual structure and basic interactions without considering dynamic data yet.
+
+6. Implementing Data Fetching: Using Apollo, the engineer adds GraphQL queries to fetch the necessary data from the API. They configure the Apollo client, write the GraphQL queries, and integrate them into the components.
+
+7. Handling Data State: The engineer adds state management to the application using Vue 3's Composition API or Vuex. They manage the fetched data, handle loading and error states, and create reactive data properties.
+
+8. Building Component Interactions: The engineer adds interactivity to the components by implementing event handlers, form validation, and user interactions. They use Vue's reactivity system and component lifecycle hooks to control the component behavior.
+
+9. Styling and Theming: The engineer applies styles and themes to the components based on the UI design. They use CSS preprocessors like Sass or CSS-in-JS libraries like Tailwind CSS or Vuetify to streamline the styling process.
+
+
+By following this chain of thought approach, a frontend engineer can effectively convert UI designs into frontend code while adhering to best practices for Vue.js 3 and Apollo GraphQL.

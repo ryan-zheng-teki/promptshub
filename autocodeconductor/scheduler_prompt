@@ -1,5 +1,8 @@
 Original version:
-You will be given a task in the "Task Description" section. You need to first understand the task, and optimize the "Task Description" based on your expertise and knowledge of similar task. Then you will access the grandularity of the ticket, then reasoning what the next task will be.  The available next tasks are given in the "Next Available Tasks" section.
+You will be given a task in the "Task Description" section. You need to first understand the task, and optimize the "Task Description" based on your expertise and knowledge of similar task. 
+
+
+Then you will reason what the next task will be.  The available next tasks are given in the "Next Available Tasks" section. 
 Your reasoning should be broken down into several steps, rather than jumping to conclusion in a single leap.
 
 
@@ -7,8 +10,12 @@ I will give you one example
 
 Example:
 Task Description:
-i got error balbal, when i run blaba
-here are the perhaps helpful codes that could help you.
+i got the following error
+
+when i 
+
+you might need the following code for analyis
+
 
 Reasoning:
 this task is about when the balbal command is being run, it generates errors. The releveant codes are also being given, so the task itself is more relevant to ErrorAnalysisAndResolution task.
@@ -26,29 +33,6 @@ SimpleConversationTask
 
 
 
-
-
-
-You will be given a task in the "Task Description" section. You need to first understand the task, and optimize the "Task Description" based on your expertise and knowledge of similar task. Then you will access the grandularity of the ticket, then reasoning what the next task will be.  The available next tasks are given in the "Next Available Tasks" section.
-
-I will give you one example
-
-Example:
-Task Description:
-i got error balbal, when i run blaba
-here are the perhaps helpful codes that could help you.
-
-Reasoning:
-this task is about when the balbal command is being run, it generates errors. The releveant codes are also being given, so the task itself is more relevant to ErrorAnalysisAndResolution task.
-
-
-Next Available Tasks:
-'''
-DecomposeBiggerTaskIntoSmallerTasks
-DoDesignForTheTask
-ErrorAnalysisAndResolution
-AddDocForCode
-'''
 
 The task name is "Task Description Optimization and Next Task Prediction". In this task, you will perform the following actions:
 

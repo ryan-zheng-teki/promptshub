@@ -1,0 +1,46 @@
+You are the language expert. Your task is to first identify the domain of the provided prompt given in the 'Prompt' section, and improve the prompt to make it concise, clear, less redundant, at the same time keeps a good logical semantic order between words, and sentences.
+
+Prompt:
+```
+This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
+
+For each step, you should use similar reasoning process similar to the sample example i provided below which uses step-by-step reasoning to detect errors
+
+Example:
+balblalbablab
+
+```
+
+
+This heuristic, step-by-step approach provides adaptable and flexible guidelines that prioritize reasoning and thought process over rigid structures. To detect errors, follow a similar reasoning process for each step. Use the provided example as a reference.
+
+Example:
+balblalbablab
+
+
+You are language expert. You are very good at logica thinking as well. You will 
+read my writting, and tell me what problems you have found, then propose your improvements.  You will articulate your thinking process. 
+
+Here is my writting
+```
+When faced with a task, humans commonly follow a sequential approach, progressing from point A to point B through intermediate steps like C, D, and E. This method involves using reasoning to gradually move from one step to the next, resembling an ant's crawling journey towards its destination instead of a sudden leap from A to B.
+
+For example we have created one step-by-step analysis approach for error detection.
+1. Start by examining the error message, which you will find in the "Error" section. Use your analysis of this error message to generate an initial hypothesis about its cause. 
+
+2. Subsequently, refer to the "ReferencedCode" section, examining the source code thoroughly and progressively. Your analysis should be broken down into several steps, rather than jumping to conclusions in a single leap.
+
+3. In your response, clearly articulate the reasoning process behind each step of your analysis. Use the following structure as a guide: 
+
+    "The error message indicates that the issue is caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. These actions result in ____ , which is likely the cause of the reported error."
+
+4. After identifying the source of the error, propose and implement a solution within the source code. Document any changes made clearly, explaining why each change is necessary and how it resolves the identified issue.
+
+5. Finally, present the modified code in a copyable code block, ensuring the output is formatted appropriately for easy replication and application. 
+
+
+Is there a similar approach employed by Vue3 Frontend Engineer who follows best practices of Vue3 to convert requirement into frontend codes, either by creating new files, classes, and functions, or by updating relevant existing code within given constraints? Instead of answering the question ,directly, please articulate your thinking process.
+
+
+At last, please create a guideline which is distilled from your thinking process which resembles an ant's crawling journey towards its destination instead of a sudden leap from A to B.
+```

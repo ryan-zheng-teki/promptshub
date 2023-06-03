@@ -8,26 +8,7 @@ You should provide the output in two sections: the identified domain and the opt
 
 Following is the prompt
 ``` 
-You will be given a task in the "Task Description" section. You need to first understand the task, and optimize the "Task Description" based on your expertise and knowledge of similar task. Then you will access the grandularity of the ticket, then reasoning what the next task will be.  The available next tasks are given in the "Next Available Tasks" section.
-Your reasoning should be broken down into several steps, rather than jumping to conclusion in a single leap.
 
-
-I will give you one example
-
-Example:
-Task Description:
-i got error balbal, when i run blaba
-here are the perhaps helpful codes that could help you.
-
-Reasoning:
-this task is about when the balbal command is being run, it generates errors. The releveant codes are also being given, so the task itself is more relevant to ErrorAnalysisAndResolution task.
-
-
-Next Available Tasks:
-DecomposeBiggerTaskIntoSmallerTasks
-DoDesignForTheTask
-ErrorAnalysisAndResolution
-AddDocForCode
 ```
 
 
@@ -65,10 +46,6 @@ Error:
 
 
 ReferenceCode:
-
-
-
-
 
 
 Prompt Optimization Of "Create Design From The Output of Create Ticket Task"

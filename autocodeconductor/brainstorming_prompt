@@ -1,0 +1,38 @@
+I have one automated coding workflow, 
+
+grpcurl -d '{}' -proto autobyteus/src/proto/grpc_service.proto -plaintext localhost:50051 automatedcodingworkflow.AutomatedCodingWorkflowService/GetWorkflowConfig
+{
+  "stages": [
+    {
+      "stageName": "requirement",
+      "stageClass": "RequirementStage",
+      "stages": [
+        {
+          "stageName": "refine",
+          "stageClass": "RequirementRefineStage"
+        }
+      ]
+    },
+    {
+      "stageName": "design",
+      "stageClass": "DesignStage"
+    },
+    {
+      "stageName": "test_generation",
+      "stageClass": "TestGenerationStage"
+    },
+    {
+      "stageName": "implementation",
+      "stageClass": "ImplementationStage"
+    },
+    {
+      "stageName": "testing",
+      "stageClass": "TestingStage"
+    }
+  ]
+}
+
+
+Now i don't know how to properly show it in frontend using Vue. As i don't have
+much sense of good user experience. Do you know any good way of showing the workflow
+in frontend? Please articulate your thinking process

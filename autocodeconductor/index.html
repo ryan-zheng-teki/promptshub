@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+    
+        #overview-section {
+          width: 100%;
+          height: 20%;
+          overflow-y: auto;
+          border-bottom: 1px solid #333;
+          padding: 20px;
+          display: flex;
+          gap: 20px;
+          flex-wrap: wrap;
+          justify-content: center;
+          background-color: #F8F8F8;
+        }
+    
+        #detail-section {
+          width: 100%;
+          height: 50%;
+          overflow-y: auto;
+          padding: 20px;
+          border-bottom: 1px solid #333;
+          background-color: #FFFFFF;
+        }
+    
+        #streaming-results {
+          width: 100%;
+          height: 30%;
+          overflow-y: auto;
+          background-color: #000000;
+          color: #FFFFFF;
+          font-family: 'Courier New', monospace;
+          white-space: pre-wrap;
+          padding: 20px;
+        }
+    
+        .stage-card {
+          border: 1px solid #333;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.3s;
+          width: 200px;
+          text-align: center;
+        }
+    
+        .stage-card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+    
+        .stage-card h2 {
+          color: #333;
+          font-size: 1.5em;
+        }
+    
+        .stage-card p {
+          color: #666;
+          font-size: 1em;
+        }
+      </style>
+</head>
+<body>
+    <div id="overview-section">
+        <div class="stage-card" onclick="selectStage(event)">
+          <h2>Requirement</h2>
+          <p>Class: RequirementStage</p>
+        </div>
+        <div class="stage-card" onclick="selectStage(event)">
+          <h2>Refine</h2>
+          <p>Class: RequirementRefineStage</p>
+        </div>
+        <div class="stage-card" onclick="selectStage(event)">
+          <h2>Design</h2>
+          <p>Class: DesignStage</p>
+        </div>
+        <div class="stage-card" onclick="selectStage(event)">
+          <h2>Test Generation</h2>
+          <p>Class: TestGenerationStage</p>
+        </div>
+        <div class="stage-card" onclick="selectStage(event)">
+          <h2>Implementation</h2>
+          <p>Class: ImplementationStage</p>
+        </div>
+        <div class="stage-card" onclick="selectStage(event)">
+          <h2>Testing</h2>
+          <p>Class: TestingStage</p>
+        </div>
+    </div>
+      
+
+    <div id="detail-section">
+        <!-- Detailed information about the selected stage will be dynamically loaded here -->
+        <h2>Selected Stage Details</h2>
+        <!-- This is just an example, you would dynamically generate this with JavaScript -->
+        <p><strong>Stage Name:</strong> Requirement</p>
+        <p><strong>Stage Class:</strong> RequirementStage</p>
+        <p><strong>Fields:</strong></p>
+        <ul>
+          <li>Field1: ____________</li>
+          <li>Field2: ____________</li>
+          <!-- More fields as needed -->
+        </ul>
+        <button onclick="showPrompts()">Predefined Prompts: Click to View</button>
+        <button onclick="startExecution()">Start Execution</button>
+        <p><strong>Execution Status:</strong> Not Started / Running / Completed / Error</p>
+      </div>
+
+  <div id="streaming-results">
+    <!-- The streaming results will be dynamically loaded here -->
+    <p>Waiting for execution to start...</p>
+  </div>
+</body>
+</html>
