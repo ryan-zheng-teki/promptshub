@@ -7,10 +7,10 @@
 **Guidelines:**
 
 1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities?
+    Start by thoroughly understanding the requirements. What is the ticket requirements expected to do? What are its key features and functionalities?
 
 2. **Identify Key Components:**
-    Identify the main components or entities needed to fulfill the requirements. Consider existing code provided in the "Existing Code Section" and determine if any components can be reused or modified. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
+    Identify the main components or entities needed to fulfill the requirements. Consider existing code provided in the "Code References" of the generated ticket, and determine if any components can be reused or modified. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
 
 3. **Define Component Interactions:**
     Once you've identified the key components, think about how they will interact with each other. Consider the existing code and its dependencies. What information will the new components need to share with the existing ones? What are the dependencies between them?
@@ -21,13 +21,13 @@
 5. **Refine the Design:**
     Now that you have a basic design, start refining it. Consider the existing code and its structure. Are there any parts that seem overly complex or that could be simplified? Are there any obvious improvements you could make? This is where you should start thinking more about clean code and SOLID principles. Refine the structured information about existing code, ensuring it accurately represents the relationships between files, classes, and functions.
 
-6. **Create Concrete File Paths, Functions, and Descriptions:**
+6. **Articulating the data flow**
+   After we have the designs with either modified or new code implementations. We should be able to have a fluid data flow based on. At this step, we need to articulate the data flow narratively to discover whether all the details are covered
+
+7. **Create Concrete File Paths, Functions, and Descriptions:**
     In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
 
-**Existing Code Reference Section:**
-Provide a section in your guideline where you can document the existing code reference. Include structured information such as file paths, class descriptions, and function descriptions. This section will serve as a quick reference for understanding the existing code and incorporating it into your design. Place this section either before or after the "Guidelines" section, depending on your preference.
-
-
+**Code References**
 
 
 With Consideration Of Constraints

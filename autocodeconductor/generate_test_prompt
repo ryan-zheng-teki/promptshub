@@ -28,4 +28,11 @@ Code:
 
 '''
 
+Thanks for the newest SourceCodeParser implementation. Now lets move onto 
+create the tests for SourceCodeParser.
+
+You should first articulate your thinking process for creating tests instead of jumping to generate the test code directly.
+
+At the end of your thinking process, you will start to provide the test implemenataion.
+
 please writes all tests using pytest style. Please follow pytest best practice, The test naming should use behavior naming style.

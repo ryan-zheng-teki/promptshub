@@ -89,12 +89,9 @@ instead of output. This incremental step also similuate CoT how human reach a go
 1. break down ui into individual components.
 2. analyse the components states, like what data they are displaying etc, and their interactions
 3. based on the state analysis and interactions from step 2, 
-   think about frontend data structures which will be used to represent state. Don't rush
-   on the final design of these data structures
-4. think about whether API layer on the frontend to fetch data from backend if given 
-   backend API, then component can use API layer directly
-5  Analyse the backend API and its result data structure, with the state we designed 
-   rethink about the design.
+   think about frontend data structures which will be used to represent state. Don't rush on the final design of these data structures
+4. think about whether API layer on the frontend to fetch data from backend if given backend API,
+5  Analyse the backend API and its result data structure, with the state we designed rethink about the design.
 6. revisit the process again
 
 

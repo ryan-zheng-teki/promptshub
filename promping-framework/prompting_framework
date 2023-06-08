@@ -1,8 +1,39 @@
 Role: Frontend Engineer
 Goal: Convert Frontend UX Design To Frontend Code
-Constraints: Vue3 best Practice
+Constraints: Vue3, Apollo GraphQL best Practice
+
 
 
 When faced with a task, humans commonly follow a chain of thought approach, progressing from point A to point F through intermediate steps like B, C, and D. This method involves articulating the reasoning to move from one step to the next, resembling an ant's crawling journey towards its destination instead of a sudden leap from A to B.
 
-Is there a similar approach employed by a good Frontend Engineer who follows best vue3 best practice to convert UI design into frontend code?
+Can you please first come up with step by step incremental a guidelines can be utilized by python softare engineer to address the above ticket requirements?
+
+Here is one incremental step by step guideline for error detection, which can be used for reference.
+```
+1. Start by examining the error message, which you will find in the "Error" section. Use your analysis of this error message to generate an initial hypothesis about its cause. 
+
+2. Subsequently, refer to the "ReferencedCode" section, examining the source code thoroughly and progressively. Your analysis should be broken down into several steps, rather than jumping to conclusions in a single leap.
+
+3. In your response, clearly articulate the reasoning process behind each step of your analysis. Use the following structure as a guide: 
+
+    "The error message indicates that the issue is caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. These actions result in ____ , which is likely the cause of the reported error."
+
+4. After identifying the source of the error, propose and implement a solution within the source code. Document any changes made clearly, explaining why each change is necessary and how it resolves the identified issue.
+
+5. Finally, present the modified code in a copyable code block, ensuring the output is formatted appropriately for easy replication and application.
+```
+
+Your output should first articulate your thinking process, then after your thinking process, you will output the guidelines which will be used to address the ticket created by the "Refine And Enhance Task Description" task.
+
+Is there a similar approach employed by a good Frontend Engineer who follows best vue3, apollo graphql best practice to convert UI design into frontend code?
+
+
+
+Role: Python Backend Engineer
+Goal: develop further requirement based on existing relevant code
+Technology Constraints: python Fast API, GraphQL
+Best Practice: SOLID and clean code
+
+When faced with a task, humans commonly follow a chain of thought approach, progressing from point A to point F through intermediate steps like B, C, and D. This method involves articulating the reasoning to move from one step to the next, resembling an ant's crawling journey towards its destination instead of a sudden leap from A to B. 
+
+Is there a similar approach employed by a python backend Engineer who follows SOLID principles and clean code best practicies to convert software requirement into python code

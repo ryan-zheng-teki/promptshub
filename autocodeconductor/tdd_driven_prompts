@@ -18,50 +18,97 @@ Remember to maintain a logical and coherent flow throughout your analysis, and e
 
 
 Error:
-src/components/StageButton.vue:6:3 - error TS6133: 'ref' is declared but its value is never read.
+platform linux -- Python 3.9.16, pytest-7.3.1, pluggy-1.0.0
+benchmark: 4.0.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /home/ryan/miniHDD/Learning/chatgpt/autobyteus
+plugins: asyncio-0.21.0, benchmark-4.0.0, anyio-3.6.2, cov-4.0.0, integration-0.2.3, mock-3.10.0, vcr-1.0.2
+asyncio: mode=strict
+collected 1 item                                                                                                                                                                                          
 
-6   import { ref } from 'vue';
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/source_code_tree/code_parser/test_source_code_parser.py F                                                                                                                                     [100%]
 
-src/components/StageDetail.vue:28:19 - error TS6133: 'newField' is declared but its value is never read.
+================================================================================================ FAILURES =================================================================================================
+______________________________________________________________________________ test_parse_source_code_with_valid_python_file ______________________________________________________________________________
 
-28       updateField(newField) {
-                     ~~~~~~~~
+    def test_parse_source_code_with_valid_python_file():
+        # Arrange
+        parser = SourceCodeParser()
+        with tempfile.NamedTemporaryFile(suffix=".py") as temp:
+            code_string = textwrap.dedent("""
+            \"\"\"This is a test Python file\"\"\"
+    
+            def test_func():
+                \"\"\"This is a test function\"\"\"
+                pass
+    
+            class TestClass:
+                \"\"\"This is a test class\"\"\"
+                def test_method(self):
+                    \"\"\"This is a test method\"\"\"
+                    pass
+            """)
+            temp.write(code_string.encode('utf-8'))
+            temp.seek(0)
+    
+            # Act
+            result = parser.parse_source_code(temp.name)
+    
+            # Assert
+            assert result.file_path == temp.name
+            assert result.docstring == "This is a test Python file"
+            assert len(result.functions) == 1
+>           assert result.functions[0].name == "test_func"
+E           KeyError: 0
 
-src/components/StageDetail.vue:28:19 - error TS7006: Parameter 'newField' implicitly has an 'any' type.
+tests/source_code_tree/code_parser/test_source_code_parser.py:33: KeyError
+========================================================================================= short test summary info =========================================================================================
+FAILED tests/source_code_tree/code_parser/test_source_code_parser.py::test_parse_source_code_with_valid_python_file - KeyError: 0
+============================================================================================ 1 failed in 0.04s ============================================================================================
 
-28       updateField(newField) {
-                     ~~~~~~~~
+ReferencedCode:
+filepath: tests/source_code_tree/code_parser/test_source_code_parser.py
+```
+import pytest
+import tempfile
+import textwrap
+from src.source_code_tree.code_parser.source_code_parser import SourceCodeParser
 
-src/components/StageDetail.vue:31:21 - error TS6133: 'option' is declared but its value is never read.
+def test_parse_source_code_with_valid_python_file():
+    # Arrange
+    parser = SourceCodeParser()
+    with tempfile.NamedTemporaryFile(suffix=".py") as temp:
+        code_string = textwrap.dedent("""
+        \"\"\"This is a test Python file\"\"\"
+        
+        def test_func():
+            \"\"\"This is a test function\"\"\"
+            pass
+        
+        class TestClass:
+            \"\"\"This is a test class\"\"\"
+            def test_method(self):
+                \"\"\"This is a test method\"\"\"
+                pass
+        """)
+        temp.write(code_string.encode('utf-8'))
+        temp.seek(0)
 
-31       executeOption(option) {
-                       ~~~~~~
+        # Act
+        result = parser.parse_source_code(temp.name)
 
-src/components/StageDetail.vue:31:21 - error TS7006: Parameter 'option' implicitly has an 'any' type.
-
-31       executeOption(option) {
-ReferenceCode:
-filepath: src/components/ConfigurableFields.vue
-<template>
-    <div>
-      <div v-for="(field, index) in fields" :key="index">
-        <input v-model="field.value" @input="updateField(index, $event.target.value)" />
-      </div>
-    </div>
-  </template>
-  
-<script lang="ts">
-  export default {
-    props: ['fields'],
-    methods: {
-      updateField(index, newValue) {
-        this.$emit('updateField', { index, newValue });
-      }
-    }
-  }
-  </script>
-
+        # Assert
+        assert result.file_path == temp.name
+        assert result.docstring == "This is a test Python file"
+        assert len(result.functions) == 1
+        assert result.functions[0].name == "test_func"
+        assert result.functions[0].docstring == "This is a test function"
+        assert len(result.classes) == 1
+        assert result.classes[0].name == "TestClass"
+        assert result.classes[0].docstring == "This is a test class"
+        assert len(result.classes[0].methods) == 1
+        assert result.classes[0].methods[0].name == "test_method"
+        assert result.classes[0].methods[0].docstring == "This is a test method"
+```
 
 Verion 2:
 Identified Domain: Software Debugging and Problem-solving

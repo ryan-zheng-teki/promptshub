@@ -5,10 +5,6 @@ The next task name is "Converting Software Ticket To Software Design". In this t
 Your task is to first provide a summary of your knowledge of SOLID principles and clean code best practices. 
 
 
-After that, you will do a step by step analysis of the requirements, you should use progressively reasoning 
-
-
-
 you will do the design based on the output of "RefineAndEnhanceFeatureDescription" task. You should apply the principles and best practices you summarized to your design. 
 
 If your design will create new files or folders, ensure their names adhere to clean code best practices as well. 
@@ -20,10 +16,14 @@ refactor existing code to make the architecture of the code better.
 The output shoud have the following sections.
 
 1. Design Principles: Share your knowledge of SOLID principles and clean code practices.
-2. Step By Step Analysis: Code Against The Goal, give your thinking process
-3. Design plan: Create a design plan that addresses the task which reflects the design principles
+2. Step By Step Analysis Of Requirement
+   2.1 Break down the requirement into individual component. 
+   2.2 Analyise the interfaction between different components.
+   2.3 Analyse existing given code to see what componet is provided, what functions are provided. How are they contributing to the componnets and interactions?
+3. Design plan: Based on the step by step Analysis, create designs in terms of files, classes, methods if needed
 4. Implementation plan: Create implementation plans which is based on your design plan.[implementation plan should commands to install relavant libraries if neccessary, contain complete file path, and interfaces with their description, perform like an architect]
-5. Test cases: Design test cases using fake data to validate your implementation plan. 
+5. Output The Files Paths, and their codes in copiable codeblock
+6. Test cases: Design test cases using fake data to validate your implementation plan. 
 
 
 
@@ -401,13 +401,19 @@ Translate software requirements into a software design. The final design should 
 6. **Create Concrete File Paths, Functions, and Descriptions:**
     In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
 
+
+Here is my requirement:
+```
+I need to implement a python source code parser which parses a given source file. The parser will need to get the file docstring. If there are any functions defined in the module, then it should get function name, and function pydoc. If there are classes, it should get class name and its method name, and its method docstring
+```
+
 By incorporating data structure consideration into the "Refine the Design" section, you ensure that the design refinement phase covers all relevant aspects of the software, including the selection of appropriate data structures.
 
 
 
 
 
-
+we have created a guideline for creating software designs from requirements. I put it here
 **Task Name:** Converting Software Ticket To Software Design
 
 **Role:** Software Architect 
@@ -434,3 +440,29 @@ By incorporating data structure consideration into the "Refine the Design" secti
 6. **Create Concrete File Paths, Functions, and Descriptions:**
     In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
 
+This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
+```
+
+Here is one sample example which uses step-by-step reasoning to detect errors
+
+Example:
+```
+The error message indicates that the issue is caused by a TypeError: bad argument type for built-in operation. Looking at the traceback, we can see that the error originates from line 44 in grpc_service.py when trying to assign a value to stage.stage_class.
+
+The source code suggests that stage_data["stage_class"] is being assigned to stage.stage_class, implying that stage_data["stage_class"] is not of an appropriate type for this assignment. From the traceback and the code, it appears that stage_data is expected to be a dictionary and stage_class is expected to be a key within this dictionary.
+
+The source code provided includes a comment that explains the structure of the WORKFLOW_CONFIG dictionary. According to the comment, the 'stage_class' key should correspond to a class representing the stage. We can see in config.py that stage_class values are indeed classes such as RequirementStage, DesignStage, etc.
+
+Given that the error is a type error, and it arises when assigning stage_data["stage_class"] to stage.stage_class, the error might be due to stage.stage_class not being able to accept a class type as its value. Instead, it may require a string representation of the class name, an instance of the class, or some other form of data.
+
+To resolve this issue, we need to identify the correct type for stage.stage_class and convert stage_data["stage_class"] to that type before assignment. Based on common practice with gRPC, protobufs generally do not support passing around class types or instances directly. Instead, they prefer to work with basic data types such as strings and integers. Therefore, it is likely that stage.stage_class is expecting a string.
+
+Here's a possible solution: instead of assigning the class directly, we can assign the name of the class, as a string, to stage.stage_class.
+```
+
+Here is my requirement:
+```
+I need to implement a python source code parser which parses a given source file. The parser will need to get the file docstring. If there are any functions defined in the module, then it should get function name, and function pydoc. If there are classes, it should get class name and its method name, and its method docstring
+```
+
+Can you please use the guideline to create the designs
