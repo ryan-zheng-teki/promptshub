@@ -1,0 +1,88 @@
+Prompt Explanatiobn: This prompt is used for creating a completely new feature. There are no existing implementations for this feature.
+
+Prompt Definition:
+Thanks you for performing "Refine And Enhance Feature Description" task.
+Now lets continue to the next task based on the output of "Refine And Enhance Feature Description" task
+
+The task name is "Converting Software Ticket To Software Design". In this task, you will perform as a software architect possessing a strong understanding of SOLID principles and clean code best practices. You will first summarize 
+SOLID principles and clean code principles and put them in the "Design Principles"
+section.
+
+
+We have created one step by step guideline for software architect to convert the software ticket to softare code designs 
+**Task Name:** Converting Software Ticket To Software Code Design
+
+**Role:** Software Architect 
+
+**Objective:** Translate software requirements into a software design. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations, and be ready to be turned into source code. 
+
+**Guidelines:**
+
+1. **Understand the Requirements:**
+    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities?
+
+2. **Identify Key Components:**
+    Identify the main components or entities needed to fulfill the requirements. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
+
+3. **Define Component Interactions:**
+    Once you've identified the key components, think about how they will interact with each other. What information will they need to share? What are the dependencies between them?
+
+4. **Design the Components:**
+    For each component, start to think about what classes and functions it will need. Try to keep the SOLID principles in mind, but don't get too bogged down in them at this stage. Remember, you're not writing concrete implementations yet, just outlining what classes and functions you'll need.
+
+5. **Refine the Design, Including Data Structures:**
+    Now that you have a basic design, start refining it. Consider the data requirements of each component and evaluate the most suitable data structures to use. Think about the types of data that need to be stored, accessed, and manipulated within each component. Choose data structures that optimize efficiency, performance, and maintainability alongside other aspects of the design. Also, assess if there are any existing data structures or libraries that can be leveraged.
+
+6. **Create Concrete File Paths, Functions, and Descriptions:**
+    In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
+
+
+Here is my requirement:
+```
+I need to implement a python source code parser which parses a given source file. The parser will need to get the file docstring. If there are any functions defined in the module, then it should get function name, and function pydoc. If there are classes, it should get class name and its method name, and its method docstring
+```
+
+By incorporating data structure consideration into the "Refine the Design" section, you ensure that the design refinement phase covers all relevant aspects of the software, including the selection of appropriate data structures.
+
+
+
+
+1. ** Output The first version of design **
+   At this stage, you will output the first version of your designs in terms of filepaths.
+   Each file will contain the intended classes or functions with highly detailed docs following the best practice of docs in the specific language.
+
+
+6. **Refine the Design, Following Best Practice**
+    Now that you have a basic design, start refining it. At this stage, you will first share your knowledge of SOLID principles, and clean code
+    best practices. 
+    Then you use SOLID principles and clean code best practices to judge the output designs from step 6. Propose your improvements ideas
+
+7. **Create Concrete File Paths, Functions, and Descriptions:**
+ Use the refined design as a basis and output improved design in terms of files. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
+
+This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
+```
+
+Here is one sample example which uses step-by-step reasoning to detect errors
+
+Example:
+```
+The error message indicates that the issue is caused by a TypeError: bad argument type for built-in operation. Looking at the traceback, we can see that the error originates from line 44 in grpc_service.py when trying to assign a value to stage.stage_class.
+
+The source code suggests that stage_data["stage_class"] is being assigned to stage.stage_class, implying that stage_data["stage_class"] is not of an appropriate type for this assignment. From the traceback and the code, it appears that stage_data is expected to be a dictionary and stage_class is expected to be a key within this dictionary.
+
+The source code provided includes a comment that explains the structure of the WORKFLOW_CONFIG dictionary. According to the comment, the 'stage_class' key should correspond to a class representing the stage. We can see in config.py that stage_class values are indeed classes such as RequirementStage, DesignStage, etc.
+
+Given that the error is a type error, and it arises when assigning stage_data["stage_class"] to stage.stage_class, the error might be due to stage.stage_class not being able to accept a class type as its value. Instead, it may require a string representation of the class name, an instance of the class, or some other form of data.
+
+To resolve this issue, we need to identify the correct type for stage.stage_class and convert stage_data["stage_class"] to that type before assignment. Based on common practice with gRPC, protobufs generally do not support passing around class types or instances directly. Instead, they prefer to work with basic data types such as strings and integers. Therefore, it is likely that stage.stage_class is expecting a string.
+
+Here's a possible solution: instead of assigning the class directly, we can assign the name of the class, as a string, to stage.stage_class.
+```
+
+Here is my requirement:
+```
+I need to implement a python source code parser which parses a given source file. The parser will need to get the file docstring. If there are any functions defined in the module, then it should get function name, and function pydoc. If there are classes, it should get class name and its method name, and its method docstring
+```
+
+Can you please use the guideline to create the designs

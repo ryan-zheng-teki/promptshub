@@ -1,125 +1,8 @@
-Thanks you for performing "RefineAndEnhanceFeatureDescription" task.
-Now lets continue to the next task based on the output of "RefineAndEnhanceFeatureDescription" task
+Prompt Description: This prompt is used for creating a completely new feature. There are no existing implementations for this feature.
 
-The next task name is "Converting Software Ticket To Software Design". In this task, you will perform as an expert in software engineering, with a strong understanding of SOLID principles and clean code best practices. 
-Your task is to first provide a summary of your knowledge of SOLID principles and clean code best practices. 
-
-
-you will do the design based on the output of "RefineAndEnhanceFeatureDescription" task. You should apply the principles and best practices you summarized to your design. 
-
-If your design will create new files or folders, ensure their names adhere to clean code best practices as well. 
-
-Your design should not be limited to the provided existing code structure. If
-the current code structure does not fits new requirements, you should seek to 
-refactor existing code to make the architecture of the code better.
-
-The output shoud have the following sections.
-
-1. Design Principles: Share your knowledge of SOLID principles and clean code practices.
-2. Step By Step Analysis Of Requirement
-   2.1 Break down the requirement into individual component. 
-   2.2 Analyise the interfaction between different components.
-   2.3 Analyse existing given code to see what componet is provided, what functions are provided. How are they contributing to the componnets and interactions?
-3. Design plan: Based on the step by step Analysis, create designs in terms of files, classes, methods if needed
-4. Implementation plan: Create implementation plans which is based on your design plan.[implementation plan should commands to install relavant libraries if neccessary, contain complete file path, and interfaces with their description, perform like an architect]
-5. Output The Files Paths, and their codes in copiable codeblock
-6. Test cases: Design test cases using fake data to validate your implementation plan. 
-
-
-
-
-Please iterate the "ConvertingFeatureDescriptionToSoftwareDesign" task on top of the result of last run of the task again, to have further more detailed 
-design plans and implemenation plans until we are able to see concrete implementations
-
-
-Thank you for consolidating and generating the new requriement. Now lets redo the generate design task again. I will give you
-my current codebase again for reference, as the new requirement design plan might need to refactoring existing codes. 
-
-
-
-
-
-Thanks you for performing "Refine And Enhance Task Description" task.
-Now lets continue to the next task based on the output of "Refine And Enhance Task Description" task
-
-The task name is "Converting Software Ticket To Software Design". In this task, you will perform as a software architect possessing a strong understanding of SOLID principles and clean code best practices. You will analyse the output from the previous "Refine And Enhance Task Description" task, and give your design for the task which adheres to the SOLID principles and clean code principles that 
-you will summarize in the "Design Principles"
-
-The final design should be in the form of file names, classes, or functions, function descriptions etc. It just does not contain 
-concret implementations.
-
-However, Your analysis should be broken down into several steps, rather than jumping to final design in a single leap. The reasoning is similar to the following example:
-
-'''
-Example: Imagine that the task is to integrate OpenAI and Google Bard LLM API into exiting python backend
-
-Reasoning:
-based on the ticket, i will need to integrate multiple llms to python backend. Normally
-the API for different LLM providers are different. But on SOLID principles, its better to
-create a general abstract parent class with method...
-
-
-Summary:
-based on the above reasoning, the final design will conclude the following files, and interfaces
-
-1.
-filepath:src/llm_integrations/base_llm_integration.py
-class: BaseLLMIntegration 
-    interface: send_message(arguments)
-    description:
-2...
-'''
-
-Your task is divided into several parts. 
-
-1. **Design Principles:** Begin by summarizing your knowledge of SOLID principles and clean code best practices. This will lay a foundation for the tasks to follow.
-
-2. **Progressive Analysis:** Analyze the output of  "RefineAndEnhanceFeatureDescription" task. 
-3. 
-
-4. **Design Plan:** Create a design plan that applies the summarized SOLID principles and best practices to the task at hand. The design plan should not be constrained by the existing code structure. If necessary, propose to refactor the current code structure to enhance the architecture.
-
-5. **Test Cases:** Lastly, design test cases using fake data to validate your implementation plan.
-
-The output should be organized in the following order: Design Principles, Analysis Of Given Code, Design Plan, Implementation Plan, and Test Cases.
-
-Constraints: 
-1. Remember to adhere to SOLID design principles and Vue3 best practices throughout the task. 
-2. Don't forget to apply clean code practices when naming new files or folders.
-3. The output format should be as prescribed above.
-
-
-Your will do the design based on the software ticket created by "blabla" task.
-You will need to detail your understanding of the ticket, and give your reasoning process which leads to your design. The reasoning step should
-apply your knowledge of expertise. I will give one example
-
-'''
-The task is about integrate multiple llm integrations into backend.
-keywords: existing global config already implemented which already loaded .env
-
-reasoning: since the requirement is to integrate multiple llm into the backend,
-according to SOLID principles balbal, and clean code balbal. We can create a 
-BaseLLMIntegration, and implement multiple concret classes OpenAILLMIntegrations. 
-
-since we want to use a unified API for send information, and receive information. So we will design api send_message in BaseLLMIntegration. Each
-subclass will have their own implementation
-
-
-Now comes to implementing OpenAILLMIntegration. Base on my knowledge, to 
-integrate openai, we have to install openai library first. OpenAI provides
-create_completion api. The specification of using this API is like the following.
-
-Since the global config already loads the .env, i just need to import this config and get the API key from the config.
-...
-
-Based on the reasoning here are all the files i will create
-src/llm_integrations/BaseLLMIntegration.py 
-[code]
-'''
-
-
-
-
+Prompt Definition:
+Thanks you for performing "Refine And Enhance Feature Description" task.
+Now lets continue to the next task based on the output of "Refine And Enhance Feature Description" task
 
 
 The task name is "Converting Software Ticket To Software Design". In this task, you will perform as a software architect possessing a strong understanding of SOLID principles and clean code best practices. You will first summarize 
@@ -163,58 +46,6 @@ class: BaseLLMIntegration
 As a language expert, identify the domain of the provided prompt and refine it for clarity, brevity, and logical order. Your output should include two sections:
 Domain: [insert domain]
 Optimized Prompt:
-
-
-
-You are the language expert. Your task is to first identify the domain of the provided prompt given in the 'Prompt' section, and improve the prompt to make it concise, clear, less redundant, at the same time keeps a good logical semantic order between words, and sentences. 
-
-Your output should include two sections:
-Domain: [insert domain]
-Optimized Prompt:
-
-
-Prompt:
-```
-The task name is "Converting Software Ticket To Software Design". In this task, you will perform as a software architect possessing a strong understanding of SOLID principles and clean code best practices. You will first summarize 
-SOLID principles and clean code principles and put them in the "Design Principles"
-section.
-
-Then You will analyse the output from the previous "Refine And Enhance Task Description" task, and give your design for the task which adheres to the "Design Principle" you summarized. 
-
-The final goal of the design should be in the form of file names, classes, or functions, function descriptions etc. It just does not contain 
-concret implementations.
-
-Remember, your analysis should be done progressively , rather than jumping to final design in a single leap. You will follow the following process for designing
-
-1. go through each requirement, and analyse the requiremnts, extract the independent entities
-2. after you get the independent entities, analyse the relationship betweend different entities
-3. design classes or interfaces to model the entities, their functionatlies, and their
-   interactions
-4. use the design principles to validate and improve your design
-5. check the designed classes, and interfaces against each requirement again, to verify that each requirement is complished
-'
-Example: Imagine that the task is to integrate OpenAI and Google Bard LLM API into exiting python backend
-
-Reasoning:
-based on the ticket, i will need to integrate multiple llms to python backend. Normally
-the API for different LLM providers are different. But on SOLID principles, its better to
-create a general abstract parent class with method...
-
-
-Summary:
-based on the above reasoning, the final design will conclude the following files, and interfaces
-
-1.
-filepath:src/llm_integrations/base_llm_integration.py
-class: BaseLLMIntegration 
-    interface: send_message(arguments)
-    description:
-2...
-'
-
-```
-
-
 
 
 
@@ -413,12 +244,13 @@ By incorporating data structure consideration into the "Refine the Design" secti
 
 
 
-we have created a guideline for creating software designs from requirements. I put it here
+we have created a guideline for creating design  from requirements. I put it here
 **Task Name:** Converting Software Ticket To Software Design
 
 **Role:** Software Architect 
 
-**Objective:** Translate software requirements into a software design. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations, and be ready to be turned into source code. 
+**Objective:** Translate software requirements into a software design. The final goal is to produce files which contains classes, functions with highly detailed descriptions which will
+assist further implemenation tasks.
 
 **Guidelines:**
 
@@ -430,15 +262,26 @@ we have created a guideline for creating software designs from requirements. I p
 
 3. **Define Component Interactions:**
     Once you've identified the key components, think about how they will interact with each other. What information will they need to share? What are the dependencies between them?
+    How these entities are communicating with each other.
 
-4. **Design the Components, Including Custom Data Types:**
-    For each component, start to think about what classes and functions it will need. As part of the design process, consider the data types or data structures that can be created to represent the information more effectively and intuitively. Evaluate if there are any custom data types that can encapsulate related data and behavior within a single entity. This can help improve the organization, modularity, and reusability of your software design.
+4. **Design the Components**
+    For each component, start to think about what classes and functions it will need.
 
-5. **Refine the Design:**
-    Now that you have a basic design, start refining it. Are there any parts that seem overly complex or that could be simplified? Are there any obvious improvements you could make? This is where you should start thinking more about clean code, SOLID principles, and further optimization. Ensure that the custom data types you've designed integrate well within the overall design.
+5. **Thinking about data structure***
+consider the data types or data structures that can be created to represent the information more effectively and intuitively. Evaluate if there are any custom data types that can encapsulate related data and behavior within a single entity. This can help improve the organization, modularity, and reusability of your software design.
 
-6. **Create Concrete File Paths, Functions, and Descriptions:**
-    In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
+6. ** Output The first version of design **
+   At this stage, you will output the first version of your designs in terms of filepaths.
+   Each file will contain the intended classes or functions with highly detailed docs following the best practice of docs in the specific language.
+
+
+6. **Refine the Design, Following Best Practice**
+    Now that you have a basic design, start refining it. At this stage, you will first share your knowledge of SOLID principles, and clean code
+    best practices. 
+    Then you use SOLID principles and clean code best practices to judge the output designs from step 6. Propose your improvements ideas
+
+7. **Create Concrete File Paths, Functions, and Descriptions:**
+ Use the refined design as a basis and output improved design in terms of files. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
 
 This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
 ```

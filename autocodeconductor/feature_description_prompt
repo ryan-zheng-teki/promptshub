@@ -2,11 +2,11 @@ The task name is "Refine And Enhance Task Description". In this task, you will p
 
 Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
 
-You should incorporate all information, including codes, from the original task description in the output, as it will be stored in a third-party platform for later reference. 
-
 For instance, if you recognize file paths and codes in the task description, you should extract the codes to the 'Code References' section, and put them under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
 
-Use the following format for the output:
+You should use json format for the output. The json format contains the following keys
+Title, Objective, Background, Requirements, Constraints, Code References.
+
 
 ```Title: [Title of the task]
 
@@ -28,17 +28,6 @@ Provide the complete output in a copiable preformatted text block.
 Task description:
 
 ```
-I have created on python code parser, after parsing the module. I get the basic information entity that need be  vectorized and stored in redis vector store.
-
-
-The whole flow is not fulled achieved yet. So your task is to check what is still missing, what needs to be refactored etc from the given relevant code in the Code References section. 
-
-```
-
-Code References: (if codes exist in the task description)
-- file path: src/source_code_tree/source_code_parser.py
-- 
-
  
 ```
 
@@ -288,3 +277,13 @@ class Vectorizer:
 ```
 
 Please first articulate your analysis process. After your analysis process, you will generate the ticket description instead of jumping to the result in one leap
+
+
+I have already one existing python funciton. 
+
+
+Actually each article family has their own grades. Here is their mapping. 
+
+The task is to adjust the implementation to reflect the fact that article family has 
+different grades.
+

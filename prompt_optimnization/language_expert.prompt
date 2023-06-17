@@ -2,13 +2,7 @@ You are the language expert. Your task is to first identify the domain of the pr
 
 Prompt:
 ```
-This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
-
-For each step, you should use similar reasoning process similar to the sample example i provided below which uses step-by-step reasoning to detect errors
-
-Example:
-balblalbablab
-
+You are language expert with a very strong logical thinking. Your task is to optimize the prompt given quoted by three backticks in the "Prompt" section.
 ```
 
 
@@ -18,10 +12,13 @@ Example:
 balblalbablab
 
 
-You are language expert. You are very good at logica thinking as well. You will 
-read my writting, and tell me what problems you have found, then propose your improvements.  You will articulate your thinking process. 
+You are language expert with a very strong logical thinking. Your task is to optimize the prompt given quoted by three backticks in the "Prompt" section.
 
-Here is my writting
+
+You will first articulate your understanding of my prompt,
+
+
+Prompt
 ```
 When faced with a task, humans commonly follow a sequential approach, progressing from point A to point B through intermediate steps like C, D, and E. This method involves using reasoning to gradually move from one step to the next, resembling an ant's crawling journey towards its destination instead of a sudden leap from A to B.
 
@@ -44,3 +41,46 @@ Is there a similar approach employed by Vue3 Frontend Engineer who follows best 
 
 At last, please create a guideline which is distilled from your thinking process which resembles an ant's crawling journey towards its destination instead of a sudden leap from A to B.
 ```
+
+
+You are a language expert with a strong logical thinking. 
+
+As a language expert with a strong aptitude for logical thinking, your task is to optimize the prompt provided within the 'Prompt' section, enclosed in three backticks."
+
+You will use the progressive approach to improve the prompt
+
+If you are looking for general guidelines to improve your writing, here are a few suggestions:
+
+1. Clarity: Strive for clarity in your writing by expressing your ideas in a concise and straightforward manner. Use clear and precise language to convey your message effectively.
+
+2. Grammar and Punctuation: Pay attention to grammar and punctuation rules to ensure your writing is grammatically correct. Proofread your work for errors and consider using grammar-checking tools or seeking feedback from others.
+
+3. Sentence Structure: Vary your sentence structure to create a more engaging and dynamic piece of writing. Incorporate a mix of short and long sentences, and use transitional words and phrases to improve the flow.
+
+4. Active Voice: Whenever possible, use the active voice in your sentences. Active voice tends to be more direct and engaging, whereas passive voice can make your writing sound more passive and less engaging.
+
+5. Consistency: Maintain consistency in your writing style, tone, and formatting throughout your piece. Consistent use of language and formatting helps to create a cohesive and polished result.
+
+6. Proofreading and Editing: Always proofread and edit your work before finalizing it. Take a break between writing and proofreading to approach your work with fresh eyes. Look for spelling mistakes, grammatical errors, and awkward phrasing, and make necessary revisions.
+
+7. Use of Examples and Evidence: When making a point or argument, support it with relevant examples, evidence, or anecdotes. This adds credibility and helps readers understand and connect with your ideas.
+
+8. Read and Learn: Read widely in different genres and styles to expand your vocabulary, enhance your writing skills, and develop your own unique voice. Learning from experienced writers can provide valuable insights and inspire your own writing.
+
+Remember, writing is a skill that improves with practice. By implementing these guidelines and continually honing your writing abilities, you can enhance the quality and impact of your written work.
+
+1. Logical Flow: Ensure that your sentences are organized in a logical and coherent manner. Each sentence should flow smoothly into the next, guiding the reader through your ideas in a logical progression.
+
+2. Topic Sentences: Begin each paragraph with a clear topic sentence that introduces the main idea or theme of that paragraph. This helps the reader understand the purpose of the paragraph and provides a roadmap for what is to follow.
+
+3. Chronological Order: If you are describing a series of events or presenting a process, consider using chronological order. This allows the reader to follow the sequence of events or steps easily.
+
+4. Order of Importance: When presenting multiple points or ideas, consider arranging them in order of importance. Start with the most significant or compelling point and gradually work towards the less important ones.
+
+5. Transitional Phrases: Use transitional words and phrases to create smooth transitions between sentences and paragraphs. Words like "however," "therefore," "in addition," and "on the other hand" can help establish connections between ideas and improve the overall flow of your writing.
+
+6. Coherence and Unity: Ensure that each sentence contributes to the overall coherence and unity of your writing. Avoid unrelated or tangential sentences that may confuse the reader or disrupt the flow of your ideas.
+
+7. Revising and Rearranging: During the editing process, read through your writing and consider if the order of sentences can be improved. Look for opportunities to rearrange sentences or paragraphs to enhance clarity, coherence, and the logical progression of your ideas.
+
+Remember, the specific order of sentences may vary depending on the content and purpose of your writing. It's important to consider the context and choose an order that best serves your intended message and engages your readers effectively.
