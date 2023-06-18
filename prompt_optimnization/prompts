@@ -1,71 +1,57 @@
-Version 1:
-Lets forget about the previous conversations and start a new task
+Version 1: This version does not specifiy output format
 
-As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, which is enclosed by `$start$` and `$end$`.
 
-Please follow the steps below, each step has a header.
+As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of content begins with `$start$` and ends with `$end$`.
+
+Please follow the steps below. Aach step has a title, and description of the step.
 1. Analyze the Prompt:
    - Break down the prompt and articulate your understanding of its content and intentions.
 
 2. Summarize the Prompt:
    - Condense your analysis into a brief summary highlighting the main points and purpose of the prompt.
 
-3. Identify the domain of the prompt:
-   - At this step, you predict the the domain of this prompt
+3. Identify the Domain of the Prompt:
+   - Predict the domain of this prompt.
 
-4. Assess and Suggest Improvements Based On The Domain Of The Prompt:
+4. Assess and Suggest Improvements Based on the Domain of the Prompt:
    a. Articulate your opinions on the prompt's clarity and effectiveness.
-   b. Articulate specific areas where the prompt can be improved narratively
-   
-Finally, Present the Refined Prompt:
-After the incremental pregressive steps, this is where we are able to present the final result based on the assessments and suggestions given by 
-step 4. The final output should start use '>>Revision<<' as header, the content will be enclosed by `$start$` and `$end$` . 
+   b. Articulate specific areas where the prompt can be improved in terms of content and structure
 
+5. Present the Refined Prompt:
+   - Present the final refined prompt, based on the assessments and suggestions from step 4. The refined prompt should start with `$start$` and end with `$end$`
+ 
+The output format should be in JSON, with each step title as the key, and the output of each step as the value. Here is an example format:
+   {   
+       "Analyze the Prompt": "Description of analysis...",
+       "Summarize the Prompt": "Concise summary...",   
+       "Identify the Domain of the Prompt": "Domain name...",
+       "Assess and Suggest Improvements Based on the Domain of the Prompt": {
+                 "a": "Opinions on clarity...",
+                 "b": "Suggestions for improvement..."   
+       },
+       "Present the Refined Prompt": "$start$ Refined prompt content... $end$"
+   }
 
->>Prompt<
+>>Prompt<<
 $start$
-As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, which is enclosed by `$start$` and `$end$`.
+As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of content begins with `$start$` and ends with `$end$`.
 
-Please follow the steps below, each step has a header.
+Please follow the steps below. Aach step has a title, and description of the step.
 1. Analyze the Prompt:
    - Break down the prompt and articulate your understanding of its content and intentions.
 
 2. Summarize the Prompt:
    - Condense your analysis into a brief summary highlighting the main points and purpose of the prompt.
 
-3. Identify the domain of the prompt:
-   - At this step, you predict the the domain of this prompt
+3. Identify the Domain of the Prompt:
+   - Determine the domain to which this prompt belongs.
 
-4. Assess and Suggest Improvements Based On The Domain Of The Prompt:
+4. Assess and Suggest Improvements Based on the Domain of the Prompt:
    a. Articulate your opinions on the prompt's clarity and effectiveness.
-   b. Articulate specific areas where the prompt can be improved narratively
-   
-Finally, Present the Refined Prompt:
-After the incremental pregressive steps, this is where we are able to present the final result based on the assessments and suggestions given by 
-step 4. The final output should start use '>>Revision<<' as header, the content will be enclosed by `$start$` and `$end$`.
+   b. Articulate specific areas where the prompt can be improved in terms of content and structure
+
+5. Present the Refined Prompt:
+   - Present the final refined prompt, based on the assessments and suggestions from step 4.
+   The refined prompt should start with `$start$` and end with `$end$`
+ 
 $end$
-
-
-
-
-identify the domain of the provided prompt and then enhance it based on your domain knowledge to better convey its purpose without changing the original meaning and tone. Optimize the order of the sentences, words, or remove redundancies to create a logically coherent and semantically organized text, and include explicit instructions such as "follow these standards, ensure that, remember to, don't forget, the output format should be, etc." 
-
-You should provide the output in two sections: the identified domain and the optimized prompt.
-
-
-Following is the prompt
-``` 
-
-```
-
-
-
-I have updated the prompt, lets redo the task
-
-1. Iteration Of Task without changing
-rerun the PromptOptimization task again. the output from this run should be improved from the last run
-1. thanks for PromptOptimizaiton task, now let's move on to the next task which is based on output from the last task
-   Give your next task here.
-
-2. rerun the PromptOptimization task, the output from this run should be improved from the last run
-
