@@ -2,9 +2,9 @@ The task name is 'CodeAnalysisAndErrorResolution'. In this task, you will perfor
 
 Please follow these standards:
 
-1. Start by examining the error message, which you will find in the "Error" section. Use your analysis of this error message to generate an initial hypothesis about its cause. 
+1. Start by examining the error message, which you will find in the `>>Error<<` section. Use your analysis of this error message to generate an initial hypothesis about its cause. 
 
-2. Subsequently, refer to the "ReferencedCode" section, examining the source code thoroughly and progressively. Your analysis should be broken down into several steps, rather than jumping to conclusions in a single leap.
+2. Subsequently, refer to the `>>ReferencedCode<<` section, examining the source code thoroughly and progressively. Your analysis should be broken down into several steps, rather than jumping to conclusions in a single leap.
 
 3. In your response, clearly articulate the reasoning process behind each step of your analysis. Use the following structure as a guide: 
 
@@ -18,96 +18,90 @@ Remember to maintain a logical and coherent flow throughout your analysis, and e
 
 
 Error:
-platform linux -- Python 3.9.16, pytest-7.3.1, pluggy-1.0.0
-benchmark: 4.0.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
-rootdir: /home/ryan/miniHDD/Learning/chatgpt/autobyteus
-plugins: asyncio-0.21.0, benchmark-4.0.0, anyio-3.6.2, cov-4.0.0, integration-0.2.3, mock-3.10.0, vcr-1.0.2
-asyncio: mode=strict
-collected 1 item                                                                                                                                                                                          
-
-tests/source_code_tree/code_parser/test_source_code_parser.py F                                                                                                                                     [100%]
+tests/source_code_tree/code_parser/test_source_code_parser.py .FF                                                                                                                                   [100%]
 
 ================================================================================================ FAILURES =================================================================================================
-______________________________________________________________________________ test_parse_source_code_with_valid_python_file ______________________________________________________________________________
+_____________________________________________________________________ test_parser_handles_standalone_function_with_multiple_arguments _____________________________________________________________________
 
-    def test_parse_source_code_with_valid_python_file():
-        # Arrange
+    def test_parser_handles_standalone_function_with_multiple_arguments():
         parser = SourceCodeParser()
         with tempfile.NamedTemporaryFile(suffix=".py") as temp:
             code_string = textwrap.dedent("""
-            \"\"\"This is a test Python file\"\"\"
-    
-            def test_func():
-                \"\"\"This is a test function\"\"\"
+            def func_with_args(arg1, arg2):
+                \"\"\"Function with multiple arguments\"\"\"
                 pass
-    
-            class TestClass:
-                \"\"\"This is a test class\"\"\"
-                def test_method(self):
-                    \"\"\"This is a test method\"\"\"
-                    pass
             """)
             temp.write(code_string.encode('utf-8'))
             temp.seek(0)
     
-            # Act
             result = parser.parse_source_code(temp.name)
     
-            # Assert
-            assert result.file_path == temp.name
-            assert result.docstring == "This is a test Python file"
-            assert len(result.functions) == 1
->           assert result.functions[0].name == "test_func"
-E           KeyError: 0
+            assert "func_with_args" in result.functions
+>           assert result.functions["func_with_args"].signature == "(arg1, arg2)"
+E           AssertionError: assert 'arg1, arg2' == '(arg1, arg2)'
+E             - (arg1, arg2)
+E             ? -          -
+E             + arg1, arg2
 
-tests/source_code_tree/code_parser/test_source_code_parser.py:33: KeyError
-========================================================================================= short test summary info =========================================================================================
-FAILED tests/source_code_tree/code_parser/test_source_code_parser.py::test_parse_source_code_with_valid_python_file - KeyError: 0
-============================================================================================ 1 failed in 0.04s ============================================================================================
+tests/source_code_tree/code_parser/test_source_code_parser.py:57: AssertionError
 
 ReferencedCode:
-filepath: tests/source_code_tree/code_parser/test_source_code_parser.py
+filepath: src/source_code_tree/code_parser/source_code_parser.py
 ```
-import pytest
-import tempfile
-import textwrap
-from src.source_code_tree.code_parser.source_code_parser import SourceCodeParser
+"""
+This module contains the SourceCodeParser class which provides functionality to parse Python source code files.
 
-def test_parse_source_code_with_valid_python_file():
-    # Arrange
-    parser = SourceCodeParser()
-    with tempfile.NamedTemporaryFile(suffix=".py") as temp:
-        code_string = textwrap.dedent("""
-        \"\"\"This is a test Python file\"\"\"
+The SourceCodeParser class has a method `parse_source_code` that takes a Python file's path as input, reads
+the source code from the file, parses it, and extracts its module-level docstring, functions, classes,
+and their associated docstrings. 
+
+It returns a ModuleEntity object representing the module, containing FunctionEntity objects for each function 
+and ClassEntity objects for each class, which in turn contain MethodEntity objects for each method within the class.
+"""
+
+import ast
+from src.source_code_tree.file_reader import FileReader
+from src.source_code_tree.code_parser.entities import ModuleEntity, FunctionEntity, ClassEntity, MethodEntity
+from src.source_code_tree.code_parser.ast_node_visitor import AstNodeVisitor
+
+class SourceCodeParser:
+    """
+    This class provides functionality to parse Python source code.
+
+    Methods:
+        parse_source_code(filepath: str) -> ModuleEntity: Parses the source code from the file at filepath 
+                                                          and extracts its docstring, functions, and classes.
+    """
+
+    def parse_source_code(self, filepath: str) -> ModuleEntity:
+        """
+        Reads and parses the source code from a .py file and extracts its docstring, functions and classes.
+
+        Args:
+            filepath (str): Path to a .py file.
+
+        Returns:
+            A ModuleEntity object containing the file's docstring, functions and classes,
+            or None if the source_code could not be read or parsed.
+        """
+        source_code = FileReader.read_file(filepath)
+        if source_code is None:
+            return None
+
+        module = ast.parse(source_code)
+        visitor = AstNodeVisitor()
+        functions = [visitor.visit(n) for n in module.body if isinstance(n, ast.FunctionDef)]
+        classes = [visitor.visit(n) for n in module.body if isinstance(n, ast.ClassDef)]
         
-        def test_func():
-            \"\"\"This is a test function\"\"\"
-            pass
-        
-        class TestClass:
-            \"\"\"This is a test class\"\"\"
-            def test_method(self):
-                \"\"\"This is a test method\"\"\"
-                pass
-        """)
-        temp.write(code_string.encode('utf-8'))
-        temp.seek(0)
+        module_entity = ModuleEntity(filepath, ast.get_docstring(module))
 
-        # Act
-        result = parser.parse_source_code(temp.name)
+        for function in functions:
+            module_entity.add_function(function)
 
-        # Assert
-        assert result.file_path == temp.name
-        assert result.docstring == "This is a test Python file"
-        assert len(result.functions) == 1
-        assert result.functions[0].name == "test_func"
-        assert result.functions[0].docstring == "This is a test function"
-        assert len(result.classes) == 1
-        assert result.classes[0].name == "TestClass"
-        assert result.classes[0].docstring == "This is a test class"
-        assert len(result.classes[0].methods) == 1
-        assert result.classes[0].methods[0].name == "test_method"
-        assert result.classes[0].methods[0].docstring == "This is a test method"
+        for class_ in classes:
+            module_entity.add_class(class_)
+
+        return module_entity
 ```
 
 Verion 2:

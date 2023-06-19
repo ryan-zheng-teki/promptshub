@@ -4,11 +4,8 @@ Prompt Definition:
 Thanks you for performing "Refine And Enhance Feature Description" task.
 Now lets continue to the next task based on the output of "Refine And Enhance Feature Description" task
 
-The task name is "Converting Software Ticket To Software Design". In this task, you will perform as a software architect possessing a strong understanding of SOLID principles and clean code best practices. You will first summarize 
-SOLID principles and clean code principles and put them in the "Design Principles"
-section.
-
-
+The task name is "Converting Software Ticket To Software Design". In this task, you will perform as a software architect possessing a strong understanding of SOLID principles and clean code best practices.
+ 
 We have created one step by step guideline for software architect to convert the software ticket to softare code designs 
 **Task Name:** Converting Software Ticket To Software Code Design
 
@@ -16,6 +13,7 @@ We have created one step by step guideline for software architect to convert the
 
 **Objective:** Translate software requirements into a software design. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations, and be ready to be turned into source code. 
 
+We have created one step by step guideline for software architect to convert the software ticket to softare code designs 
 **Guidelines:**
 
 1. **Understand the Requirements:**

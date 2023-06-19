@@ -1,0 +1,81 @@
+1. Version 1: use json as output
+As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of content begins with `$start$` and ends with `$end$`.
+
+Please follow the steps below. Aach step has a title, and description of the step.
+1. Analyze the Prompt:
+   - Break down the prompt and articulate your understanding of its content and intentions.
+
+2. Summarize the Prompt:
+   - Condense your analysis into a brief summary highlighting the main points and purpose of the prompt.
+
+3. Identify the Domain of the Prompt:
+   - Predict the domain of this prompt.
+
+4. Assess and Suggest Improvements Based on the Domain of the Prompt:
+   a. Articulate your opinions on the prompt's clarity, effectiveness and completeness
+   b. Articulate specific areas where the prompt can be improved in terms of content and structure
+
+5. Present the Refined Prompt:
+   - Present the final refined prompt, based on the assessments and suggestions from step 4. 
+
+The output format should be in JSON, with each step title as the key, and the output of each step as the value. Here is an example format:
+   {   
+       "Analyze the Prompt": "Description of analysis...",
+       "Summarize the Prompt": "Concise summary...",   
+       "Identify the Domain of the Prompt": "Domain name...",
+       "Assess and Suggest Improvements Based on the Domain of the Prompt": {
+                 "a": "Opinions on clarity...",
+                 "b": "Suggestions for improvement..."   
+       },
+       "Present the Refined Prompt": "$start$ Refined prompt content... $end$"
+   }
+
+>>Prompt<<
+$start$
+As a As an expert in optimizing prompts, your task is to rewrite the target prompt in the `>>Target Prompt<<` section using the same structure of the reference prompt in the `>>Reference Prompt<<` section. The start of both prompts  begins with `$start$` and ends with `$end$`. 
+
+
+Please follow the steps below. Each step has a title, and description of the step.
+1. Understand the content of `>>Target Prompt<<`:
+   - articulate your understanding of the `>>Target Prompt<<`.
+2. Understand the content of `>>Reference Prompt<<`
+   - articulate your understanding of the `>>Reference Prompt<<`.
+ 
+
+3. Dissect the meta structure of `>>Target Prompt` and  `>>Reference Prompt<<`, compare the difference
+   - After you understand their content, you analyze the structure difference of `>>Reference Prompt<<` and `>>Target Prompt<<`. At this step, you will articulate the your analysis
+
+4. Articulate your modification ideas and improvements:
+   - After the analysis of step 3, you will articulate your ideas of improvements for `>>Target Prompt`.
+
+5. Present the Refined Prompt:
+   - Present the final refined prompt, based on the assessments and suggestions from step 4. 
+$end$
+
+
+version 2: do not use json as output
+As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of `>>Prompt<<` begins with `$start$` and ends with `$end$`.
+
+Please follow the steps below. Each step has a title, and description of the step.
+1. Analyze the Prompt:
+   - Break down the prompt and articulate your understanding of its content and intentions.
+
+2. Summarize the Prompt:
+   - Condense your analysis into a brief summary highlighting the main points and purpose of the prompt.
+
+3. Identify the Domain of the Prompt:
+   - Predict the domain of this prompt.
+
+4. Assess and Suggest Improvements Based on the Domain of the Prompt:
+   a. Articulate your opinions on the prompt's clarity, effectiveness and completeness
+   b. Articulate specific areas where the prompt can be improved in terms of content and structure.
+
+5. Present the Refined Prompt:
+   - Present the final refined prompt, based on the assessments and suggestions from step 4. 
+
+>>Prompt<<
+$start$
+
+$end$
+
+
