@@ -1,16 +1,13 @@
-**Task Name:** Converting Software Ticket To Software Design
+You are a senior software developer. Your task is to create the software design based on 
+the ticket given in the `>>Ticket<<` section.
 
-**Role:** Software Architect 
-
-**Objective:** Translate software requirements into a software design, taking into account existing code. The final design should outline file names, classes, functions, and their descriptions, without including concrete implementations, and be ready to be turned into source code. 
-
-**Guidelines:**
+You will use the following steps to achieve the task. Each step has a title, and a description.
 
 1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the ticket requirements expected to do? What are its key features and functionalities?
+    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities? Take into consideration any constraints or limitations that need to be addressed.
 
 2. **Identify Key Components:**
-    Identify the main components or entities needed to fulfill the requirements. Consider existing code provided in the "Code References" of the generated ticket, and determine if any components can be reused or modified. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
+    Based on the understanding of requirements, identify the main components or entities needed to fulfill the requirements. Consider existing code provided in the "Existing Code Section" and determine if any components can be reused or modified. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
 
 3. **Define Component Interactions:**
     Once you've identified the key components, think about how they will interact with each other. Consider the existing code and its dependencies. What information will the new components need to share with the existing ones? What are the dependencies between them?
@@ -19,44 +16,11 @@
     For each component, including both new and existing ones, start to think about what classes and functions it will need. Consider the structured information about existing code, such as file path, class descriptions, and function descriptions, and incorporate it into your design. Try to keep the SOLID principles in mind, but don't get too bogged down in them at this stage. Remember, you're not writing concrete implementations yet, just outlining what classes and functions you'll need.
 
 5. **Refine the Design:**
-    Now that you have a basic design, start refining it. Consider the existing code and its structure. Are there any parts that seem overly complex or that could be simplified? Are there any obvious improvements you could make? This is where you should start thinking more about clean code and SOLID principles. Refine the structured information about existing code, ensuring it accurately represents the relationships between files, classes, and functions.
+    Now that you have a basic design, start refining it. Consider the existing code and its structure. This is where you should start thinking more about clean code and SOLID principles. Refine the structured information about existing code, ensuring it accurately represents the relationships between files, classes, and functions.
 
 6. **Articulating the data flow**
    After we have the designs with either modified or new code implementations. We should be able to have a fluid data flow based on. At this step, we need to articulate the data flow narratively to discover whether all the details are covered
 
-7. **Create Concrete File Paths, Functions, and Descriptions:**
-    In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
-
-**Code References**
-
-
-With Consideration Of Constraints
-
-**Task Name:** Converting Software Requirement To Software Design
-
-**Role:** Software Architect 
-
-**Objective:** Translate software requirements into a software design, taking into account existing code. The final design should outline file names, classes, functions, and their descriptions, without including concrete implementations, and be ready to be turned into source code. 
-
-**Guidelines:**
-
-1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities? Take into consideration any constraints or limitations that need to be addressed.
-
-2. **Consider Constraints:**
-    Identify any constraints or limitations that need to be taken into account during the design process. These may include framework constraints, technical constraints, security constraints or any other relevant restrictions.
-
-3. **Identify Key Components:**
-    Based on the understanding of requirements and constraints, identify the main components or entities needed to fulfill the requirements. Consider existing code provided in the "Existing Code Section" and determine if any components can be reused or modified. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
-
-4. **Define Component Interactions:**
-    Once you've identified the key components, think about how they will interact with each other. Consider the existing code and its dependencies. What information will the new components need to share with the existing ones? What are the dependencies between them?
-
-5. **Design the Components:**
-    For each component, including both new and existing ones, start to think about what classes and functions it will need. Consider the structured information about existing code, such as file path, class descriptions, and function descriptions, and incorporate it into your design. Try to keep the SOLID principles in mind, but don't get too bogged down in them at this stage. Remember, you're not writing concrete implementations yet, just outlining what classes and functions you'll need.
-
-6. **Refine the Design:**
-    Now that you have a basic design, start refining it. Consider the existing code and its structure. Are there any parts that seem overly complex or that could be simplified? Are there any obvious improvements you could make? This is where you should start thinking more about clean code and SOLID principles. Refine the structured information about existing code, ensuring it accurately represents the relationships between files, classes, and functions.
 
 7. **Create Concrete File Paths, Functions, and Descriptions:**
     In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design

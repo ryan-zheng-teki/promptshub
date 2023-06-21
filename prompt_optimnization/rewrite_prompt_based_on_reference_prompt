@@ -1,0 +1,129 @@
+As an expert in prompt optimization, you are tasked with restructuring the prompt in the `>>Target Prompt<<` section to match the structure of the one in the `>>Reference Prompt<<` section. The start of both prompts begins with `$start$` and ends with `$end$`. Follow these steps:
+
+1. Comprehend `>>Target Prompt<<`:
+   - articulate your understanding of its content.
+
+2. Comprehend `>>Reference Prompt<<`:
+   - articulate your understanding of its content.
+
+3. Analyze and Compare Structures:
+   - Dissect the structures of the `>>Target Prompt<<` and `>>Reference Prompt<<`. articulate the differences. Articulate your detailed analysis narratively.
+
+4. Propose Improvements:
+   - Suggest specific modifications to align the structure of the `>>Target Prompt<<` with the `>>Reference Prompt<<`. Articulate in detail why these modifications improves the target prompt.
+
+5. Submit the Refined Prompt:
+   - Present the final version of the `>>Target Prompt<<` incorporating the proposed improvements.
+
+>>Target Prompt<<
+$start$
+The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain and knowledge of doing similar task, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+
+Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
+
+For instance, if you recognize file paths and codes in the task description, you should extract the codes to the 'Code References' section, and put them under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
+
+You should use json format for the output. The json format contains the following keys
+Title, Objective, Background, Requirements, Constraints, Code References.
+
+
+```Title: [Title of the task]
+
+Objective:
+- [Objective of the task]
+
+Background:
+- [Background information related to the task]
+
+Requirements:
+- [List of requirements for the task]
+
+Constraints:
+- [List of constraints or limitations for the task]
+
+
+Provide the complete output in a copiable preformatted text block.
+
+Task description:
+
+```
+blablab
+```
+$end$
+
+
+>>Reference Prompt<<
+$start$
+As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of content begins with `$start$` and ends with `$end$`.
+
+Please follow the steps below. Aach step has a title, and description of the step.
+1. Analyze the Prompt:
+   - Break down the prompt and articulate your understanding of its content and intentions.
+
+2. Summarize the Prompt:
+   - Condense your analysis into a brief summary highlighting the main points and purpose of the prompt.
+
+3. Identify the Domain of the Prompt:
+   - Predict the domain of this prompt.
+
+4. Assess and Suggest Improvements Based on the Domain of the Prompt:
+   a. Articulate your opinions on the prompt's clarity, effectiveness and completeness
+   b. Articulate specific areas where the prompt can be improved in terms of content and structure
+
+5. Present the Refined Prompt:
+   - Present the final refined prompt, based on the assessments and suggestions from step 4. 
+
+The output format should be in JSON, with each step title as the key, and the output of each step as the value. Here is an example format:
+   {   
+       "Analyze the Prompt": "Description of analysis...",
+       "Summarize the Prompt": "Concise summary...",   
+       "Identify the Domain of the Prompt": "Domain name...",
+       "Assess and Suggest Improvements Based on the Domain of the Prompt": {
+                 "a": "Opinions on clarity...",
+                 "b": "Suggestions for improvement..."   
+       },
+       "Present the Refined Prompt": "$start$ Refined prompt content... $end$"
+   }
+
+>>Prompt<<
+$start$
+As an expert in refining and enhancing task descriptions, your task is create a ticket with structured output with the following section headers. within the "Task Description" section.
+
+Please follow the steps below. Each step has a title and a description of the step:
+1. Analyze the Task Description:
+   - Understand the content and intentions of the provided task description.
+
+2. Utilize Domain Knowledge:
+   - Apply your knowledge of similar features to add additional content or requirements as needed.
+
+3. Refine the Wording:
+   - Adjust the wording to ensure that the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+
+4. Organize the Content:
+   - Create a logically coherent and semantically organized output without redundancy. If there are file paths and codes, extract them to the 'Code References' section.
+
+5. Identify Constraints:
+   - Extract constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
+
+6. Format the Output in JSON:
+   - Structure the output in JSON format with the following keys: Title, Objective, Background, Requirements, Constraints, Code References.
+
+The output format should be in JSON, with each step title as the key, and the output of each step as the value. Here is an example format:
+   {
+       "Analyze the Task Description": "Description of analysis...",
+       "Utilize Domain Knowledge": "Added content or requirements...",
+       "Refine the Wording": "Adjusted wording...",
+       "Organize the Content": "Logically coherent and semantically organized output...",
+       "Identify Constraints": "List of constraints...",
+       "Format the Output in JSON": {
+           "Title": "[Title of the task]",
+           "Objective": "[Objective of the task]",
+           "Background": "[Background information related to the task]",
+           "Requirements": "[List of requirements for the task]",
+           "Constraints": "[List of constraints or limitations for the task]",
+           "Code References": "[Extracted codes and file paths]"
+       }
+   }
+
+Task description:
+

@@ -1,7 +1,10 @@
-1. Version 1: use json as output
-As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of content begins with `$start$` and ends with `$end$`.
+Prompt Description: This prompt is used to optimize a given prompt.
 
-Please follow the steps below. Aach step has a title, and description of the step.
+
+1. Version 1: use json as output
+As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section. The start of content begins with `$start$` and ends with `$end$`.
+
+Please follow the steps below. Each step has a title, and description of the step.
 1. Analyze the Prompt:
    - Break down the prompt and articulate your understanding of its content and intentions.
 
@@ -32,50 +35,37 @@ The output format should be in JSON, with each step title as the key, and the ou
 
 >>Prompt<<
 $start$
-As a As an expert in optimizing prompts, your task is to rewrite the target prompt in the `>>Target Prompt<<` section using the same structure of the reference prompt in the `>>Reference Prompt<<` section. The start of both prompts  begins with `$start$` and ends with `$end$`. 
-
-
-Please follow the steps below. Each step has a title, and description of the step.
-1. Understand the content of `>>Target Prompt<<`:
-   - articulate your understanding of the `>>Target Prompt<<`.
-2. Understand the content of `>>Reference Prompt<<`
-   - articulate your understanding of the `>>Reference Prompt<<`.
- 
-
-3. Dissect the meta structure of `>>Target Prompt` and  `>>Reference Prompt<<`, compare the difference
-   - After you understand their content, you analyze the structure difference of `>>Reference Prompt<<` and `>>Target Prompt<<`. At this step, you will articulate the your analysis
-
-4. Articulate your modification ideas and improvements:
-   - After the analysis of step 3, you will articulate your ideas of improvements for `>>Target Prompt`.
-
-5. Present the Refined Prompt:
-   - Present the final refined prompt, based on the assessments and suggestions from step 4. 
 $end$
 
 
-version 2: do not use json as output
-As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of `>>Prompt<<` begins with `$start$` and ends with `$end$`.
+Version 2: Not using json output
+As an expert in refining content prompts, your task is to improve the given prompt situated within the `>>Prompt<<` section, which starts with `$start$` and ends with `$end$`.
 
-Please follow the steps below. Each step has a title, and description of the step.
+Follow the steps below, each accompanied by a title and a description:
 1. Analyze the Prompt:
-   - Break down the prompt and articulate your understanding of its content and intentions.
+   - Dissect the prompt to understand its content and objectives.
 
-2. Summarize the Prompt:
-   - Condense your analysis into a brief summary highlighting the main points and purpose of the prompt.
+2. Determine the Domain:
+   - Identify the domain to which this prompt belongs.
 
-3. Identify the Domain of the Prompt:
-   - Predict the domain of this prompt.
+3. Evaluate and Recommend Linguistic Enhancements:
+   a. Share your thoughts on the prompt's clarity, efficacy, sentence structure, consistency, and word order.
 
-4. Assess and Suggest Improvements Based on the Domain of the Prompt:
-   a. Articulate your opinions on the prompt's clarity, effectiveness and completeness
-   b. Articulate specific areas where the prompt can be improved in terms of content and structure.
+4. Utilize Domain Expertise for Refinement:
+   a. Recall your expertise in the identified domain and outline your typical refinement steps.
+   b. Compare your approach with the existing steps and provide your insights on improvements.
 
-5. Present the Refined Prompt:
-   - Present the final refined prompt, based on the assessments and suggestions from step 4. 
+5. Validate and Showcase the Refined Prompt:
+   - Ensure the final prompt aligns with its objectives, and present it cleanly starting on a new line.
 
->>Prompt<<
-$start$
 
-$end$
+
+
+
+
+
+
+
+
 
 

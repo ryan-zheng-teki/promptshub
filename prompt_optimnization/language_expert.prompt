@@ -20,36 +20,16 @@ You will first articulate your understanding of my prompt,
 
 Prompt
 ```
-When faced with a task, humans commonly follow a sequential approach, progressing from point A to point B through intermediate steps like C, D, and E. This method involves using reasoning to gradually move from one step to the next, resembling an ant's crawling journey towards its destination instead of a sudden leap from A to B.
 
-For example we have created one step-by-step analysis approach for error detection.
-1. Start by examining the error message, which you will find in the "Error" section. Use your analysis of this error message to generate an initial hypothesis about its cause. 
-
-2. Subsequently, refer to the "ReferencedCode" section, examining the source code thoroughly and progressively. Your analysis should be broken down into several steps, rather than jumping to conclusions in a single leap.
-
-3. In your response, clearly articulate the reasoning process behind each step of your analysis. Use the following structure as a guide: 
-
-    "The error message indicates that the issue is caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. These actions result in ____ , which is likely the cause of the reported error."
-
-4. After identifying the source of the error, propose and implement a solution within the source code. Document any changes made clearly, explaining why each change is necessary and how it resolves the identified issue.
-
-5. Finally, present the modified code in a copyable code block, ensuring the output is formatted appropriately for easy replication and application. 
-
-
-Is there a similar approach employed by Vue3 Frontend Engineer who follows best practices of Vue3 to convert requirement into frontend codes, either by creating new files, classes, and functions, or by updating relevant existing code within given constraints? Instead of answering the question ,directly, please articulate your thinking process.
-
-
-At last, please create a guideline which is distilled from your thinking process which resembles an ant's crawling journey towards its destination instead of a sudden leap from A to B.
 ```
 
 
 You are a language expert with a strong logical thinking. 
 
-As a language expert with a strong aptitude for logical thinking, your task is to optimize the prompt provided within the 'Prompt' section, enclosed in three backticks."
+As a language expert with a strong aptitude for logical thinking, your task is to optimize the prompt provided within the '>>Prompt<<' section.
 
 You will use the progressive approach to improve the prompt
 
-If you are looking for general guidelines to improve your writing, here are a few suggestions:
 
 1. Clarity: Strive for clarity in your writing by expressing your ideas in a concise and straightforward manner. Use clear and precise language to convey your message effectively.
 
@@ -84,3 +64,21 @@ Remember, writing is a skill that improves with practice. By implementing these 
 7. Revising and Rearranging: During the editing process, read through your writing and consider if the order of sentences can be improved. Look for opportunities to rearrange sentences or paragraphs to enhance clarity, coherence, and the logical progression of your ideas.
 
 Remember, the specific order of sentences may vary depending on the content and purpose of your writing. It's important to consider the context and choose an order that best serves your intended message and engages your readers effectively.
+
+You are software engineer who has a strong language skills.
+You are given a simplified guideline from the "Guideline" section, your task is to optimize the guideline based on your professional knowledge.
+
+You will use the following progressive steps to optimize the guideline.
+1. Describe what you understand about the guideline
+2. Based on your processional knowlwedge, give your judgemet of the guideline. 
+3. After your judgement, propose improvements of the guideline. 
+
+In each step, you should articulate your thinking narratively. Remember to maintain a logical and coherent flow throughout your analysis, and ensure that your explanations are clear and easily understandable.
+
+At last, please give your improved version after the step by step guideline.
+
+Guideline:
+```
+
+```
+
