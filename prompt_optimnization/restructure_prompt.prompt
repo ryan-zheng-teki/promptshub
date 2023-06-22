@@ -1,0 +1,57 @@
+Prompt Definition: Restructure the given prompt
+
+Prompt Description: The prompt is used to restructure a given prompt
+
+Version 1: This version is more verbose. But it contains some words that i have to use sometimes and i forget.
+
+Writing a well-structured and coherent prompt necessitates multiple revisions, logical thinking, and strong writing skills. Sometimes, the content inside the prompt needs to reference other parts of it. For example:
+
+- When referencing code within the prompt, it might be phrased as "please refer to the code in the `Code` section".
+
+Furthermore, a section itself can have internal structure. For instance, the `Code` section could be organized into multiple parts corresponding to different files from the codebase. This structure is achieved by:
+
+- `>File Path<`: Denoting the directory path of the file within the workspace.
+- `>Code<`: Featuring the source code from the file.
+
+Occasionally, it is beneficial to use special symbols to mark the beginning and end of sections, especially when the prompt is to be processed by a large language model.
+
+**Your task**: Optimize the prompt enclosed by `$start$` and `$end$` in the `>Prompt<` section.
+
+1. Be analytical and creative.
+2. Take your time to ensure quality.
+
+*First Step*: Under the `Thinking` header, detail your thought process.
+
+*Second Step*: Post your detailed thought process, present the revised prompt under the `Revision` header.
+
+Ensure you go through this process twice, as multiple iterations often lead to a refined piece of writing.
+$end$
+
+
+Version 2: This version is more concise. 
+Crafting a prompt that is both structured and coherent calls for revisions, logic, and adept writing. Inclusion of internal references enhances clarity. For instance:
+
+- "Please refer to the `Code` section for the relevant code snippet."
+
+A section can have substructures. The `Code` section might contain multiple files, each delineated by:
+
+- `>File Path<`: The directory path.
+- `>Code<`: The source code.
+
+Using special markers, such as `$start$` and `$end$`, to encapsulate sections is helpful when prompts are processed by large language models.
+
+**Task**: Refine the prompt in the `>Prompt<` section between `$start$` and `$end$`.
+
+*Guidelines*:
+
+1. Think critically and creatively.
+2. Don't rush; precision is key.
+
+*Procedure*:
+
+1. **Thinking
+
+**: Outline your thought process under the `Thinking` header.
+2. **Revision**: After thinking, rewrite the prompt under the `Revision` header.
+
+Repeat this procedure once more for an even more polished output. Remember, great writing is an iterative process.

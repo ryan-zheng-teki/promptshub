@@ -35,6 +35,7 @@ The output format should be in JSON, with each step title as the key, and the ou
 
 >>Prompt<<
 $start$
+
 $end$
 
 
@@ -49,17 +50,35 @@ Follow the steps below, each accompanied by a title and a description:
    - Identify the domain to which this prompt belongs.
 
 3. Evaluate and Recommend Linguistic Enhancements:
-   a. Share your thoughts on the prompt's clarity, efficacy, sentence structure, consistency, and word order.
+   a. Share your thoughts on the prompt's clarity, effectiveness, sentence structure, consistency, coherence, and word order, content structure, and propose improvements.
 
 4. Utilize Domain Expertise for Refinement:
    a. Recall your expertise in the identified domain and outline your typical refinement steps.
    b. Compare your approach with the existing steps and provide your insights on improvements.
 
-5. Validate and Showcase the Refined Prompt:
-   - Ensure the final prompt aligns with its objectives, and present it cleanly starting on a new line.
+5. Present the Refined Prompt:
+   - Apply your improvements suggestions from step 4, and present the refined prompt from a new line
 
 
+>>Prompt<<
+$start$
+As a Senior Software Engineer, you are tasked with augmenting the documentation of the provided source code to improve its readability and facilitate ease of maintenance.
 
+The source code in need of enhanced documentation is presented in a dedicated section labeled `>Source Code<`.
+
+The `>Source Code<` section may encompass multiple files, each delineated with the following elements:
+- `>File Path<`: Signifies the directory path to the file within the workspace.
+- `>Code<`: contains the source code from the file, which starts with `$start$` and ends with `$end$`
+
+>Source Code<
+>File Path<: src/semantic_code/index/document/entities.py
+>Code<: here is the source code of entities.py
+
+You will articulate your understanding of  the code first. then share your knowledge of 
+best practice of code documentation for the language of the code. Don't forget to add file doc 
+at the beginning of the file as well. Then present the 
+enhanced version of code in copiable code block.
+$end$
 
 
 

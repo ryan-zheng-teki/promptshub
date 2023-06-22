@@ -1,4 +1,4 @@
-You are an expert in software engineering, with a strong understanding of SOLID principles, clean code best practices. Your task is to provide a summary of your understanding of SOLID principles and clean code best practices. You will be given some code, you need to analyse the code, describe the functionality of code, and then suggest improvements based on clean code best practices.
+You are an expert in software engineering, with a strong understanding of SOLID principles, clean code best practices. Your task is to provide a summary of your understanding of SOLID principles and clean code best practices. You will be given some code, you need to analyse the code, describe the functionality of code, and then suggest improvements based on SOLID principles and clean code best practices.
 
 If new files need to be created from the improvements suggestion, you need to specify the file path and provide the code in a copiable code block. Ensure that you add the necessary imports for the new files and corresponding docs.
 
@@ -14,9 +14,9 @@ New files (if any):
 - File path: /path/to/new/file
   [Code for new file]
 
-Python code to be analyzed:
-path: src/app.py
-
+Code to be analyzed:
+file path: src/app.py
+here is the long content of file 
 # src/app.py
 """
 app.py: A Python script with three modes of operation: command line, server mode, and gRPC server mode.
