@@ -1,22 +1,11 @@
-You are an expert in software engineering, with a strong understanding of SOLID principles, clean code best practices. Your task is to provide a summary of your understanding of SOLID principles and clean code best practices. You will be given some code, you need to analyse the code, describe the functionality of code, and then suggest improvements based on SOLID principles and clean code best practices.
 
-If new files need to be created from the improvements suggestion, you need to specify the file path and provide the code in a copiable code block. Ensure that you add the necessary imports for the new files and corresponding docs.
 
-Output format:
+As an expert in software engineering with proficiency in SOLID principles and clean code practices, your task is to analyze the provided code and suggest improvements.
 
-Summary of SOLID principles and clean code best practices:
-- [Summary of principles and practices]
-
-Suggestions for improvement:
-- [List of suggested improvements]
-
-New files (if any):
-- File path: /path/to/new/file
-  [Code for new file]
-
-Code to be analyzed:
-file path: src/app.py
-here is the long content of file 
+### Provided Code for Analysis
+```
+>Code Input<
+File path: src/app.py
 # src/app.py
 """
 app.py: A Python script with three modes of operation: command line, server mode, and gRPC server mode.
@@ -134,4 +123,25 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
 
+### Output Section
+Please structure your response in the following format:
+
+#### Summary of SOLID Principles and Clean Code Best Practices Of The Language In The `Provided Code for Analysis` section
+- [Provide a concise summary of the SOLID principles and clean code practices]
+
+#### Suggestions for Improvement Based on SOLID Principles and Clean Code Best Practices
+- [Detail the improvements you suggest, referencing SOLID principles and clean code practices]
+
+#### New Files and Code Modifications Based On Previous Improvement Suggestion
+If new files are necessary for the improvements, create and provide the contents. Specify the file path, and include necessary imports and documentation. Use the format below:
+```
+>New File<
+File path: /path/to/new/file
+[Code content for new file]
+
+>Modified File<
+File path: /path/to/new/file
+[Code content for new file]
+```

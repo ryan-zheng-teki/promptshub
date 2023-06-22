@@ -15,7 +15,7 @@ Furthermore, a section itself can have internal structure. For instance, the `Co
 
 Occasionally, it is beneficial to use special symbols to mark the beginning and end of sections, especially when the prompt is to be processed by a large language model.
 
-**Your task**: Optimize the prompt enclosed by `$start$` and `$end$` in the `>Prompt<` section.
+Your task is to optimize the prompt enclosed by `$start$` and `$end$` in the `>Prompt<` section.
 
 1. Be analytical and creative.
 2. Take your time to ensure quality.
@@ -25,6 +25,10 @@ Occasionally, it is beneficial to use special symbols to mark the beginning and 
 *Second Step*: Post your detailed thought process, present the revised prompt under the `Revision` header.
 
 Ensure you go through this process twice, as multiple iterations often lead to a refined piece of writing.
+
+>Prompt<
+$start$
+
 $end$
 
 
