@@ -1,248 +1,109 @@
-You are a senior software developer. Your task is to create the software design based on the ticket given in the `>>Ticket<<` section.
+Version 1: 
+You are a senior software developer. Your task is to create the code design based on the requirement given in the `>Requirement<` section.
 
 You will use the following steps to achieve the task. Each step has a title, and a description.
 
 1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities? Take into consideration any constraints or limitations that need to be addressed.
-
+    Articulate thoroughly your understanding of the requirements. 
+    
 2. **Identify Key Components:**
-    Based on the understanding of requirements, identify the main components or entities needed to fulfill the requirements. Consider existing code provided in the "Existing Code Section" and determine if any components can be reused or modified. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
+Identify the main components or entities mentioned in the requirement. Focus on high-level components or services, without delving into specific classes or functions.
 
-3. **Define Component Interactions:**
-    Once you've identified the key components, think about how they will interact with each other. Consider the existing code and its dependencies. What information will the new components need to share with the existing ones? What are the dependencies between them?
+3. **Identify Component Interactions:**
+Elaborate on how the identified key components interact with each other, focusing on interfaces and contracts between them.
 
-4. **Design the Components:**
-    For each component, including both new and existing ones, start to think about what classes and functions it will need. Consider the structured information about existing code, such as file path, class descriptions, and function descriptions, and incorporate it into your design. Try to keep the SOLID principles in mind, but don't get too bogged down in them at this stage. Remember, you're not writing concrete implementations yet, just outlining what classes and functions you'll need.
+4. ** Recall from past experiences **
+Reflect on your past experiences of similar tasks. share insights and best practices that could be relevant for the current task.
 
-5. **Refine the Design:**
-    Now that you have a basic design, start refining it. Consider the existing code and its structure. This is where you should start thinking more about clean code and SOLID principles. Refine the structured information about existing code, ensuring it accurately represents the relationships between files, classes, and functions.
+5. **Design the Components:**
+    Develop a blueprint for each component based on their interactions. Make sure your design adheres to SOLID principles and design patterns. Take advantage of your past experiences from step 4. 
 
 6. **Articulating the data flow**
-   After we have the designs with either modified or new code implementations. We should be able to have a fluid data flow based on. At this step, we need to articulate the data flow narratively to discover whether all the details are covered
+    Narrate thoroughly the data flow based on the code design from step 5, focusing on how data will move through the components and interact with each other to fullfil the requirement. 
+
+7. **Output File Paths, Functions Based on the design**
+    Output the file path, and its code in code block based on the design. Ensure that the output code adheres to these best practices.
+
+This approach gives you a set of guidelines that follows a step-by-step process, emphasizing reasoning and thought process over a more rigid structure.
+
+>Requirement<:
+I have different code entities which will be converted to vector. for example
+
+File Path: src/semantic_code/index/document/FunctionEntity.py 
+from src.semantic_code.index.document.base_entity import VectorizableCodeEntity
 
 
-7. **Create Concrete File Paths, Functions, and Descriptions:**
-    In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design
+class FunctionEntity(VectorizableCodeEntity):
+    def __init__(self, name: str, docstring: str, signature: str):
+        """
+        Initialize a function entity.
+        
+        :param name: Name of the function.
+        :param docstring: Documentation string for the function.
+        :param signature: Signature of the function.
+        """
+        super().__init__(docstring)
+        self.name = name
+        self.signature = signature
+
+    def to_vector(self):
+        """
+        Convert the entity to a vector representation. In this example, it's a dictionary representation.
+        """
+        raise NotImplementedError('not implemented')
+
+current the to_vector is not implementated yet. We need to implement the to_vector function. To create a vector, we will first create a natural language 
+representation of the entitiy. Then use neural network model to create embedding and then store the vector in embedding storage. 
+We want to be able to support multiple ways of creating embedding. The current one i have is OpenAI embedding API. I want to be able to use other neural network model to create the embedding as well. 
+
+After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well.
 
 
-This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure.
-```
+Version 2: Wihtout very detailed steps, only best practices, and think carefully, and output format. (This carefully this is a magic words)
 
-Here is one sample example which demonstrates how detailed reasoning process is employed to detect source code errors from a certain error message.
+As a senior software developer committed to adhering to SOLID principles and best practices, your objective is to design a code architecture that aligns with these principles for the requirements specified in the `>Requirement<` section. 
 
-Example:
-```
-The error message indicates that the issue is caused by a TypeError: bad argument type for built-in operation. Looking at the traceback, we can see that the error originates from line 44 in grpc_service.py when trying to assign a value to stage.stage_class.
+Think very carefully step by step instead of rushing to the final code in one go. Your approach should prioritize reasoning and thoughtful consideration.
 
-The source code suggests that stage_data["stage_class"] is being assigned to stage.stage_class, implying that stage_data["stage_class"] is not of an appropriate type for this assignment. From the traceback and the code, it appears that stage_data is expected to be a dictionary and stage_class is expected to be a key within this dictionary.
+The output should include file paths and their corresponding code. Perform a detailed thinking process before outputing the code.
 
-The source code provided includes a comment that explains the structure of the WORKFLOW_CONFIG dictionary. According to the comment, the 'stage_class' key should correspond to a class representing the stage. We can see in config.py that stage_class values are indeed classes such as RequirementStage, DesignStage, etc.
+>Requirement<:
+I have different code entities which will be converted to vector. for example
 
-Given that the error is a type error, and it arises when assigning stage_data["stage_class"] to stage.stage_class, the error might be due to stage.stage_class not being able to accept a class type as its value. Instead, it may require a string representation of the class name, an instance of the class, or some other form of data.
-
-To resolve this issue, we need to identify the correct type for stage.stage_class and convert stage_data["stage_class"] to that type before assignment. Based on common practice with gRPC, protobufs generally do not support passing around class types or instances directly. Instead, they prefer to work with basic data types such as strings and integers. Therefore, it is likely that stage.stage_class is expecting a string.
-
-Here's a possible solution: instead of assigning the class directly, we can assign the name of the class, as a string, to stage.stage_class.
-```
-
-Requirement:
-I have created one AutomatedCodingWorkflow which contains multiple stages.
-Here i can use grpc to show the workflow
-grpcurl -d '{}' -proto autobyteus/src/proto/grpc_service.proto -plaintext localhost:50051 automatedcodingworkflow.AutomatedCodingWorkflowService/GetWorkflowConfig
-{
-  "stages": [
-    {
-      "stageName": "requirement",
-      "stageClass": "RequirementStage",
-      "stages": [
-        {
-          "stageName": "refine",
-          "stageClass": "RequirementRefineStage"
-        }
-      ]
-    },
-    {
-      "stageName": "design",
-      "stageClass": "DesignStage"
-    },
-    {
-      "stageName": "test_generation",
-      "stageClass": "TestGenerationStage"
-    },
-    {
-      "stageName": "implementation",
-      "stageClass": "ImplementationStage"
-    },
-    {
-      "stageName": "testing",
-      "stageClass": "TestingStage"
-    }
-  ]
-}
-
-Now i
-
-We have created a sequential guideline for software developer to convert requirement to softare designs ultimately in the form of filepath, classes, functions. Here is the guideline.
-
-1. Understand the requirements: Begin by thoroughly comprehending the software requirements. Identify the key functionalities, user interactions. This step sets the foundation for the design process.
-
-2. Define the system architecture: Based on the requirements, determine the overall structure and components of the software system. Consider the technical constraints such as the chosen technical stack, frameworks, and programming languages. Create a high-level design that outlines the major modules and their interactions.
-
-3. Identify modules and components: Break down the system architecture into smaller modules or components. Each module should have well-defined responsibilities and interfaces. Identify the relationships and dependencies between the modules.
-
-4. Design module interfaces: Define the interfaces for each module, specifying the input parameters, output results, and communication protocols. This step ensures that modules can interact seamlessly and efficiently.
-
-5. Design classes and data structures: Within each module, design the classes and data structures that encapsulate the functionality. Consider the data flow, data storage, and algorithms required to implement the module's responsibilities.
-
-6. Define class relationships: Establish the relationships between classes, such as inheritance, composition, or association. Determine the appropriate design patterns or architectural styles to enhance modularity, reusability, and maintainability.
-
-7. Design functions and methods: Within each class, define the functions or methods that implement specific operations. Consider the input parameters, return values, and any necessary error handling.
-
-8. Consider technical constraints: Throughout the design process, be mindful of the technical constraints, such as performance limitations, platform compatibility, and scalability requirements. Adjust the design accordingly to accommodate these constraints effectively.
-
-9. Validate and refine: Review the design to ensure it aligns with the initial requirements and technical constraints. Seek feedback from stakeholders, architects, or peers. Refine the design as needed, considering alternative approaches and optimizations.
+File Path: src/semantic_code/index/document/FunctionEntity.py 
+from src.semantic_code.index.document.base_entity import VectorizableCodeEntity
 
 
-By following these sequential steps, akin to an ant's crawling journey, developers can systematically convert software requirements into concrete software designs. This approach allows for thoughtful reasoning, consideration of technical constraints, and the creation of a robust and well-structured software solution.
+class FunctionEntity(VectorizableCodeEntity):
+    def __init__(self, name: str, docstring: str, signature: str):
+        """
+        Initialize a function entity.
+        
+        :param name: Name of the function.
+        :param docstring: Documentation string for the function.
+        :param signature: Signature of the function.
+        """
+        super().__init__(docstring)
+        self.name = name
+        self.signature = signature
 
-Now please use the guideline to address the following requirement
-```
-We have created one Vue3 WorkflowContainer.vue component
-<template>
-    <!-- Component Markup -->
-</template>
-  
-<script lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-import workflowService from '../services/WorkflowService'; // adjust the path as needed
-import StageButton from './StageButton.vue';
-import ProgressIndicator from './ProgressIndicator.vue';
-import StageDetail from './StageDetail.vue';
-import type { WorkflowCommand } from '../types/vscode';
-import eventEmitter from "../services/EventEmitter";
+    def to_vector(self):
+        """
+        Convert the entity to a vector representation. In this example, it's a dictionary representation.
+        """
+        raise NotImplementedError('not implemented')
 
+current the to_vector is not implementated yet. We need to implement the to_vector function. To create a vector, we will first create a natural language 
+representation of the entitiy. Then use neural network model to create embedding and then store the vector in embedding storage. 
+We want to be able to support multiple ways of creating embedding. The current one i have is OpenAI embedding API. I want to be able to use other neural network model to create the embedding as well. 
 
-export default {
-  components: {
-    StageButton,
-    ProgressIndicator,
-    StageDetail
-  },
-  setup() {
-    const currentStage = ref(null);
-    const stages = ref([]);
+After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well.
 
-    const handleWorkflowStarted = (data: any)  => {
-      stages.value = data;
-    };
+Version 3:
+As a senior software developer, you are tasked with designing a code architecture adhering to SOLID principles and industry best practices for the requirement given in The `>Requirement<` section.
 
-    onMounted(() => {
-      eventEmitter.on('workflowStarted', handleWorkflowStarted);
-    });
+Follow a thoughtful, step-by-step approach that emphasizes careful reasoning. This is crucial for ensuring that the architecture aligns well with the SOLID principles.
 
-    onUnmounted(() => {
-      eventEmitter.off('workflowStarted', handleWorkflowStarted);
-    });
+Your output should contains your thinking process, and by the end of the thinking process. You will wrapup and produce the code with its corresponding file path.
 
-    const startWorkflow = () => {
-      const startWorkflowCmd: WorkflowCommand = { name: 'startWorkflow'}
-      workflowService.sendMessageToExtension(startWorkflowCmd);
-    };
-
-    return {
-      currentStage,
-      stages,
-      startWorkflow,
-      // Other reactive properties...
-    };
-  }
-  // Other methods, lifecycle hooks...
-}
-</script>
-
-As you can see the Container template is empty. Previously we have also design of the UI
----------------------------------------------------------------
-|                      Automated Coding Workflow              |
----------------------------------------------------------------
-|  [Start Workflow]                                           |
----------------------------------------------------------------
-| [OptimizeTaskDescription] | [DetermineNextTask] | [Stage n] |
-|         ^ (highlighted)                                    |
----------------------------------------------------------------
-|  Progress: [=========     ] 70%                             |
----------------------------------------------------------------
-
-      Stage Detail Section
----------------------------------------------------------------
-|  [Stage Name: OptimizeTaskDescription]                       |
----------------------------------------------------------------
-|  [Configurable Fields:]                                      |
-|  - [User Input: _______ [Edit]]                              |
----------------------------------------------------------------
-|  [Execution Options:]                                        |
-|  - [[Execute]]                                               |
-|  - [[Continue] / [Iterate]]                                  |
----------------------------------------------------------------
-|  [Stage Error (if any):]                                     |
-|  - [Error message here...]                                   |
----------------------------------------------------------------
-|  [Stage History:]                                            |
-|  - [Iteration 1: Result data here...]                        |
-|  - [Iteration 2: Result data here...]                        |
----------------------------------------------------------------
-|  [Stage Result:]                                             |
-|  - [Latest Result data here...]                              |
-|  - [Interactive Graph/Chart showing the result]              |
----------------------------------------------------------------
-
-User Journey:
-
-The user clicks on [Start Workflow].
-The 'OptimizeTaskDescription' stage is highlighted. Its details appear in the Stage Detail Section.
-The user clicks on [Edit] next to 'User Input' and enters their data.
-The user clicks on [Execute]. The 'Execute' button becomes inactive, and 'Continue' or 'Iterate' becomes active based on the last run.
-The result of the stage appears as an interactive graph or chart. The user can hover over it to see detailed data.
-If an error occurs, it is displayed in a distinct color in the 'Stage Error' area.
-The user can view the Stage History to understand the changes that have occurred in each stage.
-The user clicks on the next stage (DetermineNextTask), and the process repeats.
-```
-
-Please use the approach defined by the guideline to complete the WorkflowContainer implemenation
-
-
-
-
-
-
-
-
-
-
-
-
-Yes, software engineers typically follow a sequential and iterative approach when converting software requirements into software designs or updating existing codebases. This approach involves several steps that build upon each other, allowing for a systematic progression towards the desired outcome. I'll outline the general thinking process and provide a guideline resembling an ant's crawling journey.
-
-1. Understanding the Requirements:
-   - Begin by thoroughly understanding the software requirements. 
-   - Break down the requirements into smaller, more manageable units, such as features or modules.
-
-2. Analyse and Design:
-   - Analyze the system or codebase to identify any existing components that can be reused or modified.
-   - Identify the necessary new files, classes, or functions that need to be created based on the requirements.
-   - Consider the constraints, such as performance, scalability, security, and maintainability.
-
-3. High-Level Design:
-   - Create a high-level design that outlines the overall structure of the software.
-   - Define the major components, their interactions, and the flow of data between them.
-   - Consider the architectural patterns or paradigms suitable for the project.
-
-4. Detailed Design:
-   - Dive deeper into each component and define their interfaces, responsibilities, and interactions in detail.
-   - Consider the design patterns or best practices applicable to the specific problem domain.
-   - Document the design decisions, including diagrams, class hierarchies, and relationships.
-
-5. Implementation and Testing:
-   - Begin implementing the designed components, following the guidelines and specifications.
-   - Write clean, modular, and maintainable code, adhering to coding standards and practices.
-   - Perform unit testing to ensure individual components work correctly.
-
+Before writing the actual code, create tests following the Test-Driven Development (TDD) approach. These tests should be tailored to verify the functionality and adherence to the requirements specified in the `>Requirement<` section. Ensure that your tests align with the best practices for test creation in the programming language used.

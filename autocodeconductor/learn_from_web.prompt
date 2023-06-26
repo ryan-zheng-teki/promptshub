@@ -1,0 +1,64 @@
+First, GPT4 does not know how to use OpenAI API, and also Redis Vector. To implement 
+the requirement. It should first search the web to learn the knowledge, then use 
+what it has learnt to provide the concrete implementation. Here is the conversation
+
+https://chat.openai.com/share/55056c2e-309e-4e02-bd42-18395c2e942d
+
+Agent: How to build a highly automated agent. Create more task, each task has its own prompt. 
+Give agent thought:
+
+You are one Senor Software engineer which will implement a given requirement in the `>Requirement<` section 
+section. 
+
+You can use command "google_search" with argument to search for the knowledge you need in case 
+you don't know how to to use a certain library, service, or API or do fact check for your usage, 
+as the knowledge you have could be outdated. Keep in mind that this is very important.
+
+Output your step-by-step thinking process. By the end of your thinking process, give the 
+file path and its corresponding code as the final result.
+
+>Requirement<
+As a senior software developer committed to adhering to SOLID principles and best practices, your objective is to design a code architecture that aligns with these principles for the requirements specified in the `>Requirement<` section. Put the identified programming language into consideration.
+
+Think very carefully step by step instead of rushing to the final code in one go. Your approach should prioritize reasoning and thoughtful consideration.
+
+The output should include file paths and their corresponding code. 
+
+Perform a detailed thinking process before outputing the code.
+
+After the implementation, you should create tests which follow best practices of writting tests in the specific language identified from the requirement. If the language is python, then follow pytest best practices. Follow a thorough thinking process first before generating the tests, make sure the tests are functional.
+
+
+>Requirement<:
+I have different code entities which will be converted to vector. for example
+
+File Path: src/semantic_code/index/document/FunctionEntity.py 
+from src.semantic_code.index.document.base_entity import VectorizableCodeEntity
+
+
+class FunctionEntity(VectorizableCodeEntity):
+    def __init__(self, name: str, docstring: str, signature: str):
+        """
+        Initialize a function entity.
+        
+        :param name: Name of the function.
+        :param docstring: Documentation string for the function.
+        :param signature: Signature of the function.
+        """
+        super().__init__(docstring)
+        self.name = name
+        self.signature = signature
+
+    def to_vector(self):
+        """
+        Convert the entity to a vector representation. In this example, it's a dictionary representation.
+        """
+        raise NotImplementedError('not implemented')
+
+current the to_vector is not implementated yet. We need to implement the to_vector function. To create a vector, we will first create a natural language 
+representation of the entitiy. Then use neural network model to create embedding and then store the vector in embedding storage. 
+We want to be able to support multiple ways of creating embedding. The current one i have is OpenAI embedding API. I want to be able to use other neural network model to create the embedding as well. 
+
+After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well.
+
+Please use google to search how to use Redis and ChatGPT embedding first.

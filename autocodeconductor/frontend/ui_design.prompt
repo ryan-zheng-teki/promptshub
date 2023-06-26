@@ -1,0 +1,35 @@
+The task name is "UXDesign". In this task, you will perform as an adept UX designer. Your responsibility is to create an intuitive and user-friendly UI design based on the specifications provided in the "Task Description".
+
+Ensure that your output comprises an explanation of your UI design, elucidating the decisions made during the design process. Additionally, it should include a text-based prototype to facilitate visualization. This prototype should be similar in format to the example provided below:
+
+Example Prototype:
+
+---------------------------------------------------------------
+|                       Automated Coding Workflow             |
+---------------------------------------------------------------
+|  [Start Workflow]                                           |
+---------------------------------------------------------------
+|  Stage 1   |  Stage 2   |  Stage 3  |  ...  |  Stage n     |
+---------------------------------------------------------------
+
+Remember, the prototype is an essential part of your submission, as it helps in understanding the flow and layout of your proposed UI design. Your design decisions should align with the principles of user-centric design, focusing on usability and user interaction. 
+
+The output format should be clear, concise, and well-structured. It should provide an insight into your thought process and the considerations you've made to meet the user needs and project requirements.
+
+
+Task Description:
+I need to provide a automated coding workflow with different stages on UI. The workflow has a called "Automated Coding Workflow". Each workflow has also a start button. After the workflow starts, the first stage is always "OptimizeTaskDescription" stage. After "OptimizeTaskDescription" stage, it's "DeterminNextTask" stage. The "DeterminNextTask" stage will decide what the next stage will be. Then the next stage is dynamically shown after this "DeterminNextTask" returned from the backend.
+
+The UI should show all the stages as well, so user is able to know how many stages exist in this workflow.
+
+Each stage has name, each stage has some configurable fields. For the current being, there is only field called "user input". There is one 
+execute button for each stage. After user click the execute button. Then the button becomes continue or iterate, which basically rerun the 
+stage based on the lastest run of the stage.
+
+The result of the stage should be shown as well. Design a good way to show the stage result. Please do not use pop ups.
+
+
+Please iterate the "UXDesign" task on top of the result of last run of the task again, until until we can design UI components, and see the interactions of the UI components
+
+
+Is there a step-by-step progressive approach to "developing frontend feature based on UI design using Vue3"

@@ -50,41 +50,43 @@ Follow the steps below, each accompanied by a title and a description:
    - Identify the domain to which this prompt belongs.
 
 3. Evaluate and Recommend Linguistic Enhancements:
-   a. Share your thoughts on the prompt's clarity, effectiveness, sentence structure, consistency, coherence, and word order, content structure, and propose improvements.
+   a. Share your thoughts on the prompt's clarity, effectiveness, sentence structure, consistency, coherence, and word order, content structure, 
+   b. if you think there are areas needs to be improved, then share your detailed opinions where and why
 
-4. Utilize Domain Expertise for Refinement:
-   a. Recall your expertise in the identified domain and outline your typical refinement steps.
-   b. Compare your approach with the existing steps and provide your insights on improvements.
-
-5. Present the Refined Prompt:
-   - Apply your improvements suggestions from step 4, and present the refined prompt from a new line
+4. Present the Refined Prompt:
+   - Apply your improvements suggestions from step 3, 4, and present the refined prompt from a new line
 
 
 >>Prompt<<
 $start$
-As a Senior Software Engineer, you are tasked with augmenting the documentation of the provided source code to improve its readability and facilitate ease of maintenance.
+You are a senior software developer. Your task is to create the code design based on the requirement given in the `>Requirement<` section.
 
-The source code in need of enhanced documentation is presented in a dedicated section labeled `>Source Code<`.
+You will use the following steps to achieve the task. Each step has a title, and a description.
 
-The `>Source Code<` section may encompass multiple files, each delineated with the following elements:
-- `>File Path<`: Signifies the directory path to the file within the workspace.
-- `>Code<`: contains the source code from the file, which starts with `$start$` and ends with `$end$`
+1. **Understand the Requirements:**
+    Articulate thoroughly your understanding of the requirements. 
+    
+2. **Identify Key Components:**
+Identify the main components or entities mentioned in the requirement. Focus on high-level components or services, without delving into specific classes or functions.
 
->Source Code<
->File Path<: src/semantic_code/index/document/entities.py
->Code<: here is the source code of entities.py
+3. **Identify Component Interactions:**
+Elaborate on how the identified key components interact with each other, focusing on interfaces and contracts between them.
 
-You will articulate your understanding of  the code first. then share your knowledge of 
-best practice of code documentation for the language of the code. Don't forget to add file doc 
-at the beginning of the file as well. Then present the 
-enhanced version of code in copiable code block.
+4. ** Recall from past experiences **
+Reflect on your past experiences of similar tasks. share insights and best practices that could be relevant for the current task.
+
+5. **Design the Components:**
+    Develop a blueprint for each component based on their interactions. Make sure your design adheres to SOLID principles and design patterns. Take advantage of your past experiences from step 4. 
+
+6. **Articulating the data flow**
+    Narrate thoroughly the data flow based on the code design from step 5, focusing on how data will move through the components and interact with each other to fullfil the requirement. 
+
+7. **Output File Paths, Functions Based on the design**
+    Output the file path, and its code in code block based on the design. Ensure that the output code adheres to these best practices.
+
+This approach gives you a set of guidelines that follows a step-by-step process, emphasizing reasoning and thought process over a more rigid structure.
+
 $end$
-
-
-
-
-
-
 
 
 

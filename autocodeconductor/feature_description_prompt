@@ -1,6 +1,6 @@
-The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain and knowledge of doing similar task, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain and knowledge of doing similar task, and ensure the revised description better conveys its purpose.
 
-Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
+Adjust the wording, add additional content or requirements as needed based your knowledge your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
 
 For instance, if you recognize file paths and codes in the task description, you should extract the codes to the 'Code References' section, and put them under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
 
@@ -28,7 +28,7 @@ Provide the complete output in a copiable preformatted text block.
 Task description:
 
 ```
- 
+blablab
 ```
 
 
@@ -60,7 +60,6 @@ Summary: Based on the reasoning result, i will create a software ticket
 to create 
 src/llmBaseLLMIntegration::send_message
 src/llm
-
 ```
 
 
@@ -87,7 +86,7 @@ Requirements:
 Constraints:
 - [List of constraints or limitations for the task]
 
-Code References: (if codes exist in the task description)
+Code References: (extracted codes from the task description)
 - path
 - description
 - code (complete code for the file given in the task description)
@@ -98,51 +97,6 @@ Target Ticket Description:
 a general funcationality. So we can design a standard construct which will be used to generate a vector. In general, we will need to create vector. and store in vector db. Then we will also need to implement search feature given user input as query.'
 
 
-
-
-
-
-Objective:
-- To seamlessly integrate and implement multiple large language model (LLM) providers within our system, specifically OpenAI's GPT model and Google's Bard model.
-
-Background:
-- The current application is powered by a single LLM provider. This has served our needs to this point, but expanding to incorporate multiple LLM providers will help increase the robustness, versatility, and adaptability of our system. OpenAI's GPT and Google's Bard are two high-performing models that could augment the system's natural language processing capabilities.
-
-Requirements:
-- Identify and understand the API specifications for both OpenAI's GPT and Google's Bard.
-- Develop a modular and scalable architecture to switch between or combine results from the different LLM providers.
-- Implement code to integrate both OpenAI's GPT and Google's Bard as LLM providers.
-- Test integration to ensure system stability and functionality.
-- Document the implementation and usage of the newly integrated LLM providers.
-
-Constraints:
-- The integration must be seamless, without causing disruption to existing services.
-- The new implementation should not degrade the current system performance.
-- Any proprietary constraints of the LLM providers (such as request limits, cost, and data privacy considerations) should be adhered to.
-
-Code References: (This will be filled out in the implementation phase, considering there are no code references in the task description)
-- path
-- description
-- code (complete code for the file given in the task description)
-
-
-Objective:
-- To develop a semantic index for source code that provides a general functionality representation. The index is based on function names and their descriptions.
-
-Background:
-- In software development, the function name and its description in the source code often give a clear idea of the general functionality. Creating a semantic index for these elements will enhance code understanding and facilitate feature searches within the codebase.
-
-Requirements:
-1. Design a standard construct to represent function names and descriptions in the source code. This construct will be used to generate a vector.
-2. Create and store the vectors in a vector database. 
-3. Implement a search feature that uses user input as a query to search within the generated semantic index.
-
-Constraints:
-- Ensure the designed construct can represent diverse function names and descriptions effectively.
-- The implemented search feature should return accurate and relevant results to user queries.
-
-Code References: 
-- For this task, no code references have been provided in the description. Upon initiation of the task, relevant code segments will be identified and referenced accordingly.
 
 
 
@@ -275,15 +229,4 @@ class Vectorizer:
         pass
 
 ```
-
-Please first articulate your analysis process. After your analysis process, you will generate the ticket description instead of jumping to the result in one leap
-
-
-I have already one existing python funciton. 
-
-
-Actually each article family has their own grades. Here is their mapping. 
-
-The task is to adjust the implementation to reflect the fact that article family has 
-different grades.
 

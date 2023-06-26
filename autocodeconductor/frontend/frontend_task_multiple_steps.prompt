@@ -1,0 +1,137 @@
+Prompt Definition: This prompt will be used convert the requirement into code designs. There are two versions, one version does not have all the steps, but only has "think very carefully step by step".
+
+What i noticed is that think very carefully step by step has performed much better than defining the steps. But the steps are more stable.
+
+
+Version 1: You are a senior frontend engineer, your task is to implement the task given in the `>Ticket<` section. 
+
+
+1. Understand the requirements: Begin by thoroughly comprehending the software requirements. Identify the key functionalities, user interactions. This step sets the foundation for the design process.
+
+2. Define the system architecture: Based on the requirements, determine the overall structure and components of the software system. Consider the technical constraints such as the chosen technical stack, frameworks, and programming languages. Create a high-level design that outlines the major modules and their interactions.
+
+3. Identify modules and components: Break down the system architecture into smaller modules or components. Each module should have well-defined responsibilities and interfaces. Identify the relationships and dependencies between the modules.
+
+4. Design module interfaces: Define the interfaces for each module, specifying the input parameters, output results, and communication protocols. This step ensures that modules can interact seamlessly and efficiently.
+
+5. Design classes and data structures: Within each module, design the classes and data structures that encapsulate the functionality. Consider the data flow, data storage, and algorithms required to implement the module's responsibilities.
+
+6. Define class relationships: Establish the relationships between classes, such as inheritance, composition, or association. Determine the appropriate design patterns or architectural styles to enhance modularity, reusability, and maintainability.
+
+7. Design functions and methods: Within each class, define the functions or methods that implement specific operations. Consider the input parameters, return values, and any necessary error handling.
+
+8. Consider technical constraints: Throughout the design process, be mindful of the technical constraints, such as performance limitations, platform compatibility, and scalability requirements. Adjust the design accordingly to accommodate these constraints effectively.
+
+9. Validate and refine: Review the design to ensure it aligns with the initial requirements and technical constraints. Seek feedback from stakeholders, architects, or peers. Refine the design as needed, considering alternative approaches and optimizations.
+
+
+By following these sequential steps, akin to an ant's crawling journey, developers can systematically convert software requirements into concrete software designs. This approach allows for thoughtful reasoning, consideration of technical constraints, and the creation of a robust and well-structured software solution.
+
+Now please use the guideline to address the following requirement
+```
+We have created one Vue3 WorkflowContainer.vue component
+<template>
+    <!-- Component Markup -->
+</template>
+  
+<script lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import workflowService from '../services/WorkflowService'; // adjust the path as needed
+import StageButton from './StageButton.vue';
+import ProgressIndicator from './ProgressIndicator.vue';
+import StageDetail from './StageDetail.vue';
+import type { WorkflowCommand } from '../types/vscode';
+import eventEmitter from "../services/EventEmitter";
+
+
+export default {
+  components: {
+    StageButton,
+    ProgressIndicator,
+    StageDetail
+  },
+  setup() {
+    const currentStage = ref(null);
+    const stages = ref([]);
+
+    const handleWorkflowStarted = (data: any)  => {
+      stages.value = data;
+    };
+
+    onMounted(() => {
+      eventEmitter.on('workflowStarted', handleWorkflowStarted);
+    });
+
+    onUnmounted(() => {
+      eventEmitter.off('workflowStarted', handleWorkflowStarted);
+    });
+
+    const startWorkflow = () => {
+      const startWorkflowCmd: WorkflowCommand = { name: 'startWorkflow'}
+      workflowService.sendMessageToExtension(startWorkflowCmd);
+    };
+
+    return {
+      currentStage,
+      stages,
+      startWorkflow,
+      // Other reactive properties...
+    };
+  }
+  // Other methods, lifecycle hooks...
+}
+</script>
+
+As you can see the Container template is empty. Previously we have also design of the UI
+---------------------------------------------------------------
+|                      Automated Coding Workflow              |
+---------------------------------------------------------------
+|  [Start Workflow]                                           |
+---------------------------------------------------------------
+| [OptimizeTaskDescription] | [DetermineNextTask] | [Stage n] |
+|         ^ (highlighted)                                    |
+---------------------------------------------------------------
+|  Progress: [=========     ] 70%                             |
+---------------------------------------------------------------
+
+      Stage Detail Section
+---------------------------------------------------------------
+|  [Stage Name: OptimizeTaskDescription]                       |
+---------------------------------------------------------------
+|  [Configurable Fields:]                                      |
+|  - [User Input: _______ [Edit]]                              |
+---------------------------------------------------------------
+|  [Execution Options:]                                        |
+|  - [[Execute]]                                               |
+|  - [[Continue] / [Iterate]]                                  |
+---------------------------------------------------------------
+|  [Stage Error (if any):]                                     |
+|  - [Error message here...]                                   |
+---------------------------------------------------------------
+|  [Stage History:]                                            |
+|  - [Iteration 1: Result data here...]                        |
+|  - [Iteration 2: Result data here...]                        |
+---------------------------------------------------------------
+|  [Stage Result:]                                             |
+|  - [Latest Result data here...]                              |
+|  - [Interactive Graph/Chart showing the result]              |
+---------------------------------------------------------------
+
+User Journey:
+
+The user clicks on [Start Workflow].
+The 'OptimizeTaskDescription' stage is highlighted. Its details appear in the Stage Detail Section.
+The user clicks on [Edit] next to 'User Input' and enters their data.
+The user clicks on [Execute]. The 'Execute' button becomes inactive, and 'Continue' or 'Iterate' becomes active based on the last run.
+The result of the stage appears as an interactive graph or chart. The user can hover over it to see detailed data.
+If an error occurs, it is displayed in a distinct color in the 'Stage Error' area.
+The user can view the Stage History to understand the changes that have occurred in each stage.
+The user clicks on the next stage (DetermineNextTask), and the process repeats.
+```
+
+Please use the approach defined by the guideline to complete the WorkflowContainer implemenation
+
+
+
+
+
