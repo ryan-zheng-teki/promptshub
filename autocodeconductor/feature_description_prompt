@@ -1,8 +1,6 @@
-The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain and knowledge of doing similar task, and ensure the revised description better conveys its purpose.
+The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain knowledge of doing similar task, and ensure the revised description better conveys its purpose and has a better content structure.
 
 Adjust the wording, add additional content or requirements as needed based your knowledge your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
-
-For instance, if you recognize file paths and codes in the task description, you should extract the codes to the 'Code References' section, and put them under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
 
 You should use json format for the output. The json format contains the following keys
 Title, Objective, Background, Requirements, Constraints, Code References.
@@ -30,7 +28,6 @@ Task description:
 ```
 blablab
 ```
-
 
 You will need to create based on the short description i give in the "TicketDescription" section. The short description could sometimes contain only keywords, sometimes include code references as well, sometimes its just a simple description what needs to be achieved. you will need to create a more comprehensive software ticket
 based on your analysis of the information. You will your reasoning skill from analysising the description to creating a software ticket. It's not one-step to conclusion. 
@@ -97,9 +94,6 @@ Target Ticket Description:
 a general funcationality. So we can design a standard construct which will be used to generate a vector. In general, we will need to create vector. and store in vector db. Then we will also need to implement search feature given user input as query.'
 
 
-
-
-
 The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain and knowledge of doing similar task, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
 
 Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
@@ -124,109 +118,56 @@ Constraints:
 - [List of constraints or limitations for the task]
 
 
-Provide the complete output in a copiable preformatted text block.
-
 Task description:
 
-```
-I have created on python code parser, after parsing the module, i eventually want to 
-have filepath+module docstring, filepath+function+function docstring,
-filepath+class+class docstring, filepath+class+method+method docstring
 
-these fundamental information entity. Then i will need to convert these fundamental information entity to vector, and then store in the vector database.
 
-The whole flow is not achieved yet. So The task is to check what is still missing, what
-needs to be refactored etc
-```
 
-Code References: (if codes exist in the task description)
-- module: src/source_code_tree/source_code_parser.py
-- module content
-class SourceCodeParser:
-    """
-    This class provides functionality to load and parse Python source code.
-    
-    Attributes:
-        source_code (str): Stores the source code as a string.
 
-    Methods:
-        load_source_code(filepath): Loads the source code from a .py file into the source_code attribute.
-        parse_source_code(): Parses the source code stored in the source_code attribute and extracts
-                             its docstring, functions and classes.
-    """
 
-    def __init__(self):
-        """
-        Initializes a new instance of the SourceCodeParser class.
-        """
-        self.source_code = None
 
-    def load_source_code(self, filepath):
-        """
-        Loads the source code from a .py file into the source_code attribute.
+1. Analyze the Prompt:
+   - The prompt provides instructions for a task called "Refine And Enhance Task Description". In this task, the participant is expected to analyze a given task description, and refine it by adjusting the wording, adding content or requirements, and ensuring that it is logically coherent and semantically organized without redundancy. Additionally, if there are code references, they should be extracted and placed in the appropriate section. The output should be in JSON format and include keys for Title, Objective, Background, Requirements, Constraints, and Code References.
 
-        Args:
-            filepath (str): Path to a .py file.
+2. Determine the Domain:
+   - The domain of this prompt is content refinement and editing, with a focus on task descriptions and an emphasis on structured data (JSON format).
 
-        Returns:
-            None
-        """
-        if not os.path.isfile(filepath) or not filepath.endswith('.py'):
-            return None
-        with open(filepath, 'r') as file:
-            self.source_code = file.read()
+3. Evaluate and Recommend Linguistic Enhancements:
+   a. The prompt has some clarity but it can be improved for effectiveness and coherence.
+   b. Recommendations for improvement:
+      - The use of "perform as an expert" seems vague. It would be better to ask the participant to “apply expertise”.
+      - The phrase "based on your domain and knowledge of doing similar task" is slightly awkward and redundant. This could be shortened and made more precise.
+      - "based your knowledge your knowledge of similar features" is a repetition error.
+      - The prompt should explicitly mention that the participant should analyze the language and structure, instead of vaguely saying “improve it”.
+      - The example provided "if you recognize file paths and codes in the task description..." might be too specific for this prompt. It should instead provide a general example that embodies the refinement process.
+      - There is no mention of how to handle sections that may not be applicable or not present in the original description.
+      - The JSON format keys are mentioned at the end without much context. It can be included in a more structured manner.
 
-    def parse_source_code(self):
-        """
-        Parses the source code stored in the source_code attribute and extracts its docstring, functions and classes.
+4. Present the Refined Prompt:
 
-        Returns:
-            A dictionary containing the file's docstring, functions and classes,
-            or None if the source_code attribute is None.
-        """
-        if self.source_code is None:
-            return None
+$start$
 
-        module = ast.parse(self.source_code)
-        visitor = AstNodeVisitor()
-        functions = [visitor.visit(n) for n in module.body if isinstance(n, ast.FunctionDef)]
-        classes = [visitor.visit(n) for n in module.body if isinstance(n, ast.ClassDef)]
-        return {
-            'file_docstring': ast.get_docstring(module),
-            'functions': functions,
-            'classes': classes
-        }
+The task name is "Refine and Enhance Task Description". In this task, you are required to apply your expertise in requirement refinement as a software architect and editing to improve a given task description.
 
-- module: src/semantic_code/index/file_entity.py
-- module content
-# file_entity.py
-class FileEntity:
-    def __init__(self, file_path, docstring):
-        self.file_path = file_path
-        self.docstring = docstring
-        self.classes = {}
+You must analyze the language, structure, and content of the provided task description in the "Task Description" section, and refine it to ensure that it is clear, logically structured, and effectively conveys its purpose. 
 
-    def add_class(self, class_entity):
-        self.classes[class_entity.class_name] = class_entity
+Specifically, your refinement process should include:
+- Revising wording for clarity and precision.
+- Adding relevant content or requirements based on your knowledge of similar tickets.
+- Reorganizing the content to ensure logical coherence and semantic organization.
+- Eliminating redundant information.
+- Identifying and extracting any code references and placing them in the `Code References` section.
 
-    def get_class(self, class_name):
-        return self.classes.get(class_name, None)
+If any section (e.g., Code References) is not applicable or not present in the original description, mention it explicitly as "Not Applicable" or "Not Provided" in the output.
 
-- module: src/semantic_code/vectorizer.py
-# vectorizer.py
+You should format the output in JSON, which must contain the following keys:
+- Title: The title of the task.
+- Objective: A brief summary of what the task aims to achieve.
+- Background: Context or background information.
+- Requirements: Any prerequisites or conditions needed to perform the task.
+- Constraints: Limitations or restrictions.
+- Code References: Any relevant code snippets or file paths.
 
-class Vectorizer:
-    def encode(self, data):
-        """
-        Convert the input data (file path, classes, methods, and their descriptions) into vectors.
-        """
-        pass
+For instance, after refinement, a vague task description might transform into a well-structured and clear set of instructions with defined objectives, requirements, and constraints.
 
-    def decode(self, vector):
-        """
-        Decode a vector back into its original data.
-        """
-        pass
-
-```
-
+$end$

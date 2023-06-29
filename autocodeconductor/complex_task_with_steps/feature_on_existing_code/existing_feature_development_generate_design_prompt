@@ -4,28 +4,40 @@ You are a senior software developer. Your task is to create the code design base
 You will use the following steps to achieve the task. Each step has a title, and a description.
 
 1. **Understand the Requirements:**
-    Articulate thoroughly your understanding of the requirements. 
+   - Articulate thoroughly your understanding of the requirements. 
     
 2. **Identify Key Components:**
-Identify the main components or entities mentioned in the requirement. Focus on high-level components or services, without delving into specific classes or functions.
+   - Identify the main components or entities mentioned in the requirement. Focus on high-level components or services, without delving into specific classes or functions.
 
 3. **Identify Component Interactions:**
-Elaborate on how the identified key components interact with each other, focusing on interfaces and contracts between them.
+- Elaborate on how the identified key components interact with each other, focusing on interfaces and contracts between them.
 
-4. ** Recall from past experiences **
-Reflect on your past experiences of similar tasks. share insights and best practices that could be relevant for the current task.
+4. ** Recall from existing knowledge **
+- Draw upon your experience and knowledge of similar tasks. Consider what design approaches, interfaces, and patterns are typically employed in such scenarios.
 
 5. **Design the Components:**
-    Develop a blueprint for each component based on their interactions. Make sure your design adheres to SOLID principles and design patterns. Take advantage of your past experiences from step 4. 
+   - Create an initial code design containing file path with classes, methods, functions combining knowledge from in Step 4 and Step 3. Ensure your design adheres to SOLID principles, design patterns, and coding standards from the programming language identified. providing full implementations for existing functions and placeholder TODOs with explanations for new created interfaces. The output will be file path with its corresponding code. Use the following output format:
+  ```
+   file path: src/.../file1
+   sample_interface1()
+      TODO: here is the detailed explanation of the interface
+    
+   file path: src/.../file2
+   sample_interface2()
+      TODO: here is the detailed explanation of the interface
+
+   more files ...
+  ```
 
 6. **Articulating the data flow**
-    Narrate thoroughly the data flow based on the code design from step 5, focusing on how data will move through the components and interact with each other to fullfil the requirement. 
-
-7. **Output File Paths, Functions Based on the design**
-    Output the file path, and its code in code block based on the design. Ensure that the output code adheres to these best practices.
+    - Narrate thoroughly the data flow based on the code design from step 5. focusing on how data will move through the components and interact with each other to fullfil the requirement. Use real examples like the following:
+    ```
+    I will create a one fake object a = A(). Then create a fake object b = B(a),
+    then i will call function b.multiply() 
+    ... 
+    ```
 
 This approach gives you a set of guidelines that follows a step-by-step process, emphasizing reasoning and thought process over a more rigid structure.
-
 >Requirement<:
 I have different code entities which will be converted to vector. for example
 
@@ -100,10 +112,87 @@ We want to be able to support multiple ways of creating embedding. The current o
 After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well.
 
 Version 3:
-As a senior software developer, you are tasked with designing a code architecture adhering to SOLID principles and industry best practices for the requirement given in The `>Requirement<` section.
-
 Follow a thoughtful, step-by-step approach that emphasizes careful reasoning. This is crucial for ensuring that the architecture aligns well with the SOLID principles.
 
 Your output should contains your thinking process, and by the end of the thinking process. You will wrapup and produce the code with its corresponding file path.
 
-Before writing the actual code, create tests following the Test-Driven Development (TDD) approach. These tests should be tailored to verify the functionality and adherence to the requirements specified in the `>Requirement<` section. Ensure that your tests align with the best practices for test creation in the programming language used.
+
+
+Version 3:
+You are a senior software developer. Your task is to create a code design based on the requirements given in the `>Requirement<` section.
+
+Follow the steps below, each accompanied by a title and a description:
+
+1. **Understand the Requirements:**
+   - Thoroughly articulate your understanding of the requirements to ensure clarity.
+
+2. **Identify Key Components:**
+   - Determine the main components or entities mentioned in the requirement. Focus on high-level components or services, and avoid getting into the details of specific classes or functions at this stage.
+
+3. **Identify Component Interactions:**
+   - Elaborate on how the key components you identified interact with each other. Focus on the interfaces and contracts between them to understand how they communicate.
+
+4. **Recall From Existing Knowledge:**
+   - Consider your past experience and knowledge of similar tasks. Think about common design approaches, interfaces, and patterns that are typically used in such scenarios. This knowledge will be vital in the next step.
+
+5. **Design the Components:**
+   - Combine the insights gained from Step 4 with the interactions identified in Step 3 to create an initial code design. Ensure your design adheres to the SOLID principles, design patterns, and coding standards of the programming language you are using. Provide full implementations for existing functions, and create placeholder TODOs with explanations for new interfaces you design. Output this information using the following format:
+    ```
+    file path: src/.../file1
+    sample_interface1()
+        TODO: Detailed explanation of the interface
+        
+    file path: src/.../file2
+    sample_interface2()
+        TODO: Detailed explanation of the interface
+
+    more files ...
+    ```
+6. **Articulate the Data Flow:**
+   - Thoroughly explain the data flow based on the code design from Step 5. Focus on how data will move through the components and interact with each other to fulfill the requirements. 
+
+By following these steps, you will create a well-thought-out code design that emphasizes reasoning and thought process over a rigid structure.
+
+>Requirement<:
+I have different code entities which will be converted to vector. for example
+
+File Path: src/semantic_code/index/document/FunctionEntity.py 
+from src.semantic_code.index.document.base_entity import VectorizableCodeEntity
+
+
+class FunctionEntity(VectorizableCodeEntity):
+    def __init__(self, name: str, docstring: str, signature: str):
+        """
+        Initialize a function entity.
+        
+        :param name: Name of the function.
+        :param docstring: Documentation string for the function.
+        :param signature: Signature of the function.
+        """
+        super().__init__(docstring)
+        self.name = name
+        self.signature = signature
+
+    def to_vector(self):
+        """
+        Convert the entity to a vector representation. In this example, it's a dictionary representation.
+        """
+        raise NotImplementedError('not implemented')
+
+current the to_vector is not implementated yet. We need to implement the to_vector function. To create a vector, we will first create a natural language 
+representation of the entitiy. Then use neural network model to create embedding and then store the vector in embedding storage. 
+We want to be able to support multiple ways of creating embedding. The current one i have is OpenAI embedding API. I want to be able to use other neural network model to create the embedding as well. 
+
+After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well.
+
+
+Thanksss for the design. Could you please create subtasks based on the TODOs? Each task should have detailed description. Follow best practice of task management
+
+
+Evaludate the previous design, and propose improvements
+1. **Evaluate and Refactor Design:**
+   - Analyze each interface of each component of the code design critically for adherence to design principles such as Single Responsibility and Decoupling. Are they doing too much? Think carefully and be critical. Here is an example output format
+   '''
+   FunctionEntity: to_vector
+   This interface is used to convert a functionEntity to a vector. It's better that FunctionEntity remains pure. The to_vector is moved to ...
+   '''

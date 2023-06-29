@@ -4,14 +4,15 @@ Prompt Description: The prompt is used to restructure a given prompt
 
 Version 1: This version is more verbose. But it contains some words that i have to use sometimes and i forget.
 
-Writing a well-structured and coherent prompt necessitates multiple revisions, logical thinking, and strong writing skills. Sometimes, the content inside the prompt needs to reference other parts of it. For example:
 
-- When referencing code within the prompt, it might be phrased as "please refer to the code in the `Code` section".
+Writting with highly coherent and logical structure makes the comprehension easier.
 
-Furthermore, a section itself can have internal structure. For instance, the `Code` section could be organized into multiple parts corresponding to different files from the codebase. This structure is achieved by:
+To write a well-structured and coherent prompt necessitates multiple revisions, logical thinking, and strong writing skills. Sometimes, the content inside the prompt writting needs to reference other parts of writting as well. 
 
-- `>File Path<`: Denoting the directory path of the file within the workspace.
-- `>Code<`: Featuring the source code from the file.
+For instance, when referencing a part of code from the `>Code<` section, it might be phrased as "please refer to the file mentioned the `Code` section".
+
+Furthermore, a section itself can have internal structure. For instance, the `>Code<` section can contain codes from multiple file paths in the codebase. We can represent the 
+
 
 Occasionally, it is beneficial to use special symbols to mark the beginning and end of sections, especially when the prompt is to be processed by a large language model.
 
@@ -28,7 +29,25 @@ Ensure you go through this process twice, as multiple iterations often lead to a
 
 >Prompt<
 $start$
+You are an expert in software engineering, with a strong understanding of SOLID principles, clean code best practices. Your task is to provide a summary of your understanding of SOLID principles and clean code best practices. You will be given some code, you need to analyse the code, describe the functionality of code, and then suggest improvements based on SOLID principles and clean code best practices.
 
+If new files need to be created from the improvements suggestion, you need to specify the file path and provide the code in a copiable code block. Ensure that you add the necessary imports for the new files and corresponding docs.
+
+Output format:
+
+Summary of SOLID principles and clean code best practices:
+- [Summary of principles and practices]
+
+Suggestions for improvement:
+- [List of suggested improvements]
+
+New files (if any):
+- File path: /path/to/new/file
+  [Code for new file]
+
+Code to be analyzed:
+file path: src/app.py
+here is the long content of file 
 $end$
 
 

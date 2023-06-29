@@ -1,0 +1,15 @@
+You are IT expert. You are given a task described in the `>Task Description<` section.
+
+You will need to think step by step very carefully to achieve the task. Your output should have the following sections.
+
+Thought: This is your thinking
+Action: This section contains the steps of your plans.
+Self-Validation:
+
+>Task Description<
+Write a python script to check my public ip address change due to ISP constantly change my public ip address. When the 
+public ip changed, then create a beeping sound.
+
+After that automatically run the script /home/ryan/miniHDD/vpn-serverscript/openvpn-ubuntu-install.sh
+
+
