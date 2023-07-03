@@ -1,0 +1,134 @@
+Version 1: This version does not contain steps, but it uses "think step by step, constraints, output format"
+
+As a top software engineer who creates maintainable and understandable codes. You have been assigned the task of improving the given code documentation from `>Source Code<` section based on the best practices of the programming language of the code.
+
+The source code can contain multiple files. Each file starts with a file path followed by the content of the source code file. For example:
+
+```
+File Path: src/.../file1
+class ClassEntity(CodeEntity):
+    """
+    Represents a class in the code that can be converted to vector representations.
+    
+    Attributes:
+    ...
+    """
+
+FilePath: src/.../file2
+from abc import ABC, abstractmethod
+
+class BaseStorage(ABC):
+    @abstractmethod
+    def store_embedding(self, key: str, embedding):
+        pass
+
+    @abstractmethod
+    def search_embedding(self, query: str):
+        pass
+```
+
+
+Articulate your understanding of the given code from the `>Source Code<` first. Then present the best practice
+of the programming language of the source code. Then give your detailed explanation of what needs to be improved. At last, present the enhanced version of the code in the code block for each file.
+
+>Source Code<
+File Path: src/source_code_tree/code_entities/base_entities.py
+"""
+This module contains classes used to represent code entities that can be converted to vector representations.
+
+Classes:
+    - CodeEntity: Represents a generic code entity.
+"""
+
+from abc import ABC, abstractmethod
+
+
+class CodeEntity(ABC):
+    """
+    Represents a generic code entity.
+    
+    Attributes:
+        docstring (str): The documentation string for the code entity.
+    
+    Methods:
+        __init__(self, docstring: str): Initializes a CodeEntity with the provided docstring.
+    """
+    
+    def __init__(self, docstring: str):
+        """
+        Initialize a generic code entity.
+        
+        :param docstring: Documentation string for the entity.
+        :type docstring: str
+        """
+        self.docstring = docstring
+
+    @abstractmethod
+    def to_representation(self):
+        """
+        Convert the class entity to a vector representation.
+                
+        :return: A vector representation of the class entity.
+        :rtype: list, tuple, or any vector-like structure.
+        """
+
+
+Version 2: This version contains steps for this task (GPT3.5 works as well for this)
+
+You are a top software engineer who creates maintainable and understandable codes. You have been assigned the task of improving the given code documentation from `>Source Code<` section based on the best practices of the programming language of the code.
+
+Please follow the steps below. Each step has a title, and an optional description of the step.
+
+1. Analyze the Code:
+   - Begin by analyzing the code provided in the ">Source Code<" section to understand its purpose and functionality.
+   - Identify the programming language in which the code is written.
+
+2. Share Documentation Best Practices:
+   - Familiarize yourself with the best practices for code documentation in the programming language you identified. 
+   - Add file level code documentation as well.
+
+3. Enhance Code Documentation:
+   - Modify the code by adding appropriate documentation based on the best practices. Start with a file-level documentation comment at the beginning of the file. Ensure that your documentation enhances readability and understanding for other developers.
+
+4. Output the Enhanced Code:
+   - Present your modified code with added documentation. Format it within a code block for clarity.
+
+This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure.
+
+>Source Code<
+file path: src/semantic_code/storage/base_storage.py
+from abc import ABC, abstractmethod
+
+class BaseStorage(ABC):
+    @abstractmethod
+    def store(self, key: str, embedding):
+        pass
+
+    @abstractmethod
+    def retrieve(self, query: str):
+        pass
+
+
+Version 3: Just think step by step. Nothing else. (GPT3.5 works badly, GPT4 works great)
+
+You are a top software engineer who creates maintainable and understandable codes. You are given a task described in the `>Task Description<` section.
+
+Ensure that the Python code you produce follows best practices for Python docstrings. Make sure to update the module-level docstring as well.
+
+Think very carefully and reason yourself step by step to address the task.
+
+
+>Task Description<
+improve the python code documentation of file  base_storage.py 
+
+file path: src/semantic_code/storage/base_storage.py
+from abc import ABC, abstractmethod
+
+class BaseStorage(ABC):
+    @abstractmethod
+    def store(self, key: str, embedding):
+        pass
+
+    @abstractmethod
+    def retrieve(self, query: str):
+        pass

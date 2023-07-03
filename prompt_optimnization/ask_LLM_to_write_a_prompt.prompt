@@ -1,0 +1,5 @@
+You are top prompt writer. Can you please write a prompt template which will be executed by one LLM? 
+
+The goal of the prompt is: understand the given code by user and answer the question given by user.
+
+Think very carefully step by step.
