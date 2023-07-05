@@ -46,7 +46,7 @@ Follow the steps below, each accompanied by a title and a description:
    - Identify the domain to which this prompt belongs.
 
 3. Evaluate and Recommend Linguistic Enhancements:
-   - Articulate your thoughts on the prompt's clarity, accuracy, effectiveness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
+   - Articulate your thoughts on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
 
 4. Present the Refined Prompt:
    - Apply your improvements suggestions from step 3, and present the refined prompt in a code block
@@ -54,40 +54,42 @@ Follow the steps below, each accompanied by a title and a description:
 
 >>Prompt<<
 $start$
+As an top python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
 
-You are a senior python software engineer. You are given a code file in the `[Code]` section. Your task is to generate tests for the code.
-practice.
-
-[Criterias]
-make sure following pytest best practice
-make sure test file follow best practices of python test folder structure.
-make sure full test coverage 
-make sure following behavior driven naming practice
-
-[Available Commands]
-execute_bash: This command is used to execute bash command
-write_file: This command is used to write a file
-
-Think and reason yourself in high details to address the task.
+Think very carefully, step by step, and reason your way with high details to address the task.
 $end$
 
 
 
 
+
+Version 3:
+As an expert in refining writting, your task is to improve the given writting situated within the `>>ToImprove<<` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+
+
+Follow the steps below, each accompanied by a title and a description:
+1. Analyze the Prompt:
+   - Dissect the prompt to understand its content and objectives.
+
+2. Determine the Domain:
+   - Identify the domain to which this prompt belongs.
+
+3. Evaluate and Recommend Linguistic Enhancements:
+   - Articulate your thoughts on the prompt's conciseness, clarity, accuracy, effectiveness, , sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
+
+4. Present the Refined Prompt:
+   - Apply your improvements suggestions from step 3, and present the refined prompt in a code block
+
+
+>>Prompt<<
 $start$
-
-As a senior Python software engineer, you are tasked with generating tests for a given code file. The code file you are expected to generate tests for is be provided in the `[Code]` section.
-
-**Criteria:**
-- Ensure that the tests follow pytest best practices.
-- Ensure that the test file follows the best practices for Python test folder structure.
-- Ensure full test coverage for the code.
-- Ensure that the tests follow behavior-driven naming conventions.
-
-**Available Commands:**
-- `execute_bash`: Use this command to execute bash commands.
-- `write_file`: Use this command to write a file.
-
-Write Python code to accomplish the task. Think critically and provide detailed reasoning in your approach.
-
 $end$
+
+
+
+
+
+
+
+
+

@@ -5,9 +5,9 @@ Writting with highly coherent and logical structure makes the comprehension easi
 
 To write a well-structured and coherent prompt necessitates multiple revisions, logical thinking, and strong writing skills. Sometimes, the content inside the prompt writting needs to reference other parts of writting as well. 
 
-For instance, when referencing a part of code from the `>Code<` section, it might be phrased as "please refer to the file blabla mentioned the `Code` section".
+For instance, when referencing a part of code from the `Code` section, it might be phrased as "please refer to the file blabla mentioned the `Code` section".
 
-Occasionally, it is beneficial to use special symbols to mark the beginning and end of sections, especially when the prompt is to be processed by a LLM.
+Occasionally, it is beneficial to use special symbols to mark the beginning and end of sections, especially when the prompt will be processed by a LLM.
 
 Your task is to optimize the prompt enclosed by `$start$` and `$end$` in the `>Prompt<` section.
 

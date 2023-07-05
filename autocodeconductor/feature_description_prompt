@@ -1,6 +1,6 @@
 The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain knowledge of doing similar task, and ensure the revised description better conveys its purpose and has a better content structure.
 
-Adjust the wording, add additional content or requirements as needed based your knowledge your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
+Adjust the content or requirements as needed based your knowledge your knowledge of similar features, and create a more logically coherent and organized ticket description.
 
 You should use json format for the output. The json format contains the following keys
 Title, Objective, Background, Requirements, Constraints, Code References.
@@ -24,10 +24,8 @@ Constraints:
 Provide the complete output in a copiable preformatted text block.
 
 Task description:
+...
 
-```
-blablab
-```
 
 You will need to create based on the short description i give in the "TicketDescription" section. The short description could sometimes contain only keywords, sometimes include code references as well, sometimes its just a simple description what needs to be achieved. you will need to create a more comprehensive software ticket
 based on your analysis of the information. You will your reasoning skill from analysising the description to creating a software ticket. It's not one-step to conclusion. 
@@ -58,8 +56,6 @@ to create
 src/llmBaseLLMIntegration::send_message
 src/llm
 ```
-
-
 
 
 
@@ -98,7 +94,7 @@ The task name is "Refine And Enhance Task Description". In this task, you will p
 
 Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
 
-You should try to understand the code in the "Code References" section, as you might need to
+You should try to understand the code in the "[Code References]" section, as you might need to
 reference either function name or module name or class name in your improved refined task description.
 
 Use the following format for the output:
@@ -118,56 +114,245 @@ Constraints:
 - [List of constraints or limitations for the task]
 
 
-Task description:
 
 
 
 
 
+Version 4: This version removes the json 
 
+You are a top python software architect with strong requirement engineering skills. Your task is to refine and improve the requirement description situated between `$start$` and `$end$` in the `[Requirement] section based on your experiences of doing similar tasks.
 
-1. Analyze the Prompt:
-   - The prompt provides instructions for a task called "Refine And Enhance Task Description". In this task, the participant is expected to analyze a given task description, and refine it by adjusting the wording, adding content or requirements, and ensuring that it is logically coherent and semantically organized without redundancy. Additionally, if there are code references, they should be extracted and placed in the appropriate section. The output should be in JSON format and include keys for Title, Objective, Background, Requirements, Constraints, and Code References.
+Present the final improved requirement in a copiable code block.
 
-2. Determine the Domain:
-   - The domain of this prompt is content refinement and editing, with a focus on task descriptions and an emphasis on structured data (JSON format).
+Think and reason step by step with high details to address the task.
 
-3. Evaluate and Recommend Linguistic Enhancements:
-   a. The prompt has some clarity but it can be improved for effectiveness and coherence.
-   b. Recommendations for improvement:
-      - The use of "perform as an expert" seems vague. It would be better to ask the participant to “apply expertise”.
-      - The phrase "based on your domain and knowledge of doing similar task" is slightly awkward and redundant. This could be shortened and made more precise.
-      - "based your knowledge your knowledge of similar features" is a repetition error.
-      - The prompt should explicitly mention that the participant should analyze the language and structure, instead of vaguely saying “improve it”.
-      - The example provided "if you recognize file paths and codes in the task description..." might be too specific for this prompt. It should instead provide a general example that embodies the refinement process.
-      - There is no mention of how to handle sections that may not be applicable or not present in the original description.
-      - The JSON format keys are mentioned at the end without much context. It can be included in a more structured manner.
-
-4. Present the Refined Prompt:
-
+[Requirement]
 $start$
+I have a redis_storage.py which contains some demo code about how to use embedding
+and how to search for embedding. The code base_storage.py is shown below
 
-The task name is "Refine and Enhance Task Description". In this task, you are required to apply your expertise in requirement refinement as a software architect and editing to improve a given task description.
+File path: base_storage.py
+"""
+Module: base_storage.py
+Description: Defines the abstract base class for storage implementations.
+"""
 
-You must analyze the language, structure, and content of the provided task description in the "Task Description" section, and refine it to ensure that it is clear, logically structured, and effectively conveys its purpose. 
+from abc import ABC, abstractmethod
 
-Specifically, your refinement process should include:
-- Revising wording for clarity and precision.
-- Adding relevant content or requirements based on your knowledge of similar tickets.
-- Reorganizing the content to ensure logical coherence and semantic organization.
-- Eliminating redundant information.
-- Identifying and extracting any code references and placing them in the `Code References` section.
+class BaseStorage(ABC):
+    """
+    BaseStorage is an abstract base class that defines the interface for storage implementations.
+    Subclasses must implement the store and retrieve methods.
 
-If any section (e.g., Code References) is not applicable or not present in the original description, mention it explicitly as "Not Applicable" or "Not Provided" in the output.
+    Methods:
+        store(key: str, embedding): Stores the embedding with the given key.
+        retrieve(query: str): Retrieves the embedding for the given query.
+    """
 
-You should format the output in JSON, which must contain the following keys:
-- Title: The title of the task.
-- Objective: A brief summary of what the task aims to achieve.
-- Background: Context or background information.
-- Requirements: Any prerequisites or conditions needed to perform the task.
-- Constraints: Limitations or restrictions.
-- Code References: Any relevant code snippets or file paths.
+    @abstractmethod
+    def store(self, key: str, embedding):
+        """
+        Stores the embedding with the given key.
 
-For instance, after refinement, a vague task description might transform into a well-structured and clear set of instructions with defined objectives, requirements, and constraints.
+        Args:
+            key (str): The key used to store the embedding.
+            embedding: The embedding to be stored.
+        """
+        pass
+
+    @abstractmethod
+    def retrieve(self, query: str):
+        """
+        Retrieves the embedding for the given query.
+
+        Args:
+            query (str): The query used to retrieve the embedding.
+
+        Returns:
+            The embedding associated with the query.
+        """
+        pass
+redis_storage.py
+```
+import logging
+import redis
+from redis.commands.search.query import Query
+from redis.commands.search.field import VectorField, TextField
+from redis.commands.search.indexDefinition import IndexDefinition, IndexType
+from src.semantic_code.storage.base_storage import BaseStorage
+from src.config.config import config
+
+logger = logging.getLogger(__name__)
+
+class RedisStorage(BaseStorage):
+    """
+    RedisStorage is a concrete class that extends the BaseStorage class.
+    This class is responsible for storing and retrieving embeddings in a Redis database.
+    """
+
+    def __init__(self):
+        """
+        Initialize the RedisStorage class with a connection to Redis and create an index if not already exists.
+        """
+        ...
+
+    def _initialize_schema(self):
+        """
+        Initialize the schema for the Redis database.
+        """
+        schema = [
+            TextField("url"),
+            VectorField("embedding", "HNSW", {"TYPE": "FLOAT32", "DIM": 1536, "DISTANCE_METRIC": "COSINE"}),
+        ]
+        try:
+            self.redis_client.ft("posts").create_index(fields=schema, definition=IndexDefinition(prefix=["post:"], index_type=IndexType.HASH))
+        except Exception as e:
+            logger.info("Index already exists")
+
+    def store(self, key: str, vector):
+        """
+        Store an embedding vector associated with a key in Redis.
+
+        :param key: The key associated with the embedding.
+        :type key: str
+        :param vector: The embedding vector.
+        """
+        post_hash = {
+            "url": key,
+            "embedding": vector
+        }
+        self.redis_client.hset(name=f"post:{key}", mapping=post_hash)
+
+    def retrieve(self, query: str):
+        """
+        Retrieve an embedding vector associated with a key from Redis.
+
+        :param key: The key associated with the embedding.
+        :type key: str
+        :return: The embedding vector.
+        """
+        return self.redis_client.hget(name=f"post:{key}", key="embedding")
+
+    def search(self, vector, top_k=5):
+        """
+        Search for the top_k closest embeddings to the given vector in Redis.
+
+        :param vector: The query embedding vector.
+        :param top_k: The number of closest embeddings to retrieve. Defaults to 5.
+        :return: The list of closest embedding vectors and associated keys.
+        """
+        base_query = f"*=>[KNN {top_k} @embedding $vector AS vector_score]"
+        query = Query(base_query).return_fields("url", "vector_score").sort_by("vector_score").dialect(2)
+        try:
+            results = self.redis_client.ft("posts").search(query, query_params={"vector": vector})
+        except Exception as e:
+            logging.error(f"Error calling Redis search: {e}")
+            return None
+        return results
+
+    def close_connection(self):
+        """
+        Close the connection to Redis.
+        """
+        self.redis_client.close()
+```
+
+But the requirement of redis_storage.py is to store and search CodeEntity. 
+Source code of code entitiy is shown below.
+file path: base_entity.py
+"""
+File: src/source_code_tree/code_entities/base_entities.py
+
+This module contains classes that represent code entities. The main purpose of these classes is to
+convert code entities into a human-readable description format.
+
+Classes:
+    - CodeEntity: An abstract base class that represents a generic code entity.
+"""
+
+from abc import ABC, abstractmethod
+
+
+class CodeEntity(ABC):
+    """
+    Abstract base class representing a generic code entity.
+    
+    Code entities are parts or components in source code. 
+    The class provides a structure for representing these entities
+    and converting them into a human-readable description format.
+    
+    Attributes:
+        docstring (str): The documentation string for the code entity.
+    
+    Methods:
+        __init__(self, docstring: str): Initializes a CodeEntity with the provided docstring.
+        to_representation(self): Abstract method to convert the code entity to a human-readable description format.
+    """
+    
+    def __init__(self, docstring: str):
+        """
+        Initialize a generic code entity.
+        
+        :param docstring: Documentation string for the entity.
+        :type docstring: str
+        """
+        self.docstring = docstring
+
+    @abstractmethod
+    def to_representation(self):
+        """
+        Convert the code entity to a human-readable description format.
+        
+        Note: This method should be implemented by the subclasses to
+              provide specific conversion logic.
+        
+        :return: A human-readable description of the code entity.
+        :rtype: str
+        """
 
 $end$
+
+
+Version 4: This version contains the json output 
+
+You are a top python software architect with strong writting skills. Your task is to refine the requirement given in the `[Requirement] section. make improvements based on your domain knowledge in software development.
+
+Focus on the following aspects:
+- Wording: Adjust the wording to make the content more precise.
+- Additional Content: If necessary, add content that would be relevant based on your experience.
+- Logical Coherence: Ensure that the information flows logically.
+- Semantic Organization: Ensure that the content is well-structured and meaningful.
+- Redundancy Removal: Ensure there are no repetitive or unnecessary elements.
+
+Additionally, you are required to present the revised task description in JSON format. The JSON output must include the following keys: Title, Objective, Background, Requirements, Constraints, Code References. Structure them as shown below:
+
+```json
+{
+    "Title": "Title of the task",
+    "Objective": "Objective of the task",
+    "Background": "Background information related to the task",
+    "Requirements": ["List of requirements for the task"],
+    "Constraints": ["List of constraints or limitations for the task"],
+    "Code References": ["Code references if any"]
+}
+```
+
+Think and reason step by step with high details to address the task.
+
+Task description:
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+

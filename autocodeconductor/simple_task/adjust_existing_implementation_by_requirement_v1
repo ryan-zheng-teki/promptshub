@@ -1,4 +1,6 @@
-As a software developer tasked with modifying and updating a given piece of code in the `>>Code<<` section according to the requirement given in the `>>Requirement<<` section. The content of both sections starts with `$start$` and ends with `$end$`.
+Version 1: This version has steps.
+
+As a top python software developer tasked with modifying and updating a given piece of code in the `>>Code<<` section according to the requirement given in the `>>Requirement<<` section. The content of both sections are situated between `$start$` and `$end$` tokens.
 
 Please follow the steps below. Each step has a title and a description of the step.
 
@@ -31,22 +33,105 @@ Please follow the steps below. Each step has a title and a description of the st
    - Articulate your mental step-by-step test of the modified code to ensure it meets the requirements and does not introduce new issues.
 
 >>Requirement<<
+...
 
 >>Code<<
+...
 
-Version 2: This version is simplified. Only with best practice, and output requirement.
-With one additional statement: think very carefully step by step. 
-As a software developer tasked with modifying and updating a given piece of code in the `>>Code<<` section according to the requirement given in the `>>Requirement<<` section. The content of both sections starts with `$start$` and ends with `$end$`.
 
-You will think very carefully step by step. You output should contain your thinking process. After the thinking process, output the updated code with file path. Use the following format for output:
+Version 3: Only criterias and think step by step.
 
-## Thinking
-- here is the detailed thinking process
-## Code 
- # file path: src/.../file1 
- # content:
-   [ content of the ]
+As an top python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
 
->>Requirement<<
+[Criterias]
+- seek to use design patterns if possible.
+- follow python coding best practices
+- follow python docstring best practices. add module-level docstring on the top of module
 
->>Code<<
+Think very carefully, and reason your way step by step with high details to address the task.
+
+[Requirement]
+$start$
+I have one abstract parent class in base_embedding_creator.py to create base embedding.
+
+"""
+File Path: src/source_code_tree/code_entities/base_embedding_creator.py
+
+This module defines the BaseEmbeddingCreator abstract base class which serves
+as the base class for all embedding creators. Embedding creators are classes
+responsible for converting text into a numerical representation (embedding)
+that can be fed into machine learning models. This base class ensures that
+all embedding creator subclasses have a consistent interface by enforcing
+the implementation of the `create_embedding` method.
+"""
+
+from abc import ABC, abstractmethod
+
+class BaseEmbeddingCreator(ABC):
+    """
+    This is an abstract base class that defines the interface for embedding
+    creator classes. Classes inheriting from BaseEmbeddingCreator must
+    implement the `create_embedding` method.
+    
+    Embedding creators are classes that convert input text into a numerical
+    representation (embedding) which can be used by machine learning models.
+    """
+
+    @abstractmethod
+    def create_embedding(self, text: str):
+        """
+        Creates an embedding from the input text.
+        
+        This is an abstract method and must be implemented by subclasses
+        of BaseEmbeddingCreator.
+        
+        Parameters:
+        text (str): The input text to be converted into an embedding.
+        
+        Returns:
+        This method should return an embedding, usually in the form of a
+        numerical array or tensor.
+        """
+        pass
+
+
+I have already create one implementation supporting openai openai_embedding_creator.py
+"""
+openai_embedding_creator.py
+
+This module contains the OpenAIEmbeddingCreator class, which is responsible for creating embeddings
+using OpenAI's API. It reads the API key and model name from a configuration file and utilizes
+OpenAI's API to generate embeddings for the input text.
+"""
+
+import openai
+import numpy as np
+import logging
+from src.semantic_code.embedding.base_embedding_creator import BaseEmbeddingCreator
+from src.config.config import config
+
+logger = logging.getLogger(__name__)
+
+class OpenAIEmbeddingCreator(BaseEmbeddingCreator):
+    """
+    OpenAIEmbeddingCreator is a concrete class that extends the BaseEmbeddingCreator class.
+    This class is responsible for generating embeddings using OpenAI's API.
+    """
+
+    def __init__(self):
+        """
+        Initialize the OpenAIEmbeddingCreator class by reading the API key and model name
+        from the configuration file.
+        """
+        self.api_key = config.get('OPEN_AI_API_KEY')
+        self.model_name = config.get('OPEN_AI_EMBEDDING_MODEL', default="text-embedding-ada-002")
+        logger.info("OpenAIEmbeddingCreator using embedding model %s", self.model_name)
+
+    def create_embedding(self, text: str):
+    
+    ...
+
+Now i need to create another implementation supporting sentence transformer.
+Please browse this url https://huggingface.co/sentence-transformers/all-mpnet-base-v2 to learn how to use sentence transformer, then implement 
+$end$
+

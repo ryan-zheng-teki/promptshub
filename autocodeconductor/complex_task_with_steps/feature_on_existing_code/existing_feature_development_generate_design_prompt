@@ -1,19 +1,19 @@
 Version 1: Wihtout very detailed steps, only best practices, and think carefully, and output format. (This carefully this is a magic words)
 
-As an experienced Python software architect who follows SOLID principles and coding best practices, you are tasked with designing a code architecture for the requirements specified in the `>Requirement<` section which might contain some initial code.
+As an top python software architect who follows SOLID principles and coding best practices, you are tasked with designing a code architecture for the requirement specified in the `>Requirement<` section which might contain some initial code.
 
 Your design should:
 
 - Explore and incorporate suitable design patterns.
 - Adhere to SOLID principles and clean code best practices.
-- Consider refactoring the initial code provided in the `>Requirement<` section if it contributes to a better design. Note that during the design process, it is common to realize that some requirements may need to be updated or refined.
+- Consider refactoring the initial code provided in the `>Requirement<` section if it contributes to a better design. Note that during the design process, it is common to realize that some requirements may also need to be updated or refined.
 - Use meaningful names for directories, files, classes, methods, and functions.
-- Include module-level docstrings to document the Python code effectively.
+- Follow python code docstring best practices. Include module-level docstrings as well to summarize the module
 - For any functions that you design but do not implement, provide a TODO placeholder along with a detailed explanation of the function’s intended functionality (implementation can be added later).
 
 Your final output should be the file paths along with the their actual codes.
 
-Think very carefully, step by step, and reason your way to through the task.
+Think very carefully, step by step, and reason your way to address the task.
 
 >Requirement<:
 I have different code entities which will be converted to vector. for example
@@ -64,7 +64,6 @@ Follow the steps below, each accompanied by a title and a description:
 
 4. **Recall From Existing Knowledge:**
    - Consider your past experience and knowledge of similar tasks. Think about common design patterns that are typically used in such scenarios. This knowledge will be vital in the next step.
-
 
 5. **Create The Code Designs:**
    - Combine the potential design approaches from Step 4 with the interactions identified in Step 3 to create an initial code design which fullfils all the requirements. Ensure your design adheres to the SOLID principles, design patterns, and coding standards of the programming language you are using. Don't concern yourself about the detailed implementations, use placeholder TODOs with explanations what the interfaces is supposed to do. As detailed implementation will
@@ -309,34 +308,3 @@ Follow the steps below, each accompanied by a title and description:
 By following these steps, you will formulate a comprehensive code design that emphasizes step by step thinking and reasoning
 
 >Requirement<:
-I have different code entities which will be converted to vector. for example
-
-File Path: src/semantic_code/index/document/FunctionEntity.py 
-from src.semantic_code.index.document.base_entity import VectorizableCodeEntity
-
-
-class FunctionEntity(VectorizableCodeEntity):
-    def __init__(self, name: str, docstring: str, signature: str):
-        """
-        Initialize a function entity.
-        
-        :param name: Name of the function.
-        :param docstring: Documentation string for the function.
-        :param signature: Signature of the function.
-        """
-        super().__init__(docstring)
-        self.name = name
-        self.signature = signature
-
-    def to_vector(self):
-        """
-        Convert the entity to a vector representation. In this example, it's a dictionary representation.
-        """
-        raise NotImplementedError('not implemented')
-
-current the to_vector is not implementated yet. We need to implement the to_vector function. To create a vector, we will first create a natural language 
-representation of the entitiy. Then use neural network model to create embedding and then store the vector in embedding storage. 
-We want to be able to support multiple ways of creating embedding. The current one i have is OpenAI embedding API. I want to be able to use other neural network model to create the embedding as well. 
-
-After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well
-
