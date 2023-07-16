@@ -1,255 +1,53 @@
-**Task Name:** Converting Software Ticket To Software Design
+As a top python software developer, you are tasked with create code designs for the requirement described in the `[Requirement]` section.
 
-**Role:** Software Architect 
+Follow the steps below, each accompanied by a title and potentially a description:
 
-**Objective:** Translate software requirements into a software design using SOLID principles and clean code best practices. The final design, which will directly become source code, should outline file names, classes, functions, and their descriptions without including concrete implementations.
-
-**Guidelines:**
-
-1. **Summarize Design Principles:**
-    Start by summarizing the SOLID principles and clean code principles in the "Design Principles" section. As a software architect, you should have a strong understanding of these principles and be able to explain them succinctly.
-
-2. **Perform Object-Oriented Analysis (OOA):**
-    Begin by analyzing the output from the previous "Refine And Enhance Task Description" task. Identify key objects or entities from the requirements. Avoid jumping to conclusions, instead, consider the roles and responsibilities of each object.
-
-3. **Further Analysis and Object Identification:**
-    Expand on your initial analysis, delving deeper into the interactions between the identified objects. Explore how these objects relate to one another and how they contribute to fulfilling the requirement.
-
-4. **Perform Object-Oriented Design (OOD):**
-    Next, translate your analysis into a design that adheres to the summarized principles. Outline how these objects might be represented as classes or interfaces in your software, and provide file names where these classes or interfaces will reside. This design will serve as a blueprint for the source code, only without specific implementation details.
-
-5. **Present the Design:**
-    Present your design for review. This should include file names, class and function names, and their descriptions, but should not include concrete code implementations. Make sure to present it in a format that can be easily understood and reviewed.
-
-6. **Verify and Refine the Design Against Requirements:**
-    Finally, verify your design against the requirements. For each requirement, explain how the elements in your design fulfill it. If you find that some requirements are not fulfilled by the current design, revisit the relevant parts of the design and refine them until all requirements are met. 
-
-Remember, your analysis and design should be done progressively, breaking down the problem into smaller pieces and gradually building up a complete design, rather than jumping to the final design in a single leap. This approach ensures a thorough understanding of the requirement and promotes a design that adheres to SOLID principles and clean code best practices.
-
-
-
-Sure, I'd be happy to revise the guidelines using the heuristic, step-by-step approach. Here's how we could do it:
-
-**Task Name:** Converting Software Ticket To Software Design
-
-**Role:** Software Architect 
-
-**Objective:** Translate software requirements into a software design. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations, and be ready to be turned into source code. 
-
-**Guidelines:**
-
-1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities?
+1. **Articulate Thoroughly Your Understanding Of The Requirement**
 
 2. **Identify Key Components:**
     Identify the main components or entities needed to fulfill the requirements. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
 
 3. **Define Component Interactions:**
-    Once you've identified the key components, think about how they will interact with each other. What information will they need to share? What are the dependencies between them?
+    Once you've identified the key components, think about how they will interact with each other, as interactions serves for interfaces design later on. 
+   
+4. **Recall From Existing Knowledge**
+   - Consider your past experience and knowledge of similar tasks. Think what kind of design patterns are typically used in such cases.
+  
+5. **Create The Initial Code Designs:**
+   - Combine the potential design patterns from Step 4 with the interactions identified in Step 3 to create an initial code design.Only outline files paths, classes, services, functions etc you will create, don't bother with detailed implementations at this stage. Follow the best naming practices for files as well. Each interface should contain detailed docstring.
+  
+6. **Simulate Data Flow with Examples:**
+    - Create a realistic example to simulate the execution of your code design from Step 5. This example tries to validate the code designs via real data flow.For instance:
+    ```
+    Example:
 
-4. **Design the Components:**
-    For each component, start to think about what classes and functions it will need. Try to keep the SOLID principles in mind, but don't get too bogged down in them at this stage. Remember, you're not writing concrete implementations yet, just outlining what classes and functions you'll need.
+    // First, create a dummy user object to simulate user input.
+    User user = new User("JohnDoe", "john.doe@example.com");
 
-5. **Refine the Design:**
-    Now that you have a basic design, start refining it. Are there any parts that seem overly complex or that could be simplified? Are there any obvious improvements you could make? This is where you should start thinking more about clean code and SOLID principles.
+    // Now, create an authentication component and pass the user object to it.
+    AuthenticationComponent authComponent = new AuthenticationComponent();
+    authComponent.authenticate(user);
 
-6. **Verify Against Requirements:**
-    Once you're happy with your design, verify it against the requirements. Does every requirement have a corresponding part in the design? If not, go back and revise the design until it does.
+    // Once authenticated, simulate interaction with other components such as retrieving data.
+    DataRetrievalComponent dataComponent = new DataRetrievalComponent();
+    Data data = dataComponent.getDataForUser(user);
 
-7. **Prepare for Implementation:**
-    Finally, remember that your design will directly become the source code. While you're not writing concrete implementations yet, you should be preparing the design in a way that it can be easily turned into code. This means clear class and function names, precise descriptions, and an overall organization that makes sense for implementation.
+    // This provides insight into how components would interact and data would flow in a real-world scenario.
+    ```
+7. **Check the current code design with SOLID principles and best practices**
+   - At this stage, you need to first share your knowledge of clean code best practices, then judge whether the code design follows best practices. If no, then propose potential improvements.
 
-This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
+8.  ** Create Subtasks for implmeentation **
+   - As we didn't provide the implmentation of interfaces. In this step, create subtasks for implementation.
+  
+Think very carefully for each step to progressively reach high quality code designs.
 
-
-
-
-
-
-
-
-
-we have created a guideline for creating software designs from requirements. I put it here
+[Requirement]
 ```
-**Task Name:** Converting Software Ticket To Software Design
+II want to create different tools. One tool is crawl the content given URL.
+Another tool is to search the web using google by using pupperteer given the query
 
-**Role:** Software Architect 
+How it works: User gives a query and use the google search tool. Open the link by one by one. And get the content on that page. No need for deep crawling.
 
-**Objective:** Translate software requirements into a software design. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations, and be ready to be turned into source code. 
-
-**Guidelines:**
-
-1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities?
-
-2. **Identify Key Components:**
-    Identify the main components or entities needed to fulfill the requirements. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
-
-3. **Define Component Interactions:**
-    Once you've identified the key components, think about how they will interact with each other. What information will they need to share? What are the dependencies between them?
-
-4. **Design the Components:**
-    For each component, start to think about what classes and functions it will need. Try to keep the SOLID principles in mind, but don't get too bogged down in them at this stage. Remember, you're not writing concrete implementations yet, just outlining what classes and functions you'll need.
-
-5. **Refine the Design:**
-    Now that you have a basic design, start refining it. Are there any parts that seem overly complex or that could be simplified? Are there any obvious improvements you could make? This is where you should start thinking more about clean code and SOLID principles.
-
-6. **Create Concrete File Paths, Functions, and Descriptions:**
-    In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
-
-
-This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
+This task is only about creating code design of the tools.Not about creating the agent program.
 ```
-
-Here is one sample example which uses step-by-step reasoning to detect errors
-
-Example:
-```
-The error message indicates that the issue is caused by a TypeError: bad argument type for built-in operation. Looking at the traceback, we can see that the error originates from line 44 in grpc_service.py when trying to assign a value to stage.stage_class.
-
-The source code suggests that stage_data["stage_class"] is being assigned to stage.stage_class, implying that stage_data["stage_class"] is not of an appropriate type for this assignment. From the traceback and the code, it appears that stage_data is expected to be a dictionary and stage_class is expected to be a key within this dictionary.
-
-The source code provided includes a comment that explains the structure of the WORKFLOW_CONFIG dictionary. According to the comment, the 'stage_class' key should correspond to a class representing the stage. We can see in config.py that stage_class values are indeed classes such as RequirementStage, DesignStage, etc.
-
-Given that the error is a type error, and it arises when assigning stage_data["stage_class"] to stage.stage_class, the error might be due to stage.stage_class not being able to accept a class type as its value. Instead, it may require a string representation of the class name, an instance of the class, or some other form of data.
-
-To resolve this issue, we need to identify the correct type for stage.stage_class and convert stage_data["stage_class"] to that type before assignment. Based on common practice with gRPC, protobufs generally do not support passing around class types or instances directly. Instead, they prefer to work with basic data types such as strings and integers. Therefore, it is likely that stage.stage_class is expecting a string.
-
-Here's a possible solution: instead of assigning the class directly, we can assign the name of the class, as a string, to stage.stage_class.
-```
-
-Now i want to give you one requirement as following
-```
-create a symantic index for the source code. In source code, normally, the function name , and its description together would normally represent
-a general funcationality. So we can design a standard construct which will be used to generate a vector. In general, we will need to create vector. and store in vector db. Then we will also need to implement search feature given user input as query.
-```
-
-can you use this approach to create designs?
-
-Objective: Translate software requirements into a software design using SOLID principles and clean code best practices. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations.
-
-
- Role: Software Architect
- Objective: Translate software requirements into a software designThe final design
- Best Practices: SOLID Principles, and clean code best practices
- Output Forms: File names, classes, interfaces with their concret corresponding descriptions.
-
- Prompt: Is there a step by step progressive systematic guidelines which is utilized by software
- architect who uses SOLID principles, and clean code best practices to translate any given software requirement to softare design in the form of file names, classes, and functions 
-
- Next Step: Reflect on the output of GPT4, then reflect on the key steps
-
-
- Prompt: Is there a step by step progressive systematic guidelines which is utilized by software
- architect who uses SOLID principles, and clean code best practices to
-Translate software requirements into a software design. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations, and be ready to be turned into source code.
-
-
-
-
-
-
-
-**Task Name:** Converting Software Ticket To Software Design
-
-**Role:** Software Architect 
-
-**Objective:** Translate software requirements into a software design. The final design should outline file names, classes, functions, and their descriptions without including concrete implementations, and be ready to be turned into source code. 
-
-**Guidelines:**
-
-1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities?
-
-2. **Identify Key Components:**
-    Identify the main components or entities needed to fulfill the requirements. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
-
-3. **Define Component Interactions:**
-    Once you've identified the key components, think about how they will interact with each other. What information will they need to share? What are the dependencies between them?
-
-4. **Design the Components:**
-    For each component, start to think about what classes and functions it will need. Try to keep the SOLID principles in mind, but don't get too bogged down in them at this stage. Remember, you're not writing concrete implementations yet, just outlining what classes and functions you'll need.
-
-5. **Refine the Design, Including Data Structures:**
-    Now that you have a basic design, start refining it. Consider the data requirements of each component and evaluate the most suitable data structures to use. Think about the types of data that need to be stored, accessed, and manipulated within each component. Choose data structures that optimize efficiency, performance, and maintainability alongside other aspects of the design. Also, assess if there are any existing data structures or libraries that can be leveraged.
-
-6. **Create Concrete File Paths, Functions, and Descriptions:**
-    In this final step, the goal is to create concrete file paths, functions, and their descriptions. Use the refined design as a basis and articulate the interfaces for the software components. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
-
-
-Here is my requirement:
-```
-I need to implement a python source code parser which parses a given source file. The parser will need to get the file docstring. If there are any functions defined in the module, then it should get function name, and function pydoc. If there are classes, it should get class name and its method name, and its method docstring
-```
-
-By incorporating data structure consideration into the "Refine the Design" section, you ensure that the design refinement phase covers all relevant aspects of the software, including the selection of appropriate data structures.
-
-
-
-
-
-we have created a guideline for creating design  from requirements. I put it here
-**Task Name:** Converting Software Ticket To Software Design
-
-**Role:** Software Architect 
-
-**Objective:** Translate software requirements into a software design. The final goal is to produce files which contains classes, functions with highly detailed descriptions which will
-assist further implemenation tasks.
-
-**Guidelines:**
-
-1. **Understand the Requirements:**
-    Start by thoroughly understanding the requirements. What is the software expected to do? What are its key features and functionalities?
-
-2. **Identify Key Components:**
-    Identify the main components or entities needed to fulfill the requirements. Don't worry about specific classes or functions yet, just think in terms of high-level components or services.
-
-3. **Define Component Interactions:**
-    Once you've identified the key components, think about how they will interact with each other. What information will they need to share? What are the dependencies between them?
-    How these entities are communicating with each other.
-
-4. **Design the Components**
-    For each component, start to think about what classes and functions it will need.
-
-5. **Thinking about data structure***
-consider the data types or data structures that can be created to represent the information more effectively and intuitively. Evaluate if there are any custom data types that can encapsulate related data and behavior within a single entity. This can help improve the organization, modularity, and reusability of your software design.
-
-6. ** Output The first version of design **
-   At this stage, you will output the first version of your designs in terms of filepaths.
-   Each file will contain the intended classes or functions with highly detailed docs following the best practice of docs in the specific language.
-
-
-6. **Refine the Design, Following Best Practice**
-    Now that you have a basic design, start refining it. At this stage, you will first share your knowledge of SOLID principles, and clean code
-    best practices. 
-    Then you use SOLID principles and clean code best practices to judge the output designs from step 6. Propose your improvements ideas
-
-7. **Create Concrete File Paths, Functions, and Descriptions:**
- Use the refined design as a basis and output improved design in terms of files. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
-
-This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
-```
-
-Here is one sample example which uses step-by-step reasoning to detect errors
-
-Example:
-```
-The error message indicates that the issue is caused by a TypeError: bad argument type for built-in operation. Looking at the traceback, we can see that the error originates from line 44 in grpc_service.py when trying to assign a value to stage.stage_class.
-
-The source code suggests that stage_data["stage_class"] is being assigned to stage.stage_class, implying that stage_data["stage_class"] is not of an appropriate type for this assignment. From the traceback and the code, it appears that stage_data is expected to be a dictionary and stage_class is expected to be a key within this dictionary.
-
-The source code provided includes a comment that explains the structure of the WORKFLOW_CONFIG dictionary. According to the comment, the 'stage_class' key should correspond to a class representing the stage. We can see in config.py that stage_class values are indeed classes such as RequirementStage, DesignStage, etc.
-
-Given that the error is a type error, and it arises when assigning stage_data["stage_class"] to stage.stage_class, the error might be due to stage.stage_class not being able to accept a class type as its value. Instead, it may require a string representation of the class name, an instance of the class, or some other form of data.
-
-To resolve this issue, we need to identify the correct type for stage.stage_class and convert stage_data["stage_class"] to that type before assignment. Based on common practice with gRPC, protobufs generally do not support passing around class types or instances directly. Instead, they prefer to work with basic data types such as strings and integers. Therefore, it is likely that stage.stage_class is expecting a string.
-
-Here's a possible solution: instead of assigning the class directly, we can assign the name of the class, as a string, to stage.stage_class.
-```
-
-Here is my requirement:
-```
-I need to implement a python source code parser which parses a given source file. The parser will need to get the file docstring. If there are any functions defined in the module, then it should get function name, and function pydoc. If there are classes, it should get class name and its method name, and its method docstring
-```
-
-Can you please use the guideline to create the designs

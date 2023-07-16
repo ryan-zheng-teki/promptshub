@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workspace Explorer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        #workspaceSelector {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        #workspaceSelector select, #workspaceSelector button {
+            margin-right: 10px;
+        }
+        #fileExplorer, #contentViewer {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+        #fileExplorer {
+            width: 30%;
+            float: left;
+        }
+        #contentViewer {
+            width: 70%;
+            float: right;
+        }
+        .clear {
+            clear: both;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            background: #2d98da;
+        }
+    </style>
+</head>
+<body>
+    <h1>Workspace Explorer</h1>
+
+    <div id="workspaceSelector">
+        <label for="workspace">Select Workspace:</label>
+        <select id="workspace">
+            <option value="workspace1">Workspace 1</option>
+            <option value="workspace2">Workspace 2</option>
+            <!-- Add more options as required -->
+        </select>
+        <button id="addButton">Add New Workspace</button>
+    </div>
+
+    <div id="fileExplorer">
+        <h2>Files</h2>
+        <a href="#file1-content">File 1</a>
+        <a href="#file2-content">File 2</a>
+        <!-- Add more files as required -->
+    </div>
+
+    <div id="contentViewer">
+        <h2>Contents</h2>
+        <div>File contents here...</div>
+    </div>
+
+    <div class="clear"></div>
+</body>
+</html>

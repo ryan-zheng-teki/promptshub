@@ -2,31 +2,11 @@ The task name is "Refine And Enhance Task Description". In this task, you will p
 
 Adjust the content or requirements as needed based your knowledge your knowledge of similar features, and create a more logically coherent and organized ticket description.
 
-You should use json format for the output. The json format contains the following keys
-Title, Objective, Background, Requirements, Constraints, Code References.
 
 
-```Title: [Title of the task]
-
-Objective:
-- [Objective of the task]
-
-Background:
-- [Background information related to the task]
-
-Requirements:
-- [List of requirements for the task]
-
-Constraints:
-- [List of constraints or limitations for the task]
 
 
-Provide the complete output in a copiable preformatted text block.
-
-Task description:
-...
-
-
+Step 1: Convert from keywords to short task based on knowledge
 You will need to create based on the short description i give in the "TicketDescription" section. The short description could sometimes contain only keywords, sometimes include code references as well, sometimes its just a simple description what needs to be achieved. you will need to create a more comprehensive software ticket
 based on your analysis of the information. You will your reasoning skill from analysising the description to creating a software ticket. It's not one-step to conclusion. 
 
@@ -115,201 +95,18 @@ Constraints:
 
 
 
-
-
-
-
 Version 4: This version removes the json 
 
 You are a top python software architect with strong requirement engineering skills. Your task is to refine and improve the requirement description situated between `$start$` and `$end$` in the `[Requirement] section based on your experiences of doing similar tasks.
 
-Present the final improved requirement in a copiable code block.
+Understand thoroughly of the requirements before you make improvements. Draw from your past experiences of doing similar requirments
 
 Think and reason step by step with high details to address the task.
 
+
+
 [Requirement]
 $start$
-I have a redis_storage.py which contains some demo code about how to use embedding
-and how to search for embedding. The code base_storage.py is shown below
-
-File path: base_storage.py
-"""
-Module: base_storage.py
-Description: Defines the abstract base class for storage implementations.
-"""
-
-from abc import ABC, abstractmethod
-
-class BaseStorage(ABC):
-    """
-    BaseStorage is an abstract base class that defines the interface for storage implementations.
-    Subclasses must implement the store and retrieve methods.
-
-    Methods:
-        store(key: str, embedding): Stores the embedding with the given key.
-        retrieve(query: str): Retrieves the embedding for the given query.
-    """
-
-    @abstractmethod
-    def store(self, key: str, embedding):
-        """
-        Stores the embedding with the given key.
-
-        Args:
-            key (str): The key used to store the embedding.
-            embedding: The embedding to be stored.
-        """
-        pass
-
-    @abstractmethod
-    def retrieve(self, query: str):
-        """
-        Retrieves the embedding for the given query.
-
-        Args:
-            query (str): The query used to retrieve the embedding.
-
-        Returns:
-            The embedding associated with the query.
-        """
-        pass
-redis_storage.py
-```
-import logging
-import redis
-from redis.commands.search.query import Query
-from redis.commands.search.field import VectorField, TextField
-from redis.commands.search.indexDefinition import IndexDefinition, IndexType
-from src.semantic_code.storage.base_storage import BaseStorage
-from src.config.config import config
-
-logger = logging.getLogger(__name__)
-
-class RedisStorage(BaseStorage):
-    """
-    RedisStorage is a concrete class that extends the BaseStorage class.
-    This class is responsible for storing and retrieving embeddings in a Redis database.
-    """
-
-    def __init__(self):
-        """
-        Initialize the RedisStorage class with a connection to Redis and create an index if not already exists.
-        """
-        ...
-
-    def _initialize_schema(self):
-        """
-        Initialize the schema for the Redis database.
-        """
-        schema = [
-            TextField("url"),
-            VectorField("embedding", "HNSW", {"TYPE": "FLOAT32", "DIM": 1536, "DISTANCE_METRIC": "COSINE"}),
-        ]
-        try:
-            self.redis_client.ft("posts").create_index(fields=schema, definition=IndexDefinition(prefix=["post:"], index_type=IndexType.HASH))
-        except Exception as e:
-            logger.info("Index already exists")
-
-    def store(self, key: str, vector):
-        """
-        Store an embedding vector associated with a key in Redis.
-
-        :param key: The key associated with the embedding.
-        :type key: str
-        :param vector: The embedding vector.
-        """
-        post_hash = {
-            "url": key,
-            "embedding": vector
-        }
-        self.redis_client.hset(name=f"post:{key}", mapping=post_hash)
-
-    def retrieve(self, query: str):
-        """
-        Retrieve an embedding vector associated with a key from Redis.
-
-        :param key: The key associated with the embedding.
-        :type key: str
-        :return: The embedding vector.
-        """
-        return self.redis_client.hget(name=f"post:{key}", key="embedding")
-
-    def search(self, vector, top_k=5):
-        """
-        Search for the top_k closest embeddings to the given vector in Redis.
-
-        :param vector: The query embedding vector.
-        :param top_k: The number of closest embeddings to retrieve. Defaults to 5.
-        :return: The list of closest embedding vectors and associated keys.
-        """
-        base_query = f"*=>[KNN {top_k} @embedding $vector AS vector_score]"
-        query = Query(base_query).return_fields("url", "vector_score").sort_by("vector_score").dialect(2)
-        try:
-            results = self.redis_client.ft("posts").search(query, query_params={"vector": vector})
-        except Exception as e:
-            logging.error(f"Error calling Redis search: {e}")
-            return None
-        return results
-
-    def close_connection(self):
-        """
-        Close the connection to Redis.
-        """
-        self.redis_client.close()
-```
-
-But the requirement of redis_storage.py is to store and search CodeEntity. 
-Source code of code entitiy is shown below.
-file path: base_entity.py
-"""
-File: src/source_code_tree/code_entities/base_entities.py
-
-This module contains classes that represent code entities. The main purpose of these classes is to
-convert code entities into a human-readable description format.
-
-Classes:
-    - CodeEntity: An abstract base class that represents a generic code entity.
-"""
-
-from abc import ABC, abstractmethod
-
-
-class CodeEntity(ABC):
-    """
-    Abstract base class representing a generic code entity.
-    
-    Code entities are parts or components in source code. 
-    The class provides a structure for representing these entities
-    and converting them into a human-readable description format.
-    
-    Attributes:
-        docstring (str): The documentation string for the code entity.
-    
-    Methods:
-        __init__(self, docstring: str): Initializes a CodeEntity with the provided docstring.
-        to_representation(self): Abstract method to convert the code entity to a human-readable description format.
-    """
-    
-    def __init__(self, docstring: str):
-        """
-        Initialize a generic code entity.
-        
-        :param docstring: Documentation string for the entity.
-        :type docstring: str
-        """
-        self.docstring = docstring
-
-    @abstractmethod
-    def to_representation(self):
-        """
-        Convert the code entity to a human-readable description format.
-        
-        Note: This method should be implemented by the subclasses to
-              provide specific conversion logic.
-        
-        :return: A human-readable description of the code entity.
-        :rtype: str
-        """
 
 $end$
 

@@ -17,38 +17,13 @@ As an expert in prompt optimization, you are tasked with restructuring the promp
 
 >>Target Prompt<<
 $start$
-The task name is "Refine And Enhance Task Description". In this task, you will perform as an expert in refining and enhancing task descriptions. Your task is to analyze the provided task description given in "Task Description" section, improve it based on your domain and knowledge of doing similar task, and ensure the revised description better conveys its purpose while maintaining a professional and explicit writing style.
+You are a senior software engineer. The task name is 'Code Documentation Enhancement'. In this task, you will perform a thorough analysis and improvement of given code, following the principles of documentation best practices.
 
-Adjust the wording, add additional content or requirements as needed, drawing from your knowledge of similar features, and create a logically coherent and semantically organized output without redundancy.
+Your task begins with the analysis of the code provided in the "Code" section. Identify the programming language employed in the code and note this down in the "Language" section.
 
-For instance, if you recognize file paths and codes in the task description, you should extract the codes to the 'Code References' section, and put them under the respective path, description, and code subsections. Identify constraints such as programming languages, frameworks etc from the task description and include them in the 'Constraints' section.
+Next, using the best practice guidelines specific to the detected language, enhance the code by adding appropriate documentation. Ensure that this documentation starts with a file doc at the beginning of the file; the nature of the file doc will vary based on the programming language.
 
-You should use json format for the output. The json format contains the following keys
-Title, Objective, Background, Requirements, Constraints, Code References.
-
-
-```Title: [Title of the task]
-
-Objective:
-- [Objective of the task]
-
-Background:
-- [Background information related to the task]
-
-Requirements:
-- [List of requirements for the task]
-
-Constraints:
-- [List of constraints or limitations for the task]
-
-
-Provide the complete output in a copiable preformatted text block.
-
-Task description:
-
-```
-blablab
-```
+Finally, output your modified, documented code. This should be formatted within a code block for clarity. Remember, the aim is to enhance readability and understanding of the code through the addition of effective documentation.
 $end$
 
 
@@ -84,10 +59,20 @@ The output format should be in JSON, with each step title as the key, and the ou
        },
        "Present the Refined Prompt": "$start$ Refined prompt content... $end$"
    }
+$end$
+
+
+
+
+
 
 >>Prompt<<
 $start$
-As an expert in refining and enhancing task descriptions, your task is create a ticket with structured output with the following section headers. within the "Task Description" section.
+As an expert in refining and enhancing task descriptions, your task is create a software ticket with the following structure.
+
+
+
+within the "Task Description" section.
 
 Please follow the steps below. Each step has a title and a description of the step:
 1. Analyze the Task Description:

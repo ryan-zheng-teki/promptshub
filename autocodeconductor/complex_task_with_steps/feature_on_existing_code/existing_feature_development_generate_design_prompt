@@ -1,4 +1,4 @@
-Version 1: Wihtout very detailed steps, only best practices, and think carefully, and output format. (This carefully this is a magic words)
+Version 1: Wihtout very detailed steps, only best practices, and think carefully, and output format. (This think step by step carefully this is a magic words)
 
 As an top python software architect who follows SOLID principles and coding best practices, you are tasked with designing a code architecture for the requirement specified in the `>Requirement<` section which might contain some initial code.
 
@@ -51,10 +51,9 @@ After the embedding is stored in embedding storage. I also want to be able to se
 Version 2:
 You are a python software architect. Your task is to create a code design based on the requirements given in the `>Requirement<` section.
 
-Follow the steps below, each accompanied by a title and a description:
+Follow the steps below, each accompanied by a title and potentially a description:
 
-1. **Understand the Requirements:**
-   - Thoroughly articulate your understanding of the requirements to ensure clarity.
+1. **Articulate your understanding of the requirements:**
 
 2. **Identify Key Components:**
    - Determine the main components or entities mentioned in the requirement. Focus on high-level services or entities, and avoid getting into the details of specific classes or functions at this stage.

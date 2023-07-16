@@ -11,7 +11,7 @@ You are one Senor Software engineer which will implement a given requirement in 
 section. 
 
 You can use command "google_search" with argument to search for the knowledge you need in case 
-you don't know how to to use a certain library, service, or API or do fact check for your usage, 
+you don't know how to to use a certain library, service, or API or do fact check for your usage 
 as the knowledge you have could be outdated. Keep in mind that this is very important.
 
 Output your step-by-step thinking process. By the end of your thinking process, give the 
@@ -61,4 +61,156 @@ We want to be able to support multiple ways of creating embedding. The current o
 
 After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well.
 
-Please use google to search how to use Redis and ChatGPT embedding first.
+
+
+
+As a Senior Software Engineer, you are tasked with implementing a specific requirement outlined in the `>Requirement<` section. 
+
+In case you need to acquire knowledge on how to use a certain library, service, or API, or if you need to verify the accuracy of the information you possess, you may use the command "google_search" followed by your query. It's imperative to keep your knowledge base current.
+
+
+As the final output, provide the file path of your implementation and the corresponding code.
+
+>Requirement<
+I have different code entities which will be converted to vector. for example
+
+File Path: src/semantic_code/index/document/FunctionEntity.py 
+from src.semantic_code.index.document.base_entity import VectorizableCodeEntity
+
+
+class FunctionEntity(VectorizableCodeEntity):
+    def __init__(self, name: str, docstring: str, signature: str):
+        """
+        Initialize a function entity.
+        
+        :param name: Name of the function.
+        :param docstring: Documentation string for the function.
+        :param signature: Signature of the function.
+        """
+        super().__init__(docstring)
+        self.name = name
+        self.signature = signature
+
+    def to_vector(self):
+        """
+        Convert the entity to a vector representation. In this example, it's a dictionary representation.
+        """
+        raise NotImplementedError('not implemented')
+
+current the to_vector is not implementated yet. We need to implement the to_vector function. To create a vector, we will first create a natural language 
+representation of the entitiy. Then use neural network model to create embedding and then store the vector in embedding storage. 
+We want to be able to support multiple ways of creating embedding. The current one i have is OpenAI embedding API. I want to be able to use other neural network model to create the embedding as well. 
+
+After the embedding is stored in embedding storage. I also want to be able to search given natural language. My goal is to eventually using natural language to get the entity.  The current embedding storage i plan to use is Redis. In the future i want to support Weaviate as well.
+
+
+
+Version 3:
+You are a top python softare engineer. You are given a task described in `[Task]` section. 
+
+You will think and reason step by step to address the task.
+
+[Task]
+Please learn from this link https://lablab.ai/t/efficient-vector-similarity-search-with-redis-a-step-by-step-tutorial
+how to use redis vector similarity search, and then 
+check whether my implementation in file src/semantic_code/storage/redis_storage.py is correct or not.
+
+```
+import logging
+import redis
+from redis.commands.search.query import Query
+from redis.commands.search.field import VectorField, TextField
+from redis.commands.search.indexDefinition import IndexDefinition, IndexType
+from src.semantic_code.storage.base_storage import BaseStorage
+from src.config.config import config
+from src.singleton import SingletonMeta
+from src.source_code_tree.code_entities.base_entity import CodeEntity
+
+logger = logging.getLogger(__name__)
+
+class RedisStorage(BaseStorage):
+    """
+    RedisStorage is a concrete class that extends the BaseStorage class.
+    This class is responsible for storing and retrieving embeddings in a Redis database.
+    """
+    def __init__(self, embedding_dim):
+        """
+        Initialize the RedisStorage class with a connection to Redis and create an index if not already exists.
+
+        :param embedding_dim: The dimensionality of the embeddings.
+        :type embedding_dim: int
+        """
+        # Read configurations
+        host = config.get('REDIS_HOST', default='localhost')
+        port = config.get('REDIS_PORT', default=6379)
+        db = config.get('REDIS_DB', default=0)
+
+        # Initialize Redis connection
+        self.redis_client = redis.Redis(host=host, port=port, db=db, encoding='utf-8', decode_responses=True)
+
+        self._initialize_schema(embedding_dim)
+
+    def _initialize_schema(self, embedding_dim):
+        """
+        Initialize the schema for the Redis database.
+
+        :param embedding_dim: The dimensionality of the embeddings.
+        :type embedding_dim: int
+        """
+        schema = [
+            TextField("id"),  # New field
+            TextField("representation"),  # New field
+            VectorField("embedding", "HNSW", {"TYPE": "FLOAT32", "DIM": embedding_dim, "DISTANCE_METRIC": "COSINE"}),
+        ]
+        try:
+            self.redis_client.ft("code_entities").create_index(fields=schema, definition=IndexDefinition(prefix=["code_entity:"], index_type=IndexType.HASH))
+        except Exception as e:
+            logger.info("Index already exists")
+
+    def store(self, key: str, entity: CodeEntity, embedding):
+        """
+        Store a CodeEntity with its embedding vector associated with a key in Redis.
+
+        :param key: The key associated with the code entity.
+        :type key: str
+        :param entity: The code entity.
+        :type entity: CodeEntity
+        :param embedding: The embedding vector.
+        """
+        code_entities_fields = {
+            "id": key,
+            "representation": entity.to_representation(),
+            "embedding": embedding
+        }
+        self.redis_client.hset(name=f"code_entity:{key}", mapping=code_entities_fields)
+
+
+    def retrieve(self, key: str):
+        """
+        Retrieve a code entity associated with a key from Redis.
+
+        :param key: The key associated with the code entity.
+        :type key: str
+        :return: The code entity and its embedding vector.
+        """
+        entity_hash = self.redis_client.hgetall(name=f"code_entity:{key}")
+        return entity_hash
+
+    def search(self, embedding, top_k=5):
+        """
+        Search for the top_k closest code entities to the given vector in Redis.
+
+        :param vector: The query embedding vector.
+        :param top_k: The number of closest code entities to retrieve. Defaults to 5.
+        :return: The list of closest code entities and associated keys.
+        """
+        base_query = f"*=>[KNN {top_k} @embedding $vector AS vector_score]"
+        query = Query(base_query).return_fields("id", "representation", "vector_score").sort_by("vector_score").dialect(2)
+        try:
+            results = self.redis_client.ft("code_entities").search(query, query_params={"embedding": embedding})
+        except Exception as e:
+            logging.error(f"Error calling Redis search: {e}")
+            return None
+        return results
+```
+

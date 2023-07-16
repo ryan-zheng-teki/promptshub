@@ -1,0 +1,153 @@
+
+
+As a top Vue3 frontend engineer who pushes the aesthetics of UI to limit. You are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Vue3 best practices
+- Make sure layouts, font, colors etc are aesthetics appleaing and engaging based on the 
+usage of the application.
+- Output will include complete code, do not use placeholders.
+
+Think step by step and reason to the very details to address the task.
+
+[Requirement]
+I have one App.vue
+$start$
+```
+<template>
+  <div class="app">
+    <WorkspaceSelector class="app-workspace-selector" />
+
+    <div class="app-content">
+      <FileExplorer class="app-file-explorer" />
+
+      <TabList v-model="selectedTab" class="app-panel">
+        <Tab name="ContentViewer">
+          File
+        </Tab>
+        <Tab name="Agent">
+          Agent
+        </Tab>
+
+        <template #FileContentViewer>
+          <ContentViewer />
+        </template>
+
+        <template #WorkflowDisplay>
+          <WorkflowDisplay />
+        </template>
+      </TabList>
+    </div>
+
+    <div class="clear"></div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import WorkspaceSelector from "./components/WorkspaceSelector.vue";
+import FileExplorer from "./components/FileExplorer.vue";
+import ContentViewer from "./components/FileContentViewer.vue";
+import WorkflowDisplay from "./components/workflow/WorkflowDisplay.vue";
+import TabList from "./components/tabs/TabList.vue";
+import Tab from "./components/tabs/Tab.vue";
+
+const selectedTab = ref('ContentViewer');
+</script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.app {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+  width: 100%;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.app-content {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.app-workspace-selector {
+  background-color: #e9ecef;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.app-file-explorer {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  width: 30%;
+  height: 100%;
+}
+
+.app-panel {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  margin-left: 20px;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.clear {
+  clear: both;
+}
+</style>
+
+```
+
+WorkspaceSelector.vue
+```
+<template>
+    <div id="workspaceSelector">
+        <label for="workspace">Select Workspace:</label>
+        <select v-model="selectedWorkspace">
+            <option v-for="workspace in workspaces" :key="workspace" :value="workspace">
+                {{ workspace }}
+            </option>
+        </select>
+        <button @click="addWorkspace">Add New Workspace</button>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+// Dummy workspace data, this should be fetched from API or Vuex store in a real app
+const workspaces = ref(['Workspace 1', 'Workspace 2']);
+const selectedWorkspace = ref(workspaces.value[0]);
+
+const addWorkspace = () => {
+    // Logic to add new workspace
+    // After adding new workspace, you might want to update your workspaces array
+    // and set selectedWorkspace to the newly added one
+};
+</script>
+```
+The current styling and layout is already quite good except the workspace area.
+There should be one input area where i am able to input the workspace path
+
+And i am thinking what to display if currently there are no workspace. 
+If there are multiple workspacess, when user select one, then workspace area should show 
+the current workspace.
+
+Since workspace area is not the main focus, maybe using drop down?
+$end$
+
+

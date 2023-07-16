@@ -1,0 +1,235 @@
+As a top Vue3 frontend engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Follow Vue3 best practices and use TypeScript for any JavaScript file, as shown in the following syntax:
+```
+<template>
+...
+</template>
+<script setup lang="ts">
+import { defineProps, inject, Ref, computed } from 'vue';
+const props = defineProps<{ stageName: string }>();
+const selectedStage = inject<Ref<string | null>>('selectedStage')!;
+
+const selectStage = () => {
+  selectedStage.value = props.stageName;
+}
+
+const isSelected = computed(() => selectedStage.value === props.stageName);
+</script>
+<style>...</style>
+```
+- Follow Vue3 component design best practice.
+- Aim to develop a user interface that is both functional and aesthetically appealing. 
+- Ensure the user journey is articulable based on the design.
+- Follow best naming practices for creating files or folders if neccessary. Include file paths and their codes in the output. Here is part of my current project structure:
+    src
+        components
+            WorkflowDisplay.vue
+            ...
+        graphql
+            queries.ts
+        utils
+            JSONParser.ts
+        App.vue
+        ...
+
+Think thorougly and reason step by step to address the task.
+
+[Requirement]
+$start$
+I have got a prototype in html as following 
+```
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workspace Explorer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        #workspaceSelector {
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        #workspaceSelector select, #workspaceSelector button {
+            margin-right: 10px;
+        }
+        #fileExplorer, #contentViewer {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+        #fileExplorer {
+            width: 30%;
+            float: left;
+        }
+        #contentViewer {
+            width: 70%;
+            float: right;
+        }
+        .clear {
+            clear: both;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            background: #2d98da;
+        }
+    </style>
+</head>
+<body>
+    <h1>Workspace Explorer</h1>
+
+    <div id="workspaceSelector">
+        <label for="workspace">Select Workspace:</label>
+        <select id="workspace">
+            <option value="workspace1">Workspace 1</option>
+            <option value="workspace2">Workspace 2</option>
+            <!-- Add more options as required -->
+        </select>
+        <button id="addButton">Add New Workspace</button>
+    </div>
+
+    <div id="fileExplorer">
+        <h2>Files</h2>
+        <a href="#file1-content">File 1</a>
+        <a href="#file2-content">File 2</a>
+        <!-- Add more files as required -->
+    </div>
+
+    <div id="contentViewer">
+        <h2>Contents</h2>
+        <div>File contents here...</div>
+    </div>
+
+    <div class="clear"></div>
+</body>
+</html>
+
+```
+The task is to create vue3 code designs based on this prototype.
+$end$
+
+
+
+
+
+As a top Vue3 frontend engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Follow Vue3 best practices and use TypeScript for any JavaScript file, as shown in the following syntax:
+```
+<template>
+...
+</template>
+<script setup lang="ts">
+import { defineProps, inject, Ref, computed } from 'vue';
+const props = defineProps<{ stageName: string }>();
+const selectedStage = inject<Ref<string | null>>('selectedStage')!;
+
+const selectStage = () => {
+  selectedStage.value = props.stageName;
+}
+
+const isSelected = computed(() => selectedStage.value === props.stageName);
+</script>
+<style>...</style>
+```
+- Follow Vue3 component design best practice.
+- Aim to develop a user interface that is both functional and aesthetically appealing. 
+- Ensure the user journey is articulable based on the design.
+- Follow best naming practices for creating files or folders if neccessary. Include file paths and their codes in the output. Here is part of my current project structure:
+    src
+        components
+            WorkflowDisplay.vue
+            ...
+        graphql
+            queries.ts
+        utils
+            JSONParser.ts
+        App.vue
+        ...
+
+Think step by step and reason to the very details to address the task.
+
+[Requirement]
+$start$
+I have the following Vue3 components defined. 
+TabList.vue
+```
+<template>
+    <div>
+      <div class="tab-list">
+        <slot />
+      </div>
+      <div class="tab-content">
+        <slot :name="selectedTab" />
+      </div>
+    </div>
+  </template>
+  
+  <script setup lang="ts">
+  import { ref } from "vue";
+  
+  const slots = defineSlots({
+    default: {
+      type: Array as PropType<Tab[]>,
+      required: true,
+    },
+  });
+  
+  const selectedTab = ref(slots.default[0].props.name);
+  
+  const selectTab = (name: string) => {
+    selectedTab.value = name;
+  };
+  </script>
+  # rest of styles ..
+```
+Tab.vue
+```
+<template>
+  <div class="tab" :class="{ active: isActive }" @click="selectTab">
+    <slot />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from "vue";
+
+const props = defineProps({
+  name: String,
+  selected: Boolean,
+});
+
+const emit = defineEmits(["select"]);
+
+const isActive = computed(() => props.selected);
+
+const selectTab = () => {
+  emit("select", props.name);
+};
+</script>
+# rest of code ...
+```
+But the slot syntax seems incorrect. 
+You will first learn from this website https://blog.logrocket.com/understanding-slots-vue-js/ how to use Slot, then update the code.
+```
+$end$
+
+

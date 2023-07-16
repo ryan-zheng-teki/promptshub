@@ -1,76 +1,128 @@
 Version 1: This prompts works for both GPT3.5 and GPT4. But GPT4 works like insanely good.
 
-You are a senior Python software engineer. You are given a Python code file in the `[Code]` section. Your task is to create tests for this code.
+You are a senior Python software engineer. You have been given a Python code file provided in the `[Code]` section. Your task is to create integration for the given Python code file.
 
 [Criteria]
 - Ensure that the test cases follow pytest best practices.
-- Ensure that the test file path follows similar pattern as my current project
-  [-- here comes one example of the current project test file path --]
-- Ensure full test coverage of the code.
-- Ensure that test cases follow behavior-driven naming conventions.
+- Create the test file path to follow the same practice used in the current project's test files structure:
+    src
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            semantic_code
+                index
+                    test_index_service_integration.py
+
+- Ensure that the tests provide full coverage of the code.
+- Use behavior-driven naming conventions for the test cases.
 
 [Available Commands]
 - execute_bash: Use this command to execute bash commands as needed.
 - write_file: Use this command to write the test cases to a file.
 
-Think and reason yourself in high details to address the task.
+Think and reason yourself in high detail to address the task.
+
 
 [Code]
 file path: src/semantic_code/embedding/openai_embedding_creator.py
+```
 """
-openai_embedding_creator.py
+search_service.py
 
-This module contains the OpenAIEmbeddingCreator class, which is responsible for creating embeddings
-using OpenAI's API. It reads the API key and model name from a configuration file and utilizes
-OpenAI's API to generate embeddings for the input text.
+This module contains the SearchService class, which is responsible for searching for code entities.
+The SearchService utilizes embeddings created from queries and retrieves relevant code entity embeddings
+from the provided storage backend.
+
+Classes:
+    - SearchService: Manages the searching of code entities.
 """
 
-import openai
-import numpy as np
-import logging
-from src.semantic_code.embedding.base_embedding_creator import BaseEmbeddingCreator
-from src.config.config import config
+from src.semantic_code.embedding.embedding_creator_factory import get_embedding_creator
+from src.semantic_code.storage.storage_factory import get_storage
+from src.singleton import SingletonMeta
+from src.source_code_tree.code_entities.base_entity import CodeEntity
 
-logger = logging.getLogger(__name__)
 
-class OpenAIEmbeddingCreator(BaseEmbeddingCreator):
+class SearchService(metaclass=SingletonMeta):
     """
-    OpenAIEmbeddingCreator is a concrete class that extends the BaseEmbeddingCreator class.
-    This class is responsible for generating embeddings using OpenAI's API.
+    This class is responsible for searching for code entities by converting queries into embeddings and 
+    retrieving relevant code entity embeddings from the provided storage backend.
+    
+    Attributes:
+        base_storage (BaseStorage): Storage backend for retrieving code entity embeddings.
+        embedding_creator (BaseEmbeddingCreator): Object responsible for creating embeddings from queries.
     """
-
+    
     def __init__(self):
         """
-        Initialize the OpenAIEmbeddingCreator class by reading the API key and model name
-        from the configuration file.
+        Initializes a SearchService with a storage backend retrieved by a get function and an embedding creator
+        retrieved by get_embedding_creator function.
         """
-        self.api_key = config.get('OPEN_AI_API_KEY')
-        self.model_name = config.get('OPEN_AI_EMBEDDING_MODEL', default="text-embedding-ada-002")
-        logger.info("OpenAIEmbeddingCreator using embedding model %s", self.model_name)
-
-    def create_embedding(self, text: str):
+        self.base_storage = get_storage()
+        self.embedding_creator = get_embedding_creator()
+    
+    def search(self, query: str) -> list[CodeEntity]:
         """
-        Create an embedding for the given text using OpenAI's API.
+        Searches for relevant code entities by converting the given query into an embedding and retrieving
+        relevant embeddings from the storage backend.
         
-        Parameters:
-        text (str): The input text for which the embedding should be generated.
-
+        Args:
+            query (str): The search query.
+        
         Returns:
-        bytes: The embedding in bytes format.
+            list[CodeEntity]: A list of relevant code entities.
         """
-        logger.info("Creating embedding for text: %s", text)
-        try:
-            embedding = openai.Embedding.create(input=text, model=self.model_name)
-            vector = embedding["data"][0]["embedding"]
-            vector = np.array(vector).astype(np.float32).tobytes()
-            logger.info("Embedding created successfully")
-            return vector
-        except Exception as e:
-            logger.error("Failed to create embedding: %s", str(e))
-            return None
-
-
+        # Convert the query to an embedding
+        query_embedding = self.embedding_creator.create_embedding(query)
+        
+        # Retrieve and return relevant code entities from the storage
+        return self.base_storage.search(query_embedding)
+```
 
 
 Version 2: Contains the details of steps
 
+
+As an top python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Follow python coding best practices
+- Follow pytest best practices
+- Ensure that the test cases follow pytest best practices.
+- Ensure that the tests provide full coverage of the code.
+- Use behavior-driven naming conventions for the test cases
+- Use best practices to create test file path. Here is a sample best practice to 
+  put the test file for the source file.
+    src
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            semantic_code
+                index
+                    test_index_service_integration.py
+- Include file paths accompanied with complete code in code block. 
+- Include explanation and analysis to create first time correctly runnable unit test.
+
+Think step by step, and reason to the smallest granule to address the task.
+
+[Requirement]
+i have created TreeNode to represent a directory structure from file system in file 
+src/source_code_tree/file_explorer/tree_node.py
+$start$
+```
+
+```
+The task is to generate unit tests for WorkspaceService
+$end

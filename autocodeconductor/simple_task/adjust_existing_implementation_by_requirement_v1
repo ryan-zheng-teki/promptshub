@@ -2,10 +2,9 @@ Version 1: This version has steps.
 
 As a top python software developer tasked with modifying and updating a given piece of code in the `>>Code<<` section according to the requirement given in the `>>Requirement<<` section. The content of both sections are situated between `$start$` and `$end$` tokens.
 
-Please follow the steps below. Each step has a title and a description of the step.
+Please follow the steps below. Each step has a title and potentially a description.
 
-1. Understand the Requirements in the `>>Requirement<<` Section:
-   - Articulate your understanding of the provided requirements
+1. Articulate your understanding thoroughly of the provided requirements in the `>>Requirement<<` Section:
 
 2. Understand given code in the  `>>Code<<` section:
    - Explain step by step what the code does.
@@ -37,101 +36,138 @@ Please follow the steps below. Each step has a title and a description of the st
 
 >>Code<<
 ...
+- Opt for functional programming when the creation of classes is overkill
 
 
-Version 3: Only criterias and think step by step.
+Version 3: Only criterias and think step by step. Add available commands as well
 
-As an top python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
+As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Criterias]
-- seek to use design patterns if possible.
-- follow python coding best practices
-- follow python docstring best practices. add module-level docstring on the top of module
-
-Think very carefully, and reason your way step by step with high details to address the task.
+- Consider what design patterns can be used.
+- Adhere to SOLID principles.
+- Adhere to Python coding best practices.
+- Consider refactoring if neccessary
+- Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
+- Include complete file path in the output. Make sure code for the file path is in code block.
+- Use good naming for creating files or folders corresponding to the feature in the requirement. For reference, here is a sample of the current project file structure:
+    src
+        ...
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- update relevant docstrings when code changes.
+                    
+Understand the requirement thorougly, think very carefully step by step, and reason with high details to address the task.
 
 [Requirement]
-$start$
-I have one abstract parent class in base_embedding_creator.py to create base embedding.
+I have graphql schema.py defined earlier.
+```
+import json
+import strawberry
+from strawberry.scalars import JSON
+from src.config import config
+from src.workspaces.workspace_service import WorkspaceService
+from src.workspaces.workspace_setting import WorkspaceSetting
+from src.endpoints.graphql.json.custom_json_encoder import CustomJSONEncoder
+from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
+from src.automated_coding_workflow.config import WORKFLOW_CONFIG
 
-"""
-File Path: src/source_code_tree/code_entities/base_embedding_creator.py
 
-This module defines the BaseEmbeddingCreator abstract base class which serves
-as the base class for all embedding creators. Embedding creators are classes
-responsible for converting text into a numerical representation (embedding)
-that can be fed into machine learning models. This base class ensures that
-all embedding creator subclasses have a consistent interface by enforcing
-the implementation of the `create_embedding` method.
-"""
+workflow = AutomatedCodingWorkflow()
+workspace_service: WorkspaceService = WorkspaceService()
 
-from abc import ABC, abstractmethod
+@strawberry.type
+class Query:
+    @strawberry.field
+    def workflow_config(self) -> JSON:
+        custom_encoder = CustomJSONEncoder()
+        return custom_encoder.encode(WORKFLOW_CONFIG)
 
-class BaseEmbeddingCreator(ABC):
-    """
-    This is an abstract base class that defines the interface for embedding
-    creator classes. Classes inheriting from BaseEmbeddingCreator must
-    implement the `create_embedding` method.
-    
-    Embedding creators are classes that convert input text into a numerical
-    representation (embedding) which can be used by machine learning models.
-    """
+@strawberry.type
+class Mutation:
+    @strawberry.mutation
+    def start_workflow(self) -> bool:
+        workflow.start_workflow()
+        return True
 
-    @abstractmethod
-    def create_embedding(self, text: str):
+    @strawberry.mutation
+    def add_workspace(self, workspace_path: str) -> bool:
         """
-        Creates an embedding from the input text.
-        
-        This is an abstract method and must be implemented by subclasses
-        of BaseEmbeddingCreator.
-        
-        Parameters:
-        text (str): The input text to be converted into an embedding.
-        
+        Adds a new workspace to the workspace service.
+
+        Args:
+            workspace_path (str): The root path of the workspace to be added.
+
         Returns:
-        This method should return an embedding, usually in the form of a
-        numerical array or tensor.
+            bool: True if the workspace was added successfully, False otherwise.
         """
-        pass
+        try:
+            workspace_service.add_workspace(workspace_path)
+            return True
+        except Exception as e:
+            print(f"Error while adding workspace: {e}")
+            return False
+
+schema = strawberry.Schema(query=Query, mutation=Mutation)
+```
+
+However, i have updated the API for add_workspace to the following
+def add_workspace(self, workspace_root_path: str) -> TreeNode
+
+TreeNode is defined as 
+```
+import json
 
 
-I have already create one implementation supporting openai openai_embedding_creator.py
-"""
-openai_embedding_creator.py
-
-This module contains the OpenAIEmbeddingCreator class, which is responsible for creating embeddings
-using OpenAI's API. It reads the API key and model name from a configuration file and utilizes
-OpenAI's API to generate embeddings for the input text.
-"""
-
-import openai
-import numpy as np
-import logging
-from src.semantic_code.embedding.base_embedding_creator import BaseEmbeddingCreator
-from src.config.config import config
-
-logger = logging.getLogger(__name__)
-
-class OpenAIEmbeddingCreator(BaseEmbeddingCreator):
+class TreeNode:
     """
-    OpenAIEmbeddingCreator is a concrete class that extends the BaseEmbeddingCreator class.
-    This class is responsible for generating embeddings using OpenAI's API.
+    A class used to represent a file or directory in a directory structure.
+
+    Attributes
+    ----------
+    name : str
+        The name of the file or directory.
+    path : str
+        The full path of the file or directory.
+    is_file : bool
+        True if this node represents a file, False if it represents a directory.
+    children : list[TreeNode]
+        The children of this node. Each child is a TreeNode representing a file or subdirectory.
+
+    Methods
+    -------
+    add_child(node: TreeNode)
+        Adds a child to this node.
     """
 
-    def __init__(self):
-        """
-        Initialize the OpenAIEmbeddingCreator class by reading the API key and model name
-        from the configuration file.
-        """
-        self.api_key = config.get('OPEN_AI_API_KEY')
-        self.model_name = config.get('OPEN_AI_EMBEDDING_MODEL', default="text-embedding-ada-002")
-        logger.info("OpenAIEmbeddingCreator using embedding model %s", self.model_name)
+    def __init__(self, name: str, path: str, is_file: bool = False):
+        self.name = name
+        self.path = path
+        self.is_file = is_file
+        self.children = []
 
-    def create_embedding(self, text: str):
-    
-    ...
+    def to_json(self) -> str:
+    """
+    Returns a JSON representation of the TreeNode.
 
-Now i need to create another implementation supporting sentence transformer.
-Please browse this url https://huggingface.co/sentence-transformers/all-mpnet-base-v2 to learn how to use sentence transformer, then implement 
-$end$
+    Returns:
+        str: The JSON representation of the TreeNode.
+    """
+    return json.dumps(self.to_dict())
 
+    # rest of code ...
+```
+Now please update add_workspace in schema.py to return the json representation of the workspace directory tree
+$end

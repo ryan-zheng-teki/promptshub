@@ -1,0 +1,192 @@
+As a top Vue3 frontend engineer who is proficient in Typescript, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Follow Vue3 best practices and use TypeScript for any JavaScript file, as shown in the following syntax:
+```
+<template>
+...
+</template>
+<script setup lang="ts">
+import { defineProps, inject, Ref, computed } from 'vue';
+const props = defineProps<{ stageName: string }>();
+const selectedStage = inject<Ref<string | null>>('selectedStage')!;
+
+const selectStage = () => {
+  selectedStage.value = props.stageName;
+}
+
+const isSelected = computed(() => selectedStage.value === props.stageName);
+</script>
+<style>...</style>
+```
+- Follow Vue3 component design best practice.
+- Aim to develop a user interface that is both functional and aesthetically appealing. 
+- Ensure the user journey is articulable based on the design.
+- Follow best naming practices for creating files or folders if neccessary. Include file paths and their codes in the output. Here is part of the current project structure:
+    src
+        components
+            WorkflowDisplay.vue
+            ...
+        graphql
+            queries.ts
+        utils
+            JSONParser.ts
+        App.vue
+        ...
+Understand the requirement and existing code step by step thoroughly first. 
+Think very carefully step by step and reason with very high granule to address the task.
+
+[Requirement]
+$start$
+I have WorkspaceSelector defined in file src/components/WorkspaceSelector.vue
+```
+<!-- src/components/WorkspaceSelector.vue -->
+
+<template>
+  <div id="workspaceSelector">
+    <label for="workspace">Select Workspace:</label>
+    <select v-model="selectedWorkspace" v-if="workspaces.length > 0">
+        <option v-for="workspace in workspaces" :key="workspace" :value="workspace">
+            {{ workspace }}
+        </option>
+    </select>
+    <span v-else>No Workspaces available</span>
+    <input type="text" v-model="newWorkspace" placeholder="Enter new workspace path" />
+    <button @click="addWorkspace">Add New Workspace</button>
+  </div>
+</template>
+
+// src/components/WorkspaceSelector.vue
+<script setup lang="ts">
+import { ref } from 'vue';
+import { AddWorkspace } from '../graphql/queries';
+import { useMutation } from '@vue/apollo-composable';
+import { convertJsonToTreeNode } from '../utils/fileExplorer/TreeNode';
+
+const workspaces = ref([] as string[]);
+const selectedWorkspace = ref(null as string | null);
+const newWorkspace = ref('');
+
+const { mutate: addWorkspaceMutation } = useMutation(AddWorkspace, () => ({
+  variables: {
+    workspaceRootPath: newWorkspace.value,
+  },
+  update: (_cache, { data }) => {
+    if (data?.addWorkspace) {
+      const workspaceTree = convertJsonToTreeNode(data.addWorkspace);
+      workspaces.value.push(newWorkspace.value);
+      selectedWorkspace.value = newWorkspace.value;
+      newWorkspace.value = '';
+      console.log('Workspace Tree:', workspaceTree);
+    } else {
+      console.error('Error adding workspace');
+    }
+  }
+}));
+
+const addWorkspace = () => {
+  addWorkspaceMutation();
+};
+</script>
+# rest of code ...
+```
+After triggering the mutation, we successfully get the TreeNode for the workspace
+```
+export class TreeNode {
+    name: string;
+    path: string;
+    is_file: boolean;
+    children: TreeNode[];
+
+    constructor(name: string, path: string, is_file: boolean = false, children: TreeNode[] = []) {
+        this.name = name;
+        this.path = path;
+        this.is_file = is_file;
+        this.children = children;
+    }
+
+    static fromObject(obj: any): TreeNode {
+        const children = obj.children ? obj.children.map((child: any) => TreeNode.fromObject(child)) : [];
+        return new TreeNode(obj.name, obj.path, obj.is_file, children);
+    }
+}
+
+export function convertJsonToTreeNode(json: string): TreeNode {
+    const obj = JSON.parse(json);
+    return TreeNode.fromObject(obj);
+}
+
+```
+
+I also have one additional FileExplorer.vue component defined in file src/components/FileExplorer.vue.
+```
+<template>
+    <div id="fileExplorer">
+        <h2>Files</h2>
+        <a href="#" v-for="file in files" :key="file" @click.prevent="selectFile(file)">
+            {{ file }}
+        </a>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+// Dummy file data, this should be fetched based on selected workspace in a real app
+const files = ref(['File 1', 'File 2']);
+const selectFile = (file: string) => {
+    // Logic to handle file selection
+    // The selected file can be stored in a shared state like Vuex or provide/inject API
+};
+</script>
+Currently it only contains some dummy code. 
+
+What is needed is that after TreeNode data fetched from mutation in WorkspaceSelector.vue will need to become the input for FileExplorer component to render. 
+
+Currently my src/App.vue looks like this.
+
+```
+<template>
+  <div class="app">
+    <WorkspaceSelector class="app-workspace-selector" />
+
+    <div class="app-content">
+      <FileExplorer class="app-file-explorer" />
+
+      <TabList v-model="selectedTab" class="app-panel">
+        <Tab name="ContentViewer">
+          File
+        </Tab>
+        <Tab name="Agent">
+          Agent
+        </Tab>
+
+        <template #FileContentViewer>
+          <ContentViewer />
+        </template>
+
+        <template #WorkflowDisplay>
+          <WorkflowDisplay />
+        </template>
+      </TabList>
+    </div>
+
+    <div class="clear"></div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import WorkspaceSelector from "./components/WorkspaceSelector.vue";
+import FileExplorer from "./components/FileExplorer.vue";
+import ContentViewer from "./components/FileContentViewer.vue";
+import WorkflowDisplay from "./components/workflow/WorkflowDisplay.vue";
+import TabList from "./components/tabs/TabList.vue";
+import Tab from "./components/tabs/Tab.vue";
+
+const selectedTab = ref('ContentViewer');
+</script>
+# Rest of code ...
+$end$
+
+

@@ -3,7 +3,7 @@ Prompt Definition: This prompt will be used convert the requirement into code de
 What i noticed is that think very carefully step by step has performed much better than defining the steps. But the steps are more stable.
 
 
-Version 1: You are a senior frontend engineer, your task is to implement the task given in the `>Ticket<` section. 
+Version 1: You are a top frontend engineer, your task is to implement the task given in the `[Task]` section. 
 
 
 1. Understand the requirements: Begin by thoroughly comprehending the software requirements. Identify the key functionalities, user interactions. This step sets the foundation for the design process.
@@ -132,6 +132,110 @@ The user clicks on the next stage (DetermineNextTask), and the process repeats.
 Please use the approach defined by the guideline to complete the WorkflowContainer implemenation
 
 
+Version 2: 
+You are a top UI/UX designer with very strong html, and css  skill. You are given a task described in the `[Task]`
+section. 
+
+[Criterias]
+- Ensure that your output includes a comprehensive explanation of your UI design, emphasizing the thought process behind your design decisions.
+- Clearly describe the complete user journey, demonstrating how users will interact with the various elements of the design.
+- The updated html prototype should not only represent the structure and functionality of the design, but also give a sense of its aesthetic appeal.
+
+
+[Task]
+$start$
+I got the following html
+```
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workspace Configuration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .workspace-config {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .workspace-list {
+            margin-top: 20px;
+        }
+        .workspace-list div {
+            background: #fff;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        button {
+            margin-left: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+        #addButton {
+            background: #2d98da;
+        }
+        #saveButton {
+            background: #5cb85c;
+        }
+        .editButton {
+            background: #f0ad4e;
+        }
+        input {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Workspace Configuration</h1>
+
+    <div class="workspace-config">
+        <button id="addButton">Add New Workspace</button>
+        <div>
+            <label for="rootPath">Root Path:</label>
+            <input type="text" id="rootPath" name="rootPath">
+            <button id="saveButton">Save</button>
+        </div>
+    </div>
+
+    <div class="workspace-list">
+        <h2>Configured Workspaces</h2>
+        <div>
+            <span>Workspace 1</span>
+            <button class="editButton">Edit</button>
+        </div>
+        <div>
+            <span>Workspace 2</span>
+            <button class="editButton">Edit</button>
+        </div>
+        <!-- Add more as required -->
+        <div>
+            <span>Workspace n</span>
+            <button class="editButton">Edit</button>
+        </div>
+    </div>
+</body>
+</html>
+```
+After clicking the workspace, then we will show a file explorer. This file explorer will show all the files in the workspace. After user click a certain fill, we are able to see the content the of file. When we click another workspace, then we enter the file explorer view of another workspace. 
+
+The current protoype does not support this. 
+```
 
 
 

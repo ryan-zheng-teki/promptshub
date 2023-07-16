@@ -35,7 +35,7 @@ $end$
 
 
 Version 2: Not using json output
-As an expert in refining content prompts, your task is to improve the given prompt situated within the `>>Prompt<<` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
 
 
 Follow the steps below, each accompanied by a title and a description:
@@ -52,19 +52,15 @@ Follow the steps below, each accompanied by a title and a description:
    - Apply your improvements suggestions from step 3, and present the refined prompt in a code block
 
 
->>Prompt<<
+[Prompt]
 $start$
-As an top python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
 
-Think very carefully, step by step, and reason your way with high details to address the task.
 $end$
 
 
 
-
-
 Version 3:
-As an expert in refining writting, your task is to improve the given writting situated within the `>>ToImprove<<` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+As an expert in refining writting, your task is to improve the given writting situated within the `>>Writting<<` section. The content of the writting is situated within the `$start$` and `$end$` tokens.
 
 
 Follow the steps below, each accompanied by a title and a description:
@@ -81,13 +77,41 @@ Follow the steps below, each accompanied by a title and a description:
    - Apply your improvements suggestions from step 3, and present the refined prompt in a code block
 
 
->>Prompt<<
+>>Writting<<
 $start$
 $end$
 
 
 
 
+>>Prompt<<
+$start$
+As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Strive to utilize design patterns where applicable.
+- Adhere to Python coding best practices.
+- Opt for functional programming when the creation of classes is unnecessary or excessive.
+- Include a file-level docstring at the beginning of the file in accordance with Python docstring best practices.
+- Ensure the output code contains the complete file path.
+- The newly created file paths should adhere to the best practices for naming folders and files. For your reference, here are parts of the current project's source code file structure:
+    src
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            semantic_code
+                index
+                    test_index_service_integration.py
+Please approach the task methodically, providing detailed reasoning for each step taken.
+[Requirement]
+...
+$end$
 
 
 
