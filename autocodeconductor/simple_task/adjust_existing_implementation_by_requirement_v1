@@ -1,12 +1,12 @@
 Version 1: This version has steps.
 
-As a top python software developer tasked with modifying and updating a given piece of code in the `>>Code<<` section according to the requirement given in the `>>Requirement<<` section. The content of both sections are situated between `$start$` and `$end$` tokens.
+As a top python software developer tasked with modifying and updating a given piece of code in the `[Code]` section according to the requirement given in the `[Requirement]` section. The content of both sections are situated between `$start$` and `$end$` tokens.
 
 Please follow the steps below. Each step has a title and potentially a description.
 
-1. Articulate your understanding thoroughly of the provided requirements in the `>>Requirement<<` Section:
+1. Articulate your understanding thoroughly of the provided requirements in the `[Requirement]` Section:
 
-2. Understand given code in the  `>>Code<<` section:
+2. Understand given code in the  `[Code]` section:
    - Explain step by step what the code does.
    - And Articulate your reasoning in detail how the provided code aligns or diverges from the provided requirements. 
 
@@ -31,10 +31,10 @@ Please follow the steps below. Each step has a title and potentially a descripti
 7. Mentally test the Modified Code:
    - Articulate your mental step-by-step test of the modified code to ensure it meets the requirements and does not introduce new issues.
 
->>Requirement<<
+[Requirement]
 ...
 
->>Code<<
+[Code]
 ...
 - Opt for functional programming when the creation of classes is overkill
 
@@ -67,107 +67,92 @@ As a top Python software engineer, you are tasked with the requirements provided
             semantic_code
                 index
                     test_index_service_integration.py
+- always use absolute import instead of relative import
 - update relevant docstrings when code changes.
                     
-Understand the requirement thorougly, think very carefully step by step, and reason with high details to address the task.
+Think very carefully step by step, and reason with high details to address the task.
 
 [Requirement]
-I have graphql schema.py defined earlier.
+I want to create another class. That is about scaffolding a project. Normally when we start a new project, we have to scalfolding a project with minimal setup. For example, for frontend Vue3, we normally use vite+graphql. For python project, with fastapi, the basic folder structure are mostly the same
+
+
+
+You are a top Python developer and you have been given a requirement to fulfill. The requirement can be found between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criteria]
+- Utilize appropriate design patterns.
+- Follow SOLID principles.
+- Adhere to Python coding best practices.
+- Refactor the code when necessary.
+- Maintain documentation using Python docstring best practices. Include a file-level docstring at the start of each file.
+- Provide complete file paths in the output. Place the code for the file path in a code block.
+- Choose meaningful names for files or folders corresponding to the requirements' feature. For your reference, here is a sample of the current project file structure:
+    ```
+    src
+        ...
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+    ```
+- Use absolute imports instead of relative imports.
+- Update relevant docstrings in line with code changes.
+
+Remember to plan your approach carefully, detailing your reasoning as you work to meet the task requirements.
+
+[Requirement]
+$start$
+I have class DefaultSortStrategy defined in src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py
+
 ```
-import json
-import strawberry
-from strawberry.scalars import JSON
-from src.config import config
-from src.workspaces.workspace_service import WorkspaceService
-from src.workspaces.workspace_setting import WorkspaceSetting
-from src.endpoints.graphql.json.custom_json_encoder import CustomJSONEncoder
-from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
-from src.automated_coding_workflow.config import WORKFLOW_CONFIG
+# src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py
+
+import os
+from typing import List, Tuple
+from src.source_code_tree.file_explorer.sort_strategy.sort_strategy import SortStrategy
 
 
-workflow = AutomatedCodingWorkflow()
-workspace_service: WorkspaceService = WorkspaceService()
+class DefaultSortStrategy(SortStrategy):
+    """
+    Default sorting strategy for directory traversal.
 
-@strawberry.type
-class Query:
-    @strawberry.field
-    def workflow_config(self) -> JSON:
-        custom_encoder = CustomJSONEncoder()
-        return custom_encoder.encode(WORKFLOW_CONFIG)
+    The strategy is to sort folders and files so that all directories come first, 
+    all files come later, and directories starting with a dot come before others.
+    """
 
-@strawberry.type
-class Mutation:
-    @strawberry.mutation
-    def start_workflow(self) -> bool:
-        workflow.start_workflow()
-        return True
-
-    @strawberry.mutation
-    def add_workspace(self, workspace_path: str) -> bool:
+    def sort(self, paths: List[str]) -> List[str]:
+        paths.sort(key=self._sort_key)
+        return paths
+    
+    def _sort_key(self, path: str) -> tuple:
         """
-        Adds a new workspace to the workspace service.
+        Returns a tuple that can be used for sorting paths.
 
-        Args:
-            workspace_path (str): The root path of the workspace to be added.
+        Parameters:
+        ----------
+        path : str
+            The path to be sorted.
 
         Returns:
-            bool: True if the workspace was added successfully, False otherwise.
+        -------
+        tuple
+            The sort key for the path.
         """
-        try:
-            workspace_service.add_workspace(workspace_path)
-            return True
-        except Exception as e:
-            print(f"Error while adding workspace: {e}")
-            return False
+        is_directory = os.path.isdir(path)
+        starts_with_dot = os.path.basename(path).startswith('.')
+        return (not is_directory, starts_with_dot, path)
 
-schema = strawberry.Schema(query=Query, mutation=Mutation)
 ```
-
-However, i have updated the API for add_workspace to the following
-def add_workspace(self, workspace_root_path: str) -> TreeNode
-
-TreeNode is defined as 
-```
-import json
-
-
-class TreeNode:
-    """
-    A class used to represent a file or directory in a directory structure.
-
-    Attributes
-    ----------
-    name : str
-        The name of the file or directory.
-    path : str
-        The full path of the file or directory.
-    is_file : bool
-        True if this node represents a file, False if it represents a directory.
-    children : list[TreeNode]
-        The children of this node. Each child is a TreeNode representing a file or subdirectory.
-
-    Methods
-    -------
-    add_child(node: TreeNode)
-        Adds a child to this node.
-    """
-
-    def __init__(self, name: str, path: str, is_file: bool = False):
-        self.name = name
-        self.path = path
-        self.is_file = is_file
-        self.children = []
-
-    def to_json(self) -> str:
-    """
-    Returns a JSON representation of the TreeNode.
-
-    Returns:
-        str: The JSON representation of the TreeNode.
-    """
-    return json.dumps(self.to_dict())
-
-    # rest of code ...
-```
-Now please update add_workspace in schema.py to return the json representation of the workspace directory tree
+Now i got a simpler sorting methodology. Folders comes before files. Between folders, simply sort the basename via alphebetical order. For files also use alphebetical order.
 $end
+

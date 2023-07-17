@@ -54,7 +54,36 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
+As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
+[Criterias]
+- Consider what design patterns can be used.
+- Adhere to SOLID principles.
+- Adhere to Python coding best practices.
+- Consider refactoring if neccessary
+- Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
+- Include complete file path in the output. Make sure code for the file path is in code block.
+- Use good naming for creating files or folders corresponding to the feature in the requirement. For reference, here is a sample of the current project file structure:
+    src
+        ...
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- always use absolute import instead of relative import
+- update relevant docstrings when code changes.
+                    
+Think very carefully step by step, and reason with high details to address the task.
 $end$
 
 
@@ -112,8 +141,3 @@ Please approach the task methodically, providing detailed reasoning for each ste
 [Requirement]
 ...
 $end$
-
-
-
-
-

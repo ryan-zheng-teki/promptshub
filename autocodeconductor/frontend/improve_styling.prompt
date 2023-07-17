@@ -4,150 +4,93 @@ As a top Vue3 frontend engineer who pushes the aesthetics of UI to limit. You ar
 
 [Criterias]
 - Vue3 best practices
-- Make sure layouts, font, colors etc are aesthetics appleaing and engaging based on the 
-usage of the application.
+- Make sure layouts, font, colors etc are aesthetics appleaing and engaging based on the usage of the feature.
 - Output will include complete code, do not use placeholders.
 
-Think step by step and reason to the very details to address the task.
+Think step by step and reason with ultimate details to address the task.
 
 [Requirement]
-I have one App.vue
+I have a FileItem.vue defined.
 $start$
 ```
+
 <template>
-  <div class="app">
-    <WorkspaceSelector class="app-workspace-selector" />
-
-    <div class="app-content">
-      <FileExplorer class="app-file-explorer" />
-
-      <TabList v-model="selectedTab" class="app-panel">
-        <Tab name="ContentViewer">
-          File
-        </Tab>
-        <Tab name="Agent">
-          Agent
-        </Tab>
-
-        <template #FileContentViewer>
-          <ContentViewer />
-        </template>
-
-        <template #WorkflowDisplay>
-          <WorkflowDisplay />
-        </template>
-      </TabList>
-    </div>
-
-    <div class="clear"></div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-import WorkspaceSelector from "./components/WorkspaceSelector.vue";
-import FileExplorer from "./components/FileExplorer.vue";
-import ContentViewer from "./components/FileContentViewer.vue";
-import WorkflowDisplay from "./components/workflow/WorkflowDisplay.vue";
-import TabList from "./components/tabs/TabList.vue";
-import Tab from "./components/tabs/Tab.vue";
-
-const selectedTab = ref('ContentViewer');
-</script>
-
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-.app {
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: #f4f4f4;
-  padding: 20px;
-  width: 100%;
-}
-
-h1 {
-  margin-bottom: 20px;
-}
-
-.app-content {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-}
-
-.app-workspace-selector {
-  background-color: #e9ecef;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.app-file-explorer {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  width: 30%;
-  height: 100%;
-}
-
-.app-panel {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  margin-left: 20px;
-  flex-grow: 1;
-  height: 100%;
-}
-
-.clear {
-  clear: both;
-}
-</style>
-
-```
-
-WorkspaceSelector.vue
-```
-<template>
-    <div id="workspaceSelector">
-        <label for="workspace">Select Workspace:</label>
-        <select v-model="selectedWorkspace">
-            <option v-for="workspace in workspaces" :key="workspace" :value="workspace">
-                {{ workspace }}
-            </option>
-        </select>
-        <button @click="addWorkspace">Add New Workspace</button>
+    <div :class="{ 'folder': !file.is_file, 'open': isOpen.value }" @click="toggle" class="file-item">
+        <div class="icon">
+            <svg v-if="!file.is_file" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="folder-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H6a2 2 0 01-2-2V5a2 2 0 011.293-1.858l3.704-1.48A2 2 0 0110 2h10a2 2 0 012 2v7M9 16a2 2 0 00-2 2v3a2 2 0 002 2h6a2 2 0 002-2v-3a2 2 0 00-2-2H9z"/>
+            </svg>
+            <i v-else class="fas fa-file"></i>
+        </div>
+        {{ file.name }}
+        <transition name="folder">
+            <div v-if="!file.is_file && isOpen.value" class="children">
+                <FileItem v-for="child in file.children" :key="child.path" :file="child"/>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { TreeNode } from '../../utils/fileExplorer/TreeNode';
+import FileItem from './FileItem.vue';
 
-// Dummy workspace data, this should be fetched from API or Vuex store in a real app
-const workspaces = ref(['Workspace 1', 'Workspace 2']);
-const selectedWorkspace = ref(workspaces.value[0]);
+const props = defineProps<{ file: TreeNode }>();
 
-const addWorkspace = () => {
-    // Logic to add new workspace
-    // After adding new workspace, you might want to update your workspaces array
-    // and set selectedWorkspace to the newly added one
-};
+const isOpen = ref(false);
+const toggle = () => {
+    if (!props.file.is_file) {
+        isOpen.value = !isOpen.value;
+    }
+}
 </script>
+
+<style scoped>
+.file-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    color: #000;  /* font color changed to black from #D4D4D4 */
+}
+
+.file-item:hover {
+    color: #000;  /* hover font color changed to black from #FFFFFF */
+}
+
+.file-item .icon {
+    margin-right: 0.5rem;
+}
+
+.folder {
+    padding-left: 0rem;  /* Adjusted left padding for folders from 1rem to 0rem for alignment */
+}
+
+.folder .icon .fa-folder {
+    transform: rotate(0);
+    transition: transform 0.3s ease;
+}
+
+.folder-icon {
+    stroke: currentColor;
+    width: 1em;
+    height: 1em;
+}
+
+.folder.open .icon .fa-folder {
+    transform: rotate(90deg);
+}
+
+.children {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+}
+</style>
 ```
-The current styling and layout is already quite good except the workspace area.
-There should be one input area where i am able to input the workspace path
+Please make the folder icon color as sky blue
 
-And i am thinking what to display if currently there are no workspace. 
-If there are multiple workspacess, when user select one, then workspace area should show 
-the current workspace.
-
-Since workspace area is not the main focus, maybe using drop down?
 $end$
 
 

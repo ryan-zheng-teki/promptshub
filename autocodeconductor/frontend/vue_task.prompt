@@ -19,10 +19,10 @@ const isSelected = computed(() => selectedStage.value === props.stageName);
 </script>
 <style>...</style>
 ```
-- Follow Vue3 component design best practice.
+- Follow Vue3 component design best practice
 - Aim to develop a user interface that is both functional and aesthetically appealing. 
 - Ensure the user journey is articulable based on the design.
-- Follow best naming practices for creating files or folders if neccessary. Include file paths and their codes in the output. Here is part of my current project structure:
+- Follow best naming practices for creating files or folders if neccessary. Here is part of my current project structure:
     src
         components
             WorkflowDisplay.vue
@@ -33,96 +33,171 @@ const isSelected = computed(() => selectedStage.value === props.stageName);
             JSONParser.ts
         App.vue
         ...
-
-Think thorougly and reason step by step to address the task.
+- Output should updated file paths and their complete codes, do not use placeholders.
+ 
+Examine the given code step by step before proposing solutions.
+Think very carefully step by step and reason with very high granule to address the task.
 
 [Requirement]
 $start$
-I have got a prototype in html as following 
+I have App.vue component defined 
 ```
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Workspace Explorer</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        #workspaceSelector {
-            background: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        #workspaceSelector select, #workspaceSelector button {
-            margin-right: 10px;
-        }
-        #fileExplorer, #contentViewer {
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-            height: calc(100vh - 180px);
-            overflow-y: auto;
-        }
-        #fileExplorer {
-            width: 30%;
-            float: left;
-        }
-        #contentViewer {
-            width: 70%;
-            float: right;
-        }
-        .clear {
-            clear: both;
-        }
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-            background: #2d98da;
-        }
-    </style>
-</head>
-<body>
-    <h1>Workspace Explorer</h1>
+<template>
+  <div class="app">
+    <WorkspaceSelector class="app-workspace-selector" />
 
-    <div id="workspaceSelector">
-        <label for="workspace">Select Workspace:</label>
-        <select id="workspace">
-            <option value="workspace1">Workspace 1</option>
-            <option value="workspace2">Workspace 2</option>
-            <!-- Add more options as required -->
-        </select>
-        <button id="addButton">Add New Workspace</button>
-    </div>
+    <div class="app-content">
+      <FileExplorer class="app-file-explorer" />
 
-    <div id="fileExplorer">
-        <h2>Files</h2>
-        <a href="#file1-content">File 1</a>
-        <a href="#file2-content">File 2</a>
-        <!-- Add more files as required -->
-    </div>
+      <TabList :tabs="tabs" @changeTab="activeTab = $event"></TabList>
 
-    <div id="contentViewer">
-        <h2>Contents</h2>
-        <div>File contents here...</div>
+      <component :is="activeTab.component" />
     </div>
 
     <div class="clear"></div>
-</body>
-</html>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import WorkspaceSelector from "./components/workspace/WorkspaceSelector.vue";
+import FileExplorer from "./components/fileExplorer/FileExplorer.vue";
+import ContentViewer from "./components/fileExplorer/FileContentViewer.vue";
+import WorkflowDisplay from "./components/workflow/WorkflowDisplay.vue";
+import TabList from "./components/tabs/TabList.vue";
+import Tab from "./components/tabs/Tab.vue";
+
+const tabs = [
+  { name: 'File', component: ContentViewer },
+  { name: 'Agent', component: WorkflowDisplay }
+];
+
+const activeTab = ref(tabs[0]);
+</script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.app {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+  width: 100%;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.app-content {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.app-workspace-selector {
+  background-color: #e9ecef;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.app-file-explorer {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  width: 30%;
+  height: 100%;
+}
+
+.app-panel {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  margin-left: 20px;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.clear {
+  clear: both;
+}
+</style>
 
 ```
-The task is to create vue3 code designs based on this prototype.
+Here is the TabList.vue
+```
+<template>
+  <div>
+    <div class="tab-list">
+      <Tab v-for="tab in tabs" :key="tab.name" @click="changeTab(tab)">{{ tab.name }}</Tab>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import Tab from "./Tab.vue";
+
+const props = defineProps({
+  tabs: Array
+});
+
+const emit = defineEmits(["changeTab"]);
+
+const changeTab = (tab) => {
+  emit('changeTab', tab);
+};
+</script>
+  
+  <style scoped>
+  .tab-list {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tab-content {
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+  </style>
+  
+```
+Here is the Tab.vue
+```
+<template>
+  <div class="tab" @click="emit('click', $event)">
+    <slot />
+  </div>
+</template>
+
+<script setup lang="ts">
+const emit = defineEmits(['click']);
+</script>
+
+<style scoped>
+.tab {
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  margin-right: 5px;
+  border-bottom: none;
+}
+
+.tab.active {
+  background-color: white;
+  border-top: 3px solid #2d98da;
+}
+</style>
+
+```
+I think the content of the tab should be contained inside the tab container. However, when i click the any tab. The content of the tab are actually on the right side of 
+File, Agent. Seems like two elements are located horizontally.
 $end$
 
 
@@ -169,67 +244,135 @@ Think step by step and reason to the very details to address the task.
 
 [Requirement]
 $start$
-I have the following Vue3 components defined. 
-TabList.vue
+I have src/components/WorkspaceSelector.vue defined.
 ```
+<!-- src/components/WorkspaceSelector.vue -->
+
 <template>
-    <div>
-      <div class="tab-list">
-        <slot />
-      </div>
-      <div class="tab-content">
-        <slot :name="selectedTab" />
-      </div>
-    </div>
-  </template>
-  
-  <script setup lang="ts">
-  import { ref } from "vue";
-  
-  const slots = defineSlots({
-    default: {
-      type: Array as PropType<Tab[]>,
-      required: true,
-    },
-  });
-  
-  const selectedTab = ref(slots.default[0].props.name);
-  
-  const selectTab = (name: string) => {
-    selectedTab.value = name;
-  };
-  </script>
-  # rest of styles ..
-```
-Tab.vue
-```
-<template>
-  <div class="tab" :class="{ active: isActive }" @click="selectTab">
-    <slot />
+  <div id="workspaceSelector">
+    <label for="workspace">Select Workspace:</label>
+    <select v-model="selectedWorkspace" v-if="workspaces.length > 0">
+        <option v-for="workspace in workspaces" :key="workspace" :value="workspace">
+            {{ workspace }}
+        </option>
+    </select>
+    <span v-else>No Workspaces available</span>
+    <input type="text" v-model="newWorkspace" placeholder="Enter new workspace path" />
+    <button @click="addWorkspace">Add New Workspace</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, provide } from 'vue';
+import { AddWorkspace } from '../graphql/queries';
+import { useMutation } from '@vue/apollo-composable';
+import { convertJsonToTreeNode, TreeNode } from '../utils/fileExplorer/TreeNode';
 
-const props = defineProps({
-  name: String,
-  selected: Boolean,
-});
+const workspaces = ref([] as string[]);
+const selectedWorkspace = ref(null as string | null);
+const newWorkspace = ref('');
 
-const emit = defineEmits(["select"]);
+// This will hold the TreeNode of the current workspace.
+// It will be provided for other components to use.
+const workspaceTree = ref<TreeNode | null>(null);
+provide('workspaceTree', workspaceTree);
 
-const isActive = computed(() => props.selected);
+const { mutate: addWorkspaceMutation } = useMutation(AddWorkspace, () => ({
+  variables: {
+    workspaceRootPath: newWorkspace.value,
+  },
+  update: (_cache, { data }) => {
+    if (data?.addWorkspace) {
+      workspaceTree.value = convertJsonToTreeNode(data.addWorkspace);
+      workspaces.value.push(newWorkspace.value);
+      selectedWorkspace.value = newWorkspace.value;
+      newWorkspace.value = '';
+      console.log('Workspace Tree:', workspaceTree.value);
+    } else {
+      console.error('Error adding workspace');
+    }
+  }
+}));
 
-const selectTab = () => {
-  emit("select", props.name);
+const addWorkspace = () => {
+  addWorkspaceMutation();
 };
 </script>
-# rest of code ...
 ```
-But the slot syntax seems incorrect. 
-You will first learn from this website https://blog.logrocket.com/understanding-slots-vue-js/ how to use Slot, then update the code.
+
+and also src/components/FileExplorer.vue component defined 
 ```
+<template>
+    <div id="fileExplorer">
+        <h2>Files</h2>
+        <div v-for="file in files" :key="file.path">
+            <a href="#" @click.prevent="selectFile(file)">
+                {{ file.name }}
+            </a>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { inject, Ref, computed } from 'vue';
+import { TreeNode } from '../utils/fileExplorer/TreeNode';
+
+// Injecting the workspaceTree ref provided by WorkspaceSelector.vue
+const workspaceTree = inject<Ref<TreeNode | null>>('workspaceTree')!;
+
+// Extract file nodes from workspaceTree. This logic can be updated based on your tree structure.
+const files = computed(() => {
+    return workspaceTree.value ? workspaceTree.value.children.filter(node => node.is_file) : [];
+});
+
+const selectFile = (file: TreeNode) => {
+    // Logic to handle file selection
+    // The selected file can be stored in a shared state like Vuex or provide/inject API
+};
+</script>
+
+```
+
+My App.vue contains these two components
+```
+<template>
+  <div class="app">
+    <WorkspaceSelector class="app-workspace-selector" />
+
+    <div class="app-content">
+      <FileExplorer class="app-file-explorer" />
+
+      <TabList v-model="selectedTab" class="app-panel">
+        <Tab name="ContentViewer">
+          File
+        </Tab>
+        <Tab name="Agent">
+          Agent
+        </Tab>
+
+        <template #FileContentViewer>
+          <ContentViewer />
+        </template>
+
+        <template #WorkflowDisplay>
+          <WorkflowDisplay />
+        </template>
+      </TabList>
+    </div>
+
+    <div class="clear"></div>
+  </div>
+</template>
+
+# Rest of code ...
+```
+When i add workspace, the TreeNode of the directory is successfully returned in the 
+WorkspaceSelector. However, FileExplorer.vue seems not picking up the TreeNode, 
+and not rendering anything.
+
+I think it might has something to do with that WorkspaceSelector and FileExplorer are siblings.
+
+Please propose solution to address the problem.
 $end$
 
 

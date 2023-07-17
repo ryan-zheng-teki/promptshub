@@ -1,0 +1,130 @@
+Version 1: This prompts works for both GPT3.5 and GPT4. But GPT4 works like insanely good.
+
+You are a senior Python software engineer. You have been given a Python code file provided in the `[Code]` section. Your task is to create integration for the given Python code file.
+
+[Criteria]
+- Ensure that the test cases follow pytest best practices.
+- Create the test file path to follow the same practice used in the current project's test files structure:
+    src
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            semantic_code
+                index
+                    test_index_service_integration.py
+
+- Ensure that the tests provide full coverage of the code.
+- Use behavior-driven naming conventions for the test cases.
+
+[Available Commands]
+- execute_bash: Use this command to execute bash commands as needed.
+- write_file: Use this command to write the test cases to a file.
+
+Think and reason yourself in high detail to address the task.
+
+
+[Code]
+file path: src/semantic_code/embedding/openai_embedding_creator.py
+```
+
+```
+
+
+Version 2: Contains the details of steps
+
+
+As an top python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Follow python coding best practices
+- Follow pytest best practices when writting tests.
+- Ensure that the tests provide full coverage of the code.
+- Use behavior-driven naming conventions for the test cases
+- Use best practices to create test file path. Here is a sample best practice to 
+  put the test file for the source file.
+    src
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            semantic_code
+                index
+                    test_index_service_integration.py
+- Include file paths accompanied with complete code in code block for the newly created or updated files.
+- Strive to create first-time correctly runnable unit test
+
+Think step by step, and reason to the smallest granule to address the task.
+
+[Requirement]
+ $start$
+
+I have already created tests in tests/unit_tests/source_code_tree/file_explorer/sort_strategy/test_default_sort_strategy.py
+for class DefaultSortStrategy
+```
+# src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py
+
+import os
+from typing import List, Tuple
+from src.source_code_tree.file_explorer.sort_strategy.sort_strategy import SortStrategy
+
+
+class DefaultSortStrategy(SortStrategy):
+    """
+    Default sorting strategy for directory traversal.
+
+    The strategy is to sort folders and files so that all directories come first, 
+    all files come later, and directories starting with a dot come before others.
+    """
+
+    def sort(self, paths: List[str]) -> List[str]:
+        paths.sort(key=self._sort_key)
+        return paths
+    
+    def _sort_key(self, path: str) -> tuple:
+        """
+        Returns a tuple that can be used for sorting paths.
+
+        Parameters:
+        ----------
+        path : str
+            The path to be sorted.
+
+        Returns:
+        -------
+        tuple
+            The sort key for the path.
+        """
+        is_directory = os.path.isdir(path)
+        starts_with_dot = os.path.basename(path).startswith('.')
+        return (not is_directory, starts_with_dot, path)
+```
+Please create a test for the following directory structure
+```
+src
+.vscode
+README.md
+codegen.yml
+graphql.schema.json
+index.html
+package-lock.json
+package.json
+public
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+yarn.lock
+.gitignore
+```
+In the above structure, src, .vscode, public are folders. All the others are files. Thanks
+$end
