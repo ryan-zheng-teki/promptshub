@@ -1,26 +1,11 @@
 Version 1: This prompts works for both GPT3.5 and GPT4. But GPT4 works like insanely good.
 
-You are a senior Python software engineer. You have been given a Python code file provided in the `[Code]` section. Your task is to create integration for the given Python code file.
+You are a senior Vue3 software engineer. You have been given a Vue3 component file provided in the `[Code]` section. Your task is to create test for the given codes.
 
 [Criteria]
-- Ensure that the test cases follow pytest best practices.
-- Create the test file path to follow the same practice used in the current project's test files structure:
-    src
-        semantic_code
-                embedding
-                    openai_embedding_creator.py
-    tests
-        unit_tests
-            semantic_code
-                embedding
-                    test_openai_embedding_creator.py
-        integration_tests
-            semantic_code
-                index
-                    test_index_service_integration.py
-
+- Ensure that the test cases follow Vue3 component test best practices.
+- Place the file in best locations following Vue3 test file creation practice
 - Ensure that the tests provide full coverage of the code.
-- Use behavior-driven naming conventions for the test cases.
 
 [Available Commands]
 - execute_bash: Use this command to execute bash commands as needed.
@@ -39,92 +24,288 @@ file path: src/semantic_code/embedding/openai_embedding_creator.py
 Version 2: Contains the details of steps
 
 
-As an top python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
+As an top Vue3 frontend software engineer, you are given a test task situated between `$start$` and `$end` tokens in the `[Task]` section.
 
-[Criterias]
-- Follow python coding best practices
-- Follow pytest best practices when writting tests.
-- Ensure that the tests provide full coverage of the code.
-- Use behavior-driven naming conventions for the test cases
-- Use best practices to create test file path. Here is a sample best practice to 
-  put the test file for the source file.
-    src
-        semantic_code
-                embedding
-                    openai_embedding_creator.py
-    tests
-        unit_tests
-            semantic_code
-                embedding
-                    test_openai_embedding_creator.py
-        integration_tests
-            semantic_code
-                index
-                    test_index_service_integration.py
-- Include file paths accompanied with complete code in code block for the newly created or updated files.
-- Strive to create first-time correctly runnable unit test
+[Standards]
+- Before creating tests, comprehend the existing code thoroughly.
+- Ensure that the test cases follow Vue3  best practices. Here is an example test using Vitest.
+```
+import { mount } from '@vue/test-utils';
+import PromptEditor from '../PromptEditor.vue';
+import { describe, it, expect } from 'vitest'
+  it('renders the entire prompt from the template prop', () => {
+    const wrapper = mount(PromptEditor, {
+      props: {
+        template: 'Hello, {name}!'
+      }
+    });
+    const textarea = wrapper.find('.entire-prompt-editor');
+    expect(textarea.element.value).toBe('Hello, {name}!');
+  });
+```
+- Place test files in appropriate locations according to Vue3's recommended file structure.  Here's an example structure:
+  ```
+  src 
+    components 
+      workflow
+        __tests__
+          PromptEditor.spec.ts
+        PromptEditor.vue
+  ```
+  Give bash commands to create the file if it's new.
+- Ensure complete test coverage.
 
-Think step by step, and reason to the smallest granule to address the task.
+
+Think step by step, and reason comprehensively. Conclude by providing the file paths along with the full code for any new or updated files.
 
 [Requirement]
- $start$
-
-I have already created tests in tests/unit_tests/source_code_tree/file_explorer/sort_strategy/test_default_sort_strategy.py
-for class DefaultSortStrategy
+$start$
+Due to the data sent from backend has changed. This can be reflected in the the src/utils/JSONParser.spec.ts
 ```
-# src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py
+import { deserializeWorkflow, deserializeSearchResult } from '../JSONParser';
+import { Source, Workflow } from '../../types/Workflow';
+import { SearchResult, FunctionEntity } from '../../types/code_entities';
+import { describe, it, expect } from 'vitest';
 
-import os
-from typing import List, Tuple
-from src.source_code_tree.file_explorer.sort_strategy.sort_strategy import SortStrategy
+describe('JSONParser', () => {
+  
+  describe('deserializeWorkflow', () => {
 
+    it('should deserialize valid Workflow JSON', () => {
+      const jsonString = JSON.stringify({
+        name: "Sample Workflow",
+        steps: {
+          "1": {
+            id: "1",
+            name: "Step One",
+            prompt_template: {
+              template: "Hello, {name}!",
+              variables: [{
+                name: "name",
+                source: Source.DYNAMIC,
+                allow_code_context_building: true,
+                allow_llm_refinement: false
+              }]
+            }
+          }
+        }
+      });
 
-class DefaultSortStrategy(SortStrategy):
-    """
-    Default sorting strategy for directory traversal.
+      const result: Workflow = deserializeWorkflow(jsonString);
+      expect(result.name).toBe("Sample Workflow");
+      expect(result.steps["1"].name).toBe("Step One");
+      expect(result.steps["1"].prompt_template.template).toBe("Hello, {name}!");
+      expect(result.steps["1"].prompt_template.variables[0].name).toBe("name");
+    });
 
-    The strategy is to sort folders and files so that all directories come first, 
-    all files come later, and directories starting with a dot come before others.
-    """
-
-    def sort(self, paths: List[str]) -> List[str]:
-        paths.sort(key=self._sort_key)
-        return paths
-    
-    def _sort_key(self, path: str) -> tuple:
-        """
-        Returns a tuple that can be used for sorting paths.
-
-        Parameters:
-        ----------
-        path : str
-            The path to be sorted.
-
-        Returns:
-        -------
-        tuple
-            The sort key for the path.
-        """
-        is_directory = os.path.isdir(path)
-        starts_with_dot = os.path.basename(path).startswith('.')
-        return (not is_directory, starts_with_dot, path)
 ```
-Please create a test for the following directory structure
+We also have updated the component code. Here is the src/components/workflow/WorkflowDetails.vue
 ```
-src
-.vscode
-README.md
-codegen.yml
-graphql.schema.json
-index.html
-package-lock.json
-package.json
-public
-tsconfig.json
-tsconfig.node.json
-vite.config.ts
-yarn.lock
-.gitignore
+<template>
+  <!-- Slide-down Panel for Selected Step Details -->
+  <transition name="slide-fade">
+    <div v-if="selectedStep" class="selected-step-details">
+      <h3>Selected Step: {{ selectedStep.name }}</h3>
+      
+      <!-- Prompt Editor Integration -->
+      <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
+        <h4>Edit Prompt:</h4>
+        <PromptEditor :template="selectedStep.prompt_template" />
+        
+        <button @click="searchCodeContext" class="search-context-button">Search Code Context</button>
+        <button class="refine-requirement-button">Refine Requirement</button>
+      </div>
+
+      <!-- Search Results Section -->
+      <div class="search-results-section">
+        <h4>Search Results:</h4>
+        <CodeSearchResult v-for="result in searchResults" :key="result.entity.file_path" :snippet="result.entity.docstring" />
+      </div>
+
+      <button @click="startExecution" class="start-execution-button">Start Execution</button>
+      <p>Execution Status: {{ executionStatus }}</p>
+      
+      <!-- Integration of the ExecutionLogsPanel component -->
+      <ExecutionLogsPanel :logs="executionLogs" />
+    </div>
+  </transition>
+</template>
+  
+<script setup lang="ts">
+import { inject, Ref, ref } from 'vue';
+import PromptEditor from '../prompt/PromptEditor.vue';
+import CodeSearchResult from './CodeSearchResult.vue';
+import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
+import { useQuery } from "@vue/apollo-composable";
+import { SearchCodeEntities } from "../../graphql/queries";
+
+// Importing the required types and functions
+import type { Step } from '../../types/Workflow';
+import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
+import { deserializeSearchResult } from '../../utils/JSONParser';
+
+const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
+const executionStatus = ref('Not Started');
+const executionLogs = ref('');
+const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
+
+const { result: searchResult, loading: searchLoading, error: searchError } = useQuery(
+  SearchCodeEntities, 
+  { query: "dummy_query" }  // This is the dummy query for now
+);
+
+const searchCodeContext = () => {
+  if (searchResult.value) {
+    const parsedSearchResult: SearchResult = deserializeSearchResult(searchResult.value);
+    searchResults.value = parsedSearchResult.entities;
+  }
+  if (searchError.value) {
+    console.error("Error while searching for code entities:", searchError.value);
+  }
+};
+
+const startExecution = () => {
+  executionStatus.value = 'Running';
+  // ... start execution process
+  // ... update executionLogs with streaming logs from the backend
+};
+</script>
+
+
+  <!-- Existing styles for details will be kept here -->
+<style scoped>
+.selected-step-details {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+}
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: opacity 0.5s, max-height 0.5s, padding 0.5s;
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0;
+  max-height: 0;
+  padding: 0;
+}
+
+h3, h4 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.prompt-editor-section {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.start-execution-button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  color: #fff;
+  background-color: #428BCA;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-execution-button:hover {
+  background-color: #3276B1;
+}
+
+ /* Refine Requirement Button */
+ .refine-requirement-button {
+        padding: 10px 15px;
+        color: #fff;
+        background-color: #FFA500;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .refine-requirement-button:hover {
+        background-color: #FF8C00;
+    }
+
+    /* Search Results Section */
+    .search-results-section {
+        width: 100%;
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #e6f0ff;
+        overflow-y: auto;
+        max-height: 200px;
+    }
+
+    /* Individual Search Result */
+    .search-result {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .search-result:last-child {
+        border-bottom: none;
+    }
+
+    .search-result:hover {
+        background-color: #d4e4ff;
+    }
+
+    /* Search Context and Start Execution Buttons */
+    .search-context-button, .start-execution-button {
+        padding: 10px 15px;
+        color: #fff;
+        background-color: #428BCA;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 10px;
+    }
+
+    .search-context-button:hover, .start-execution-button:hover {
+        background-color: #3276B1;
+    }
+</style>
 ```
-In the above structure, src, .vscode, public are folders. All the others are files. Thanks
+We need to writes for 
 $end
+
+
+
+Version 2:
+As a leading Vue3 frontend software engineer, your task is outlined between the `$start$` and `$end$` tokens in the `[Task]` section.
+
+[Standards]
+- Before creating tests, ensure you have a comprehensive understanding of the source code.
+- Adhere to Vue3 component testing best practices.
+- Place test files in appropriate locations according to Vue3's recommended file structure. Here's an example structure:
+  src 
+    components 
+      workflow
+        __tests__
+          PromptEditor.spec.ts
+      PromptEditor.vue
+- Aim for complete test coverage.
+- Tackle the task methodically. Conclude by providing the file paths along with the full code for any new or updated files.
+
+

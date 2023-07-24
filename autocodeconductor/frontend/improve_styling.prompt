@@ -1,96 +1,249 @@
 
 
-As a top Vue3 frontend engineer who pushes the aesthetics of UI to limit. You are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+As a top Vue3 frontend engineer who pushes the aesthetics of UI to limit. You are tasked with the UI improvements requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Criterias]
-- Vue3 best practices
-- Make sure layouts, font, colors etc are aesthetics appleaing and engaging based on the usage of the feature.
-- Output will include complete code, do not use placeholders.
+- Analyse source the code step by step before giving solution.
+- Make sure layouts, font, colors etc are aesthetics appleaing and engaging based on the context of the feature.
+- Follow Vue3 best practices
+- Output should include complete codes, so i can copy paste easily.Do not use placeholders.
 
 Think step by step and reason with ultimate details to address the task.
 
 [Requirement]
-I have a FileItem.vue defined.
+I have a App.vue defined.
 $start$
 ```
-
 <template>
-    <div :class="{ 'folder': !file.is_file, 'open': isOpen.value }" @click="toggle" class="file-item">
-        <div class="icon">
-            <svg v-if="!file.is_file" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="folder-icon">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H6a2 2 0 01-2-2V5a2 2 0 011.293-1.858l3.704-1.48A2 2 0 0110 2h10a2 2 0 012 2v7M9 16a2 2 0 00-2 2v3a2 2 0 002 2h6a2 2 0 002-2v-3a2 2 0 00-2-2H9z"/>
-            </svg>
-            <i v-else class="fas fa-file"></i>
+  <div class="app">
+    <WorkspaceSelector class="app-workspace-selector" />
+
+    <div class="app-content">
+      <div class="app-row">
+        <FileExplorer class="app-file-explorer" />
+
+        <div class="app-panel">
+          <TabList :tabs="tabs" @changeTab="activeTab = $event"></TabList>
+          
+          <component :is="activeTab.component" />
         </div>
-        {{ file.name }}
-        <transition name="folder">
-            <div v-if="!file.is_file && isOpen.value" class="children">
-                <FileItem v-for="child in file.children" :key="child.path" :file="child"/>
-            </div>
-        </transition>
+      </div>
     </div>
+
+    <div class="clear"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { TreeNode } from '../../utils/fileExplorer/TreeNode';
-import FileItem from './FileItem.vue';
+import { ref } from "vue";
+import WorkspaceSelector from "./components/workspace/WorkspaceSelector.vue";
+import FileExplorer from "./components/fileExplorer/FileExplorer.vue";
+import ContentViewer from "./components/fileExplorer/FileContentViewer.vue";
+import WorkflowDisplay from "./components/workflow/WorkflowDisplay.vue";
+import TabList from "./components/tabs/TabList.vue";
 
-const props = defineProps<{ file: TreeNode }>();
+const tabs = [
+  { name: 'File', component: ContentViewer },
+  { name: 'Agent', component: WorkflowDisplay }
+];
 
-const isOpen = ref(false);
-const toggle = () => {
-    if (!props.file.is_file) {
-        isOpen.value = !isOpen.value;
-    }
-}
+const activeTab = ref(tabs[0]);
 </script>
 
 <style scoped>
-.file-item {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 0.5rem;
-    color: #000;  /* font color changed to black from #D4D4D4 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.app {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px;
+  width: 100%;
 }
 
-.file-item:hover {
-    color: #000;  /* hover font color changed to black from #FFFFFF */
+h1 {
+  margin-bottom: 20px;
 }
 
-.file-item .icon {
-    margin-right: 0.5rem;
+.app-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-.folder {
-    padding-left: 0rem;  /* Adjusted left padding for folders from 1rem to 0rem for alignment */
+.app-row {
+  display: flex;
+  flex-direction: row;
 }
 
-.folder .icon .fa-folder {
-    transform: rotate(0);
-    transition: transform 0.3s ease;
+.app-workspace-selector {
+  background-color: #e9ecef;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-.folder-icon {
-    stroke: currentColor;
-    width: 1em;
-    height: 1em;
+.app-file-explorer {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  min-width: 10%; /* Smallest width allowed */
+  max-width: 30%; /* Maximum width allowed */
+  height: 100%;
+  overflow: auto; /* In case content is larger than the maximum width allowed */
 }
 
-.folder.open .icon .fa-folder {
-    transform: rotate(90deg);
+.app-panel {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  margin-left: 20px;
+  flex-grow: 1;
+  height: 100%;
 }
 
-.children {
-    padding-left: 1.5rem;
-    margin-top: 0.5rem;
-    transition: all 0.3s ease;
+.clear {
+  clear: both;
 }
 </style>
 ```
-Please make the folder icon color as sky blue
-
+Allow me to expand the file explorer width using mouse. This is very common feature.
 $end$
 
 
+As a top Vue3 frontend engineer who pushes the aesthetics of UI to limit. You are tasked with the UI improvements requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Analyse source the code step by step before giving solution.
+- Make sure layouts, font, colors etc are aesthetics appleaing and engaging based on the context of the feature.
+- Follow Vue3 best practices.
+- Follow TypeScript coding best practices.
+- consider refactoring when neccessary
+- Strive to use css instead of javascript to adjust.
+- Do not change other behaviors when improving styles.
+- Output should include complete codes, so i can copy paste easily.Do not use placeholders.
+
+Think step by step, include comprehensive reasoning to address the task.
+
+[Requirement]
+I have a PromptEditor.vue defined.
+$start$
+```
+<template>
+  <div class="prompt-editor">
+    <Collapsible>
+      <textarea 
+          class="entire-prompt-editor"
+          v-model="entirePrompt"
+          @input="resizeTextarea"
+      ></textarea>
+    </Collapsible>
+
+    <Collapsible>
+      <div v-for="placeholder in placeholders" :key="placeholder" class="input-container">
+        <label :for="placeholder">{{ placeholder }}</label>
+        <textarea 
+            :id="placeholder"
+            v-model="values[placeholder]" 
+            :placeholder="placeholder" 
+            class="placeholder-input"
+            rows="3"
+            @input="resizeTextarea"
+        ></textarea>
+      </div>
+    </Collapsible>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted, nextTick } from 'vue';
+import { getPlaceholders } from '../../utils/PromptParser';
+import Collapsible from '../Collapsible.vue';
+
+const props = defineProps<{ template: string }>();
+
+const entirePrompt = ref(props.template);
+const placeholders = computed(() => getPlaceholders(props.template));
+const values: { [key: string]: string } = ref({});
+
+const resizeTextarea = (event: Event) => {
+  let textarea: any = event.target;
+  textarea.style.height = 'auto';  // Reset height to auto to calculate the new height
+  textarea.style.height = textarea.scrollHeight + 'px';
+};
+
+onMounted(() => {
+  nextTick(() => {
+    document.querySelectorAll('textarea').forEach(textarea => {
+      resizeTextarea({ target: textarea });
+    });
+  });
+});
+</script>
+
+<style>
+.prompt-editor {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f4f8;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.entire-prompt-editor, .placeholder-input {
+  box-sizing: border-box; 
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: #333;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  resize: vertical;
+  overflow: hidden;  /* to avoid scrollbars */
+}
+
+.entire-prompt-editor:hover, .placeholder-input:hover {
+  border-color: #666;
+  transform: scale(1.01);
+}
+
+.entire-prompt-editor:focus, .placeholder-input:focus {
+  border-color: #007BFF;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.6);
+  transform: scale(1.03);
+}
+
+.input-container {
+  margin: 15px 0;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 600;
+  color: #444;
+}
+</style>
+
+
+
+```
+Currently the left side of the words are somehow hidden when the tranform effect happening. I think we can remove the tranform effect.
+$end$
+
+
+
+The following is one of my conversation, but it works better.
+excellent improvements. I like it. But can you please make the place holder editor automatically increase its size when user content does not fit in its size anymore? The area should always be big enough to allow user to see its complete input content.
+
+Please think step by step, and follow Vue3 best practice. At the end of thinking and reasoning, make sure output one complete code as well, so i can easily copy and paste

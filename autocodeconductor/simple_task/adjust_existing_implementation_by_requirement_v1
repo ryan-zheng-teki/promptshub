@@ -1,53 +1,12 @@
-Version 1: This version has steps.
-
-As a top python software developer tasked with modifying and updating a given piece of code in the `[Code]` section according to the requirement given in the `[Requirement]` section. The content of both sections are situated between `$start$` and `$end$` tokens.
-
-Please follow the steps below. Each step has a title and potentially a description.
-
-1. Articulate your understanding thoroughly of the provided requirements in the `[Requirement]` Section:
-
-2. Understand given code in the  `[Code]` section:
-   - Explain step by step what the code does.
-   - And Articulate your reasoning in detail how the provided code aligns or diverges from the provided requirements. 
-
-3. Reasoning About changes to fullfil requirements:
-   - Articulate your thoughts on code changes that can fullfil the requirements. Explain why these changes are necessary and how they solve the requirement
-
-4. Present the First Version of the Modified Code:
-   - present the first version of the modified code based on step 3.
-
-5. Share Your Knowledge of Clean Code in the identified Language:
-   - Discuss SOLID principles and clean code best practices for the identified programming language. 
-   - Articulate narratively how these principles and practices can be applied to the code. If no improvements need to be made jump to step 7. If there are improvements ideas, then jump to step 6.
-
-6. Refine the First Version of updated code:
-   - Based on the refactoring ideas from step 5, output the improved code. Don't forget correct import if you are introduced new libraries in the updated code. The use following output format 
-   - file path: src/.../file 1
-     content: 
-     [ code of the file]
-   - file path: src/.../file 1
-     [ code of the file]
-
-7. Mentally test the Modified Code:
-   - Articulate your mental step-by-step test of the modified code to ensure it meets the requirements and does not introduce new issues.
-
-[Requirement]
-...
-
-[Code]
-...
-- Opt for functional programming when the creation of classes is overkill
-
-
 Version 3: Only criterias and think step by step. Add available commands as well
 
-As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+As the best Python software engineer on earth, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Criterias]
 - Consider what design patterns can be used.
 - Adhere to SOLID principles.
 - Adhere to Python coding best practices.
-- Consider refactoring if neccessary
+- Consider refactoring if better code structure can be achieved
 - Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
 - Include complete file path in the output. Make sure code for the file path is in code block.
 - Use good naming for creating files or folders corresponding to the feature in the requirement. For reference, here is a sample of the current project file structure:
@@ -67,27 +26,32 @@ As a top Python software engineer, you are tasked with the requirements provided
             semantic_code
                 index
                     test_index_service_integration.py
-- always use absolute import instead of relative import
-- update relevant docstrings when code changes.
+- Always use absolute import instead of relative import
+- Update relevant docstrings for code changes.
                     
-Think very carefully step by step, and reason with high details to address the task.
+Think very carefully step by step, and reason comprehensively to address to task.
 
 [Requirement]
-I want to create another class. That is about scaffolding a project. Normally when we start a new project, we have to scalfolding a project with minimal setup. For example, for frontend Vue3, we normally use vite+graphql. For python project, with fastapi, the basic folder structure are mostly the same
+
+```
+Think about a way to show the frontend the prompt, and the variable part. So frontend
+can fill the variable and submit the input, so backend can construct the file prompt
 
 
 
-You are a top Python developer and you have been given a requirement to fulfill. The requirement can be found between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
-[Criteria]
-- Utilize appropriate design patterns.
-- Follow SOLID principles.
+
+As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Consider what design patterns can be used.
+- Adhere to SOLID principles.
 - Adhere to Python coding best practices.
-- Refactor the code when necessary.
-- Maintain documentation using Python docstring best practices. Include a file-level docstring at the start of each file.
-- Provide complete file paths in the output. Place the code for the file path in a code block.
-- Choose meaningful names for files or folders corresponding to the requirements' feature. For your reference, here is a sample of the current project file structure:
-    ```
+- Consider refactoring if neccessary
+- Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
+- Include file paths with their complete codes in code block in the output for easy copy paste.
+- Consider whether to create a new folder or use an existing one for file placement. Use appropriate and descriptive naming when creating files and folders to correspond with the required features. 
+  For reference, here is a sample of the current project file structure:
     src
         ...
         semantic_code
@@ -104,55 +68,121 @@ You are a top Python developer and you have been given a requirement to fulfill.
             semantic_code
                 index
                     test_index_service_integration.py
-    ```
-- Use absolute imports instead of relative imports.
-- Update relevant docstrings in line with code changes.
-
-Remember to plan your approach carefully, detailing your reasoning as you work to meet the task requirements.
+- Always use absolute import instead of relative import
+- Update relevant docstrings when code changes.
+                    
+Think very carefully step by step  to address the task.
 
 [Requirement]
-$start$
-I have class DefaultSortStrategy defined in src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py
+Normally when we start a new project, we have to scalfolding a project with minimal setup. For example, for frontend Vue3, we normally use vite+graphql. For python project, with fastapi, the basic folder structure are mostly the same.
+The project root folder is provided by WorkspaceSetting object
+```
 
 ```
-# src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py
-
-import os
-from typing import List, Tuple
-from src.source_code_tree.file_explorer.sort_strategy.sort_strategy import SortStrategy
 
 
-class DefaultSortStrategy(SortStrategy):
+
+As the best Python software engineer on earth, address the requriements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Guidelines]
+- Use appropriate design patterns where neccessary.
+- Follow SOLID principles and Python's best coding practices.
+- Consider refactoring where necessary.
+- Follow python docstring best practices, ensuring each file begins with a file-level docstring.
+- Include file paths with their complete codes in code block in the output, so i can easily copy and paste. Do not use placeholders.
+- Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, the current project's file structure looks like this:
+
+    - src
+        - ...
+        - semantic_code
+            - embedding
+                - openai_embedding_creator.py
+    - tests
+        - unit_tests
+            - ...
+            - semantic_code
+                - embedding
+                    - test_openai_embedding_creator.py
+        - integration_tests
+            - ...
+            - semantic_code
+                - index
+                    - test_index_service_integration.py
+                    
+- Always use absolute imports over relative ones.
+- Update docstrings in line with any code modifications.
+
+Think step by step, and reason comphrehensively to address the task.
+[Requirement]
+$start$
+I have search_result.py defined
+```
+from typing import List
+
+from src.source_code_tree.code_entities.base_entity import CodeEntity
+
+class ScoredEntity:
     """
-    Default sorting strategy for directory traversal.
+    Represents a code entity with an associated score.
 
-    The strategy is to sort folders and files so that all directories come first, 
-    all files come later, and directories starting with a dot come before others.
+    Args:
+        entity (CodeEntity): The code entity.
+        score (float): The score of the entity.
+    """
+    def __init__(self, entity: CodeEntity, score: float):
+        self.entity = entity
+        self.score = score
+
+class SearchResult:
+    """
+    Represents a search result, containing the total count of results, 
+    and a list of ScoredEntity objects.
+
+    Args:
+        total (int): The total count of results.
+        entities (List[ScoredEntity]): A list of scored entities.
     """
 
-    def sort(self, paths: List[str]) -> List[str]:
-        paths.sort(key=self._sort_key)
-        return paths
-    
-    def _sort_key(self, path: str) -> tuple:
+    def __init__(self, total: int, entities: List[ScoredEntity]):
+        self.total = total
+        self.entities = entities
+```
+
+I also have graphql api already defined. 
+```
+    @strawberry.field
+    def search_code_entities(self, query: str) -> JSON:
         """
-        Returns a tuple that can be used for sorting paths.
+        Searches for relevant code entities based on the provided query.
 
-        Parameters:
-        ----------
-        path : str
-            The path to be sorted.
+        Args:
+            query (str): The search query.
 
         Returns:
-        -------
-        tuple
-            The sort key for the path.
+            JSON: The search results.
         """
-        is_directory = os.path.isdir(path)
-        starts_with_dot = os.path.basename(path).startswith('.')
-        return (not is_directory, starts_with_dot, path)
-
+        try:
+            search_result: SearchResult = search_service.search(query)
+            return search_result.to_json()
+        except Exception as e:
+            error_message = f"Error while searching code entities: {str(e)}"
+            logger.error(error_message)
+            return json.dumps({"error": error_message})
 ```
-Now i got a simpler sorting methodology. Folders comes before files. Between folders, simply sort the basename via alphebetical order. For files also use alphebetical order.
-$end
-
+THe CodeEntity has already one interface 
+```
+Class CodeEntity
+    @abstractmethod
+    def to_json(self) -> str:
+        """
+        Convert the code entity to json representation
+        
+        Note: This method should be implemented by the subclasses to
+              provide specific conversion logic.
+        
+        :return: A json representation of the code entity.
+        :rtype: str
+        """
+```
+the to_json from SearchResult needs to be implemented.
+$stop$

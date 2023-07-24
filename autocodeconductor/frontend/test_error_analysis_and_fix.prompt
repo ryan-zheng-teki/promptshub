@@ -1,153 +1,213 @@
-You are a top Vue3 frontend engineer. In this task, you will perform an in-depth analysis of a provided error message and the associated source code. Your task is to identify the root cause of the error, propose a solution, and then present the corrected version of the code. 
+You are a top Vue3 frontend engineer. Your task is to propose solution for the given error. 
 
 Please follow these standards:
 
-1. Start by examining the error message, which you will find in the `[Error]` section. Use your analysis of this error message to generate an initial hypothesis about its cause. 
+1. Start by analysing the error message in the `[Error]` section, give an initial hypothesis about its cause. 
 
-2. Subsequently, refer to the `[CodeReferences]` section, examining the source code thoroughly and progressively. Your analysis should be done step by step to see which part of code caused the error.
+2. Subsequently, refer to the codes enclosed between $start$ and $end$ tokens in `[Codes]` section, examining the source code thoroughly and progressively, 
+understand the source code completely. Then give your 
+judgement why this error happens. 
 
-3. In your response, clearly articulate the reasoning process behind each step of your analysis. Use the following structure as a guide: 
+3. After identifying the source of the error, propose and implement a solution. Explaining why each change is necessary and how it resolves the identified issue.
 
-    "The error message indicates that the issue is caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. These actions result in ____ , which is likely the cause of the reported error."
+4. Finally, present the modified code in a code block. So i can copy and paste easily.
 
-4. After identifying the source of the error, propose and implement a solution within the source code. Explaining why each change is necessary and how it resolves the identified issue.
+Ensure your explanation is thorough and that the reasoning process behind your analysis is clearly conveyed. 
 
-5. Finally, present the modified code in a copyable code block, ensuring the output is formatted appropriately for easy replication.
+Approach the task by thinking step by step, reason comprehensively to address the task.
 
-
-Ensure your explanation is thorough and that the reasoning process behind your analysis is clearly conveyed. Remember, the aim is not only to fix the error but also to provide a comprehensive understanding of the issue and its resolution.
-
-Please approach the task by thinking step by step, using high granularity in your reasoning.
 
 [Error]
 ```
+ FAIL  src/components/workflow/__tests__/PromptEditor.spec.ts > PromptEditor.vue > resizes all textareas on component mount
+TypeError: actual value must be number or bigint, received "string"
+ ❯ src/components/workflow/__tests__/PromptEditor.spec.ts:62:49
+     60|     const textareas = wrapper.findAll('textarea');
+     61|     for (let i = 0; i < textareas.length; i++) {
+     62|       expect(textareas[i].element.style.height).toBeGreaterThan(1);
+       |                                                 ^
+     63|     }
+     64|   });
 
 ```
+[Codes]
+$start$
+File: src/components/workflow/__tests__/PromptEditor.spec.ts
+```
 
-[CodeReferences]
-File: src/components/FileExplorer.vue
 ```
-```
+$end$
+
+
+You are a top Vue3 frontend software engineer. In this task, you will perform an in-depth analysis of a provided error message in the `[Error]` section and the associated source code in the `[CodeReferences]` section. 
+
+Criterias:
+1. Output should include complete codes for easy copy-paste, do not use placeholders.
+2. Use imagined examples to walk through the code step by step to analyze. Think of it as performing mental calculations to check why this behavior exists.
+
+Notes:
+1. Remember that in Vue 3 templates, reactivity is preserved when using the Composition API's `ref` and `reactive` objects. You can directly use the `ref` object in the template, and Vue will automatically unwrap it to its value.
+2. Consider using browser's developer tools or similar utilities to troubleshoot CSS or layout issues.
+3. Be mindful of how CSS properties, especially those related to layout (like `display`, `position`, `margin`, `padding`, etc.), can affect the final result.
+
+Now, get ready to dive deep into the code and think step by step.
 
 
 Verion 2: Only think step by step
-You are a top python software engineer. In this task, you will perform an in-depth analysis of a provided error message in the `[Error]` section and the associated source code in the `[CodeReferences]` section. 
 
-Follow the following approach:
-1. Identify the root cause of the error by carefully examining the source code.
-2. Explain why the source code caused the error, providing a thorough explanation.
-3. Propose a solution either from the test or the source code. Make the best judgement
-4. Present the corrected version of the code.- 
+You are a top Vue3 frontend software engineer. In this task, you will perform an in-depth analysis of a provided error  in the `[Error]` section and the associated source code in the `[CodeReferences]` section, propose fix after identifying the root cause. 
 
-Think step by step, and reason to the very details to address the task.
+
+Criterias:
+1. Ensure the output includes the complete code for easy copying and pasting. Do not use placeholders.
+
+Notes:
+1. Remember that in Vue 3 templates, the Composition API's `ref` and `reactive` objects must be used instead of using .value to make UI reactive to data change.
+
+Think step by step.
 
 [Error]
 ```
-create_test_directory_structure = ['/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/public', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_st...fault_sort_strategy0/codegen.yml', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/graphql.schema.json', ...]
-
-    def test_default_sort_strategy(create_test_directory_structure):
-        # Arrange
-        sort_strategy = DefaultSortStrategy()
-        unsorted_paths = create_test_directory_structure
-    
-        # Act
-        sorted_paths = sort_strategy.sort(unsorted_paths)
-    
-        # Assert
-        expected_order = ['.vscode', 'public', 'src', '.gitignore', 'README.md', 'codegen.yml', 'graphql.schema.json', 'index.html', 'package-lock.json', 'package.json', 'tsconfig.json', 'tsconfig.node.json', 'vite.config.ts', 'yarn.lock']
-        expected_order = [str(path) for path in expected_order]  # Convert to string to compare with sorted_paths
-    
->       assert sorted_paths == expected_order, f"Expected order is {expected_order}, but got {sorted_paths}"
-E       AssertionError: Expected order is ['.vscode', 'public', 'src', '.gitignore', 'README.md', 'codegen.yml', 'graphql.schema.json', 'index.html', 'package-lock.json', 'package.json', 'tsconfig.json', 'tsconfig.node.json', 'vite.config.ts', 'yarn.lock'], but got ['/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/public', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/src', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/.vscode', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/README.md', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/codegen.yml', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/graphql.schema.json', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/index.html', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/package-lock.json', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/package.json', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/tsconfig.json', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/tsconfig.node.json', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/vite.config.ts', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/yarn.lock', '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/.gitignore']
-E       assert ['/tmp/pytest...ma.json', ...] == ['.vscode', '...gen.yml', ...]
-E         At index 0 diff: '/tmp/pytest-of-ryan/pytest-0/test_default_sort_strategy0/public' != '.vscode'
-E         Use -v to get more diff
-
-tests/unit_tests/source_code_tree/file_explorer/sort_strategy/test_default_sort_strategy.py:106: AssertionError
--------------- generated xml file: /tmp/tmp-7438DHH3aRWuHnOq.xml ---------------
-=========================== short test summary info ============================
-FAILED tests/unit_tests/source_code_tree/file_explorer/sort_strategy/test_default_sort_strategy.py::test_default_sort_strategy
-============================== 1 failed in 16.32s ==============================
-
 ```
-
 [CodeReferences]
-File: tests/unit_tests/source_code_tree/file_explorer/sort_strategy/test_default_sort_strategy.py:106: AssertionError
 ```
-# Create test files and directories
-@pytest.fixture
-def create_test_directory_structure(tmp_path):
-    directories = ['src', '.vscode', 'public']
-    files = ['README.md', 'codegen.yml', 'graphql.schema.json', 'index.html', 'package-lock.json', 'package.json', 'tsconfig.json', 'tsconfig.node.json', 'vite.config.ts', 'yarn.lock', '.gitignore']
-
-    for directory in directories:
-        (tmp_path / directory).mkdir()
-
-    for file in files:
-        (tmp_path / file).touch()
-
-    return [str(tmp_path / name) for name in directories + files]
-
-
-def test_default_sort_strategy(create_test_directory_structure):
-    # Arrange
-    sort_strategy = DefaultSortStrategy()
-    unsorted_paths = create_test_directory_structure
-
-    # Act
-    sorted_paths = sort_strategy.sort(unsorted_paths)
-
-    # Assert
-    expected_order = ['.vscode', 'public', 'src', '.gitignore', 'README.md', 'codegen.yml', 'graphql.schema.json', 'index.html', 'package-lock.json', 'package.json', 'tsconfig.json', 'tsconfig.node.json', 'vite.config.ts', 'yarn.lock']
-    expected_order = [str(path) for path in expected_order]  # Convert to string to compare with sorted_paths
-
-    assert sorted_paths == expected_order, f"Expected order is {expected_order}, but got {sorted_paths}"
-
-# rest of other tests ...
-```
-File: src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py 
-```
-# src/source_code_tree/file_explorer/sort_strategy/default_sort_strategy.py
-
-import os
-from typing import List, Tuple
-from src.source_code_tree.file_explorer.sort_strategy.sort_strategy import SortStrategy
-
-
-class DefaultSortStrategy(SortStrategy):
-    """
-    Default sorting strategy for directory traversal.
-
-    The strategy is to sort folders and files so that all directories come first, 
-    all files come later, and directories starting with a dot come before others.
-    """
-
-    def sort(self, paths: List[str]) -> List[str]:
-        paths.sort(key=self._sort_key)
-        return paths
-    
-    def _sort_key(self, path: str) -> tuple:
-        """
-        Returns a tuple that can be used for sorting paths.
-
-        Parameters:
-        ----------
-        path : str
-            The path to be sorted.
-
-        Returns:
-        -------
-        tuple
-            The sort key for the path.
-        """
-        is_directory = os.path.isdir(path)
-        starts_with_dot = os.path.basename(path).startswith('.')
-        return (not is_directory, starts_with_dot, path)
-
 ```
 
 
+Version 4:
+You are a proficient Vue3 frontend developer. Follow the steps below to address the provided error:
 
+1. Begin by analyzing the error message within the `[Error]` section. Offer an initial hypothesis regarding its origin.
+2. Dive into the code presented between the $start$ and $end$ tokens within the `[Codes]` section. Thoroughly review the code to pinpoint the error's source.
+3. Propose a solution to rectify the identified error. Elaborate on the necessity of each change and how it remedies the issue.
+4. Present the corrected code in a code block format for easy copying.
+
+Ensure your explanations are comprehensive, and the rationale behind your analysis is evident. Tackle the task methodically, providing a detailed reasoning process.
+
+[Error]
+```
+ ❯ src/components/workflow/__tests__/WorkflowDetails.spec.ts  (5 tests | 1 failed | 4 skipped) 33ms
+vendor-cli-api.bf4b62a8.js:12594
+   ❯ src/components/workflow/__tests__/WorkflowDetails.spec.ts > WorkflowDetails > renders the PromptEditor with the correct template
+vendor-cli-api.bf4b62a8.js:12594
+     → Apollo client with id default not found. Use provideApolloClient() if you are outside of a component setup.
+vendor-cli-api.bf4b62a8.js:12594
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+vendor-cli-api.bf4b62a8.js:12598
+ FAIL  src/components/workflow/__tests__/WorkflowDetails.spec.ts > WorkflowDetails > renders the PromptEditor with the correct template
+vendor-cli-api.bf4b62a8.js:12598
+Error: Apollo client with id default not found. Use provideApolloClient() if you are outside of a component setup.
+vendor-cli-api.bf4b62a8.js:12598
+ ❯ resolveClient node_modules/@vue/apollo-composable/src/useApolloClient.ts:68:13
+vendor-cli-api.bf4b62a8.js:12598
+ ❯ start node_modules/@vue/apollo-composable/src/useQuery.ts:242:20
+vendor-cli-api.bf4b62a8.js:12598
+ ❯ useQueryImpl node_modules/@vue/apollo-composable/src/useQuery.ts:578:5
+vendor-cli-api.bf4b62a8.js:12598
+ ❯ Module.useQuery node_modules/@vue/apollo-composable/src/useQuery.ts:132:10
+vendor-cli-api.bf4b62a8.js:12598
+ ❯ setup src/components/workflow/WorkflowStepDetails.vue:52:78
+vendor-cli-api.bf4b62a8.js:12598
+     50| const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
+     51| 
+     52| const { result: searchResult, loading: searchLoading, error: searchErr…
+       |                                                                              ^
+     53|   SearchCodeEntities, 
+     54|   { query: "dummy_query" }  // This is the dummy query for now
+vendor-cli-api.bf4b62a8.js:12598
+ ❯ callWithErrorHandling node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:156:18
+vendor-cli-api.bf4b62a8.js:12598
+ ❯ setupStatefulComponent node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:7190:25
+vendor-cli-api.bf4b62a8.js:12598
+```
+
+[Codes]
+File: src/components/workflow/WorkflowStepDetails.vue
+```
+<template>
+  <!-- Slide-down Panel for Selected Step Details -->
+  <transition name="slide-fade">
+    <div v-if="selectedStep" class="selected-step-details">
+      <h3>Selected Step: {{ selectedStep.name }}</h3>
+      
+      <!-- Prompt Editor Integration -->
+      <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
+        <h4>Edit Prompt:</h4>
+        <PromptEditor :template="selectedStep.prompt_template" />
+        
+        <!-- Show Search Code Context button based on allow_code_context_building -->
+        <button v-if="showSearchContextButton" @click="searchCodeContext" class="search-context-button">Search Code Context</button>
+        
+        <!-- Show Refine Requirement button based on allow_llm_refinement -->
+        <button v-if="showRefineRequirementButton" class="refine-requirement-button">Refine Requirement</button>
+      </div>
+
+      <!-- Search Results Section -->
+      <div class="search-results-section">
+        <h4>Search Results:</h4>
+        <CodeSearchResult v-for="result in searchResults" :key="result.entity.file_path" :snippet="result.entity.docstring" />
+      </div>
+
+      <button @click="startExecution" class="start-execution-button">Start Execution</button>
+      <p>Execution Status: {{ executionStatus }}</p>
+      
+      <!-- Integration of the ExecutionLogsPanel component -->
+      <ExecutionLogsPanel :logs="executionLogs" />
+    </div>
+  </transition>
+</template>
+  
+<script setup lang="ts">
+import { inject, Ref, ref, computed } from 'vue';
+import PromptEditor from '../prompt/PromptEditor.vue';
+import CodeSearchResult from './CodeSearchResult.vue';
+import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
+import { useQuery } from "@vue/apollo-composable";
+import { SearchCodeEntities } from "../../graphql/queries";
+
+// Importing the required types and functions
+import type { Step } from '../../types/Workflow';
+import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
+import { deserializeSearchResult } from '../../utils/JSONParser';
+
+const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
+const executionStatus = ref('Not Started');
+const executionLogs = ref('');
+const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
+
+const { result: searchResult, loading: searchLoading, error: searchError } = useQuery(
+  SearchCodeEntities, 
+  { query: "dummy_query" }  // This is the dummy query for now
+);
+
+const searchCodeContext = () => {
+  if (searchResult.value) {
+    const parsedSearchResult: SearchResult = deserializeSearchResult(searchResult.value);
+    searchResults.value = parsedSearchResult.entities;
+  }
+  if (searchError.value) {
+    console.error("Error while searching for code entities:", searchError.value);
+  }
+};
+
+const startExecution = () => {
+  executionStatus.value = 'Running';
+  // ... start execution process
+  // ... update executionLogs with streaming logs from the backend
+};
+
+// Computed property to determine if the Search Code Context button should be displayed
+const showSearchContextButton = computed(() => {
+  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_code_context_building);
+});
+
+// Computed property to determine if the Refine Requirement button should be displayed
+const showRefineRequirementButton = computed(() => {
+  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_llm_refinement);
+});
+</script>
+# styles ommited
+```
 
 
 

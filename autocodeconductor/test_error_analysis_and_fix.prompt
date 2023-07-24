@@ -65,126 +65,12 @@ src/workspaces/workspace_service.py:87: AttributeError
 [CodeReferences]
 File: src/workspaces/workspace_setting.py
 ```
-class WorkspaceSetting:
-    """
-    Class to store the parsed workspace structure and other related objects.
-    """
-    def __init__(self, root_path: str):
-        self.root_path = root_path
-        self.structure = None
-
-    def parse_structure(self):
-        """
-        Parses and stores the workspace structure.
-        """
-
-```
-
-File: src/workspaces/workspace_service.py 
-# src/workspaces/workspace_service.py
-"""
-This module provides a service for handling operations related to workspaces.
-
-This service is responsible for adding workspaces, building their directory structures, 
-and maintaining their settings. A workspace is represented by its root path, 
-and its setting is stored in a dictionary, with the root path as the key. 
-Upon successful addition of a workspace, a directory tree structure represented 
-by TreeNode objects is returned.
-"""
-
-import logging
-from typing import Optional
-
-from src.source_code_tree.file_explorer.directory_traversal import DirectoryTraversal
-from src.source_code_tree.file_explorer.traversal_ignore_strategy import GitIgnoreStrategy
-from src.workspaces.workspace_directory_tree import WorkspaceDirectoryTree
-from src.workspaces.workspace_setting import WorkspaceSetting
-from src.source_code_tree.file_explorer.tree_node import TreeNode
-
-class WorkspaceService:
-    """
-    Service to handle operations related to workspaces.
-
-    Attributes:
-        workspace_settings (dict): A dictionary to store workspace settings.
-            The keys are the root paths of the workspaces,
-            and the values are the corresponding workspace settings.
-        directory_traversal (DirectoryTraversal): An instance of DirectoryTraversal to create directory trees.
-    """
-
-    def __init__(self):
-        """
-        Initialize WorkspaceService.
-        """
-        self.workspace_settings = {}
-
-    def add_workspace(self, workspace_root_path: str) -> TreeNode:
-        """
-        Adds a workspace setting to the workspace settings and builds the directory tree of the workspace.
-
-        Args:
-            workspace_root_path (str): The root path of the workspace.
-
-        Returns:
-            TreeNode: The root TreeNode of the directory tree.
-        """
-        workspace_setting = self._add_workspace_setting(workspace_root_path)
-        directory_tree = self.build_workspace_directory_tree(workspace_root_path)
-        workspace_setting.set_directory_tree(WorkspaceDirectoryTree(directory_tree))
-
-        return directory_tree
 
 
-    def build_workspace_directory_tree(self, workspace_root_path: str) -> TreeNode:
-        """
-        Builds and returns the directory tree of a workspace.
-
-        Args:
-            workspace_root_path (str): The root path of the workspace.
-
-        Returns:
-            TreeNode: The root TreeNode of the directory tree.
-        """
-
-        files_ignore_strategies = [
-            GitIgnoreStrategy(root_path=workspace_root_path)
-        ]
-        self.directory_traversal = DirectoryTraversal(strategies=files_ignore_strategies)
-
-        directory_tree = self.directory_traversal.build_tree(workspace_root_path)
-        return directory_tree
-    
-
-    def get_workspace_setting(self, workspace_root_path: str) -> Optional[WorkspaceSetting]:
-        """
-        Retrieves a workspace setting from the workspace settings.
-
-        Args:
-            workspace_root_path (str): The root path of the workspace.
-
-        Returns:
-            Optional[WorkspaceSetting]: The workspace setting if it exists, None otherwise.
-        """
-        return self.workspace_settings.get(workspace_root_path, None)
-
-    def _add_workspace_setting(self, workspace_root_path: str) -> WorkspaceSetting:
-        """
-        Adds a workspace setting to the workspace settings.
-
-        Args:
-            workspace_root_path (str): The root path of the workspace.
-
-        Returns:
-            WorkspaceSetting: The workspace setting that has been added.
-
-        """
-
-        workspace_setting = WorkspaceSetting(root_path=workspace_root_path)
-        self.workspace_settings[workspace_root_path] = workspace_setting
-        return workspace_setting
+        
 
 Verion 2: Only think step by step
-You are a top python software engineer. In this task, you will perform an in-depth analysis of a provided error message in the `[Error]` section and the associated source code in the `[CodeReferences]` section. 
+You are best python software engineer on earth. In this task, you will perform an in-depth analysis of a provided error message in the `[Error]` section and the associated source code in the `[CodeReferences]` section. 
 
 Follow the following approach:
 1. Identify the root cause of the error by carefully examining the source code.
@@ -192,44 +78,26 @@ Follow the following approach:
 3. Propose a solution either from the test or the source code. Make the best judgement
 4. Present the corrected version of the code.- 
 
-Think step by step, and reason to the very details to address the task.
+Think step by step, and reason comprehensively to address the task.
 
 [Error]
 ```
-    def test_traverse_returns_correct_nested_dictionary():
-        # Given a mocked filesystem with the following structure:
-        # - root
-        #   - dir1
-        #     - file1
-        #   - dir2
-        #     - dir3
-        #       - file2
-        #   - file3
-        mock_filesystem = {
-            "root": {
-                "dir1": {"file1": None},
-                "dir2": {"dir3": {"file2": None}},
-                "file3": None,
-            },
-        }
-    
-        with patch("os.listdir", side_effect=lambda path: mock_filesystem[path].keys()), patch(
-            "os.path.isdir", side_effect=lambda path: path in mock_filesystem
-        ):
-            dt = DirectoryTraversal()
-            # When I traverse the root directory
-            result = dt.traverse("root")
-    
-        # Then I expect to get the same structure as the mock_filesystem
->       assert result == mock_filesystem["root"]
-E       AssertionError: assert {'dir1': None...'file3': None} == {'dir1': {'fi...'file3': None}
-E         Omitting 1 identical items, use -vv to show
-E         Differing items:
-E         {'dir1': None} != {'dir1': {'file1': None}}
-E         {'dir2': None} != {'dir2': {'dir3': {'file2': None}}}
-E         Use -v to get more diff
 
-tests/unit_tests/source_code_tree/test_directory_traversal.py:41: AssertionError
+tests/unit_tests/semantic_code/search/test_search_result.py E
+
+==================================== ERRORS ====================================
+_______ ERROR at setup of test_scored_entity_initialization_and_to_dict ________
+
+    @pytest.fixture
+    def mock_entity():
+>       return MockCodeEntity()
+E       TypeError: Can't instantiate abstract class MockCodeEntity with abstract methods from_json, to_unique_id, type
+
+tests/unit_tests/semantic_code/search/test_search_result.py:16: TypeError
+-------------- generated xml file: /tmp/tmp-6730YFvLSLcMUIRP.xml ---------------
+=========================== short test summary info ============================
+ERROR tests/unit_tests/semantic_code/search/test_search_result.py::test_scored_entity_initialization_and_to_dict
+=============================== 1 error in 0.17s ===============================
 ```
 
 [CodeReferences]

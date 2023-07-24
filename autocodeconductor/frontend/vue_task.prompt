@@ -1,28 +1,23 @@
-As a top Vue3 frontend engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+As a best full-stack developer on earth who is proficient with Vue3 and Python, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Criterias]
-- Follow Vue3 best practices and use TypeScript for any JavaScript file, as shown in the following syntax:
+- Follow Vue3 and component design best practices and use TypeScript. Remember that in Vue 3 templates, to react to reactive or ref changes, 
+we have to use the object itself, instead of using using `.value` to unwrap it. 
+  Sample code:
+
 ```
 <template>
+  <div v-if="isOpen" class="children">
+  </div>
 ...
 </template>
 <script setup lang="ts">
-import { defineProps, inject, Ref, computed } from 'vue';
-const props = defineProps<{ stageName: string }>();
-const selectedStage = inject<Ref<string | null>>('selectedStage')!;
-
-const selectStage = () => {
-  selectedStage.value = props.stageName;
-}
-
-const isSelected = computed(() => selectedStage.value === props.stageName);
+import { Ref} from 'vue';
+const isOpen = ref(false);
 </script>
-<style>...</style>
-```
-- Follow Vue3 component design best practice
-- Aim to develop a user interface that is both functional and aesthetically appealing. 
-- Ensure the user journey is articulable based on the design.
-- Follow best naming practices for creating files or folders if neccessary. Here is part of my current project structure:
+
+- Focus on components design, components organizations, and  components-Javascript layer responsiblities.  Don't bother styles for now.
+- Create file paths following Vue3 project file structure best practices.
     src
         components
             WorkflowDisplay.vue
@@ -33,181 +28,23 @@ const isSelected = computed(() => selectedStage.value === props.stageName);
             JSONParser.ts
         App.vue
         ...
-- Output should updated file paths and their complete codes, do not use placeholders.
+- Conclude with file paths with complete codes to enable easy copy and paste.
  
-Examine the given code step by step before proposing solutions.
-Think very carefully step by step and reason with very high granule to address the task.
+Think very carefully step by step, and reason comprehensively to address the task.
+```
 
 [Requirement]
 $start$
-I have App.vue component defined 
-```
-<template>
-  <div class="app">
-    <WorkspaceSelector class="app-workspace-selector" />
+I have the following html prototype file.
 
-    <div class="app-content">
-      <FileExplorer class="app-file-explorer" />
-
-      <TabList :tabs="tabs" @changeTab="activeTab = $event"></TabList>
-
-      <component :is="activeTab.component" />
-    </div>
-
-    <div class="clear"></div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-import WorkspaceSelector from "./components/workspace/WorkspaceSelector.vue";
-import FileExplorer from "./components/fileExplorer/FileExplorer.vue";
-import ContentViewer from "./components/fileExplorer/FileContentViewer.vue";
-import WorkflowDisplay from "./components/workflow/WorkflowDisplay.vue";
-import TabList from "./components/tabs/TabList.vue";
-import Tab from "./components/tabs/Tab.vue";
-
-const tabs = [
-  { name: 'File', component: ContentViewer },
-  { name: 'Agent', component: WorkflowDisplay }
-];
-
-const activeTab = ref(tabs[0]);
-</script>
-
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-.app {
-  font-family: 'Roboto', sans-serif;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: #f4f4f4;
-  padding: 20px;
-  width: 100%;
-}
-
-h1 {
-  margin-bottom: 20px;
-}
-
-.app-content {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-}
-
-.app-workspace-selector {
-  background-color: #e9ecef;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.app-file-explorer {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  width: 30%;
-  height: 100%;
-}
-
-.app-panel {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-  margin-left: 20px;
-  flex-grow: 1;
-  height: 100%;
-}
-
-.clear {
-  clear: both;
-}
-</style>
-
-```
-Here is the TabList.vue
-```
-<template>
-  <div>
-    <div class="tab-list">
-      <Tab v-for="tab in tabs" :key="tab.name" @click="changeTab(tab)">{{ tab.name }}</Tab>
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import Tab from "./Tab.vue";
-
-const props = defineProps({
-  tabs: Array
-});
-
-const emit = defineEmits(["changeTab"]);
-
-const changeTab = (tab) => {
-  emit('changeTab', tab);
-};
-</script>
-  
-  <style scoped>
-  .tab-list {
-    display: flex;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .tab-content {
-    border: 1px solid #ddd;
-    padding: 20px;
-  }
-  </style>
-  
-```
-Here is the Tab.vue
-```
-<template>
-  <div class="tab" @click="emit('click', $event)">
-    <slot />
-  </div>
-</template>
-
-<script setup lang="ts">
-const emit = defineEmits(['click']);
-</script>
-
-<style scoped>
-.tab {
-  padding: 10px;
-  cursor: pointer;
-  border: 1px solid #ddd;
-  margin-right: 5px;
-  border-bottom: none;
-}
-
-.tab.active {
-  background-color: white;
-  border-top: 3px solid #2d98da;
-}
-</style>
-
-```
-I think the content of the tab should be contained inside the tab container. However, when i click the any tab. The content of the tab are actually on the right side of 
-File, Agent. Seems like two elements are located horizontally.
 $end$
-
 
 
 
 
 As a top Vue3 frontend engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
-[Criterias]
-- Follow Vue3 best practices and use TypeScript for any JavaScript file, as shown in the following syntax:
+- Utilize Vue3 best practices and incorporate TypeScript in every JavaScript file. An example syntax is provided below:
 ```
 <template>
 ...
@@ -225,12 +62,14 @@ const isSelected = computed(() => selectedStage.value === props.stageName);
 </script>
 <style>...</style>
 ```
-- Follow Vue3 component design best practice.
-- Aim to develop a user interface that is both functional and aesthetically appealing. 
-- Ensure the user journey is articulable based on the design.
+- Design components following Vue3 best practices.
+- Refactor as needed to achieve better component maintainability and composition.
+- Prioritize component design; no need to style new components. Components structure design is the focus.
+- Ensure clarity in the user experience based on your designs.
 - Follow best naming practices for creating files or folders if neccessary. Include file paths and their codes in the output. Here is part of my current project structure:
     src
         components
+          workflow
             WorkflowDisplay.vue
             ...
         graphql
@@ -239,140 +78,350 @@ const isSelected = computed(() => selectedStage.value === props.stageName);
             JSONParser.ts
         App.vue
         ...
+- Explain thoroughly about every decision you make.
 
-Think step by step and reason to the very details to address the task.
+Think step by step to address the task.
 
 [Requirement]
 $start$
-I have src/components/WorkspaceSelector.vue defined.
 ```
-<!-- src/components/WorkspaceSelector.vue -->
-
-<template>
-  <div id="workspaceSelector">
-    <label for="workspace">Select Workspace:</label>
-    <select v-model="selectedWorkspace" v-if="workspaces.length > 0">
-        <option v-for="workspace in workspaces" :key="workspace" :value="workspace">
-            {{ workspace }}
-        </option>
-    </select>
-    <span v-else>No Workspaces available</span>
-    <input type="text" v-model="newWorkspace" placeholder="Enter new workspace path" />
-    <button @click="addWorkspace">Add New Workspace</button>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, provide } from 'vue';
-import { AddWorkspace } from '../graphql/queries';
-import { useMutation } from '@vue/apollo-composable';
-import { convertJsonToTreeNode, TreeNode } from '../utils/fileExplorer/TreeNode';
-
-const workspaces = ref([] as string[]);
-const selectedWorkspace = ref(null as string | null);
-const newWorkspace = ref('');
-
-// This will hold the TreeNode of the current workspace.
-// It will be provided for other components to use.
-const workspaceTree = ref<TreeNode | null>(null);
-provide('workspaceTree', workspaceTree);
-
-const { mutate: addWorkspaceMutation } = useMutation(AddWorkspace, () => ({
-  variables: {
-    workspaceRootPath: newWorkspace.value,
-  },
-  update: (_cache, { data }) => {
-    if (data?.addWorkspace) {
-      workspaceTree.value = convertJsonToTreeNode(data.addWorkspace);
-      workspaces.value.push(newWorkspace.value);
-      selectedWorkspace.value = newWorkspace.value;
-      newWorkspace.value = '';
-      console.log('Workspace Tree:', workspaceTree.value);
-    } else {
-      console.error('Error adding workspace');
-    }
-  }
-}));
-
-const addWorkspace = () => {
-  addWorkspaceMutation();
-};
-</script>
 ```
-
-and also src/components/FileExplorer.vue component defined 
-```
-<template>
-    <div id="fileExplorer">
-        <h2>Files</h2>
-        <div v-for="file in files" :key="file.path">
-            <a href="#" @click.prevent="selectFile(file)">
-                {{ file.name }}
-            </a>
-        </div>
-    </div>
-</template>
-
-<script setup lang="ts">
-import { inject, Ref, computed } from 'vue';
-import { TreeNode } from '../utils/fileExplorer/TreeNode';
-
-// Injecting the workspaceTree ref provided by WorkspaceSelector.vue
-const workspaceTree = inject<Ref<TreeNode | null>>('workspaceTree')!;
-
-// Extract file nodes from workspaceTree. This logic can be updated based on your tree structure.
-const files = computed(() => {
-    return workspaceTree.value ? workspaceTree.value.children.filter(node => node.is_file) : [];
-});
-
-const selectFile = (file: TreeNode) => {
-    // Logic to handle file selection
-    // The selected file can be stored in a shared state like Vuex or provide/inject API
-};
-</script>
-
-```
-
-My App.vue contains these two components
-```
-<template>
-  <div class="app">
-    <WorkspaceSelector class="app-workspace-selector" />
-
-    <div class="app-content">
-      <FileExplorer class="app-file-explorer" />
-
-      <TabList v-model="selectedTab" class="app-panel">
-        <Tab name="ContentViewer">
-          File
-        </Tab>
-        <Tab name="Agent">
-          Agent
-        </Tab>
-
-        <template #FileContentViewer>
-          <ContentViewer />
-        </template>
-
-        <template #WorkflowDisplay>
-          <WorkflowDisplay />
-        </template>
-      </TabList>
-    </div>
-
-    <div class="clear"></div>
-  </div>
-</template>
-
-# Rest of code ...
-```
-When i add workspace, the TreeNode of the directory is successfully returned in the 
-WorkspaceSelector. However, FileExplorer.vue seems not picking up the TreeNode, 
-and not rendering anything.
-
-I think it might has something to do with that WorkspaceSelector and FileExplorer are siblings.
-
-Please propose solution to address the problem.
 $end$
 
 
+As an the best full-stack developer on earth who is proficient in Vue3, Python and Typescript, please refer to the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criteria]
+- Adhere to Vue3 and component design best practices, making use of TypeScript. In Vue 3 templates, use the object directly rather than unwrapping it with `.value`. 
+  Sample code:
+
+``` 
+<template>
+  <div v-if="isOpen" class="children"></div>
+</template>
+<script setup lang="ts">
+import { Ref } from 'vue';
+const isOpen = ref(false);
+</script>
+```
+- Organize components logically, creating a clear and modular component structure. Styles are not a concern at this stage.
+- Define clear and concise data representation for each component, including props, data, and computed properties etc.
+- Implement proper communication between components using props, custom events, and the EventBus (if necessary) etc.
+- Design reusable and composable components to encourage code reusability.
+- Set up the overall code structure, including router configuration and store initialization (if using Vuex or Pinia) if neccessary.
+- Properly manage routes, navigation guards, and route handling based on the application's requirements if neccessary
+- Be thoughtful of how to represent the received API data in frontend.
+- Structure your file paths according to Vue3 best practices. Here's a suggested structure:
+
+```
+src
+  ├── components
+  │    ├── WorkflowDisplay.vue
+  │    ├── ...
+  ├── graphql
+  │    ├── queries.ts
+  ├── utils
+  │    ├── JSONParser.ts
+  ├── App.vue
+  ├── ...
+```
+- Conclude with the complete codes for each file path for easy copy-pasting.
+
+Approach the task methodically, providing comprehensive reasoning for your decisions.
+
+[Requirement]
+$start$
+I have graphq endpoint search code entities already implemented
+```
+    @strawberry.field
+    def search_code_entities(self, query: str) -> JSON:
+        """
+        Searches for relevant code entities based on the provided query.
+
+        Args:
+            query (str): The search query.
+
+        Returns:
+            JSON: The search results.
+        """
+        try:
+            search_result: SearchResult = search_service.search(query)
+            return search_result.to_json()
+        except Exception as e:
+            error_message = f"Error while searching code entities: {str(e)}"
+            logger.error(error_message)
+            return json.dumps({"error": error_message})
+```
+Now i need to integrate it to frontend. The first task is to create 
+graphql query.
+Here is current queries.ts content 
+```
+import gql from 'graphql-tag';
+
+export const GetWorkflowConfig = gql`
+  query GetWorkflowConfig($workspaceRootPath: String!) {
+    workflowConfig(workspaceRootPath: $workspaceRootPath)
+  }
+`;
+```
+Here is one existing WorkflowDisplay.vue component how to use the generated query 
+```
+<template>
+  <!-- Error & Loading Indicators -->
+  <div v-if="error" class="alert alert-error">
+    <i class="fas fa-exclamation-triangle"></i> Something went wrong...
+  </div>
+  <div v-if="loading" class="alert alert-info">
+    <i class="fas fa-spinner fa-spin"></i> Loading...
+  </div>
+
+  <!-- Workflow Display -->
+  <div class="workflow-container" v-if="workflow">
+    <div class="workflow-steps">
+      <WorkflowStep 
+        v-for="step in Object.values(workflow.steps)" 
+        :key="step.id"
+        :step="step"
+        :isSelected="selectedStep?.id === step.id"
+      />
+    </div>
+
+    <!-- Workflow Step Details -->
+    <WorkflowStepDetails />
+  </div>
+</template>
+
+
+<script setup lang="ts">
+import WorkflowStepDetails from './WorkflowStepDetails.vue';
+import { useQuery } from "@vue/apollo-composable";
+import { GetWorkflowConfig } from "../../graphql/queries";
+import type { GetWorkflowConfigQuery as GetWorkflowConfigQueryType, GetWorkflowConfigQueryVariables } from "../../generated/graphql";
+import WorkflowStep from './WorkflowStep.vue';
+import { computed, provide, ref, watchEffect } from 'vue';
+import { selectedWorkspacePath } from "../../store/workspaceState";
+import type { Step } from '../../types/Workflow';
+import { deserializeWorkflow } from '../../utils/JSONParser';
+
+const workflowConfigQueryVarible: GetWorkflowConfigQueryVariables = { workspaceRootPath: selectedWorkspacePath }
+const { result, loading, error } = useQuery<GetWorkflowConfigQueryType, GetWorkflowConfigQueryVariables>(
+  GetWorkflowConfig, workflowConfigQueryVarible
+);
+
+const workflow = computed(() => {
+  if (!result.value?.workflowConfig) {
+    return null;
+  }
+  try {
+    return deserializeWorkflow(result.value.workflowConfig);
+  } catch (err) {
+    console.error('Failed to parse workflowConfig JSON', err);
+    return null;
+  }
+});
+
+const selectedStep = ref<Step | null>(null);
+provide('selectedStep', selectedStep);
+
+watchEffect(() => {
+  if (!selectedStep.value && workflow.value?.steps) {
+    selectedStep.value = Object.values(workflow.value.steps)[0];
+  }
+});
+</script>
+```
+Here is the WorkflowStepDetails.vue which contains the button to search
+```
+<template>
+  <!-- Slide-down Panel for Selected Step Details -->
+  <transition name="slide-fade">
+      <div v-if="selectedStep" class="selected-step-details">
+          <h3>Selected Step: {{ selectedStep.name }}</h3>
+          <!-- Prompt Editor Integration -->
+          <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
+              <h4>Edit Prompt:</h4>
+              <PromptEditor :template="selectedStep.prompt_template" />
+              
+              <button class="search-context-button">Search Code Context</button>
+              <button class="refine-requirement-button">Refine Requirement</button>
+          </div>
+
+          <!-- Search Results Section -->
+          <div class="search-results-section">
+              <h4>Search Results:</h4>
+              <CodeSearchResult v-for="result in searchResults" :key="result" :snippet="result" />
+          </div>
+
+          <button @click="startExecution" class="start-execution-button">Start Execution</button>
+          <p>Execution Status: {{ executionStatus }}</p>
+          
+          <!-- Integration of the ExecutionLogsPanel component -->
+          <ExecutionLogsPanel :logs="executionLogs" />
+      </div>
+  </transition>
+</template>
+  
+<script setup lang="ts">
+import { inject, Ref, ref } from 'vue';
+import PromptEditor from '../prompt/PromptEditor.vue';
+import CodeSearchResult from './CodeSearchResult.vue';
+import ExecutionLogsPanel from './ExecutionLogsPanel.vue';  // Importing the new component
+
+import type { Step } from '../../types/Workflow';
+  
+const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
+const executionStatus = ref('Not Started');
+const executionLogs = ref('');
+
+const startExecution = () => {
+  executionStatus.value = 'Running';
+  // ... start execution process
+  // ... update executionLogs with streaming logs from the backend
+};
+
+const searchResults = ref<string[]>([]);
+```
+
+Because the search button is some demo code. You can use a dummy query input 
+at the moment.
+$end$
+
+
+
+
+
+
+In this task, you are the best full-stack developer on earth proficient in Vue3, Python, and TypeScript. Please refer to the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criteria]
+- Adhere to Vue3 and component design best practices, making use of TypeScript. In Vue 3 templates, use the object directly rather than unwrapping it with `.value`. 
+Sample code:
+
+``` 
+<template>
+  <div v-if="isOpen" class="children"></div>
+</template>
+<script setup lang="ts">
+import { Ref } from 'vue';
+const isOpen = ref(false);
+</script>
+```
+- Implement proper communication between components using props, custom events, and the EventBus (if necessary) etc.
+- Evaludate component structuring, and composition if code gets complicated overtime. 
+- Determine which logic is best suited for components and which should be in separate TypeScript files.
+- Structure your file paths according to Vue3 best practices. Here's a suggested structure:
+
+```
+src
+  ├── components
+  │    ├── WorkflowDisplay.vue
+  │    ├── ...
+  ├── graphql
+  │    ├── queries.ts
+  ├── utils
+  │    ├── JSONParser.ts
+  ├── App.vue
+  ├── ...
+```
+
+[Requirement]
+$start$
+
+$end$
+
+
+
+In this task, you are the best full-stack developer on earth proficient in Vue3, Python, and TypeScript. Please refer to the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criteria]
+- Adhere to Vue3 and component design best practices, making use of TypeScript. In Vue 3 templates, use the object directly rather than unwrapping it with `.value`. 
+Sample code:
+
+``` 
+<template>
+  <div v-if="isOpen" class="children"></div>
+</template>
+<script setup lang="ts">
+import { Ref } from 'vue';
+const isOpen = ref(false);
+</script>
+```
+- Implement proper communication between components using props, custom events, and the EventBus (if necessary) etc.
+- Evaludate component structuring, and composition if code gets complicated overtime. 
+- Determine which logic is best suited for components and which should be in separate TypeScript files.
+- Structure your file paths according to Vue3 best practices. Here's a suggested structure:
+
+```
+src
+  ├── components
+  │    ├── WorkflowDisplay.vue
+  │    ├── ...
+  ├── graphql
+  │    ├── queries.ts
+  ├── utils
+  │    ├── JSONParser.ts
+  ├── App.vue
+  ├── ...
+```
+
+[Requirement]
+$start$
+We have different steps for different workflow.
+```
+
+```
+The search query actually comes from the prompt editor. In prompt editor. There 
+is a complete prompt editor, and also placeholder editor. The content in the placeholder editors are supposed to replace the placeholders in the complete prompt.
+Understand the component code thoroughly before integrating.
+$end$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**Step 1: Component Design and Architecture**
+- Utilize TypeScript to adhere to Vue3 and component design best practices.
+- Organize components for a modular and logical structure.
+- Clearly define data representation for each component, including props, data, and computed properties.
+- Ensure proper communication between components using props, custom events, and the EventBus when needed.
+- Design components for reusability and composability.
+- Configure the application's architecture, including router setup and store initialization (using Vuex or Pinia).
+- Manage routes, navigation guards, and route handling based on the app's needs.
+
+**Step 2: Efficient Data Management and Interaction**
+- Use Vuex, Pinia, or other libraries for optimal data communication and state management between components.
+- Keep components presentation-focused by moving business logic to stores.
+- Utilize reactivity and computed properties for dynamic updates without redundant re-renders.
+- Handle asynchronous actions with async/await and manage API calls in stores or separate service modules.
+- Apply Vue3's Composition API to manage complex logic and side effects.
+- Employ custom hooks or utilities for shared functionality.
+
+**Step 3: Style Implementation and Aesthetics**
+- Ensure a responsive and mobile-friendly design for a seamless user experience across devices.
+- Adhere to a consistent design system, covering typography, color schemes, and spacing.
+- Use modern CSS methodologies like BEM, SMACSS, or CSS Modules for maintainability.
+- Consider CSS preprocessors like SCSS for advanced styling and better management.
+- Add animations and transitions for enhanced user interactions.
+- Optimize style performance with techniques such as flexbox or grid layout.
+
+**Step 4: Testing and Quality Assurance**
+- Cover key components, functions, and modules with unit tests using frameworks like Jest.
+- Ensure component and application integration with tools like Cypress or Vue Test Utils.
+- Conduct end-to-end tests for overall application functionality.
+- Test for accessibility to cater to users with disabilities.
+- Monitor testing suite effectiveness with code coverage tools and refine as necessary.
+- Regularly review the codebase for optimization opportunities and quality improvements.
+
+After completing each step, await further instructions before proceeding. At the beginning of steps 2 onward, review your previous work, understand any unfinished parts, and then proceed with the current step.
+
+Now wait for me to give you the requirement

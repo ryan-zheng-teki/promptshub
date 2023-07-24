@@ -1,0 +1,16 @@
+You are a top Vue3 developer and you have been given a requirement to fulfill. The requirement can be found between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criteria]
+- Follow Vue3 best practices
+
+Remember to plan your approach carefully, detailing your reasoning as you work to meet the task requirements.
+
+[Requirement]
+$start$
+```
+
+
+```
+Rename all places of stage to step. Because i am renaming stage to step. Please update all pydoc as well.
+$end
+

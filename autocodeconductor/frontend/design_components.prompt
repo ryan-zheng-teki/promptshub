@@ -141,10 +141,8 @@ const selectFile = (file: string) => {
 </script>
 Currently it only contains some dummy code. 
 
-What is needed is that after TreeNode data fetched from mutation in WorkspaceSelector.vue will need to become the input for FileExplorer component to render. 
 
-Currently my src/App.vue looks like this.
-
+I also have my src/App.vue looks like this.
 ```
 <template>
   <div class="app">
@@ -187,6 +185,8 @@ import Tab from "./components/tabs/Tab.vue";
 const selectedTab = ref('ContentViewer');
 </script>
 # Rest of code ...
+```
+What is needed is that after TreeNode data fetched from mutation in WorkspaceSelector.vue will need to become the input for FileExplorer component to render. 
 $end$
 
 

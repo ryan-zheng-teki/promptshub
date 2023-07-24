@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results Mockup</title>
+    <style>
+        .search-results-container {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .result-card {
+            display: flex;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .entity-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .entity-info {
+            flex-grow: 1;
+            margin-right: 20px;
+        }
+
+        .entity-info h3 {
+            margin-top: 0;
+            color: #555;
+        }
+
+        .score-bar {
+            background-color: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .score-fill {
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+        }
+
+        .entity-actions button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .details-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .code-btn {
+            background-color: #FFC107;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-results-container">
+        <h2>Search Results: <span>45</span></h2>
+        
+        <div class="result-card">
+            <img src="icon-path.png" alt="Entity Icon" class="entity-icon">
+            <div class="entity-info">
+                <h3>ClassName</h3>
+                <div class="score-bar"><div class="score-fill" style="width: 95%"></div></div>
+            </div>
+            <div class="entity-actions">
+                <button class="details-btn">View Details</button>
+                <button class="code-btn">Go to Code</button>
+            </div>
+        </div>
+
+        <!-- Repeat .result-card for each result -->
+        <div class="result-card">
+            <img src="icon-path.png" alt="Entity Icon" class="entity-icon">
+            <div class="entity-info">
+                <h3>FunctionName</h3>
+                <div class="score-bar"><div class="score-fill" style="width: 85%"></div></div>
+            </div>
+            <div class="entity-actions">
+                <button class="details-btn">View Details</button>
+                <button class="code-btn">Go to Code</button>
+            </div>
+        </div>
+
+        <!-- More .result-card can be added here for other entities -->
+    </div>
+</body>
+</html>

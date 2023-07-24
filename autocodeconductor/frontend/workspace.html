@@ -1,88 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Workspace Configuration</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        h1, h2 {
-            color: #333;
-        }
-        .workspace-config {
-            background: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        }
-        .workspace-list {
-            margin-top: 20px;
-        }
-        .workspace-list div {
-            background: #fff;
-            margin-bottom: 10px;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-        }
-        button {
-            margin-left: 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-        }
-        #addButton {
-            background: #2d98da;
-        }
-        #saveButton {
-            background: #5cb85c;
-        }
-        .editButton {
-            background: #f0ad4e;
-        }
-        input {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            width: 250px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Prompt UI</title>
 </head>
-<body>
-    <h1>Workspace Configuration</h1>
+<body style="font-family: Arial, sans-serif;">
 
-    <div class="workspace-config">
-        <button id="addButton">Add New Workspace</button>
-        <div>
-            <label for="rootPath">Root Path:</label>
-            <input type="text" id="rootPath" name="rootPath">
-            <button id="saveButton">Save</button>
-        </div>
-    </div>
+<div style="border: 2px solid #000; padding: 20px; max-width: 600px; margin: 50px auto;">
+    <h2 style="text-align: center; background-color: #f2f2f2; padding: 10px; border-bottom: 1px solid #ddd;">Python Prompt UI</h2>
+    <p>As a senior Python software engineer, address the requirements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.</p>
+    <p>... {other fixed contents} ...</p>
 
-    <div class="workspace-list">
-        <h2>Configured Workspaces</h2>
-        <div>
-            <span>Workspace 1</span>
-            <button class="editButton">Edit</button>
-        </div>
-        <div>
-            <span>Workspace 2</span>
-            <button class="editButton">Edit</button>
-        </div>
-        <!-- Add more as required -->
-        <div>
-            <span>Workspace n</span>
-            <button class="editButton">Edit</button>
-        </div>
-    </div>
+    <textarea 
+        style="width: 100%; padding: 10px; box-sizing: border-box; border: 2px dashed #777; margin: 10px 0;"
+        placeholder="Enter your requirement here."
+        title="Input your specific requirement in this area."
+    ></textarea>
+
+    <p>... {remaining fixed contents} ...</p>
+</div>
+
 </body>
 </html>
-
-
-

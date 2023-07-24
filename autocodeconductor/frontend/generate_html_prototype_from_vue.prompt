@@ -1,0 +1,231 @@
+As a top Vue3 frontend developer you are tasked with generating a working html prototype from the Vue3 components source codes situated between `$start$` and `$end$` tokens in the `[Code]` section
+
+[Notes]
+- The components are written with Vue3 and Typescript using Composition API.
+```
+<template>
+  <div v-if="isOpen" class="children">
+  </div>
+...
+</template>
+<script setup lang="ts">
+import { defineProps, inject, Ref, computed } from 'vue';
+const props = defineProps<{ stageName: string }>();
+const selectedStage = inject<Ref<string | null>>('selectedStage')!;
+
+const selectStage = () => {
+  selectedStage.value = props.stageName;
+}
+const isOpen = ref(false);
+const isSelected = computed(() => selectedStage.value === props.stageName);
+</script>
+<style>...</style>
+
+- Understand the source code thoroughly before generating prototype html.
+- Provide with a downloadable .html file containing the prototype at last.
+ 
+Think very carefully step by step.
+```
+
+[Code]
+File:  WorkflowStepDetails.vue
+```
+<template>
+    <!-- Slide-down Panel for Selected Step Details -->
+    <transition name="slide-fade">
+      <div v-if="selectedStep" class="selected-step-details">
+        <h3>Selected Step: {{ selectedStep.name }}</h3>
+        <!-- Prompt Editor Integration -->
+        <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
+          <h4>Edit Prompt:</h4>
+          <PromptEditor :template="selectedStep.prompt_template" />
+        </div>
+        <button @click="startExecution" class="start-execution-button">Start Execution</button>
+        <p>Execution Status: {{ executionStatus }}</p>
+        <!-- Execution Logs Panel -->
+        <div class="execution-logs-panel">
+          <h4>Execution Logs:</h4>
+          <pre v-if="executionLogs">{{ executionLogs }}</pre>
+        </div>
+      </div>
+    </transition>
+  </template>
+  
+  <script setup lang="ts">
+  import { inject, Ref, ref } from 'vue';
+  import PromptEditor from './PromptEditor.vue';
+  import type { Step } from '../../types/Workflow';
+  
+  const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
+  const executionStatus = ref('Not Started');
+  const executionLogs = ref('');  // Placeholder for execution logs
+  
+  const startExecution = () => {
+    executionStatus.value = 'Running';
+    // ... start execution process
+    // ... update executionLogs with streaming logs from the backend
+  };
+  </script>
+  
+  <!-- Existing styles for details will be kept here -->
+  <style scoped>
+.selected-step-details {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+}
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: opacity 0.5s, max-height 0.5s, padding 0.5s;
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0;
+  max-height: 0;
+  padding: 0;
+}
+
+h3, h4 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.prompt-editor-section {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.start-execution-button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  color: #fff;
+  background-color: #428BCA;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-execution-button:hover {
+  background-color: #3276B1;
+}
+
+.execution-logs-panel {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+}
+</style>
+
+```
+File: PromptEditor.vue
+```
+
+<template>
+  <div class="prompt-editor">
+    <!-- Single editor for the entire prompt -->
+    <textarea 
+        class="entire-prompt-editor"
+        v-model="entirePrompt"
+        @input="resizeTextarea"
+    ></textarea>
+
+    <!-- Display editors for placeholders -->
+    <div v-for="placeholder in placeholders" :key="placeholder" class="input-container">
+      <label :for="placeholder">{{ placeholder }}</label>
+      <textarea 
+          :id="placeholder"
+          v-model="values[placeholder]" 
+          :placeholder="placeholder" 
+          class="placeholder-input"
+          rows="3"
+          @input="resizeTextarea"
+      ></textarea>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, onMounted, nextTick } from 'vue';
+import { getPlaceholders } from '../../utils/PromptParser';
+
+const props = defineProps<{ template: string }>();
+
+const entirePrompt = ref(props.template);
+const placeholders = computed(() => getPlaceholders(props.template));
+const values: { [key: string]: string } = ref({});
+
+const resizeTextarea = (event: Event) => {
+  let textarea: any = event.target;
+  textarea.style.height = 'auto';  // Reset height to auto to calculate the new height
+  textarea.style.height = textarea.scrollHeight + 'px';
+};
+
+onMounted(() => {
+  nextTick(() => {
+    document.querySelectorAll('textarea').forEach(textarea => {
+      resizeTextarea({ target: textarea });
+    });
+  });
+});
+</script>
+
+<style>
+.prompt-editor {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f4f8;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.entire-prompt-editor, .placeholder-input {
+  box-sizing: border-box; 
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  color: #333;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  resize: vertical;
+  overflow: hidden;  /* to avoid scrollbars */
+}
+
+.entire-prompt-editor:hover, .placeholder-input:hover {
+  border-color: #666;
+  transform: scale(1.01);
+}
+
+.entire-prompt-editor:focus, .placeholder-input:focus {
+  border-color: #007BFF;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.6);
+  transform: scale(1.03);
+}
+
+.input-container {
+  margin: 15px 0;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 600;
+  color: #444;
+}
+</style>
+
+```
