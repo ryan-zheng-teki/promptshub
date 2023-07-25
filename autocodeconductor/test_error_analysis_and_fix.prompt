@@ -12,13 +12,12 @@ Please follow these standards:
 
 4. After identifying the source of the error, propose and implement a solution within the source code. Explaining why each change is necessary and how it resolves the identified issue.
 
-5. Finally, present the modified code in a copyable code block, ensuring the output is formatted appropriately for easy replication. Follow Python docstring best practices for all updated codes. Always include a file-level docstring at the beginning of the file.
+5. Finally, present the modified code in a copyable code block. Follow Python docstring best practices for all updated codes. Always include a file-level docstring at the beginning of the file.
 
 
+Ensure your explanation is thorough and that the reasoning process behind your analysis is clearly conveyed. 
 
-Ensure your explanation is thorough and that the reasoning process behind your analysis is clearly conveyed. Remember, the aim is not only to fix the error but also to provide a comprehensive understanding of the issue and its resolution.
-
-Please approach the task by thinking step by step, using high granularity in your reasoning.
+Think step by step, reason comphrehensively to approach the task.
 
 [Error]
 ```

@@ -24,11 +24,11 @@ file path: src/semantic_code/embedding/openai_embedding_creator.py
 Version 2: Contains the details of steps
 
 
-As an top Vue3 frontend software engineer, you are given a test task situated between `$start$` and `$end` tokens in the `[Task]` section.
+As an top Vue3 frontend software engineer who is proficient in Typescript, you are given a test task situated between `$start$` and `$end` tokens in the `[Task]` section.
 
 [Standards]
 - Before creating tests, comprehend the existing code thoroughly.
-- Ensure that the test cases follow Vue3  best practices. Here is an example test using Vitest.
+- Ensure that the test cases follow Vue3  and Typescript best practices. Here is an example test using Vitest.
 ```
 import { mount } from '@vue/test-utils';
 import PromptEditor from '../PromptEditor.vue';
@@ -60,234 +60,44 @@ Think step by step, and reason comprehensively. Conclude by providing the file p
 
 [Requirement]
 $start$
-Due to the data sent from backend has changed. This can be reflected in the the src/utils/JSONParser.spec.ts
-```
-import { deserializeWorkflow, deserializeSearchResult } from '../JSONParser';
-import { Source, Workflow } from '../../types/Workflow';
-import { SearchResult, FunctionEntity } from '../../types/code_entities';
-import { describe, it, expect } from 'vitest';
-
-describe('JSONParser', () => {
-  
-  describe('deserializeWorkflow', () => {
-
-    it('should deserialize valid Workflow JSON', () => {
-      const jsonString = JSON.stringify({
-        name: "Sample Workflow",
-        steps: {
-          "1": {
-            id: "1",
-            name: "Step One",
-            prompt_template: {
-              template: "Hello, {name}!",
-              variables: [{
-                name: "name",
-                source: Source.DYNAMIC,
-                allow_code_context_building: true,
-                allow_llm_refinement: false
-              }]
-            }
-          }
-        }
-      });
-
-      const result: Workflow = deserializeWorkflow(jsonString);
-      expect(result.name).toBe("Sample Workflow");
-      expect(result.steps["1"].name).toBe("Step One");
-      expect(result.steps["1"].prompt_template.template).toBe("Hello, {name}!");
-      expect(result.steps["1"].prompt_template.variables[0].name).toBe("name");
-    });
-
-```
-We also have updated the component code. Here is the src/components/workflow/WorkflowDetails.vue
+I have a TabList.vue component defined in file src/components/tabs/TabList.vue
 ```
 <template>
-  <!-- Slide-down Panel for Selected Step Details -->
-  <transition name="slide-fade">
-    <div v-if="selectedStep" class="selected-step-details">
-      <h3>Selected Step: {{ selectedStep.name }}</h3>
-      
-      <!-- Prompt Editor Integration -->
-      <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
-        <h4>Edit Prompt:</h4>
-        <PromptEditor :template="selectedStep.prompt_template" />
-        
-        <button @click="searchCodeContext" class="search-context-button">Search Code Context</button>
-        <button class="refine-requirement-button">Refine Requirement</button>
-      </div>
-
-      <!-- Search Results Section -->
-      <div class="search-results-section">
-        <h4>Search Results:</h4>
-        <CodeSearchResult v-for="result in searchResults" :key="result.entity.file_path" :snippet="result.entity.docstring" />
-      </div>
-
-      <button @click="startExecution" class="start-execution-button">Start Execution</button>
-      <p>Execution Status: {{ executionStatus }}</p>
-      
-      <!-- Integration of the ExecutionLogsPanel component -->
-      <ExecutionLogsPanel :logs="executionLogs" />
-    </div>
-  </transition>
+  <div class="tab-list">
+    <Tab v-for="tab in tabs" :key="tab.name" :selected="selectedTab === tab.name" @select="selectTab">{{ tab.name }}</Tab>
+  </div>
 </template>
-  
+
 <script setup lang="ts">
-import { inject, Ref, ref } from 'vue';
-import PromptEditor from '../prompt/PromptEditor.vue';
-import CodeSearchResult from './CodeSearchResult.vue';
-import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
-import { useQuery } from "@vue/apollo-composable";
-import { SearchCodeEntities } from "../../graphql/queries";
+import Tab from "./Tab.vue";
 
-// Importing the required types and functions
-import type { Step } from '../../types/Workflow';
-import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
-import { deserializeSearchResult } from '../../utils/JSONParser';
+const props = defineProps({
+  tabs: Array,
+  selectedTab: String
+});
 
-const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
-const executionStatus = ref('Not Started');
-const executionLogs = ref('');
-const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
+const emit = defineEmits(["select"]);
 
-const { result: searchResult, loading: searchLoading, error: searchError } = useQuery(
-  SearchCodeEntities, 
-  { query: "dummy_query" }  // This is the dummy query for now
-);
-
-const searchCodeContext = () => {
-  if (searchResult.value) {
-    const parsedSearchResult: SearchResult = deserializeSearchResult(searchResult.value);
-    searchResults.value = parsedSearchResult.entities;
-  }
-  if (searchError.value) {
-    console.error("Error while searching for code entities:", searchError.value);
-  }
-};
-
-const startExecution = () => {
-  executionStatus.value = 'Running';
-  // ... start execution process
-  // ... update executionLogs with streaming logs from the backend
+const selectTab = (tabName: string) => {
+  emit('select', tabName);
 };
 </script>
-
-
-  <!-- Existing styles for details will be kept here -->
-<style scoped>
-.selected-step-details {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f5f5f5;
-}
-
-.slide-fade-enter-active, .slide-fade-leave-active {
-  transition: opacity 0.5s, max-height 0.5s, padding 0.5s;
-}
-
-.slide-fade-enter, .slide-fade-leave-to {
-  opacity: 0;
-  max-height: 0;
-  padding: 0;
-}
-
-h3, h4 {
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.prompt-editor-section {
-  width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.start-execution-button {
-  margin-top: 20px;
-  padding: 10px 15px;
-  color: #fff;
-  background-color: #428BCA;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.start-execution-button:hover {
-  background-color: #3276B1;
-}
-
- /* Refine Requirement Button */
- .refine-requirement-button {
-        padding: 10px 15px;
-        color: #fff;
-        background-color: #FFA500;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-left: 10px;
-        margin-top: 10px;
-    }
-
-    .refine-requirement-button:hover {
-        background-color: #FF8C00;
-    }
-
-    /* Search Results Section */
-    .search-results-section {
-        width: 100%;
-        margin-top: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #e6f0ff;
-        overflow-y: auto;
-        max-height: 200px;
-    }
-
-    /* Individual Search Result */
-    .search-result {
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .search-result:last-child {
-        border-bottom: none;
-    }
-
-    .search-result:hover {
-        background-color: #d4e4ff;
-    }
-
-    /* Search Context and Start Execution Buttons */
-    .search-context-button, .start-execution-button {
-        padding: 10px 15px;
-        color: #fff;
-        background-color: #428BCA;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 10px;
-    }
-
-    .search-context-button:hover, .start-execution-button:hover {
-        background-color: #3276B1;
-    }
-</style>
+  <style scoped>
+  .tab-list {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .tab-content {
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+  </style>
+  
 ```
-We need to writes for 
+I have a Tab.vue component defined in file src/components/tabs/Tab.vue
+```
+please write tests for TabList component.
 $end
 
 

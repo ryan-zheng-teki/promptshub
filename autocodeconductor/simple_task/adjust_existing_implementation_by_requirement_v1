@@ -115,74 +115,107 @@ As the best Python software engineer on earth, address the requriements outlined
 Think step by step, and reason comphrehensively to address the task.
 [Requirement]
 $start$
-I have search_result.py defined
+Following is the new definition of RequirementStep, pay attention to how prompt_variable is defined.
 ```
-from typing import List
+class RequirementStep(BaseStep):
+    name = "requirement"
+    
+    # Define the PromptTemplateVariable
+    requirement_variable = PromptTemplateVariable(name="requirement", 
+                                                  source=PromptTemplateVariable.SOURCE_USER_INPUT, 
+                                                  allow_code_context_building=True, 
+                                                  allow_llm_refinement=True)
 
-from src.source_code_tree.code_entities.base_entity import CodeEntity
+    # Define the PromptTemplate
+    prompt_template = PromptTemplate(
+        template="""
+        As the best Python software engineer on earth, address the requriements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
-class ScoredEntity:
+        [Guidelines]
+        - Use appropriate design patterns where neccessary.
+        - Follow SOLID principles and Python's best coding practices.
+        - Consider refactoring where necessary.
+        - Follow python docstring best practices, ensuring each file begins with a file-level docstring.
+        - Include file paths with their complete codes in code block in the output, so i can easily copy and paste. Do not use placeholders.
+        - Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, 
+            the current project's file structure looks like this:
+            - src
+                - ...
+                - semantic_code
+                    - embedding
+                        - openai_embedding_creator.py
+            - tests
+                - unit_tests
+                    - ...
+                    - semantic_code
+                        - embedding
+                            - test_openai_embedding_creator.py
+                - integration_tests
+                    - ...
+                    - semantic_code
+                        - index
+                            - test_index_service_integration.py
+                    
+    - Always use absolute imports over relative ones.
+    - Update docstrings in line with any code modifications.
+
+    Think step by step, and reason comphrehensively to address the task.
+    [Requirement]
+    $start$
+    {requirement}
+    $end$
+    """,
+        variables=[requirement_variable]
+    )
+    
+```
+
+Below is part of test_generation_step.py content.
+```
+"""
+test_generation_step.py
+
+This module contains the TestGenerationStep class, which represents the test generation step of the automated coding workflow.
+"""
+from src.workflow_types.types.base_step import BaseStep
+
+
+class TestGenerationStep(BaseStep):
+    name = "generate_test"
+    prompt_template = """
+
+    You are a senior Python software engineer. You have been given a Python code file provided in the `[Code]` section. Your task is to create integration for the given Python code file.
+
+    [Criteria]
+    - Ensure that the test cases follow pytest best practices.
+    - Create the test file path to follow the same practice used in the current project's test files structure:
+        src
+            semantic_code
+                    embedding
+                        openai_embedding_creator.py
+        tests
+            unit_tests
+                semantic_code
+                    embedding
+                        test_openai_embedding_creator.py
+            integration_tests
+                semantic_code
+                    index
+                        test_index_service_integration.py
+
+    - Ensure that the tests provide full coverage of the code.
+    - Use behavior-driven naming conventions for the test cases.
+
+    [Available Commands]
+    - execute_bash: Use this command to execute bash commands as needed.
+    - write_file: Use this command to write the test cases to a file.
+
+    Think and reason yourself in high detail to address the task.
+
+
+    [Code]
+    {code}
     """
-    Represents a code entity with an associated score.
-
-    Args:
-        entity (CodeEntity): The code entity.
-        score (float): The score of the entity.
-    """
-    def __init__(self, entity: CodeEntity, score: float):
-        self.entity = entity
-        self.score = score
-
-class SearchResult:
-    """
-    Represents a search result, containing the total count of results, 
-    and a list of ScoredEntity objects.
-
-    Args:
-        total (int): The total count of results.
-        entities (List[ScoredEntity]): A list of scored entities.
-    """
-
-    def __init__(self, total: int, entities: List[ScoredEntity]):
-        self.total = total
-        self.entities = entities
 ```
-
-I also have graphql api already defined. 
-```
-    @strawberry.field
-    def search_code_entities(self, query: str) -> JSON:
-        """
-        Searches for relevant code entities based on the provided query.
-
-        Args:
-            query (str): The search query.
-
-        Returns:
-            JSON: The search results.
-        """
-        try:
-            search_result: SearchResult = search_service.search(query)
-            return search_result.to_json()
-        except Exception as e:
-            error_message = f"Error while searching code entities: {str(e)}"
-            logger.error(error_message)
-            return json.dumps({"error": error_message})
-```
-THe CodeEntity has already one interface 
-```
-Class CodeEntity
-    @abstractmethod
-    def to_json(self) -> str:
-        """
-        Convert the code entity to json representation
-        
-        Note: This method should be implemented by the subclasses to
-              provide specific conversion logic.
-        
-        :return: A json representation of the code entity.
-        :rtype: str
-        """
-```
-the to_json from SearchResult needs to be implemented.
+Please update the prompt_template field from TestGenerationStep to the same way how prompt_template field is initialized in RequirementStep. 
 $stop$

@@ -54,43 +54,31 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-This is first step of a bigger task. 
-In this task, you are the best full-stack developer on earth who is proficient in Vue3, Python and Typescript. Please refer to the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+You are a seasoned Vue3 developer with expertise in Typescript. An error will be presented to you in the [Error] section. Your task is to:
+- Analyze the error in details, and generate one initial hypothesis what is causing the error.
+- Determine if you have sufficient information to in order to resolve the error.
 
-[Criteria]
-- Adhere to Vue3 and component design best practices, making use of TypeScript. In Vue 3 templates, use the object directly rather than unwrapping it with `.value`. 
-Sample code:
+If additional context is needed, you have access to the following command to retrieve more information:
+OpenFile: [file path as an argument]
 
-``` 
-<template>
-  <div v-if="isOpen" class="children"></div>
-</template>
-<script setup lang="ts">
-import { Ref } from 'vue';
-const isOpen = ref(false);
-</script>
-```
-- Implement proper communication between components using props, custom events, and the EventBus (if necessary) etc.
-- Evaludate component structuring, and composition if code gets complicated overtime. 
-- Consider what logic can be put in components, what logic can be put in separate
-  typescript file.
-- Structure your file paths according to Vue3 best practices. Here's a suggested structure:
+After retrieving the information you need. You will need to construct another prompt with more context
+by the information you retrieved. 
 
-```
-src
-  ├── components
-  │    ├── WorkflowDisplay.vue
-  │    ├── ...
-  ├── graphql
-  │    ├── queries.ts
-  ├── utils
-  │    ├── JSONParser.ts
-  ├── App.vue
-  ├── ...
-```
+[Error]
+$end$
 
-[Requirement]
-...
+
+
+[Prompt]
+$start$
+Assume the role of an experienced Vue3 developer with a specialization in Typescript. You will be provided with an error in the [Error] section. Here's your action plan:
+
+1. Thoroughly analyze the presented error and propose an initial hypothesis regarding its cause.
+2. Ascertain if the given details are sufficient for resolving the error.
+3. Should you require more context, use the command: OpenFile: [file path as an argument].
+4. Based on the additional details obtained, construct a new prompt enriched with the extended context. And present the new prompt in a code block.
+
+[Error]
 $end$
 
 
