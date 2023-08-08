@@ -63,7 +63,6 @@ As the best python developer on earth, you are given a task situated between `$s
                 index
                     test_index_service_integration.py
 - Include file paths accompanied with complete code in code block for the newly created or updated files.
-- Strive to create first-time correctly runnable unit test
 
 Think step by step, and reason comprehensively to address the task.
 

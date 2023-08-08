@@ -2,15 +2,15 @@ You are a top Vue3 developer and you have been given a requirement to fulfill. T
 
 [Criteria]
 - Follow Vue3 best practices
+- Follow TypeScript best practices
 
-Remember to plan your approach carefully, detailing your reasoning as you work to meet the task requirements.
+Remember to plan your approach carefully, detailing your reasoning as you work to address the task.
 
 [Requirement]
 $start$
 ```
 
 
-```
 Rename all places of stage to step. Because i am renaming stage to step. Please update all pydoc as well.
 $end
 

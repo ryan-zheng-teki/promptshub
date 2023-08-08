@@ -16,7 +16,8 @@ import { Ref} from 'vue';
 const isOpen = ref(false);
 </script>
 - Follow TypeScript best practice for the script area in the component by adding types.
-- Focus on components design, components organizations, and  components-Javascript layer responsiblities.  Don't bother styles for now.
+- Focus on components design, components organizations, and  components-Javascript layer responsiblities. 
+  Don't bother styles for now. Think twice whether this is simpler approach.
 - Create file paths following Vue3 project file structure best practices.
     src
         components
@@ -35,106 +36,6 @@ Think very carefully step by step, and reason comprehensively to address the tas
 
 [Requirement]
 $start$
-I have the following file defined TabList.vue and Tab.vue defined.
-File: src/components/tabs/TabList.vue
-```
-<template>
-  <div>
-    <div class="tab-list">
-      <Tab v-for="tab in tabs" :key="tab.name" @click="changeTab(tab)">{{ tab.name }}</Tab>
-    </div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import Tab from "./Tab.vue";
-
-const props = defineProps({
-  tabs: Array
-});
-
-const emit = defineEmits(["changeTab"]);
-
-const changeTab = (tab) => {
-  emit('changeTab', tab);
-};
-</script>
-```
-File: src/components/tabs/Tab.vue
-```
-<template>
-  <div class="tab" :class="{ active: isActive }" @click="selectTab">
-    <slot />
-  </div>
-</template>
-
-<script setup lang="ts">
-import { computed } from "vue";
-
-const props = defineProps({
-  name: String,
-  selected: Boolean,
-});
-
-const emit = defineEmits(["select"]);
-
-const isActive = computed(() => props.selected);
-
-const selectTab = () => {
-  emit("select", props.name);
-};
-</script>
-
-```
-And also App.vue defined 
-```
-<template>
-  <div class="app">
-    <WorkspaceSelector class="app-workspace-selector" />
-
-    <div class="app-content">
-      <div class="app-row">
-        <FileExplorer class="app-file-explorer" />
-
-        <div class="app-panel">
-          <TabList :tabs="tabs" @changeTab="activeTab = $event"></TabList>
-          
-          <component :is="activeTab.component" />
-        </div>
-      </div>
-    </div>
-
-    <div class="clear"></div>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-import WorkspaceSelector from "./components/workspace/WorkspaceSelector.vue";
-import FileExplorer from "./components/fileExplorer/FileExplorer.vue";
-import ContentViewer from "./components/fileExplorer/FileContentViewer.vue";
-import WorkflowDisplay from "./components/workflow/WorkflowDisplay.vue";
-import TabList from "./components/tabs/TabList.vue";
-
-const tabs = [
-  { name: 'File', component: ContentViewer },
-  { name: 'Agent', component: WorkflowDisplay }
-];
-
-const activeTab = ref(tabs[0]);
-</script>
-```
-
-With this way of implementation. I got the warning
-```
-App.vue? [sm]:12 [Vue warn]: Vue received a Component which was made a reactive object. This can lead to unnecessary performance overhead, and should be avoided by marking the component with `markRaw` or using `shallowRef` instead of `ref`. 
-Component that was made reactive:  {__name: 'WorkflowDisplay', __hmrId: '05618511', __scopeId: 'data-v-05618511', setup: ƒ, render: ƒ, …} 
-  at <App> 
-  at <App>
-```
-
-I also think this way of implementing tabs is complicated. Could you please think hard utilizing your 
-expert knowledge to improve it, whether there are other options.
 $end$
 
 
@@ -187,7 +88,7 @@ $start$
 $end$
 
 
-As an the best full-stack developer on earth who is proficient in Vue3, Python and Typescript, please refer to the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+As the best full-stack developer on earth who is proficient in Vue3, Python and Typescript, please refer to the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Criteria]
 - Adhere to Vue3 and component design best practices, making use of TypeScript. In Vue 3 templates, use the object directly rather than unwrapping it with `.value`. 
@@ -225,165 +126,129 @@ src
 ```
 - Conclude with the complete codes for each file path for easy copy-pasting.
 
-Approach the task methodically, providing comprehensive reasoning for your decisions.
+Think step by step, providing comprehensive reasoning for your decisions.
 
 [Requirement]
 $start$
-I have graphq endpoint search code entities already implemented
-```
-    @strawberry.field
-    def search_code_entities(self, query: str) -> JSON:
-        """
-        Searches for relevant code entities based on the provided query.
-
-        Args:
-            query (str): The search query.
-
-        Returns:
-            JSON: The search results.
-        """
-        try:
-            search_result: SearchResult = search_service.search(query)
-            return search_result.to_json()
-        except Exception as e:
-            error_message = f"Error while searching code entities: {str(e)}"
-            logger.error(error_message)
-            return json.dumps({"error": error_message})
-```
-Now i need to integrate it to frontend. The first task is to create 
-graphql query.
-Here is current queries.ts content 
-```
-import gql from 'graphql-tag';
-
-export const GetWorkflowConfig = gql`
-  query GetWorkflowConfig($workspaceRootPath: String!) {
-    workflowConfig(workspaceRootPath: $workspaceRootPath)
-  }
-`;
-```
-Here is one existing WorkflowDisplay.vue component how to use the generated query 
-```
-<template>
-  <!-- Error & Loading Indicators -->
-  <div v-if="error" class="alert alert-error">
-    <i class="fas fa-exclamation-triangle"></i> Something went wrong...
-  </div>
-  <div v-if="loading" class="alert alert-info">
-    <i class="fas fa-spinner fa-spin"></i> Loading...
-  </div>
-
-  <!-- Workflow Display -->
-  <div class="workflow-container" v-if="workflow">
-    <div class="workflow-steps">
-      <WorkflowStep 
-        v-for="step in Object.values(workflow.steps)" 
-        :key="step.id"
-        :step="step"
-        :isSelected="selectedStep?.id === step.id"
-      />
-    </div>
-
-    <!-- Workflow Step Details -->
-    <WorkflowStepDetails />
-  </div>
-</template>
-
-
-<script setup lang="ts">
-import WorkflowStepDetails from './WorkflowStepDetails.vue';
-import { useQuery } from "@vue/apollo-composable";
-import { GetWorkflowConfig } from "../../graphql/queries";
-import type { GetWorkflowConfigQuery as GetWorkflowConfigQueryType, GetWorkflowConfigQueryVariables } from "../../generated/graphql";
-import WorkflowStep from './WorkflowStep.vue';
-import { computed, provide, ref, watchEffect } from 'vue';
-import { selectedWorkspacePath } from "../../store/workspaceState";
-import type { Step } from '../../types/Workflow';
-import { deserializeWorkflow } from '../../utils/JSONParser';
-
-const workflowConfigQueryVarible: GetWorkflowConfigQueryVariables = { workspaceRootPath: selectedWorkspacePath }
-const { result, loading, error } = useQuery<GetWorkflowConfigQueryType, GetWorkflowConfigQueryVariables>(
-  GetWorkflowConfig, workflowConfigQueryVarible
-);
-
-const workflow = computed(() => {
-  if (!result.value?.workflowConfig) {
-    return null;
-  }
-  try {
-    return deserializeWorkflow(result.value.workflowConfig);
-  } catch (err) {
-    console.error('Failed to parse workflowConfig JSON', err);
-    return null;
-  }
-});
-
-const selectedStep = ref<Step | null>(null);
-provide('selectedStep', selectedStep);
-
-watchEffect(() => {
-  if (!selectedStep.value && workflow.value?.steps) {
-    selectedStep.value = Object.values(workflow.value.steps)[0];
-  }
-});
-</script>
-```
-Here is the WorkflowStepDetails.vue which contains the button to search
+I have the following component implementated
 ```
 <template>
   <!-- Slide-down Panel for Selected Step Details -->
   <transition name="slide-fade">
-      <div v-if="selectedStep" class="selected-step-details">
-          <h3>Selected Step: {{ selectedStep.name }}</h3>
-          <!-- Prompt Editor Integration -->
-          <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
-              <h4>Edit Prompt:</h4>
-              <PromptEditor :template="selectedStep.prompt_template" />
-              
-              <button class="search-context-button">Search Code Context</button>
-              <button class="refine-requirement-button">Refine Requirement</button>
-          </div>
-
-          <!-- Search Results Section -->
-          <div class="search-results-section">
-              <h4>Search Results:</h4>
-              <CodeSearchResult v-for="result in searchResults" :key="result" :snippet="result" />
-          </div>
-
-          <button @click="startExecution" class="start-execution-button">Start Execution</button>
-          <p>Execution Status: {{ executionStatus }}</p>
-          
-          <!-- Integration of the ExecutionLogsPanel component -->
-          <ExecutionLogsPanel :logs="executionLogs" />
+    <div v-if="selectedStep" class="selected-step-details">
+      <h3>Selected Step: {{ selectedStep.name }}</h3>
+      
+      <!-- Prompt Editor Integration -->
+      <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
+        <h4>Edit Prompt:</h4>
+        <PromptEditor 
+            :template="selectedStep.prompt_template" 
+            @update:variable="updatePromptVariable"
+        />
+        
+        <!-- Show Search Code Context button based on allow_code_context_building -->
+        <button v-if="showSearchContextButton" @click="searchCodeContext" class="search-context-button">Search Code Context</button>
+        
+        <!-- Show Refine Requirement button based on allow_llm_refinement -->
+        <button v-if="showRefineRequirementButton" class="refine-requirement-button">Refine Requirement</button>
       </div>
+
+      <!-- Search Results Section -->
+      <div class="search-results-section">
+        <h4>Search Results:</h4>
+        <CodeSearchResult v-for="code_entity in processedSearchData" :key="code_entity.entity.file_path" :snippet="code_entity.entity.docstring" />
+      </div>
+
+      <button @click="startExecution" class="start-execution-button">Start Execution</button>
+      <p data-test-id="execution-status">Execution Status: {{ executionStatus }}</p>
+      
+      <!-- Integration of the ExecutionLogsPanel component -->
+      <ExecutionLogsPanel :logs="executionLogs" />
+    </div>
   </transition>
 </template>
-  
+
 <script setup lang="ts">
-import { inject, Ref, ref } from 'vue';
+import { inject, Ref, ref, computed, watchEffect, reactive } from 'vue';
 import PromptEditor from '../prompt/PromptEditor.vue';
 import CodeSearchResult from './CodeSearchResult.vue';
-import ExecutionLogsPanel from './ExecutionLogsPanel.vue';  // Importing the new component
+import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
+import { useQuery } from "@vue/apollo-composable";
+import { SearchCodeEntities } from "../../graphql/queries";
+import type { SearchCodeEntitiesQuery as SearchCodeEntitiesQueryType, SearchCodeEntitiesQueryVariables }  from "../../generated/graphql";
 
 import type { Step } from '../../types/Workflow';
-  
+import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
+import { deserializeSearchResult } from '../../utils/JSONParser';
+
 const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
 const executionStatus = ref('Not Started');
 const executionLogs = ref('');
 
-const startExecution = () => {
-  executionStatus.value = 'Running';
-  // ... start execution process
-  // ... update executionLogs with streaming logs from the backend
+const processedSearchData = ref<ScoredEntity<CodeEntity>[]>([]);
+
+// Define reactive query variables
+const searchCodeQueryVariables = reactive({ 
+  query: "", // this can be structured based on actual GraphQL query requirements
+  // ... any other query variables ...
+});
+
+// The Apollo query with lazy option
+const { 
+  result: rawSearchData, 
+  loading: searchLoading, 
+  error: searchError,
+  query: executeSearch // This is the manual query execution function
+} = useQuery<SearchCodeEntitiesQueryType, SearchCodeEntitiesQueryVariables>(
+  SearchCodeEntities, 
+  searchCodeQueryVariables,
+  { lazy: true } // This prevents the query from executing immediately
+);
+
+const promptVariables = ref<{ [key: string]: string }>({});
+
+const updatePromptVariable = ({ variableName, value }: { variableName: string, value: string }) => {
+  promptVariables.value[variableName] = value;
 };
 
-const searchResults = ref<string[]>([]);
+const searchCodeContext = () => {
+  // Update the query variable with the user-edited prompt values.
+  // You may need to structure it differently based on the actual GraphQL query.
+  searchCodeQueryVariables.query = JSON.stringify(promptVariables.value);
+
+  // Manually execute the GraphQL query
+  executeSearch();
+};
+
+watchEffect(() => {
+  if (rawSearchData.value) {
+    const parsedSearchResult: SearchResult = deserializeSearchResult(rawSearchData.value.searchCodeEntities);
+    processedSearchData.value = parsedSearchResult.entities;
+  }
+});
+
+const startExecution = () => {
+  executionStatus.value = 'Running';
+  // ... rest remains unchanged ...
+};
+
+// Computed properties remain unchanged
+const showSearchContextButton = computed(() => {
+  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_code_context_building);
+});
+
+const showRefineRequirementButton = computed(() => {
+  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_llm_refinement);
+});
+</script>
+
+<!-- Style part remains unchanged -->
+
 ```
-
-Because the search button is some demo code. You can use a dummy query input 
-at the moment.
+However, the implmentation is not correct regarding the usage of use query to achieve firing 
+query only when button is clicked. Please learn from this link https://v4.apollo.vuejs.org/api/use-lazy-query.html
+and use useLazyQuery to achieve the effect.
 $end$
-
 
 
 
@@ -464,46 +329,7 @@ src
 
 [Requirement]
 $start$
-Due to the data sent from backend has changed. This can be reflected in the the src/utils/JSONParser.spec.ts
-```
-import { deserializeWorkflow, deserializeSearchResult } from '../JSONParser';
-import { Source, Workflow } from '../../types/Workflow';
-import { SearchResult, FunctionEntity } from '../../types/code_entities';
-import { describe, it, expect } from 'vitest';
-
-describe('JSONParser', () => {
-  
-  describe('deserializeWorkflow', () => {
-
-    it('should deserialize valid Workflow JSON', () => {
-      const jsonString = JSON.stringify({
-        name: "Sample Workflow",
-        steps: {
-          "1": {
-            id: "1",
-            name: "Step One",
-            prompt_template: {
-              template: "Hello, {name}!",
-              variables: [{
-                name: "name",
-                source: Source.DYNAMIC,
-                allow_code_context_building: true,
-                allow_llm_refinement: false
-              }]
-            }
-          }
-        }
-      });
-
-      const result: Workflow = deserializeWorkflow(jsonString);
-      expect(result.name).toBe("Sample Workflow");
-      expect(result.steps["1"].name).toBe("Step One");
-      expect(result.steps["1"].prompt_template.template).toBe("Hello, {name}!");
-      expect(result.steps["1"].prompt_template.variables[0].name).toBe("name");
-    });
-
-```
-We also have updated the component code. Here is the src/components/workflow/WorkflowDetails.vue
+I have implemented src/componnents/workflow/WorkflowStepDetails.vue
 ```
 <template>
   <!-- Slide-down Panel for Selected Step Details -->
@@ -516,18 +342,21 @@ We also have updated the component code. Here is the src/components/workflow/Wor
         <h4>Edit Prompt:</h4>
         <PromptEditor :template="selectedStep.prompt_template" />
         
-        <button @click="searchCodeContext" class="search-context-button">Search Code Context</button>
-        <button class="refine-requirement-button">Refine Requirement</button>
+        <!-- Show Search Code Context button based on allow_code_context_building -->
+        <button v-if="showSearchContextButton" @click="searchCodeContext" class="search-context-button">Search Code Context</button>
+        
+        <!-- Show Refine Requirement button based on allow_llm_refinement -->
+        <button v-if="showRefineRequirementButton" class="refine-requirement-button">Refine Requirement</button>
       </div>
 
       <!-- Search Results Section -->
       <div class="search-results-section">
         <h4>Search Results:</h4>
-        <CodeSearchResult v-for="result in searchResults" :key="result.entity.file_path" :snippet="result.entity.docstring" />
+        <CodeSearchResult v-for="code_entity in processedSearchData" :key="code_entity.entity.file_path" :snippet="code_entity.entity.docstring" />
       </div>
 
       <button @click="startExecution" class="start-execution-button">Start Execution</button>
-      <p>Execution Status: {{ executionStatus }}</p>
+      <p data-test-id="execution-status">Execution Status: {{ executionStatus }}</p>
       
       <!-- Integration of the ExecutionLogsPanel component -->
       <ExecutionLogsPanel :logs="executionLogs" />
@@ -536,14 +365,14 @@ We also have updated the component code. Here is the src/components/workflow/Wor
 </template>
   
 <script setup lang="ts">
-import { inject, Ref, ref } from 'vue';
+import { inject, Ref, ref, computed, watch } from 'vue';
 import PromptEditor from '../prompt/PromptEditor.vue';
 import CodeSearchResult from './CodeSearchResult.vue';
 import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
 import { useQuery } from "@vue/apollo-composable";
 import { SearchCodeEntities } from "../../graphql/queries";
+import type { SearchCodeEntitiesQuery as SearchCodeEntitiesQueryType, SearchCodeEntitiesQueryVariables }  from "../../generated/graphql";
 
-// Importing the required types and functions
 import type { Step } from '../../types/Workflow';
 import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
 import { deserializeSearchResult } from '../../utils/JSONParser';
@@ -551,18 +380,25 @@ import { deserializeSearchResult } from '../../utils/JSONParser';
 const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
 const executionStatus = ref('Not Started');
 const executionLogs = ref('');
-const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
 
-const { result: searchResult, loading: searchLoading, error: searchError } = useQuery(
+const processedSearchData = ref<ScoredEntity<CodeEntity>[]>([]);
+
+const { result: rawSearchData, loading: searchLoading, error: searchError } = useQuery<SearchCodeEntitiesQueryType, SearchCodeEntitiesQueryVariables>(
   SearchCodeEntities, 
-  { query: "dummy_query" }  // This is the dummy query for now
+  { query: "dummy_query" }
 );
 
-const searchCodeContext = () => {
-  if (searchResult.value) {
-    const parsedSearchResult: SearchResult = deserializeSearchResult(searchResult.value);
-    searchResults.value = parsedSearchResult.entities;
+// Automatically process data once it's fetched
+watch(rawSearchData, () => {
+  console.log("changed Console", rawSearchData)
+  if (rawSearchData.value) {
+    const parsedSearchResult: SearchResult = deserializeSearchResult(rawSearchData.value.searchCodeEntities);
+    console.log("parsed result", parsedSearchResult)
+    processedSearchData.value = parsedSearchResult.entities;
   }
+});
+
+const searchCodeContext = () => {
   if (searchError.value) {
     console.error("Error while searching for code entities:", searchError.value);
   }
@@ -570,132 +406,70 @@ const searchCodeContext = () => {
 
 const startExecution = () => {
   executionStatus.value = 'Running';
-  // ... start execution process
-  // ... update executionLogs with streaming logs from the backend
+  // ... rest remains unchanged ...
 };
+
+// Computed properties remain unchanged
+const showSearchContextButton = computed(() => {
+  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_code_context_building);
+});
+
+const showRefineRequirementButton = computed(() => {
+  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_llm_refinement);
+});
 </script>
+```
+The searchCodeContext is only a demo code not implemented yet.
+We have a PromptEditor implemented to allow user to edit the prompt 
+template variable in file src/components/prompt/PromptEditor.vue implemented
+```
+<template>
+  <div class="prompt-editor">
+    <Collapsible>
+      <ResizableTextArea 
+          v-model="entirePrompt" 
+          class="entire-prompt-editor"
+      />
+    </Collapsible>
 
+    <Collapsible>
+      <div 
+          v-for="promptTemplateVariable in promptTemplateVariables" 
+          :key="promptTemplateVariable.name" 
+          class="input-container">
+        <label :for="promptTemplateVariable.name">{{ promptTemplateVariable.name }}</label>
+        <ResizableTextArea 
+            v-model="values[promptTemplateVariable.name]" 
+            :placeholder="promptTemplateVariable.name" 
+            class="placeholder-input"
+        />
+      </div>
+    </Collapsible>
+  </div>
+</template>
 
-  <!-- Existing styles for details will be kept here -->
-<style scoped>
-.selected-step-details {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f5f5f5;
-}
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+import Collapsible from '../utils/Collapsible.vue';
+import ResizableTextArea from '../utils/ResizableTextArea.vue';
+import type { PromptTemplate } from '../../types/Workflow';
 
-.slide-fade-enter-active, .slide-fade-leave-active {
-  transition: opacity 0.5s, max-height 0.5s, padding 0.5s;
-}
+const props = defineProps<{ template: PromptTemplate }>();
+const entirePrompt = ref(props.template.template);
+const promptTemplateVariables = computed(() => 
+  props.template.variables.filter(variable => variable.source === 'USER_INPUT')
+);
+const values: { [key: string]: string } = ref({});
 
-.slide-fade-enter, .slide-fade-leave-to {
-  opacity: 0;
-  max-height: 0;
-  padding: 0;
-}
+</script>
+```
+The searchCodeContext button will actually use the value input by the user in the 
+prompt variable editor. There is actually only one prompt variable which supports 
+search code context. 
 
-h3, h4 {
-  color: #333;
-  margin-bottom: 15px;
-}
-
-.prompt-editor-section {
-  width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.start-execution-button {
-  margin-top: 20px;
-  padding: 10px 15px;
-  color: #fff;
-  background-color: #428BCA;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.start-execution-button:hover {
-  background-color: #3276B1;
-}
-
- /* Refine Requirement Button */
- .refine-requirement-button {
-        padding: 10px 15px;
-        color: #fff;
-        background-color: #FFA500;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-left: 10px;
-        margin-top: 10px;
-    }
-
-    .refine-requirement-button:hover {
-        background-color: #FF8C00;
-    }
-
-    /* Search Results Section */
-    .search-results-section {
-        width: 100%;
-        margin-top: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #e6f0ff;
-        overflow-y: auto;
-        max-height: 200px;
-    }
-
-    /* Individual Search Result */
-    .search-result {
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .search-result:last-child {
-        border-bottom: none;
-    }
-
-    .search-result:hover {
-        background-color: #d4e4ff;
-    }
-
-    /* Search Context and Start Execution Buttons */
-    .search-context-button, .start-execution-button {
-        padding: 10px 15px;
-        color: #fff;
-        background-color: #428BCA;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 10px;
-    }
-
-    .search-context-button:hover, .start-execution-button:hover {
-        background-color: #3276B1;
-    }
-</style>
-Actually, the search context button is only shown when allow_code_context_building is true.
-The refinement button is also only shown when allow_llm_refinement is true.
-
-Understand existing code thoroughly, think step by step, and reason comphrehensively
-to make the updates.
+understanding existing given code thoroughly before addressing requirement.
 $end$
+
 
 
 

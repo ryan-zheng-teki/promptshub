@@ -10,7 +10,6 @@ Follow the following guideline:
 4. Based on the additional details obtained, construct a new prompt enriched with the extended context. And present the new prompt in a code block.
 
 
-
 [Error]
 ```
  ❯ src/components/tabs/__tests__/TabList.spec.ts  (3 tests | 1 failed | 2 skipped) 26ms

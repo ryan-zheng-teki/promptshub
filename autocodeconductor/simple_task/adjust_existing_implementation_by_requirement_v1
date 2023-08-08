@@ -71,14 +71,268 @@ As a top Python software engineer, you are tasked with the requirements provided
 - Always use absolute import instead of relative import
 - Update relevant docstrings when code changes.
                     
-Think very carefully step by step  to address the task.
+Think step by step and reason comprehensively to address the task.
 
 [Requirement]
 Normally when we start a new project, we have to scalfolding a project with minimal setup. For example, for frontend Vue3, we normally use vite+graphql. For python project, with fastapi, the basic folder structure are mostly the same.
 The project root folder is provided by WorkspaceSetting object
 ```
 
+
+
+As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Consider what design patterns can be used.
+- Adhere to SOLID principles.
+- Adhere to Python coding best practices.
+- Consider refactoring if neccessary
+- Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
+- Include file paths with their complete codes in code block in the output for easy copy paste.
+- Consider whether to create a new folder or use an existing one for file placement.
+  Create separate file for each new class. Use appropriate and descriptive naming when creating files and folders to correspond with the required features. 
+  For reference, here is a sample of the current project file structure:
+    src
+        ...
+        workspaces
+            workspace_service.py
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- Always use absolute import instead of relative import
+- Update relevant docstrings when code changes.
+                    
+Think step by step and reason comprehensively to address the task.
+
+[Requirement]
+I have WorkspaceService.py implemented
+File: src/workspaces/workspace_service.py
 ```
+# src/workspaces/workspace_service.py
+"""
+This module provides a service for handling operations related to workspaces.
+
+This service is responsible for adding workspaces, building their directory structures, 
+and maintaining their settings. A workspace is represented by its root path, 
+and its setting is stored in a dictionary, with the root path as the key. 
+Upon successful addition of a workspace, a directory tree structure represented 
+by TreeNode objects is returned.
+"""
+
+import logging
+from typing import Dict, Optional
+from src.singleton import SingletonMeta
+
+from src.source_code_tree.file_explorer.directory_traversal import DirectoryTraversal
+from src.source_code_tree.file_explorer.sort_strategy.default_sort_strategy import DefaultSortStrategy
+from src.source_code_tree.file_explorer.traversal_ignore_strategy.git_ignore_strategy import GitIgnoreStrategy
+from src.source_code_tree.file_explorer.traversal_ignore_strategy.specific_folder_ignore_strategy import SpecificFolderIgnoreStrategy
+from src.workspaces.setting.workspace_setting_registry import WorkspaceSettingRegistry
+from src.workspaces.workspace_directory_tree import WorkspaceDirectoryTree
+from src.workspaces.setting.workspace_setting import WorkspaceSetting
+from src.source_code_tree.file_explorer.tree_node import TreeNode
+from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow  # Updated import
+
+
+logger = logging.getLogger(__name__)
+class WorkspaceService(metaclass=SingletonMeta):
+    """
+    Service to handle operations related to workspaces.
+
+    Attributes:
+        workspace_settings_registry (WorkspaceSettingRegistry): A registry to store workspace settings.
+        workflows (Dict[str, AutomatedCodingWorkflow]): A dictionary mapping workspace root paths
+            to their corresponding AutomatedCodingWorkflow.
+    """
+
+    def __init__(self):
+        """
+        Initialize WorkspaceService.
+        """
+        self.workspace_settings_registry = WorkspaceSettingRegistry()
+        self.workflows: Dict[str, AutomatedCodingWorkflow] = {}
+
+    def add_workspace(self, workspace_root_path: str) -> TreeNode:
+        """
+        Adds a workspace setting to the workspace settings, builds the directory tree of the workspace, 
+        and initializes an AutomatedCodingWorkflow for the workspace.
+
+        Args:
+            workspace_root_path (str): The root path of the workspace.
+
+        Returns:
+            TreeNode: The root TreeNode of the directory tree.
+        """
+        workspace_setting = WorkspaceSetting(root_path=workspace_root_path)
+        directory_tree = self.build_workspace_directory_tree(workspace_root_path)
+        workspace_setting.set_directory_tree(WorkspaceDirectoryTree(directory_tree))
+        
+        # Register the WorkspaceSetting
+        self.workspace_settings_registry.add_setting(workspace_root_path, workspace_setting)
+        
+        # Initialize AutomatedCodingWorkflow with the workspace setting
+        self.workflows[workspace_root_path] = AutomatedCodingWorkflow(workspace_setting)
+
+        return directory_tree
+
+    def build_workspace_directory_tree(self, workspace_root_path: str) -> TreeNode:
+        """
+        Builds and returns the directory tree of a workspace.
+
+        Args:
+            workspace_root_path (str): The root path of the workspace.
+
+        Returns:
+            TreeNode: The root TreeNode of the directory tree.
+        """
+
+        files_ignore_strategies = [
+            SpecificFolderIgnoreStrategy(root_path=workspace_root_path, folders_to_ignore=['.git']),
+            GitIgnoreStrategy(root_path=workspace_root_path)
+        ]
+        self.directory_traversal = DirectoryTraversal(strategies=files_ignore_strategies)
+
+        directory_tree = self.directory_traversal.build_tree(workspace_root_path)
+        return directory_tree
+
+    def get_workspace_setting(self, workspace_root_path: str) -> Optional[WorkspaceSetting]:
+        """
+        Retrieves a workspace setting from the workspace settings registry.
+
+        Args:
+            workspace_root_path (str): The root path of the workspace.
+
+        Returns:
+            Optional[WorkspaceSetting]: The workspace setting if it exists, None otherwise.
+        """
+        return self.workspace_settings_registry.get_setting(workspace_root_path)
+```
+add workspace should first check whether this workspace exist or not. If it already
+exists. Then give message workspace already exists.
+
+Here is the graphql API.
+```
+    @strawberry.mutation
+    def add_workspace(self, workspace_root_path: str) -> JSON:
+        """
+        Adds a new workspace to the workspace service and
+        returns a JSON representation of the workspace directory tree.
+
+        Args:
+            workspace_root_path (str): The root path of the workspace to be added.
+
+        Returns:
+            JSON: The JSON representation of the workspace directory tree if the workspace
+            was added successfully, otherwise a JSON with an error message.
+        """
+        try:
+            workspace_tree: TreeNode = workspace_service.add_workspace(workspace_root_path)
+            return workspace_tree.to_json()
+        except Exception as e:
+            error_message = f"Error while adding workspace: {str(e)}"
+            logger.error(error_message)
+            return json.dumps({"error": error_message})
+```
+$end$
+
+
+
+As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criterias]
+- Consider what design patterns can be used.
+- Adhere to Python coding best practices.
+- Consider refactoring if neccessary.
+- Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
+- Include file paths with their complete codes in code block in the output for easy copy paste.
+- Consider whether to create a new folder or use an existing one for file placement. Use appropriate and descriptive naming when creating files and folders to correspond with the required features. 
+  For reference, here is a sample of the current project file structure:
+    src
+        ...
+        workspaces
+            workspace_service.py
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- Always use absolute import instead of relative import
+- Update relevant docstrings when code changes.
+                    
+Think step by step and reason comprehensively to address the task. Make sure integrating the criterias in your thinking.
+
+[Requirement]
+I have the PythonProjectRefactorer defined
+```
+"""
+openai_gpt_integration.py: Implements the OpenAIGPTIntegration class which extends the BaseLLMIntegration abstract base class.
+This class integrates the OpenAI GPT models (gpt3.5-turbo, gpt4) with the agent program. It uses the OpenAI API to process a list of input messages and return the model's responses.
+"""
+
+import openai
+from src.config import config
+from src.llm_integrations.base_llm_integration import BaseLLMIntegration
+
+class OpenAIGPTIntegration(BaseLLMIntegration):
+    """
+    OpenAIGPTIntegration is a concrete class that extends the BaseLLMIntegration class.
+    This class is responsible for processing input messages and returning responses from the OpenAI GPT model.
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.api_key = config.get('OPEN_AI_API_KEY')
+        self.model = config.get('OPEN_AI_MODEL', 'gpt-3.5-turbo')  # default model is gpt-3.5-turbo
+
+    async def process_input_messages(self, input_messages):
+        """
+        Process a list of input messages and return the LLM's responses.
+
+        :param input_messages: List of input messages to be processed.
+        :type input_messages: list
+        :return: List of responses from the OpenAI GPT model
+        :rtype: list
+        """
+        responses = []
+        for message in input_messages:
+            chat_messages = [{"role": "user", "content": message}]
+            chat_completion = openai.ChatCompletion.create(model=self.model, messages=chat_messages)
+            responses.append(chat_completion.choices[0].message.content)
+        return responses
+
+```
+I want to be able to support both chat and completion API. I also want to be able to support 
+different models. Because some action classes in the project needs gpt3.5, some needs gpt4.0
+```
+$end$
+
+
+
+
+
+
+
+
 
 
 
@@ -91,7 +345,6 @@ As the best Python software engineer on earth, address the requriements outlined
 - Follow python docstring best practices, ensuring each file begins with a file-level docstring.
 - Include file paths with their complete codes in code block in the output, so i can easily copy and paste. Do not use placeholders.
 - Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, the current project's file structure looks like this:
-
     - src
         - ...
         - semantic_code
@@ -108,7 +361,6 @@ As the best Python software engineer on earth, address the requriements outlined
             - semantic_code
                 - index
                     - test_index_service_integration.py
-                    
 - Always use absolute imports over relative ones.
 - Update docstrings in line with any code modifications.
 
@@ -217,5 +469,5 @@ class TestGenerationStep(BaseStep):
     {code}
     """
 ```
-Please update the prompt_template field from TestGenerationStep to the same way how prompt_template field is initialized in RequirementStep. 
+
 $stop$
