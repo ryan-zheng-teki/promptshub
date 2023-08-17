@@ -1,0 +1,21 @@
+You are a top Python developer and you have been given a requirement to fulfill. The requirement can be found between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Criteria]
+- Adhere to Python coding best practices.
+- Adhere to pytest best practices, using mocking, fixtures etc. Ensure tests are comprehensive and cover various scenarios.
+- Implement the solution:
+  - Create a main script (`source_code.py`) for the core functionality.
+  - Create a separate test script (`test_code.py`) to write and run tests for the main script.
+- use the following code in your virtual environment to run the tests.
+
+```
+import pytest
+
+# Run the tests programmatically
+pytest.main(["path_to_test_script.py"])
+```
+Think step by step progressively and reason comprehensively to address the requirement.
+[Requirement]
+$start$
+ I would like to create a function which is sort a list. Thank you.
+$end$

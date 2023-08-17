@@ -251,10 +251,9 @@ $end$
 As a top Python software engineer, you are tasked with the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Criterias]
-- Consider what design patterns can be used.
-- Adhere to Python coding best practices.
-- Consider refactoring if neccessary.
-- Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
+- Adhere to Python PEP8 coding best practices. Use type hinting.
+- Think whether refactoring is needed to achieve better modularity and testing.
+- Don't forget add pydoc at the begining of file.
 - Include file paths with their complete codes in code block in the output for easy copy paste.
 - Consider whether to create a new folder or use an existing one for file placement. Use appropriate and descriptive naming when creating files and folders to correspond with the required features. 
   For reference, here is a sample of the current project file structure:
@@ -282,56 +281,158 @@ As a top Python software engineer, you are tasked with the requirements provided
 Think step by step and reason comprehensively to address the task. Make sure integrating the criterias in your thinking.
 
 [Requirement]
-I have the PythonProjectRefactorer defined
+I have PythonProjectRefactorer defined. But the refactor function is not correct.
+$start$
 ```
 """
-openai_gpt_integration.py: Implements the OpenAIGPTIntegration class which extends the BaseLLMIntegration abstract base class.
-This class integrates the OpenAI GPT models (gpt3.5-turbo, gpt4) with the agent program. It uses the OpenAI API to process a list of input messages and return the model's responses.
+Module: python_project_refactorer
+
+This module offers the PythonProjectRefactorer class which is tasked with refactoring Python projects.
+It provides mechanisms to organize, structure, and refactor Python source code in alignment with 
+best practices and standards specific to Python development.
 """
+from src.llm_integrations.llm_integration_registry import LLMIntegrationRegistry
+from src.llm_integrations.openai_integration.openai_models import OpenAIModel
+from src.prompt.prompt_template import PromptTemplate
+from src.prompt.prompt_template_variable import PromptTemplateVariable
+from src.source_code_tree.file_explorer.file_reader import FileReader
+from src.workspaces.setting.workspace_setting import WorkspaceSetting
+from src.workspaces.workspace_directory_tree import WorkspaceDirectoryTree
+from src.workspaces.workspace_tools.workspace_refactorer.base_project_refactorer import BaseProjectRefactorer
 
-import openai
-from src.config import config
-from src.llm_integrations.base_llm_integration import BaseLLMIntegration
-
-class OpenAIGPTIntegration(BaseLLMIntegration):
+class PythonProjectRefactorer(BaseProjectRefactorer):
     """
-    OpenAIGPTIntegration is a concrete class that extends the BaseLLMIntegration class.
-    This class is responsible for processing input messages and returning responses from the OpenAI GPT model.
+    Class to refactor Python projects.
+    """
+    
+    file_path_variable = PromptTemplateVariable(name="file_path", 
+                                           source=PromptTemplateVariable)
+    source_code_variable = PromptTemplateVariable(name="source_code", 
+                                           source=PromptTemplateVariable)
+    # Define the prompt template string
+    template_str = """
+    You are a top python software engineer who creates maintainable and understandable codes. You are given a task located between '$start$' and '$end$' tokens in the `[Task]` section.
+
+    [Criterias]
+    - Follow python PEP8 best practices. Don't forget add or update file-level docstring
+    - Include complete updated code in code block. Do not use placeholders.
+
+    Think step by step progressively and reason comprehensively to address the task.
+
+    [Task]
+    $start$
+    Please examine the source code in file {file_path}
+    ```
+    {source_code}
+    ```
+    $end$
     """
 
-    def __init__(self):
-        super().__init__()
-        self.api_key = config.get('OPEN_AI_API_KEY')
-        self.model = config.get('OPEN_AI_MODEL', 'gpt-3.5-turbo')  # default model is gpt-3.5-turbo
+    # Define the class-level prompt_template
+    prompt_template: PromptTemplate = PromptTemplate(template=template_str, variables=[file_path_variable, source_code_variable])
 
-    async def process_input_messages(self, input_messages):
+    def __init__(self, workspace_setting: WorkspaceSetting):
         """
-        Process a list of input messages and return the LLM's responses.
+        Constructor for PythonProjectRefactorer.
 
-        :param input_messages: List of input messages to be processed.
-        :type input_messages: list
-        :return: List of responses from the OpenAI GPT model
-        :rtype: list
+        Args:
+            workspace_setting (WorkspaceSetting): The setting of the workspace to be refactored.
         """
-        responses = []
-        for message in input_messages:
-            chat_messages = [{"role": "user", "content": message}]
-            chat_completion = openai.ChatCompletion.create(model=self.model, messages=chat_messages)
-            responses.append(chat_completion.choices[0].message.content)
-        return responses
+        self.workspace_setting: WorkspaceSetting = workspace_setting
+        self.llm_integration = LLMIntegrationRegistry().get(OpenAIModel.GPT_4)
 
+    def refactor(self):
+        """
+        Refactor the Python project.
+
+        This method iterates over each Python file in the src directory and sends a prompt for refactoring to LLM.
+        """
+        directory_tree: WorkspaceDirectoryTree = self.workspace_setting.directory_tree
+
+        for node in directory_tree.get_all_nodes():
+            if node.is_file and "src" in node.path and "__init__.py" not in node.path:
+                prompt = self.construct_prompt(node.path)
+                response = self.llm_integration.process_input_messages(prompt)
+                print(f"Refactoring suggestions for {node.path}:\n{response}")
 ```
-I want to be able to support both chat and completion API. I also want to be able to support 
-different models. Because some action classes in the project needs gpt3.5, some needs gpt4.0
+Here is the definition of WorkspaceDirectoryTree
+```
+class WorkspaceDirectoryTree:
+    """
+    Class to manage workspace directory tree.
+    """
+
+    def __init__(self, root_node: TreeNode):
+        """
+        Initialize WorkspaceDirectoryTree.
+        """
+        self.root_node = root_node
+
+    def add_file_or_folder(self, file_or_folder_path: str):
+        """
+        Adds a file or folder to the workspace directory tree.
+
+        Args:
+            file_or_folder_path (str): The path of the file or folder to be added.
+        """
+        # Code to add the file or folder to the tree
+
+    def remove_file_or_folder(self, file_or_folder_path: str):
+        """
+        Removes a file or folder from the workspace directory tree.
+
+        Args:
+            file_or_folder_path (str): The path of the file or folder to be removed.
+        """
+        # Code to remove the file or folder from the tree
+
+    def get_tree(self) -> TreeNode:
+        """
+        Gets the workspace directory tree.
+
+        Returns:
+            TreeNode: The root node of the workspace directory tree.
+        """
+        return self.root_node
+```
+TreeNode is defined as 
+```
+import json
+
+
+class TreeNode:
+    """
+    A class used to represent a file or directory in a directory structure.
+
+    Attributes
+    ----------
+    name : str
+        The name of the file or directory.
+    path : str
+        The full path of the file or directory.
+    is_file : bool
+        True if this node represents a file, False if it represents a directory.
+    children : list[TreeNode]
+        The children of this node. Each child is a TreeNode representing a file or subdirectory.
+
+    Methods
+    -------
+    add_child(node: TreeNode)
+        Adds a child to this node.
+    """
+
+    def __init__(self, name: str, path: str, is_file: bool = False):
+        self.name = name
+        self.path = path
+        self.is_file = is_file
+        self.children = []
+
+    def add_child(self, node):
+        """Adds a child to this node."""
+        self.children.append(node)
+    # rest of code
 ```
 $end$
-
-
-
-
-
-
-
 
 
 
@@ -339,11 +440,9 @@ $end$
 As the best Python software engineer on earth, address the requriements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Guidelines]
-- Use appropriate design patterns where neccessary.
-- Follow SOLID principles and Python's best coding practices.
-- Consider refactoring where necessary.
+- Use appropriate design patterns where neccessary. Think about refactoring for better modularity and easier testing.
+- Follow SOLID principles and Python PEP8 coding best practices. Add type hints as well.
 - Follow python docstring best practices, ensuring each file begins with a file-level docstring.
-- Include file paths with their complete codes in code block in the output, so i can easily copy and paste. Do not use placeholders.
 - Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, the current project's file structure looks like this:
     - src
         - ...
@@ -363,111 +462,681 @@ As the best Python software engineer on earth, address the requriements outlined
                     - test_index_service_integration.py
 - Always use absolute imports over relative ones.
 - Update docstrings in line with any code modifications.
-
-Think step by step, and reason comphrehensively to address the task.
+- After intermediate steps, output the complete updated code to the specified file path using the json format:
+    ```json
+    {
+        "command": "write_file",
+        "file_path": "[here is the real file path]",
+        "content": "[Here is the complete content of the updated file]"
+    }
+    ```
+Think step by step progressively and reason comphrehensively to address the task.
 [Requirement]
 $start$
-Following is the new definition of RequirementStep, pay attention to how prompt_variable is defined.
-```
-class RequirementStep(BaseStep):
-    name = "requirement"
-    
-    # Define the PromptTemplateVariable
-    requirement_variable = PromptTemplateVariable(name="requirement", 
-                                                  source=PromptTemplateVariable.SOURCE_USER_INPUT, 
-                                                  allow_code_context_building=True, 
-                                                  allow_llm_refinement=True)
-
-    # Define the PromptTemplate
-    prompt_template = PromptTemplate(
-        template="""
-        As the best Python software engineer on earth, address the requriements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
-
-        [Guidelines]
-        - Use appropriate design patterns where neccessary.
-        - Follow SOLID principles and Python's best coding practices.
-        - Consider refactoring where necessary.
-        - Follow python docstring best practices, ensuring each file begins with a file-level docstring.
-        - Include file paths with their complete codes in code block in the output, so i can easily copy and paste. Do not use placeholders.
-        - Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, 
-            the current project's file structure looks like this:
-            - src
-                - ...
-                - semantic_code
-                    - embedding
-                        - openai_embedding_creator.py
-            - tests
-                - unit_tests
-                    - ...
-                    - semantic_code
-                        - embedding
-                            - test_openai_embedding_creator.py
-                - integration_tests
-                    - ...
-                    - semantic_code
-                        - index
-                            - test_index_service_integration.py
-                    
-    - Always use absolute imports over relative ones.
-    - Update docstrings in line with any code modifications.
-
-    Think step by step, and reason comphrehensively to address the task.
-    [Requirement]
-    $start$
-    {requirement}
-    $end$
-    """,
-        variables=[requirement_variable]
-    )
-    
-```
-
-Below is part of test_generation_step.py content.
+Previously we have implemented
+File: src/llm_integrations/openai_integration/openai_gpt_integration.py
 ```
 """
-test_generation_step.py
-
-This module contains the TestGenerationStep class, which represents the test generation step of the automated coding workflow.
+openai_gpt_integration.py: Implements the OpenAIGPTIntegration class which extends the BaseLLMIntegration abstract base class.
+This class integrates the OpenAI GPT models (gpt3.5-turbo, gpt4) with the agent program. It uses the OpenAI API to process a list of input messages and return the model's responses.
 """
-from src.workflow_types.types.base_step import BaseStep
 
+from src.config import config
+from src.llm_integrations.openai_integration.base_openai_api import BaseOpenAIApi
+from src.llm_integrations.openai_integration.openai_api_factory import ApiType, OpenAIApiFactory
+from src.llm_integrations.base_llm_integration import BaseLLMIntegration
+from src.llm_integrations.openai_integration.openai_models import OpenAIModel
 
-class TestGenerationStep(BaseStep):
-    name = "generate_test"
-    prompt_template = """
-
-    You are a senior Python software engineer. You have been given a Python code file provided in the `[Code]` section. Your task is to create integration for the given Python code file.
-
-    [Criteria]
-    - Ensure that the test cases follow pytest best practices.
-    - Create the test file path to follow the same practice used in the current project's test files structure:
-        src
-            semantic_code
-                    embedding
-                        openai_embedding_creator.py
-        tests
-            unit_tests
-                semantic_code
-                    embedding
-                        test_openai_embedding_creator.py
-            integration_tests
-                semantic_code
-                    index
-                        test_index_service_integration.py
-
-    - Ensure that the tests provide full coverage of the code.
-    - Use behavior-driven naming conventions for the test cases.
-
-    [Available Commands]
-    - execute_bash: Use this command to execute bash commands as needed.
-    - write_file: Use this command to write the test cases to a file.
-
-    Think and reason yourself in high detail to address the task.
-
-
-    [Code]
-    {code}
+class OpenAIGPTIntegration(BaseLLMIntegration):
     """
-```
+    OpenAIGPTIntegration is a concrete class that extends the BaseLLMIntegration class.
+    This class is responsible for processing input messages and returning responses from the OpenAI GPT model.
+    
+    :param api_type: Type of the OpenAI API to use.
+    :type api_type: ApiType
+    :param model_name: Name of the OpenAI model to be used. If not provided, the default from the respective API class will be used.
+    :type model_name: OpenAIModel, optional
+    """
 
+    def __init__(self, api_type: ApiType = ApiType.CHAT, model_name: OpenAIModel = None):
+        super().__init__()
+        if model_name:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type, model_name)
+        else:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type)
+    
+    def process_input_messages(self, input_messages):
+        """
+        Process a list of input messages and return the LLM's responses.
+
+        :param input_messages: List of input messages to be processed.
+        :type input_messages: list
+        :return: List of responses from the OpenAI GPT model
+        :rtype: list
+        """
+
+        return self.openai_api.process_input_messages(input_messages)  # We're now processing one message at a time
+
+```
+But the process_input_messages implemention is already changed. You can learn how to 
+use the api now from the following test.
+File: tests/integration_tests/llm_integrations/openai_integration/test_openai_chat_api_integration.py
+```
+@pytest.mark.skip(reason="Integration test calling the real OpenAI API")
+def test_refine_writing_integration():
+    """
+    Integration test to check if the process_input_messages method interacts correctly with the OpenAI Chat API for refining writing tasks.
+    """
+    api = OpenAIChatApi()
+    
+    system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+    user_message_content = """
+    As an expert in refining writing, your task is to improve the given writing situated within the [Writing] section. The content of the writing is situated within the $start$ and $end$ tokens.
+
+    Follow the steps below, each accompanied by a title and a description:
+    1. Analyze the Prompt:
+       - Dissect the prompt to understand its content and objectives.
+    2. Determine the Domain:
+       - Identify the domain to which this prompt belongs.
+    3. Evaluate and Recommend Linguistic Enhancements:
+       - Articulate your thoughts on the prompt's conciseness, clarity, accuracy, effectiveness, sentence structure, consistency, coherence, word order, content structure, usage of words, etc. If you think there are areas that need to be improved, then share your detailed opinions where and why.
+    4. Present the Refined Prompt:
+       - Apply your improvement suggestions from step 3 and present the refined prompt in a code block.
+
+    [Writing]
+    $start$
+    As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
+    ... (rest of the content)
+    $end$
+    """
+    user_message = UserMessage(user_message_content)
+    
+    messages = [system_message, user_message]
+    response = api.process_input_messages(messages)
+    assert isinstance(response, AssistantMessage)  # Ensure response is an AssistantMessage instance
+    assert isinstance(response.content, str)  # The content of the response should be a string
+```
+Now we need to update the implementation of OpenAIGPTIntegration. The input_messages of strings.
+By the way, please use system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
 $stop$
+
+
+
+
+
+
+
+
+
+
+
+As the best Python software engineer on earth, address the requirements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Guidelines]
+- Use appropriate design patterns where necessary. Think about refactoring for better modularity and easier testing.
+- Follow SOLID principles and Python PEP8 coding best practices. Add type hints as well.
+- Follow python docstring best practices, ensuring each file begins with a file-level docstring.
+- Clearly explain any design decisions, considerations, or changes made to the existing architecture.
+- Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, the current project's file structure is provided.
+    
+- Always use absolute imports over relative ones.
+- Update docstrings in line with any code modifications.
+- After each task, output the complete updated code between `##code_start##` and `##code_end##` tokens. For each code section, provide the intended file path in the format:
+    ```
+    FILE_PATH: [here is the real file path]
+    ##code_start##
+    [Here is the complete content of the updated file]
+    ##code_end##
+    ```
+Ensure to think step by step progressively and reason comprehensively to address the task.
+
+
+[Requirement]
+$start$
+here is the requirement
+$end$
+
+Previously we have implemented
+File: src/llm_integrations/openai_integration/openai_gpt_integration.py
+```
+"""
+openai_gpt_integration.py: Implements the OpenAIGPTIntegration class which extends the BaseLLMIntegration abstract base class.
+This class integrates the OpenAI GPT models (gpt3.5-turbo, gpt4) with the agent program. It uses the OpenAI API to process a list of input messages and return the model's responses.
+"""
+
+from src.config import config
+from src.llm_integrations.openai_integration.base_openai_api import BaseOpenAIApi
+from src.llm_integrations.openai_integration.openai_api_factory import ApiType, OpenAIApiFactory
+from src.llm_integrations.base_llm_integration import BaseLLMIntegration
+from src.llm_integrations.openai_integration.openai_models import OpenAIModel
+
+class OpenAIGPTIntegration(BaseLLMIntegration):
+    """
+    OpenAIGPTIntegration is a concrete class that extends the BaseLLMIntegration class.
+    This class is responsible for processing input messages and returning responses from the OpenAI GPT model.
+    
+    :param api_type: Type of the OpenAI API to use.
+    :type api_type: ApiType
+    :param model_name: Name of the OpenAI model to be used. If not provided, the default from the respective API class will be used.
+    :type model_name: OpenAIModel, optional
+    """
+
+    def __init__(self, api_type: ApiType = ApiType.CHAT, model_name: OpenAIModel = None):
+        super().__init__()
+        if model_name:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type, model_name)
+        else:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type)
+    
+    def process_input_messages(self, input_messages):
+        """
+        Process a list of input messages and return the LLM's responses.
+
+        :param input_messages: List of input messages to be processed.
+        :type input_messages: list
+        :return: List of responses from the OpenAI GPT model
+        :rtype: list
+        """
+
+        return self.openai_api.process_input_messages(input_messages)  # We're now processing one message at a time
+
+```
+But the process_input_messages implemention is already changed. You can learn how to 
+use the api now from the following test.
+File: tests/integration_tests/llm_integrations/openai_integration/test_openai_chat_api_integration.py
+```
+@pytest.mark.skip(reason="Integration test calling the real OpenAI API")
+def test_refine_writing_integration():
+    """
+    Integration test to check if the process_input_messages method interacts correctly with the OpenAI Chat API for refining writing tasks.
+    """
+    api = OpenAIChatApi()
+    
+    system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+    user_message_content = """
+    As an expert in refining writing, your task is to improve the given writing situated within the [Writing] section. The content of the writing is situated within the $start$ and $end$ tokens.
+
+    Follow the steps below, each accompanied by a title and a description:
+    1. Analyze the Prompt:
+       - Dissect the prompt to understand its content and objectives.
+    2. Determine the Domain:
+       - Identify the domain to which this prompt belongs.
+    3. Evaluate and Recommend Linguistic Enhancements:
+       - Articulate your thoughts on the prompt's conciseness, clarity, accuracy, effectiveness, sentence structure, consistency, coherence, word order, content structure, usage of words, etc. If you think there are areas that need to be improved, then share your detailed opinions where and why.
+    4. Present the Refined Prompt:
+       - Apply your improvement suggestions from step 3 and present the refined prompt in a code block.
+
+    [Writing]
+    $start$
+    As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
+    ... (rest of the content)
+    $end$
+    """
+    user_message = UserMessage(user_message_content)
+    
+    messages = [system_message, user_message]
+    response = api.process_input_messages(messages)
+    assert isinstance(response, AssistantMessage)  # Ensure response is an AssistantMessage instance
+    assert isinstance(response.content, str)  # The content of the response should be a string
+```
+Now we need to update the implementation of OpenAIGPTIntegration. The input_messages of strings.
+By the way, please use system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+$stop$
+
+
+
+
+
+
+As the best Python software engineer on earth, address the requirements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Guidelines]
+- Use appropriate design patterns where necessary. Think about refactoring for better modularity and easier testing.
+- Follow SOLID principles and Python PEP8 coding best practices. Add type hints as well.
+- Follow python docstring best practices, ensuring each file begins with a file-level docstring.
+- Clearly explain any design decisions, considerations, or changes made to the existing architecture.
+- Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, the current project's file structure is provided.
+    
+- Always use absolute imports over relative ones.
+- Update docstrings in line with any code modifications.
+- Use the following output formats for either create file, or update files. Here is one example:
+    {
+        command: update_file
+        file_path: 
+        content: 
+    }
+Ensure to think step by step progressively and reason comprehensively to address the task.
+Make sure your output of your thinking conforms to the guidelines.
+
+[Requirement]
+$start$
+here is the requirement
+$end$
+
+Previously we have implemented
+File: src/llm_integrations/openai_integration/openai_gpt_integration.py
+```
+"""
+openai_gpt_integration.py: Implements the OpenAIGPTIntegration class which extends the BaseLLMIntegration abstract base class.
+This class integrates the OpenAI GPT models (gpt3.5-turbo, gpt4) with the agent program. It uses the OpenAI API to process a list of input messages and return the model's responses.
+"""
+
+from src.config import config
+from src.llm_integrations.openai_integration.base_openai_api import BaseOpenAIApi
+from src.llm_integrations.openai_integration.openai_api_factory import ApiType, OpenAIApiFactory
+from src.llm_integrations.base_llm_integration import BaseLLMIntegration
+from src.llm_integrations.openai_integration.openai_models import OpenAIModel
+
+class OpenAIGPTIntegration(BaseLLMIntegration):
+    """
+    OpenAIGPTIntegration is a concrete class that extends the BaseLLMIntegration class.
+    This class is responsible for processing input messages and returning responses from the OpenAI GPT model.
+    
+    :param api_type: Type of the OpenAI API to use.
+    :type api_type: ApiType
+    :param model_name: Name of the OpenAI model to be used. If not provided, the default from the respective API class will be used.
+    :type model_name: OpenAIModel, optional
+    """
+
+    def __init__(self, api_type: ApiType = ApiType.CHAT, model_name: OpenAIModel = None):
+        super().__init__()
+        if model_name:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type, model_name)
+        else:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type)
+    
+    def process_input_messages(self, input_messages):
+        """
+        Process a list of input messages and return the LLM's responses.
+
+        :param input_messages: List of input messages to be processed.
+        :type input_messages: list
+        :return: List of responses from the OpenAI GPT model
+        :rtype: list
+        """
+
+        return self.openai_api.process_input_messages(input_messages)  # We're now processing one message at a time
+
+```
+But the process_input_messages implemention is already changed. You can learn how to 
+use the api now from the following test.
+File: tests/integration_tests/llm_integrations/openai_integration/test_openai_chat_api_integration.py
+```
+@pytest.mark.skip(reason="Integration test calling the real OpenAI API")
+def test_refine_writing_integration():
+    """
+    Integration test to check if the process_input_messages method interacts correctly with the OpenAI Chat API for refining writing tasks.
+    """
+    api = OpenAIChatApi()
+    
+    system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+    user_message_content = """
+    As an expert in refining writing, your task is to improve the given writing situated within the [Writing] section. The content of the writing is situated within the $start$ and $end$ tokens.
+
+    Follow the steps below, each accompanied by a title and a description:
+    1. Analyze the Prompt:
+       - Dissect the prompt to understand its content and objectives.
+    2. Determine the Domain:
+       - Identify the domain to which this prompt belongs.
+    3. Evaluate and Recommend Linguistic Enhancements:
+       - Articulate your thoughts on the prompt's conciseness, clarity, accuracy, effectiveness, sentence structure, consistency, coherence, word order, content structure, usage of words, etc. If you think there are areas that need to be improved, then share your detailed opinions where and why.
+    4. Present the Refined Prompt:
+       - Apply your improvement suggestions from step 3 and present the refined prompt in a code block.
+
+    [Writing]
+    $start$
+    As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
+    ... (rest of the content)
+    $end$
+    """
+    user_message = UserMessage(user_message_content)
+    
+    messages = [system_message, user_message]
+    response = api.process_input_messages(messages)
+    assert isinstance(response, AssistantMessage)  # Ensure response is an AssistantMessage instance
+    assert isinstance(response.content, str)  # The content of the response should be a string
+```
+Now we need to update the implementation of OpenAIGPTIntegration. The input_messages of strings.
+By the way, please use system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+$stop$
+
+
+
+
+As a senior Python software engineer, address the requirements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+
+[Guidelines]
+- Follow Python PEP8 coding best practices, SOLID principles, and employ appropriate design patterns.
+- Use type hints in your code. Ensure each file has a file-level docstring and update these docstrings in line with any code modifications.
+- Explain any design decisions, considerations, or architectural changes made.
+- For file management, specify whether to create a new folder or use an existing one. Ensure names for files and folders correlate with the requirement's features.
+- Always use absolute imports over relative ones.
+- When presenting code modifications, use the following format:
+{
+   command: action_type (e.g., update_file),
+   file_path: path_to_file,
+   content: modified_content
+}
+Think methodically and reason comprehensively and step by step to ensure your output conforms to these guidelines.
+
+[Requirement]
+$start$
+Previously we have implemented
+File: src/llm_integrations/openai_integration/openai_gpt_integration.py
+```
+"""
+openai_gpt_integration.py: Implements the OpenAIGPTIntegration class which extends the BaseLLMIntegration abstract base class.
+This class integrates the OpenAI GPT models (gpt3.5-turbo, gpt4) with the agent program. It uses the OpenAI API to process a list of input messages and return the model's responses.
+"""
+
+from src.config import config
+from src.llm_integrations.openai_integration.base_openai_api import BaseOpenAIApi
+from src.llm_integrations.openai_integration.openai_api_factory import ApiType, OpenAIApiFactory
+from src.llm_integrations.base_llm_integration import BaseLLMIntegration
+from src.llm_integrations.openai_integration.openai_models import OpenAIModel
+
+class OpenAIGPTIntegration(BaseLLMIntegration):
+    """
+    OpenAIGPTIntegration is a concrete class that extends the BaseLLMIntegration class.
+    This class is responsible for processing input messages and returning responses from the OpenAI GPT model.
+    
+    :param api_type: Type of the OpenAI API to use.
+    :type api_type: ApiType
+    :param model_name: Name of the OpenAI model to be used. If not provided, the default from the respective API class will be used.
+    :type model_name: OpenAIModel, optional
+    """
+
+    def __init__(self, api_type: ApiType = ApiType.CHAT, model_name: OpenAIModel = None):
+        super().__init__()
+        if model_name:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type, model_name)
+        else:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type)
+    
+    def process_input_messages(self, input_messages):
+        """
+        Process a list of input messages and return the LLM's responses.
+
+        :param input_messages: List of input messages to be processed.
+        :type input_messages: list
+        :return: List of responses from the OpenAI GPT model
+        :rtype: list
+        """
+
+        return self.openai_api.process_input_messages(input_messages)  # We're now processing one message at a time
+
+```
+But the process_input_messages implemention is already changed. You can learn how to 
+use the api now from the following test.
+File: tests/integration_tests/llm_integrations/openai_integration/test_openai_chat_api_integration.py
+```
+@pytest.mark.skip(reason="Integration test calling the real OpenAI API")
+def test_refine_writing_integration():
+    """
+    Integration test to check if the process_input_messages method interacts correctly with the OpenAI Chat API for refining writing tasks.
+    """
+    api = OpenAIChatApi()
+    
+    system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+    user_message_content = """
+    As an expert in refining writing, your task is to improve the given writing situated within the [Writing] section. The content of the writing is situated within the $start$ and $end$ tokens.
+
+    Follow the steps below, each accompanied by a title and a description:
+    1. Analyze the Prompt:
+       - Dissect the prompt to understand its content and objectives.
+    2. Determine the Domain:
+       - Identify the domain to which this prompt belongs.
+    3. Evaluate and Recommend Linguistic Enhancements:
+       - Articulate your thoughts on the prompt's conciseness, clarity, accuracy, effectiveness, sentence structure, consistency, coherence, word order, content structure, usage of words, etc. If you think there are areas that need to be improved, then share your detailed opinions where and why.
+    4. Present the Refined Prompt:
+       - Apply your improvement suggestions from step 3 and present the refined prompt in a code block.
+
+    [Writing]
+    $start$
+    As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
+    ... (rest of the content)
+    $end$
+    """
+    user_message = UserMessage(user_message_content)
+    
+    messages = [system_message, user_message]
+    response = api.process_input_messages(messages)
+    assert isinstance(response, AssistantMessage)  # Ensure response is an AssistantMessage instance
+    assert isinstance(response.content, str)  # The content of the response should be a string
+```
+Now we need to update the implementation of OpenAIGPTIntegration. The input_messages of strings.
+By the way, please use system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+$stop$
+
+
+
+
+
+
+
+As a senior Python software engineer, approach the requirements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section using a two-phase methodology:
+
+Phase 1: Analytical Breakdown
+- Dissect the provided requirements to understand their essence.
+- Think methodically and reason comprehensively, providing a step-by-step breakdown of your approach.
+- Explain any design decisions, considerations, or architectural changes made.
+
+Phase 2: Summarized Implementation
+- After the analytical breakdown, provide a concise summary of the updated source code.
+- Follow Python PEP8 coding best practices, SOLID principles, and employ appropriate design patterns.
+- Use type hints in your code. Ensure each file has a file-level docstring and update these docstrings in line with any code modifications.
+- For file management, specify whether to create a new folder or use an existing one. Ensure names for files and folders correlate with the requirement's features.
+  For reference, here is a sample of the current project file structure:
+    src
+        ...
+        workspaces
+            workspace_service.py
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- Always use absolute imports over relative ones.
+- Present the code modifications using the following format:
+{
+   command: action_type (e.g., update_file),
+   file_path: path_to_file,
+   content: modified_content
+}
+
+    Here are available commands with their metadata definition:
+    update_file: used to update the content of file
+    arguments:
+        file_path: the file to be updated.
+        content: the content to be written to the file.
+
+    update_function: used to update a specific function
+    arguments:
+        file_path: the file to be updated.
+        function name: the function to be updated.
+        content: the new function content.
+
+By following this two-phase methodology, the output should be a blend of comprehensive reasoning followed by a succinct summary of the actual code changes.
+
+[Requirement]
+$start$
+Previously we have implemented
+File: src/llm_integrations/openai_integration/openai_gpt_integration.py
+```
+""
+openai_gpt_integration.py: Implements the OpenAIGPTIntegration class which extends the BaseLLMIntegration abstract base class.
+This class integrates the OpenAI GPT models (gpt3.5-turbo, gpt4) with the agent program. It uses the OpenAI API to process a list of input messages and return the model's responses.
+"""
+
+from src.config import config
+from src.llm_integrations.openai_integration.base_openai_api import BaseOpenAIApi
+from src.llm_integrations.openai_integration.openai_api_factory import ApiType, OpenAIApiFactory
+from src.llm_integrations.base_llm_integration import BaseLLMIntegration
+from src.llm_integrations.openai_integration.openai_models import OpenAIModel
+
+class OpenAIGPTIntegration(BaseLLMIntegration):
+    """
+    OpenAIGPTIntegration is a concrete class that extends the BaseLLMIntegration class.
+    This class is responsible for processing input messages and returning responses from the OpenAI GPT model.
+    
+    :param api_type: Type of the OpenAI API to use.
+    :type api_type: ApiType
+    :param model_name: Name of the OpenAI model to be used. If not provided, the default from the respective API class will be used.
+    :type model_name: OpenAIModel, optional
+    """
+
+    def __init__(self, api_type: ApiType = ApiType.CHAT, model_name: OpenAIModel = None):
+        super().__init__()
+        if model_name:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type, model_name)
+        else:
+            self.openai_api: BaseOpenAIApi = OpenAIApiFactory.create_api(api_type)
+    
+    def process_input_messages(self, input_messages):
+        """
+        Process a list of input messages and return the LLM's responses.
+
+        :param input_messages: List of input messages to be processed.
+        :type input_messages: list
+        :return: List of responses from the OpenAI GPT model
+        :rtype: list
+        """
+
+        return self.openai_api.process_input_messages(input_messages)  # We're now processing one message at a time
+
+```
+But the process_input_messages implemention is already changed. You can learn how to 
+use the api now from the following test.
+File: tests/integration_tests/llm_integrations/openai_integration/test_openai_chat_api_integration.py
+```
+@pytest.mark.skip(reason="Integration test calling the real OpenAI API")
+def test_refine_writing_integration():
+    """
+    Integration test to check if the process_input_messages method interacts correctly with the OpenAI Chat API for refining writing tasks.
+    """
+    api = OpenAIChatApi()
+    
+    system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+    user_message_content = """
+    As an expert in refining writing, your task is to improve the given writing situated within the [Writing] section. The content of the writing is situated within the $start$ and $end$ tokens.
+
+    Follow the steps below, each accompanied by a title and a description:
+    1. Analyze the Prompt:
+       - Dissect the prompt to understand its content and objectives.
+    2. Determine the Domain:
+       - Identify the domain to which this prompt belongs.
+    3. Evaluate and Recommend Linguistic Enhancements:
+       - Articulate your thoughts on the prompt's conciseness, clarity, accuracy, effectiveness, sentence structure, consistency, coherence, word order, content structure, usage of words, etc. If you think there are areas that need to be improved, then share your detailed opinions where and why.
+    4. Present the Refined Prompt:
+       - Apply your improvement suggestions from step 3 and present the refined prompt in a code block.
+
+    [Writing]
+    $start$
+    As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
+    ... (rest of the content)
+    $end$
+    """
+    user_message = UserMessage(user_message_content)
+    
+    messages = [system_message, user_message]
+    response = api.process_input_messages(messages)
+    assert isinstance(response, AssistantMessage)  # Ensure response is an AssistantMessage instance
+    assert isinstance(response.content, str)  # The content of the response should be a string
+```
+Now we need to update the implementation of OpenAIGPTIntegration. The input_messages of strings.
+By the way, please use system_message = SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+$stop$
+
+
+{
+   "command": "update_file",
+   "file_path": "src/llm_integrations/openai_integration/openai_gpt_integration.py",
+   "content": """
+from typing import List
+
+class OpenAIGPTIntegration(BaseLLMIntegration):
+    # ... [rest of the class]
+
+    def process_input_messages(self, input_messages: List[str]) -> List[str]:
+        # Create system message
+        system_message = self._create_system_message()
+        
+        # Create user messages
+        user_messages = [self._create_user_message(msg) for msg in input_messages]
+        
+        # Combine messages
+        messages = [system_message] + user_messages
+        
+        # Process messages through the API
+        return self.openai_api.process_input_messages(messages)
+    
+    def _create_system_message(self) -> SystemMessage:
+        return SystemMessage("You are ChatGPT, a large language model trained by OpenAI, based on the GPT-3.5 architecture. Knowledge cutoff: September 2021. Please feel free to ask me anything.")
+    
+    def _create_user_message(self, content: str) -> UserMessage:
+        return UserMessage(content)
+"""
+}
+
+
+Approach the requirements in the `[Requirement]` section using this two-phase methodology:
+
+**Phase 1: Analytical Breakdown**
+- Understand the essence of the provided requirements.
+- Provide a methodical, step-by-step breakdown of your approach.
+- Detail design decisions, considerations, or architectural changes.
+
+**Phase 2: Summarized Implementation**
+- Offer a concise summary of the updated source code.
+- Adhere to Python PEP8 coding best practices, SOLID principles, and utilize suitable design patterns.
+- Incorporate type hints and maintain file-level docstrings updated with any code changes.
+- Detail file management decisions: whether to create a new folder or use an existing one. Ensure the naming of files and folders aligns with the requirement's features.
+  
+  For reference, the current project file structure is:
+    src
+        ...
+        workspaces
+            workspace_service.py
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- Prioritize absolute imports over relative ones.
+- Document code modifications as:
+{
+   command: command_type (e.g., update_file),
+   file_path: path_to_file,
+   content: modified_content (if applicable),
+   function_name: name_of_function (if applicable)
+}
+
+  Available commands:
+  - **update_file**: Update a file's content.
+      - file_path: The target file.
+      - content: The new content.
+      
+  - **update_function**: Modify a specific function.
+      - file_path: The target file.
+      - function_name: The function in question.
+      - content: The new function content.
+
+This two-phase approach will yield comprehensive reasoning followed by a succinct summary of code changes.

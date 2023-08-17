@@ -54,14 +54,47 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
+As the best Python software engineer on earth, address the requriements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
+[Guidelines]
+- Use appropriate design patterns where neccessary. Think about refactoring for better modularity and easier testing.
+- Follow SOLID principles and Python PEP8 coding best practices. Add type hints as well.
+- Follow python docstring best practices, ensuring each file begins with a file-level docstring.
+- Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, the current project's file structure looks like this:
+    - src
+        - ...
+        - semantic_code
+            - embedding
+                - openai_embedding_creator.py
+    - tests
+        - unit_tests
+            - ...
+            - semantic_code
+                - embedding
+                    - test_openai_embedding_creator.py
+        - integration_tests
+            - ...
+            - semantic_code
+                - index
+                    - test_index_service_integration.py
+- Always use absolute imports over relative ones.
+- Update docstrings in line with any code modifications.
+- At last, use command write_file(file_path, content) to write the complete updated code to file path. Do not write to jupyter notebook. Use the following json format:
+    command: write_file
+    file_path: [here is the real file path] 
+    content:
+    ```
+    Here is the complete content of the updated file.
+    ```
+
+Think step by step progressively and reason comphrehensively to address the task.
 $end$
 
 
 
 
 Version 3:
-As an expert in refining writting, your task is to improve the given writting situated within the `>>Writting<<` section. The content of the writting is situated within the `$start$` and `$end$` tokens.
+As an expert in refining writting, your task is to improve the given writting situated within the `[Writting]` section. The content of the writting is situated within the `$start$` and `$end$` tokens.
 
 
 Follow the steps below, each accompanied by a title and a description:
@@ -78,7 +111,7 @@ Follow the steps below, each accompanied by a title and a description:
    - Apply your improvements suggestions from step 3, and present the refined prompt in a code block
 
 
->>Writting<<
+[Writting]
 $start$
 As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
 
@@ -105,57 +138,53 @@ $end$
 
 
 
+As an expert in refining writting, you are given a prompt in the `[Prompt]` section, and requirement in the `[Requirement]` section. The content of both section are situated within the `$start$` and `$end$` tokens. Your task is to analyse the prompt according to the requirement.
 
 
+Follow the steps below, each accompanied by a title and a description:
+1. Analyze the Prompt:
+   - Dissect the prompt to understand its content and objectives.
 
-As a seasoned Vue3 frontend engineer, you are tasked with analyzing a given error and proposing a solution or enhancing debugging for further insight.
+2. Determine the Domain:
+   - Identify the domain to which this prompt belongs.
 
-Here's your action plan:
-
-1. **Error Examination:** Begin by dissecting the errors within the `[Error]` section. From these, formulate an initial hypothesis regarding their origins.
-
-2. **Code Analysis:** Refer to the `[Codes]` section. Break down and elucidate the code sequentially, aiming to pinpoint potential error sources within it.
-
-3. **Structured Response:** Articulate your analytical process lucidly. Use the formats below depending on your findings:
-
-   - **Case 1: Identified Error Source**:
-     "The error message suggests a possible issue with ____. By examining the source code, we observe that it executes ____, ____, and ____. These actions produce ____, potentially triggering the reported error."
-
-   - **Case 2: Indeterminate Error Source**:
-     "The error message hints at a problem with ____. A review of the source code reveals operations like ____, ____, and ____. The code appears functional; hence, I'll integrate more debug messages for deeper analysis."
-
-4. **Implementation**:
-   - **For Case 1:** If you're certain about the error's origin, craft and implement a fix. Detail the rationale behind each modification and how it addresses the identified problem.
-   - **For Case 2:** Embed the recommended debugging messages into the source code to aid further investigations.
-
-Ensure a meticulous approach, elaborate on your analytical rationale, and wrap up with the modified code showcased within a code block.
-
-
-
+3. Analyse the prompt according to the requirement.
 
 [Prompt]
 $start$
-As a proficient Vue3 frontend engineer, you are tasked with proposing solutions or adding debugging information in response to a given error. Please adhere to the standards below:
+As a senior python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
 
-1. **Examine the Error**:
-   - Begin by analyzing the errors found in the `[Error]` section. From this error message, formulate an initial hypothesis regarding its cause.
+[Criterias]
+- Follow python PEP8 best practices, such as typing etc.
+- Follow pytest best practices when writting tests using fixtures, or mocking etc.
+- Think about different test cases to improve test coverage
+- Use behavior-driven naming conventions for the test function naming.
+- Use best practices to create test file path. Here is a sample best practice to 
+  put the test file for the source file.
+    src
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            semantic_code
+                index
+- Use command write_file(file_path, content) to write the complete updated code to file   path. 
 
-2. **Refer to the Source Code**:
-   - Using the `[Codes]` section, walk through the referenced code step-by-step. Try to pinpoint the section of the source code potentially causing the error.
+Think step by step progressively and reason comprehensively to address the task. 
 
-3. **Articulate the Analysis**:
-   - Structure your response as follows:
-     - **Case 1**: If the error source is identifiable:
-       "The error message suggests the problem might stem from ____. Upon reviewing the source code, it appears that the code carries out ____, ____, and ____. These actions result in ____, likely causing the reported error."
-     - **Case 2**: If the error source remains elusive:
-       "The error message suggests the issue could be due to ____. However, after examining the source code—which involves operations like ____, ____, and ____— The code seems work correctly. I recommend adding more debug messages for a deeper analysis."
-
-4. **Propose Solutions or Debugging Steps**:
-   - For **Case 1**: Propose and implement a solution, clarifying the reason for each adjustment and its relation to the identified issue.
-   - For **Case 2**: Suggest additional logging in the source code to aid future investigations.
-
-Ensure you provide a comprehensive and detailed analysis. Conclude by showcasing the updated code within a code block.
 $end$
 
 
+[Requirement]
+$start$
+The prompt is sent to the LLM. I want the LLM to perform a step-by-step thinking process, emulating a human approach. At the end, I want the LLM to include the text "write_file" in its output. My parser will search for the "write_file" keyword in the LLM's result.
 
+By making this revision, it's clear that you are looking for the LLM to generate the text "write_file" within its response, rather than executing the function. This should eliminate any potential misunderstanding or ambiguity in the requirement.
+
+Can you please improve the prompt please?
+$end$

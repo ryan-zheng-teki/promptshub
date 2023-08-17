@@ -68,80 +68,142 @@ File: src/workspaces/workspace_setting.py
 
         
 
+
 Verion 2: Only think step by step
 You are best python software engineer on earth. In this task, you will perform an in-depth analysis of a provided error message in the `[Error]` section and the associated source code in the `[CodeReferences]` section. 
 
-Follow the following approach:
-1. Identify the root cause of the error by carefully examining the source code.
-2. Explain why the source code caused the error, providing a thorough explanation.
-3. Propose a solution either from the test or the source code. Make the best judgement
-4. Present the corrected version of the code.- 
+Follow the standards:
 
-Think step by step, and reason comprehensively to address the task.
+1. Start by examining the errors in the `[Error]` section. Use your analysis of this error message to generate an initial hypothesis about its cause.
+
+2. Subsequently, refer to the `[Codes]` section, explain the referenced codes step by step, and try to identify where in the source code might be causing the error. 
+
+3. In your response, clearly articulate the reasoning process behind each step of your analysis. Use the following structure as a guide:
+
+  Case 1: Able to find where the errors are after analysis:
+    "The error message indicates that the issue is possibly caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. These actions result in ____, which is likely the cause of the reported error." 
+  Case 2: Not able to find out where errors are:
+    "The error message indicates that the issue is possibly caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. The source code seems to be working correctly. I will need to add additional debug messages to for further analysis.
+
+4. Based on the different case from step 3. For case 1: if confidently identifying the source of the error, propose and implement a solution. Explaining why each change is necessary and how it resolves the identified issue. 
+  For Case 2: add your suggested logging to source code for further analaysis
+
+Think step by step, ensure your explanation is thorough, and that the reasoning process behind your analysis is comprehensive. Conclude with the complete updated code in a code block.
+
 
 [Error]
 ```
+ def test_system_message_is_always_first(mock_openai_response):
+        """Ensure the system message is always the first message."""
+        api = OpenAIChatApi()
+        messages = [UserMessage("Hello, OpenAI!")]  # Convert to UserMessage instance
+    
+        # Using a mock to capture the arguments passed to openai.ChatCompletion.create
+        with patch("openai.ChatCompletion.create") as mock_create:
+            mock_create.return_value = {
+                'choices': [
+                    {'message': {'content': 'This is a mock response'}}
+                ]
+            }
+            api.process_input_messages(messages)
+            args, _ = mock_create.call_args
+    
+            # Convert the dictionary message back to UserMessage instance for checking
+>           first_message = args[0]['messages'][0]
+E           IndexError: tuple index out of range
 
-tests/unit_tests/semantic_code/search/test_search_result.py E
-
-==================================== ERRORS ====================================
-_______ ERROR at setup of test_scored_entity_initialization_and_to_dict ________
-
-    @pytest.fixture
-    def mock_entity():
->       return MockCodeEntity()
-E       TypeError: Can't instantiate abstract class MockCodeEntity with abstract methods from_json, to_unique_id, type
-
-tests/unit_tests/semantic_code/search/test_search_result.py:16: TypeError
--------------- generated xml file: /tmp/tmp-6730YFvLSLcMUIRP.xml ---------------
-=========================== short test summary info ============================
-ERROR tests/unit_tests/semantic_code/search/test_search_result.py::test_scored_entity_initialization_and_to_dict
-=============================== 1 error in 0.17s ===============================
+tests/unit_tests/llm_integrations/openai_integration/test_openai_chat_api.py:51: IndexError
 ```
 
-[CodeReferences]
+[Codes]
+File: src/llm_integrations/openai_integration/openai_chat_api.py 
 ```
-import os
-from typing import Dict, Optional, Union
-
-class DirectoryTraversal:
+# upper parts of code
+class OpenAIChatApi(BaseOpenAIApi):
     """
-    A class used to traverse directories and represent the directory structure as a nested dictionary.
-
-    Methods
-    -------
-    traverse(folder_path: str, level: int = 0) -> Dict[str, Union[str, Dict]]:
-        Traverses a specified directory and returns its structure as a nested dictionary.
+    OpenAIChatApi is a concrete class that extends the BaseOpenAIApi class.
+    This class processes a series of message interactions and fetches a response using the OpenAI Chat API.
+    
+    :param model_name: Name of the OpenAI model to be used. Defaults to OpenAIModel.GPT_3_5_TURBO or the value from the config.
+    :type model_name: OpenAIModel
     """
 
-    def traverse(self, folder_path: str, level: int = 0) -> Dict[str, Union[str, Dict]]:
+    def __init__(self, model_name: OpenAIModel = None):
+        self.initialize()  # Ensure OpenAI is initialized
+        
+        # Use provided model name or default from the config
+        if model_name:
+            self.model = model_name.value
+        else:
+            model_str = config.get('OPEN_AI_MODEL', OpenAIModel.GPT_3_5_TURBO.value)
+            self.model = OpenAIModel(model_str).value
+
+    def process_input_messages(self, messages: List[BaseMessage]) -> str:
         """
-        Traverses a specified directory and returns its structure as a nested dictionary.
+        Process a list of message interactions and return the response using the OpenAI Chat API.
 
-        Parameters:
-        ----------
-        folder_path : str
-            The path of the directory to be traversed.
-        level : int, optional
-            The current level of traversal, used for recursion (default is 0).
-
-        Returns:
-        -------
-        Dict[str, Union[str, Dict]]
-            The directory structure as a nested dictionary, where keys are directory/file names and values are 
-            either other dictionaries (for directories) or None (for files).
+        :param messages: A list of message interactions to be processed.
+        :type messages: list of BaseMessage instances
+        :return: Response content from the OpenAI Chat API.
+        :rtype: str
         """
+        message_list = MessageList()
+        for message in messages:
+            if isinstance(message, SystemMessage):
+                message_list.add_system_message(message.content)
+            elif isinstance(message, UserMessage):
+                message_list.add_user_message(message.content)
+        
+        constructed_messages = message_list.get_messages()
+        
+        response = openai.ChatCompletion.create(model=self.model, messages=constructed_messages)
+        return response['choices'][0]['message']['content']
 
-        tree_structure = {}
-        directory_contents = os.listdir(folder_path)
 
-        for item in directory_contents:
-            item_path = os.path.join(folder_path, item)
-            if os.path.isdir(item_path):
-                tree_structure[item] = self.traverse(item_path, level + 1)
-            else:
-                tree_structure[item] = None  # or any other value representing a file
+    def _extract_response_message(self, response: Dict) -> AssistantMessage:
+        """
+        Extract the message from the OpenAI Chat API response.
 
-        return tree_structure
-
+        :param response: The response from the OpenAI Chat API.
+        :type response: dict
+        :return: The response message.
+        :rtype: AssistantMessage
+        """
+        try:
+            content = response['choices'][0]['message']['content']
+            role = response['choices'][0]['message']['role']
+            
+            # Validate that the role is indeed "assistant"
+            if role != OpenAIMessageRole.ASSISTANT.value:
+                raise ValueError(f"Unexpected role in OpenAI API response: {role}")
+            
+            return AssistantMessage(content)
+        except (KeyError, IndexError):
+            raise ValueError("Unexpected structure in OpenAI API response.")
+```
+File: src/llm_integrations/openai_integration/openai_message_types.py
+```
+class MessageList:
+    """Class to hold and manage a list of messages."""
+    
+    DEFAULT_SYSTEM_MESSAGE = SystemMessage("You are a helpful assistant.")
+    
+    def __init__(self):
+        self.messages: List[BaseMessage] = []
+    
+    def add_system_message(self, content: str):
+        # Insert the system message at the start of the list
+        self.messages.insert(0, SystemMessage(content))
+        
+    def add_user_message(self, content: str):
+        self.messages.append(UserMessage(content))
+    
+    def add_assistant_message(self, content: str):
+        self.messages.append(AssistantMessage(content))
+    
+    def get_messages(self) -> List[Dict[str, Union[str, OpenAIMessageRole]]]:
+        """Retrieve all messages. If no system message is present, prepend the default."""
+        if not any(isinstance(msg, SystemMessage) for msg in self.messages):
+            self.messages.insert(0, self.DEFAULT_SYSTEM_MESSAGE)
+        return [msg.to_dict() for msg in self.messages]
 ```
