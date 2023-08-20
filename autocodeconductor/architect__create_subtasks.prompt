@@ -1,20 +1,25 @@
-You are a senior python software engineer. You are given an implementation task based
-on a requirements and code design documentation. The documetnation is presented 
-between between `$start$` and `$end$` tokens in the [Documentation] section.
-The task is presented between `$start$` and `$end$` tokens in the `[Task]` section.
+# Version 2
+You are a python software architect. You are given a software requirements and 
+system design documentations between `$start$` and `$end$` at [Documentation] section. Your goal is to create subtasks.
 
-Criterias
-- Follow PEP8 python coding practices, including type hinting. 
-- Follow PEP8 python docstring best practices. Always add file-level docstring at the top of file.
-- Use absolute imports. Assume all dependencies already exists
-- Present the code between #code_start# and #code_end# tokens.
-  file_path: balba
-  content: here is the file content.
+Each task should follow the criterias.
+Criterias:
+- Clear Objective: Clearly state what needs to be achieved, such as creating a class, method, or implementing a specific algorithm.
+- File Specification: Indicate the exact file (with path) where the code should be added or modified. Follow python clean code best practices to create folders and file names. Each class will be put in its own file.
+- Functionality Details: Describe what the code should accomplish once executed, such as expected behavior, return types, or interaction with other components.
+- Integration Points: Mention any interactions with other parts of the codebase, highlighting dependencies or interfaces.
 
-Think step by step methodically, and reason comprehensively.
+
+Enclose each task created betwen `#task start#` and `#task end#` tokens.
+
+Think step by step methodically and reason comprehensively. 
+
+
+[Context]
+- place all the files inside tools folder.
 
 [Documentation]
-$start$
+#start#
 ### Requirements Documentation
 
 #### 1. Story/Feature Description:
@@ -88,17 +93,18 @@ The design follows the Command Pattern, encapsulating each operation within a co
   
 - **Handlers**: Perform the actual operations. For instance, `ShellHandler` for shell commands.
   
-- **OperationLifecycleManager**: Manages the transaction lifecycle, including starting, committing, and rolling back transactions. For commits, it ensures all operations are journaled and emits an event for successful commits. For rollbacks, it interacts with the `OperationExecutor` to revert all operations and uses the `BackupHandler` for file operations, followed by emitting a rollback event.
-
+- **OperationLifecycleManager**: Manages the transaction lifecycle, including starting, committing, and rolling back transactions.
+  
 - **BackupHandler**: Manages backups for file operations, allowing for a rollback feature.
 
 1.3. **Interactions**: 
-The AI Agent creates and initializes operations. These operations are executed by the `OperationExecutor`. As operations progress, events are emitted by the `OperationEventProducer` and captured in the `OperationEventBuffer`. The frontend can then access these events for real-time updates. The `OperationLifecycleManager` now interacts with the `OperationExecutor` for reverting operations during rollbacks. It also coordinates with the `BackupHandler` to restore file operations if necessary. For both commit and rollback events, the manager communicates with the `OperationEventProducer` to provide feedback to the frontend.
+The AI Agent creates and initializes operations. These operations are executed by the `OperationExecutor`. As operations progress, events are emitted by the `OperationEventProducer` and captured in the `OperationEventBuffer`. The frontend can then access these events for real-time updates. The `JournalManager` collaborates with the `OperationEventProducer` to ensure that every journaled operation is also emitted as a real-time event.
 
 1.4. **External Dependencies**: 
 None identified currently.
 
-#### 2. UML Diagram:
+#### 2. UML Diagrams:
+
 
 @startuml
 
@@ -195,27 +201,9 @@ OperationExecutor --> OperationEventProducer: Emits events
 ShellOperation --> ShellHandler: Executes shell commands
 
 OperationLifecycleManager --> TransactionLogger: Logs transaction activities
-OperationLifecycleManager -down-> OperationExecutor: Interacts for commit/rollback
-OperationLifecycleManager --> BackupHandler: Interacts for rollback
-OperationLifecycleManager --> JournalManager: Interacts for commit
-OperationLifecycleManager --> OperationEventProducer: Emits events for commit/rollback
-
 BackupHandler --> BackupLogger: Logs backup activities
 OperationEventProducer --> OperationEventBuffer: Sends events
 
 @enduml
-
-$end$
-
-[Context]
-This is the sixth subtask. The other subtasks are already done is already done.
-Operation is already created in file tools/operation/operation.py
-OperationExecutor is created in file tools/operation_executor/operation_executor.py
-
-[Task]
-#start#
-- **Clear Objective**: Create the `BackupHandler` class to handle backups for file operations.
-- **File Specification**: `tools/coordinator/backup_handler.py`
-- **Functionality Details**: This class should provide methods to create backups before file operations and restore them if needed.
-- **Integration Points**: It will interact with the `BackupLogger` to log backup activities.
 #end#
+  

@@ -99,3 +99,18 @@ You are the best frontend engineer on earth proficient in TypeScript, Vue3, and 
 After completing each step, await further instructions before proceeding. At the beginning of steps 2 onward, review your previous work, understand any unfinished parts, and then proceed with the current step.
 
 Now wait for me to give you the requirement
+
+
+
+
+Thanks for creating those files with files with folders.
+Now the next task is to plan implementation tasks. Each implementation task 
+needs to be as detailed as possible. The implementation task should include 
+file path as well. Otherwise, the AI agent has no idea where to write 
+the file content. Because the implementation task will be 
+handled to different AI agents to work simutaneously. This means the task 
+needs to be clear enough so no further clarification is needed. 
+
+Please think step by step methodically and reason comprehensively. At the end 
+of thinking and reasoning, please provide all the tasks in copiable text blocks. 
+Thanks.

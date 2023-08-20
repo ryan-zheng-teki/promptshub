@@ -35,7 +35,7 @@ $end$
 
 
 Version 2: Not using json output
-As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens. Your target audience for this task consists of large language models like GPT-3.
 
 
 Follow the steps below, each accompanied by a title and a description:
@@ -45,49 +45,55 @@ Follow the steps below, each accompanied by a title and a description:
 2. Determine the Domain:
    - Identify the domain to which this prompt belongs.
 
-3. Evaluate and Recommend Linguistic Enhancements:
-   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
-
+3. Step By Step Evaluate and Recommend Linguistic Enhancements:
+   - Provide your insights on the prompt's content structure, section structure, sentence structure, clarity, accuracy, effectiveness, conciseness, consistency, coherence,word usage, etc. The goal is to create 
+   highly clear and structured prompt with minimum ambiguity.
+   - If you identify areas that require improvement, elaborate on these aspects and explain your reasoning.
+ - 
 4. Present the Refined Prompt:
-   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block
+   - Apply your improvements suggestions from step 3, and present  refined prompt in a copiable code block
 
 
 [Prompt]
 $start$
-As the best Python software engineer on earth, address the requriements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens. Your target audience for this task consists of large language models like GPT-3.
 
-[Guidelines]
-- Use appropriate design patterns where neccessary. Think about refactoring for better modularity and easier testing.
-- Follow SOLID principles and Python PEP8 coding best practices. Add type hints as well.
-- Follow python docstring best practices, ensuring each file begins with a file-level docstring.
-- Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, the current project's file structure looks like this:
-    - src
-        - ...
-        - semantic_code
-            - embedding
-                - openai_embedding_creator.py
-    - tests
-        - unit_tests
-            - ...
-            - semantic_code
-                - embedding
-                    - test_openai_embedding_creator.py
-        - integration_tests
-            - ...
-            - semantic_code
-                - index
-                    - test_index_service_integration.py
-- Always use absolute imports over relative ones.
-- Update docstrings in line with any code modifications.
-- At last, use command write_file(file_path, content) to write the complete updated code to file path. Do not write to jupyter notebook. Use the following json format:
-    command: write_file
-    file_path: [here is the real file path] 
-    content:
-    ```
-    Here is the complete content of the updated file.
-    ```
 
-Think step by step progressively and reason comphrehensively to address the task.
+Follow the steps below, each accompanied by a title and a description:
+1. Analyze the Prompt:
+   - Dissect the prompt to understand its content and objectives.
+
+2. Determine the Domain:
+   - Identify the domain to which this prompt belongs.
+
+3. Step By Step Evaluate and Recommend Linguistic Enhancements:
+   - Provide your insights on the prompt's content structure, section structure, sentence structure, clarity, accuracy, effectiveness, conciseness, consistency, coherence,word usage, etc. The goal is to create 
+   highly clear and structured prompt with minimum ambiguity.
+   - If you identify areas that require improvement, elaborate on these aspects and explain your reasoning.
+ - 
+4. Present the Refined Prompt:
+   - Apply your improvements suggestions from step 3, and present  refined prompt in a copiable code block
+$end$
+
+
+$start$
+Your task is to enhance the provided content prompt located within the `[Prompt]` section. The content is enclosed between the `$start$` and `$end$` tokens. 
+Follow the steps below, each with a title and description:
+
+1. Analyze the Prompt:
+   - Dissect the prompt to comprehend its content and objectives.
+
+2. Identify the Domain:
+   - Determine the domain to which this prompt belongs.
+
+3. Step By Step Evaluate and Recommend Linguistic Enhancements:
+   - Provide your insights on the prompt's content structure, section structure, sentence structure, clarity, accuracy, effectiveness, conciseness, consistency, coherence,word usage, etc. The goal is to create 
+   highly clear and structured prompt with minimum ambiguity.
+   - If you identify areas that require improvement, elaborate on these aspects and explain your reasoning.
+
+4. Present the Refined Prompt:
+   - Apply the suggestions for improvement from step 3 and present the refined prompt within a copiable code block.
+
 $end$
 
 
@@ -113,27 +119,58 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Writting]
 $start$
-As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
+As a senior Python software engineer, approach the requirements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section using a two-phase methodology:
 
-Follow the standards below:
+Phase 1: Analytical Breakdown
+- Dissect the provided requirements to understand their essence.
+- Think methodically and reason comprehensively, providing a step-by-step breakdown of your approach.
+- Explain any design decisions, considerations, or architectural changes made.
 
-- Examine the errors in the `[Error]` section and generate an initial hypothesis about their cause.
+Phase 2: Summarized Implementation
+- After the analytical breakdown, provide a concise summary of the updated source code.
+- Follow Python PEP8 coding best practices, SOLID principles, and employ appropriate design patterns.
+- Use type hints in your code. Ensure each file has a file-level docstring and update these docstrings in line with any code modifications.
+- For file management, specify whether to create a new folder or use an existing one. Ensure names for files and folders correlate with the requirement's features.
+  For reference, here is a sample of the current project file structure:
+    src
+        ...
+        workspaces
+            workspace_service.py
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- Always use absolute imports over relative ones.
+- Present the code modifications using the following format:
+{
+   command: action_type (e.g., update_file),
+   file_path: path_to_file,
+   content: modified_content
+}
 
-- Subsequently, walk through the referenced codes step by step in the `[Codes]` section to reason the possible cause of the error.
+    Here are available commands with their metadata definition:
+    update_file: used to update the content of file
+    arguments:
+        file_path: the file to be updated.
+        content: the content to be written to the file.
 
-- In your response, clearly illustrate the code execution step by step using test data. Use the formats below depending on your findings:
+    update_function: used to update a specific function
+    arguments:
+        file_path: the file to be updated.
+        function name: the function to be updated.
+        content: the new function content.
 
-  - Case 1: Able to pinpoint error code confidently:
-    "The error message indicates that the issue is possibly caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. These actions result in ____, which is likely the cause of the reported error." 
-
-  - Case 2: Not able to pinpoint error code immediately :
-    "The error indicates that the issue is possibly caused by ____. Looking at the source code, we can see that the code performs ____, ____, and ____. By just looking at the current code, i am not able to pinpoint the error code. I will add ____debugging  for another round of analysis."
-
-- Propose Solutions or Debugging Steps:
-  - For Case 1: Propose and implement a solution, explaining why each change is necessary and how it resolves the identified issue. 
-  - For Case 2: Add additional logging in the source code to aid future analysis.
-
-Think step by step, ensure your explanation is thorough, and that the reasoning process behind your analysis is comprehensive. Conclude with the complete updated code in a code block.
+By following this two-phase methodology, the output should be a blend of comprehensive reasoning followed by a succinct summary of the actual code changes.
 $end$
 
 
@@ -188,3 +225,101 @@ By making this revision, it's clear that you are looking for the LLM to generate
 
 Can you please improve the prompt please?
 $end$
+
+
+[Role: Prompt Refinement Specialist]
+Refine the content prompt provided within the `[Prompt]` section enclosed between `$start$` and `$end$` tokens, ensuring it's well-suited for large language models.
+
+**1. Analyze the Prompt:**
+   - Understand its content and objectives.
+
+**2. Determine the Domain:**
+   - Identify the domain to which the prompt belongs.
+
+**3. Evaluate and Recommend Enhancements:**
+   - Assess and offer recommendations concerning the prompt's content structure, section layout, sentence formation, clarity, accuracy, effectiveness, conciseness, consistency, coherence, and word choice.
+   - Explain any areas needing improvement.
+
+**4. Deliver the Improved Prompt:**
+   - The prompt should always start with "You are ...".
+   - Present the refined version under the `[ImprovedPrompt]` section.
+
+[Prompt]
+$start$
+You are a Python software architect. Based on the Python source code provided in the `[SourceCode]` section, your task is to generate architecture design documentation and a plantuml diagram that represents the architecture and design.
+
+Criteria:
+- Follow the format defined in the `[Template]` section for your design documentation.
+- Ensure your UML diagram adheres to the plantuml syntax, taking inspiration from the example provided in the `[Example]` section.
+- Place the thinking under the `[Thinking]` section.
+- The final documentation should be placed under the `[Architecture Design Documentation]` section.
+
+Think step by step meticously before output the final documentation. 
+
+[Template]
+### Architecture Design Documentation
+
+#### 1. Architecture Design:
+
+1.1. **High-Level Design**: 
+Provide a brief overview of the main architecture and any design patterns used.
+
+1.2. **Component Descriptions**:
+- **Component1**: Describe its role and function.
+- **Component2**: Describe its role and function.
+... and so on.
+
+1.3. **Interactions**: 
+Detail the flow and interactions between different components.
+
+1.4. **External Dependencies**: 
+List any third-party services, libraries, or tools used.
+
+#### 2. UML Diagram:
+Include a UML representation showcasing system components and their interactions.
+
+[Example]
+### System Design Documentation
+
+#### 1. System Design:
+
+1.1. **High-Level Design**: 
+The system utilizes the Observer Pattern, allowing multiple subscribers to receive notifications when specific events occur.
+
+1.2. **Component Descriptions**:
+- **Publisher**: Emits events to all subscribers.
+- **Subscriber**: Listens to and reacts to specific events.
+
+1.3. **Interactions**: 
+Users interact with the Publisher to initiate an event. The Publisher then informs all Subscribers of this event.
+
+1.4. **External Dependencies**: 
+None.
+
+#### 2. UML Diagram:
+@startuml
+
+class Publisher {
+    + trigger_event()
+    + add_subscriber(subscriber: Subscriber)
+}
+
+class Subscriber {
+    + on_event_received()
+}
+
+Publisher --> Subscriber: Notifies event
+
+@enduml
+[SourceCode]
+here is the source code
+
+[Thinking]
+Here you put the step by step thinking
+
+[Architecture Design Documentation]
+here is the result documentation
+$end$
+
+
+[ImprovedPrompt]
