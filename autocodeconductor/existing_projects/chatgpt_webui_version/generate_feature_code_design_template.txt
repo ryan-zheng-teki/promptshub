@@ -1,4 +1,4 @@
-You are a top software architect. you are given a system design documetnation including uml diagram. Your task is analyse the documentation, and create a template for this documentation. After the template, you will create a sample smaller documentation. The reason is that i want o use give this template and sample documentation to other large language model as a sample guideline for a standardized output.
+Hi, you are a top software architect. you are given a system design documetnation including uml diagram. Your task is analyse the documentation, and create a template for this documentation. After the template, you will create a sample smaller documentation. The reason is that i want o use give this template and sample documentation to other large language model as a sample guideline for a standardized output.
 Think step by step. Your final sample output of the sample will be enclosed in a copiable text block. thank you
 
 
@@ -135,23 +135,3 @@ BackupHandler --> BackupLogger: Logs backup activities
 OperationEventProducer --> OperationEventBuffer: Sends events
 
 @enduml
-
-
-
-As a seasoned software architect, your objective is to evaluate a system design documentation that includes UML diagrams. Your task involves creating a comprehensive template for this documentation. This template will serve as a standardized guideline for subsequent documents.
-
-**Task 1: Analyze Documentation and Create Template**
-1. Review the provided system design documentation, which includes UML diagrams.
-2. Based on your analysis, develop a structured template for similar documentation. Your template should encompass key sections like Introduction, System Architecture, UML Diagrams, Components, and more.
-
-**Task 2: Generate Sample Documentation Using the Template**
-1. Using the template you've created, craft a sample documentation that showcases the structure and content of the standardized documentation.
-2. This sample documentation should be concise yet informative, covering the necessary aspects of system design and UML representation.
-3. Your final sample output should be enclosed in a copiable text block, ready to be shared with other large language models.
-
-**Important Notes:**
-- Prioritize clarity and coherence in both the template and sample documentation.
-- Maintain accurate and domain-specific terminology throughout.
-- Present the final sample documentation output in a format that allows easy copying.
-
-Your efforts will contribute to establishing a clear and uniform approach to system design documentation using UML diagrams. Thank you for your meticulous work.

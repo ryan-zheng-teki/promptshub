@@ -1,0 +1,159 @@
+
+You are a Python software architect. Your objective is to enhance the existing Feature Code Design Documentation in the `[ExistingDocumentation]` section based on the Python source code presented in the `[SourceCode]` section. This enhancement is necessary because we're incrementally creating code design documentation for our existing codebase, and the current documentation does not fully represent the existing code for the feature.
+
+Criteria:
+- Adhere to the format provided in the `[Template]` section.
+- Present the final complete documentation to facilitate easy copy and paste.
+
+Think step by step to address task meticulously.
+
+[Template]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+Provide a brief overview of the primary architecture and any applied design patterns.
+
+1.2. **Component Descriptions**:
+- **Component1**: Detail its role and functionality.
+- **Component2**: Outline its role and functionality.
+... Continue as needed.
+
+1.3. **Interactions**: 
+Describe the interactions and flow between the different components.
+
+1.4. **External Dependencies**: 
+List any third-party libraries, services, or tools used.
+
+#### 2. UML Diagram:
+Offer a UML representation that highlights the system components and their relationships.
+
+[Documentation]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+The code revolves around the `AutomatedCodingWorkflow` class which represents a fully automated coding workflow. This workflow comprises multiple steps, with each step being represented as an instance of a class derived from `BaseStep`. Each step can further have sub-steps, allowing for a potentially multi-level workflow.
+
+1.2. **Component Descriptions**:
+- **AutomatedCodingWorkflow**: This is the primary class representing the complete automated coding process. It initializes the workflow, manages step executions, and provides functionality to convert the workflow to a JSON format.
+  - Attributes:
+    - `workspace_setting`: Holds the settings related to the workspace.
+    - `steps`: Contains a dictionary of step instances, each keyed by their step IDs.
+    - `name`: Name of the workflow.
+    - `config`: Configuration details loaded from `WORKFLOW_CONFIG`.
+  - Methods:
+    - `_initialize_steps`: A private method to initialize workflow steps from a given configuration. This method also handles the initialization of sub-steps recursively.
+    - `to_json`: Converts the workflow instance to a JSON format.
+    - `execute_step`: Executes a specific step within the workflow.
+    - `start_workflow`: Sets the workflow's status to Started.
+
+- **LLMIntegrationRegistry**: Though not detailed in the provided code, it seems to be a registry for integrations related to LLM.
+
+- **BaseStep**: Represents a base step in the workflow. Specific details are not provided, but it's inferred that derived classes represent specific steps in the coding workflow and have an `execute` method.
+
+- **WorkspaceSetting**: Contains settings associated with the workspace, but specific details are not provided in the code.
+
+1.3. **Interactions**: 
+The `AutomatedCodingWorkflow` initializes using a workspace setting. During initialization, it sets up its steps (and potentially sub-steps) based on the provided `WORKFLOW_CONFIG`. Steps can be executed individually using the `execute_step` method, and the entire workflow can be converted to a JSON representation using the `to_json` method.
+
+1.4. **External Dependencies**: 
+The code utilizes several modules and classes, such as:
+- `json`: For converting the workflow representation to JSON format.
+- `WORKFLOW_CONFIG`: Provides configuration details for the workflow.
+- `LLMIntegrationRegistry`: Likely a registry for integrations related to LLM.
+- `BaseStep`: Represents the base class for steps in the workflow.
+- `WorkflowStatus`: Represents different status values the workflow can be in. Specific details are not provided.
+- `StepsTemplateConfig`: Provides the configuration template for workflow steps. Specific details are not provided.
+- `WorkspaceSetting`: Contains settings for the workspace.
+
+#### 2. UML Diagram:
+```plantuml
+@startuml
+
+package "autobyteus.workflow_types.types" {
+    class BaseStep {
+        + execute(): str
+    }
+}
+
+package "autobyteus.llm_integrations" {
+    class LLMIntegrationRegistry {
+    }
+}
+
+package "autobyteus.workspaces.setting" {
+    class WorkspaceSetting {
+    }
+}
+
+package "src.automated_coding_workflow" {
+    class AutomatedCodingWorkflow {
+        + workspace_setting: WorkspaceSetting
+        + steps: Dict[str, BaseStep]
+        + name: str
+        + config: dict
+        + _initialize_steps(steps_config: Dict[str, StepsTemplateConfig])
+        + to_json(): str
+        + execute_step(step_id: str): Optional[str]
+        + start_workflow()
+    }
+    
+    note top of AutomatedCodingWorkflow
+        Represents the main automated coding workflow.
+        It handles initialization, execution of steps, and conversion to JSON.
+    end note
+    
+    AutomatedCodingWorkflow --> BaseStep: Has multiple step instances
+    AutomatedCodingWorkflow --> WorkspaceSetting: Utilizes workspace settings
+    AutomatedCodingWorkflow --> LLMIntegrationRegistry: Maintains a registry instance
+}
+
+@enduml
+
+[SourceCode]
+"""
+src/automated_coding_workflow/design_stage.py
+
+This module contains the DesignStep class, which represents the design stage of the automated coding workflow.
+"""
+
+
+from autobyteus.workflow.types.base_step import BaseStep
+
+
+class ArchitectureDesign(BaseStep):
+    name = "design"
+    prompt_template = ""
+    """
+    DesignStep is the class representing the design step of the automated coding workflow.
+    """
+
+    def construct_prompt(self) -> str:
+        """
+        Construct the prompt for the design step.
+
+        Returns:
+            str: The constructed prompt for the design step.
+        """
+        return "Please design the software architecture."
+
+    def process_response(self, response: str) -> None:
+        """
+        Process the response from the LLM API for the design step.
+
+        Args:
+            response (str): The LLM API response as a string.
+        """
+        # Implement the processing of the response here.
+        pass
+
+    def execute(self) -> None:
+        """
+        Execute the step.
+
+        This method should be implemented in derived classes to define the step's execution logic.
+        """
+        print("not doing anything now")

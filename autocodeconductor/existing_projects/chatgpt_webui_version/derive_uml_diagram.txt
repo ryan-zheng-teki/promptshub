@@ -1,0 +1,653 @@
+You are a Python software architect. Based on the Python source code provided in the `[SourceCode]` and the context provided in the `[Context]` sections, your task is to create feature architecture design documentation and a plantuml diagram that represents the architecture and design.
+
+Criteria:
+- The final documentation should follow the format defined in the `[Template]` section.
+- Ensure your UML diagram in the documentation adheres to the plantuml syntax. The UML will also contains some explanation notes, taking inspiration from the example provided in the `[Example]` section.
+- The final documentation should be placed in a copiable code block.
+
+Think step by step meticously before output the final documentation. 
+
+[Template]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+- Provide a brief overview of the primary architecture.
+- Are there any design patterns that will be applied?
+
+1.2. **New Components**:
+- **ComponentA (New)**: Describe its purpose, role, and functionality.
+- **ComponentB (New)**: Describe its purpose, role, and functionality.
+... Continue as needed.
+  
+1.3. **Existing Components/Dependencies**:
+- **ComponentX (Existing)**: Briefly describe its role and from which feature/module it originates.
+- **ComponentY (Existing)**: Briefly describe its role and from which feature/module it originates.
+... Continue as needed.
+
+1.4. **Interactions**: 
+- How do the new components interact with each other?
+- How do the new components interact with the existing components?
+
+1.5. **External Dependencies**: 
+- List any third-party libraries, services, or tools that will be used.
+- Are there any specific versions or configurations to be aware of?
+
+#### 2. UML Diagram:
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+#### 2. UML Diagram:
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+@startuml
+... UML content here ...
+@enduml
+
+
+[Example]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+This feature implements the Observer Pattern, allowing numerous subscribers to be notified of certain events. An existing EventDatabase will store all the triggered events.
+
+1.2. **New Components**:
+- **Publisher (New)**: Broadcasts events to all subscribers and logs them to the EventDatabase.
+- **Subscriber (New)**: Monitors and responds to particular events.
+
+1.3. **Existing Components/Dependencies**:
+- **EventDatabase (Existing)**: A database component that stores all triggered events.
+
+1.4. **Interactions**: 
+- Users liaise with the Publisher to initiate events. 
+- The Publisher logs the event to the EventDatabase.
+- Subsequently, the Publisher notifies all Subscribers of this occurrence.
+
+1.5. **External Dependencies**: 
+None.
+
+#### 2. UML Diagram:
+
+@startuml
+
+class "Publisher (New)" {
+    + trigger_event()
+    + add_subscriber(subscriber: Subscriber)
+    + log_event_to_database(event: Event)
+}
+
+class "Subscriber (New)" {
+    + on_event_received()
+}
+
+class "EventDatabase (Existing)" {
+    + save_event(event: Event)
+}
+
+"Publisher (New)" --> "Subscriber (New)": Event notification
+"Publisher (New)" --> "EventDatabase (Existing)": Logs event
+
+note bottom of "Publisher (New)"
+    The Publisher is central to the Observer pattern.
+    It broadcasts events and handles the addition of new subscribers.
+end note
+
+note right of "EventDatabase (Existing)"
+    This is an existing database component.
+    New events are logged here by the Publisher.
+end note
+
+@enduml
+
+[SourceCode]
+$start$
+# src/automated_coding_workflow/automated_coding_workflow.py
+"""
+automated_coding_workflow.py: Contains the AutomatedCodingStep class, which represents the main entry point for running the automated coding workflow.
+"""
+
+import json
+from typing import Dict, Optional
+from autobyteus.workflow.config import WORKFLOW_CONFIG
+from autobyteus.llm_integrations.llm_integration_registry import LLMIntegrationRegistry
+from autobyteus.workflow_types.types.base_step import BaseStep
+from autobyteus.workflow_types.types.workflow_status import WorkflowStatus
+from autobyteus.workflow_types.types.workflow_template_config import StepsTemplateConfig
+from autobyteus.workspaces.setting.workspace_setting import WorkspaceSetting  # Import WorkspaceSetting
+
+
+class AutomatedCodingWorkflow:
+    """
+    A class to represent and manage a fully automated coding workflow.
+
+    The workflow is composed of multiple steps, each step represented as an instance of a class derived from BaseStep. Steps can have sub-steps, forming a potentially multi-level workflow.
+
+    Attributes:
+        workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        steps (Dict[str, BaseStep]): A dictionary of step instances keyed by their step IDs.
+        name (str): The name of the workflow. Default is "automated_coding_workflow".
+        config (dict): The configuration details for the workflow. Loaded from `WORKFLOW_CONFIG`.
+    """
+
+    name = "automated_coding_workflow"
+    config = WORKFLOW_CONFIG
+
+    def __init__(self, workspace_setting: WorkspaceSetting): 
+        """
+        Initialize the AutomatedCodingWorkflow with the given workspace setting.
+
+        Args:
+            workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        """
+        self.workspace_setting = workspace_setting
+        self.llm_integration_registry = LLMIntegrationRegistry()
+        self.steps: Dict[str, BaseStep] = {}
+        self._initialize_steps(AutomatedCodingWorkflow.config['steps'])
+    
+    def _initialize_steps(self, steps_config: Dict[str, StepsTemplateConfig]):
+        """
+        Initializes the steps of the workflow from a given configuration.
+
+        If a step has sub-steps, it recursively initializes those as well.
+
+        :param steps_config: A dictionary containing step configuration.
+        """
+        for step_id, step_config in steps_config.items():
+            step_class = step_config['step_class']
+            step_instance: BaseStep = step_class(self)
+            self.steps[step_id] = step_instance
+
+            if 'steps' in step_config:
+                self._initialize_steps(step_config['steps'])
+
+    def to_json(self) -> str:
+        """
+        Converts the workflow instance to a JSON representation, including its steps.
+
+        Returns:
+            str: The JSON representation of the workflow instance.
+        """
+        workflow_data = {
+            "name": self.name,
+            "steps": {step_id: step.to_dict() for step_id, step in self.steps.items()}
+        }
+
+        return json.dumps(workflow_data)
+    
+    def execute_step(self, step_id: str) -> Optional[str]:
+        """
+        Execute a specific step within the workflow using its ID.
+
+        :param step_id: The ID of the step to execute.
+        :return: The step result or None if the step_id is invalid.
+        :raises ValueError: If the provided step_id is invalid.
+        """
+        step = self.steps.get(step_id)
+        if step:
+            return step.execute()
+        else:
+            raise ValueError(f"Invalid step_id: {step_id}")
+
+
+    def start_workflow(self):
+        """
+        Set the status of the workflow to Started and raise a NotImplementedError for derived classes to implement.
+        """
+        self.status = WorkflowStatus.Started
+
+$end$
+
+[Context]
+This is mainly about the feature for automated coding workflow feature. LLMIntegrationRegistry belongs to LLM integration fetaure.
+
+
+You are a Python software architect. Your task is to analyze existing Python source code to discern the architecture and design of a software feature. With this analysis, you should create a feature architecture design documentation complemented with a PlantUML diagram to represent the architecture and design.
+
+### Criteria:
+- Your analysis should be based on the Python source code provided in the `[SourceCode]`
+- The final documentation must adhere to the format defined in the `[Template]` section.
+- The UML diagram included in the documentation should be compliant with PlantUML syntax. Additionally, it should contain explanatory notes inspired by the example in the `[Example]` section.
+- The completed documentation should be presented in a copiable code block.
+
+### Background:
+- The source code provided represents only a segment of a larger codebase. Therefore, some components might be defined elsewhere, and not all details might be present.
+- Previously, code was developed without formal design documentation. The aim now is to retroactively create this documentation based on existing code.
+- During your analysis, you must determine the primary focus of the feature from the given code. Additionally, decide whether imported classes are part of the current feature or are external dependencies.
+
+### Approach:
+1. **Analyze the Code**: Understand the primary purpose and functionality of the provided source code. Identify key classes, methods, and their relationships.
+2. **Determine Feature Boundaries**: Decide which classes and components are central to the feature in focus. Recognize if any imported classes or components are also part of the feature.
+3. **Craft the Documentation**: Follow the `[Template]` to write the feature architecture design documentation.
+4. **Design the UML Diagram**: Create a PlantUML diagram that visually represents the architecture and design. Ensure it's clear, concise, and informative.
+5. **Finalize**: Review the documentation and UML diagram. Ensure they align with the criteria and context provided.
+
+Think meticulously and step-by-step to produce a comprehensive and insightful documentation.
+
+[Template]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+- Provide a brief overview of the primary architecture.
+- Are there any design patterns that will be applied?
+
+1.2. **New Components**:
+- **ComponentA (New)**: Describe its purpose, role, and functionality.
+- **ComponentB (New)**: Describe its purpose, role, and functionality.
+... Continue as needed.
+  
+1.3. **Existing Components/Dependencies**:
+- **ComponentX (Existing)**: Briefly describe its role and from which feature/module it originates.
+- **ComponentY (Existing)**: Briefly describe its role and from which feature/module it originates.
+... Continue as needed.
+
+1.4. **Interactions**: 
+- How do the new components interact with each other?
+- How do the new components interact with the existing components?
+
+1.5. **External Dependencies**: 
+- List any third-party libraries, services, or tools that will be used.
+- Are there any specific versions or configurations to be aware of?
+
+#### 2. UML Diagram:
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+#### 2. UML Diagram:
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+@startuml
+... UML content here ...
+@enduml
+
+
+[Example]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+This feature implements the Observer Pattern, allowing numerous subscribers to be notified of certain events. An existing EventDatabase will store all the triggered events.
+
+1.2. **New Components**:
+- **Publisher (New)**: Broadcasts events to all subscribers and logs them to the EventDatabase.
+- **Subscriber (New)**: Monitors and responds to particular events.
+
+1.3. **Existing Components/Dependencies**:
+- **EventDatabase (Existing)**: A database component that stores all triggered events.
+
+1.4. **Interactions**: 
+- Users liaise with the Publisher to initiate events. 
+- The Publisher logs the event to the EventDatabase.
+- Subsequently, the Publisher notifies all Subscribers of this occurrence.
+
+1.5. **External Dependencies**: 
+None.
+
+#### 2. UML Diagram:
+
+@startuml
+
+class "Publisher (New)" {
+    + trigger_event()
+    + add_subscriber(subscriber: Subscriber)
+    + log_event_to_database(event: Event)
+}
+
+class "Subscriber (New)" {
+    + on_event_received()
+}
+
+class "EventDatabase (Existing)" {
+    + save_event(event: Event)
+}
+
+"Publisher (New)" --> "Subscriber (New)": Event notification
+"Publisher (New)" --> "EventDatabase (Existing)": Logs event
+
+note bottom of "Publisher (New)"
+    The Publisher is central to the Observer pattern.
+    It broadcasts events and handles the addition of new subscribers.
+end note
+
+note right of "EventDatabase (Existing)"
+    This is an existing database component.
+    New events are logged here by the Publisher.
+end note
+
+@enduml
+
+[SourceCode]
+$start$
+# src/automated_coding_workflow/automated_coding_workflow.py
+"""
+automated_coding_workflow.py: Contains the AutomatedCodingStep class, which represents the main entry point for running the automated coding workflow.
+"""
+
+import json
+from typing import Dict, Optional
+from autobyteus.workflow.config import WORKFLOW_CONFIG
+from autobyteus.llm_integrations.llm_integration_registry import LLMIntegrationRegistry
+from autobyteus.workflow_types.types.base_step import BaseStep
+from autobyteus.workflow_types.types.workflow_status import WorkflowStatus
+from autobyteus.workflow_types.types.workflow_template_config import StepsTemplateConfig
+from autobyteus.workspaces.setting.workspace_setting import WorkspaceSetting  # Import WorkspaceSetting
+
+
+class AutomatedCodingWorkflow:
+    """
+    A class to represent and manage a fully automated coding workflow.
+
+    The workflow is composed of multiple steps, each step represented as an instance of a class derived from BaseStep. Steps can have sub-steps, forming a potentially multi-level workflow.
+
+    Attributes:
+        workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        steps (Dict[str, BaseStep]): A dictionary of step instances keyed by their step IDs.
+        name (str): The name of the workflow. Default is "automated_coding_workflow".
+        config (dict): The configuration details for the workflow. Loaded from `WORKFLOW_CONFIG`.
+    """
+
+    name = "automated_coding_workflow"
+    config = WORKFLOW_CONFIG
+
+    def __init__(self, workspace_setting: WorkspaceSetting): 
+        """
+        Initialize the AutomatedCodingWorkflow with the given workspace setting.
+
+        Args:
+            workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        """
+        self.workspace_setting = workspace_setting
+        self.llm_integration_registry = LLMIntegrationRegistry()
+        self.steps: Dict[str, BaseStep] = {}
+        self._initialize_steps(AutomatedCodingWorkflow.config['steps'])
+    
+    def _initialize_steps(self, steps_config: Dict[str, StepsTemplateConfig]):
+        """
+        Initializes the steps of the workflow from a given configuration.
+
+        If a step has sub-steps, it recursively initializes those as well.
+
+        :param steps_config: A dictionary containing step configuration.
+        """
+        for step_id, step_config in steps_config.items():
+            step_class = step_config['step_class']
+            step_instance: BaseStep = step_class(self)
+            self.steps[step_id] = step_instance
+
+            if 'steps' in step_config:
+                self._initialize_steps(step_config['steps'])
+
+    def to_json(self) -> str:
+        """
+        Converts the workflow instance to a JSON representation, including its steps.
+
+        Returns:
+            str: The JSON representation of the workflow instance.
+        """
+        workflow_data = {
+            "name": self.name,
+            "steps": {step_id: step.to_dict() for step_id, step in self.steps.items()}
+        }
+
+        return json.dumps(workflow_data)
+    
+    def execute_step(self, step_id: str) -> Optional[str]:
+        """
+        Execute a specific step within the workflow using its ID.
+
+        :param step_id: The ID of the step to execute.
+        :return: The step result or None if the step_id is invalid.
+        :raises ValueError: If the provided step_id is invalid.
+        """
+        step = self.steps.get(step_id)
+        if step:
+            return step.execute()
+        else:
+            raise ValueError(f"Invalid step_id: {step_id}")
+
+
+    def start_workflow(self):
+        """
+        Set the status of the workflow to Started and raise a NotImplementedError for derived classes to implement.
+        """
+        self.status = WorkflowStatus.Started
+
+$end$
+
+
+
+
+You are a Python software architect. Your task is to analyze Python source code to discern the architecture and design of a software feature. Based on your analysis, craft a feature architecture design documentation complemented with a PlantUML diagram.
+
+### Criteria:
+- Analyze the Python source code provided in `[SourceCode]`.
+- The final design documentation should adhere to the format in the `[Template]` section.
+- Ensure the UML diagram within the documentation follows PlantUML syntax and includes explanatory notes, as shown in `[Example]`.
+- Present the completed documentation in a copiable code block.
+
+### Background:
+- The source code is a segment of a larger feature; not all relevant modules for the feature are present in the source code section.
+- The goal is to create retroactive documentation based on existing code incrementally.
+- Identify the feature's core components and differentiate from external dependencies.
+
+### Approach:
+1. Analyze the Code: Comprehend the code's primary purpose. Identify key classes, methods, and their interrelations.
+2. Determine Feature Boundaries: Decide on the central classes and components of the feature. Recognize if imported classes are part of the feature. 
+3. Craft the Documentation: Use the `[Template]` to document the architecture.
+4. Design the UML Diagram: Visualize the architecture using PlantUML, ensuring clarity and conciseness.
+5. Finalize & Re-evaluate: Review the documentation and diagram. Revisit your observations if needed, ensuring alignment with the feature's core.
+
+Think meticulously and step-by-step to produce a comprehensive and insightful documentation.
+
+[Template]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+- Provide a brief overview of the primary architecture.
+- Are there any design patterns that will be applied?
+
+1.2. **New Components**:
+- **ComponentA (New)**: Describe its purpose, role, and functionality.
+- **ComponentB (New)**: Describe its purpose, role, and functionality.
+... Continue as needed.
+  
+1.3. **Existing Components/Dependencies**:
+- **ComponentX (Existing)**: Briefly describe its role and from which feature/module it originates.
+- **ComponentY (Existing)**: Briefly describe its role and from which feature/module it originates.
+... Continue as needed.
+
+1.4. **Interactions**: 
+- How do the new components interact with each other?
+- How do the new components interact with the existing components?
+
+1.5. **External Dependencies**: 
+- List any third-party libraries, services, or tools that will be used.
+- Are there any specific versions or configurations to be aware of?
+
+#### 2. UML Diagram:
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+#### 2. UML Diagram:
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+@startuml
+... UML content here ...
+@enduml
+
+
+[Example]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+This feature implements the Observer Pattern, allowing numerous subscribers to be notified of certain events. An existing EventDatabase will store all the triggered events.
+
+1.2. **New Components**:
+- **Publisher (New)**: Broadcasts events to all subscribers and logs them to the EventDatabase.
+- **Subscriber (New)**: Monitors and responds to particular events.
+
+1.3. **Existing Components/Dependencies**:
+- **EventDatabase (Existing)**: A database component that stores all triggered events.
+
+1.4. **Interactions**: 
+- Users liaise with the Publisher to initiate events. 
+- The Publisher logs the event to the EventDatabase.
+- Subsequently, the Publisher notifies all Subscribers of this occurrence.
+
+1.5. **External Dependencies**: 
+None.
+
+#### 2. UML Diagram:
+
+@startuml
+
+class "Publisher (New)" {
+    + trigger_event()
+    + add_subscriber(subscriber: Subscriber)
+    + log_event_to_database(event: Event)
+}
+
+class "Subscriber (New)" {
+    + on_event_received()
+}
+
+class "EventDatabase (Existing)" {
+    + save_event(event: Event)
+}
+
+"Publisher (New)" --> "Subscriber (New)": Event notification
+"Publisher (New)" --> "EventDatabase (Existing)": Logs event
+
+note bottom of "Publisher (New)"
+    The Publisher is central to the Observer pattern.
+    It broadcasts events and handles the addition of new subscribers.
+end note
+
+note right of "EventDatabase (Existing)"
+    This is an existing database component.
+    New events are logged here by the Publisher.
+end note
+
+@enduml
+
+[SourceCode]
+$start$
+# src/automated_coding_workflow/automated_coding_workflow.py
+"""
+automated_coding_workflow.py: Contains the AutomatedCodingStep class, which represents the main entry point for running the automated coding workflow.
+"""
+
+import json
+from typing import Dict, Optional
+from autobyteus.workflow.config import WORKFLOW_CONFIG
+from autobyteus.llm_integrations.llm_integration_registry import LLMIntegrationRegistry
+from autobyteus.workflow_types.types.base_step import BaseStep
+from autobyteus.workflow_types.types.workflow_status import WorkflowStatus
+from autobyteus.workflow_types.types.workflow_template_config import StepsTemplateConfig
+from autobyteus.workspaces.setting.workspace_setting import WorkspaceSetting  # Import WorkspaceSetting
+
+
+class AutomatedCodingWorkflow:
+    """
+    A class to represent and manage a fully automated coding workflow.
+
+    The workflow is composed of multiple steps, each step represented as an instance of a class derived from BaseStep. Steps can have sub-steps, forming a potentially multi-level workflow.
+
+    Attributes:
+        workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        steps (Dict[str, BaseStep]): A dictionary of step instances keyed by their step IDs.
+        name (str): The name of the workflow. Default is "automated_coding_workflow".
+        config (dict): The configuration details for the workflow. Loaded from `WORKFLOW_CONFIG`.
+    """
+
+    name = "automated_coding_workflow"
+    config = WORKFLOW_CONFIG
+
+    def __init__(self, workspace_setting: WorkspaceSetting): 
+        """
+        Initialize the AutomatedCodingWorkflow with the given workspace setting.
+
+        Args:
+            workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        """
+        self.workspace_setting = workspace_setting
+        self.llm_integration_registry = LLMIntegrationRegistry()
+        self.steps: Dict[str, BaseStep] = {}
+        self._initialize_steps(AutomatedCodingWorkflow.config['steps'])
+    
+    def _initialize_steps(self, steps_config: Dict[str, StepsTemplateConfig]):
+        """
+        Initializes the steps of the workflow from a given configuration.
+
+        If a step has sub-steps, it recursively initializes those as well.
+
+        :param steps_config: A dictionary containing step configuration.
+        """
+        for step_id, step_config in steps_config.items():
+            step_class = step_config['step_class']
+            step_instance: BaseStep = step_class(self)
+            self.steps[step_id] = step_instance
+
+            if 'steps' in step_config:
+                self._initialize_steps(step_config['steps'])
+
+    def to_json(self) -> str:
+        """
+        Converts the workflow instance to a JSON representation, including its steps.
+
+        Returns:
+            str: The JSON representation of the workflow instance.
+        """
+        workflow_data = {
+            "name": self.name,
+            "steps": {step_id: step.to_dict() for step_id, step in self.steps.items()}
+        }
+
+        return json.dumps(workflow_data)
+    
+    def execute_step(self, step_id: str) -> Optional[str]:
+        """
+        Execute a specific step within the workflow using its ID.
+
+        :param step_id: The ID of the step to execute.
+        :return: The step result or None if the step_id is invalid.
+        :raises ValueError: If the provided step_id is invalid.
+        """
+        step = self.steps.get(step_id)
+        if step:
+            return step.execute()
+        else:
+            raise ValueError(f"Invalid step_id: {step_id}")
+
+
+    def start_workflow(self):
+        """
+        Set the status of the workflow to Started and raise a NotImplementedError for derived classes to implement.
+        """
+        self.status = WorkflowStatus.Started
+
+$end$

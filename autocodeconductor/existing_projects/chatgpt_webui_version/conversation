@@ -1,0 +1,29 @@
+hi, i have created a template for feature code design documentation. I show it as follows between $start$ and $end$ tags
+#start#
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+Provide a brief overview of the primary architecture and any applied design patterns.
+
+1.2. **Component Descriptions**:
+- **Component1**: Detail its role and functionality.
+- **Component2**: Outline its role and functionality.
+... Continue as needed.
+
+1.3. **Interactions**: 
+Describe the interactions and flow between the different components.
+
+1.4. **External Dependencies**: 
+List any third-party libraries, services, or tools used.
+
+#end#
+
+This documentation is contains code design for a certain feature in one existing application.  The purpose of this documentation is to serve as a source for creating implementation tickets. 
+
+A feature might dependes on API provided by other feature. So in the documentation and uml diagram, we have to be very explicit which classes or components belong to this feature. Which are external dependencies already provided by other features. Then when we create ticket based on this documentation, the ticket itself can state very clearly which class to create, which one  should be imported as dependencies. 
+
+But this documentation i think its not really achieving the purpose. By the way, the audience of this template is one large language model. My usage is that i give the prompt containing this template to large language model, then ask it generate a code design documentation for our existing code base. So i found that large language model does not distinguish external dependencies, and what classes should be created in the current feature clearly.  Earlier it contains all the existing code as classes needed to be created in the current feature code design.
+
+could you think methodically, analyse the template, and check how it can be improved? So when it's given to large language model, it works better
