@@ -6,6 +6,7 @@ Criteria:
 - Place the thinking under the `[Thinking]` section.
 - The final documentation should be placed under the `[Architecture Design Documentation]` section.
 
+
 Think step by step meticously before output the final documentation. 
 
 [Template]

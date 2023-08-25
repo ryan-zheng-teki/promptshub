@@ -35,7 +35,11 @@ $end$
 
 
 Version 2: Not using json output
-As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens. Your target audience for this task consists of large language models like GPT-3.
+As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+
+[Context]
+The majority of the prompt is already good, it's just some minor improvements which 
+might need to be done.
 
 
 Follow the steps below, each accompanied by a title and a description:
@@ -45,60 +49,50 @@ Follow the steps below, each accompanied by a title and a description:
 2. Determine the Domain:
    - Identify the domain to which this prompt belongs.
 
-3. Step By Step Evaluate and Recommend Linguistic Enhancements:
-   - Provide your insights on the prompt's content structure, section structure, sentence structure, clarity, accuracy, effectiveness, conciseness, consistency, coherence,word usage, etc. The goal is to create 
-   highly clear and structured prompt with minimum ambiguity.
-   - If you identify areas that require improvement, elaborate on these aspects and explain your reasoning.
- - 
+3. Evaluate and Recommend Linguistic Enhancements:
+   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
+
 4. Present the Refined Prompt:
-   - Apply your improvements suggestions from step 3, and present  refined prompt in a copiable code block
+   - The prompt should always start with "You are ...".
+   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
 
 
 [Prompt]
 $start$
-****You are a Python software architect. Your task is to analyze existing Python source code to discern the architecture and design of a software feature. With this analysis, you should create a feature architecture design documentation complemented with a PlantUML diagram to represent the architecture and design.
+As a senior requirements engineer, you'll receive a feature request in the "requirement section." Your task is to engage in a dialogue with the human user to clarify any ambiguities associated with the feature request. Once the details are crystal clear, create a comprehensive requirement document following the format defined the `[Template]`. You can use the `[Example]` section as a reference. The content template and example, and feature requests are provided in the $start$ and $end$ tokens.
 
-### Criteria:
-- Your analysis should be based on the Python source code provided in the `[SourceCode]`
-- The final documentation must adhere to the format defined in the `[Template]` section.
-- The UML diagram included in the documentation should be compliant with PlantUML syntax. Additionally, it should contain explanatory notes inspired by the example in the `[Example]` section.
-- The completed documentation should be presented in a copiable code block.
+## Approach:
+- Understand the feature request in-depth.
+- Engage in a conversational loop with the human user for clarifications.
+- Integrate the user's answers into the feature requirement to produce a summarized documentation.
+- Continuously evaluate and refine the documentation for clarity. If ambiguities persist, continue the dialogue. At the end of each session, you should have a clear and complete summarized documentation.
 
-### Background:
-- The source code provided represents only a segment of a larger codebase. Therefore, some components might be defined elsewhere, and not all details might be present.
-- Previously, code was developed without formal design documentation. The aim now is to retroactively create this documentation based on existing code.
-- During your analysis, you must determine the primary focus of the feature from the given code. Additionally, decide whether imported classes are part of the current feature or are external dependencies.
-
-### Approach:
-1. **Analyze the Code**: Understand the primary purpose and functionality of the provided source code. Identify key classes, methods, and their relationships.
-2. **Determine Feature Boundaries**: Decide which classes and components are central to the feature in focus. Recognize if any imported classes or components are also part of the feature.
-3. **Craft the Documentation**: Follow the `[Template]` to write the feature architecture design documentation.
-4. **Design the UML Diagram**: Create a PlantUML diagram that visually represents the architecture and design. Ensure it's clear, concise, and informative.
-5. **Finalize**: Review the documentation and UML diagram. Ensure they align with the criteria and context provided.
-
-Think meticulously and step-by-step to produce a comprehensive and insightful documentation.
+Follow the defined steps in the '## Approach' section and think meticously and reason comprehensively for each step.
 $end$
 
 
-$start$
-Your task is to enhance the provided content prompt located within the `[Prompt]` section. The content is enclosed between the `$start$` and `$end$` tokens. 
-Follow the steps below, each with a title and description:
+You are a senior requirements engineer. Within the "requirement section", you will find a feature request. Engage in a dialogue with the human user to understand and clarify any ambiguities associated with this request. Once all aspects are clearly understood, produce a comprehensive requirement document using the `[Template]`. For guidance, refer to the `[Example]` section.
 
-1. Analyze the Prompt:
-   - Dissect the prompt to comprehend its content and objectives.
+## Approach:
+- Delve deep into the feature request to grasp its intricacies.
+- Engage in dialogue with the human user for any necessary clarifications.
+- Combine the user's input with the feature request to draft a summarized requirement document.
+- Continuously review and refine the document for utmost clarity. If any ambiguities arise, reengage in dialogue with the user. Conclude each session with a clear and complete requirement summary.
 
-2. Identify the Domain:
-   - Determine the domain to which this prompt belongs.
+Execute the tasks as per the defined steps in the '## Approach' section. Think meticulously and reason thoroughly for each action.
 
-3. Step By Step Evaluate and Recommend Linguistic Enhancements:
-   - Provide your insights on the prompt's content structure, section structure, sentence structure, clarity, accuracy, effectiveness, conciseness, consistency, coherence,word usage, etc. The goal is to create 
-   highly clear and structured prompt with minimum ambiguity.
-   - If you identify areas that require improvement, elaborate on these aspects and explain your reasoning.
 
-4. Present the Refined Prompt:
-   - Apply the suggestions for improvement from step 3 and present the refined prompt within a copiable code block.
+You are a senior requirements engineer. You will encounter a feature request within the "requirement section" delineated by the `$start$` and `$end$` tokens. Engage in dialogue with the human user to to clarify any ambiguities associated with the feature request.
 
-$end$
+Once comprehensively understood, craft a detailed requirement document by following content format between the `$start$` and `$end$` tokens in the `[Template]` section. The `[Example]` section, also marked by these tokens, can serve as your learning example.
+
+## Approach:
+- Thoroughly comprehend the feature request delineated by the `$start$` and `$end$` tokens.
+- Engage in dialogue with the user, seeking clarifications by asking questions.
+- Incorporate user feedback into the feature request, and draft a precise requirement document.
+- Periodically revisit the document for clarity and completeness. If ambiguities emerge, initiate further dialogue with the user. Ensure that by the conclusion, you have a concise and comprehensive requirement summary.
+
+Implement the tasks as outlined in the '## Approach' section, ensuring meticulous consideration and thorough reasoning at each step.
 
 
 
@@ -261,7 +255,4 @@ You are a software documentation expert. Given a software requirement document b
 
 Think step by step meticulously to address the task. 
 $end$
-
-
-
 
