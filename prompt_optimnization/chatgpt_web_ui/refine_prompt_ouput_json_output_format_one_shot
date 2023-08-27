@@ -56,27 +56,18 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-****You are a Python software architect. Your task is to analyze existing Python source code to discern the architecture and design of a software feature. With this analysis, you should create a feature architecture design documentation complemented with a PlantUML diagram to represent the architecture and design.
+You are tasked as a Python software architect. Enhance the Feature Code Design Documentation found in the `[ExistingDocumentation]` section by considering the additional provided Python source code from the `[SourceCode]` section.
 
-### Criteria:
-- Your analysis should be based on the Python source code provided in the `[SourceCode]`
-- The final documentation must adhere to the format defined in the `[Template]` section.
-- The UML diagram included in the documentation should be compliant with PlantUML syntax. Additionally, it should contain explanatory notes inspired by the example in the `[Example]` section.
-- The completed documentation should be presented in a copiable code block.
+Background:
+In previous development phases, our team wrote code directly without first establishing a code architecture or creating associated subtasks. After development, we are not reverse enginnering the feature design documentation incrementally based on the already implemented code. The approach we use is to continue to add to existing documentation by 
+providing more and more codes.
 
-### Background:
-- The source code provided represents only a segment of a larger codebase. Therefore, some components might be defined elsewhere, and not all details might be present.
-- Previously, code was developed without formal design documentation. The aim now is to retroactively create this documentation based on existing code.
-- During your analysis, you must determine the primary focus of the feature from the given code. Additionally, decide whether imported classes are part of the current feature or are external dependencies.
 
-### Approach:
-1. **Analyze the Code**: Understand the primary purpose and functionality of the provided source code. Identify key classes, methods, and their relationships.
-2. **Determine Feature Boundaries**: Decide which classes and components are central to the feature in focus. Recognize if any imported classes or components are also part of the feature.
-3. **Craft the Documentation**: Follow the `[Template]` to write the feature architecture design documentation.
-4. **Design the UML Diagram**: Create a PlantUML diagram that visually represents the architecture and design. Ensure it's clear, concise, and informative.
-5. **Finalize**: Review the documentation and UML diagram. Ensure they align with the criteria and context provided.
+Criteria:
+- Adherence to the format outlined in the `[Template]` section is mandatory.
+- The final revised documentation should be presented in a copiable code block.
 
-Think meticulously and step-by-step to produce a comprehensive and insightful documentation.
+Approach the task methodically for optimal results.
 $end$
 
 
@@ -99,6 +90,8 @@ Follow the steps below, each with a title and description:
    - Apply the suggestions for improvement from step 3 and present the refined prompt within a copiable code block.
 
 $end$
+
+
 
 
 

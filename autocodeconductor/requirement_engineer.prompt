@@ -8,7 +8,7 @@ As a senior requirements engineer, you'll receive a feature request in the `[Fea
 
 Address the task as per the defined steps in the '## Approach' section. Think meticulously and reason thoroughly for each action.
 
-## Template
+[Template]
 $start$
 ### <Title>
 
@@ -82,8 +82,50 @@ $end$
 
 [FeatureRequest]
 $start$
+I have implemented a automated coding workflow in python. Bascially, i converted the standard software engineering process to each step in the workflow. The workflow always start with writting requirement. 
 
+Requriement create requirement doc, architect reads requirement, and produce feature code design doc. Architect will create subtasks as well depending on the code design code.
 
+Developers will implement the subtasks. I want to store feature code design doc, sub tasks, requirement doc all in databases. I also want to store the context for example which workflow all the docs are related to. 
+
+demonstrative code here in triple backticks.
+```
+"""
+config.py
+The WORKFLOW_CONFIG dictionary defines the structure of the workflow, including steps and substeps.
+Each step is defined as a key-value pair, where the key is the step name and the value is a dictionary containing:
+    - 'step_class': The class representing the step.
+    - 'steps': A dictionary of substeps, if any, following the same structure.
+
+For example, the 'requirement_step' has a 'refine' substep with its own class.
+"""
+
+from autobyteus.workflow.steps.implementation import Implementation
+from autobyteus.workflow.steps.requirement import Requirement
+from autobyteus.workflow.steps.architecture_design import ArchitectureDesign
+from autobyteus.workflow.steps.test_generation import TestGeneration
+from autobyteus.workflow.steps.testing import Testing
+from autobyteus.workflow.types.workflow_template_config import WorkflowTemplateStepsConfig
+
+WORKFLOW_CONFIG: WorkflowTemplateStepsConfig = {
+    'steps': {
+        'requirement_step': {
+            'step_class': Requirement,
+        },
+        'design_step': {
+            'step_class': ArchitectureDesign,
+        },
+        'test_generation_step': {
+            'step_class': TestGeneration,
+        },
+        'implementation_step': {
+            'step_class': Implementation,
+        },
+        'testing_step': {
+            'step_class': Testing,
+        },
+    }
+}
+```
 $end$
-
 

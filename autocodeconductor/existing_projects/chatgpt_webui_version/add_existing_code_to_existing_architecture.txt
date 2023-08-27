@@ -1,11 +1,19 @@
+You are a Python software architect. Your task is to improve the existing Feature Code Design Documentation found in the `[Documentation]` section by referencing the Python source code given in the `[SourceCode]` section. The final documentation will follow 
+the format defined in the `[Template]` section. The content of each section is enclosed 
+between `$start$` and `$end$` tokens.
 
-You are a Python software architect. Your objective is to enhance the existing Feature Code Design Documentation in the `[ExistingDocumentation]` section based on the Python source code presented in the `[SourceCode]` section. This enhancement is necessary because we're incrementally creating code design documentation for our existing codebase, and the current documentation does not fully represent the existing code for the feature.
+### Background
+In the past, our team wrote codes directly without adhering to the standard practice of initially designing the code architecture. We are now aiming to rectify this by incrementally creating feature code design documentation based on the existing code.
 
-Criteria:
-- Adhere to the format provided in the `[Template]` section.
-- Present the final complete documentation to facilitate easy copy and paste.
+### Approach:
+1. Understand the given feature design documentation.
+2. Understand the Python code provided in the `[SourceCode]` section. Summarize its primary functions and its association with the existing feature.
 
-Think step by step to address task meticulously.
+3. Analyse each dependency functionality under package `autobyteus` from the given code. Try to analyze whether it's 'part-of' the feature or it's 'used-by' the feature. When the dependencies are under the same package as the package of the source code, then they are 'part-of' dependencies. Otherwise, they are 'used-by' dependencies.
+4. Based on previous analysis steps, start to enhance the given design documentation by adding 'part-of' dependencies as new components and 'used-by' dependencies as existing components Ensure the revised documentation aligns with the format described in the `[Template]` section.
+
+Follow the steps defined in the 'Approach'. Think step by step meticously and reason comprehensively for each step to address the task.
+
 
 [Template]
 ### Feature Code Design Documentation:
@@ -13,21 +21,42 @@ Think step by step to address task meticulously.
 #### 1. Code Architecture Design:
 
 1.1. **High-Level Design**: 
-Provide a brief overview of the primary architecture and any applied design patterns.
+- Provide a brief overview of the primary architecture.
+- Are there any design patterns that will be applied?
 
-1.2. **Component Descriptions**:
-- **Component1**: Detail its role and functionality.
-- **Component2**: Outline its role and functionality.
+1.2. **New Components**:
+- **ComponentA (New)**: Describe its purpose, role, and functionality.
+- **ComponentB (New)**: Describe its purpose, role, and functionality.
+... Continue as needed.
+  
+1.3. **Existing Components/Dependencies**:
+- **ComponentX (Existing)**: Briefly describe its role and from which feature/module it originates.
+- **ComponentY (Existing)**: Briefly describe its role and from which feature/module it originates.
 ... Continue as needed.
 
-1.3. **Interactions**: 
-Describe the interactions and flow between the different components.
+1.4. **Interactions**: 
+- How do the new components interact with each other?
+- How do the new components interact with the existing components?
 
-1.4. **External Dependencies**: 
-List any third-party libraries, services, or tools used.
+1.5. **External Dependencies**: 
+- List any third-party libraries, services, or tools that will be used.
+- Are there any specific versions or configurations to be aware of?
 
 #### 2. UML Diagram:
-Offer a UML representation that highlights the system components and their relationships.
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+#### 2. UML Diagram:
+- Attach the UML diagram.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+
+@startuml
+... UML content here ...
+@enduml
 
 [Documentation]
 ### Feature Code Design Documentation:
@@ -35,120 +64,162 @@ Offer a UML representation that highlights the system components and their relat
 #### 1. Code Architecture Design:
 
 1.1. **High-Level Design**: 
-The code revolves around the `AutomatedCodingWorkflow` class which represents a fully automated coding workflow. This workflow comprises multiple steps, with each step being represented as an instance of a class derived from `BaseStep`. Each step can further have sub-steps, allowing for a potentially multi-level workflow.
+This feature is designed to manage a fully automated coding workflow. It is modular, with each step in the workflow being a separate component. The workflow can be serialized to JSON, and specific steps can be executed. Furthermore, steps can be multi-layered with sub-steps.
 
-1.2. **Component Descriptions**:
-- **AutomatedCodingWorkflow**: This is the primary class representing the complete automated coding process. It initializes the workflow, manages step executions, and provides functionality to convert the workflow to a JSON format.
-  - Attributes:
-    - `workspace_setting`: Holds the settings related to the workspace.
-    - `steps`: Contains a dictionary of step instances, each keyed by their step IDs.
-    - `name`: Name of the workflow.
-    - `config`: Configuration details loaded from `WORKFLOW_CONFIG`.
-  - Methods:
-    - `_initialize_steps`: A private method to initialize workflow steps from a given configuration. This method also handles the initialization of sub-steps recursively.
-    - `to_json`: Converts the workflow instance to a JSON format.
-    - `execute_step`: Executes a specific step within the workflow.
-    - `start_workflow`: Sets the workflow's status to Started.
+1.2. **New Components**:
+- **AutomatedCodingWorkflow (New)**: This is the main component that manages the automated coding workflow. It is responsible for initializing steps, executing steps, and serializing the workflow to JSON.
+- **WORKFLOW_CONFIG (New)**: Provides configuration details for the workflow.
+- **BaseStep (New)**: Represents a base class for steps in the workflow. Steps in the workflow derive from this class.
+- **WorkflowStatus (New)**: Likely an enumeration that represents the status of a workflow.
+- **StepsTemplateConfig (New)**: Configuration details for the steps in the workflow.
 
-- **LLMIntegrationRegistry**: Though not detailed in the provided code, it seems to be a registry for integrations related to LLM.
+1.3. **Existing Components/Dependencies**:
+- **LLMIntegrationRegistry (Existing)**: From the `llm_integrations` package. Manages integrations related to LLM.
+- **WorkspaceSetting (Existing)**: From the `workspaces` package. Represents settings related to a workspace.
 
-- **BaseStep**: Represents a base step in the workflow. Specific details are not provided, but it's inferred that derived classes represent specific steps in the coding workflow and have an `execute` method.
+1.4. **Interactions**: 
+- The `AutomatedCodingWorkflow` uses the `WORKFLOW_CONFIG` to initialize steps.
+- The `BaseStep` class is used by the `AutomatedCodingWorkflow` to represent steps.
+- The `WorkflowStatus` enumeration might be used to set and track the status of the workflow.
+- The `LLMIntegrationRegistry` might be used to manage integrations when executing steps.
+- The `WorkspaceSetting` is passed to the `AutomatedCodingWorkflow` during initialization.
 
-- **WorkspaceSetting**: Contains settings associated with the workspace, but specific details are not provided in the code.
-
-1.3. **Interactions**: 
-The `AutomatedCodingWorkflow` initializes using a workspace setting. During initialization, it sets up its steps (and potentially sub-steps) based on the provided `WORKFLOW_CONFIG`. Steps can be executed individually using the `execute_step` method, and the entire workflow can be converted to a JSON representation using the `to_json` method.
-
-1.4. **External Dependencies**: 
-The code utilizes several modules and classes, such as:
-- `json`: For converting the workflow representation to JSON format.
-- `WORKFLOW_CONFIG`: Provides configuration details for the workflow.
-- `LLMIntegrationRegistry`: Likely a registry for integrations related to LLM.
-- `BaseStep`: Represents the base class for steps in the workflow.
-- `WorkflowStatus`: Represents different status values the workflow can be in. Specific details are not provided.
-- `StepsTemplateConfig`: Provides the configuration template for workflow steps. Specific details are not provided.
-- `WorkspaceSetting`: Contains settings for the workspace.
+1.5. **External Dependencies**: 
+None observed from the provided code segment.
 
 #### 2. UML Diagram:
-```plantuml
+
 @startuml
 
-package "autobyteus.workflow_types.types" {
-    class BaseStep {
-        + execute(): str
+package "autobyteus.workflow" {
+    class "AutomatedCodingWorkflow (New)" {
+        + _initialize_steps(steps_config: dict)
+        + to_json(): str
+        + execute_step(step_id: str): str
+        + start_workflow()
+    }
+
+    class "WORKFLOW_CONFIG (New)" {
+    }
+
+    class "BaseStep (New)" {
+    }
+
+    class "WorkflowStatus (New)" {
+    }
+
+    class "StepsTemplateConfig (New)" {
     }
 }
 
 package "autobyteus.llm_integrations" {
-    class LLMIntegrationRegistry {
+    class "LLMIntegrationRegistry (Existing)" {
     }
 }
 
 package "autobyteus.workspaces.setting" {
-    class WorkspaceSetting {
+    class "WorkspaceSetting (Existing)" {
     }
 }
 
-package "src.automated_coding_workflow" {
-    class AutomatedCodingWorkflow {
-        + workspace_setting: WorkspaceSetting
-        + steps: Dict[str, BaseStep]
-        + name: str
-        + config: dict
-        + _initialize_steps(steps_config: Dict[str, StepsTemplateConfig])
-        + to_json(): str
-        + execute_step(step_id: str): Optional[str]
-        + start_workflow()
-    }
-    
-    note top of AutomatedCodingWorkflow
-        Represents the main automated coding workflow.
-        It handles initialization, execution of steps, and conversion to JSON.
-    end note
-    
-    AutomatedCodingWorkflow --> BaseStep: Has multiple step instances
-    AutomatedCodingWorkflow --> WorkspaceSetting: Utilizes workspace settings
-    AutomatedCodingWorkflow --> LLMIntegrationRegistry: Maintains a registry instance
-}
+"AutomatedCodingWorkflow (New)" --> "WORKFLOW_CONFIG (New)"
+"AutomatedCodingWorkflow (New)" --> "BaseStep (New)"
+"AutomatedCodingWorkflow (New)" --> "WorkflowStatus (New)"
+"AutomatedCodingWorkflow (New)" --> "LLMIntegrationRegistry (Existing)"
+"AutomatedCodingWorkflow (New)" --> "WorkspaceSetting (Existing)"
 
 @enduml
 
 [SourceCode]
+```
+# src/workflow/steps/requirement_step.py
+
 """
-src/automated_coding_workflow/design_stage.py
+requirement_step.py
 
-This module contains the DesignStep class, which represents the design stage of the automated coding workflow.
+This module contains the RequirementStep class, derived from the Step base class.
 """
 
-
+from abc import abstractmethod
+from typing_extensions import override
+from autobyteus.prompt.prompt_template import PromptTemplate
+from autobyteus.prompt.prompt_template_variable import PromptTemplateVariable
 from autobyteus.workflow.types.base_step import BaseStep
 
+class RequirementStep(BaseStep):
+    name = "requirement"
+    
+    # Define the PromptTemplateVariable
+    requirement_variable = PromptTemplateVariable(name="requirement", 
+                                                  source=PromptTemplateVariable.SOURCE_USER_INPUT, 
+                                                  allow_code_context_building=True, 
+                                                  allow_llm_refinement=True)
 
-class ArchitectureDesign(BaseStep):
-    name = "design"
-    prompt_template = ""
-    """
-    DesignStep is the class representing the design step of the automated coding workflow.
-    """
+    # Define the PromptTemplate
+    prompt_template = PromptTemplate(
+        template="""
+        As the best Python software engineer on earth, address the requriements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+        [Guidelines]
+        - Use appropriate design patterns where neccessary.
+        - Follow SOLID principles and Python's best coding practices.
+        - Consider refactoring where necessary.
+        - Follow python docstring best practices, ensuring each file begins with a file-level docstring.
+        - Include file paths with their complete codes in code block in the output, so i can easily copy and paste. Do not use placeholders.
+        - Explain whether to create a new folder or use an existing one for file placement. Use descriptive naming conventions for files and folders that correlate with the requirement's features. For context, 
+            the current project's file structure looks like this:
+            - src
+                - ...
+                - semantic_code
+                    - embedding
+                        - openai_embedding_creator.py
+            - tests
+                - unit_tests
+                    - ...
+                    - semantic_code
+                        - embedding
+                            - test_openai_embedding_creator.py
+                - integration_tests
+                    - ...
+                    - semantic_code
+                        - index
+                            - test_index_service_integration.py
+                    
+    - Always use absolute imports over relative ones.
+    - Update docstrings in line with any code modifications.
 
-    def construct_prompt(self) -> str:
+    Think step by step, and reason comphrehensively to address the task.
+    [Requirement]
+    $start$
+    {requirement}
+    $end$
+    """,
+        variables=[requirement_variable]
+    )
+    
+    @override
+    def construct_prompt(self, requirement: str) -> str:
         """
-        Construct the prompt for the design step.
+        Construct the prompt for the requirement step.
+
+        Args:
+            requirement (str): The requirement to be filled in the prompt_template.
 
         Returns:
-            str: The constructed prompt for the design step.
+            str: The constructed prompt for the requirement step.
         """
-        return "Please design the software architecture."
-
+        # Use the PromptTemplate's method to fill in the variable
+        prompt = self.prompt_template.fill({"requirement": requirement})
+        return prompt
+    
     def process_response(self, response: str) -> None:
         """
-        Process the response from the LLM API for the design step.
+        Process the response from the LLM API for this step.
 
         Args:
             response (str): The LLM API response as a string.
         """
-        # Implement the processing of the response here.
-        pass
+        raise NotImplementedError("Derived classes must implement the execute method.")
+
 
     def execute(self) -> None:
         """
@@ -156,4 +227,19 @@ class ArchitectureDesign(BaseStep):
 
         This method should be implemented in derived classes to define the step's execution logic.
         """
-        print("not doing anything now")
+        raise NotImplementedError("Derived classes must implement the execute method.")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
