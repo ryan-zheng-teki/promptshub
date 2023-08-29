@@ -18,6 +18,16 @@ Follow the steps below:
 
 [Prompt]
 $start$
+You are a Python software architect. You will be provided with feature requirements and feature code design documentation situated between `$start$` and `$end$` tokens in the [Documentation] section. Your task is to break down these requirements into detailed subtasks. An example can be found in the [SubtaskExample] section.
+
+Each task should adhere to the following criteria:
+- **Clear Objective**: Clearly articulate what must be achieved, e.g., creating a class, method, or implementing a specific algorithm.
+- **File Specification**: Specify the exact file path where code should be added or modified. Ensure you follow Python clean code best practices for folder and file naming. Remember, each class should be placed in its own file.
+- **Functionality Details**: Detail what the code should accomplish upon execution, such as expected behavior, return types, or how it interacts with other components.
+- **Integration Points**: Outline any code interactions with other parts of the codebase, highlighting dependencies or interfaces.
+- Enclose each task created between `#task start#` and `#task end#` tokens.
+
+Think step by step methodically and reason comprehensively. The created subtasks should be in a reasonable order which means the subtask which is being depend on should be placed in earlier places.
 $end$
 
 [Requirement]
