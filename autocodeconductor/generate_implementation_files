@@ -3,219 +3,138 @@ on a requirements and code design documentation. The documetnation is presented
 between between `$start$` and `$end$` tokens in the [Documentation] section.
 The task is presented between `$start$` and `$end$` tokens in the `[Task]` section.
 
-Criterias
-- Follow PEP8 python coding practices, including type hinting. 
-- Follow PEP8 python docstring best practices. Always add file-level docstring at the top of file.
-- Use absolute imports. Assume all dependencies already exists
-- Present the code between #code_start# and #code_end# tokens.
-  file_path: balba
-  content: here is the file content.
+Criterias:
+- For code-related tasks:
+  - Follow PEP8 python coding practices, including type hinting.
+  - Follow PEP8 python docstring best practices. Always add file-level docstring at the top of the file.
+  - Use absolute imports. Assume all dependencies already exist.
 
-Think step by step methodically, and reason comprehensively.
+- For setup tasks:
+  - Give complete bash commands to ensure complete setup.
+
+Provide the output in the `[Output]` section. This section will be encapsulated between `$output_start$` and `$output_end$` tokens, and it will contain the resulting code, instructions, or other relevant data based on the task's nature.
+
+Think step by step methodically, and reason comprehensively before providing the final output.
 
 [Documentation]
 $start$
-### Requirements Documentation
+### Feature Requirement Documentation
 
 #### 1. Story/Feature Description:
 
 1.1. **Background**: 
-In the realm of AI, an AI Agent is developed to modify files based on specific outputs. Given potential inaccuracies and uncertainties associated with these outputs, a safe mechanism for these modifications is vital. Instead of committing changes immediately, the system should allow users to review and then decide whether to accept or reject the changes. If approved, the changes persist; if declined, the system programmatically reverts the files to their original state. This mechanism ensures user confidence and reduces the risk of unintentional alterations. Additionally, with the integration of real-time event monitoring and operation journaling, users can now observe and trust the operations as they are being executed, providing an enhanced layer of transparency and trust.
+The requirement is for a repository base structure in Python that provides an interface to interact with a PostgreSQL database. This structure will serve as a foundational module for the AI coding agent application, upon which specific repositories can be built.
 
 1.2. **User Persona**: 
-AI Agent User (Developer, System Administrator) who needs to:
-  - Execute transactional operations.
-  - Review changes made by AI.
-  - Decide to commit or rollback operations.
-  - Receive real-time updates on operations.
-  - Trust in the system's ability to recover from unexpected issues.
+AI Coding Agent – A software agent responsible for executing operations on the database on behalf of the application.
 
 1.3. **User Journey**: 
-A user instructs the AI Agent to make modifications. Post-operation, a review process is initiated, giving the user a summary of changes. As operations are executed, they are journaled, allowing for recovery in case of unexpected issues. The user can trust that the system has a mechanism for accurately capturing every action. Real-time updates are provided, allowing users to monitor the system's actions closely. Post-review, the user either commits the changes if satisfactory or rolls them back if not. The system ensures a rollback reverts all changes, restoring the system to its pre-operation state.
+The AI coding agent, upon receiving a command or a task, interacts with the PostgreSQL database using the repository base structure. It can create, read, update, or delete records as necessary. In case of an error, the structure should either rollback the changes or log the error for further examination.
 
 #### 2. Requirements:
 
 2.1. **Functional Requirements**:
 
-- **File Operations**:
-   - Reading from files.
-   - Writing to files.
-   - Appending to files.
-   - Renaming files.
-   - Deleting files.
+- **CRUD Operations**:
+   - Create records in the database.
+   - Read records from the database.
+   - Update existing records in the database.
+   - Delete records from the database.
 
-- **Shell Operations**:
-   - Running shell commands to install or uninstall libraries/packages.
-   - Executing other miscellaneous shell commands.
+- **Error Handling**:
+   - Rollback any database changes when an error occurs during an operation.
+   - Log errors for further investigation.
 
-- **Journaling**:
-   - Recording every operation in a journal file.
-   - Ability to replay operations from a journal.
-   - Ability to rollback operations using the journal.
-   - Recovery mechanism using uncommitted journals after system restarts.
+- **Integration**:
+   - The structure should be modular and extensible, allowing other specific repositories to be built upon it, following the repository pattern.
 
-- **Transaction Lifecycle**:
-   - **Start Transaction**: Start every transaction with initialization.
-   - **Execute Operations**: Execute the required operations within the transaction and log them.
-   - **User Review**: Allow the user to review the changes.
-   - **Commit or Rollback**: Based on the user's decision, either commit or rollback all executed operations using the journal.
-   - **End Transaction**: Gracefully terminate the transaction.
+2.2. **Technical Requirements**:
 
-- **Real-Time Monitoring**: Users can monitor operations in real-time, providing transparency and confidence in the system's actions.
-   - **Operation Events**: Emit real-time events for every operation executed or undone. 
-   - **Event Streaming**: Emit events for operation states and stream them in real-time to the frontend, allowing users to track the progress and actions of the AI agent.
+- **Dependencies**:
+   - Use `SQLAlchemy` as the ORM (Object-Relational Mapping) tool to facilitate database operations.
+   - Use `Alembic` for database migration and versioning, allowing for smooth upgrades and schema changes.
 
 ---
 
-### System Design Documentation
+### Feature Code Design Documentation:
 
-#### 1. System Design:
+#### 1. Code Architecture Design:
 
 1.1. **High-Level Design**: 
-The design follows the Command Pattern, encapsulating each operation within a command object. This approach simplifies execution and potential reversion. Event production and buffering mechanisms support frontend integration via real-time updates. A relationship between the `JournalManager` and `OperationEventProducer` ensures every significant operation is both journaled for recovery and emitted as an event for real-time feedback.
+The feature implements the Repository Pattern with a context manager, offering an abstraction of the database. The `BaseRepository` class is generic. We will also introduce a `BaseModel` that contains common attributes and behaviors for all derived models. Sessions are managed using the context manager.
 
-1.2. **Component Descriptions**:
+1.2. **New Components**:
+- **BaseModel (New)**: A foundational model class that encapsulates common attributes and behaviors for all derived models.
+- **BaseRepository (New)**: A generic class providing CRUD operations.
+- **DatabaseSessionManager (New)**: A context manager for managing the database session.
 
-- **Operation**: Represents an action to be executed. Each operation has methods to perform and potentially undo the action.
-  
-- **OperationEventProducer**: Emits events for various operation states, which frontend services can consume.
+1.3. **Existing Components/Dependencies**:
+- None.
 
-- **JournalManager**: Manages the journaling of operations for recovery purposes. It also interacts with the `OperationEventProducer` to emit real-time events every time an operation is journaled.
+1.4. **Interactions**: 
+The AI coding agent will interface with the `BaseRepository`, which employs the `DatabaseSessionManager` for session management during CRUD operations.
 
-- **OperationEventBuffer**: Temporarily stores recent events for frontend services that might have missed real-time updates.
-
-- **OperationExecutor**: Manages the execution and potential reversion of operations.
-  
-- **Handlers**: Perform the actual operations. For instance, `ShellHandler` for shell commands.
-  
-- **OperationLifecycleManager**: Manages the transaction lifecycle, including starting, committing, and rolling back transactions. For commits, it ensures all operations are journaled and emits an event for successful commits. For rollbacks, it interacts with the `OperationExecutor` to revert all operations and uses the `BackupHandler` for file operations, followed by emitting a rollback event.
-
-- **BackupHandler**: Manages backups for file operations, allowing for a rollback feature.
-
-1.3. **Interactions**: 
-The AI Agent creates and initializes operations. These operations are executed by the `OperationExecutor`. As operations progress, events are emitted by the `OperationEventProducer` and captured in the `OperationEventBuffer`. The frontend can then access these events for real-time updates. The `OperationLifecycleManager` now interacts with the `OperationExecutor` for reverting operations during rollbacks. It also coordinates with the `BackupHandler` to restore file operations if necessary. For both commit and rollback events, the manager communicates with the `OperationEventProducer` to provide feedback to the frontend.
-
-1.4. **External Dependencies**: 
-None identified currently.
+1.5. **External Dependencies**: 
+- **SQLAlchemy**: ORM tool facilitating database operations.
+- **Alembic**: For database migration and versioning.
 
 #### 2. UML Diagram:
 
 @startuml
 
-package "Operation Module" {
-    class Operation {
-        + execute()
-        + undo()
-        + to_dict(): dict
-        + from_dict(data: dict): Operation
-    }
-    
-    class FileOperation {
-        + execute()
-        + undo()
-        + to_dict(): dict
-        + from_dict(data: dict): FileOperation
-    }
-    
-    class FileRenameOperation {
-        + execute()
-        + undo()
-        + to_dict(): dict
-        + from_dict(data: dict): FileRenameOperation
-    }
-    
-    class ShellOperation {
-        + execute()
-        + undo()
-        + to_dict(): dict
-        + from_dict(data: dict): ShellOperation
-    }
+package "Repository Base Structure" {
+
+class "BaseModel (New)" {
+    + id: Integer (PK)
+    + created_at: DateTime
+    + updated_at: DateTime
 }
 
-package "Operation Executor Module" {
-    class OperationExecutor {
-        + add_operation(operation: Operation)
-        + execute_operations(transaction_id: str)
-        + rollback_operations()
-    }
-    
-    class JournalManager {
-        + initialize_journal(transaction_id: str)
-        + record_operation(operation: Operation)
-        + finalize_journal(transaction_id: str, status: str)
-    }
-    
-    class OperationEventProducer {
-        + emit_event(event: str)
-    }
+class "BaseRepository (New)" {
+    + create(obj: ModelType): ModelType
+    + get(id: int): ModelType
+    + get_all(): List[ModelType]
+    + delete(obj: ModelType)
+    + update(obj: ModelType, **kwargs): ModelType
 }
 
-cloud "Handlers" {
-    class ShellHandler {
-        + handle_operation(operation: ShellOperation)
-    }
+class "DatabaseSessionManager (New)" {
+    + __enter__()
+    + __exit__(exc_type, exc_value, traceback)
 }
 
-database "Coordinator and Backup" {
-    class OperationLifecycleManager {
-        + start_transaction(): str
-        + rollback(transaction_id: str)
-        + commit(transaction_id: str)
-    }
-    
-    class BackupHandler {
-        + create_backup(transaction_id: str, filepath: str)
-        + restore_backup(transaction_id: str, filepath: str)
-    }
-    
-    class TransactionLogger {
-        + log_transaction_activity(activity: str)
-    }
-    
-    class BackupLogger {
-        + log_backup_activity(activity: str)
-    }
-    
-    class OperationEventBuffer {
-        + add_event(event)
-        + get_recent_events()
-    }
-    
-    note right of OperationLifecycleManager: "Manages the transaction\nlifecycle and logs activities"
-    note bottom of BackupHandler: "Handles backups before operations\nand restores them if needed"
+"BaseRepository (New)" --> "DatabaseSessionManager (New)": Uses for session management
+
 }
-
-[AI Agent] -down-> OperationExecutor: Invokes operations
-
-note over AI Agent: User interacts primarily\nwith the AI Agent to\ninitiate operations
-
-OperationExecutor --> JournalManager: Logs and journals operations
-OperationExecutor --> OperationEventProducer: Emits events
-
-ShellOperation --> ShellHandler: Executes shell commands
-
-OperationLifecycleManager --> TransactionLogger: Logs transaction activities
-OperationLifecycleManager -down-> OperationExecutor: Interacts for commit/rollback
-OperationLifecycleManager --> BackupHandler: Interacts for rollback
-OperationLifecycleManager --> JournalManager: Interacts for commit
-OperationLifecycleManager --> OperationEventProducer: Emits events for commit/rollback
-
-BackupHandler --> BackupLogger: Logs backup activities
-OperationEventProducer --> OperationEventBuffer: Sends events
 
 @enduml
 
 $end$
 
-[Context]
-This is the sixth subtask. The other subtasks are already done is already done.
-Operation is already created in file tools/operation/operation.py
-OperationExecutor is created in file tools/operation_executor/operation_executor.py
-
 [Task]
 #start#
-- **Clear Objective**: Create the `BackupHandler` class to handle backups for file operations.
-- **File Specification**: `tools/coordinator/backup_handler.py`
-- **Functionality Details**: This class should provide methods to create backups before file operations and restore them if needed.
-- **Integration Points**: It will interact with the `BackupLogger` to log backup activities.
-#end#
+#### Task 4: Implement BaseRepository
+#task start#
+
+- **Objective**: Implement the generic `BaseRepository` class.
+- **File Specification**: `autobyteus/db/repositories/base_repository.py`
+- **Functionality Details**: 
+    - Provide CRUD operations (create, read, update, delete) with the help of SQLAlchemy.
+    - Use the `DatabaseSessionManager` for session management.
+- **Integration Points**: Will be utilized by the AI coding agent and potentially other repositories in the future.
+
+#task end#
+
+#### Task 5: Alembic Configuration and Initial Migration
+#task start#
+
+- **Objective**: Set up Alembic for database migrations.
+- **File Specification**: Root directory (for Alembic configurations and migrations)
+- **Functionality Details**: 
+    - Initialize Alembic configurations.
+    - Create an initial migration to set up the database schema based on the `BaseModel`.
+- **Integration Points**: Database.
+
+#task end#
+
+$end$

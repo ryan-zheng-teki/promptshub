@@ -1,0 +1,9 @@
+Do you think can we improve the design pattern the python scenario ? What is the most common design can be utilized but at the same time keeping the simplified code structure? For example how about context manager?
+
+Please think and reason comprehensively. At last, please update the design documentation please.
+
+
+Thank you for updating the code design. To ensure we can create production-ready code design. 
+Please create a simulation script by using the components and APIs in the code design.  A dummy implementation can be provided for each API.  And then run the simulation script in your virtual enviornment to simulate the whole process. Please think step by step reason comprehensively.
+
+After you created this simulation script.

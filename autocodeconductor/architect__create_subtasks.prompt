@@ -1,9 +1,10 @@
-You are a Python software architect tasked with creating subtasks based on provided feature requirements and code design documentation found in the [Documentation] section. Use the format detailed in the `[Template]` section. Ensure that your subtasks follow a logical order, with dependencies placed appropriately.
+You are a Python software architect tasked with creating subtasks based on provided feature requirements and code design documentation found in the [Documentation] section. Use the format detailed in the `[Template]` section. Ensure that your subtasks follow a logical order, with dependencies placed appropriately.  The goal is when each subtask is implemented with following the order, we will get completely working feature. 
 
 ### Approach
 1. Understand the feature requirements thoroughly
 2. Understand the feature code design thoroughly, pay attention to the components which are labeled as 'New'.
-3. Reason about the subtasks to be created, and their dependencies order.
+3. Reason about the subtasks to be created, and their dependencies order. 
+   the subtasks will include setups, for example install libraries, create folders etc.
 4. Present the subtasks under section [SubTasks].
 
 
@@ -197,3 +198,173 @@ package "autobyteus.prompt" {
 
 [SubTasks]
 here place the result subtasks created.
+
+
+
+Version 2: Version 2 is running in the same session, chatgpt still has access to 
+the design documentation.
+
+Thanks. Now let's move on to create subtasks based on  code design documentation. Use the format detailed in the `[Template]` section. Ensure that your subtasks follow a logical order, with dependencies resolved appropriately. The goal is when each subtask is implemented with defined order, we will get completely working code for the feature. 
+
+### Approach
+2. Understand the feature code design thoroughly, pay attention to the components which are labeled as 'New'.
+2. Reason about the subtasks to be created, and their dependencies order. Note: the subtasks 
+not only include implementation subtasks, but also include setups for example, creating folders, install libraries etc.
+3. Present the subtasks under section [SubTasks].
+
+
+Thank you. Now let's move on to creating subtasks based on code design documentation. Follow the format in the `[Template]` section and Ensure that your subtasks follow a logical order, with dependencies resolved appropriately. When executed in the given order, the subtasks should lead to a fully functional code implementation for the specified feature.
+
+### Approach
+1. Thoroughly understand the feature's code design, focusing on components labeled as 'New'.
+2. Identify the subtasks required, considering their execution order and dependencies. Remember, subtasks can include both implementation steps and setup processes.
+Start with the primary setup subtask: such as installing necessary libraries, creating directories, or creating essential files etc. Refer to current project structure in 'ProjectFolderStructure' section. This ensures a correctly set up environment for all subsequent tasks. After this, list the other necessary subtasks, considering their execution order and interdependencies.
+3. Present the identified subtasks under the [SubTasks] section.
+
+### ProjectFolderStructure
+    src
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+
+Thank you. Now let's move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section. Additionally, ensure that your subtasks are arranged logically, addressing any dependencies. Executing these subtasks in order should result in a complete and functioning code implementation of the mentioned feature.
+
+### Approach:
+1. Familiarize yourself with the feature's code design, especially components marked as 'New'.
+2. Determine the necessary subtasks. Start with foundational tasks like installing relevant libraries, setting up directories, or creating essential files. Follow python best practice to naming files and folders. Use the 'ProjectFolderStructure' section as a reference. After the setup, list all other subtasks in order of execution, considering their dependencies.
+3. List the finalized subtasks in the [SubTasks] section.
+
+### ProjectFolderStructure
+    src
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+
+
+Thank you. Now let's move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section.
+
+### Approach 
+1. Think and reason the neccessary subtasks in order to have a complete running feature.
+Here subtask does not need to be detailed. And think about their dependencies.
+2. Answer the following questions and give why:
+   Any new libraries to install? Any new folders or files to create? If yes, think about good naming for these folders and files. Follow python best practice to naming files and folders. Use the current 'ProjectFolderStructure' section as a reference.
+3. Based on the thinking and reasoning until so far, now formalize the creation of subtasks.
+   Start with foundational tasks like installing relevant libraries, setting up directories, or creating essential files. After the setup, list all other subtasks in order of execution, considering their dependencies.
+
+Thank you. Now let's move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section.
+
+### Approach 
+1. **Think and Reason about Necessary Subtasks**:
+    - Outline neccessary subtasks to achieve a complete feature. Remember, details can be minimal initially; focus on understanding the sequence and dependencies.
+2. **Answer Preliminary Questions and give why**:
+    - Any new libraries to install? 
+    - Any new folders or files to create? If yes, Follow good python naming practices for these folders and files. Use the current 'ProjectFolderStructure' section as a guide.
+3. **Formalize the Creation of Subtasks based on Step 1 and Step 2**:
+    -  Begin with initial task. It installs relevant libraries, setting up the required directories, and creating all essential files for all the other subtasks.
+    - List all other subtasks in the order of their dependencies. 
+
+### ProjectFolderStructure
+    src
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+[Template]
+#### Task [Number]: [Task Name]
+#task start#
+- **Objective**: [State the goal clearly.]
+- **File Specification**: [Indicate the file path for the code.]
+- **Functionality Details**: [Explain the code's behavior and purpose.]
+- **Integration Points**: [Outline interactions with other code parts and dependencies.]
+#task end#
+
+[Example Task]
+#### Task 8: Implement the `ShellHandler` Class
+#task start#
+- **Objective**: Create the `ShellHandler` class to manage shell operations.
+- **File Specification**: `tools/handlers/shell_handler.py`
+- **Functionality Details**: This class should provide methods to interface with the `ShellOperation` class for shell tasks.
+- **Integration Points**: It will be utilized by the `ShellOperation` class to execute shell commands.
+#task end#
+
+Follow the steps defined in the 'Approach' section. Think meticulously and reason comprehensively for each step in the approach.
+
+
+
+
+
+
+
+
+
+
+
+Thank you. Shall have one folder db, and place session and repositories under db folder?
+
+Another question is: do we need to have one subtask to create BaseModel? 
+
+After your thinking and reasonning, please give me back all the subtasks again. Thank you.
+
+
+
+
+
+
+
+After the design documentation is updated. please move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section.
+
+### Approach 
+1. **Think and Reason about Necessary Subtasks**:
+    - Outline neccessary subtasks to achieve a complete feature. Remember, details can be minimal initially; focus on understanding the sequence and dependencies.
+2. **Answer Preliminary Questions and give why**:
+    - Any new libraries to install? 
+    - Any new folders or files to create? If yes, Follow good python naming practices for creating folder names and file names. Use the 'Current Project    Folder Structure' section  for reference.
+3. **Formalize the Creation of Subtasks based on previous analysis**:
+    - Begin with Task 1 that should install relevant libraries, create all neccessary directories and files for all the other subtasks. For instance:
+    ```
+    Task 1: Preliminary Setup
+    #task start#
+
+    Objective: Install necessary libraries and set up the project directory structure.
+    File Specification: requirements.txt, src/repositories, src/utils
+    Functionality Details:
+    Add SQLAlchemy and Alembic to the requirements.txt file.
+    Create a repositories folder under src to house all repository-related classes.
+    Create a utils folder under src for utility functions or classes.
+    Create the files base_model.py in src/repositories and database_session_manager.py in src/utils for future tasks.
+    Integration Points: None.
+    #task end#
+    ```
+    - List all other subtasks in the order of their dependencies. 
+
+### Current Project Folder Structure
+    src
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+[Template]
+#### Task [Number]: [Task Name]
+#task start#
+- **Objective**: [State the goal clearly.]
+- **File Specification**: [Indicate the file path for the code.]
+- **Functionality Details**: [Explain the code's behavior and purpose.]
+- **Integration Points**: [Outline interactions with other code parts and dependencies.]
+#task end#
+
+[Example Task]
+#### Task 8: Implement the `ShellHandler` Class
+#task start#
+- **Objective**: Create the `ShellHandler` class to manage shell operations.
+- **File Specification**: `tools/handlers/shell_handler.py`
+- **Functionality Details**: This class should provide methods to interface with the `ShellOperation` class for shell tasks.
+- **Integration Points**: It will be utilized by the `ShellOperation` class to execute shell commands.
+#task end#
+
+Follow the steps defined in the 'Approach' section. Think meticulously and reason comprehensively for each step in the approach.

@@ -52,56 +52,82 @@ Follow the steps below, each accompanied by a title and a description:
    - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
 
 4. Present the Refined Prompt:
-   - The prompt should always start with "You are ...".
+   - The prompt should always start with "You are ...". Use simplified english words for the prompt.
    - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
 
 
 [Prompt]
 $start$
-You are a Python software architect. You will be provided with feature requirements and feature code design documentation situated between `$start$` and `$end$` tokens in the [Documentation] section. Your task is to create subtasks following the format 
-defined in the `[Template]` section. An example can be found in the [SubtaskExample] section.
+You are a senior python engineer. You will create unit test  for 
+the given code in [Code] section which is created based on the subtask given in the [SubTask] section. The subtask is derived based on code architecture design documentation given in the [FeatureCodeDesign] section.
 
-[Template]
-#task start#
-- **Objective**: [Clearly articulate what must be achieved.]
-- **File Specification**: [Specify the file path for code.]
-- **Functionality Details**: [Describe the code's behavior and functionality.]
-- **Integration Points**: [Detail interactions with other code parts and dependencies.]
-#task end#
+[Criteria]
+- Ensure that the test cases follow pytest best practices, for example using fixtures, use mocking for dependencies etc.
+- Use best practice to create test file path. Here is a sample in the current project's 
+  demonstrating test file path for both unit test and integration test:
+    src
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            semantic_code
+                index
+                    test_index_service_integration.py
 
-[SubtaskExample]
-#### Task 8: Implement the `ShellHandler` Class
-#task start#
-- **Clear Objective**: Create the `ShellHandler` class to execute shell operations.
-- **File Specification**: `tools/handlers/shell_handler.py`
-- **Functionality Details**: This class should offer methods to manage shell operations provided by the `ShellOperation` class.
-- **Integration Points**: The class will be used by the `ShellOperation` for executing shell commands.
-#task end#
+- Ensure that the tests provide full coverage of the code.
+- Use behavior-driven naming conventions for the test cases.
 
-Think step by step methodically and reason comprehensively. The created subtasks should be in a reasonable order which means the subtask which is being depend on should be placed in earlier places.
+Think and reason yourself in high detail to address the task.
+
+[Code]
+here is the code
+[SubTask]
+here is subtask
+
+[FeatureCodeDesign]
+here is feature code design
 $end$
 
-You are a Python software architect tasked with creating subtasks based on provided feature requirements and code design documentation found in the [Documentation] section. Use the format detailed in the `[Template]` section. Ensure that your subtasks follow a logical order, with dependencies placed appropriately.
 
-[Template]
-#### Task [Number]: [Task Name]
-#task start#
-- **Objective**: [State the goal clearly.]
-- **File Specification**: [Indicate the file path for the code.]
-- **Functionality Details**: [Explain the code's behavior and purpose.]
-- **Integration Points**: [Outline interactions with other code parts and dependencies.]
-#task end#
 
-[Example Task]
-#### Task 8: Implement the `ShellHandler` Class
-#task start#
-- **Objective**: Create the `ShellHandler` class to manage shell operations.
-- **File Specification**: `tools/handlers/shell_handler.py`
-- **Functionality Details**: This class should provide methods to interface with the `ShellOperation` class for shell tasks.
-- **Integration Points**: It will be utilized by the `ShellOperation` class to execute shell commands.
-#task end#
+```
+You are a senior Python engineer. Create unit tests for the code provided in the [Code] section, which originates from the subtask in the [SubTask] section, designed based on the architecture documentation in the [FeatureCodeDesign] section.
 
-Approach the task methodically and reason through each step.
+[Criteria]
+- Adhere to pytest best practices, such as the use of fixtures and mocking dependencies.
+- Follow this directory structure for test files:
+  ```
+  src
+      semantic_code
+              embedding
+                  openai_embedding_creator.py
+  tests
+      unit_tests
+          semantic_code
+              embedding
+                  test_openai_embedding_creator.py
+      integration_tests
+          semantic_code
+              index
+                  test_index_service_integration.py
+  ```
+- Ensure comprehensive code coverage with your tests.
+- Use behavior-driven naming for test cases.
+
+[Code]
+
+[SubTask]
+
+[FeatureCodeDesign]
+```
+
+
+
 
 
 Version 3:
