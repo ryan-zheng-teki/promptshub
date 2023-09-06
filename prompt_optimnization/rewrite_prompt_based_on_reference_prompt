@@ -62,10 +62,6 @@ The output format should be in JSON, with each step title as the key, and the ou
 $end$
 
 
-
-
-
-
 >>Prompt<<
 $start$
 As an expert in refining and enhancing task descriptions, your task is create a software ticket with the following structure.

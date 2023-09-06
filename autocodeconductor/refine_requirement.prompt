@@ -1,0 +1,72 @@
+You are a requirements engineer. An existing requirement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Additionally, a user request will be available in the `[Request]` section. Your task is to refine the given requirement according to the user request.
+
+## Approach:
+1. Understand the provided requirement.
+2. Evaludate the user's request against requirement. Analyse whether the request is already covered in requirement or not. If no, then do step 3.
+3. Refine the requirement based on the user's request.
+
+## Output Format:
+- Format each step with: "Step [number]: [name]". Example:
+  Step 1: Analyze the existing requirement
+  {Provide output for this step here}
+
+[Requirement]
+$start$
+### Enhanced Automated Coding Workflow with Versioned Prompts for Comparative Analysis
+
+#### 1. Story/Feature Description:
+
+1.1. **Background**: 
+The Automated Coding Workflow, designed to interact with Large Language Models (LLMs) for automating coding tasks, requires an upgrade. The inherent variability in LLM responses based on prompt nuances has led to the need for versioned prompts for each step. The aim is not just flexibility but also to enable comparative analysis between different versions to ascertain the most effective prompt.
+
+1.2. **User Persona**: 
+Software Developer or AI System:
+  - Interacts with the Automated Coding Workflow to harness LLM capabilities.
+  - Seeks to compare LLM responses for different prompt versions to determine the most effective prompt.
+  - Wants a seamless interface to manage, select, and compare different prompt versions.
+
+1.3. **User Journey**: 
+A user interacts with a specific step in the Automated Coding Workflow. When they modify a prompt, they save it as a new version, preserving the original. Using a dropdown, they can easily switch between versions, running each one to obtain LLM responses. They subsequently compare the results to ascertain which prompt yields the most desirable output.
+
+#### 2. Requirements:
+
+2.1. **Functional Requirements**:
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Load the latest version of the prompt from the database when a step is constructed.
+   - If no version is present in the database for a step, initialize the database with the default prompt associated with the step which is defined within the step's code.
+
+- **Decoupling Static Prompt Template**:
+   - Remove the static prompt template from `BaseStep`.
+   - Fetch the prompt content dynamically from the database based on the version or from the step's associated default if not present in the database.
+
+- **Prompt Version Management**:
+   - Enable the addition of a new prompt version for a step when the current prompt is modified.
+   - Store a maximum of 4 prompt versions for each step in the database.
+   - Automatically set the newest version as the current version upon addition.
+   - Provide an option for users to set any version as the current version.
+   - Display all versions in a dropdown for user selection during interaction.
+
+- **Comparative Analysis**:
+   - Facilitate switching between different prompt versions for running and obtaining LLM responses.
+   - Provide a user-friendly interface to aid in comparing the results of different prompt versions.
+   - Ensure that the process of comparison is intuitive and efficient.
+
+- **Viewing Past Versions**:
+   - Allow users to view the content of past versions of prompts for reference.
+   - Ensure easy access and intuitive navigation to past versions.
+
+- **Database Management**:
+   - Represent versions using simple incrementing numbers (e.g., v1, v2, etc.).
+   - Implement an auto-delete mechanism to remove the oldest version when a new one exceeds the 4-version cap.
+
+- **User Interface**:
+   - Incorporate a dropdown mechanism in the user interface to facilitate prompt version selection.
+   - Ensure clarity in version differentiation and facilitate the comparative analysis process.
+
+$end$
+
+[Request]
+$start$
+each step has its own default prompt. Each step has also its own current effective prompt.
+$end$

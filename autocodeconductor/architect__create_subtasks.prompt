@@ -13,7 +13,8 @@ You are a Python software architect tasked with creating subtasks based on provi
 #task start#
 - **Objective**: [State the goal clearly.]
 - **File Specification**: [Indicate the file path for the code.]
-- **Functionality Details**: [Explain the code's behavior and purpose.]
+- **Functionality Details**: [Explain the overall functionality provided by this file.]
+- **APIs and Attributes**: [Explain every API and attributes, their functionality and description.]
 - **Integration Points**: [Outline interactions with other code parts and dependencies.]
 #task end#
 
@@ -30,171 +31,7 @@ Follow the steps defined in the 'Approach' section. Think and reason comprehensi
 
 [Documentation]
 #start#
-### Automated Coding Workflow
-
-#### 1. Story/Feature Description:
-
-1.1. **Background**: 
-With the advent of advanced AI and large language models (LLMs), there's a growing need to harness their power for automated coding tasks. The Automated Coding Workflow serves as a structured interface to interact with LLMs. This modular, step-by-step approach simplifies and streamlines the process of utilizing the capabilities of LLMs for coding tasks by breaking down the process into distinct phases.
-
-1.2. **User Persona**: 
-Software Developer or AI System:
-  - Looking to automate certain coding tasks using LLMs.
-  - Desires a structured approach to interact with LLMs for coding tasks.
-  - Requires flexibility to execute specific steps and serialize the workflow.
-
-1.3. **User Journey**: 
-A developer or system initializes the Automated Coding Workflow. They provide specific inputs at various stages, such as requirements, design, implementation, and testing. The workflow dispatches these inputs as prompts to the LLM. The LLM processes these prompts and returns appropriate outputs, guiding the developer or system through each phase. The user has the flexibility to serialize the workflow, execute specific steps, and monitor the status of the workflow.
-
-#### 2. Requirements:
-
-2.1. **Functional Requirements**:
-
-- **Initialization**:
-   - Initialize the automated coding workflow using specific configurations.
-   - Support for multi-layered steps and sub-steps.
-
-- **Workflow Management**:
-   - Serialize the entire workflow to JSON format.
-   - Execute specific steps in the workflow as needed.
-   - Track and manage different states of the workflow.
-
-- **Interaction with LLM**:
-   - Dispatch uniquely configured prompts to the LLM for processing.
-   - Receive and handle responses from the LLM.
-
-- **Steps in Workflow**:
-   - **RequirementStep**:
-     - Accept and process coding requirements.
-     - Construct a unique prompt for the LLM based on the requirements.
-   - **ArchitectureDesignStep**:
-     - Manage the architectural design phase.
-     - Construct a unique prompt for the LLM based on design needs.
-   - **ImplementationStep**:
-     - Oversee the coding implementation phase.
-     - Construct a unique prompt for the LLM based on implementation details.
-   - **TestGenerationStep**:
-     - Generate tests for Python code.
-     - Construct a unique prompt for the LLM based on the code to generate tests.
----
-
-### Feature Code Design Documentation:
-
-#### 1. Code Architecture Design:
-
-1.1. **High-Level Design**: 
-The feature orchestrates an automated coding workflow, modularly structured, where each individual step, derived from a `BaseStep`, represents a distinct phase in the workflow. One of the pivotal aspects of the design is that every step employs its own uniquely configured prompt, which is dispatched to a large language model (LLM) for processing. The workflow allows for serialization to JSON, and specific steps can be executed as needed. The design is enhanced with support for multi-layered steps and sub-steps.
-
-1.2. **New Components**:
-- **AutomatedCodingWorkflow (New)**: Manages the automated coding workflow. It is in charge of initializing steps, running specific steps, and serializing the workflow to JSON.
-- **WORKFLOW_CONFIG (New)**: Offers configuration specifics for the entire workflow.
-- **BaseStep (New)**: Serves as a foundational class for workflow steps. Every distinct step derives from this class and has its own prompt configuration for communication with the LLM.
-- **WorkflowStatus (New)**: An enumeration potentially representing different states of the workflow.
-- **StepsTemplateConfig (New)**: Configuration parameters for individual steps.
-- **RequirementStep (New)**: Processes requirements using its own tailored prompt template.
-- **ArchitectureDesignStep (New)**: Handles the architectural design phase with its unique prompt.
-- **ImplementationStep (New)**: Oversees the coding implementation phase with its distinct prompt.
-- **TestGenerationStep (New)**: Dedicated to generating tests for Python code, equipped with a detailed prompt.
-
-1.3. **Existing Components/Dependencies**:
-- **LLMIntegrationRegistry (Existing)**: From the `llm_integrations` package, it manages integrations pertinent to LLM.
-- **WorkspaceSetting (Existing)**: Originating from the `workspaces` package, it holds workspace-specific settings.
-- **PromptTemplate (Existing)**: From the `prompt` package, it's a template structure for constructing prompts.
-- **PromptTemplateVariable (Existing)**: Also from the `prompt` package, it defines variables to be embedded in prompt templates.
-
-1.4. **Interactions**: 
-- The `AutomatedCodingWorkflow` initializes steps using the `WORKFLOW_CONFIG`.
-- Every step, like `RequirementStep` or `ArchitectureDesignStep`, constructs a unique prompt using `PromptTemplate` and `PromptTemplateVariable`.
-- The workflow status might be tracked and set using the `WorkflowStatus`.
-- Steps may need to interact with the `LLMIntegrationRegistry` for integration management during execution.
-- During initialization, the `WorkspaceSetting` is passed to the `AutomatedCodingWorkflow`.
-
-1.5. **External Dependencies**: 
-No third-party libraries, services, or tools have been identified from the provided code segments.
-
-#### 2. UML Diagram:
-
-@startuml
-
-package "autobyteus.workflow" {
-    abstract class "BaseStep (New)" {
-    }
-
-    class "AutomatedCodingWorkflow (New)" {
-        + _initialize_steps(steps_config: dict)
-        + to_json(): str
-        + execute_step(step_id: str): str
-        + start_workflow()
-    }
-
-    class "WORKFLOW_CONFIG (New)" {
-    }
-
-    class "WorkflowStatus (New)" {
-    }
-
-    class "StepsTemplateConfig (New)" {
-    }
-
-    class "RequirementStep (New)" {
-        + construct_prompt(requirement: str): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    class "ArchitectureDesignStep (New)" {
-        + construct_prompt(): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    class "ImplementationStep (New)" {
-        + construct_prompt(): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    class "TestGenerationStep (New)" {
-        + construct_prompt(): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    "RequirementStep (New)" --|> "BaseStep (New)"
-    "ArchitectureDesignStep (New)" --|> "BaseStep (New)"
-    "ImplementationStep (New)" --|> "BaseStep (New)"
-    "TestGenerationStep (New)" --|> "BaseStep (New)"
-}
-
-package "autobyteus.llm_integrations" {
-    class "LLMIntegrationRegistry (Existing)" {
-    }
-}
-
-package "autobyteus.workspaces.setting" {
-    class "WorkspaceSetting (Existing)" {
-    }
-}
-
-package "autobyteus.prompt" {
-    class "PromptTemplate (Existing)" {
-    }
-
-    class "PromptTemplateVariable (Existing)" {
-    }
-}
-
-"AutomatedCodingWorkflow (New)" --> "BaseStep (New)"
-"AutomatedCodingWorkflow (New)" --> "WorkflowStatus (New)"
-"AutomatedCodingWorkflow (New)" --> "LLMIntegrationRegistry (Existing)"
-"AutomatedCodingWorkflow (New)" --> "WorkspaceSetting (Existing)"
-"RequirementStep (New)" --> "PromptTemplate (Existing)"
-"RequirementStep (New)" --> "PromptTemplateVariable (Existing)"
-"ImplementationStep (New)" --> "PromptTemplate (Existing)"
-"TestGenerationStep (New)" --> "PromptTemplate (Existing)"
-"TestGenerationStep (New)" --> "PromptTemplateVariable (Existing)"
-
-@enduml
+$end$
 
 [SubTasks]
 here place the result subtasks created.
@@ -207,7 +44,7 @@ the design documentation.
 Thanks. Now let's move on to create subtasks based on  code design documentation. Use the format detailed in the `[Template]` section. Ensure that your subtasks follow a logical order, with dependencies resolved appropriately. The goal is when each subtask is implemented with defined order, we will get completely working code for the feature. 
 
 ### Approach
-2. Understand the feature code design thoroughly, pay attention to the components which are labeled as 'New'.
+2. Understand the feature code design thoroughly, pay attention to the components which are labeled as 'New and Updated'.
 2. Reason about the subtasks to be created, and their dependencies order. Note: the subtasks 
 not only include implementation subtasks, but also include setups for example, creating folders, install libraries etc.
 3. Present the subtasks under section [SubTasks].
@@ -248,11 +85,12 @@ Thank you. Now let's move on to creating subtasks based on code design documenta
 Thank you. Now let's move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section.
 
 ### Approach 
-1. Think and reason the neccessary subtasks in order to have a complete running feature.
+1. Understand the previous already implemented dependent tasks if given in the [ExistingDependentTasks] section, as they might provide existing components.
+2. Think and reason the neccessary subtasks in order to have a complete running feature.
 Here subtask does not need to be detailed. And think about their dependencies.
-2. Answer the following questions and give why:
-   Any new libraries to install? Any new folders or files to create? If yes, think about good naming for these folders and files. Follow python best practice to naming files and folders. Use the current 'ProjectFolderStructure' section as a reference.
-3. Based on the thinking and reasoning until so far, now formalize the creation of subtasks.
+3. Answer the following questions and give why:
+   Any new libraries to install? Any new folders or files to create? If yes, think about good naming for these folders and files. Follow python best practice to naming files and folders. Use the current 'ProjectFolderStructure' section as a reference. 
+4. Based on the thinking and reasoning until so far, now formalize the creation of subtasks.
    Start with foundational tasks like installing relevant libraries, setting up directories, or creating essential files. After the setup, list all other subtasks in order of execution, considering their dependencies.
 
 Thank you. Now let's move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section.
@@ -268,7 +106,7 @@ Thank you. Now let's move on to creating subtasks based on code design documenta
     - List all other subtasks in the order of their dependencies. 
 
 ### ProjectFolderStructure
-    src
+    autobyteus
     tests
         unit_tests
         integration_tests
@@ -292,15 +130,74 @@ Thank you. Now let's move on to creating subtasks based on code design documenta
 - **Integration Points**: It will be utilized by the `ShellOperation` class to execute shell commands.
 #task end#
 
+[ExistingDependentTasks]
+#### Task 1: Preliminary Setup
+#task start#
+
+- **Objective**: Install necessary libraries and set up the project directory structure.
+- **File Specification**: `requirements.txt`, `autobyteus/db/repositories`, `autobyteus/db/models`, `autobyteus/db/utils`
+- **Functionality Details**: 
+    - Add `SQLAlchemy` and `Alembic` to the `requirements.txt` file.
+    - Create a `db` folder under `autobyteus`.
+    - Within `db`, create a `repositories` folder to house repository-related classes.
+    - Within `db`, create a `models` folder for model-related classes.
+    - Within `db`, create a `utils` folder for utility functions or classes.
+    - Create the files `base_model.py` in `autobyteus/db/models`, `base_repository.py` in `autobyteus/db/repositories`, and `database_session_manager.py` in `autobyteus/db/utils` for future tasks.
+- **Integration Points**: None.
+
+#task end#
+
+#### Task 2: Implement BaseModel
+#task start#
+
+- **Objective**: Create the foundational `BaseModel` class.
+- **File Specification**: `autobyteus/db/models/base_model.py`
+- **Functionality Details**: 
+    - Implement the `BaseModel` with common attributes like `id`, `created_at`, and `updated_at`.
+    - Utilize SQLAlchemy for ORM functionalities.
+- **Integration Points**: It will be inherited by other model classes in the future.
+
+#task end#
+
+#### Task 3: Implement DatabaseSessionManager
+#task start#
+
+- **Objective**: Create the `DatabaseSessionManager` class to manage database sessions.
+- **File Specification**: `autobyteus/db/utils/database_session_manager.py`
+- **Functionality Details**: 
+    - Implement the context manager methods `__enter__` and `__exit__` for session management.
+    - Ensure proper error handling and resource cleanup.
+- **Integration Points**: Will be utilized by the `BaseRepository` for CRUD operations.
+
+#task end#
+
+#### Task 4: Implement BaseRepository
+#task start#
+
+- **Objective**: Implement the generic `BaseRepository` class.
+- **File Specification**: `autobyteus/db/repositories/base_repository.py`
+- **Functionality Details**: 
+    - Provide CRUD operations (create, get, get_all, update) with the help of SQLAlchemy.
+    - Use the `DatabaseSessionManager` for session management.
+- **Integration Points**: Will be utilized by the AI coding agent and potentially other repositories in the future.
+
+#task end#
+
+#### Task 5: Alembic Configuration and Initial Migration
+#task start#
+
+- **Objective**: Set up Alembic for database migrations.
+- **File Specification**: Root directory (for Alembic configurations and migrations)
+- **Functionality Details**: 
+    - Initialize Alembic configurations.
+    - Create an initial migration to set up the database schema based on the `BaseModel`.
+- **Integration Points**: Database.
+
+#task end#
+
+
+
 Follow the steps defined in the 'Approach' section. Think meticulously and reason comprehensively for each step in the approach.
-
-
-
-
-
-
-
-
 
 
 
@@ -309,11 +206,6 @@ Thank you. Shall have one folder db, and place session and repositories under db
 Another question is: do we need to have one subtask to create BaseModel? 
 
 After your thinking and reasonning, please give me back all the subtasks again. Thank you.
-
-
-
-
-
 
 
 After the design documentation is updated. please move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section.
@@ -330,20 +222,75 @@ After the design documentation is updated. please move on to creating subtasks b
     Task 1: Preliminary Setup
     #task start#
 
-    Objective: Install necessary libraries and set up the project directory structure.
-    File Specification: requirements.txt, src/repositories, src/utils
+    Purpose: Install necessary libraries and set up the project directory structure.
+    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
     Functionality Details:
     Add SQLAlchemy and Alembic to the requirements.txt file.
     Create a repositories folder under src to house all repository-related classes.
     Create a utils folder under src for utility functions or classes.
-    Create the files base_model.py in src/repositories and database_session_manager.py in src/utils for future tasks.
+    Create the files base_model.py in autobyteus/repositories blabla.
     Integration Points: None.
     #task end#
     ```
-    - List all other subtasks in the order of their dependencies. 
+    - List all other subtasks in the order of their dependencies. Each subtask contains only one component.
 
 ### Current Project Folder Structure
-    src
+    autobyteus
+        db
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+
+[Template]
+#### Task [Number]: [Task Name]
+#task start#
+- **File Specification**: [Indicate the file path for the code.]
+(Note: The following sections "Purpose", "Attributes", "Methods", and "Integration Points" should be populated directly from the original design documentation without omission or alteration.)
+- **Purpose**: [Explain the overall reason for this component's existence and its high-level functionality, as described in the original documentation.]
+- **Attributes**: [Detail each attribute, its type, and its purpose, as outlined in the original documentation.]
+- **Methods**: [Detail each method, its parameters, return type, and its specific behavior, as specified in the original documentation.]
+- **Integration Points**: [Highlight how this component interacts with other parts of the system, detailing dependencies and integration mechanisms, as mentioned in the original documentation.]
+#task end#
+
+
+Follow the steps defined in the 'Approach' section. Think meticulously and reason comprehensively for each step in the approach.
+
+
+
+
+
+
+
+
+Version 4:
+After updating the design documentation, proceed to generate subtasks from the code design. Focus solely on the New and Updated components. Use the `[Template]` below for each subtask's structure.
+
+### Approach 
+1. **Subtask Identification**:
+    - Identify necessary subtasks, concentrating on New and Updated components. Understand sequence and dependencies.
+  
+2. **Preliminary Questions**:
+    - Need to install new libraries? 
+    - Any new folders or files? If yes, follow good naming practices and refer to 'Current Project Folder Structure' for guidance.
+  
+3. **Subtask Formation**:
+    - Start with Task 1: setup of libraries and directories for subsequent tasks. Example:
+    ```
+    Task 1: Preliminary Setup
+    #task start#
+    Purpose: Install libraries and set directory structure.
+    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
+    Details: Add SQLAlchemy and Alembic to requirements.txt. Create necessary folders and files.
+    Integration Points: None.
+    #task end#
+    ```
+    - List further subtasks in dependency order, with each focusing on a single component.
+
+### Current Project Folder Structure
+    autobyteus
+        db
     tests
         unit_tests
         integration_tests
@@ -352,19 +299,11 @@ After the design documentation is updated. please move on to creating subtasks b
 [Template]
 #### Task [Number]: [Task Name]
 #task start#
-- **Objective**: [State the goal clearly.]
-- **File Specification**: [Indicate the file path for the code.]
-- **Functionality Details**: [Explain the code's behavior and purpose.]
-- **Integration Points**: [Outline interactions with other code parts and dependencies.]
+- **File Specification**: [File path for the component.]
+- **Purpose**: [Primary reason for this component, from the original documentation.]
+- **Attributes**: [Each attribute's details, from the original documentation.]
+- **Methods**: [Each method's details, from the original documentation.]
+- **Integration Points**: [Component interactions and dependencies, from the original documentation.]
 #task end#
 
-[Example Task]
-#### Task 8: Implement the `ShellHandler` Class
-#task start#
-- **Objective**: Create the `ShellHandler` class to manage shell operations.
-- **File Specification**: `tools/handlers/shell_handler.py`
-- **Functionality Details**: This class should provide methods to interface with the `ShellOperation` class for shell tasks.
-- **Integration Points**: It will be utilized by the `ShellOperation` class to execute shell commands.
-#task end#
-
-Follow the steps defined in the 'Approach' section. Think meticulously and reason comprehensively for each step in the approach.
+Follow the 'Approach' steps diligently, thinking through each phase.

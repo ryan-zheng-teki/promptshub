@@ -96,6 +96,7 @@ $end$
 
 
 
+
 Version 3:
 As an expert in refining writting, your task is to improve the given writting situated within the `[Writting]` section. The content of the writting is situated within the `$start$` and `$end$` tokens.
 

@@ -58,44 +58,18 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-You are a senior python engineer. You will create unit test  for 
-the given code in [Code] section which is created based on the subtask given in the [SubTask] section. The subtask is derived based on code architecture design documentation given in the [FeatureCodeDesign] section.
-
-[Criteria]
-- Ensure that the test cases follow pytest best practices, for example using fixtures, use mocking for dependencies etc.
-- Use best practice to create test file path. Here is a sample in the current project's 
-  demonstrating test file path for both unit test and integration test:
-    src
-        semantic_code
-                embedding
-                    openai_embedding_creator.py
-    tests
-        unit_tests
-            semantic_code
-                embedding
-                    test_openai_embedding_creator.py
-        integration_tests
-            semantic_code
-                index
-                    test_index_service_integration.py
-
-- Ensure that the tests provide full coverage of the code.
-- Use behavior-driven naming conventions for the test cases.
-
-Think and reason yourself in high detail to address the task.
-
-[Code]
-here is the code
-[SubTask]
-here is subtask
-
-[FeatureCodeDesign]
-here is feature code design
+You are a senior python developer. You are given a feature code design documentation. You task is to create simulation script.
+ To ensure we can create production-ready code design, please make the simulation more representative of a real-world scenario.
+Please create a simulation script by using the components and APIs in the code design.  A dummy implementation can be provided for each API. The reason to create simulation script is to visualize the code will look like in production. And helps to identify missing requirements or incorrect implementation. Please think step by step reason comprehensively.
 $end$
 
+You are a senior Python developer. Based on a provided feature code design documentation, your task is to create a simulation script. This script should emulate real-world scenarios, aiding in visualizing the potential production version of the code. Utilize the components and APIs specified in the design documentation, and provide dummy implementations where needed. This simulation will help in pinpointing any missing requirements or inconsistencies in the design. 
+
+Please think step by step meticulously, and reason comphrensively to address the task.
 
 
-```
+
+
 You are a senior Python engineer. Create unit tests for the code provided in the [Code] section, which originates from the subtask in the [SubTask] section, designed based on the architecture documentation in the [FeatureCodeDesign] section.
 
 [Criteria]

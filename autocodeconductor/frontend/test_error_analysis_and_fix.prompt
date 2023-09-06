@@ -512,26 +512,7 @@ $end$
 
 As a seasoned Vue3 frontend engineer, your responsibility is to diagnose the error and associated code. Based on your findings, either suggest a remedy or enhance debugging details for a deeper analysis.
 
-Adhere to the following guidelines:
-
-- Scrutinize the errors under the `[Error]` section and formulate an initial theory regarding their origin.
-  
-- Progressively review the codes in the `[Codes]` section to deduce the potential error source.
-
-- Detail your analysis using test data. Depending on your conclusions, use the following formats:
-
-  - **Scenario 1: Error source identified**:
-    "The error suggests that the problem might stem from ____. Observing the source code reveals that it executes ____, ____, and ____. These operations lead to ____, which is probably the root of the reported error."
-  
-  - **Scenario 2: Error source undetermined**:
-    "The error hints at a potential issue with ____. A review of the source code shows operations like ____, ____, and ____. Based on the current code, the exact error source remains elusive. I'll introduce ____ debugging for a subsequent analysis."
-
-- Offer Solutions or Debugging Enhancements:
-  - **For Scenario 1**: Propose and execute a solution, detailing the rationale behind each modification and its impact on the identified problem.
-  - **For Scenario 2**: Integrate extra logging within the source code to facilitate future investigations.
-
-Approach the task methodically, ensuring your explanations are detailed and the logic behind your analysis is exhaustive. Conclude by presenting the revised code within a code block.
-
+Think step by step.
 
 Executed Command: yarn test src/components/prompt/__tests__/PromptEditor.spec.ts --testNamePattern "emits update:variable event when textarea value changes"
 
@@ -574,23 +555,109 @@ $start$
 File: src/components/prompt/__tests__/PromptEditor.spec.ts
 
 ```
-# Relevant code
-    it('emits update:variable event when textarea value changes', async () => {
-    const wrapper = mount(PromptEditor, {
-      props: {
-        template: {
-          template: 'Hello, {name}!',
-          variables: [
-            { name: 'name', source: 'USER_INPUT', allow_code_context_building: false, allow_llm_refinement: false }
-          ]
-        }
-      }
-    });
-    const textarea = wrapper.find('.placeholder-input');
-    await textarea.setValue('John');
-    expect(wrapper.emitted()['update:variable']).toBeTruthy();
-    expect(wrapper.emitted()['update:variable'][0]).toEqual([{ variableName: 'name', value: 'John' }]);
+$end$
+
+
+
+
+
+As a seasoned Vue3 frontend engineer, your responsibility is to diagnose the error and associated code. Based on your findings, either suggest a remedy or enhance debugging details for a deeper analysis.
+
+Adhere to the following guidelines:
+
+- Scrutinize the errors under the `[Error]` section and formulate an initial theory regarding their origin.
+  
+- Progressively review the codes in the `[Codes]` section to deduce the potential error source.
+
+- Detail your analysis using test data. Depending on your conclusions, use the following formats:
+
+  - **Scenario 1: Error source identified**:
+    "The error suggests that the problem might stem from ____. Observing the source code reveals that it executes ____, ____, and ____. These operations lead to ____, which is probably the root of the reported error."
+  
+  - **Scenario 2: Error source undetermined**:
+    "The error hints at a potential issue with ____. A review of the source code shows operations like ____, ____, and ____. Based on the current code, the exact error source remains elusive. I'll introduce ____ debugging for a subsequent analysis."
+
+- Offer Solutions or Debugging Enhancements:
+  - **For Scenario 1**: Propose and execute a solution, detailing the rationale behind each modification and its impact on the identified problem.
+  - **For Scenario 2**: Integrate extra logging within the source code to facilitate future investigations.
+
+Approach the task methodically, ensuring your explanations are detailed and the logic behind your analysis is exhaustive. Conclude by presenting the revised code within a code block.
+
+
+Executed Command: yarn test src/components/prompt/__tests__/PromptEditor.spec.ts --testNamePattern "emits update:variable event when textarea value changes"
+
+
+
+
+
+
+As a seasoned Vue3 frontend engineer, your responsibility is to diagnose the error and associated code. Based on your findings, either suggest a remedy or enhance debugging details for a deeper analysis.
+
+Think step by step.
+
+[Error]
+```
+ResizableTextArea: Emitting update:modelValue with value Hello, John!
+How are you today?
+ResizableTextArea: Emitting update:modelValue with value Hello, John!
+How are you today?
+Height without px: undefined
+
+ ❯ src/components/prompt/__tests__/PromptEditor.spec.ts (6)
+   ❯ PromptEditor.vue (6)
+     ↓ renders the entire prompt from the template prop [skipped]
+     ↓ renders placeholders with correct labels [skipped]
+     ↓ binds placeholder values [skipped]
+     ↓ emits update:variable event when textarea value changes [skipped]
+     × resizes textarea on input
+     ↓ resizes all textareas on component mount [skipped]
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/prompt/__tests__/PromptEditor.spec.ts > PromptEditor.vue > resizes textarea on input
+AssertionError: expected NaN to be greater than 1
+ ❯ src/components/prompt/__tests__/PromptEditor.spec.ts:98:39
+     96|     const heightWithoutPx = textarea.element.style.height.replace('px', '');
+     97|     console.log("Height without px:", heightWithoutPx);  // Add this line
+     98|     expect(parseInt(heightWithoutPx)).toBeGreaterThan(1);
+       |                                       ^
+     99|     
+    100|   });
+
+
+```
+[Codes]
+$start$
+File: src/components/prompt/__tests__/PromptEditor.spec.ts
+
+```
+# Relevant test code
+it('resizes textarea on input', async () => {
+  const wrapper = mount(PromptEditor, {
+    props: {
+      template: 'Hello, {{name}}!\nHow are you today?'
+    }
   });
+
+  const textarea = wrapper.find('.placeholder-input');
+  await textarea.setValue('Hello, John!\nHow are you today?');
+  await textarea.trigger('input');
+  
+  // Add a delay to allow any asynchronous operations to complete
+  await new Promise(resolve => setTimeout(resolve, 100));
+  
+  const heightWithoutPx = textarea.element.style.height.replace('px', '');
+  console.log("Height without px:", heightWithoutPx);  // Log the height
+
+  // Check if heightWithoutPx is defined before making the assertion
+  if (heightWithoutPx) {
+    expect(parseInt(heightWithoutPx)).toBeGreaterThan(1);
+  } else {
+    // Log or handle the case when height is not set
+    console.log("Height not set!");
+  }
+});
+
 ```
 File: src/components/prompt/PromptEditor.spec.ts
 ```
@@ -610,7 +677,8 @@ File: src/components/prompt/PromptEditor.spec.ts
           class="input-container">
         <label :for="promptTemplateVariable.name">{{ promptTemplateVariable.name }}</label>
         <ResizableTextArea 
-            v-model="values[promptTemplateVariable.name]" 
+            :modelValue="values[promptTemplateVariable.name]" 
+            @update:modelValue="updateValue(promptTemplateVariable.name, $event)"
             :placeholder="promptTemplateVariable.name" 
             class="placeholder-input"
         />
@@ -620,7 +688,7 @@ File: src/components/prompt/PromptEditor.spec.ts
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, watch, Ref } from 'vue';
+import { ref, computed, reactive, Ref, watch } from 'vue';
 import Collapsible from '../utils/Collapsible.vue';
 import ResizableTextArea from '../utils/ResizableTextArea.vue';
 import type { PromptTemplate } from '../../types/Workflow';
@@ -632,17 +700,14 @@ const entirePrompt = ref(props.template.template);
 const promptTemplateVariables = computed(() => 
   props.template.variables.filter(variable => variable.source === 'USER_INPUT')
 );
-const values: Ref<{ [key: string]: string }> = reactive({});
 
-// Watch for changes in the values object and emit updated value
-watch(values, (newValues, oldValues) => {
-  for (const key in newValues) {
-    if (newValues[key] !== oldValues[key]) {
-      emit('update:variable', { variableName: key, value: newValues[key] });
-      break;
-    }
-  }
-});
+// Initialize values with an empty string for 'name'
+const values: Ref<{ [key: string]: string }> = reactive({ name: '' });
+
+const updateValue = (key, newValue) => {
+  values[key] = newValue;
+  emit('update:variable', { variableName: key, value: newValue });
+};
 
  // Log the computed promptTemplateVariables for debugging.
  watch(promptTemplateVariables, (newVal) => {
@@ -653,5 +718,56 @@ watch(values, (newValues, oldValues) => {
 # styles ommited
 ```
 File: src/components/utils/ResizableTextArea.spec.ts
+```
+<template>
+    <textarea 
+        ref="textareaRef"
+        :value="modelValue"
+        @input="handleInput"
+        class="resizable-textarea"
+    ></textarea>
+</template>
+  
+<script setup lang="ts">
+import { ref, nextTick, onMounted } from 'vue';
 
+const props = defineProps({
+    modelValue: String
+});
+
+const emit = defineEmits(['update:modelValue']);
+const textareaRef = ref(null);
+
+const handleInput = (event: Event) => {
+    console.log("ResizableTextArea: Emitting update:modelValue with value", event.target.value); // Added log
+    resizeTextarea();
+    emit('update:modelValue', event.target.value);
+};
+
+const resizeTextarea = () => {
+    const textarea = textareaRef.value;
+    if (textarea) {
+        const currentHeight = textarea.clientHeight;
+        const scrollHeight = textarea.scrollHeight;
+
+        if (currentHeight !== scrollHeight) {
+            textarea.style.height = scrollHeight + 'px';
+        }
+    }
+};
+
+onMounted(() => {
+    nextTick(() => {
+        resizeTextarea();
+    });
+});
+</script>
+
+<style>
+.resizable-textarea {
+    /* ... common styles here ... */
+}
+</style>
+
+```
 $end$

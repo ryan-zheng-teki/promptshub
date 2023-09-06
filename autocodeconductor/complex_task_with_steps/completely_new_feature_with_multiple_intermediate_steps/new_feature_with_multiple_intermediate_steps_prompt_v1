@@ -58,7 +58,8 @@ By incorporating data structure consideration into the "Refine the Design" secti
 7. **Create Concrete File Paths, Functions, and Descriptions:**
  Use the refined design as a basis and output improved design in terms of files. The descriptions should be detailed and expressive, capturing the intended behavior and inputs/outputs of each function. While the implementations themselves are not provided at this stage, the descriptions will serve as a guide for writing the code in the implementation phase.
 
-This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more rigid structure. It should be more adaptable and flexible for different requirements and scenarios.
+This approach gives you a set of guidelines that follows a heuristic, step-by-step process, emphasizing reasoning and thought process over a more 
+ structure. It should be more adaptable and flexible for different requirements and scenarios.
 ```
 
 Here is one sample example which uses step-by-step reasoning to detect errors

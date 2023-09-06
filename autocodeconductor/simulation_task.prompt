@@ -3,7 +3,148 @@ Do you think can we improve the design pattern the python scenario ? What is the
 Please think and reason comprehensively. At last, please update the design documentation please.
 
 
-Thank you for updating the code design. To ensure we can create production-ready code design. 
-Please create a simulation script by using the components and APIs in the code design.  A dummy implementation can be provided for each API.  And then run the simulation script in your virtual enviornment to simulate the whole process. Please think step by step reason comprehensively.
+Version 1:
 
-After you created this simulation script.
+You are a senior Python developer. Based on the provided feature code design documentation in the `[FeatureCodeDesign]` section,  your task is to create a simulation script. This script should emulate real-world scenarios, aiding in visualizing the potential production version of the code. Utilize the components and APIs specified in the design documentation, and provide dummy implementations where needed. 
+
+After creating the simulation script. You will use the simulation script to evaluate feature 
+code design especially the attributes of components to check whether there are missing 
+attributes in the component.
+
+This simulation will help in pinpointing any missing requirements or inconsistencies in the design. 
+
+
+Please think step by step meticulously, and reason comphrensively to address the task.
+
+
+You are a senior Python developer. In the `[FeatureCodeDesign]` section, a feature code design documentation is provided. Your task is to create a simulation script based on this design to emulate real-world scenarios. This will aid in visualizing the potential production version of the code. 
+
+[Approach]
+1. Understand the components and APIs specified in the design documentation.
+2. Develop the simulation script, incorporating the components from the documentation. You can provide dummy implementations for components or APIs that are not fully specified.
+3. Analyse the data flow using the simulated code. Identify potential issues.
+
+The simulation's primary objective is to pinpoint any potential gaps or inconsistencies in the design.  Follow the steps defined in the 'Approach'. Ensure meticulous thinking and comprehensive reasoning for each step.
+
+[FeatureCodeDesign]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+The enhancement integrates a versioning mechanism for prompts used in each workflow step. By introducing the `PromptVersioningMixin`, the original `BaseStep` structure and workflow remain largely unaffected. However, they now acquire versioning functionalities that store, manage, and refine versioned prompts in a database. The Repository Pattern from previous features is leveraged for database interactions.
+
+#### 2. Component Modifications:
+
+2.1. **New Components**:
+
+- **PromptVersioningMixin**: 
+  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
+  - *Attributes*: 
+    - `current_effective_version: int`: Represents the version number of the current effective prompt.
+    - `default_prompt: str`: The default prompt intrinsic to the step's code.
+  - *Methods*: 
+    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
+    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
+    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt.
+    - `get_current_effective_version()`: Fetches the content of the current effective prompt.
+    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
+
+- **VersionedPrompt**:
+  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
+  - *Attributes*: 
+    - `version_no: int`: The version number.
+    - `prompt_content: str`: The content of the prompt for that version.
+
+- **PromptVersionModel (extends BaseModel)**:
+  - *Purpose*: Represents the database model for storing versioned prompts.
+  - *Attributes*: 
+    - `step_id: String`: Identifier for the step.
+    - `version_no: Integer`: Version number.
+    - `prompt_content: Text`: Content of the prompt.
+    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
+    - `created_at: DateTime`: Timestamp for creation/modification.
+
+- **PromptVersionRepository (extends BaseRepository)**:
+  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
+  - *Methods*: 
+    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
+    - `get_version(step_id: String, version_no: int)`: Fetches a specific version of a prompt.
+    - `get_current_effective_version(step_id: String)`: Retrieves the current effective prompt for a step.
+    - `get_latest_created_version(step_id: String)`: Retrieves the most recently created prompt version.
+    - `delete_version(step_id: String, version_no: int)`: Deletes a specific version.
+    - `delete_oldest_version(step_id: String)`: Deletes the oldest version when the limit is surpassed.
+
+2.2. **Updated Components**:
+
+- **BaseStep**:
+  - *Modification*: Extend from `PromptVersioningMixin`.
+  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
+
+2.3. **Unchanged Components**:
+
+- **BaseModel**: 
+  - *Description*: The foundational model class for database entities.
+  
+- **BaseRepository**: 
+  - *Description*: Provides generic CRUD operations.
+
+#### 3. Interactions:
+
+3.1. **Component Interactions**:
+
+- Steps augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
+- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
+
+#### 4. External Dependencies: 
+
+- **SQLAlchemy**: ORM tool facilitating database operations.
+- **Alembic**: For database migration and versioning.
+
+#### 5. UML Diagram:
+
+@startuml
+
+package "Versioned Prompts Structure" {
+
+class "PromptVersioningMixin (New)" {
+    + add_version(prompt: str)
+    + get_version(version_no: int): str
+    + set_current_effective_version(version_no: int)
+    + get_current_effective_version(): str
+    + load_latest_version(): str
+    + default_prompt: str
+    + current_effective_version: int
+}
+
+class "VersionedPrompt (New)" {
+    + version_no
+    + prompt_content
+}
+
+class "PromptVersionModel (New, extends BaseModel)" {
+    + step_id: String
+    + version_no: Integer
+    + prompt_content: Text
+    + is_current_effective: Boolean
+    + created_at: DateTime
+}
+
+class "PromptVersionRepository (New, extends BaseRepository)" {
+    + create_version(prompt_version: PromptVersionModel): PromptVersionModel
+    + get_version(step_id: String, version_no: int): PromptVersionModel
+    + get_current_effective_version(step_id: String): PromptVersionModel
+    + get_latest_created_version(step_id: String): PromptVersionModel
+    + delete_version(step_id: String, version_no: int)
+    + delete_oldest_version(step_id: String)
+}
+
+"PromptVersioningMixin (New)" o-- "VersionedPrompt (New)"
+"PromptVersioningMixin (New)" o-- "PromptVersionRepository (New)"
+"PromptVersionModel (New)" --|> "BaseModel"
+"PromptVersionRepository (New)" --|> "BaseRepository"
+
+
+}
+
+@enduml

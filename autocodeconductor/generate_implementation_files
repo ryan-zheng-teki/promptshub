@@ -18,41 +18,58 @@ Think step by step methodically, and reason comprehensively before providing the
 
 [Documentation]
 $start$
-### Feature Requirement Documentation
+### Enhanced Automated Coding Workflow with Versioned Prompts for Comparative Analysis
 
 #### 1. Story/Feature Description:
 
 1.1. **Background**: 
-The requirement is for a repository base structure in Python that provides an interface to interact with a PostgreSQL database. This structure will serve as a foundational module for the AI coding agent application, upon which specific repositories can be built.
+The Automated Coding Workflow, designed to interact with Large Language Models (LLMs) for automating coding tasks, requires an upgrade. The inherent variability in LLM responses based on prompt nuances has led to the need for versioned prompts for each step. The aim is not just flexibility but also to enable comparative analysis between different versions to ascertain the most effective prompt.
 
 1.2. **User Persona**: 
-AI Coding Agent – A software agent responsible for executing operations on the database on behalf of the application.
+Software Developer or AI System:
+  - Interacts with the Automated Coding Workflow to harness LLM capabilities.
+  - Seeks to compare LLM responses for different prompt versions to determine the most effective prompt.
+  - Wants a seamless interface to manage, select, and compare different prompt versions.
 
 1.3. **User Journey**: 
-The AI coding agent, upon receiving a command or a task, interacts with the PostgreSQL database using the repository base structure. It can create, read, update, or delete records as necessary. In case of an error, the structure should either rollback the changes or log the error for further examination.
+A user interacts with a specific step in the Automated Coding Workflow. When they modify a prompt, they save it as a new version, preserving the original. Using a dropdown, they can easily switch between versions, running each one to obtain LLM responses. They subsequently compare the results to ascertain which prompt yields the most desirable output.
 
 #### 2. Requirements:
 
 2.1. **Functional Requirements**:
 
-- **CRUD Operations**:
-   - Create records in the database.
-   - Read records from the database.
-   - Update existing records in the database.
-   - Delete records from the database.
+- **Dynamic Initialization of Versioned Prompts**:
+   - Load the latest version of the prompt from the database when a step is constructed.
+   - If no version is present in the database for a step, initialize the database with the default prompt associated with the step which is defined within the step's code.
 
-- **Error Handling**:
-   - Rollback any database changes when an error occurs during an operation.
-   - Log errors for further investigation.
+- **Decoupling Static Prompt Template**:
+   - Remove the static prompt template from `BaseStep`.
+   - Fetch the prompt content dynamically from the database based on the version or from the step's associated default if not present in the database.
 
-- **Integration**:
-   - The structure should be modular and extensible, allowing other specific repositories to be built upon it, following the repository pattern.
+- **Prompt Version Management**:
+   - Enable the addition of a new prompt version for a step when the current prompt is modified.
+   - Store a maximum of 4 prompt versions for each step in the database.
+   - Automatically set the newest version as the current version upon addition.
+   - Provide an option for users to set any version as the current version.
+   - Display all versions in a dropdown for user selection during interaction.
 
-2.2. **Technical Requirements**:
+- **Comparative Analysis**:
+   - Facilitate switching between different prompt versions for running and obtaining LLM responses.
+   - Provide a user-friendly interface to aid in comparing the results of different prompt versions.
+   - Ensure that the process of comparison is intuitive and efficient.
 
-- **Dependencies**:
-   - Use `SQLAlchemy` as the ORM (Object-Relational Mapping) tool to facilitate database operations.
-   - Use `Alembic` for database migration and versioning, allowing for smooth upgrades and schema changes.
+- **Viewing Past Versions**:
+   - Allow users to view the content of past versions of prompts for reference.
+   - Ensure easy access and intuitive navigation to past versions.
+
+- **Database Management**:
+   - Represent versions using simple incrementing numbers (e.g., v1, v2, etc.).
+   - Implement an auto-delete mechanism to remove the oldest version when a new one exceeds the 4-version cap.
+
+- **User Interface**:
+   - Incorporate a dropdown mechanism in the user interface to facilitate prompt version selection.
+   - Ensure clarity in version differentiation and facilitate the comparative analysis process.
+
 
 ---
 
@@ -61,20 +78,38 @@ The AI coding agent, upon receiving a command or a task, interacts with the Post
 #### 1. Code Architecture Design:
 
 1.1. **High-Level Design**: 
-The feature implements the Repository Pattern with a context manager, offering an abstraction of the database. The `BaseRepository` class is generic. We will also introduce a `BaseModel` that contains common attributes and behaviors for all derived models. Sessions are managed using the context manager.
+The enhancement integrates a versioning mechanism for prompts used in each workflow step. By introducing the `PromptVersioningMixin`, the original `BaseStep` structure and workflow remain largely unaffected. However, they now acquire versioning functionalities that store, manage, and refine versioned prompts in a database. The Repository Pattern from previous features is leveraged for database interactions.
 
 1.2. **New Components**:
-- **BaseModel (New)**: A foundational model class that encapsulates common attributes and behaviors for all derived models.
-- **BaseRepository (New)**: A generic class providing CRUD operations.
-- **DatabaseSessionManager (New)**: A context manager for managing the database session.
+
+- **PromptVersioningMixin (New)**: A mixin class offering versioning capabilities with integrated database interactions. It oversees version history, the current version, auto-deletion of older versions, database storage/retrieval, loading the latest version of the prompt, and refining the default prompt based on user feedback.
+
+- **VersionedPrompt (New)**: Represents the state of a prompt at a particular version in-memory.
+
+- **PromptVersionModel (New)**: Represents the database model for storing versioned prompts. Contains the step identifier, version number, and content of the prompt.
+
+- **PromptVersionRepository (New)**: Offers CRUD operations for `PromptVersionModel`, fetches the latest version of a prompt for a given step, and provides enhanced cleanup.
 
 1.3. **Existing Components/Dependencies**:
-- None.
+
+- **BaseStep**: Extended with the `PromptVersioningMixin`, inheriting versioning capabilities with database integration.
+
+- **PromptTemplate**: Used by steps to craft prompts.
+
+- **AutomatedCodingWorkflow**: The versioning mechanism with database interactions becomes intrinsic to the steps.
+
+- **BaseModel**: The foundational model class for database entities.
+
+- **BaseRepository**: Provides generic CRUD operations.
 
 1.4. **Interactions**: 
-The AI coding agent will interface with the `BaseRepository`, which employs the `DatabaseSessionManager` for session management during CRUD operations.
+
+- Steps augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
+
+- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
 
 1.5. **External Dependencies**: 
+
 - **SQLAlchemy**: ORM tool facilitating database operations.
 - **Alembic**: For database migration and versioning.
 
@@ -82,59 +117,182 @@ The AI coding agent will interface with the `BaseRepository`, which employs the 
 
 @startuml
 
-package "Repository Base Structure" {
+package "Versioned Prompts Structure" {
 
-class "BaseModel (New)" {
-    + id: Integer (PK)
-    + created_at: DateTime
-    + updated_at: DateTime
+class "PromptVersioningMixin (New)" {
+    + add_version(prompt: str)
+    + get_version(version_no: int): str
+    + set_current_version(version_no: int)
+    + load_latest_version(): str
+    + set_as_default(version_no: int)
+    + default_prompt: str
 }
 
-class "BaseRepository (New)" {
-    + create(obj: ModelType): ModelType
-    + get(id: int): ModelType
-    + get_all(): List[ModelType]
-    + delete(obj: ModelType)
-    + update(obj: ModelType, **kwargs): ModelType
+class "VersionedPrompt (New)" {
+    + version_no
+    + prompt_content
 }
 
-class "DatabaseSessionManager (New)" {
-    + __enter__()
-    + __exit__(exc_type, exc_value, traceback)
+class "PromptVersionModel (New)" {
+    + step_id: String
+    + version_no: Integer
+    + prompt_content: Text
 }
 
-"BaseRepository (New)" --> "DatabaseSessionManager (New)": Uses for session management
+class "PromptVersionRepository (New)" {
+    + create_version(prompt_version: PromptVersionModel): PromptVersionModel
+    + get_version(step_id: String, version_no: int): PromptVersionModel
+    + get_latest_version(step_id: String): PromptVersionModel
+    + delete_version(step_id: String, version_no: int)
+    + delete_all_except(step_id: String, versions_to_keep: List[int])
+}
+
+"PromptVersioningMixin (New)" o-- "VersionedPrompt (New)"
+"PromptVersioningMixin (New)" o-- "PromptVersionRepository (New)"
 
 }
 
 @enduml
-
 $end$
 
 [Task]
 #start#
-#### Task 4: Implement BaseRepository
+#### Task 3: Implement the `PromptVersionRepository` (Updated)
 #task start#
-
-- **Objective**: Implement the generic `BaseRepository` class.
-- **File Specification**: `autobyteus/db/repositories/base_repository.py`
-- **Functionality Details**: 
-    - Provide CRUD operations (create, read, update, delete) with the help of SQLAlchemy.
-    - Use the `DatabaseSessionManager` for session management.
-- **Integration Points**: Will be utilized by the AI coding agent and potentially other repositories in the future.
-
+- **Objective**: Develop the `PromptVersionRepository` to handle CRUD operations for the `PromptVersionModel` and introduce additional functionalities.
+- **File Specification**: `autobyteus/db/repositories/prompt_version_repository.py`
+- **Functionality Details**: This repository will extend the `BaseRepository`, provide CRUD operations tailored for `PromptVersionModel`, introduce methods to fetch the latest version of a prompt for a given step, and offer a cleanup method to remove non-default versions.
+- **Integration Points**: Will be interfaced by the `PromptVersioningMixin` for database interactions.
 #task end#
 
-#### Task 5: Alembic Configuration and Initial Migration
-#task start#
+[DependentCode]
+"""
+autobyteus.db.repositories.base_repository
+=========================================
 
-- **Objective**: Set up Alembic for database migrations.
-- **File Specification**: Root directory (for Alembic configurations and migrations)
-- **Functionality Details**: 
-    - Initialize Alembic configurations.
-    - Create an initial migration to set up the database schema based on the `BaseModel`.
-- **Integration Points**: Database.
+This module provides a base repository structure that serves as a foundational module for interacting
+with a PostgreSQL database using SQLAlchemy. It facilitates CRUD operations for the application.
 
-#task end#
+This repository structure will be used by the AI coding agent and potentially other repositories in the future.
+"""
 
-$end$
+from typing import List, Type, TypeVar, Optional
+
+from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
+
+from autobyteus.db.models.base_model import BaseModel
+from autobyteus.db.utils.database_session_manager import DatabaseSessionManager
+
+ModelType = TypeVar("ModelType", bound=BaseModel)
+
+
+class BaseRepository:
+    """
+    A generic repository class that provides CRUD operations with the help of SQLAlchemy.
+    This class utilizes the DatabaseSessionManager for session management.
+    """
+
+    def __init__(self, session_manager: DatabaseSessionManager):
+        """
+        Initialize the repository with a session manager.
+
+        Args:
+            session_manager (DatabaseSessionManager): The session manager for database operations.
+        """
+        self.session_manager = session_manager
+
+    def create(self, obj: ModelType) -> ModelType:
+        """
+        Create a new record in the database.
+
+        Args:
+            obj (ModelType): The object to be created.
+
+        Returns:
+            ModelType: The created object.
+        """
+        with self.session_manager as session:
+            session.add(obj)
+            session.commit()
+            return obj
+
+    def get(self, model_class: Type[ModelType], id: int) -> Optional[ModelType]:
+        """
+        Retrieve a record from the database by its ID.
+
+        Args:
+            model_class (Type[ModelType]): The model class of the object to be retrieved.
+            id (int): The ID of the object to be retrieved.
+
+        Returns:
+            Optional[ModelType]: The retrieved object or None if not found.
+        """
+        with self.session_manager as session:
+            return session.query(model_class).filter_by(id=id).first()
+
+    def get_all(self, model_class: Type[ModelType]) -> List[ModelType]:
+        """
+        Retrieve all records of a specific model class from the database.
+
+        Args:
+            model_class (Type[ModelType]): The model class of the objects to be retrieved.
+
+        Returns:
+            List[ModelType]: A list of retrieved objects.
+        """
+        with self.session_manager as session:
+            return session.query(model_class).all()
+
+    def update(self, obj: ModelType, **kwargs) -> ModelType:
+        """
+        Update an existing record in the database.
+
+        Args:
+            obj (ModelType): The object to be updated.
+            **kwargs: The fields to be updated with their new values.
+
+        Returns:
+            ModelType: The updated object.
+        """
+        with self.session_manager as session:
+            for key, value in kwargs.items():
+                setattr(obj, key, value)
+            session.commit()
+            return obj
+
+    def delete(self, obj: ModelType):
+        """
+        Delete a record from the database.
+
+        Args:
+            obj (ModelType): The object to be deleted.
+        """
+        with self.session_manager as session:
+            session.delete(obj)
+            session.commit()
+
+
+
+
+Version 2:
+You are a senior python software engineer. You are given a new version of subtask task based a new version of feature code design. You are also given one old version source code based on the old subtask. 
+The task is presented in the `[NewSubTask]` section. The new version of feature code design is provided in the [FeatureCodeDesign] section. The old source code is provided in the [OldSubtaskCode]
+
+Criterias:
+- For code-related tasks:
+  - Follow PEP8 python coding practices, including type hinting.
+  - Follow PEP8 python docstring best practices. Always add file-level docstring at the top of the file.
+  - Use absolute imports. Assume all dependencies already exist.
+
+- For setup tasks:
+  - Give complete bash commands to ensure complete setup.
+
+
+### Approach
+
+Provide the output in the `[Output]` section. This section will be encapsulated between `$output_start$` and `$output_end$` tokens, and it will contain the resulting code, instructions, or other relevant data based on the task's nature.
+
+
+Think step by step methodically, and reason comprehensively before providing the final output.
+

@@ -36,7 +36,24 @@ $end$
 
 [Requirement]
 $start$
+Sometimes i the task is setup task which setup the folders or libraries stuff. Our prompt does not cover this actually.
 
+For example.
+#### Task 1: Preliminary Setup
+#task start#
+
+- **Objective**: Install necessary libraries and set up the project directory structure.
+- **File Specification**: `requirements.txt`, `src/db/repositories`, `src/db/models`, `src/db/utils`
+- **Functionality Details**: 
+    - Add `SQLAlchemy` and `Alembic` to the `requirements.txt` file.
+    - Create a `db` folder under `src`.
+    - Within `db`, create a `repositories` folder to house repository-related classes.
+    - Within `db`, create a `models` folder for model-related classes.
+    - Within `db`, create a `utils` folder for utility functions or classes.
+    - Create the files `base_model.py` in `src/db/models`, `base_repository.py` in `src/db/repositories`, and `database_session_manager.py` in `src/db/utils` for future tasks.
+- **Integration Points**: None.
+
+#task end#
 $end$
 
 
