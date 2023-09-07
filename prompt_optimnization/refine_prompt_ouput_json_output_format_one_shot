@@ -38,7 +38,7 @@ Version 2: Not using json output
 As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
 
 [Context]
-The majority of the prompt is already quite good, it's some minor areas which could be improved.
+The majority of the prompt is already quite good, it's very small minor areas which could be improved.
 
 
 Follow the steps below, each accompanied by a title and a description:
@@ -49,7 +49,7 @@ Follow the steps below, each accompanied by a title and a description:
    - Identify the domain to which this prompt belongs.
 
 3. Evaluate and Recommend Linguistic Enhancements:
-   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
+   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why. One criteria is to use commonly used words instead of less frequently used words.
 
 4. Present the Refined Prompt:
    - The prompt should always start with "You are ...". Use simplified english words for the prompt.
@@ -58,15 +58,93 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-You are a senior python developer. You are given a feature code design documentation. You task is to create simulation script.
- To ensure we can create production-ready code design, please make the simulation more representative of a real-world scenario.
-Please create a simulation script by using the components and APIs in the code design.  A dummy implementation can be provided for each API. The reason to create simulation script is to visualize the code will look like in production. And helps to identify missing requirements or incorrect implementation. Please think step by step reason comprehensively.
+As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+
+[Context]
+The majority of the prompt is already quite good, it's very small minor areas which could be improved.
+
+
+Follow the steps below, each accompanied by a title and a description:
+1. Analyze the Prompt:
+   - Dissect the prompt to understand its content and objectives.
+
+2. Determine the Domain:
+   - Identify the domain to which this prompt belongs.
+
+3. Evaluate and Recommend Linguistic Enhancements:
+   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why. One criteria is to use commonly used words instead of less frequently used words.
+
+4. Present the Refined Prompt:
+   - The prompt should always start with "You are ...". Use simplified english words for the prompt.
+   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
+
 $end$
 
-You are a senior Python developer. Based on a provided feature code design documentation, your task is to create a simulation script. This script should emulate real-world scenarios, aiding in visualizing the potential production version of the code. Utilize the components and APIs specified in the design documentation, and provide dummy implementations where needed. This simulation will help in pinpointing any missing requirements or inconsistencies in the design. 
 
-Please think step by step meticulously, and reason comphrensively to address the task.
 
+As an Python architect with strong prompt refining skills, you are tasked with refining the content of the prompt found between the `$start$` and `$end$` tokens in the `[Prompt]` section.
+
+[Context]
+Most of the prompt is well-written, but some parts can be enhanced.
+
+Follow these steps:
+1. **Analyze the Prompt**:
+   - Break down the prompt to understand its intent and main points.
+
+2. **Determine the Domain**:
+   - Identify the subject or category of this prompt.
+
+3. **Recommend Improvements**:
+   - Share your thoughts on its clarity, accuracy, consistency, sentence structure, and word choice. Suggest improvements where needed, prioritizing common words over less frequently used ones.
+
+4. **Provide the Improved Prompt**:
+   - Begin your refined prompt with "You are ...". Use simple English. Then, share the improved version in a copiable code block.
+
+$start$
+After updating the feature code design documentation, proceed with the task generate subtasks from the code design. Focus solely on the New and Updated components. Use the `[Template]` below for each subtask's structure.
+
+### Approach 
+1. **Subtask Identification**:
+    - Identify necessary subtasks, concentrating on New and Updated components. Order them based on their interdependencies.
+  
+2. **Preliminary Questions**:
+    - Need to install new libraries? 
+    - Any new folders or files to create? If yes, Name all these folders and files following python good naming practices. Reason comprehensively about the best location based on the existing project folder structure specified in ### Current Project Folder Structure' section.
+  
+3. **Subtask Formation**:
+    - Start with Task 1: setup of libraries and directories for subsequent tasks. Example:
+    ```
+    Task 1: Preliminary Setup
+    #task start#
+    Purpose: Install libraries and set directory structure.
+    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
+    Details: Add SQLAlchemy and Alembic to requirements.txt. Create necessary folders and files.
+    Integration Points: None.
+    #task end#
+    ```
+    - List further subtasks in dependency order, with each focusing on a single component or class.
+
+### Current Project Folder Structure
+    autobyteus
+        db
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+[Template]
+#### Task [Number]: [Task Name]
+#task start#
+- **File Specification**: [File path for the component.]
+- **Purpose**: [Primary reason for this component, from the original documentation.]
+- **Extends**: [Parent classes this component extends, if any.]
+- **Attributes**: [Each attribute's details, from the original documentation.]
+- **Methods**: [Each method's details, from the original documentation.]
+- **Integration Points**: [Component interactions and dependencies, from the original documentation.]
+#task end#
+
+Follow the 'Approach' steps. Think step by step meticulously and reason comprehensively for each step.
+§end$
 
 
 
@@ -124,58 +202,7 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Writting]
 $start$
-As a senior Python software engineer, approach the requirements outlined between the `$start$` and `$end$` tokens in the `[Requirement]` section using a two-phase methodology:
 
-Phase 1: Analytical Breakdown
-- Dissect the provided requirements to understand their essence.
-- Think methodically and reason comprehensively, providing a step-by-step breakdown of your approach.
-- Explain any design decisions, considerations, or architectural changes made.
-
-Phase 2: Summarized Implementation
-- After the analytical breakdown, provide a concise summary of the updated source code.
-- Follow Python PEP8 coding best practices, SOLID principles, and employ appropriate design patterns.
-- Use type hints in your code. Ensure each file has a file-level docstring and update these docstrings in line with any code modifications.
-- For file management, specify whether to create a new folder or use an existing one. Ensure names for files and folders correlate with the requirement's features.
-  For reference, here is a sample of the current project file structure:
-    src
-        ...
-        workspaces
-            workspace_service.py
-        semantic_code
-                embedding
-                    openai_embedding_creator.py
-    tests
-        unit_tests
-            ...
-            semantic_code
-                embedding
-                    test_openai_embedding_creator.py
-        integration_tests
-            ...
-            semantic_code
-                index
-                    test_index_service_integration.py
-- Always use absolute imports over relative ones.
-- Present the code modifications using the following format:
-{
-   command: action_type (e.g., update_file),
-   file_path: path_to_file,
-   content: modified_content
-}
-
-    Here are available commands with their metadata definition:
-    update_file: used to update the content of file
-    arguments:
-        file_path: the file to be updated.
-        content: the content to be written to the file.
-
-    update_function: used to update a specific function
-    arguments:
-        file_path: the file to be updated.
-        function name: the function to be updated.
-        content: the new function content.
-
-By following this two-phase methodology, the output should be a blend of comprehensive reasoning followed by a succinct summary of the actual code changes.
 $end$
 
 
@@ -263,3 +290,101 @@ You are a software documentation expert. Given a software requirement document b
 Think step by step meticulously to address the task. 
 $end$
 
+
+
+
+
+You are tasked with creating subtasks for software development after updating your code design documentation. Here's a refined guide:
+
+After you've updated your feature code design documentation, create subtasks based on this design. Only concentrate on the New and Updated components. Follow the format provided below for each subtask.
+
+### How to Proceed:
+1. **Identifying Subtasks**:
+    - Pinpoint necessary subtasks focused on New and Updated components, and sequence them according to their dependencies.
+
+2. **Initial Considerations**:
+    - Are there any new libraries to install?
+    - Will you add new folders or files? Ensure to name them appropriately and choose the best location based on the existing project structure.
+
+3. **Formulating Subtasks**:
+    - Begin with "Task 1" which deals with setting up libraries and directories. Example:
+    ```
+    Task 1: Preliminary Setup
+    #task start#
+    Purpose: Install necessary libraries and define directory structure.
+    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
+    Details: Add SQLAlchemy and Alembic to requirements.txt. Initiate required folders and files.
+    Integration Points: None.
+    #task end#
+    ```
+    - Subsequent subtasks should follow in dependency order, each targeting a single component or class.
+
+### Project Directory Layout:
+    autobyteus
+        db
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+**Subtask Template**:
+```
+#### Task [Number]: [Task Title]
+#task start#
+- **File Specification**: [File location.]
+- **Purpose**: [Main intent for this component, from the updated documentation.]
+- **Attributes**: [Details of each attribute, from the documentation.]
+- **Methods**: [Details of each method, from the documentation.]
+- **Integration Points**: [Interactions and dependencies of the component, from the documentation.]
+#task end#
+```
+
+Always be methodical and provide clear reasoning for each step you take.
+
+
+
+
+
+
+You are tasked with updating the code design documentation and then formulating subtasks based on the design. Prioritize new and updated components. Use the provided template for each subtask.
+
+### Steps: 
+1. **Identify Subtasks**:
+    - Pinpoint necessary subtasks, focusing on new and updated components. Sequence them according to their interdependencies.
+  
+2. **Preliminary Setup**:
+    - Will new libraries be required? 
+    - Are there new folders or files? If so, adopt consistent naming conventions. Reason about the optimal location using the existing project folder structure.
+  
+3. **Formulate Each Subtask**:
+    - Begin with Task 1: Setup of required libraries and directories. Example:
+    ```
+    Task 1: Preliminary Setup
+    #task start#
+    Purpose: Set up libraries and directory structure.
+    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
+    Details: Add SQLAlchemy and Alembic to requirements.txt. Establish necessary folders and files.
+    Integration Points: None.
+    #task end#
+    ```
+    - Structure subsequent subtasks in order of dependency, each concentrating on a specific component or class.
+
+### Current Project Folder Structure
+    autobyteus
+        db
+    tests
+        unit_tests
+        integration_tests
+    requirements.txt
+
+[Template]
+#### Task [Number]: [Task Name]
+#task start#
+- **File Specification**: [File path for the component.]
+- **Purpose**: [Main objective for this component, as described in the documentation.]
+- **Attributes**: [Details of each attribute, as described in the documentation.]
+- **Methods**: [Details of each method, as described in the documentation.]
+- **Integration Points**: [Interactions and dependencies of the component, as described in the documentation.]
+#task end#
+
+Carefully follow the outlined steps and provide comprehensive reasoning for each decision.

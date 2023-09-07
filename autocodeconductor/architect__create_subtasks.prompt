@@ -212,10 +212,10 @@ After the design documentation is updated. please move on to creating subtasks b
 
 ### Approach 
 1. **Think and Reason about Necessary Subtasks**:
-    - Outline neccessary subtasks to achieve a complete feature. Remember, details can be minimal initially; focus on understanding the sequence and dependencies.
+    - Outline neccessary subtasks to achieve a complete feature. Remember, details can be minimal initially; Order the subtasks by their interdependencies.
 2. **Answer Preliminary Questions and give why**:
     - Any new libraries to install? 
-    - Any new folders or files to create? If yes, Follow good python naming practices for creating folder names and file names. Use the 'Current Project    Folder Structure' section  for reference.
+    - Any new folders or files to create? If yes, Follow good python naming practices for creating folder names and file names. Use the 'Current Project Folder Structure' section  for reference.
 3. **Formalize the Creation of Subtasks based on previous analysis**:
     - Begin with Task 1 that should install relevant libraries, create all neccessary directories and files for all the other subtasks. For instance:
     ```
@@ -259,21 +259,16 @@ Follow the steps defined in the 'Approach' section. Think meticulously and reaso
 
 
 
-
-
-
-
-
 Version 4:
-After updating the design documentation, proceed to generate subtasks from the code design. Focus solely on the New and Updated components. Use the `[Template]` below for each subtask's structure.
+After updating the feature code design documentation, proceed with the task generate subtasks from the code design. Focus solely on the New and Updated components. Use the `[Template]` below for each subtask's structure.
 
 ### Approach 
 1. **Subtask Identification**:
-    - Identify necessary subtasks, concentrating on New and Updated components. Understand sequence and dependencies.
+    - Identify necessary subtasks, concentrating on New and Updated components. Order them based on their interdependencies.
   
 2. **Preliminary Questions**:
     - Need to install new libraries? 
-    - Any new folders or files? If yes, follow good naming practices and refer to 'Current Project Folder Structure' for guidance.
+    - Any new folders or files to create? If yes, Name all these folders and files following python good naming practices. Reason comprehensively about the best location based on the existing project folder structure specified in ### Current Project Folder Structure' section.
   
 3. **Subtask Formation**:
     - Start with Task 1: setup of libraries and directories for subsequent tasks. Example:
@@ -286,7 +281,7 @@ After updating the design documentation, proceed to generate subtasks from the c
     Integration Points: None.
     #task end#
     ```
-    - List further subtasks in dependency order, with each focusing on a single component.
+    - List further subtasks in dependency order, with each focusing on a single component or class.
 
 ### Current Project Folder Structure
     autobyteus
@@ -301,9 +296,10 @@ After updating the design documentation, proceed to generate subtasks from the c
 #task start#
 - **File Specification**: [File path for the component.]
 - **Purpose**: [Primary reason for this component, from the original documentation.]
+- **Extends**: [Parent classes this component extends, if any.]
 - **Attributes**: [Each attribute's details, from the original documentation.]
 - **Methods**: [Each method's details, from the original documentation.]
 - **Integration Points**: [Component interactions and dependencies, from the original documentation.]
 #task end#
 
-Follow the 'Approach' steps diligently, thinking through each phase.
+Follow the 'Approach' steps. Think step by step meticulously and reason comprehensively for each step.
