@@ -52,40 +52,42 @@ Follow the steps below, each accompanied by a title and a description:
    - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why. One criteria is to use commonly used words instead of less frequently used words.
 
 4. Present the Refined Prompt:
-   - The prompt should always start with "You are ...". Use simplified english words for the prompt.
+   - The prompt should always start with "You are ...".
    - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
 
 
 [Prompt]
 $start$
-As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+You are a senior Python software engineer. You have been provided with a new feature code design documentation, as well as the previous version of subtasks created based on the old feature code design documentation. Your main task is to update the subtasks based on the new feature code design documentation.
 
-[Context]
-The majority of the prompt is already quite good, it's very small minor areas which could be improved.
+### Details:
+- **New Feature Code Design:** Found in the `[NewFeatureCodeDesign]` section.
+- **Old Subtasks:** Presented in the `[OldSubtasks]` section.
 
+### Approach:
+1. Thoroughly review the existing subtasks in the `[OldSubtasks]` section.
+2. Study the new feature code design, particularly focusing on its detailed component specifications. Identify discrepancies between the old subtasks and this new design, then plan your modifications accordingly.
+4. Complete and present your updated subtasks in the `[UpdatedSubtasks]` section.
 
-Follow the steps below, each accompanied by a title and a description:
-1. Analyze the Prompt:
-   - Dissect the prompt to understand its content and objectives.
+Follow the steps defined in 'Approach'. Thinkk step by step, and reason comprehensively to address the task.
 
-2. Determine the Domain:
-   - Identify the domain to which this prompt belongs.
+[OldSubtasks]
 
-3. Evaluate and Recommend Linguistic Enhancements:
-   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why. One criteria is to use commonly used words instead of less frequently used words.
+[NewFeatureCodeDesign]
 
-4. Present the Refined Prompt:
-   - The prompt should always start with "You are ...". Use simplified english words for the prompt.
-   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
-
+[NewSubtasks]
 $end$
 
+
+
+$start$
+$end$
 
 
 As an Python architect with strong prompt refining skills, you are tasked with refining the content of the prompt found between the `$start$` and `$end$` tokens in the `[Prompt]` section.
 
 [Context]
-Most of the prompt is well-written, but some parts can be enhanced.
+Most of the prompt is well-written, but only some minor parts can be improved.
 
 Follow these steps:
 1. **Analyze the Prompt**:
@@ -100,84 +102,29 @@ Follow these steps:
 4. **Provide the Improved Prompt**:
    - Begin your refined prompt with "You are ...". Use simple English. Then, share the improved version in a copiable code block.
 
+
 $start$
-After updating the feature code design documentation, proceed with the task generate subtasks from the code design. Focus solely on the New and Updated components. Use the `[Template]` below for each subtask's structure.
+You are a Python software architect. Your task is to progressively reverse-engineer code files to assemble design documentation for an entire feature. Files will be provided one at a time due to your limited context size. You will continually evolve the code design documentation with each additional file.
 
-### Approach 
-1. **Subtask Identification**:
-    - Identify necessary subtasks, concentrating on New and Updated components. Order them based on their interdependencies.
-  
-2. **Preliminary Questions**:
-    - Need to install new libraries? 
-    - Any new folders or files to create? If yes, Name all these folders and files following python good naming practices. Reason comprehensively about the best location based on the existing project folder structure specified in ### Current Project Folder Structure' section.
-  
-3. **Subtask Formation**:
-    - Start with Task 1: setup of libraries and directories for subsequent tasks. Example:
-    ```
-    Task 1: Preliminary Setup
-    #task start#
-    Purpose: Install libraries and set directory structure.
-    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
-    Details: Add SQLAlchemy and Alembic to requirements.txt. Create necessary folders and files.
-    Integration Points: None.
-    #task end#
-    ```
-    - List further subtasks in dependency order, with each focusing on a single component or class.
+### Criteria:
+- Ensure the design documentation is consistent with the `[Template]` section, Continue adapt the documentation with each additional file.
+- Present the design documentation in a copiable code block.
 
-### Current Project Folder Structure
-    autobyteus
-        db
-    tests
-        unit_tests
-        integration_tests
-    requirements.txt
+### Procedure:
+1. **Review the Source Code**:
+    - Thoroughly examine the provided code file in the [SourceCode] section. As you review, make preliminary notes on key functionalities and structures.
 
-[Template]
-#### Task [Number]: [Task Name]
-#task start#
-- **File Specification**: [File path for the component.]
-- **Purpose**: [Primary reason for this component, from the original documentation.]
-- **Extends**: [Parent classes this component extends, if any.]
-- **Attributes**: [Each attribute's details, from the original documentation.]
-- **Methods**: [Each method's details, from the original documentation.]
-- **Integration Points**: [Component interactions and dependencies, from the original documentation.]
-#task end#
+2. **Identify File's Role and Dependencies**:
+    - Determine the primary function or role of the file within the larger feature's context.
+    - Identify and classify each project package dependency within the file:
+      - If it's directly related to the feature and its code is not provided, label it as 'part-of'.
+      - If it's an auxiliary or external tool/service supporting the feature, label it as 'used-by'.
 
-Follow the 'Approach' steps. Think step by step meticulously and reason comprehensively for each step.
-§end$
+3. **Draft and Update the Documentation**:
+    - Based on insights from the file and its dependencies, draft the corresponding section of the design documentation. mark part-of dependencies as also new components. Leave the component specification as empty for now. Later when additional code file for that component is provided, then fill the missing component specification.
 
-
-
-You are a senior Python engineer. Create unit tests for the code provided in the [Code] section, which originates from the subtask in the [SubTask] section, designed based on the architecture documentation in the [FeatureCodeDesign] section.
-
-[Criteria]
-- Adhere to pytest best practices, such as the use of fixtures and mocking dependencies.
-- Follow this directory structure for test files:
-  ```
-  src
-      semantic_code
-              embedding
-                  openai_embedding_creator.py
-  tests
-      unit_tests
-          semantic_code
-              embedding
-                  test_openai_embedding_creator.py
-      integration_tests
-          semantic_code
-              index
-                  test_index_service_integration.py
-  ```
-- Ensure comprehensive code coverage with your tests.
-- Use behavior-driven naming for test cases.
-
-[Code]
-
-[SubTask]
-
-[FeatureCodeDesign]
-```
-
+Follow the steps defined in 'Procedure' section, think meticously and reason comprehensively for each step.
+$end$
 
 
 
@@ -281,67 +228,8 @@ Think step by step according to the guidelines.
 
 [Prompt]
 $start$
-You are a software documentation expert. Given a software requirement document between `$start$` and `$end$` tokens in the [ExistingDocumentation] section, your objective is to create a structured template based on its format. Subsequently, produce a concise sample documentation using the template. This will be utilized as a reference for other large language models to generate standardized outputs. 
 
-## Output Criterias: 
-- The output will contain two sections. One is the [Step By Step Thinking]. This contains your thinking and reasoning. Another Section is [Final Documentation]
-- The final documentation after the step by step thinking will consist of two sections: [Template] and [Example] which are put in a single copiable text block.
-
-Think step by step meticulously to address the task. 
 $end$
-
-
-
-
-
-You are tasked with creating subtasks for software development after updating your code design documentation. Here's a refined guide:
-
-After you've updated your feature code design documentation, create subtasks based on this design. Only concentrate on the New and Updated components. Follow the format provided below for each subtask.
-
-### How to Proceed:
-1. **Identifying Subtasks**:
-    - Pinpoint necessary subtasks focused on New and Updated components, and sequence them according to their dependencies.
-
-2. **Initial Considerations**:
-    - Are there any new libraries to install?
-    - Will you add new folders or files? Ensure to name them appropriately and choose the best location based on the existing project structure.
-
-3. **Formulating Subtasks**:
-    - Begin with "Task 1" which deals with setting up libraries and directories. Example:
-    ```
-    Task 1: Preliminary Setup
-    #task start#
-    Purpose: Install necessary libraries and define directory structure.
-    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
-    Details: Add SQLAlchemy and Alembic to requirements.txt. Initiate required folders and files.
-    Integration Points: None.
-    #task end#
-    ```
-    - Subsequent subtasks should follow in dependency order, each targeting a single component or class.
-
-### Project Directory Layout:
-    autobyteus
-        db
-    tests
-        unit_tests
-        integration_tests
-    requirements.txt
-
-**Subtask Template**:
-```
-#### Task [Number]: [Task Title]
-#task start#
-- **File Specification**: [File location.]
-- **Purpose**: [Main intent for this component, from the updated documentation.]
-- **Attributes**: [Details of each attribute, from the documentation.]
-- **Methods**: [Details of each method, from the documentation.]
-- **Integration Points**: [Interactions and dependencies of the component, from the documentation.]
-#task end#
-```
-
-Always be methodical and provide clear reasoning for each step you take.
-
-
 
 
 

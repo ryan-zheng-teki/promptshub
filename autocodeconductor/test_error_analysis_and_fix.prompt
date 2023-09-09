@@ -93,94 +93,153 @@ Think step by step, ensure your explanation is thorough, and that the reasoning 
 
 [Error]
 ```
---host 127.0.0.1 --port 8000
-Traceback (most recent call last):
-  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/app.py", line 29, in <module>
-    from src.startup_mode.graphql_server_mode import graphql_server_mode
-  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/startup_mode/graphql_server_mode.py", line 4, in <module>
-    from src.api.graphql.schema import schema
-  File "/home/ryan/miniHDD/Learning/chatgpt/autobyteus/src/api/graphql/schema.py", line 13, in <module>
-    class Query(workspace_queries):
-TypeError: module() takes at most 2 arguments (3 given)
+                      self._calls_repr()))
+>           raise AssertionError(msg)
+E           AssertionError: Expected 'filter_by' to be called once. Called 0 times.
+
+/home/ryan/miniconda3/envs/autobyteus/lib/python3.9/unittest/mock.py:918: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+mock_repo = <autobyteus.db.repositories.prompt_version_repository.PromptVersionRepository object at 0x7fd376b1f700>
+mock_session_setup = (<Mock id='140546206203520'>, <Mock name='mock.query' id='140546206203664'>, <Mock name='mock.query.filter_by' id='140546206203424'>, <Mock name='mock.query.filter_by.first' id='140546206203472'>)
+sample_prompt_version = <autobyteus.db.models.prompt_version_model.PromptVersionModel object at 0x7fd38a2e21f0>
+
+    def test_get_version_with_existing_version_returns_version(mock_repo: PromptVersionRepository, mock_session_setup, sample_prompt_version):
+        mock_session, mock_query, mock_filter_by, mock_first = mock_session_setup
+        mock_first.return_value = sample_prompt_version
+    
+        with patch.object(MockDatabaseSessionManager, "__enter__", return_value=mock_session):  # Using the first element which is mock_session
+             # Debugging statements
+            print(f"Mock session from fixture: {id(mock_session)}")
+            print(f"Mock session used in repo: {id(mock_repo.session_manager.__enter__())}")
+    
+            print(mock_query)
+            print(mock_query.filter_by)
+    
+            # Execute the function
+            result = mock_repo.get_version("TestStep", 1)
+    
+            # Verification
+            mock_query.assert_called_once_with(PromptVersionModel)
+>           mock_filter_by.assert_called_once_with(step_id="TestStep", version_no=1)
+E           AssertionError: Expected 'filter_by' to be called once. Called 0 times.
+
+tests/unit_tests/db/repositories/test_prompt_version_repository.py:87: AssertionError
+-------------- generated xml file: /tmp/tmp-5842Vg4cx5xKzZfn.xml ---------------
+=========================== short test summary info ============================
+FAILED tests/unit_tests/db/repositories/test_prompt_version_repository.py::test_get_version_with_existing_version_returns_version
+============================== 1 failed in 7.90s ===============================
 
 ```
 
 [Codes]
 ```
-"""
-Module: workspace_queries
+# tests/unit_tests/db/repositories/test_prompt_version_repository.py
 
-This module provides GraphQL queries related to workspace operations.
-"""
+import pytest
+from unittest.mock import Mock, patch
+from autobyteus.db.repositories.prompt_version_repository import PromptVersionRepository
+from autobyteus.db.models.prompt_version_model import PromptVersionModel
 
-import json
-import logging
-from typing import List
-import strawberry
-from strawberry.scalars import JSON
-from src.automated_coding_workflow.automated_coding_workflow import AutomatedCodingWorkflow
-from src.semantic_code.search.search_result import SearchResult
-from src.semantic_code.search.search_service import SearchService
-from src.workspaces.workspace_manager import WorkspaceManager
-from src.workspaces.workspace_tools_service import WorkspaceToolsService
+# Mocking the DatabaseSessionManager for unit tests
+class MockDatabaseSessionManager:
+    def __enter__(self):
+        return Mock()
 
-# Singleton instances
-workspace_manager = WorkspaceManager()
-workspace_tools_service = WorkspaceToolsService()
-search_service = SearchService()  # Instantiate SearchService
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
 
-logger = logging.getLogger(__name__)
+# Fixture for a sample PromptVersionModel
+@pytest.fixture
+def sample_prompt_version():
+    return PromptVersionModel(step_id="TestStep", version_no=1, prompt_content="Sample Prompt", is_current_effective=True)
 
-@strawberry.type
-class WorkspaceTool:
-    name: str
-    prompt_template: str
+# Fixture to setup a mock session with the desired return values for query, filter_by, and first
+@pytest.fixture
+def mock_session_setup(sample_prompt_version):
+    mock_session = Mock()
+    mock_first = Mock(return_value=sample_prompt_version)
+    mock_filter_by = Mock(return_value=mock_first)
+    mock_query = Mock(return_value=mock_filter_by)
 
-@strawberry.type
-class Query:
-    @strawberry.field
-    def workflow_config(self, workspace_root_path: str) -> JSON:
+    mock_session.query = mock_query
+    mock_query.filter_by=mock_filter_by
+    mock_filter_by.first = mock_first
+    return mock_session, mock_query, mock_filter_by, mock_first
+
+@pytest.fixture
+def mock_repo():
+    repo = PromptVersionRepository(MockDatabaseSessionManager())
+    return repo
+
+def test_get_version_with_existing_version_returns_version(mock_repo: PromptVersionRepository, mock_session_setup, sample_prompt_version):
+    mock_session, mock_query, mock_filter_by, mock_first = mock_session_setup
+    mock_first.return_value = sample_prompt_version
+
+    with patch.object(MockDatabaseSessionManager, "__enter__", return_value=mock_session):  # Using the first element which is mock_session
+         # Debugging statements
+        print(f"Mock session from fixture: {id(mock_session)}")
+        print(f"Mock session used in repo: {id(mock_repo.session_manager.__enter__())}")
+
+        print(mock_query)
+        print(mock_query.filter_by)
+
+        # Execute the function
+        result = mock_repo.get_version("TestStep", 1)
+
+        # Verification
+        mock_query.assert_called_once_with(PromptVersionModel)
+        mock_filter_by.assert_called_once_with(step_id="TestStep", version_no=1)
+        mock_first.assert_called_once()
+        assert result == sample_prompt_version
+
+
+
+# autobyteus/db/repositories/prompt_version_repository.py
+
+from typing import Optional
+from autobyteus.db.models.prompt_version_model import PromptVersionModel
+from autobyteus.db.repositories.base_repository import BaseRepository, ModelType
+
+
+class PromptVersionRepository(BaseRepository):
+    """
+    A repository class that provides CRUD operations specific to PromptVersionModel.
+    This class interfaces with the database for operations related to prompt versions.
+    """
+
+    def create_version(self, prompt_version: PromptVersionModel) -> ModelType:
         """
-        Fetches the configuration for the workflow associated with the provided workspace.
+        Store a new version of the prompt.
 
         Args:
-            workspace_root_path (str): The root path of the workspace.
+            prompt_version (PromptVersionModel): The version to be stored.
 
         Returns:
-            JSON: The configuration of the workflow.
+            ModelType: The stored version.
         """
-        workflow: AutomatedCodingWorkflow = workspace_manager.workflows.get(workspace_root_path)
-        if not workflow:
-            return json.dumps({"error": "Workspace not found or workflow not initialized"})
+        return self.create(prompt_version)
 
-        return workflow.to_json()
-
-    @strawberry.field
-    def search_code_entities(self, query: str) -> JSON:
+    def get_version(self, step_id: str, version_no: int) -> Optional[PromptVersionModel]:
         """
-        Searches for relevant code entities based on the provided query.
+        Retrieve a specific version of the prompt for a given step.
 
         Args:
-            query (str): The search query.
+            step_id (str): Identifier for the step.
+            version_no (int): The version number to be retrieved.
 
         Returns:
-            JSON: The search results.
+            Optional[PromptVersionModel]: The retrieved version or None if not found.
         """
-        try:
-            search_result: SearchResult = search_service.search(query)
-            return search_result.to_json()
-        except Exception as e:
-            error_message = f"Error while searching code entities: {str(e)}"
-            logger.error(error_message)
-            return json.dumps({"error": error_message})
+        with self.session_manager as session:
+            return session.query(PromptVersionModel).filter_by(step_id=step_id, version_no=version_no).first()
 
 
-
-    @strawberry.field
-    def get_available_workspace_tools(self, workspace_root_path: str) -> List[WorkspaceTool]:
-        try:
-            tools_data = workspace_tools_service.get_available_tools(workspace_root_path)
-            return [WorkspaceTool(name=tool_data.name, prompt_template=tool_data.prompt_template) for tool_data in tools_data]
-        except Exception as e:
-            raise Exception(f"Failed to fetch available workspace tools: {str(e)}")
 ```
+
+
+
+I am sure that the method is called. But actually different filter_by mock object is being used. Can you please walk through the code line by line, and simulate the code execution? And analyse what could be the error? 
+
+Could you please start from beginning, and rewrite this mock_session_setup? After you write it, then print execution of the code line by line, simulating the running of the code. Thank you

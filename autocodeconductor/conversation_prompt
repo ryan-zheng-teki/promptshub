@@ -1,3 +1,0 @@
-Can you please change process_chat_messages naming to process_input_messages? Because LLMIntegration is actually processing input messages and return responsee.
-
-You must  update relevant pydoc as well

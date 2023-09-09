@@ -2,7 +2,7 @@ You are a Python software architect tasked with creating subtasks based on provi
 
 ### Approach
 1. Understand the feature requirements thoroughly
-2. Understand the feature code design thoroughly, pay attention to the components which are labeled as 'New'.
+2. Understand the feature code design thoroughly, pay attention to the components which are labeled as 'New' and "Updated".
 3. Reason about the subtasks to be created, and their dependencies order. 
    the subtasks will include setups, for example install libraries, create folders etc.
 4. Present the subtasks under section [SubTasks].
@@ -45,8 +45,7 @@ Thanks. Now let's move on to create subtasks based on  code design documentation
 
 ### Approach
 2. Understand the feature code design thoroughly, pay attention to the components which are labeled as 'New and Updated'.
-2. Reason about the subtasks to be created, and their dependencies order. Note: the subtasks 
-not only include implementation subtasks, but also include setups for example, creating folders, install libraries etc.
+2. Reason about the subtasks to be created, and resolve the subtasks order based on their interdependencies . Note: the subtasks not only include implementation subtasks, but also include setups for example, creating folders, install libraries etc.
 3. Present the subtasks under section [SubTasks].
 
 
@@ -79,8 +78,6 @@ Thank you. Now let's move on to creating subtasks based on code design documenta
         unit_tests
         integration_tests
     requirements.txt
-
-
 
 Thank you. Now let's move on to creating subtasks based on code design documentation. These subtasks should follow the structure provided in the `[Template]` section.
 
@@ -131,74 +128,8 @@ Thank you. Now let's move on to creating subtasks based on code design documenta
 #task end#
 
 [ExistingDependentTasks]
-#### Task 1: Preliminary Setup
-#task start#
-
-- **Objective**: Install necessary libraries and set up the project directory structure.
-- **File Specification**: `requirements.txt`, `autobyteus/db/repositories`, `autobyteus/db/models`, `autobyteus/db/utils`
-- **Functionality Details**: 
-    - Add `SQLAlchemy` and `Alembic` to the `requirements.txt` file.
-    - Create a `db` folder under `autobyteus`.
-    - Within `db`, create a `repositories` folder to house repository-related classes.
-    - Within `db`, create a `models` folder for model-related classes.
-    - Within `db`, create a `utils` folder for utility functions or classes.
-    - Create the files `base_model.py` in `autobyteus/db/models`, `base_repository.py` in `autobyteus/db/repositories`, and `database_session_manager.py` in `autobyteus/db/utils` for future tasks.
-- **Integration Points**: None.
-
-#task end#
-
-#### Task 2: Implement BaseModel
-#task start#
-
-- **Objective**: Create the foundational `BaseModel` class.
-- **File Specification**: `autobyteus/db/models/base_model.py`
-- **Functionality Details**: 
-    - Implement the `BaseModel` with common attributes like `id`, `created_at`, and `updated_at`.
-    - Utilize SQLAlchemy for ORM functionalities.
-- **Integration Points**: It will be inherited by other model classes in the future.
-
-#task end#
-
-#### Task 3: Implement DatabaseSessionManager
-#task start#
-
-- **Objective**: Create the `DatabaseSessionManager` class to manage database sessions.
-- **File Specification**: `autobyteus/db/utils/database_session_manager.py`
-- **Functionality Details**: 
-    - Implement the context manager methods `__enter__` and `__exit__` for session management.
-    - Ensure proper error handling and resource cleanup.
-- **Integration Points**: Will be utilized by the `BaseRepository` for CRUD operations.
-
-#task end#
-
-#### Task 4: Implement BaseRepository
-#task start#
-
-- **Objective**: Implement the generic `BaseRepository` class.
-- **File Specification**: `autobyteus/db/repositories/base_repository.py`
-- **Functionality Details**: 
-    - Provide CRUD operations (create, get, get_all, update) with the help of SQLAlchemy.
-    - Use the `DatabaseSessionManager` for session management.
-- **Integration Points**: Will be utilized by the AI coding agent and potentially other repositories in the future.
-
-#task end#
-
-#### Task 5: Alembic Configuration and Initial Migration
-#task start#
-
-- **Objective**: Set up Alembic for database migrations.
-- **File Specification**: Root directory (for Alembic configurations and migrations)
-- **Functionality Details**: 
-    - Initialize Alembic configurations.
-    - Create an initial migration to set up the database schema based on the `BaseModel`.
-- **Integration Points**: Database.
-
-#task end#
-
-
 
 Follow the steps defined in the 'Approach' section. Think meticulously and reason comprehensively for each step in the approach.
-
 
 
 Thank you. Shall have one folder db, and place session and repositories under db folder?
@@ -223,12 +154,12 @@ After the design documentation is updated. please move on to creating subtasks b
     #task start#
 
     Purpose: Install necessary libraries and set up the project directory structure.
-    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
+    File Specification: requirements.txt, autobyteus/publisher, autobyteus/subscriber
     Functionality Details:
-    Add SQLAlchemy and Alembic to the requirements.txt file.
-    Create a repositories folder under src to house all repository-related classes.
-    Create a utils folder under src for utility functions or classes.
-    Create the files base_model.py in autobyteus/repositories blabla.
+    Add numpy to the requirements.txt file.
+    Create a publisher folder under src to house all repository-related classes.
+    Create a subscriber folder under src for utility functions or classes.
+    Create the files publisher.py in autobyteus/publisher etc.
     Integration Points: None.
     #task end#
     ```
@@ -237,6 +168,8 @@ After the design documentation is updated. please move on to creating subtasks b
 ### Current Project Folder Structure
     autobyteus
         db
+            repositories
+            models
     tests
         unit_tests
         integration_tests
@@ -268,24 +201,34 @@ After updating the feature code design documentation, proceed with the task gene
   
 2. **Preliminary Questions**:
     - Need to install new libraries? 
-    - Any new folders or files to create? If yes, Name all these folders and files following python good naming practices. Reason comprehensively about the best location based on the existing project folder structure specified in ### Current Project Folder Structure' section.
+    - Any new folders or files to create?  Analyse current folder structure specified in ' Current Project Folder Structure' section. Reason through about the best location for the new folders and files following python good naming practices.
   
-3. **Subtask Formation**:
+3. **Subtask Creation**:
     - Start with Task 1: setup of libraries and directories for subsequent tasks. Example:
     ```
     Task 1: Preliminary Setup
     #task start#
-    Purpose: Install libraries and set directory structure.
-    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
-    Details: Add SQLAlchemy and Alembic to requirements.txt. Create necessary folders and files.
+    Purpose: Install necessary libraries and set up the project directory structure.
+    File Specification: requirements.txt, autobyteus/publisher, autobyteus/subscriber
+    Functionality Details:
+    Add numpy to the requirements.txt file.
+    Create a publisher folder under src to house all repository-related classes.
+    Create a subscriber folder under src for utility functions or classes.
+    Create the files publisher.py in autobyteus/publisher etc.
     Integration Points: None.
     #task end#
     ```
-    - List further subtasks in dependency order, with each focusing on a single component or class.
+    - List further subtasks in dependency order, with each subtask focusing on a single component or class.
 
 ### Current Project Folder Structure
     autobyteus
+        prompt
+            template
+                 prompt_template.py
+            versioning
         db
+            repositories
+            models
     tests
         unit_tests
         integration_tests
@@ -303,3 +246,236 @@ After updating the feature code design documentation, proceed with the task gene
 #task end#
 
 Follow the 'Approach' steps. Think step by step meticulously and reason comprehensively for each step.
+
+
+
+Version 5: Update relevant subtasks.
+You are a senior Python software engineer. Your task is to update existing subtasks based on a new feature code design. Follow the instructions below:
+
+### Details:
+- **New Feature Code Design:** This can be found in the `[NewFeatureCodeDesign]` section.
+- **Previous Subtasks:** These are provided in the `[OldSubtasks]` section.
+
+### Approach:
+1. Review the subtasks listed in the `[OldSubtasks]` section comprehensively.
+2. Study the new feature code design, particularly focusing on its detailed component specifications. Identify discrepancies between the old subtasks and this new design, then plan your modifications accordingly.
+3. Reason and resolve subtasks order based on their interdependencies.
+4. Update and list the new subtasks based on resolved order in the `[UpdatedSubtasks]` section.
+
+Follow the steps defined in 'Approach'. Think step by step, and reason comprehensively to address the task for each step.
+
+[NewFeatureCodeDesign]
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous features is utilized to facilitate smooth database interactions.
+
+#### 2. Component Modifications:
+
+2.1. **New Components**:
+
+- **PromptVersioningMixin**: 
+  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
+  - *Attributes*: 
+    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
+    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
+    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
+  - *Methods*: 
+    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
+    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
+    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
+    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
+    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
+
+- **VersionedPrompt**:
+  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
+  - *Attributes*: 
+    - `version_no: int`: The version number.
+    - `prompt_content: str`: The content of the prompt for that version.
+
+- **PromptVersionModel (extends BaseModel)**:
+  - *Purpose*: Represents the database model for storing versioned prompts.
+  - *Attributes*: 
+    - `prompt_name: String`: Identifier for the prompt.
+    - `version_no: Integer`: Version number.
+    - `prompt_content: Text`: Content of the prompt.
+    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
+    - `created_at: DateTime`: Timestamp for creation/modification.
+
+- **PromptVersionRepository (extends BaseRepository)**:
+  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
+  - *Methods*: 
+    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
+    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
+    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
+    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
+    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
+    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
+
+2.2. **Updated Components**:
+
+- **BaseStep**:
+  - *Modification*: Extend from `PromptVersioningMixin`.
+  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
+
+2.3. **Unchanged Components**:
+
+- **BaseModel**: 
+  - *Description*: The foundational model class for database entities.
+  
+- **BaseRepository**: 
+  - *Description*: Provides generic CRUD operations.
+
+#### 3. Interactions:
+
+3.1. **Component Interactions**:
+
+- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
+- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
+
+#### 4. External Dependencies: 
+
+- **SQLAlchemy**: ORM tool facilitating database operations.
+- **Alembic**: For database migration and versioning.
+
+#### 5. UML Diagram:
+
+@startuml
+
+package "Versioned Prompts Structure" {
+
+class "PromptVersioningMixin (New)"
+
+ {
+    + add_version(prompt: str)
+    + get_version(version_no: int): str
+    + set_current_effective_version(version_no: int)
+    + get_current_effective_prompt(): str
+    + load_latest_version(): str
+    + current_prompt: str
+    + default_prompt: str
+    + repository: PromptVersionRepository
+}
+
+class "VersionedPrompt (New)" {
+    + version_no
+    + prompt_content
+}
+
+class "PromptVersionModel (New, extends BaseModel)" {
+    + prompt_name: String
+    + version_no: Integer
+    + prompt_content: Text
+    + is_current_effective: Boolean
+    + created_at: DateTime
+}
+
+class "PromptVersionRepository (New, extends BaseRepository)" {
+    + create_version(prompt_version: PromptVersionModel): PromptVersionModel
+    + get_version(prompt_name: String, version_no: int): PromptVersionModel
+    + get_current_effective_version(prompt_name: String): PromptVersionModel
+    + get_latest_created_version(prompt_name: String): PromptVersionModel
+    + delete_version(prompt_name: String, version_no: int)
+    + delete_oldest_version(prompt_name: String)
+}
+
+"PromptVersioningMixin (New)" o-- "VersionedPrompt (New)"
+"PromptVersioningMixin (New)" o-- "PromptVersionRepository (New)"
+"PromptVersionModel (New)" --|> "BaseModel"
+"PromptVersionRepository (New)" --|> "BaseRepository"
+
+}
+
+@enduml
+
+[OldSubtasks]
+#### Task 1: Preliminary Setup
+#task start#
+- **File Specification**: `requirements.txt`, `autobyteus/db/models`, `autobyteus/db/repositories`
+- **Purpose**: Ensure all required libraries are installed and the project directory structure is set up for new components.
+- **Functionality Details**:
+  - Verify and add SQLAlchemy and Alembic to the `requirements.txt` file if not already present.
+  - Set up folders or files as required for the new components.
+- **Integration Points**: None.
+#task end#
+
+#### Task 4: Implement the PromptVersionModel
+#task start#
+- **File Specification**: `autobyteus/db/models/prompt_version_model.py`
+- **Purpose**: Represent the database model for storing versioned prompts.
+- **Extends**: `BaseModel`
+- **Attributes**: 
+  - `step_id: String`, `version_no: Integer`, `prompt_content: Text`, `is_current_effective: Boolean`, `created_at: DateTime`
+- **Methods**: None specified.
+- **Integration Points**: Used by `PromptVersionRepository`.
+#task end#
+
+#### Task 5: Implement the PromptVersionRepository
+#task start#
+- **File Specification**: `autobyteus/db/repositories/prompt_version_repository.py`
+- **Purpose**: Offer CRUD operations for `PromptVersionModel` and manage version-specific operations.
+- **Extends**: `BaseRepository`
+- **Methods**: 
+  - `create_version(prompt_version: PromptVersionModel)`, `get_version(step_id: String, version_no: int)`, `get_current_effective_version(step_id: String)`, `get_latest_created_version(step_id: String)`, `delete_version(step_id: String, version_no: int)`, `delete_oldest_version(step_id: String)`
+- **Integration Points**: Interfaces with `PromptVersioningMixin` for database operations.
+#task end#
+
+#### Task 2: Implement the PromptVersioningMixin
+#task start#
+- **File Specification**: `autobyteus/prompt/prompt_versioning_mixin.py`
+- **Purpose**: Offer versioning capabilities with integrated database interactions.
+- **Attributes**: 
+  - `default_prompt: str`: The default prompt intrinsic to the step's code.
+  - `repository: PromptVersionRepository`: An instance of the repository.
+- **Methods**: 
+  - `add_version(prompt: str)`, `get_version(version_no: int)`, `set_current_effective_version(version_no: int)`, `get_current_effective_prompt()`, `load_latest_version()`
+- **Integration Points**: Interfaces with `PromptVersionRepository` for database operations.
+#task end#
+
+#### Task 3: Implement the VersionedPrompt
+#task start#
+- **File Specification**: `autobyteus/prompt/versioned_prompt.py`
+- **Purpose**: Represent the state of a prompt at a particular version in-memory.
+- **Attributes**: 
+  - `version_no: int`: Version number.
+  - `prompt_content: str`: Content of the prompt.
+- **Methods**: None specified.
+- **Integration Points**: Used by `PromptVersioningMixin`.
+#task end#
+
+#### Task 6: Update the BaseStep
+#task start#
+- **File Specification**: Current location of `BaseStep` (not provided in the directory structure, but assumed to be in the `autobyteus/prompt` directory).
+- **Purpose**: Inherits versioning capabilities with database integration.
+- **Functionality Details**:
+  - Remove static prompt template.
+  - Extend from `PromptVersioningMixin`.
+- **Integration Points**: Utilizes versioning capabilities from `PromptVersioningMixin`.
+#task end#
+
+#### Task 7: Alembic Migration for `PromptVersionModel`
+#task start#
+- **File Specification**: `alembic/versions/`
+- **Purpose**: Generate and apply a migration to update the database schema to accommodate the new `PromptVersionModel`.
+- **Functionality Details**:
+  1. **Environment Setup**:
+     - Ensure Alembic is set up correctly for the project. This involves verifying the presence of the `alembic.ini` configuration file and the `alembic/` directory with versions.
+  2. **Model Synchronization**:
+     - Ensure that the `PromptVersionModel` has been defined with all required attributes in its corresponding file.
+  3. **Generate Migration**:
+     - Run the command: `alembic revision --autogenerate -m "Add PromptVersionModel"`. This command will auto-generate the migration script by comparing the current state of the database with the state defined by the application models. The generated migration script will be located in `alembic/versions/`.
+  4. **Review Migration Script**:
+     - Manually inspect the generated migration script to ensure that:
+       - The correct columns are being added.
+       - Existing data isn't being dropped or altered in a way that would lead to data loss.
+       - Proper constraints (e.g., unique constraints, foreign keys) are being added if necessary.
+  5. **Apply Migration**:
+     - Once satisfied with the migration script, apply it using the command: `alembic upgrade head`. This will apply the migration and update the database schema.
+  6. **Test Migration**:
+     - After applying the migration, test the application's functionality to ensure that the database operations related to the new model are working as expected.
+     - Optionally, consider writing unit and integration tests to verify the migration's correctness.
+- **Integration Points**: Database and the new `PromptVersionModel`.
+#task end#
+[UpdatedSubtasks]

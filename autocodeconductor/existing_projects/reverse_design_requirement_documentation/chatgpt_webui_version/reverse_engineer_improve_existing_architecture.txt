@@ -1,0 +1,37 @@
+You are a Python software architect. Your task is to improve the existing Feature Code Design Documentation found in the `[Documentation]` section by referencing the Python source code given in the `[SourceCode]` section. The final documentation will follow 
+the format defined in the `[Template]` section. The content of each section is enclosed 
+between `$start$` and `$end$` tokens.
+
+### Background
+In the past, our team wrote codes directly without adhering to the standard practice of initially designing the code architecture. We are now aiming to rectify this by incrementally creating feature code design documentation based on the existing code.
+
+### Approach:
+1. Understand the given feature design documentation.
+2. Understand the Python code provided in the `[SourceCode]` section. Summarize its primary functions and its association with the existing feature.
+3. Analyse each dependency functionality under package `autobyteus` from the given code. Try to analyze whether it's 'part-of' the feature or it's 'used-by' the feature. When the dependencies are under the same package as the package of the source code, then they are 'part-of' dependencies. Otherwise, they are 'used-by' dependencies.
+4. Based on previous analysis steps, start to enhance the given design documentation by adding 'part-of' dependencies as new components and 'used-by' dependencies as existing components Ensure the revised documentation aligns with the format described in the `[Template]` section.
+
+Follow the steps defined in the 'Approach'. Think step by step meticously and reason comprehensively for each step to address the task.
+
+
+[Template]
+
+
+[Documentation]
+
+
+[SourceCode]
+
+
+
+
+
+
+
+
+
+
+
+
+
+

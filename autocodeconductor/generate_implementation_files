@@ -1,5 +1,5 @@
 You are a senior python software engineer. You are given an implementation task based
-on a requirements and code design documentation. The documetnation is presented 
+on a requirements and code design documentation. The documentation is presented 
 between between `$start$` and `$end$` tokens in the [Documentation] section.
 The task is presented between `$start$` and `$end$` tokens in the `[Task]` section.
 
@@ -18,114 +18,165 @@ Think step by step methodically, and reason comprehensively before providing the
 
 [Documentation]
 $start$
-### Enhanced Automated Coding Workflow with Versioned Prompts for Comparative Analysis
 
-#### 1. Story/Feature Description:
+$end$
 
-1.1. **Background**: 
-The Automated Coding Workflow, designed to interact with Large Language Models (LLMs) for automating coding tasks, requires an upgrade. The inherent variability in LLM responses based on prompt nuances has led to the need for versioned prompts for each step. The aim is not just flexibility but also to enable comparative analysis between different versions to ascertain the most effective prompt.
+[Task]
 
-1.2. **User Persona**: 
-Software Developer or AI System:
-  - Interacts with the Automated Coding Workflow to harness LLM capabilities.
-  - Seeks to compare LLM responses for different prompt versions to determine the most effective prompt.
-  - Wants a seamless interface to manage, select, and compare different prompt versions.
-
-1.3. **User Journey**: 
-A user interacts with a specific step in the Automated Coding Workflow. When they modify a prompt, they save it as a new version, preserving the original. Using a dropdown, they can easily switch between versions, running each one to obtain LLM responses. They subsequently compare the results to ascertain which prompt yields the most desirable output.
-
-#### 2. Requirements:
-
-2.1. **Functional Requirements**:
-
-- **Dynamic Initialization of Versioned Prompts**:
-   - Load the latest version of the prompt from the database when a step is constructed.
-   - If no version is present in the database for a step, initialize the database with the default prompt associated with the step which is defined within the step's code.
-
-- **Decoupling Static Prompt Template**:
-   - Remove the static prompt template from `BaseStep`.
-   - Fetch the prompt content dynamically from the database based on the version or from the step's associated default if not present in the database.
-
-- **Prompt Version Management**:
-   - Enable the addition of a new prompt version for a step when the current prompt is modified.
-   - Store a maximum of 4 prompt versions for each step in the database.
-   - Automatically set the newest version as the current version upon addition.
-   - Provide an option for users to set any version as the current version.
-   - Display all versions in a dropdown for user selection during interaction.
-
-- **Comparative Analysis**:
-   - Facilitate switching between different prompt versions for running and obtaining LLM responses.
-   - Provide a user-friendly interface to aid in comparing the results of different prompt versions.
-   - Ensure that the process of comparison is intuitive and efficient.
-
-- **Viewing Past Versions**:
-   - Allow users to view the content of past versions of prompts for reference.
-   - Ensure easy access and intuitive navigation to past versions.
-
-- **Database Management**:
-   - Represent versions using simple incrementing numbers (e.g., v1, v2, etc.).
-   - Implement an auto-delete mechanism to remove the oldest version when a new one exceeds the 4-version cap.
-
-- **User Interface**:
-   - Incorporate a dropdown mechanism in the user interface to facilitate prompt version selection.
-   - Ensure clarity in version differentiation and facilitate the comparative analysis process.
+[DependentCode]
 
 
----
+You are a senior Python software engineer. You have been provided with a new subtask derived from a new feature code design, as well as the previous version of the source code from the old subtask. Your main task is to update the old source code based on the new subtask.
 
+### Details:
+- **New Subtask:** Located in the `[NewSubTask]` section.
+- **New Feature Code Design:** Found in the `[NewFeatureCodeDesign]` section.
+- **Old Source Code:** Presented in the `[OldCodeFile]` section.
+
+### Criteria:
+- **Code-related Tasks:**
+  - Final output code should adhere to PEP8 Python coding practices, including type hinting.
+  - Final output code should ensure PEP8 docstring best practices, including file-level docstrings at the beginning.
+  - Utilize absolute imports. All dependencies are assumed to be available.
+
+- **Setup Tasks:**
+  - Provide comprehensive bash commands for a complete setup.
+
+### Approach:
+1. Thoroughly review the existing code in the `[OldCodeFile]` section.
+2. Read the new subtask and articulate to the detailed component specifications from the feature code design.
+3. Analyse the changes from the component specification compared with old code, refer to given hints in the [UserHints] section if given, understand the dependency code in [DependentCode] section if given, and carefully plan your implementation.
+4. Complete and present your updated code in the `[UpdatedCodeFile]` section.
+
+Follow the steps defined in 'Approach'. Thank step by step, and reason comprehensively to address the task.
+
+[OldCodeFile]
+"""
+Module: autobyteus.db.models.prompt_version_model
+
+This module defines the PromptVersionModel, which represents the database model
+for storing versioned prompts. Each entry contains the step identifier, version 
+number, content of the prompt, whether the version is the current effective prompt,
+and the creation/modification timestamp.
+"""
+
+from sqlalchemy import Column, String, Integer, Text, Boolean, DateTime, func
+from autobyteus.db.models.base_model import BaseModel
+
+
+class PromptVersionModel(BaseModel):
+    """
+    Represents the database model for storing versioned prompts.
+    
+    Attributes:
+    - step_id (String): Identifier for the workflow step.
+    - version_no (Integer): Version number for the prompt.
+    - prompt_content (Text): Content of the versioned prompt.
+    - is_current_effective (Boolean): Indicates if this version is the current effective prompt.
+    - created_at (DateTime): Timestamp for creation/modification.
+    """
+    
+    __tablename__ = 'prompt_versions'
+    
+    step_id = Column(String, primary_key=True, nullable=False)
+    version_no = Column(Integer, primary_key=True, nullable=False)
+    prompt_content = Column(Text, nullable=False)
+    is_current_effective = Column(Boolean, default=False, nullable=False)
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+
+[NewFeatureCodeDesign]
 ### Feature Code Design Documentation:
 
 #### 1. Code Architecture Design:
 
 1.1. **High-Level Design**: 
-The enhancement integrates a versioning mechanism for prompts used in each workflow step. By introducing the `PromptVersioningMixin`, the original `BaseStep` structure and workflow remain largely unaffected. However, they now acquire versioning functionalities that store, manage, and refine versioned prompts in a database. The Repository Pattern from previous features is leveraged for database interactions.
+The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous features is utilized to facilitate smooth database interactions.
 
-1.2. **New Components**:
+#### 2. Component Modifications:
 
-- **PromptVersioningMixin (New)**: A mixin class offering versioning capabilities with integrated database interactions. It oversees version history, the current version, auto-deletion of older versions, database storage/retrieval, loading the latest version of the prompt, and refining the default prompt based on user feedback.
+2.1. **New Components**:
 
-- **VersionedPrompt (New)**: Represents the state of a prompt at a particular version in-memory.
+- **PromptVersioningMixin**: 
+  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
+  - *Attributes*: 
+    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
+    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
+    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
+  - *Methods*: 
+    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
+    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
+    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
+    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
+    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
 
-- **PromptVersionModel (New)**: Represents the database model for storing versioned prompts. Contains the step identifier, version number, and content of the prompt.
+- **VersionedPrompt**:
+  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
+  - *Attributes*: 
+    - `version_no: int`: The version number.
+    - `prompt_content: str`: The content of the prompt for that version.
 
-- **PromptVersionRepository (New)**: Offers CRUD operations for `PromptVersionModel`, fetches the latest version of a prompt for a given step, and provides enhanced cleanup.
+- **PromptVersionModel (extends BaseModel)**:
+  - *Purpose*: Represents the database model for storing versioned prompts.
+  - *Attributes*: 
+    - `prompt_name: String`: Identifier for the prompt.
+    - `version_no: Integer`: Version number.
+    - `prompt_content: Text`: Content of the prompt.
+    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
+    - `created_at: DateTime`: Timestamp for creation/modification.
 
-1.3. **Existing Components/Dependencies**:
+- **PromptVersionRepository (extends BaseRepository)**:
+  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
+  - *Methods*: 
+    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
+    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
+    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
+    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
+    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
+    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
 
-- **BaseStep**: Extended with the `PromptVersioningMixin`, inheriting versioning capabilities with database integration.
+2.2. **Updated Components**:
 
-- **PromptTemplate**: Used by steps to craft prompts.
+- **BaseStep**:
+  - *Modification*: Extend from `PromptVersioningMixin`.
+  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
 
-- **AutomatedCodingWorkflow**: The versioning mechanism with database interactions becomes intrinsic to the steps.
+2.3. **Unchanged Components**:
 
-- **BaseModel**: The foundational model class for database entities.
+- **BaseModel**: 
+  - *Description*: The foundational model class for database entities.
+  
+- **BaseRepository**: 
+  - *Description*: Provides generic CRUD operations.
 
-- **BaseRepository**: Provides generic CRUD operations.
+#### 3. Interactions:
 
-1.4. **Interactions**: 
+3.1. **Component Interactions**:
 
-- Steps augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
-
+- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
 - `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
 
-1.5. **External Dependencies**: 
+#### 4. External Dependencies: 
 
 - **SQLAlchemy**: ORM tool facilitating database operations.
 - **Alembic**: For database migration and versioning.
 
-#### 2. UML Diagram:
+#### 5. UML Diagram:
 
 @startuml
 
 package "Versioned Prompts Structure" {
 
-class "PromptVersioningMixin (New)" {
+class "PromptVersioningMixin (New)"
+
+ {
     + add_version(prompt: str)
     + get_version(version_no: int): str
-    + set_current_version(version_no: int)
+    + set_current_effective_version(version_no: int)
+    + get_current_effective_prompt(): str
     + load_latest_version(): str
-    + set_as_default(version_no: int)
+    + current_prompt: str
     + default_prompt: str
+    + repository: PromptVersionRepository
 }
 
 class "VersionedPrompt (New)" {
@@ -133,166 +184,47 @@ class "VersionedPrompt (New)" {
     + prompt_content
 }
 
-class "PromptVersionModel (New)" {
-    + step_id: String
+class "PromptVersionModel (New, extends BaseModel)" {
+    + prompt_name: String
     + version_no: Integer
     + prompt_content: Text
+    + is_current_effective: Boolean
+    + created_at: DateTime
 }
 
-class "PromptVersionRepository (New)" {
+class "PromptVersionRepository (New, extends BaseRepository)" {
     + create_version(prompt_version: PromptVersionModel): PromptVersionModel
-    + get_version(step_id: String, version_no: int): PromptVersionModel
-    + get_latest_version(step_id: String): PromptVersionModel
-    + delete_version(step_id: String, version_no: int)
-    + delete_all_except(step_id: String, versions_to_keep: List[int])
+    + get_version(prompt_name: String, version_no: int): PromptVersionModel
+    + get_current_effective_version(prompt_name: String): PromptVersionModel
+    + get_latest_created_version(prompt_name: String): PromptVersionModel
+    + delete_version(prompt_name: String, version_no: int)
+    + delete_oldest_version(prompt_name: String)
 }
 
 "PromptVersioningMixin (New)" o-- "VersionedPrompt (New)"
 "PromptVersioningMixin (New)" o-- "PromptVersionRepository (New)"
+"PromptVersionModel (New)" --|> "BaseModel"
+"PromptVersionRepository (New)" --|> "BaseRepository"
 
 }
 
 @enduml
-$end$
 
-[Task]
-#start#
-#### Task 3: Implement the `PromptVersionRepository` (Updated)
+
+@enduml
+[NewSubTask]
+#### Task 3: Implement the PromptVersionModel
 #task start#
-- **Objective**: Develop the `PromptVersionRepository` to handle CRUD operations for the `PromptVersionModel` and introduce additional functionalities.
-- **File Specification**: `autobyteus/db/repositories/prompt_version_repository.py`
-- **Functionality Details**: This repository will extend the `BaseRepository`, provide CRUD operations tailored for `PromptVersionModel`, introduce methods to fetch the latest version of a prompt for a given step, and offer a cleanup method to remove non-default versions.
-- **Integration Points**: Will be interfaced by the `PromptVersioningMixin` for database interactions.
+- **File Specification**: `autobyteus/db/models/prompt_version_model.py`
+- **Purpose**: Represent the database model for storing versioned prompts.
+- **Extends**: `BaseModel`
+- **Attributes**: 
+  - `prompt_name: String`, `version_no: Integer`, `prompt_content: Text`, `is_current_effective: Boolean`, `created_at: DateTime`
+- **Methods**: None specified.
+- **Integration Points**: Used by `PromptVersionRepository`.
 #task end#
 
-[DependentCode]
-"""
-autobyteus.db.repositories.base_repository
-=========================================
-
-This module provides a base repository structure that serves as a foundational module for interacting
-with a PostgreSQL database using SQLAlchemy. It facilitates CRUD operations for the application.
-
-This repository structure will be used by the AI coding agent and potentially other repositories in the future.
-"""
-
-from typing import List, Type, TypeVar, Optional
-
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import SQLAlchemyError
-
-from autobyteus.db.models.base_model import BaseModel
-from autobyteus.db.utils.database_session_manager import DatabaseSessionManager
-
-ModelType = TypeVar("ModelType", bound=BaseModel)
+[UserHints]
 
 
-class BaseRepository:
-    """
-    A generic repository class that provides CRUD operations with the help of SQLAlchemy.
-    This class utilizes the DatabaseSessionManager for session management.
-    """
-
-    def __init__(self, session_manager: DatabaseSessionManager):
-        """
-        Initialize the repository with a session manager.
-
-        Args:
-            session_manager (DatabaseSessionManager): The session manager for database operations.
-        """
-        self.session_manager = session_manager
-
-    def create(self, obj: ModelType) -> ModelType:
-        """
-        Create a new record in the database.
-
-        Args:
-            obj (ModelType): The object to be created.
-
-        Returns:
-            ModelType: The created object.
-        """
-        with self.session_manager as session:
-            session.add(obj)
-            session.commit()
-            return obj
-
-    def get(self, model_class: Type[ModelType], id: int) -> Optional[ModelType]:
-        """
-        Retrieve a record from the database by its ID.
-
-        Args:
-            model_class (Type[ModelType]): The model class of the object to be retrieved.
-            id (int): The ID of the object to be retrieved.
-
-        Returns:
-            Optional[ModelType]: The retrieved object or None if not found.
-        """
-        with self.session_manager as session:
-            return session.query(model_class).filter_by(id=id).first()
-
-    def get_all(self, model_class: Type[ModelType]) -> List[ModelType]:
-        """
-        Retrieve all records of a specific model class from the database.
-
-        Args:
-            model_class (Type[ModelType]): The model class of the objects to be retrieved.
-
-        Returns:
-            List[ModelType]: A list of retrieved objects.
-        """
-        with self.session_manager as session:
-            return session.query(model_class).all()
-
-    def update(self, obj: ModelType, **kwargs) -> ModelType:
-        """
-        Update an existing record in the database.
-
-        Args:
-            obj (ModelType): The object to be updated.
-            **kwargs: The fields to be updated with their new values.
-
-        Returns:
-            ModelType: The updated object.
-        """
-        with self.session_manager as session:
-            for key, value in kwargs.items():
-                setattr(obj, key, value)
-            session.commit()
-            return obj
-
-    def delete(self, obj: ModelType):
-        """
-        Delete a record from the database.
-
-        Args:
-            obj (ModelType): The object to be deleted.
-        """
-        with self.session_manager as session:
-            session.delete(obj)
-            session.commit()
-
-
-
-
-Version 2:
-You are a senior python software engineer. You are given a new version of subtask task based a new version of feature code design. You are also given one old version source code based on the old subtask. 
-The task is presented in the `[NewSubTask]` section. The new version of feature code design is provided in the [FeatureCodeDesign] section. The old source code is provided in the [OldSubtaskCode]
-
-Criterias:
-- For code-related tasks:
-  - Follow PEP8 python coding practices, including type hinting.
-  - Follow PEP8 python docstring best practices. Always add file-level docstring at the top of the file.
-  - Use absolute imports. Assume all dependencies already exist.
-
-- For setup tasks:
-  - Give complete bash commands to ensure complete setup.
-
-
-### Approach
-
-Provide the output in the `[Output]` section. This section will be encapsulated between `$output_start$` and `$output_end$` tokens, and it will contain the resulting code, instructions, or other relevant data based on the task's nature.
-
-
-Think step by step methodically, and reason comprehensively before providing the final output.
-
+[UpdatedCodeFile]

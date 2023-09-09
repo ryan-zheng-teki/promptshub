@@ -44,7 +44,7 @@ You are a senior Python engineer. Create unit tests for the code provided in the
 
 [Criterias]
 - Follow python PEP8 best practices, such as typing etc.
-- Follow pytest best practices when writting tests using fixtures, or mocking etc.
+- Follow pytest best practices writting tests. For example: using fixtures, using mocking for unit tests, not using mocking for integration tests, etc.
 - Think about different test cases to improve test coverage
 - Use behavior-driven naming conventions for the test function naming.
 - Use best practices to create test file path. Here is a sample best practice to 
@@ -61,9 +61,8 @@ You are a senior Python engineer. Create unit tests for the code provided in the
         integration_tests
             semantic_code
                 index
-- Call function write_file(file_path, content) to write the complete updated code to file   path. 
 
-Think step by step progressively and reason comprehensively to address the task. 
+Think step by step meticulously and reason comprehensively to address the task. 
 
 [Requirement]
 $start$
@@ -74,7 +73,7 @@ $end
 You are a senior Python engineer. Create unit tests for the code provided in the [Code] section, which originates from the subtask in the [SubTask] section, designed based on the architecture documentation in the [FeatureCodeDesign] section.
 
 [Criteria]
-- Adhere to pytest best practices, such as the use of fixtures and mocking dependencies.
+- Adhere to pytest best practices, such as the use of fixtures and mocking dependencies for unit tests. Do not mock dependencies for integration tests etc.
 - Follow this directory structure for test files:
   ```
   autobyteus
@@ -93,6 +92,7 @@ You are a senior Python engineer. Create unit tests for the code provided in the
   ```
 - Ensure comprehensive code coverage with your tests.
 - Use behavior-driven naming for test cases.
+- Follow python PEP8 best practices, such as type hinting etc.
 
 [Code]
 
@@ -107,7 +107,7 @@ Version 3:
 You are a senior Python engineer. Create unit tests for the code provided in the [Code] section, which originates from the subtask in the [SubTask] section.
 
 [Criteria]
-- Ensure that the test cases follow pytest best practices, for example using fixtures, use mocking for dependencies etc.
+- Ensure that the test cases follow pytest best practices. For instance: use fixtures, use mocks for dependencies for unit tests. Do not use mocks for integration tests.
 - Use best practice to create test file path. Here is a sample in the current project's 
   demonstrating test file path for both unit test and integration test:
     autobyteus
@@ -127,124 +127,16 @@ You are a senior Python engineer. Create unit tests for the code provided in the
 - Ensure that the tests provide full coverage of the code.
 - Use behavior-driven naming conventions for the test cases.
 
-Think step by step meticulously and reason comprehensively first before creating output the final tests codes.
+Think step by step meticulously and reason comprehensively first before output the final test codes
 
 [Code]
 """
-autobyteus.db.repositories.base_repository
-=========================================
 
-This module provides a base repository structure that serves as a foundational module for interacting
-with a PostgreSQL database using SQLAlchemy. It facilitates CRUD operations for the application.
-
-This repository structure will be used by the AI coding agent and potentially other repositories in the future.
-"""
-
-from typing import List, Type, TypeVar, Optional
-
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import SQLAlchemyError
-
-from autobyteus.db.models.base_model import BaseModel
-from autobyteus.db.utils.database_session_manager import DatabaseSessionManager
-
-ModelType = TypeVar("ModelType", bound=BaseModel)
-
-
-class BaseRepository:
-    """
-    A generic repository class that provides CRUD operations with the help of SQLAlchemy.
-    This class utilizes the DatabaseSessionManager for session management.
-    """
-
-    def __init__(self, session_manager: DatabaseSessionManager):
-        """
-        Initialize the repository with a session manager.
-
-        Args:
-            session_manager (DatabaseSessionManager): The session manager for database operations.
-        """
-        self.session_manager = session_manager
-
-    def create(self, obj: ModelType) -> ModelType:
-        """
-        Create a new record in the database.
-
-        Args:
-            obj (ModelType): The object to be created.
-
-        Returns:
-            ModelType: The created object.
-        """
-        with self.session_manager as session:
-            session.add(obj)
-            session.commit()
-            return obj
-
-    def get(self, model_class: Type[ModelType], id: int) -> Optional[ModelType]:
-        """
-        Retrieve a record from the database by its ID.
-
-        Args:
-            model_class (Type[ModelType]): The model class of the object to be retrieved.
-            id (int): The ID of the object to be retrieved.
-
-        Returns:
-            Optional[ModelType]: The retrieved object or None if not found.
-        """
-        with self.session_manager as session:
-            return session.query(model_class).filter_by(id=id).first()
-
-    def get_all(self, model_class: Type[ModelType]) -> List[ModelType]:
-        """
-        Retrieve all records of a specific model class from the database.
-
-        Args:
-            model_class (Type[ModelType]): The model class of the objects to be retrieved.
-
-        Returns:
-            List[ModelType]: A list of retrieved objects.
-        """
-        with self.session_manager as session:
-            return session.query(model_class).all()
-
-    def update(self, obj: ModelType, **kwargs) -> ModelType:
-        """
-        Update an existing record in the database.
-
-        Args:
-            obj (ModelType): The object to be updated.
-            **kwargs: The fields to be updated with their new values.
-
-        Returns:
-            ModelType: The updated object.
-        """
-        with self.session_manager as session:
-            for key, value in kwargs.items():
-                setattr(obj, key, value)
-            session.commit()
-            return obj
-
-    def delete(self, obj: ModelType):
-        """
-        Delete a record from the database.
-
-        Args:
-            obj (ModelType): The object to be deleted.
-        """
-        with self.session_manager as session:
-            session.delete(obj)
-            session.commit()
 [SubTask]
-#### Task 4: Implement BaseRepository
-#task start#
 
-- **Objective**: Implement the generic `BaseRepository` class.
-- **File Specification**: `autobyteus/db/repositories/base_repository.py`
-- **Functionality Details**: 
-    - Provide CRUD operations (create, get, get_all, update) with the help of SQLAlchemy.
-    - Use the `DatabaseSessionManager` for session management.
-- **Integration Points**: Will be utilized by the AI coding agent and potentially other repositories in the future.
 
 #task end#
 
+
+
+Could you please update the old tests accordingly? Please first analyse and plan your updates, then present the complete updated tests in a code block so my agent program can override the existing one in database directly.

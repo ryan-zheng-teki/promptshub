@@ -1,0 +1,230 @@
+**First Prompt: Creating the Initial Design Documentation**
+
+You are a Python architect. You are tasked with initiating the design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation.
+
+### Criteria:
+- Base your documentation on the format defined by template in `[Template]` section.
+- Present the documentation in a copiable format.
+
+### Procedure:
+1. **Inspect the Source Code**:
+   - Dive into the code in the `[SourceCode]` section, taking note of primary functionalities.
+
+2. **Establish the File's Purpose and Dependencies**:
+   - Determine the core purpose of the file in the broader feature context.
+   - Identify each project dependency in the file:
+     - If it's closely related to the feature but its code isn't provided, mark it as a new component in the documentation, keeping its specifications blank for now.
+     - For any dependency that's a supplementary tool or service for the feature, denote it with the 'used-by' label.
+
+3. **Draft the Initial Documentation**:
+   - Craft the initial documentation based on insights from the file, ensuring placeholders are in place for future components.
+
+```
+[Your initial documentation starts here.]
+```
+
+---
+
+**Second Prompt: Updating the Design Documentation**
+
+Given the updated file and the previously constructed design documentation, refine and expand upon the initial draft. Remember to work with the provided information and adhere to the previously set structure.
+
+### Criteria:
+- Continuously align your documentation updates with the `[Template]` section.
+- Consistently structure and format updates to maintain cohesion with the original documentation.
+- Present the documentation in a copiable format.
+
+### Procedure:
+1. **Review the Updated Source Code**:
+   - Scrutinize the code in the `[UpdatedSourceCode]` section, identifying new or modified functionalities.
+   
+2. **Define the File's Role and Dependencies**:
+   - Confirm the role of the file within the broader feature context.
+   - Discern each dependency in the file:
+     - If it's intrinsic to the feature and its detailed code isn't provided, ensure it's marked as a component with blank specifications in the documentation.
+     - Validate or adjust labels for dependencies, including the 'used-by' tag.
+
+3. **Refine the Documentation**:
+   - Integrate insights from the updated file into the existing documentation, filling placeholders or adding new sections as needed.
+
+```
+[Your updated documentation starts here.]
+```
+
+
+
+
+
+Initiating the Design Documentation**
+
+You are a Python architect. You are tasked with initiating the feature code design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation. The code is provided in the `[Code]` section.
+
+### Criteria:
+- The final documentation should adhere to the `Feature Code Design Documentation Template` defined by the template in the `[Template] section.
+- The final documentation should be presented in a copiable code block.
+
+### Procedure:
+1. **Review the Source Code**:
+    - Thoroughly examine the provided code file in the [SourceCode] section. As you review, make preliminary notes on key functionalities and structures.
+
+2. **Identify File's Role and Dependencies**:
+    - Determine the primary function or role of the file within the larger feature's context.
+   - Identify each project dependency in the file:
+     - If it's directly related to the feature and its code is not provided,, insert it in the `Placeholder Components (Pending File Provision)` section, detailing its tentative purpose.
+     - If it's an auxiliary or external tool/service supporting the feature, put it under `Dependencies (Unchanged Components)` section.
+
+3. **Formulate the Initial Documentation**:
+   - Based on insights from the file and its dependencies, draft the corresponding section of the code design documentation.
+
+Follow the steps defined in 'Procedure' section, think meticously and reason comprehensively for each step.
+
+[Template]
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+- Brief overview of the primary architecture.
+- Design patterns, principles, or structures that will be applied.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+For each component:
+  - **Name (New) [extends/relates OtherComponentName]** (if applicable)
+    - **Purpose**: Clear description of the component's role and functionality.
+    - **Attributes**:
+      - `attribute_name`: Short description of the attribute and its significance.
+      ... Continue for all attributes.
+    - **Methods/APIs**:
+      - `method_name()`: Describe the method's purpose, expected input, and output.
+      ... Continue for all methods.
+    - **Interactions**: Describe how this component interacts with other components.
+
+... Continue for all fully defined new components.
+
+###### 1.2.2. Placeholder Components (Pending File Provision)
+For each component:
+  - **Name (New/Placeholder) [extends/relates OtherComponentName]** (if applicable)
+    - **Status Note**: _"This component is part of the feature, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: A general understanding or assumption about the component's role and tasks based on current knowledge.
+
+... Continue for placeholders.
+
+##### 1.3. Dependencies (Unchanged Components)
+
+For each component:
+  - **Name (Existing)**
+    - **Purpose**: Clear description of the component's role and functionality.
+    - **Interactions**: Describe its interactions with new components, if any.
+
+... Continue for all dependencies.
+
+##### 1.4. Interactions Overview
+- A broader perspective on how new components interact with each other and with existing components.
+- Highlight any specific sequence of operations or workflows.
+
+##### 1.5. External Dependencies
+- List any third-party libraries, services, or tools that will be used.
+- Specific versions or configurations to be aware of.
+
+#### 2. UML Diagram
+
+- A UML diagram showcasing the relationships and interactions between components.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(New/Placeholder)` are identified but not fully defined.
+  - Components marked with `(Existing)` are pre-existing and are treated as dependencies.
+
+@startuml
+... UML content here ...
+@enduml
+
+
+[Code]
+"""
+autobyteus/prompt/prompt_template.py
+
+This module contains the PromptTemplate class, which represents a prompt that may contain various template variables.
+
+PromptTemplate class features:
+- The raw template string.
+- A list of associated PromptTemplateVariable instances.
+- A method to convert the prompt template to a dictionary representation for frontend communication.
+"""
+
+from autobyteus.prompt.prompt_template_variable import PromptTemplateVariable
+
+
+class PromptTemplate:
+    def __init__(self, template: str, variables: list[PromptTemplateVariable] = None):
+        self.template = template
+        self.variables = variables if variables is not None else []
+
+    def to_dict(self) -> dict:
+        """
+        Converts the PromptTemplate instance to a dictionary representation.
+
+        Returns:
+            dict: Dictionary representation of the PromptTemplate instance.
+        """
+        return {
+            "template": self.template,
+            "variables": [variable.to_dict() for variable in self.variables]
+        }
+    
+    def fill(self, values: dict) -> str:
+        """
+        Fill the template using the provided values.
+
+        Args:
+            values (dict): Dictionary containing variable names as keys and their respective values.
+
+        Returns:
+            str: The filled template string.
+        
+        Raises:
+            KeyError: If a required variable is missing from the provided values.
+        """
+        try:
+            return self.template.format(**values)
+        except KeyError as e:
+            raise KeyError(f"Missing value for template variable: {e}")
+
+
+
+
+
+
+
+
+
+
+**Second Prompt: Refining the Design Documentation with Additional Files**
+
+You are an AI language model skilled in Python. Build upon the existing design documentation for an implemented feature. Use the newly provided file to enhance the current documentation, possibly refining placeholder components to fully defined ones.
+
+### Context:
+- The aim is to elaborate on the initial documentation, potentially recognizing components from placeholders and providing their full specifications.
+
+### Criteria:
+- Model your documentation updates on the `Feature Code Design Documentation Template`.
+- Ensure coherence with prior documentation structures.
+- Offer the refined documentation in a copiable format.
+
+### Procedure:
+1. **Deep-dive into the Source Code**:
+   - Delve into the code available in the `[SourceCode]` section, spotlighting pivotal functionalities.
+
+2. **Determine the File's Function and Dependencies**:
+   - Decipher the file's main role in the feature's entire framework.
+   - Categorize each dependency:
+     - If a component, previously a placeholder, is now detailed in the file, transfer it to `Fully Defined` and fill in its specifications.
+     - If new components are identified, decide if they should be added as placeholders or if they can be fully defined.
+     - Unchanged components are listed under `Dependencies (Unchanged Components)`.
+     - Document external tools or services under `External Dependencies`.
+
+3. **Augment the Documentation**:
+   - With the insights gained from the new file, enhance the design documentation, refining placeholders or adding sections as dictated by the template.
+
+```
+[Your updated documentation, in line with the template, starts here.]
+```
