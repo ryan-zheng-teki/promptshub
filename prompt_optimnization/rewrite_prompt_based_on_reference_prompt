@@ -1,19 +1,19 @@
-As an expert in prompt optimization, you are tasked with restructuring the prompt in the `>>Target Prompt<<` section to match the structure of the one in the `>>Reference Prompt<<` section. The start of both prompts begins with `$start$` and ends with `$end$`. Follow these steps:
+As an expert in prompt optimization, you are tasked with restructuring the prompt in the `[Target Prompt]` section to match the structure of the one in the `[Reference Prompt]` section. The start of both prompts begins with `$start$` and ends with `$end$`. Follow these steps:
 
-1. Comprehend `>>Target Prompt<<`:
+1. Comprehend `[Target Prompt]`:
    - articulate your understanding of its content.
 
-2. Comprehend `>>Reference Prompt<<`:
+2. Comprehend `[Reference Prompt]`:
    - articulate your understanding of its content.
 
 3. Analyze and Compare Structures:
-   - Dissect the structures of the `>>Target Prompt<<` and `>>Reference Prompt<<`. articulate the differences. Articulate your detailed analysis narratively.
+   - Dissect the structures of the `[Target Prompt]` and `[Reference Prompt]`. articulate the differences. Articulate your detailed analysis narratively.
 
 4. Propose Improvements:
-   - Suggest specific modifications to align the structure of the `>>Target Prompt<<` with the `>>Reference Prompt<<`. Articulate in detail why these modifications improves the target prompt.
+   - Suggest specific modifications to align the structure of the `[Target Prompt]` with the `[Reference Prompt]`. Articulate in detail why these modifications improves the target prompt.
 
 5. Submit the Refined Prompt:
-   - Present the final version of the `>>Target Prompt<<` incorporating the proposed improvements.
+   - Present the final version of the `[Target Prompt]` incorporating the proposed improvements.
 
 >>Target Prompt<<
 $start$
@@ -27,9 +27,9 @@ Finally, output your modified, documented code. This should be formatted within 
 $end$
 
 
->>Reference Prompt<<
+[Reference Prompt]
 $start$
-As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section, the start of content begins with `$start$` and ends with `$end$`.
+As an expert in optimizing prompts, your task is to refine the given prompt within the `[Prompt]` section, the start of content begins with `$start$` and ends with `$end$`.
 
 Please follow the steps below. Aach step has a title, and description of the step.
 1. Analyze the Prompt:
