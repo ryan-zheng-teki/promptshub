@@ -1,94 +1,3 @@
-
-Understood. Given that the second prompt operates without knowledge of the first prompt, it's essential to ensure the second prompt is self-contained, with all necessary instructions and context. Let's revise accordingly:
-
----
-
-**First Prompt: Creating the Initial Design Documentation**
-
-You are an AI language model, specialized in Python. You are tasked with initiating the design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation.
-
-### Criteria:
-- Base your documentation on the `[Template]` section.
-- Structure your documentation so that it can be easily extended with future files.
-- Present the documentation in a copiable format.
-
-### Procedure:
-1. **Inspect the Source Code**:
-   - Dive into the code in the `[SourceCode]` section, taking note of primary functionalities.
-
-2. **Establish the File's Purpose and Dependencies**:
-   - Determine the core purpose of the file in the broader feature context.
-   - Identify each dependency in the file:
-     - If it's integral to the feature but its code isn't present, mark it as a new component in the documentation, keeping its specifications blank for now.
-     - For any dependency that's a supplementary tool or service for the feature, denote it with the 'used-by' label.
-
-3. **Draft the Initial Documentation**:
-   - Craft the initial documentation based on insights from the file, ensuring placeholders are in place for future components.
-
-```
-[Your initial documentation starts here.]
-```
-
----
-
-**Second Prompt: Constructing the Design Documentation with a New File**
-
-You are an AI language model, adept in Python. Your assignment is to continue developing design documentation for an already-implemented feature, using the provided file. Due to context limitations, remember to evaluate the code file in isolation, assuming no prior knowledge.
-
-### Context:
-- You are building upon existing documentation.
-- The aim is to expand the documentation for the feature based on insights from this file.
-- You might encounter dependencies or components previously marked as placeholders in earlier documentation.
-
-### Criteria:
-- Anchor your documentation updates using the `[Template]` format.
-- Ensure consistency in structure and format with potential prior documentation.
-- Present the enhanced documentation in a copiable format.
-
-### Procedure:
-1. **Scrutinize the Source Code**:
-   - Delve into the code in the `[SourceCode]` section, highlighting primary functionalities and structures.
-
-2. **Identify the File's Significance and Dependencies**:
-   - Gauge the central function of the file within the overarching feature framework.
-   - Spot each dependency in the file:
-     - If it's core to the feature but its detailed code is absent, denote it as a component, either refining existing placeholders or creating new ones with blank specifications.
-     - Label any dependency that acts as an auxiliary tool or service for the feature with the 'used-by' tag.
-
-3. **Develop the Documentation**:
-   - Weave the insights from this file into the design documentation, refining or extending sections as required.
-
-```
-[Your enhanced documentation starts here.]
-```
-
-
-#### 1. Code Architecture Design:
-
-1.1. **High-Level Design**:
-- ...
-
-1.2. **Components Relevant for the New Feature**:
-
-- **Fully Defined New Components**:
-  ...
-
-- **Placeholder Components**:
-  ...
-
-- **Dependencies (Unchanged Components)**:
-  ...
-
-1.3. **Interactions Overview**:
-- ...
-
-1.4. **External Dependencies**:
-- ...
-
-#### 2. UML Diagram:
-
-------------
-
 ### Table of Contents:
 
 1. **Code Architecture Design**:
@@ -174,3 +83,88 @@ For each component:
 ... UML content here ...
 @enduml
 
+
+-------------------------------------
+
+## Example
+### Feature Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+This feature is designed to implement the Observer Pattern, enabling multiple subscribers to be notified of certain events. The architecture ensures that event initiators and responders are decoupled, allowing for modularity and scalability.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+
+- **Publisher (New)**
+    - **Purpose**: Acts as the broadcaster for events. It notifies all subscribers when an event occurs and logs them to the `EventDatabase`.
+    - **Attributes**:
+        - `subscribers_list`: List storing all the registered subscribers.
+    - **Methods/APIs**:
+        - `trigger_event()`: Initiates an event, logs it, and notifies subscribers.
+        - `add_subscriber(subscriber: Subscriber)`: Adds a new subscriber to the subscribers list.
+        - `log_event_to_database(event: Event)`: Logs the event to the `EventDatabase`.
+    - **Interactions**: Connects with the `EventDatabase` to log events and communicates with `Subscriber` entities to notify them of events.
+
+- **Subscriber (New) [relates Publisher]**
+    - **Purpose**: Monitors and responds to particular events triggered by the `Publisher`.
+    - **Attributes**:
+        - `event_history`: List to store received events.
+    - **Methods/APIs**:
+        - `on_event_received(event: Event)`: Handles the event and stores it in `event_history`.
+    - **Interactions**: Receives event notifications from the `Publisher`.
+
+###### 1.2.2. Placeholder Components (Pending File Provision)
+
+- **NotificationService (New/Placeholder) [relates Publisher]**
+    - **Status Note**: _"This component is part of the feature, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: This service might be responsible for sending notifications to external systems or users when specific events are triggered.
+
+##### 1.3. Dependencies (Unchanged Components)
+
+- **EventDatabase (Existing)**
+    - **Purpose**: A database component designed to store all triggered events.
+    - **Interactions**: Stores events triggered by the `Publisher`.
+
+##### 1.4. Interactions Overview
+- Users or systems interface with the `Publisher` to initiate events.
+- Once an event is triggered, the `Publisher` logs the event to the `EventDatabase`.
+- The `Publisher` then notifies all `Subscriber` entities of this event.
+
+##### 1.5. External Dependencies
+- None.
+
+#### 2. UML Diagram
+
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(New/Placeholder)` are identified but not fully defined.
+  - Components marked with `(Existing)` are pre-existing and are treated as dependencies.
+
+@startuml
+
+class "Publisher (New)" {
+    + subscribers_list: List[Subscriber]
+    + trigger_event()
+    + add_subscriber(subscriber: Subscriber)
+    + log_event_to_database(event: Event)
+}
+
+class "Subscriber (New)" {
+    + event_history: List[Event]
+    + on_event_received(event: Event)
+}
+
+class "EventDatabase (Existing)" {
+    + save_event(event: Event)
+}
+
+class "NotificationService (New/Placeholder)"
+
+"Publisher (New)" --> "Subscriber (New)": Event notification
+"Publisher (New)" --> "EventDatabase (Existing)": Logs event
+"Publisher (New)" --> "NotificationService (New/Placeholder)": Possible notification
+
+@enduml

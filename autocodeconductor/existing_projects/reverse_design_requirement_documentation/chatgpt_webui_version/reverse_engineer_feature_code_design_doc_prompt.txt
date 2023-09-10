@@ -1,0 +1,179 @@
+First Prompt: Initiating the Design Documentation**
+
+You are a Python architect. You are tasked with initiating the feature code design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation. The code is provided in the `[SourceCode]` section.
+
+### Criteria:
+- The final documentation should adhere to the `Feature Code Design Documentation Template` defined by the template in the `[Template] section.
+- The final documentation should be presented in a copiable code block.
+
+### Procedure:
+1. **Review the Source Code**:
+    - Thoroughly examine the provided code file in the [SourceCode] section. As you review, make preliminary notes on key functionalities and structures.
+
+2. **Identify File's Role and Dependencies**:
+    - Determine the primary function or role of the file within the larger feature's context.
+   - Identify each project dependency in the file:
+     - If it's directly related to the feature and its code is not provided,, insert it in the `Placeholder Components (Pending File Provision)` section, detailing its tentative purpose.
+     - If it's an auxiliary or external tool/service supporting the feature, put it under `Dependencies (Unchanged Components)` section.
+
+3. **Formulate the Initial Documentation**:
+   - Based on insights from the file and its dependencies, draft the corresponding section of the code design documentation.
+
+Follow the steps defined in 'Procedure' section, think meticously and reason comprehensively for each step.
+
+[Template]
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+- Brief overview of the primary architecture.
+- Design patterns, principles, or structures that will be applied.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+For each component:
+  - **Name (New) [extends/relates OtherComponentName]** (if applicable)
+    - **Purpose**: Clear description of the component's role and functionality.
+    - **Attributes**:
+      - `attribute_name`: Short description of the attribute and its significance.
+      ... Continue for all attributes.
+    - **Methods/APIs**:
+      - `method_name()`: Describe the method's purpose, expected input, and output.
+      ... Continue for all methods.
+    - **Interactions**: Describe how this component interacts with other components.
+
+... Continue for all fully defined new components.
+
+###### 1.2.2. Placeholder Components (Pending File Provision)
+For each component:
+  - **Name (New/Placeholder) [extends/relates OtherComponentName]** (if applicable)
+    - **Status Note**: _"This component is part of the feature, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: A general understanding or assumption about the component's role and tasks based on current knowledge.
+
+... Continue for placeholders.
+
+##### 1.3. Dependencies (Unchanged Components)
+
+For each component:
+  - **Name (Existing)**
+    - **Purpose**: Clear description of the component's role and functionality.
+    - **Interactions**: Describe its interactions with new components, if any.
+
+... Continue for all dependencies.
+
+##### 1.4. Interactions Overview
+- A broader perspective on how new components interact with each other and with existing components.
+- Highlight any specific sequence of operations or workflows.
+
+##### 1.5. External Dependencies
+- List any third-party libraries, services, or tools that will be used.
+- Specific versions or configurations to be aware of.
+
+#### 2. UML Diagram
+
+- A UML diagram showcasing the relationships and interactions between components.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(New/Placeholder)` are identified but not fully defined.
+  - Components marked with `(Existing)` are pre-existing and are treated as dependencies.
+
+@startuml
+... UML content here ...
+@enduml
+
+[SourceCode]
+
+
+Second Prompt: Refining and Expanding the Design Documentation
+
+You are a Python architect. Your task is to refine and expand the feature code design documentation provided in the `[InitialFeatureDesign]` for an already-implemented feature. Given the context size constraints, you can handle one file at a time. Use the provided file to update the initial documentation. The code is given in the `[SourceCode]` section.
+
+### Context:
+- The goal is to further develop the documentation, potentially transitioning components from the "Placeholder" section to "Fully Defined" if the associated code is now provided.
+- Ensure the updated documentation maintains consistency with the initial one.
+
+### Criteria:
+- The revised documentation must adhere to the `Feature Code Design Documentation Template` provided in the `[Template]` section.
+- The updated documentation should be presented in a copiable code block.
+
+### Procedure:
+1. **Review the Source Code**:
+   - Scrutinize the code file in the `[SourceCode]` section, identifying primary functionalities and structures.
+
+2. **Determine the File's Main Component**:
+   - Establish the main role of the file within the feature's broader context.
+   - If the main component of the file matches a "Placeholder" in the existing documentation and its code is now provided, move it to the "Fully Defined" section and supply its complete details.
+
+3. **Assess Dependencies**:
+   - Evaluate each project dependency within the file:
+     - If a component is already defined as "Fully Defined" based on the initial documentation and appears in the new code as a dependency, no further action is needed.
+     - For any new dependency that wasn't recognized in the initial documentation:
+       - If it's directly related to the feature but its code isn't supplied, insert it into the `Placeholder Components (Pending File Provision)` section with its tentative purpose.
+       - If it's an auxiliary or external tool/service supporting the feature, include it under the `Dependencies (Unchanged Components)` section.
+
+4. **Update and Refine the Documentation**:
+   - Incorporate insights from the file and its dependencies into the design documentation, aligning with the template.
+
+Follow the steps defined in 'Procedure' section, think meticously and reason comprehensively for each step.
+
+[Template]
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+- Brief overview of the primary architecture.
+- Design patterns, principles, or structures that will be applied.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+For each component:
+  - **Name (New) [extends/relates OtherComponentName]** (if applicable)
+    - **Purpose**: Clear description of the component's role and functionality.
+    - **Attributes**:
+      - `attribute_name`: Short description of the attribute and its significance.
+      ... Continue for all attributes.
+    - **Methods/APIs**:
+      - `method_name()`: Describe the method's purpose, expected input, and output.
+      ... Continue for all methods.
+    - **Interactions**: Describe how this component interacts with other components.
+
+... Continue for all fully defined new components.
+
+###### 1.2.2. Placeholder Components (Pending File Provision)
+For each component:
+  - **Name (New/Placeholder) [extends/relates OtherComponentName]** (if applicable)
+    - **Status Note**: _"This component is part of the feature, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: A general understanding or assumption about the component's role and tasks based on current knowledge.
+
+... Continue for placeholders.
+
+##### 1.3. Dependencies (Unchanged Components)
+
+For each component:
+  - **Name (Existing)**
+    - **Purpose**: Clear description of the component's role and functionality.
+    - **Interactions**: Describe its interactions with new components, if any.
+
+... Continue for all dependencies.
+
+##### 1.4. Interactions Overview
+- A broader perspective on how new components interact with each other and with existing components.
+- Highlight any specific sequence of operations or workflows.
+
+##### 1.5. External Dependencies
+- List any third-party libraries, services, or tools that will be used.
+- Specific versions or configurations to be aware of.
+
+#### 2. UML Diagram
+
+- A UML diagram showcasing the relationships and interactions between components.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(New/Placeholder)` are identified but not fully defined.
+  - Components marked with `(Existing)` are pre-existing and are treated as dependencies.
+
+@startuml
+... UML content here ...
+@enduml
+
+[InitialFeatureDesign]
