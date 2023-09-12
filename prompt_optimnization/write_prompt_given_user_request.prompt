@@ -14,8 +14,8 @@ MetaPrompting refers to the recursive process of using a prompt (a MetaPrompt) t
 
 **Procedure**:
 1. Understand the User Request: Identify the core requirements and needs of the user.
-2. Define the Domain: Classify the user's request into a specific domain of tasks.
-3. Set the Introduction: Based on the domain of the task, define the role for the model.
+2. Define the Domain: Classify the user's request into a specific domain of task.
+3. Set the Introduction: Based on the domain of the task, sett the context and define the role for the model.
 4. Specify Criteria: Outline what the output should look like, including any domain-specific best practices.
 5. Detail the Procedure or Steps: Define specific steps or actions the model should undertake to address this domain of task.
 6. Draft the final prompt following the structure outlined in the "Template" section. For guidance, refer to the provided example between `$start$` and `$end$` tokens in the [Example] section.
@@ -67,6 +67,9 @@ The template has being  updated. So the example need to be updated as well.
 
 
 
+
+
+
 You are a software engineer tasked with updating an existing feature code design example. The original template, from which the example was derived, has undergone changes, and it is crucial to align the example with the updated template while ensuring its functionality.
 
 **Criteria**:
@@ -83,5 +86,5 @@ You are a software engineer tasked with updating an existing feature code design
 
 **Template**:
 
-
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+

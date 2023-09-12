@@ -1,25 +1,57 @@
 First Prompt: Initiating the Design Documentation**
 
-You are a Python architect. You are tasked with initiating the feature code design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation. The code is provided in the `[SourceCode]` section.
+
+You are a Python architect. Your task is to create feature code design documentation for an existing feature. Due to size constraints, focus on one file at a time, provided in the `[SourceCode]` section.
 
 ### Criteria:
-- The final documentation should adhere to the `Feature Code Design Documentation Template` defined by the template in the `[Template] section.
-- The final documentation should be presented in a copiable code block.
+- The documentation should follow the `Feature Code Design Documentation Template` from the `[Template]` section.
+- Present the final documentation in a copiable code block.
+
+1. **Review the Source Code**:
+    - Examine the code in the [SourceCode] section and note key functionalities and structures.
+
+2. **Determine the Purpose of the Code. Identify the broader objective the code is trying to achieve**
+
+
+3. **Analyse File's Dependencies**:
+    - Analyze each non third-party project dependency in the same root package namespace as the provided source code:
+        - Guess the functionality of each dependency.
+        - Articulate whether the dependency's functionality directly affects or is essential to the identified feature, then label it as `Placeholder Components` with its potential purpose.
+        - Articulate whether the dependency provides utility or support without being core to the feature's functionality, label it as `Dependencies`.
+
+6. **Draft the Documentation**:
+   - Use insights from the above analysis to create the code design documentation.
+
+Follow the steps defined in 'Procedure' section, think step by step meticously and reason comprehensively for each step.
+
+
+
+Version: Correct one. Obviously using Part-Of is working much better than all the other prompts. I think the reason is that its easy to derive that the relationship of the word with the feature. Then from the sentence to derive part-of is also easy. 
+
+You are a Python architect. You are tasked with initiating the design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation.
+
+### Context:
+- "Part-Of" components refer to elements likely associated with the same feature, but their code isn't provided in the `[SourceCode]` section.
+- "Used-By" components describe elements supporting the current feature, but their direct contribution might be unclear.
+
+### Criteria:
+- Base your documentation on the format defined by template in `[Template]` section.
+- Present the documentation in a copiable block..
 
 ### Procedure:
-1. **Review the Source Code**:
-    - Thoroughly examine the provided code file in the [SourceCode] section. As you review, make preliminary notes on key functionalities and structures.
+1. **Inspect the Source Code**:
+   - Dive into the code in the `[SourceCode]` section, taking note of primary functionalities.
 
-2. **Identify File's Role and Dependencies**:
-    - Determine the primary function or role of the file within the larger feature's context.
-   - Identify each project dependency in the file:
-     - If it's directly related to the feature and its code is not provided,, insert it in the `Placeholder Components (Pending File Provision)` section, detailing its tentative purpose.
-     - If it's an auxiliary or external tool/service supporting the feature, put it under `Dependencies (Unchanged Components)` section.
+2. **Establish the File's Purpose and Dependencies**:
+   - Understand the file's primary purpose within the overarching feature.
+   - Examine each project dependency under the root namespace as the file (excluding standard third-party libraries, such as json, panda etc) and answer:
+      - What function might this dependency serve?
+      - Does the suspected function of the dependency directly contribute to the feature? If its functionality is unclear or its contribution to the feature is indirect or not part of the feature, label it as `Used-By`. Otherwise, label it as `Part-Of` and state its potential function. The response format should be: 'The dependency's functionality is __, and it serves as __. Label it as `Part-Of`. If its role is uncertain, label it as `Used-By`.
 
-3. **Formulate the Initial Documentation**:
-   - Based on insights from the file and its dependencies, draft the corresponding section of the code design documentation.
+3. **Draft the Initial Documentation**:
+   - Craft the initial documentation based on insights from the file.
 
-Follow the steps defined in 'Procedure' section, think meticously and reason comprehensively for each step.
+Follow the steps defined in 'Procedure' section, think step by step meticously and reason comprehensively for each step.
 
 [Template]
 #### 1. Code Architecture Design:
@@ -44,15 +76,15 @@ For each component:
 
 ... Continue for all fully defined new components.
 
-###### 1.2.2. Placeholder Components (Pending File Provision)
+###### 1.2.2. Part-Of Components (Pending File Provision)
 For each component:
-  - **Name (New/Placeholder) [extends/relates OtherComponentName]** (if applicable)
+  - **Name (Part-Of) [extends/relates OtherComponentName]** (if applicable)
     - **Status Note**: _"This component is part of the feature, but its detailed specifications will be supplemented upon provision of the relevant file."_
     - **Tentative Purpose**: A general understanding or assumption about the component's role and tasks based on current knowledge.
 
 ... Continue for placeholders.
 
-##### 1.3. Dependencies (Unchanged Components)
+##### 1.3. Used-By Dependencies (Unchanged Components)
 
 For each component:
   - **Name (Existing)**
@@ -74,14 +106,108 @@ For each component:
 - A UML diagram showcasing the relationships and interactions between components.
 - **UML Legend**:
   - Components marked with `(New)` are to be developed as part of this feature.
-  - Components marked with `(New/Placeholder)` are identified but not fully defined.
+  - Components marked with `(Part-Of)` are identified but not fully defined.
   - Components marked with `(Existing)` are pre-existing and are treated as dependencies.
 
 @startuml
 ... UML content here ...
 @enduml
 
+
 [SourceCode]
+# autobyteus/automated_coding_workflow/automated_coding_workflow.py
+"""
+automated_coding_workflow.py: Contains the AutomatedCodingStep class, which represents the main entry point for running the automated coding workflow.
+"""
+
+import json
+from typing import Dict, Optional
+from autobyteus.llm_integrations.llm_integration_registry import LLMIntegrationRegistry
+
+from autobyteus.workflow.config import WORKFLOW_CONFIG
+from autobyteus.workflow.types.base_step import BaseStep
+from autobyteus.workflow.types.base_workflow import WorkflowStatus
+from autobyteus.workflow.types.workflow_template_config import StepsTemplateConfig
+from autobyteus.workspaces.setting.workspace_setting import WorkspaceSetting
+
+class AutomatedCodingWorkflow:
+    """
+    A class to represent and manage a fully automated coding workflow.
+
+    The workflow is composed of multiple steps, each step represented as an instance of a class derived from BaseStep. Steps can have sub-steps, forming a potentially multi-level workflow.
+
+    Attributes:
+        workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        steps (Dict[str, BaseStep]): A dictionary of step instances keyed by their step IDs.
+        name (str): The name of the workflow. Default is "automated_coding_workflow".
+        config (dict): The configuration details for the workflow. Loaded from `WORKFLOW_CONFIG`.
+    """
+
+    name = "automated_coding_workflow"
+    config = WORKFLOW_CONFIG
+
+    def __init__(self, workspace_setting: WorkspaceSetting): 
+        """
+        Initialize the AutomatedCodingWorkflow with the given workspace setting.
+
+        Args:
+            workspace_setting (WorkspaceSetting): The settings associated with the workspace.
+        """
+        self.workspace_setting = workspace_setting
+        self.llm_integration_registry = LLMIntegrationRegistry()
+        self.steps: Dict[str, BaseStep] = {}
+        self._initialize_steps(AutomatedCodingWorkflow.config['steps'])
+    
+    def _initialize_steps(self, steps_config: Dict[str, StepsTemplateConfig]):
+        """
+        Initializes the steps of the workflow from a given configuration.
+
+        If a step has sub-steps, it recursively initializes those as well.
+
+        :param steps_config: A dictionary containing step configuration.
+        """
+        for step_id, step_config in steps_config.items():
+            step_class = step_config['step_class']
+            step_instance: BaseStep = step_class(self)
+            self.steps[step_id] = step_instance
+
+            if 'steps' in step_config:
+                self._initialize_steps(step_config['steps'])
+
+    def to_json(self) -> str:
+        """
+        Converts the workflow instance to a JSON representation, including its steps.
+
+        Returns:
+            str: The JSON representation of the workflow instance.
+        """
+        workflow_data = {
+            "name": self.name,
+            "steps": {step_id: step.to_dict() for step_id, step in self.steps.items()}
+        }
+
+        return json.dumps(workflow_data)
+    
+    def execute_step(self, step_id: str) -> Optional[str]:
+        """
+        Execute a specific step within the workflow using its ID.
+
+        :param step_id: The ID of the step to execute.
+        :return: The step result or None if the step_id is invalid.
+        :raises ValueError: If the provided step_id is invalid.
+        """
+        step = self.steps.get(step_id)
+        if step:
+            return step.execute()
+        else:
+            raise ValueError(f"Invalid step_id: {step_id}")
+
+
+    def start_workflow(self):
+        """
+        Set the status of the workflow to Started and raise a NotImplementedError for derived classes to implement.
+        """
+        self.status = WorkflowStatus.Started
 
 
 Second Prompt: Refining and Expanding the Design Documentation

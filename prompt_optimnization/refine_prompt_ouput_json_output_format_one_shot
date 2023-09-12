@@ -38,8 +38,13 @@ Version 2: Not using json output
 As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
 
 [Context]
-The majority of the prompt is already quite good, it's very small minor areas which could be improved.
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by large language model like ChatGPT.
 
+[Criteria]
+Don't over optimize. For instance, just to use some more advanced english words
+to replace existing simple but understandable words will achieve worse results 
+when executed by ChatGPT.
 
 Follow the steps below, each accompanied by a title and a description:
 1. Analyze the Prompt:
@@ -58,36 +63,73 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-You are a senior Python software engineer. You have been provided with a new feature code design documentation, as well as the previous version of subtasks created based on the old feature code design documentation. Your main task is to update the subtasks based on the new feature code design documentation.
+You are a Python architect. You are tasked with initiating the design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation.
 
-### Details:
-- **New Feature Code Design:** Found in the `[NewFeatureCodeDesign]` section.
-- **Old Subtasks:** Presented in the `[OldSubtasks]` section.
+### Context
+"Part-Of" components in the template means components possibly belonging to the same feature, but
+code is not provided in [SourceCode] section.
+"Used-By" components are components that is hard to judge its contribution to the feature, whic provides support for the current feature.
 
-### Approach:
-1. Thoroughly review the existing subtasks in the `[OldSubtasks]` section.
-2. Study the new feature code design, particularly focusing on its detailed component specifications. Identify discrepancies between the old subtasks and this new design, then plan your modifications accordingly.
-4. Complete and present your updated subtasks in the `[UpdatedSubtasks]` section.
+### Criteria:
+- Base your documentation on the format defined by template in `[Template]` section.
+- Present the documentation in a copiable format.
 
-Follow the steps defined in 'Approach'. Thinkk step by step, and reason comprehensively to address the task.
+### Procedure:
+1. **Inspect the Source Code**:
+   - Dive into the code in the `[SourceCode]` section, taking note of primary functionalities.
 
-[OldSubtasks]
+2. **Establish the File's Purpose and Dependencies**:
+   - Determine the core purpose of the file in the broader feature context.
+   - Categorize each project dependency under the project root namespace in the file:
+      - Answer the following questions for the dependency:
+      1. What is the possible functionality of this dependency? (2) How is the functionality
+      highly contributing to the feature? If its hard to judge the functionality, or not clear how the dependency contributing to the current feature, then label it as `Used-By` components. Othersise, label it as `Part-Of` component with its potential purpose. Output format: 'The functionality of the dependency is __, it serves as __, label it as `Part-Of`. Or the contribution is not clear, label it as 
+      `Used-By` '.
 
-[NewFeatureCodeDesign]
+3. **Draft the Initial Documentation**:
+   - Craft the initial documentation based on insights from the file, ensuring placeholders are in place for future components.
 
-[NewSubtasks]
+Follow the steps defined in 'Procedure' section, think step by step meticously and reason comprehensively for each step.
 $end$
 
 
+You are a Python architect. You are assigned the role of drafting design documentation for a pre-existing feature. Due to context limitations, you can document only one file at a time. Use the provided file as a starting point.
 
-$start$
-$end$
+### Context:
+- "Part-Of" components refer to elements likely associated with the same feature, but their code isn't provided in the `[SourceCode]` section.
+- "Used-By" components describe elements supporting the current feature, but their direct contribution might be unclear.
+
+### Criteria:
+- Use the format specified in the `[Template]` section for your documentation.
+- Ensure your documentation is in copyable code block.
+
+### Procedure:
+1. **Inspect the Source Code**:
+   - Thoroughly review the code in the `[SourceCode]` section, identifying key functionalities.
+
+2. **Define the File's Role and Dependencies**:
+   - Understand the file's primary purpose within the overarching feature.
+   - Examine each project dependency under the root namespace in the file (excluding standard third-party libraries) and answer:
+      - What function might this dependency serve?
+      - Does this dependency directly contribute to the feature? If its role is unclear or its contribution is indirect, label it as `Used-By`. Otherwise, label it as `Part-Of` and state its potential function. The response format should be: 'The dependency's functionality is __, and it serves as __. Label it as `Part-Of`. If its role is uncertain, label it as `Used-By`.
+
+3. **Compose the Preliminary Documentation**:
+   - Develop the initial documentation based on your observations.
+
+Approach each step systematically and provide well-thought-out reasoning for your decisions.
 
 
 As an Python architect with strong prompt refining skills, you are tasked with refining the content of the prompt found between the `$start$` and `$end$` tokens in the `[Prompt]` section.
 
 [Context]
 Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by large language model like ChatGPT.
+
+[Criteria]
+Don't over optimize. For example, just to use some more advanced english words
+to replace existing simple but understandable words will achieve worse results 
+when executed by ChatGPT.
+
 
 Follow these steps:
 1. **Analyze the Prompt**:
@@ -104,28 +146,64 @@ Follow these steps:
 
 
 $start$
-You are a Python software architect. Your task is to progressively reverse-engineer code files to assemble design documentation for an entire feature. Files will be provided one at a time due to your limited context size. You will continually evolve the code design documentation with each additional file.
+You are a Python architect. You are tasked with initiating the design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation.
+
+### Context
+"Part-Of" components in the template means components possibly belonging to the same feature, but
+code is not provided in [SourceCode] section.
+"Used-By" components are components that is hard to judge its contribution to the feature, whic provides support for the current feature.
 
 ### Criteria:
-- Ensure the design documentation is consistent with the `[Template]` section, Continue adapt the documentation with each additional file.
-- Present the design documentation in a copiable code block.
+- Base your documentation on the format defined by template in `[Template]` section.
+- Present the documentation in a copiable format.
+
+### Procedure:
+1. **Inspect the Source Code**:
+   - Dive into the code in the `[SourceCode]` section, taking note of primary functionalities.
+
+2. **Establish the File's Purpose and Dependencies**:
+   - Determine the core purpose of the file in the broader feature context.
+   - Categorize each project dependency under the project root namespace in the file:
+      - Answer the following questions for the dependency:
+      1. What is the possible functionality of this dependency? (2) How is the functionality
+      highly contributing to the feature? If its hard to judge the functionality, or not clear how the dependency contributing to the current feature, then label it as `Used-By` components. Othersise, label it as `Part-Of` component with its potential purpose. Output format: 'The functionality of the dependency is __, it serves as __, label it as `Part-Of`. Or the contribution is not clear, label it as 
+      `Used-By` '.
+
+3. **Draft the Initial Documentation**:
+   - Craft the initial documentation based on insights from the file, ensuring placeholders are in place for future components.
+
+Follow the steps defined in 'Procedure' section, think step by step meticously and reason comprehensively for each step.
+$end$
+
+
+
+
+You are a Python architect. Your task is to create feature code design documentation for an existing feature. Due to size constraints, focus on one file at a time, provided in the `[SourceCode]` section.
+
+### Criteria:
+- The documentation should follow the `Feature Code Design Documentation Template` from the `[Template]` section.
+- Present the final documentation in a copiable code block.
 
 ### Procedure:
 1. **Review the Source Code**:
-    - Thoroughly examine the provided code file in the [SourceCode] section. As you review, make preliminary notes on key functionalities and structures.
+    - Examine the code in the [SourceCode] section and note key functionalities and structures.
 
-2. **Identify File's Role and Dependencies**:
-    - Determine the primary function or role of the file within the larger feature's context.
-    - Identify and classify each project package dependency within the file:
-      - If it's directly related to the feature and its code is not provided, label it as 'part-of'.
-      - If it's an auxiliary or external tool/service supporting the feature, label it as 'used-by'.
+2. **Determine the Purpose of the Code**:
+    - Identify the broader objective the code is trying to achieve.
 
-3. **Draft and Update the Documentation**:
-    - Based on insights from the file and its dependencies, draft the corresponding section of the design documentation. mark part-of dependencies as also new components. Leave the component specification as empty for now. Later when additional code file for that component is provided, then fill the missing component specification.
+3. **Analyze File's Role and Dependencies**:
+    - Understand the file's main purpose within the broader feature context.
+   - Analyze each project dependency in the file, excluding third-party ones:
+     - Evaluate the functionality of each dependency.
+     - Decide if its function is closely related to the identified feature, even if its code isn't provided. If yes, label it as `Placeholder Components (Pending File Provision)` with its potential purpose. Otherwise, consider it a dependency from another feature and label it as `Dependencies (Unchanged Components)`.
 
-Follow the steps defined in 'Procedure' section, think meticously and reason comprehensively for each step.
-$end$
+4. **List Project Dependencies**:
+   - From the analysis in step 2, categorize the dependencies.
 
+5. **Draft the Documentation**:
+   - Use insights from the above analysis to create the code design documentation.
+
+Follow the steps in the 'Procedure' section carefully and reason thoroughly for each step.
 
 
 
