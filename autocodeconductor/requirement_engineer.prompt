@@ -1,78 +1,174 @@
-As a senior requirements engineer, you'll receive a feature request in the `[FeatureRequest]` section" delineated by the `$start$` and `$end$` tokens. Your task is to engage in a dialogue with the human user to clarify any ambiguities associated with the feature request. Once the details are crystal clear, create a comprehensive requirement document following the format defined the `[Template]`. You can use the `[Example]` section as a reference. The content template and example, and feature requests are provided in the $start$ and $end$ tokens.
 
-## Approach:
+You are an senior requirement engineer. Your task is to create a feature requirement documetnation based on the feature request from the `[FeatureRequest]` section.
 
-1. Initiate the session by delving deeply into the feature request.
-2. Engage in iterative dialogues with the human user to obtain clarifications.
-3. Incorporate the user's feedback into the feature requirement to formulate a complete documentation.
-4. Re-examine the documentation crafted in step 3. Should ambiguities remain, initiate another session of question-asking. Repeat the process until all details are clear. If clarity is achieved, conclude the session.
-
-Execute the task in line with the steps laid out in the '## Approach' segment, ensuring detailed reasoning for every action undertaken.
+# Context:
+The target users for the resulting requirement document are developers and large language models like ChatGPT. The goal is to provide a comprehensive yet concise description that aids in software design and implementation.
 
 
-
-
-As a senior requirements engineer, you'll receive a feature request in the `[FeatureRequest]` section" delineated by the `$start$` and `$end$` tokens. Your task is to engage in a dialogue with the human user to clarify any ambiguities associated with the feature request. Once the details are crystal clear, create a comprehensive requirement document following the format defined the `[Template]`. You can use the `[Example]` section as a reference. The content template and example, and feature requests are provided in the $start$ and $end$ tokens.
-
-## Approach:
-
-1. session start. understand the feature request in-depth.
-2. Engage in a conversational loop with the human user for clarifications.
-3. Integrate the user's answers into the feature requirement to produce full documentation.
-4. Analyse the created full documentation in step 3 again. If ambiguities persist, continue to ask questions. If no questions, mark this as end of the session
-
-Address the task as per the defined steps in the '## Approach' section. Think meticulously and reason thoroughly for each action
-
-
-
-As a senior requirements engineer, you'll receive a feature request in the `[FeatureRequest]` section" delineated by the `$start$` and `$end$` tokens. Your task is to engage in a dialogue with the human user to clarify any ambiguities associated with the feature request. Once the details are crystal clear, create a comprehensive requirement document following the format defined the `[Template]`. You can use the `[Example]` section as a reference. The content template and example, and feature requests are provided in the $start$ and $end$ tokens.
-
-## Approach:
-1. Start by thoroughly analysing the feature request.
-2. Ask user question for clarifications.
-3. Analyse users's answers to the questions. Draft a full requirement documentation.
-4. Reanalyse the requirement documentation crafted in step 3.  Initiate another session of question-asking if still questions exist. Repeat the process until all details are clear. If clarity is achieved, conclude the session.
-
-
-Address the task as per the defined steps in the '## Approach' section. Think meticulously and reason thoroughly for each step.
-
-## Output Format
-- Start each step with a title: step [number], name. For example
-  Step 1: analyse the feature request
-  { here is the detailed thinking of step 1}
-
-[Template]
-
-
-You are a senior requirements engineer. You will receive a feature request within the `[FeatureRequest]` section marked by the `$start$` and `$end$` tokens. Engage in a dialogue with the human user to address any uncertainties in the feature request. After gaining a clear understanding, create a detailed requirement document using the format provided in the `[Template]` section. Refer to the `[Example]` section if needed.
-
-## Approach:
-1. Begin by thoroughly understand the feature request.
-2. Ask questions to the user to clarify ambiguities, and wait for answers.
-3. Reason based on provided answers. Continue to ask questions until all functional requirements are figured out.
-4. create a comprehensive requirement document.
-
-Address the task as per the defined steps in the '## Approach' section. Think meticulously and reason thoroughly for each step.
+## Criteria:
+- **Effectiveness**: Ensure the requirement is easily translatable into design solutions and code implementations.
+- **Clarity & Brevity**: Define each requirement in a straightforward and succinct manner.
+- **Wording Accuracy**: Use precise terminology, ensuring correct usage of singular and plural forms.
+- **Consistency**: Avoid conflicting details within the documentation.
+- **Completeness**: Ensure all functional requirement behaviors are captured.
 
 ## Output Format:
 - Start each step with a title: "Step [number]: [name]". For instance:
-  Step 1: Examine the feature request
+  Step 1: Understand the feature request
   {Provide detailed reasoning for this step here}
 
+Address the task as per the defined steps in the '## Approach' section. Think meticulously and reason thoroughly for each step.
+
 [Template]
-$start$
-### <Title> (Title should closely related to the feature)
+### <Title> (Title should be closely related to the feature)
+
+#### 1. Feature Description:
+Provide a concise description of the feature, its purpose, and its technical significance.
+
+#### 2. Feature Dependencies:
+List and briefly describe any features or modules that this feature is dependent upon or integrates with.
+
+- **<Dependency_1>**: Brief description of how and why this feature depends on or integrates with Dependency_1.
+- **<Dependency_2>**: Brief description of how and why this feature depends on or integrates with Dependency_2.
+
+<Continue listing dependencies as necessary.>
+
+#### 3. Requirements:
+
+3.1. **Functional Requirements**:
+
+- **<Category_1>**:
+   - <Requirement_1.1>
+   - <Requirement_1.2>
+   - ...
+   
+- **<Category_2>**:
+   - <Requirement_2.1>
+   - <Requirement_2.2>
+   - ...
+
+<Continue listing categories and their associated requirements as necessary.>
+
+3.2. **Technical Requirements**:
+
+- **<Category_1>**:
+   - <Requirement_1.1>
+   - <Requirement_1.2>
+
+<Continue listing categories and their associated requirements as necessary.>
+
+[Example]
+### File Management System
+
+#### 1. Feature Description:
+The File Management System is a cloud-based solution designed for secure and efficient storage, sharing, and management of documents. It emphasizes data integrity, seamless collaboration, and user-friendly file organization. Users, ranging from students to office workers, can save, share, and collaboratively edit documents while maintaining structured file organization.
+
+#### 2. Feature Dependencies:
+- **CloudSync Engine**: The backbone of our cloud storage capabilities, the CloudSync Engine ensures fast, secure, and reliable cloud storage. It handles the uploading, downloading, and synchronization of files across multiple devices. The File Management System integrates with this engine to provide its core cloud storage functionalities.
+
+#### 3. Requirements:
+
+3.1. **Functional Requirements**:
+
+- **File Operations**:
+   - Upload files to the cloud.
+   - Download files from the cloud.
+   - Delete files from the cloud.
+   - Rename files.
+
+- **Collaboration**:
+   - Enable real-time collaborative editing of documents.
+   - Allow users to comment on specific parts of a document.
+   - Maintain a track of changes and version history for documents.
+
+- **Organization**:
+   - Create and manage folders for document organization.
+   - Facilitate the movement of files between folders.
+   - Implement a search functionality to retrieve files using keywords.
+
+
+[FeatureRequest]
+Could you please update our earlier requirement according to the new template?
+
+[automated_coding_workflow_requirement_start]
+### Automated Coding Workflow System
 
 #### 1. Story/Feature Description:
 
 1.1. **Background**: 
-<Provide a detailed background or context regarding the feature or story.>
+The software development process often follows a structured sequence of tasks such as gathering requirements, designing solutions, coding, and testing. The Automated Coding Workflow System aims to streamline this process by offering a modular and structured way to manage and execute a multi-step automated coding workflow.
 
 1.2. **User Persona**: 
-<Describe the primary user or users, including their roles and what they need to accomplish.>
+Software Developer or Team Lead who needs to:
+  - Set up an automated workflow for code development.
+  - Define specific tasks or steps in the coding process.
+  - Integrate with an LLM system to manage external dependencies.
 
 1.3. **User Journey**: 
-<Detail the user's interaction process with the software or feature, describing their experiences and what they can expect.>
+A user defines the steps for the workflow, such as gathering requirements or designing solutions. They can then execute individual steps or start the entire workflow. Each step in the workflow can have sub-steps, allowing for a more granular control over the coding process.
+
+#### 2. Requirements:
+
+2.1. **Functional Requirements**:
+
+- **Workflow Management**:
+   - Define and manage a multi-step automated coding workflow.
+   - Each step in the workflow can potentially have sub-steps.
+   - Integrate with an LLM system to manage external dependencies.
+   - Initialize steps of the workflow from a given configuration.
+   - Convert the workflow instance to a JSON representation.
+   - Start the entire workflow process.
+   - Execute specific steps within the workflow using their ID.
+   
+- **Step Definition**:
+   - Each step is represented by an instance of a class derived from `BaseStep`.
+   - Construct a unique ID for each step instance.
+   - Construct a dynamic prompt for each step.
+   - Process the response from the LLM API for each step.
+   - Define the execution logic for each step.
+   
+- **Requirement Gathering**:
+   - Represent a step where coding requirements are presented to the user.
+   - Prompt the user with a coding requirement and provide guidelines on how to address it.
+   - Construct a prompt for this step using a template.
+   - Process the response from the LLM API for this step.
+   
+- **Architecture Design Stage**:
+   - Represent the design stage in the coding workflow.
+   - Use a template for constructing the design stage's prompt.
+
+[automated_coding_workflow_requirement_end]
+
+
+
+You are a senior requirement engineer. You are tasked with creating a feature requirement documentation for developers and large language models like ChatGPT.
+
+**Criteria**:
+- **Clarity & Brevity**: Define each requirement in a straightforward and succinct manner.
+- **Wording Accuracy**: Use precise wording, ensuring correct usage of singular and plural forms.
+- **Consistency**: Avoid any conflicting details within the documentation.
+- **Coherence**: Ensure logical flow and organization throughout the document.
+- **Technical Focus**: The document should be easily translatable into design solutions and code implementations. Avoid extensive narratives.
+
+## Approach:
+1. Understand the feature request thoroughly.
+2. Engage in dialogue with the user to clarify any ambiguities.
+3. Ask questions and reason based on user responses until all functional requirements are well-defined.
+4. Draft a requirement document prioritizing the criteria above.
+
+Address the task following the steps in the '## Approach' section. Reason meticulously for each step.
+
+## Output Format:
+- Begin each step with a title: "Step [number]: [name]". For instance:
+  Step 1: Examine the feature request
+  {Provide detailed reasoning for this step here}
+
+
+[Template]
+### <Title> (Title should be closely related to the feature)
+
+#### 1. Feature Description:
+Provide a concise description of the feature, its purpose, and its technical significance.
 
 #### 2. Requirements:
 
@@ -89,182 +185,3 @@ $start$
    - ...
 
 <Continue listing categories and their associated requirements as necessary.>
-$end$
-
-[Example]
-$start$
-### File Management System
-
-#### 1. Story/Feature Description:
-
-1.1. **Background**: 
-A cloud-based file management system is needed to allow users to store, share, and manage their documents securely and efficiently. This system should ensure data integrity, offer collaboration features, and allow for easy file retrieval and organization.
-
-1.2. **User Persona**: 
-End User (Student, Office Worker) who needs to:
-  - Save and retrieve documents.
-  - Share files with peers.
-  - Organize files in folders.
-  - Collaborate on documents in real-time.
-
-1.3. **User Journey**: 
-A user uploads a document to the cloud storage. They can then share this document with a colleague, allowing for collaborative editing. As they make changes, versions of the document are saved, allowing for easy rollback if necessary. The user can also organize their files in folders, ensuring easy retrieval.
-
-#### 2. Requirements:
-
-2.1. **Functional Requirements**:
-
-- **File Operations**:
-   - Upload files to the cloud.
-   - Download files from the cloud.
-   - Delete files from the cloud.
-   - Rename files.
-   
-- **Collaboration**:
-   - Real-time collaborative editing.
-   - Commenting on specific parts of a document.
-   - Track changes and version history.
-
-- **Organization**:
-   - Create folders.
-   - Move files between folders.
-   - Search for files using keywords.
-$end$
-
-[FeatureRequest]
-$start$
-Previously we implemented automated coding workflow. I show you the code architecture existing in the source code.
-
-### Feature Code Design Documentation:
-
-#### 1. Code Architecture Design:
-
-1.1. **High-Level Design**: 
-The feature orchestrates an automated coding workflow, modularly structured, where each individual step, derived from a `BaseStep`, represents a distinct phase in the workflow. One of the pivotal aspects of the design is that every step employs its own uniquely configured prompt, which is dispatched to a large language model (LLM) for processing. The workflow allows for serialization to JSON, and specific steps can be executed as needed. The design is enhanced with support for multi-layered steps and sub-steps.
-
-1.2. **New Components**:
-- **AutomatedCodingWorkflow (New)**: Manages the automated coding workflow. It is in charge of initializing steps, running specific steps, and serializing the workflow to JSON.
-- **WORKFLOW_CONFIG (New)**: Offers configuration specifics for the entire workflow.
-- **BaseStep (New)**: Serves as a foundational class for workflow steps. Every distinct step derives from this class and has its own prompt configuration for communication with the LLM.
-- **WorkflowStatus (New)**: An enumeration potentially representing different states of the workflow.
-- **StepsTemplateConfig (New)**: Configuration parameters for individual steps.
-- **RequirementStep (New)**: Processes requirements using its own tailored prompt template.
-- **ArchitectureDesignStep (New)**: Handles the architectural design phase with its unique prompt.
-- **ImplementationStep (New)**: Oversees the coding implementation phase with its distinct prompt.
-- **TestGenerationStep (New)**: Dedicated to generating tests for Python code, equipped with a detailed prompt.
-
-1.3. **Existing Components/Dependencies**:
-- **LLMIntegrationRegistry (Existing)**: From the `llm_integrations` package, it manages integrations pertinent to LLM.
-- **WorkspaceSetting (Existing)**: Originating from the `workspaces` package, it holds workspace-specific settings.
-- **PromptTemplate (Existing)**: From the `prompt` package, it's a template structure for constructing prompts.
-- **PromptTemplateVariable (Existing)**: Also from the `prompt` package, it defines variables to be embedded in prompt templates.
-
-1.4. **Interactions**: 
-- The `AutomatedCodingWorkflow` initializes steps using the `WORKFLOW_CONFIG`.
-- Every step, like `RequirementStep` or `ArchitectureDesignStep`, constructs a unique prompt using `PromptTemplate` and `PromptTemplateVariable`.
-- The workflow status might be tracked and set using the `WorkflowStatus`.
-- Steps may need to interact with the `LLMIntegrationRegistry` for integration management during execution.
-- During initialization, the `WorkspaceSetting` is passed to the `AutomatedCodingWorkflow`.
-
-1.5. **External Dependencies**: 
-No third-party libraries, services, or tools have been identified from the provided code segments.
-
-#### 2. UML Diagram:
-
-@startuml
-
-package "autobyteus.workflow" {
-    abstract class "BaseStep (New)" {
-    }
-
-    class "AutomatedCodingWorkflow (New)" {
-        + _initialize_steps(steps_config: dict)
-        + to_json(): str
-        + execute_step(step_id: str): str
-        + start_workflow()
-    }
-
-    class "WORKFLOW_CONFIG (New)" {
-    }
-
-    class "WorkflowStatus (New)" {
-    }
-
-    class "StepsTemplateConfig (New)" {
-    }
-
-    class "RequirementStep (New)" {
-        + construct_prompt(requirement: str): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    class "ArchitectureDesignStep (New)" {
-        + construct_prompt(): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    class "ImplementationStep (New)" {
-        + construct_prompt(): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    class "TestGenerationStep (New)" {
-        + construct_prompt(): str
-        + process_response(response: str): void
-        + execute(): void
-    }
-
-    "RequirementStep (New)" --|> "BaseStep (New)"
-    "ArchitectureDesignStep (New)" --|> "BaseStep (New)"
-    "ImplementationStep (New)" --|> "BaseStep (New)"
-    "TestGenerationStep (New)" --|> "BaseStep (New)"
-}
-
-package "autobyteus.llm_integrations" {
-    class "LLMIntegrationRegistry (Existing)" {
-    }
-}
-
-package "autobyteus.workspaces.setting" {
-    class "WorkspaceSetting (Existing)" {
-    }
-}
-
-package "autobyteus.prompt" {
-    class "PromptTemplate (Existing)" {
-    }
-
-    class "PromptTemplateVariable (Existing)" {
-    }
-}
-
-"AutomatedCodingWorkflow (New)" --> "BaseStep (New)"
-"AutomatedCodingWorkflow (New)" --> "WorkflowStatus (New)"
-"AutomatedCodingWorkflow (New)" --> "LLMIntegrationRegistry (Existing)"
-"AutomatedCodingWorkflow (New)" --> "WorkspaceSetting (Existing)"
-"RequirementStep (New)" --> "PromptTemplate (Existing)"
-"RequirementStep (New)" --> "PromptTemplateVariable (Existing)"
-"ImplementationStep (New)" --> "PromptTemplate (Existing)"
-"TestGenerationStep (New)" --> "PromptTemplate (Existing)"
-"TestGenerationStep (New)" --> "PromptTemplateVariable (Existing)"
-
-@enduml
-
-I want to store each workflow in neo4j database. Here is a short discription
-Graph Database Structure: Nodes and Relationships
-Nodes: In the context of your system:
-
-Requirement Node: This can store attributes like requirement details, priority, associated stakeholders, creation date, etc.
-Subtask Node: Contains attributes like task description, status (pending, in-progress, completed), assigned developer, etc.
-Source Code Node: Holds information about the specific code module, file path, last modified date, version, etc.
-Relationships: These are links between nodes and can also store properties:
-
-Defines: A link between a Requirement Node and a Subtask Node, indicating that a specific requirement defines certain subtasks.
-Implements: A link between a Subtask Node and a Source Code Node, suggesting that a particular subtask implements certain source code components.
-Depends On: Can show dependencies between various requirements or subtasks.
-$end$
-
-

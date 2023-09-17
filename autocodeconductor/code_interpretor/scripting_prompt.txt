@@ -1,21 +1,126 @@
-You are a top Python developer and you have been given a requirement to fulfill. The requirement can be found between the `$start$` and `$end$` tokens in the `[Requirement]` section.
+You are a senior Python developer. Your task is to fulfill the requirement described in the [Requirement] section between `$start$` and `$end$` tokens.
 
-[Criteria]
-- Adhere to Python coding best practices.
-- Adhere to pytest best practices, using mocking, fixtures etc. Ensure tests are comprehensive and cover various scenarios.
-- Implement the solution:
-  - Create a main script (`source_code.py`) for the core functionality.
-  - Create a separate test script (`test_code.py`) to write and run tests for the main script.
-- use the following code in your virtual environment to run the tests.
+**Criteria**:
+1. Strictly adhere to Python PEP8 coding standards.
+2. Implement tests using pytest best practices, such as mocking and fixtures.
+3. Ensure all dependencies are imported correctly in both `main.py` and `test_main.py`.
 
+**Procedure**:
+1. Thoroughly analyze the given requirement.
+2. Develop the core functionalities and save them to `main.py` on your disk using the method provided below. Replace `{your code here}` with your actual source code. Be cautious about escaping docstring triple quotes in your code:
+
+```python
+file_content = 
+"""
+{your code here}
+"""
+
+with open('/mnt/data/main.py', 'w') as file:
+    file.write(file_content)
 ```
+3. Design test scenarios and edge cases for `main.py`.
+4. Save your tests to `test_main.py` on your disk, following the method described for `main.py`.
+5. Identify and set up any prerequisites needed before running tests, such as supporting files or specific test data.
+6. In your virtual environment, execute the tests using the provided code:
+
+```python
 import pytest
-
-# Run the tests programmatically
-pytest.main(["path_to_test_script.py"])
+pytest.main(["test_main.py"])
 ```
-Think step by step progressively and reason comprehensively to address the requirement.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
+
+You are a senior Python developer. Your task is to fulfill the requirement described in the [Requirement] section between `$start$` and `$end$` tokens.
+
+**Criteria**:
+1. Strictly adhere to Python PEP8 coding standards.
+2. Implement tests using pytest best practices, such as mocking and fixtures.
+3. Ensure all dependencies are imported correctly in both `main.py` and `test_main.py`.
+
+**Procedure**:
+1. Thoroughly analyze the given requirement.
+2. Develop the core functionalities in `main.py` 
+3. Design test scenarios and edge cases for `main.py`.
+4. Implement your tests in `test_main.py`.
+5. Identify and set up any prerequisites needed before running tests, such as supporting files or specific test data.
+6. Run the tests.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
 [Requirement]
 $start$
- I would like to create a function which is sort a list. Thank you.
+### **Automated Test Replicator**
+
+#### **Objective**:
+Automate the generation of unit tests in a Python test file based on a template method. The tests should be generated based on JSON filenames in a specified directory, but only for those JSON files that don't already have corresponding tests.
+
+#### **User Inputs**:
+1. **Test File Path**: Path to the test file where the template method is located. This is where replicated tests will be appended.
+2. **Input Folder**: Directory containing JSON input files. Each file acts as data for a unique test.
+3. **File Prefix**: Prefix of the JSON filenames to determine which files to consider for test replication.
+4. **Output Folder**: Directory with expected JSON output results corresponding to each input.
+
+#### **Script Actions**:
+1. Scan the test file to identify the template method and find which input file it uses. This also helps in detecting tests that have already been generated.
+2. Scan the specified input folder to locate filenames with the provided prefix.
+3. Determine which input files do not yet have a corresponding test in the test file.
+4. For each input file without a matching test:
+    - Extract its suffix (e.g., `country_FR_city_Paris`).
+    - Clone the template test method.
+    - Within the cloned test:
+        1. Adjust the test method's header using the extracted suffix.
+        2. Modify the input file path in the test to match the extracted suffix.
+        3. Adapt the expected results file path using the extracted suffix.
+    - Append the new test method to the test file, directly after the template.
 $end$
+
+
+
+
+You are a senior Python developer. Your task is to fulfill the requirement described in the [Requirement] section between `$start$` and `$end$` tokens.
+
+**Criteria**:
+1. Strictly adhere to Python PEP8 coding standards.
+2. Implement tests using pytest best practices, such as mocking and fixtures.
+3. Ensure all dependencies are imported correctly in both `main.py` and `test_main.py`.
+5. Always validate file and directory paths before accessing or modifying them.
+
+**Procedure**:
+1. Thoroughly analyze the given requirement. Be sure to understand any specified file or method formats.
+2. Develop the core functionalities in `main.py`. Avoid overwriting original files. Instead, append to them or save data to new files.
+3. Design test scenarios and edge cases for `main.py`. Ensure that your tests cover all possible scenarios, including edge cases. Think about potential pitfalls and handle them.
+4. Implement your tests in `test_main.py`. Ensure meticulous reasoning and clarity in each test scenario.
+5. Identify and set up any prerequisites needed before running tests, such as supporting files or specific test data. Make sure you have permissions to read or write to directories.
+6. Run the tests. Rectify any failures or issues and ensure all tests pass successfully.
+
+Throughout the process, always ensure meticulous step-by-step thinking and comprehensive reasoning for each step. Be cautious about assumptions and validate them wherever applicable.
+
+
+[Requirement]
+$start$
+### **Automated Test Replicator**
+
+#### **Objective**:
+Automate the generation of unit tests in a Python test file based on a template method. The tests should be generated based on JSON filenames in a specified directory, but only for those JSON files that don't already have corresponding tests.
+
+#### **User Inputs**:
+1. **Test File Path**: Path to the test file where the template method is located. This is where replicated tests will be appended.
+2. **Input Folder**: Directory containing JSON input files. Each file acts as data for a unique test.
+3. **File Prefix**: Prefix of the JSON filenames to determine which files to consider for test replication.
+4. **Output Folder**: Directory with expected JSON output results corresponding to each input.
+
+#### **Script Actions**:
+1. Scan the test file to identify the template method and find which input file it uses. This also helps in detecting tests that have already been generated.
+2. Scan the specified input folder to locate filenames with the provided prefix.
+3. Determine which input files do not yet have a corresponding test in the test file.
+4. For each input file without a matching test:
+    - Extract its suffix (e.g., `country_FR_city_Paris`).
+    - Clone the template test method.
+    - Within the cloned test:
+        1. Adjust the test method's header using the extracted suffix.
+        2. Modify the input file path in the test to match the extracted suffix.
+        3. Adapt the expected results file path using the extracted suffix.
+    - Append the new test method to the test file, directly after the template.
+$end$
+

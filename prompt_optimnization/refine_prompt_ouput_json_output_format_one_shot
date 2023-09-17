@@ -1,40 +1,3 @@
-Prompt Description: This prompt is used to optimize a given prompt.
-
-
-1. Version 1: use json as output
-As an expert in optimizing prompts, your task is to refine the given prompt within the `>>Prompt<<` section. The start of content begins with `$start$` and ends with `$end$`.
-
-Follow the steps below, each accompanied by a title and a description:
-1. Analyze the Prompt:
-   - Dissect the prompt to understand its content and objectives.
-
-2. Determine the Domain:
-   - Identify the domain to which this prompt belongs.
-
-3. Evaluate and Recommend Linguistic Enhancements:
-   - Articulate your thoughts on the prompt's clarity, effectiveness, sentence structure, consistency, coherence, and word order, content structure. If you think there are areas needs to be improved, then share your detailed opinions where and why
-
-4. Present the Refined Prompt:
-   - Apply your improvements suggestions from step 3, 4, and present the refined prompt from a new line
-
-The output format should be in JSON, with each step title as the key, and the output of each step as the value. Here is an example format:
-   {   
-       "Analyze the Prompt": "Description of analysis...",
-       "Summarize the Prompt": "Concise summary...",   
-       "Identify the Domain of the Prompt": "Domain name...",
-       "Assess and Suggest Improvements Based on the Domain of the Prompt": {
-                 "a": "Opinions on clarity...",
-                 "b": "Suggestions for improvement..."   
-       },
-       "Present the Refined Prompt": "$start$ Refined prompt content... $end$"
-   }
-
->>Prompt<<
-$start$
-$end$
-
-
-Version 2: Not using json output
 As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
 
 [Context]
@@ -44,7 +7,7 @@ The optimized prompt will be used by large language model like ChatGPT.
 [Criteria]
 Don't over optimize. For instance, just to use some more advanced english words
 to replace existing simple but understandable words will achieve worse results 
-when executed by ChatGPT.
+when executed by ChatGPT. 
 
 Follow the steps below, each accompanied by a title and a description:
 1. Analyze the Prompt:
@@ -61,62 +24,36 @@ Follow the steps below, each accompanied by a title and a description:
    - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
 
 
+As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+
+[Context]
+Most of the prompt is well-written, but only some minor parts might need grammar or use of words improvements.
+The optimized prompt will be used by large language model like ChatGPT.
+
+[Criteria]
+Don't over optimize. For instance, just to use some more advanced english words
+to replace existing simple but understandable words will achieve worse results 
+when executed by ChatGPT. 
+
+Follow the steps below, each accompanied by a title and a description:
+1. Analyze the Prompt:
+   - Dissect the prompt to understand its content and objectives.
+
+2. Determine the Domain:
+   - Identify the domain to which this prompt belongs.
+
+3. Evaluate and Recommend Linguistic Enhancements:
+   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why. 
+
+4. Present the Refined Prompt:
+   - The prompt should always start with "You are ...".
+   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
+
 [Prompt]
 $start$
-You are a Python architect. You are tasked with initiating the design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation.
 
-### Context
-"Part-Of" components in the template means components possibly belonging to the same feature, but
-code is not provided in [SourceCode] section.
-"Used-By" components are components that is hard to judge its contribution to the feature, whic provides support for the current feature.
-
-### Criteria:
-- Base your documentation on the format defined by template in `[Template]` section.
-- Present the documentation in a copiable format.
-
-### Procedure:
-1. **Inspect the Source Code**:
-   - Dive into the code in the `[SourceCode]` section, taking note of primary functionalities.
-
-2. **Establish the File's Purpose and Dependencies**:
-   - Determine the core purpose of the file in the broader feature context.
-   - Categorize each project dependency under the project root namespace in the file:
-      - Answer the following questions for the dependency:
-      1. What is the possible functionality of this dependency? (2) How is the functionality
-      highly contributing to the feature? If its hard to judge the functionality, or not clear how the dependency contributing to the current feature, then label it as `Used-By` components. Othersise, label it as `Part-Of` component with its potential purpose. Output format: 'The functionality of the dependency is __, it serves as __, label it as `Part-Of`. Or the contribution is not clear, label it as 
-      `Used-By` '.
-
-3. **Draft the Initial Documentation**:
-   - Craft the initial documentation based on insights from the file, ensuring placeholders are in place for future components.
-
-Follow the steps defined in 'Procedure' section, think step by step meticously and reason comprehensively for each step.
 $end$
 
-
-You are a Python architect. You are assigned the role of drafting design documentation for a pre-existing feature. Due to context limitations, you can document only one file at a time. Use the provided file as a starting point.
-
-### Context:
-- "Part-Of" components refer to elements likely associated with the same feature, but their code isn't provided in the `[SourceCode]` section.
-- "Used-By" components describe elements supporting the current feature, but their direct contribution might be unclear.
-
-### Criteria:
-- Use the format specified in the `[Template]` section for your documentation.
-- Ensure your documentation is in copyable code block.
-
-### Procedure:
-1. **Inspect the Source Code**:
-   - Thoroughly review the code in the `[SourceCode]` section, identifying key functionalities.
-
-2. **Define the File's Role and Dependencies**:
-   - Understand the file's primary purpose within the overarching feature.
-   - Examine each project dependency under the root namespace in the file (excluding standard third-party libraries) and answer:
-      - What function might this dependency serve?
-      - Does this dependency directly contribute to the feature? If its role is unclear or its contribution is indirect, label it as `Used-By`. Otherwise, label it as `Part-Of` and state its potential function. The response format should be: 'The dependency's functionality is __, and it serves as __. Label it as `Part-Of`. If its role is uncertain, label it as `Used-By`.
-
-3. **Compose the Preliminary Documentation**:
-   - Develop the initial documentation based on your observations.
-
-Approach each step systematically and provide well-thought-out reasoning for your decisions.
 
 
 As an Python architect with strong prompt refining skills, you are tasked with refining the content of the prompt found between the `$start$` and `$end$` tokens in the `[Prompt]` section.
@@ -126,9 +63,7 @@ Most of the prompt is well-written, but only some minor parts can be improved.
 The optimized prompt will be used by large language model like ChatGPT.
 
 [Criteria]
-Don't over optimize. For example, just to use some more advanced english words
-to replace existing simple but understandable words will achieve worse results 
-when executed by ChatGPT.
+Don't over-optimize. For example, simply replacing straightforward words with more advanced English terms can result in poorer interactions with ChatGPT. This happens frequently.
 
 
 Follow these steps:
@@ -146,64 +81,7 @@ Follow these steps:
 
 
 $start$
-You are a Python architect. You are tasked with initiating the design documentation for an already-implemented feature. Given the context size constraints, you'll only be able to handle one file at a time. Use this file to start the documentation.
-
-### Context
-"Part-Of" components in the template means components possibly belonging to the same feature, but
-code is not provided in [SourceCode] section.
-"Used-By" components are components that is hard to judge its contribution to the feature, whic provides support for the current feature.
-
-### Criteria:
-- Base your documentation on the format defined by template in `[Template]` section.
-- Present the documentation in a copiable format.
-
-### Procedure:
-1. **Inspect the Source Code**:
-   - Dive into the code in the `[SourceCode]` section, taking note of primary functionalities.
-
-2. **Establish the File's Purpose and Dependencies**:
-   - Determine the core purpose of the file in the broader feature context.
-   - Categorize each project dependency under the project root namespace in the file:
-      - Answer the following questions for the dependency:
-      1. What is the possible functionality of this dependency? (2) How is the functionality
-      highly contributing to the feature? If its hard to judge the functionality, or not clear how the dependency contributing to the current feature, then label it as `Used-By` components. Othersise, label it as `Part-Of` component with its potential purpose. Output format: 'The functionality of the dependency is __, it serves as __, label it as `Part-Of`. Or the contribution is not clear, label it as 
-      `Used-By` '.
-
-3. **Draft the Initial Documentation**:
-   - Craft the initial documentation based on insights from the file, ensuring placeholders are in place for future components.
-
-Follow the steps defined in 'Procedure' section, think step by step meticously and reason comprehensively for each step.
 $end$
-
-
-
-
-You are a Python architect. Your task is to create feature code design documentation for an existing feature. Due to size constraints, focus on one file at a time, provided in the `[SourceCode]` section.
-
-### Criteria:
-- The documentation should follow the `Feature Code Design Documentation Template` from the `[Template]` section.
-- Present the final documentation in a copiable code block.
-
-### Procedure:
-1. **Review the Source Code**:
-    - Examine the code in the [SourceCode] section and note key functionalities and structures.
-
-2. **Determine the Purpose of the Code**:
-    - Identify the broader objective the code is trying to achieve.
-
-3. **Analyze File's Role and Dependencies**:
-    - Understand the file's main purpose within the broader feature context.
-   - Analyze each project dependency in the file, excluding third-party ones:
-     - Evaluate the functionality of each dependency.
-     - Decide if its function is closely related to the identified feature, even if its code isn't provided. If yes, label it as `Placeholder Components (Pending File Provision)` with its potential purpose. Otherwise, consider it a dependency from another feature and label it as `Dependencies (Unchanged Components)`.
-
-4. **List Project Dependencies**:
-   - From the analysis in step 2, categorize the dependencies.
-
-5. **Draft the Documentation**:
-   - Use insights from the above analysis to create the code design documentation.
-
-Follow the steps in the 'Procedure' section carefully and reason thoroughly for each step.
 
 
 
@@ -246,30 +124,6 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-As a senior python software engineer, you are given a task situated between `$start$` and `$end` tokens in the `[Requirement]` section.
-
-[Criterias]
-- Follow python PEP8 best practices, such as typing etc.
-- Follow pytest best practices when writting tests using fixtures, or mocking etc.
-- Think about different test cases to improve test coverage
-- Use behavior-driven naming conventions for the test function naming.
-- Use best practices to create test file path. Here is a sample best practice to 
-  put the test file for the source file.
-    src
-        semantic_code
-                embedding
-                    openai_embedding_creator.py
-    tests
-        unit_tests
-            semantic_code
-                embedding
-                    test_openai_embedding_creator.py
-        integration_tests
-            semantic_code
-                index
-- Use command write_file(file_path, content) to write the complete updated code to file   path. 
-
-Think step by step progressively and reason comprehensively to address the task. 
 
 $end$
 
@@ -312,45 +166,4 @@ $end$
 
 
 
-You are tasked with updating the code design documentation and then formulating subtasks based on the design. Prioritize new and updated components. Use the provided template for each subtask.
 
-### Steps: 
-1. **Identify Subtasks**:
-    - Pinpoint necessary subtasks, focusing on new and updated components. Sequence them according to their interdependencies.
-  
-2. **Preliminary Setup**:
-    - Will new libraries be required? 
-    - Are there new folders or files? If so, adopt consistent naming conventions. Reason about the optimal location using the existing project folder structure.
-  
-3. **Formulate Each Subtask**:
-    - Begin with Task 1: Setup of required libraries and directories. Example:
-    ```
-    Task 1: Preliminary Setup
-    #task start#
-    Purpose: Set up libraries and directory structure.
-    File Specification: requirements.txt, autobyteus/repositories, autobyteus/utils
-    Details: Add SQLAlchemy and Alembic to requirements.txt. Establish necessary folders and files.
-    Integration Points: None.
-    #task end#
-    ```
-    - Structure subsequent subtasks in order of dependency, each concentrating on a specific component or class.
-
-### Current Project Folder Structure
-    autobyteus
-        db
-    tests
-        unit_tests
-        integration_tests
-    requirements.txt
-
-[Template]
-#### Task [Number]: [Task Name]
-#task start#
-- **File Specification**: [File path for the component.]
-- **Purpose**: [Main objective for this component, as described in the documentation.]
-- **Attributes**: [Details of each attribute, as described in the documentation.]
-- **Methods**: [Details of each method, as described in the documentation.]
-- **Integration Points**: [Interactions and dependencies of the component, as described in the documentation.]
-#task end#
-
-Carefully follow the outlined steps and provide comprehensive reasoning for each decision.

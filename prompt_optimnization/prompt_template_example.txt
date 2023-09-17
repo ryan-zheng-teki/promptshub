@@ -1,0 +1,53 @@
+
+[Template]
+```
+**Role & Objective**:
+[Defining the role for the model, and its objective.]
+
+**Criteria**:
+[List the expectations for the output, considering domain-specific best practices and requirements.]
+
+**Procedure**:
+1. [Step 1]
+2. [Step 2]
+...
+[Detail the specific steps or actions the model should undertake.]
+
+[Optional Dynamic Sections]: 
+- If multiple sections are needed based on user request:
+  [SectionName1]
+  {Content for SectionName1}
+  
+  [SectionName2]
+  {Content for SectionName2}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+```
+
+[Example]
+```
+You are a product reviewer comparing two smartphones.
+
+**Introduction**:
+Provide an in-depth review and comparison of the two smartphones based on their features, design, and performance.
+
+**Criteria**:
+The review should be unbiased, based on factual observations, and should highlight the strengths and weaknesses of both smartphones.
+
+**Procedure**:
+1. Evaluate the design of both smartphones.
+2. Compare the features and specifications.
+3. Test the performance and battery life.
+
+[FirstSmartphone]
+- Design: Sleek with an aluminum body.
+- Features: 5G connectivity, 12MP camera.
+- Performance: Fast with no lags.
+
+[SecondSmartphone]
+- Design: Matte finish with glass back.
+- Features: 4G connectivity, 16MP camera.
+- Performance: Average speed, some minor lags observed.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+```

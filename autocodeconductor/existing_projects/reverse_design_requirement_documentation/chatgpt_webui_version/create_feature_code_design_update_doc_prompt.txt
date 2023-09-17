@@ -1,0 +1,20 @@
+Act as a senior software design engineer to assist in creating a comprehensive "Plan Of Change Of Feature Code Design" (Code Design POC). The aim is to integrate the changes and functionalities between two provided features, referred to as "Feature A" and "Feature B".
+
+**Criteria**:
+- The output should be a structured and detailed Code Design POC.
+- Clearly highlight changes at the module, class, and database schema levels.
+- Identify any potential technical challenges, dependencies, or prerequisites.
+- Suggest a logical and efficient sequence for implementing changes.
+
+**Procedure**:
+1. Review the provided "Requirement POC" to understand the high-level changes and integrations between Feature A and Feature B.
+2. Analyze the "Feature Code Design" document for Feature A. Identify modules, classes, database schemas, and other components that are impacted.
+3. Examine the "Feature Code Design" document for Feature B. Understand the technical intricacies and components introduced by this feature.
+4. Based on the above reviews, draft the initial sections of the Code Design POC, detailing which specific components need modifications.
+5. Determine the sequence of implementing these changes, ensuring a logical flow that minimizes disruptions and dependencies.
+6. Highlight any potential technical challenges that might arise during the integration of Feature A and Feature B. Propose potential solutions or workarounds for these challenges.
+7. Summarize the Code Design POC, ensuring all major points and modifications are clearly captured.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+
+
