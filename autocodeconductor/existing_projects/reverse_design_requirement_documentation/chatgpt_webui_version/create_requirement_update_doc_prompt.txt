@@ -1,19 +1,15 @@
-You are tasked with drafting an update documentation for an existing feature, based on new functionalities provided by another recently developed feature. This documentation should clarify the modifications or enhancements required for the original feature, ensuring it efficiently leverages the new capabilities.
-
-**Criteria**:
-The update documentation should:
-- Clearly explain why and how the original feature needs changes.
-- Detail the functionalities from the new feature that the original feature can utilize.
-- Be structured according to the provided template format for consistency and clarity.
+You are a senior requirement engineer. You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section . This documentation should clarify the modifications or enhancements required for the FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
 
 **Procedure**:
-1. Describe the current state and functionalities of the original feature.
-2. List the specific functionalities the new feature offers which are relevant to the original feature.
-3. Highlight and explain the proposed changes to the original feature to incorporate the new functionalities.
-4. Draft the documentation, following the `[Template]` format.
+1. Understand "How To Use This Feature" section from FeatureB.
+2. Provide a detailed analysis for each individual functional requirement from `FeatureA`. For each requirement, answer the following questions and give comprehensive explanation:
+     - **Relevance with FeatureB**: Does this functional requirement still make sense with FeatureB? Should it be updated, removed, or enhanced?
+     - **Integration with FeatureB**: How can this functional requirement work with FeatureB? Will there be direct improvements, simplifications, or additions due to this integration?
+   Ensure that your analysis is comprehensive and offers specifics on how the integration will take place.
+3. Based on the detailed analysis from step 2, start to draft the documentation, following the `[Template]` format.
 
 [Template]
-## Feature Requirement Documentation Update
+## Plan Of Change Of Feature Requirement Documentation
 
 ### Title: 
 - Description of the update to the requirement
@@ -48,28 +44,27 @@ The update documentation should:
 
 ### Integration/Update Details:
 
-**Specific Section or Component of Original Requirement**:
-- Original: Original functionality or description
-- Update: Updated functionality or description based on the driving feature
+### Change Details:
+Document the change details, explicitly explain the reason.
+- Caused By (Reference Abbreviation): Specific functionality from the driving feature that led to the update
 
-(Continue detailing changes for other components or sections as necessary)
+(Continue detailing changes)
 
-
-
-
-
-[OriginalFeature]
+[FeatureA]
 ### Automated Coding Workflow System
 
 #### 1. Feature Description:
-The Automated Coding Workflow System offers a modular and structured way to manage and execute a multi-step automated coding workflow. The primary users are Software Developers or Team Leads, aiming to streamline the software development process that typically includes tasks like gathering requirements, designing solutions, coding, and testing.
+The Automated Coding Workflow System offers a modular and structured way to manage and execute a multi-step automated coding workflow. This system is designed primarily for Software Developers or Team Leads to streamline the software development process, including tasks such as gathering requirements, designing solutions, coding, and testing.
 
 #### 2. Feature Dependencies:
 - **LLM System**: The Automated Coding Workflow System integrates with an LLM system to manage external dependencies.
 
-#### 3. Requirements:
+#### 3. How To Use This Feature:
+(Empty as the main purpose of this section is to describe how other features can use the Automated Coding Workflow System.)
 
-3.1. **Functional Requirements**:
+#### 4. Requirements:
+
+4.1. **Functional Requirements**:
 
 - **Workflow Management**:
    - Define and manage a multi-step automated coding workflow.
@@ -79,71 +74,73 @@ The Automated Coding Workflow System offers a modular and structured way to mana
    - Convert the workflow instance to a JSON representation.
    - Start the entire workflow process.
    - Execute specific steps within the workflow using their ID.
-   
+
 - **Step Definition**:
    - Each step is represented by an instance of a class derived from `BaseStep`.
    - Construct a unique ID for each step instance.
    - Construct a dynamic prompt for each step.
    - Process the response from the LLM API for each step.
    - Define the execution logic for each step.
-   
+
 - **Requirement Gathering**:
    - Represent a step where coding requirements are presented to the user.
    - Prompt the user with a coding requirement and provide guidelines on how to address it.
    - Construct a prompt for this step using a template.
    - Process the response from the LLM API for this step.
-   
+
 - **Architecture Design Stage**:
    - Represent the design stage in the coding workflow.
    - Use a template for constructing the design stage's prompt.
 
-3.2. **Technical Requirements**:
-
+4.2. **Technical Requirements**:
 (No technical requirements were provided in the initial document. This section can be populated when such requirements are defined.)
 
-
-
-[NewFeature]
-### Prompt Versioning Mechanism for Optimal Communication with Large Language Models
+[FeatureB]
+#### Prompt Versioning Mechanism for Optimal Communication with Large Language Models
 
 #### 1. Feature Description:
-This feature introduces a versioning mechanism for prompts, designed to cater to any entity or component that communicates with Large Language Models (LLMs). The primary goal is to harness the inherent variability in LLM responses based on prompt nuances, offering flexibility and a means for comparative analysis between different versions to determine the most effective prompt.
+This feature introduces a versioning mechanism for prompts, specifically designed to offer a standardized capability for any entity or component that communicates with Large Language Models (LLMs). The primary objective is to harness the inherent variability in LLM responses based on prompt nuances, providing flexibility and a means for comparative analysis between different versions to pinpoint the most effective prompt.
 
 #### 2. Feature Dependencies:
 - **None**: This feature operates independently and does not rely on other features developed in the application.
 
-#### 3. Requirements:
+#### 3. How To Use This Feature:
+- Entities wishing to leverage this feature should define their default prompt.
+- After setting the default prompt, the versioning mechanism will automatically handle the creation, management, and retrieval of versioned prompts for that entity.
 
-3.1. **Functional Requirements**:
+#### 4. Requirements:
+
+4.1. **Functional Requirements**:
 
 - **Single Effective Prompt per Entity**:
-   - At any given time, only one effective prompt is permitted for an entity.
-   - Users (in this case, other backend systems or APIs) can select any archived version as the current effective prompt, which replaces the previously set effective prompt.
+   - At any point, only one effective prompt is allowed for an entity.
+   - Users (like other backend systems or APIs) can choose any archived version as the current effective prompt, which will replace the prior effective prompt.
 
 - **Entity-Specific Default Prompt**:
    - Every entity or component communicating with LLMs must have a distinct default prompt.
-   - If the database lacks prompts specific to that entity, the default prompt initializes the database. This primary prompt is set as v1 and becomes the immediate effective prompt by default.
+   - If entity-specific prompts are missing in the database, the default prompt initializes the database, setting as v1 and serving as the immediate effective prompt.
 
 - **Dynamic Initialization of Versioned Prompts**:
-   - At the start of any LLM communication, the system retrieves the effective prompt from the database for the concerned entity.
-   - If a version for an entity is missing in the database, it initializes using the entity's inherent default prompt.
+   - Prior to any LLM communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is missing in the database, the system uses the entity's default prompt for initialization.
 
 - **Prompt Version Management**:
-   - A new prompt version for an entity can be created when the existing prompt undergoes alterations.
-   - A maximum of 4 prompt versions is preserved for every entity in the database.
-   - Introducing a new version that exceeds the 4-version limit results in the deletion of the oldest version.
+   - Entities can create a new prompt version when modifications are made to the existing prompt.
+   - A maximum of 4 prompt versions are stored for each entity.
+   - If introducing a new version surpasses the 4-version limit, the oldest version is deleted.
 
 - **Comparative Analysis**:
-   - The system should allow for an API-based comparative analysis of different prompt versions, with potential to integrate a side-by-side comparison utility in future endeavors.
+   - The system allows for an API-based comparative evaluation of various prompt versions, with plans to integrate a side-by-side comparison tool in future versions.
 
 - **Database Management**:
-   - Versions are symbolized using simple incremented numerals (e.g., v1, v2, etc.).
-   - The creation/modification timestamp for every version is archived.
+   - Versions are represented using simple incremented numerals (e.g., v1, v2, etc.).
+   - Every version's creation/modification timestamp is stored.
 
-3.2. **Technical Requirements**:
+4.2. **Technical Requirements**:
 - **Database Interaction**:
-   - The system should support efficient CRUD (Create, Read, Update, Delete) operations for managing prompt versions.
-   - Prompt versions are stored with unique identifiers, timestamps, and version numbers. 
+   - Efficient CRUD (Create, Read, Update, Delete) operations for managing prompt versions are essential.
+   - Versions are stored with unique identifiers, timestamps, and version numbers.
+
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 
@@ -153,3 +150,60 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 Conversation:
 In software engineering, each feature comes with its corresponding feature requirement documentation. As development progresses, features may integrate functionalities from others. It's crucial that the documentation of a feature like Feature A remains updated, especially if it integrates functionality from Feature B. There's a proposal to introduce a "Feature Update" documentation for capturing such changes. However, detailing the interplay between features can be challenging due to the high-level nature of requirement documents. To ensure clarity, it's proposed that each feature's title be abbreviated by using the first letter of each word, creating a unique short name for easy referencing. This would help in clearly defining the boundaries and dependencies between features in the documentation.
+
+
+
+We aim to integrate the "Plan Of Change documentation" from Feature A with its initial requirements. Doing so will result in an updated requirements document that aligns seamlessly with the codebase. In this revised document, it's imperative to distinguish the functionalities of Feature A from those of Feature B, reflecting the clarity observed in our Plan Of Change documentation. For functional requirements that specifically relate to integration points with Feature B (and not just at the category level), consider using terms such as "Mandated By Feature B", "Specified By Feature B", or "Provided By Feature B". This will clearly indicate the influence of Feature B on that particular function.
+
+To illustrate my point regarding individual functional requirements:
+- **<Category_1>**:
+   - <Requirement_1.1>
+   - <Requirement_1.2>
+
+Where "Requirement_1.1" represents the functional requirement and "Category_1" denotes the requirement category.
+
+Should you find more appropriate terminology, considering my English proficiency may fall short at times, I welcome your revisions. I value and trust your expertise. Above all, our objective is to ensure clear distinctions between the features in the new documentation, especially around integration points. I'd appreciate if you familiarize yourself with the context prior to making any changes.
+
+
+
+Target Reason Of POC: The requirement of FeatureA goes through changes.
+Target Reason of POC: Because other parts of the software has changes, which 
+influences the current feature.
+
+
+
+
+Version 3:
+Absolutely! Let's adjust the prompt to be more explicit by incorporating the structure you've provided to make it clear for ChatGPT.
+
+---
+
+You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
+
+**Procedure**:
+1. Understand "How To Use This Feature" section from FeatureB.
+2. For each **individual functional requirement** listed under the structure:
+
+- **<Category_1>**:
+   - <Requirement_1.1>
+   - <Requirement_1.2>
+   - ...
+
+from `FeatureA`, answer the following questions:
+     - **Relevance with FeatureB**: Does <Requirement_1.1> (and others) still make sense with FeatureB? Should it be updated or removed?
+     - **Integration and Optimization**: How can <Requirement_1.1> (and others) work with FeatureB, and will it be improved or simplified?
+     - **Evolution Post-Integration**: How might <Requirement_1.1> (and others) change after integrating with FeatureB?
+3. Based on the previous analysis, start to draft the documentation, following the `[Template]` format.
+
+
+
+You are a senior requirement engineer. You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
+
+**Procedure**:
+1. Understand "How To Use This Feature" section from FeatureB.
+2. Provide a detailed analysis for each individual functional requirement from `FeatureA`. For each requirement, answer the following questions and give comphrehensive reasoning:
+     - **Relevance with FeatureB**: Does this functional requirement still make sense with FeatureB? Should it be updated or removed?
+     - **Integration and Optimization**: How can this functional requirement work with FeatureB, and will it be improved or simplified?
+     - **Evolution Post-Integration**: How might this functional requirement change after integrating with FeatureB?
+   Ensure that your analysis is comprehensive and offers specifics on how the integration will occur.
+3. Based on the detailed analysis from step 2, start to draft the documentation, following the `[Template]` format. 

@@ -1,0 +1,9 @@
+You know in forward-reasoning, each output of previous step should contribute to the output of the next step in order to 
+have more accurate result. 
+
+Could you please evaludate the contributions of your output of the second step to the output of the third step?
+
+My feeling is that, it does not contribute that much. 
+
+
+If the output of the second step does not contribute to the output of the third step, this means our instruction possibly need to be improved.

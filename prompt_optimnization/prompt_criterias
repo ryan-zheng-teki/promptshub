@@ -1,0 +1,11 @@
+1. **Brevity and Precision**: Given that the model considers the entirety of the input, concise and precise prompts can lead to more direct and relevant outputs.
+  
+2. **Avoiding Redundancy**: As seen in our discussion, explicitly asking the model to "understand" or "familiarize" itself with provided information can lead to repetitive outputs. Instead, focusing on actionable requests is more effective.
+  
+3. **Guided Constraints**: Introducing constraints or specific guidelines (like our analysis criteria) can help in directing the model's response. This ensures that the output aligns with the desired structure or detail level.
+  
+4. **Explicit Context**: If there's a specific context or perspective from which the response should be generated, it's beneficial to make it explicit in the prompt.
+  
+5. **Iterative Feedback**: One of the strengths of the model is its ability to refine and iterate based on feedback. If an initial output isn't satisfactory, you can provide feedback or ask the model to consider certain aspects and try again.
+
+Incorporating these considerations into prompt crafting can significantly improve the quality and relevance of the model's outputs. It's indeed a blend of understanding human-like reasoning and the model's inherent behavior.

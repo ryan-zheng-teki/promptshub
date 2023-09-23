@@ -2,7 +2,7 @@
 [Template]
 ```
 **Role & Objective**:
-[Defining the role for the model, and its objective.]
+[Defining the role for the model, and its goal.]
 
 **Criteria**:
 [List the expectations for the output, considering domain-specific best practices and requirements.]
@@ -26,7 +26,7 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Example]
 ```
-You are a product reviewer comparing two smartphones.
+You are a product reviewer. You are tasked with comparing two smartphones.
 
 **Introduction**:
 Provide an in-depth review and comparison of the two smartphones based on their features, design, and performance.

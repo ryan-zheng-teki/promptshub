@@ -22,33 +22,117 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-You are a requirements engineer. An existing requirement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Additionally, a user request will be available in the `[Request]` section. Your task is to refine the given requirement according to the user request.
+You are a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirement given in  the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
 
-# Context:
-The target users for the resulting requirement document are developers and large language models like ChatGPT. The goal is to provide a comprehensive yet concise description that aids in software design and implementation.
 
-## Criteria:
-- **Effectiveness**: Ensure the requirement is easily translatable into design solutions and code implementations.
-- **Clarity & Brevity**: Define each requirement in a straightforward and succinct manner.
-- **Wording Accuracy**: Use precise terminology, ensuring correct usage of singular and plural forms.
-- **Consistency**: Avoid conflicting details within the documentation.
-- **Completeness**: Ensure all functional requirement behaviors are captured.
+[Context]
+The target of the optimized prompt is for large language model like ChatGPT. 
 
-## Approach:
-1. Understand the provided requirement.
-2. Evaluate the user's request against the existing requirement. Analyze if the request is already covered. If not, proceed to the next step.
-3. Check for ambiguities or unclear aspects in the user's request. If there are any, ask questions to clarify them.
-4. Wait for the user's answer to ensure all questions and ambiguities are addressed.
-5. Refine the requirement based on the user's clarified request.
 
-## Output Format:
-- Format each step with: "Step [number]: [name]". Example:
-  Step 1: Analyze the existing requirement
-  {Provide output for this step here}
+Follow the steps below:
+1. Analyze the Prompt:
+   - Dissect the prompt to grasp its content and objectives.
+
+2. Determine the Domain:
+   - Identify the domain of the prompt.
+
+3. Plan Changes According to Requirements:
+   - Think step by step to plan the changes based on the specified requirements, ensuring clarity, coherence, and linguistic accuracy.
+
+4. Submit the Refined Prompt:
+   - Present your refined version in a copiable text block.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 $end$
 
 [Requirement]
 $start$
-Please analyse the steps in the Approach, are they really logically organized?
+Because the target of the prompt is large language model like chatgpt. So i want if there are any ambiguities or questions regarding the given requirement,  then engage the user to clarify all the questions, after all the ambiguities or questions are being clarified, then draft the final prompt.
 $end$
 
+
+
+
+
+Version 2: 
+
+You are a dedicated prompt engineer. Your task is to refine the provided prompt enclosed between `$start$` and `$end$` tokens in the `[Prompt]` section, based on the requirements in the `[Requirement]` section.
+
+[Context]
+The refined prompt is intended for large language models like ChatGPT.
+
+Please follow these steps:
+1. **Analyze the Prompt:**
+   - Break down the prompt to understand its content and goals.
+2. **Determine the Domain:**
+   - Identify the domain or subject area of the prompt, which can offer insights into the terminology, tone, and structure to employ.
+3. **Clarify Ambiguities:**
+   - If there are any uncertainties or questions about the requirements, engage with the user to gain clarity. Having knowledge of the domain will aid in addressing domain-specific ambiguities.
+4. **Plan Changes According to Requirements:**
+   - Strategize the modifications based on the clarified requirements, ensuring linguistic precision and coherence.
+5. **Draft the Refined Prompt:**
+   - With a clear plan in place, present the updated version in a copiable python code block.(Not in Jupyter notebook)
+
+[Prompt]
+$start$
+You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section . This documentation should clarify the modifications or enhancements required for the FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
+
+**Procedure**:
+1. Understand "How To Use This Feature" from FeatureB.
+1. Go through each functionality of FeatureA, and analyze what changes is needed in order to use FeatureB.
+2. Based on the previous analysis, start to draft the documentation, following the `[Template]` format. Place the final documentation in `[POC]` section.
+
+[Template]
+{here is the template}
+
+[FeatureA]
+{here is featureA}
+
+[FeatureB]
+{here is featuerB}
+
+[POC]
+$end$
+
+[Requirement]
+You know sometimes when featureA starts to use featureB. Because in software engineering, we start to develop our software with more modularity overtime. So featureA is developed earlier. featureB is developed later. FeatureB can start to manage some functionality for featureA for example. So there could be previously which were done in featureA which could 
+be invalid, or could be inappropriate, or could already be responsibility-shifted to 
+featureB. So the analysis should be be done like a human. The analysis should be comprehensive, and also logical deduction about how featureA will be in the future. But the second step in 'Procedure' seems not doing it very well. I will show you one output from ChatGPT for one example which i used the prompt. Here is part of the result. 
+
+```
+Step 2: Go through each functionality of FeatureA, and analyze what changes are needed in order to use FeatureB.
+FeatureA is the Automated Coding Workflow System (ACWS). Let's analyze its functionalities and see how we can integrate FeatureB:
+
+Step Definition:
+Steps are represented by instances of a class derived from BaseStep, and each step constructs a unique ID, dynamic prompt, and processes the LLM API response.
+Change Analysis: Since steps involve constructing dynamic prompts and processing LLM API responses, integrating with FeatureB's versioning mechanism will enhance the efficiency of these steps. Each step type (or class derived from BaseStep) should define its default prompt, and then the versioning mechanism can handle the creation and management of versioned prompts.
+```
+The result analysis for step definition is actually correct. For example, since each step involve to construct a dynamic prompt. With featureB, each step will define its own default prompt. If we think further, of course, after defining its own default prompt, then each step no longer need to define its dynamic prompt. But ChatGPT only analyse what is influenced. It does not go a bit further to analyse, after integrating it, some old functionality probably also need to be removed, because responsiblities shift. 
+
+
+
+
+"""
+$start$
+You are tasked with drafting a "Plan Of Change" documentation for an existing feature detailed in the `[FeatureA]` section. This plan will be based on new functionalities provided by another recently developed feature found in the `[FeatureB]` section. Your objective is to identify the necessary modifications or enhancements for `FeatureA`, ensuring it efficiently utilizes the capabilities offered by `FeatureB` and acknowledges any responsibility shifts.
+
+**Procedure**:
+1. Familiarize yourself with the "How To Use This Feature" section for `FeatureB`.
+2. Perform a comprehensive and logical analysis of each functionality in `FeatureA`. Determine the changes required to seamlessly integrate `FeatureB`. This includes:
+   - Identifying functionalities in `FeatureA` that could become redundant or need removal due to the capabilities of `FeatureB`.
+   - Recognizing the shift in responsibilities between the features.
+   - Reasonably predicting the logical future state of `FeatureA` after integration.
+3. Based on your analysis, draft the documentation in line with the `[Template]` format. Place the completed documentation in the `[POC]` section.
+
+[Template]
+{here is the template}
+
+[FeatureA]
+{here is featureA}
+
+[FeatureB]
+{here is featureB}
+
+[POC]
+$end$
+"""

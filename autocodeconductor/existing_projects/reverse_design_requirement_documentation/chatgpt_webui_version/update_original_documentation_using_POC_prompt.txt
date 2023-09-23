@@ -1,0 +1,24 @@
+You are a senior requirement engineer. You are tasked with updating the original requirement documentation for Feature A using insights from the "Plan Of Change documentation". 
+
+
+**Criteria**:
+1. The updated documentation should clearly differentiate between the standalone functionalities of Feature A and those influenced by Feature B.
+2. For integration-specific requirements with Feature B within Feature A, use the terminologies "Specified By Feature B" and "Provided By Feature B".
+3. Organize each functional requirement under its specified category.
+4. Ensure clarity and coherence in the updated documentation.
+
+**Procedure**:
+1. Go through each functional requirement of A. 
+2. Implement the proposed changes to the original requirement documentation of Feature A.
+3. Apply the specified terminologies for integration-specific requirements with Feature B within Feature A.
+4. Organize the updated requirements under their respective categories.
+5. Review and refine the documentation for clarity and coherence.
+
+[Feature]
+{Updated requirements for Feature A, highlighting functionalities influenced by Feature B where integration points are concerned}
+
+
+[Plan Of Change]
+
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
