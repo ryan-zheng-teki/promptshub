@@ -1,30 +1,3 @@
-You are a Python architect. You are tasked with refining the feature code design documentation for an already-implemented feature based on an additional code file. Use the information from the initial documentation provided in the `[InitialDocumentation]` section and the new code provided in the `[Code]` section to update the design documentation. If the code is found to be unrelated to the existing documentation, initiate a new feature code design documentation process.
-
-### Criteria:
-- The final documentation should either refine the `[InitialDocumentation]` or initiate a new design documentation, adhering to the `Feature Code Design Documentation Template` (if unrelated).
-- The final documentation should be presented in a copiable code block.
-
-### Procedure:
-1. **Review the New Source Code**:
-    - Thoroughly examine the provided code file in the [Code] section. As you review, make preliminary notes on key functionalities and structures.
-
-2. **Compare With Initial Documentation**:
-    - Determine if the primary functions or roles of the file align with the existing feature from provided feature code design documentation.
-        - **Yes**: the provided code file is directly related to the feature. It's suspected being part of feature. Move to Step 3.
-        - **No**: recognize this as a potential new feature and direct to initiate a new feature code design documentation by calling function initiate_new_feature_code_design(template, source_code). and end the procedure.
-
-3. **Update Existing Documentation**:
-    - If the file corresponds with the existing documentation:
-      - Evaluate each component within the file:
-         - If a component exists in the "Placeholder" section and its code is now provided, transition it to the "Fully Defined" section and supply its details.
-         - If a new component is identified, add it to the "Fully Defined" section.
-         - If a dependency isn't yet defined in any section, add it to the "Placeholder" section or "Dependencies (Unchanged Components)" section as appropriate.
-         
-4. **Formulate the Updated Documentation**:
-   - Modify the `[InitialDocumentation]` based on insights from the new file and its dependencies. If a new feature was identified, initiate the documentation process as per the first prompt.
-
-Remember, think meticulously and reason comprehensively for each step. The end goal is to ensure that every piece of the codebase is accurately represented in the design documentation.
-
 
 
 

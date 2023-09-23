@@ -75,26 +75,38 @@ Please follow these steps:
 
 [Prompt]
 $start$
-You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section . This documentation should clarify the modifications or enhancements required for the FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
+You are tasked with drafting a "Plan Of Change" documentation for an existing feature detailed in the `[FeatureA]` section based on the capabilities introduced by the new feature in the `[FeatureB]` section.
+
+**Objective**: 
+Identify the necessary modifications or enhancements for `FeatureA` to ensure it efficiently integrates and leverages the capabilities of `FeatureB`.
 
 **Procedure**:
 1. Understand "How To Use This Feature" from FeatureB.
-1. Go through each functionality of FeatureA, and analyze what changes is needed in order to use FeatureB.
-2. Based on the previous analysis, start to draft the documentation, following the `[Template]` format. Place the final documentation in `[POC]` section.
+2. **Comprehensive Analysis** (Ensure coverage of the following criteria):
+   - **Validity Check**: Evaluate if all functionalities in `FeatureA` remain appropriate with the introduction of `FeatureB`.
+   - **Responsibility Shift**: Spot any functionalities in `FeatureA` that could be managed by `FeatureB` or become obsolete.
+   - **Integration Guidelines**: Recognize and apply the best practices for integrating `FeatureB` into `FeatureA`.
+   - **Optimization Opportunities**: Identify areas where the combination of both features can lead to enhanced performance or simplified processes.
+   - **Future Predictions**: Predict the evolutionary path of `FeatureA` after full integration with `FeatureB`.
 
-[Template]
-{here is the template}
-
-[FeatureA]
-{here is featureA}
-
-[FeatureB]
-{here is featuerB}
-
-[POC]
+3. **Drafting The Plan Of Change Documentation**:
+   - Based on your analysis, detail the necessary modifications to `FeatureA` following the `[Template]` format.
 $end$
 
 [Requirement]
+I think the prompt can be simplified, but the quality and meaning can be retained.
+
+
+
+
+
+
+
+
+
+
+
+
 You know sometimes when featureA starts to use featureB. Because in software engineering, we start to develop our software with more modularity overtime. So featureA is developed earlier. featureB is developed later. FeatureB can start to manage some functionality for featureA for example. So there could be previously which were done in featureA which could 
 be invalid, or could be inappropriate, or could already be responsibility-shifted to 
 featureB. So the analysis should be be done like a human. The analysis should be comprehensive, and also logical deduction about how featureA will be in the future. But the second step in 'Procedure' seems not doing it very well. I will show you one output from ChatGPT for one example which i used the prompt. Here is part of the result. 
@@ -136,3 +148,9 @@ You are tasked with drafting a "Plan Of Change" documentation for an existing fe
 [POC]
 $end$
 """
+
+
+
+
+
+

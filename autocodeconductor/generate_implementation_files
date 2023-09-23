@@ -52,37 +52,104 @@ Follow the steps defined in 'Approach'. Thank step by step, and reason comprehen
 
 [OldCodeFile]
 """
-Module: autobyteus.db.models.prompt_version_model
+autobyteus/prompt/prompt_versioning_mixin.py
+--------------------------------------------
 
-This module defines the PromptVersionModel, which represents the database model
-for storing versioned prompts. Each entry contains the step identifier, version 
-number, content of the prompt, whether the version is the current effective prompt,
-and the creation/modification timestamp.
+This module provides the PromptVersioningMixin class, which offers versioning functionalities
+for prompts used in the Automated Coding Workflow. It interfaces with the PromptVersionRepository
+to perform database operations related to versioning of prompts.
+
+Classes:
+    - PromptVersioningMixin: A mixin offering versioning capabilities with integrated database interactions.
 """
 
-from sqlalchemy import Column, String, Integer, Text, Boolean, DateTime, func
-from autobyteus.db.models.base_model import BaseModel
+from typing import Optional
 
+from autobyteus.db.models.prompt_version_model import PromptVersionModel
+from autobyteus.db.repositories.prompt_version_repository import PromptVersionRepository
+from autobyteus.db.utils.database_session_manager import DatabaseSessionManager
 
-class PromptVersionModel(BaseModel):
+class PromptVersioningMixin:
     """
-    Represents the database model for storing versioned prompts.
-    
-    Attributes:
-    - step_id (String): Identifier for the workflow step.
-    - version_no (Integer): Version number for the prompt.
-    - prompt_content (Text): Content of the versioned prompt.
-    - is_current_effective (Boolean): Indicates if this version is the current effective prompt.
-    - created_at (DateTime): Timestamp for creation/modification.
+    A mixin to offer versioning functionalities and handle default prompts for steps
+    in the Automated Coding Workflow.
     """
     
-    __tablename__ = 'prompt_versions'
-    
-    step_id = Column(String, primary_key=True, nullable=False)
-    version_no = Column(Integer, primary_key=True, nullable=False)
-    prompt_content = Column(Text, nullable=False)
-    is_current_effective = Column(Boolean, default=False, nullable=False)
-    created_at = Column(DateTime, default=func.now(), nullable=False)
+    default_prompt: str  # To be defined by classes that mix this in
+    current_prompt: Optional[str] = None  # The in-memory cached value of the current effective prompt
+
+    def __init__(self):
+        self.repository = PromptVersionRepository(DatabaseSessionManager())
+        self.current_prompt = self.get_current_effective_prompt()  # Initialize current_prompt from the database
+
+    def add_version(self, prompt: str) -> None:
+        """
+        Creates and stores a new version of the prompt. If the number of versions surpasses 
+        the limit (4), it deletes the oldest version.
+        """
+        # Get the latest version number
+        latest_version = self.repository.get_latest_created_version(step_id=self.__class__.__name__)
+        
+        # Determine the new version number
+        version_no = latest_version.version_no + 1 if latest_version else 1
+        
+        # If adding this version exceeds the limit of 4, delete the oldest version
+        if version_no > 4:
+            self.repository.delete_oldest_version(step_id=self.__class__.__name__)
+            # Shift down other versions
+            for i in range(2, 5):
+                version = self.repository.get_version(step_id=self.__class__.__name__, version_no=i)
+                version.version_no -= 1
+                self.repository.create_version(version)
+        
+        # Create the new version
+        self.repository.create_version(PromptVersionModel(step_id=self.__class__.__name__, 
+                                                          version_no=version_no, 
+                                                          prompt_content=prompt, 
+                                                          is_current_effective=False))
+
+    def get_version(self, version_no: int) -> Optional[str]:
+        """
+        Retrieves the content of a specified prompt version.
+        """
+        version = self.repository.get_version(step_id=self.__class__.__name__, version_no=version_no)
+        return version.prompt_content if version else None
+
+    def set_current_effective_version(self, version_no: int) -> None:
+        """
+        Sets a specific version as the current effective prompt.
+        """
+        version = self.repository.get_version(step_id=self.__class__.__name__, version_no=version_no)
+        if version:
+            # Mark the specified version as the current effective version
+            version.is_current_effective = True
+            self.repository.create_version(version)
+            # Update the in-memory cached value
+            self.current_prompt = version.prompt_content
+
+    def get_current_effective_prompt(self) -> str:
+        """
+        Fetches the content of the current effective prompt or initializes it with 
+        the default if none exists.
+        """
+        if self.current_prompt:
+            return self.current_prompt
+        
+        effective_version = self.repository.get_current_effective_version(step_id=self.__class__.__name__)
+        if not effective_version:
+            # If no effective version exists, initialize with default prompt
+            self.add_version(self.default_prompt)
+            return self.default_prompt
+        
+        return effective_version.prompt_content
+
+    def load_latest_version(self) -> str:
+        """
+        Retrieves the content of the latest created prompt version.
+        """
+        latest_version = self.repository.get_latest_created_version(step_id=self.__class__.__name__)
+        return latest_version.prompt_content if latest_version else self.default_prompt
+
 
 [NewFeatureCodeDesign]
 ### Feature Code Design Documentation:
@@ -102,6 +169,8 @@ The enhancement introduces a versioning mechanism for prompts designed for entit
     - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
     - `default_prompt: str`: The default prompt intrinsic to the entity's code.
     - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
+  - *Abstract Properties*:
+    - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
   - *Methods*: 
     - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
     - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
@@ -122,7 +191,7 @@ The enhancement introduces a versioning mechanism for prompts designed for entit
     - `version_no: Integer`: Version number.
     - `prompt_content: Text`: Content of the prompt.
     - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
-    - `created_at: DateTime`: Timestamp for creation/modification.
+    (Note: The attributes `created_at` and `updated_at` are inherited from `BaseModel` and are therefore not explicitly defined here.)
 
 - **PromptVersionRepository (extends BaseRepository)**:
   - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
@@ -177,6 +246,7 @@ class "PromptVersioningMixin (New)"
     + current_prompt: str
     + default_prompt: str
     + repository: PromptVersionRepository
+    + prompt_name: str (Abstract Property)
 }
 
 class "VersionedPrompt (New)" {
@@ -211,18 +281,22 @@ class "PromptVersionRepository (New, extends BaseRepository)" {
 @enduml
 
 
+
 @enduml
 [NewSubTask]
-#### Task 3: Implement the PromptVersionModel
+#### Task 5: Implement the PromptVersioningMixin
 #task start#
-- **File Specification**: `autobyteus/db/models/prompt_version_model.py`
-- **Purpose**: Represent the database model for storing versioned prompts.
-- **Extends**: `BaseModel`
+- **File Specification**: `autobyteus/prompt/prompt_versioning_mixin.py`
+- **Purpose**: Offer versioning capabilities with integrated database interactions.
 - **Attributes**: 
-  - `prompt_name: String`, `version_no: Integer`, `prompt_content: Text`, `is_current_effective: Boolean`, `created_at: DateTime`
-- **Methods**: None specified.
-- **Integration Points**: Used by `PromptVersionRepository`.
+  - `current_prompt: str`, `default_prompt: str`, `repository: PromptVersionRepository`
+- **Abstract Properties**:
+  - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
+- **Methods**: 
+  - `add_version(prompt: str)`, `get_version(version_no: int)`, `set_current_effective_version(version_no: int)`, `get_current_effective_prompt()`, `load_latest_version()`
+- **Integration Points**: Interfaces with `PromptVersionRepository` for database operations.
 #task end#
+
 
 [UserHints]
 
