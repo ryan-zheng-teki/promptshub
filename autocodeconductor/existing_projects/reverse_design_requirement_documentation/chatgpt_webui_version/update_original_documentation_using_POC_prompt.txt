@@ -18,7 +18,7 @@ You are a senior requirement engineer. You are tasked with updating the original
 {Updated requirements for Feature A, highlighting functionalities influenced by Feature B where integration points are concerned}
 
 
-[Plan Of Change]
+[PlanOfChange]
 
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.

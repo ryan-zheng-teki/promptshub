@@ -45,7 +45,7 @@ You are a senior requirement engineer. You are tasked with drafting an "Plan Of 
 ### Integration/Update Details:
 
 ### Change Details:
-Document the change details, explicitly explain the reason.
+Document the change details, explicitly explain the cause using following format.
 - Caused By (Reference Abbreviation): Specific functionality from the driving feature that led to the update
 
 (Continue detailing changes)
@@ -192,7 +192,6 @@ You are a senior requirement engineer. You are tasked with drafting a "Plan Of C
 from `FeatureA`, answer the following questions:
      - **Relevance with FeatureB**: Does <Requirement_1.1> (and others) still make sense with FeatureB? Should it be updated or removed?
      - **Integration and Optimization**: How can <Requirement_1.1> (and others) work with FeatureB, and will it be improved or simplified?
-     - **Evolution Post-Integration**: How might <Requirement_1.1> (and others) change after integrating with FeatureB?
 3. Based on the previous analysis, start to draft the documentation, following the `[Template]` format.
 
 
@@ -204,7 +203,6 @@ You are a senior requirement engineer. You are tasked with drafting an "Plan Of 
 2. Provide a detailed analysis for each individual functional requirement from `FeatureA`. For each requirement, answer the following questions and give comphrehensive reasoning:
      - **Relevance with FeatureB**: Does this functional requirement still make sense with FeatureB? Should it be updated or removed?
      - **Integration and Optimization**: How can this functional requirement work with FeatureB, and will it be improved or simplified?
-     - **Evolution Post-Integration**: How might this functional requirement change after integrating with FeatureB?
    Ensure that your analysis is comprehensive and offers specifics on how the integration will occur.
 3. Based on the detailed analysis from step 2, start to draft the documentation, following the `[Template]` format. 
 
@@ -217,5 +215,4 @@ To clarify:
    - <Requirement_1.2>
 
 Here, "Requirement_1.1" is a functional requirement, and "Category_1" is its category. The specified terminology should be applied at the individual requirement level.
-
-If you think of a better terminology or see areas for improvement in my phrasing, please suggest changes. It's essential that our new documentation makes clear distinctions between the features, especially concerning integration points. Familiarize yourself with the context before making revisions, and I value your expertise in this matter.
+It's essential that our new documentation makes clear distinctions between the features, especially concerning integration points. Familiarize yourself with the context before making revisions, and I value your expertise in this matter.
