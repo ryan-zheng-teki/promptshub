@@ -82,6 +82,8 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [UserRequest]
 $start$
+To architect an efficient and maintainable software system, the requirement specification which touches more on user level requirements  are grouped and organized into specialized modules. Each module is tailored to handle specific tasks or functionalities, designed to function independently and to collaborate seamlessly to realize the overarching user requirements. The process is to analyse the overall user requirements, and design module specifications. Module specifications not only contain splitted user requiremetns, but also 
+some architectural overall which describes the overview of the module.
 $end$
 
 

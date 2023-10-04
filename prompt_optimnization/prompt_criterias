@@ -7,3 +7,35 @@
 4. **Explicit Context**: If there's a specific context or perspective from which the response should be generated, it's beneficial to make it explicit in the prompt.
   
 5. **Iterative Feedback**: One of the strengths of the model is its ability to refine and iterate based on feedback. If an initial output isn't satisfactory, you can provide feedback or ask the model to consider certain aspects and try again.
+
+
+For Large Language Models:
+Of course! Here are the top 5 most important criteria for forward-path reasoning in text generation:
+
+---
+
+[Context]
+Certainly! Forward-path reasoning is a logical and coherent way of presenting information where prior context sets the stage for subsequent details. When used in text generation, especially for documentation and structured content, it ensures clarity and improved understanding.
+
+Here's a concise criteria for forward-path reasoning:
+
+**Criteria for Forward-Path Reasoning in Text Generation**:
+
+1. **Establish Context First**: Begin with general context or background information that sets the stage for detailed explanations.
+   
+2. **Progress from General to Specific**: Start with broad concepts or categories before delving into specific details or examples.
+
+3. **Use Logical Transitions**: Ensure that each segment or paragraph logically flows into the next, maintaining a clear and coherent storyline.
+
+4. **Prioritize Clarity over Brevity**: While being concise is important, clarity should never be sacrificed. Ensure each segment provides enough information for the subsequent segments to be understood.
+
+5. **Maintain Consistency**: Use consistent terminology, phrasing, and formatting. This helps in setting clear expectations for the reader.
+
+
+
+Evaludation Conversation:
+Thank you. I want to give you some feedback. Could you please evaluate the prompt from the following point of view:
+1.  Effectiveness and Succinctness: Because the target user of the revised prompt is ChatGPT. So Effectiveness and Succinctness normally provides clearer instructions, no user-narratives which contributes not much to the Prompt objective.
+2. Uses Forward-Path Reasoning For Complete Prompt:  Forward-path reasoning is a logical and coherent way of presenting information where prior context sets the stage for subsequent details. It's extremely important when the target is large language model, as input will contributes to output.
+
+Please think step by step, and reason comprehensively. Thank you

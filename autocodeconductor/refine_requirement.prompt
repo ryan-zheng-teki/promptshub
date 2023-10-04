@@ -1,10 +1,10 @@
-You are a senior requirements engineer. An existing requirement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Additionally, a user request will be available in the `[Request]` section. Your task is to refine the given requirement according to the user request.
+You are a senior requirements engineer. An existing module requirement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Additionally, a user request is provided in the `[Request]` section. Your task is to refine the given module requirement according to the user request.
 
 # Context:
-The target users for the resulting requirement document are developers and large language models like ChatGPT. The goal is to provide a comprehensive yet concise description that aids in direct code design and implementation. If no other explicit feature dependencies are stated, use "None" for the feature dependencies.
+The target users for the resulting module requirement document are developers and large language models like ChatGPT. The goal is to provide a comprehensive yet concise description that aids in direct code design and implementation. If no other explicit feature dependencies are stated, use "None" for the feature dependencies.
 
 ## Criteria:
-- **Effectiveness**: The requirement should directly translate into design solutions and code implementations.
+- **Effectiveness**: The requirement should directly translate into design solutions and code implementations, such as APIs or attributes.
   
 - **Clarity & Precision**:
    - Each requirement should be clear, specific, and free from ambiguity.
@@ -18,8 +18,8 @@ The target users for the resulting requirement document are developers and large
 - **Consistency**: Ensure uniformity in terminology and avoid conflicting details within the documentation.
 
 - **Focused Descriptions**:
-   - Emphasize the core functionality of the feature. 
-   - The description should capture the essence of the feature without delving into deep technicalities or making assumptions about its use.
+   - Emphasize the core functionality of the module. 
+   - The description should capture the essence of the module without delving into deep technicalities or making assumptions about its use.
 
 - **Functional Requirement Integrity**:
    - Explicitly state the start and end points, outcomes of decision points, and how exceptions or errors will be handled.
@@ -27,10 +27,8 @@ The target users for the resulting requirement document are developers and large
 
 ## Approach:
 1. Understand the provided requirement.
-2. Evaluate the user's request against the existing requirement. Analyze if the request is already covered. If not, proceed to the next step.
-3. Check for ambiguities or unclear aspects in the user's request. If there are any, ask questions to clarify them.
-4. Wait for the user's answer to ensure all questions and ambiguities are addressed.
-5. Refine the requirement based on the user's clarified request.
+2. **Seek Clarifications**: If there's anything unclear or ambiguous, ask questions. Do not proceed until you have a full understanding.
+3. Refine the requirement based on the user's clarified request.
 
 ## Output Format:
 - Format each step with: "Step [number]: [name]". Example:
@@ -40,72 +38,77 @@ The target users for the resulting requirement document are developers and large
 
 [Requirement]
 $start$
-### Automated Coding Workflow System
+### Prompt Versioning Mechanism Module Specification
 
-#### 1. Feature Description:
-The Automated Coding Workflow System offers a modular and structured way to manage and execute a multi-step automated coding workflow. The primary users are Software Developers or Team Leads, aiming to streamline the software development process that typically includes tasks like gathering requirements, designing solutions, coding, and testing.
+#### 1. Module Description:
+This module manages versioned prompts for Large Language Models (LLMs). It allows entities to handle prompt variations, providing flexibility and enabling comparative analysis between different versions. The module focuses solely on prompt management and does not handle actual communication with LLMs.
 
-#### 2. Feature Dependencies:
-- **LLM System**: The Automated Coding Workflow System integrates with an LLM system to manage external dependencies.
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
 
-#### 3. Requirements:
+#### 3. How To Use This Module:
+- Entities integrating this module must define their default prompt according to the module specification.
+- After integration, the module automatically creates, manages, and retrieves versioned prompts for the specified entity.
 
-3.1. **Functional Requirements**:
+#### 4. Specifications:
 
-- **Workflow Management**:
-   - Define and manage a multi-step automated coding workflow.
-   - Each step in the workflow can potentially have sub-steps.
-   - Integrate with an LLM system to manage external dependencies.
-   - Initialize steps of the workflow from a given configuration.
-   - Convert the workflow instance to a JSON representation.
-   - Start the entire workflow process.
-   - Execute specific steps within the workflow using their ID.
-   
-- **Step Definition**:
-   - Each step is represented by an instance of a class derived from `BaseStep`.
-   - Construct a unique ID for each step instance.
-   - Construct a dynamic prompt for each step.
-   - Process the response from the LLM API for each step.
-   - Define the execution logic for each step.
-   
-- **Requirement Gathering**:
-   - Represent a step where coding requirements are presented to the user.
-   - Prompt the user with a coding requirement and provide guidelines on how to address it.
-   - Construct a prompt for this step using a template.
-   - Process the response from the LLM API for this step.
-   
-- **Architecture Design Stage**:
-   - Represent the design stage in the coding workflow.
-   - Use a template for constructing the design stage's prompt.
+4.1. **Functional Specifications**:
 
-3.2. **Technical Requirements**:
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Users (like other backend systems or APIs) can choose any archived version as the current effective prompt, which will replace the prior effective prompt.
 
-(No technical requirements were provided in the initial document. This section can be populated when such requirements are defined.)
+- **Entity-Specific Default Prompt**:
+   - Every entity or component communicating with LLMs must have define its own default prompt.
+   - If entity-specific prompts are missing in the database, the default prompt initializes the database, setting as v1 and serving as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Prior to any LLM communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is missing in the database, the system uses the entity's default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can create a new prompt version when modifications are made to the existing prompt.
+   - A maximum of 4 prompt versions are stored for each entity.
+   - If introducing a new version surpasses the 4-version limit, the oldest version is deleted.
+
+- **Comparative Analysis**:
+   - The system allows for an API-based comparative evaluation of various prompt versions, with plans to integrate a side-by-side comparison tool in future versions.
+
+- **Database Management**:
+   - Versions are represented using simple incremented numerals (e.g., v1, v2, etc.).
+   - Every version's creation/modification timestamp is stored.
+
+4.2. **Technical Specifications**:
+
+- **Database Interaction**:
+   - Efficient CRUD (Create, Read, Update, Delete) operations for managing prompt versions are essential.
+   - Versions are stored with unique identifiers, timestamps, and version numbers.
 $end$
 
 [Request]
 $start$
-We have updated our requriement template. The original requirement should be updated as well. 
+I think we can even refine the module specification to say clearly that this defines one common entity which will be extended by other entities which want to 
+have prompt versioning capabities. In this way, in the "How To Use This Module", we  can explicitly say other entities have to extend the common entity provided by 
+the prompt versioning module.
 $end$
 
 
-
 [Template]
-### <Title> (Title should be closely related to the feature)
+### <Title> (Title should be closely related to the module)
 
-#### 1. Feature Description:
-Provide a concise description of the feature, its purpose, and its technical significance.
+#### 1. Module Description:
+Provide a concise description of the module, its purpose, and its technical significance.
 
-#### 2. Feature Dependencies:
-List and briefly describe any features or modules that this feature is dependent upon or integrates with.
+#### 2. Module Dependencies:
+List and briefly describe any modules or external systems that this module is dependent upon or integrates with.
 
-- **<Dependency_1>**: Brief description of how and why this feature depends on or integrates with Dependency_1.
-- **<Dependency_2>**: Brief description of how and why this feature depends on or integrates with Dependency_2.
+- **<Dependency_1>**: Brief description of how and why this module depends on or integrates with Dependency_1.
+- **<Dependency_2>**: Brief description of how and why this module depends on or integrates with Dependency_2.
 
 <Continue listing dependencies as necessary.>
 
-#### 3. How To Use This Feature:
-Detail the steps or guidelines on how other entities or components can utilize or integrate with this feature.
+#### 3. How To Use This Module:
+If this module provides functionalities that other modules or entities are expected to utilize or integrate with, detail the steps or guidelines for such integration. Otherwise, this section may be left empty or excluded.
 
 - <Step/Guideline 1>
 - <Step/Guideline 2>
@@ -113,26 +116,26 @@ Detail the steps or guidelines on how other entities or components can utilize o
 
 <Continue listing steps/guidelines as necessary.>
 
-#### 4. Requirements:
+#### 4. Specifications:
 
-4.1. **Functional Requirements**:
+4.1. **Functional Specifications**:
 
 - **<Category_1>**:
-   - <Requirement_1.1>
-   - <Requirement_1.2>
+   - <Specification_1.1>
+   - <Specification_1.2>
    - ...
    
 - **<Category_2>**:
-   - <Requirement_2.1>
-   - <Requirement_2.2>
+   - <Specification_2.1>
+   - <Specification_2.2>
    - ...
 
-<Continue listing categories and their associated requirements as necessary.>
+<Continue listing categories and their associated specifications as necessary.>
 
-4.2. **Technical Requirements**:
+4.2. **Technical Specifications**:
 
 - **<Category_1>**:
-   - <Requirement_1.1>
-   - <Requirement_1.2>
+   - <Specification_1.1>
+   - <Specification_1.2>
 
-<Continue listing categories and their associated requirements as necessary.>
+<Continue listing categories and their associated specifications as necessary.>

@@ -1,0 +1,29 @@
+### Module Detailed Code Specification:
+
+#### 1. Components:
+
+##### 1.1. New Components:
+
+- **Publisher (New)**
+    - **Purpose**: Acts as the broadcaster for events. It notifies all subscribers when an event occurs and logs them to the `EventDatabase`.
+    - **Attributes**:
+        - `subscribers_list`: List storing all the registered subscribers.
+    - **Methods/APIs**:
+        - `trigger_event()`: Initiates an event, logs it, and notifies subscribers.
+        - `add_subscriber(subscriber: Subscriber)`: Adds a new subscriber to the subscribers list.
+        - `log_event_to_database(event: Event)`: Logs the event to the `EventDatabase`.
+    - **Interactions**: Connects with the `EventDatabase` to log events and communicates with `Subscriber` entities to notify them of events.
+
+- **Subscriber (New) [relates Publisher]**
+    - **Purpose**: Monitors and responds to particular events triggered by the `Publisher`.
+    - **Attributes**:
+        - `event_history`: List to store received events.
+    - **Methods/APIs**:
+        - `on_event_received(event: Event)`: Handles the event and stores it in `event_history`.
+    - **Interactions**: Receives event notifications from the `Publisher`.
+
+##### 1.2. Dependencies:
+
+- **EventDatabase (Existing)**
+    - **Purpose**: A database component designed to store all triggered events.
+

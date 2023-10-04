@@ -146,3 +146,4 @@ def test_should_add_first_version_correctly(mock_repo, mock_session_manager):
 I am sure that the method is called. But actually different filter_by mock object is being used. Can you please walk through the code line by line, and simulate the code execution? And analyse what could be the error? 
 
 Could you please start from beginning, and rewrite this mock_session_setup? After you write it, then print execution of the code line by line, simulating the running of the code. Thank you
+

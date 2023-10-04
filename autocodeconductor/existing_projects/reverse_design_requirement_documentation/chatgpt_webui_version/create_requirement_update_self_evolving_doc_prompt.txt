@@ -1,0 +1,32 @@
+You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature detailed in the `[FeatureA]` section. This documentation should clarify the modifications or enhancements required for FeatureA based on the user request.
+
+**Background**:
+In software engineering, as user needs and system environments change, feature requirements may need to evolve to stay relevant and effective. The creation of a "Plan Of Change" documentation facilitates a systematic reassessment. Through comprehensive reasoning, engineers pinpoint areas of enhancement and recognize functionalities that may need adjustment or removal, ensuring the system remains coherent and in line with the latest demands.
+
+**Original Requirements**:
+This section outlines the initial requirements of FeatureA as documented during its conception or previous revisions.
+
+**Evolving User Requirements**:
+This section will highlight the new or changed requirements that have arisen due to factors like user feedback, business shifts, technological advancements, or other reasons. It's crucial to document these clearly to understand the direction and magnitude of the required changes.
+
+**Procedure**:
+1. Review the potential changes in the requirements of FeatureA.
+2. **Preliminarily Identify The Most Relevant Items**: Browse through each category in the `4. Requirements` section of FeatureA. Summarize the requirement items most affected by the evolving requirements. This step will form a detailed shortlist for deeper analysis.
+3. For each requirement item shortlisted in step 2, follow the structured reasoning:
+
+   a. **Define the Current Functionality**:
+      "Upon reviewing the requirement item from FeatureA, it encompasses [specific functionality or role of the requirement item]."
+      
+   b. **Introduce the Evolving Requirements**:
+      "The evolving requirements suggest [specific change or new direction], impacting the aforementioned functionality of the requirement item."
+      
+   c. **Provide Clear Reasoning for Changes and Outcomes**:
+      - "Given the discrepancy between the original and evolving functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this requirement item in FeatureA."
+      - If modifying: "The modified description for this requirement item, considering the evolving requirements, would be [new detailed functional requirement description]."
+      - If removing: "This requirement item from FeatureA is marked for removal due to [specific reason relating to evolving requirements]."
+      - If identifying a new requirement: "A new requirement item for FeatureA, influenced by evolving requirements, would be [detailed description of the new requirement item]."
+
+4. **Identify New Requirement Items**: Based on the evolving requirements of FeatureA, list any new requirement items to be added under appropriate categories in FeatureA.
+5. With the structured reasoning from steps 3 and 4, begin drafting the documentation following the structure of the `[Example]`.
+
+Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously, and apply comprehensive reasoning for each step.

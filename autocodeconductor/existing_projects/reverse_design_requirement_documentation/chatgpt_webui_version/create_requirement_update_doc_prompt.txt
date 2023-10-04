@@ -1,156 +1,5 @@
-You are a senior requirement engineer. You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section . This documentation should clarify the modifications or enhancements required for the FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
-
-**Procedure**:
-1. Understand "How To Use This Feature" section from FeatureB.
-2. Provide a detailed analysis for each individual functional requirement from `FeatureA`. For each requirement, answer the following questions and give comprehensive explanation:
-     - **Relevance with FeatureB**: Does this functional requirement still make sense with FeatureB? Should it be updated, removed, or enhanced?
-     - **Integration with FeatureB**: How can this functional requirement work with FeatureB? Will there be direct improvements, simplifications, or additions due to this integration?
-   Ensure that your analysis is comprehensive and offers specifics on how the integration will take place.
-3. Based on the detailed analysis from step 2, start to draft the documentation, following the `[Template]` format.
-
-[Template]
-## Plan Of Change Of Feature Requirement Documentation
-
-### Title: 
-- Description of the update to the requirement
-
-### Feature Requirement Being Updated:
-
-**Title**: 
-- Name of the feature requirement being updated
-
-**Abbreviation**:
-- Shorthand abbreviation of the feature.
-
-**Version**: 
-- Version of the feature requirement being updated
-
-**Original Requirement Summary**:
-- Main functionalities or aspects of the requirement being updated
-
-### Caused By Feature:
-
-**Title**: 
-- Name of the driving feature or change
-
-**Abbreviation**:
-- Shorthand abbreviation of the feature it integrates with or depends upon.
-
-**Version**: 
-- Version of the driving feature or change
-
-**Functionality Provided**:
-- Functionalities or changes introduced by the driving feature or change
-
-### Integration/Update Details:
-
-### Change Details:
-Document the change details, explicitly explain the cause using following format.
-- Caused By (Reference Abbreviation): Specific functionality from the driving feature that led to the update
-
-(Continue detailing changes)
-
-[FeatureA]
-### Automated Coding Workflow System
-
-#### 1. Feature Description:
-The Automated Coding Workflow System offers a modular and structured way to manage and execute a multi-step automated coding workflow. This system is designed primarily for Software Developers or Team Leads to streamline the software development process, including tasks such as gathering requirements, designing solutions, coding, and testing.
-
-#### 2. Feature Dependencies:
-- **LLM System**: The Automated Coding Workflow System integrates with an LLM system to manage external dependencies.
-
-#### 3. How To Use This Feature:
-(Empty as the main purpose of this section is to describe how other features can use the Automated Coding Workflow System.)
-
-#### 4. Requirements:
-
-4.1. **Functional Requirements**:
-
-- **Workflow Management**:
-   - Define and manage a multi-step automated coding workflow.
-   - Each step in the workflow can potentially have sub-steps.
-   - Integrate with an LLM system to manage external dependencies.
-   - Initialize steps of the workflow from a given configuration.
-   - Convert the workflow instance to a JSON representation.
-   - Start the entire workflow process.
-   - Execute specific steps within the workflow using their ID.
-
-- **Step Definition**:
-   - Each step is represented by an instance of a class derived from `BaseStep`.
-   - Construct a unique ID for each step instance.
-   - Construct a dynamic prompt for each step.
-   - Process the response from the LLM API for each step.
-   - Define the execution logic for each step.
-
-- **Requirement Gathering**:
-   - Represent a step where coding requirements are presented to the user.
-   - Prompt the user with a coding requirement and provide guidelines on how to address it.
-   - Construct a prompt for this step using a template.
-   - Process the response from the LLM API for this step.
-
-- **Architecture Design Stage**:
-   - Represent the design stage in the coding workflow.
-   - Use a template for constructing the design stage's prompt.
-
-4.2. **Technical Requirements**:
-(No technical requirements were provided in the initial document. This section can be populated when such requirements are defined.)
-
-[FeatureB]
-#### Prompt Versioning Mechanism for Optimal Communication with Large Language Models
-
-#### 1. Feature Description:
-This feature introduces a versioning mechanism for prompts, specifically designed to offer a standardized capability for any entity or component that communicates with Large Language Models (LLMs). The primary objective is to harness the inherent variability in LLM responses based on prompt nuances, providing flexibility and a means for comparative analysis between different versions to pinpoint the most effective prompt.
-
-#### 2. Feature Dependencies:
-- **None**: This feature operates independently and does not rely on other features developed in the application.
-
-#### 3. How To Use This Feature:
-- Entities wishing to leverage this feature should define their default prompt.
-- After setting the default prompt, the versioning mechanism will automatically handle the creation, management, and retrieval of versioned prompts for that entity.
-
-#### 4. Requirements:
-
-4.1. **Functional Requirements**:
-
-- **Single Effective Prompt per Entity**:
-   - At any point, only one effective prompt is allowed for an entity.
-   - Users (like other backend systems or APIs) can choose any archived version as the current effective prompt, which will replace the prior effective prompt.
-
-- **Entity-Specific Default Prompt**:
-   - Every entity or component communicating with LLMs must have a distinct default prompt.
-   - If entity-specific prompts are missing in the database, the default prompt initializes the database, setting as v1 and serving as the immediate effective prompt.
-
-- **Dynamic Initialization of Versioned Prompts**:
-   - Prior to any LLM communication, the system retrieves the effective prompt for the respective entity from the database.
-   - If a version for an entity is missing in the database, the system uses the entity's default prompt for initialization.
-
-- **Prompt Version Management**:
-   - Entities can create a new prompt version when modifications are made to the existing prompt.
-   - A maximum of 4 prompt versions are stored for each entity.
-   - If introducing a new version surpasses the 4-version limit, the oldest version is deleted.
-
-- **Comparative Analysis**:
-   - The system allows for an API-based comparative evaluation of various prompt versions, with plans to integrate a side-by-side comparison tool in future versions.
-
-- **Database Management**:
-   - Versions are represented using simple incremented numerals (e.g., v1, v2, etc.).
-   - Every version's creation/modification timestamp is stored.
-
-4.2. **Technical Requirements**:
-- **Database Interaction**:
-   - Efficient CRUD (Create, Read, Update, Delete) operations for managing prompt versions are essential.
-   - Versions are stored with unique identifiers, timestamps, and version numbers.
-
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
-
-
-
-
 Conversation:
 In software engineering, each feature comes with its corresponding feature requirement documentation. As development progresses, features may integrate functionalities from others. It's crucial that the documentation of a feature like Feature A remains updated, especially if it integrates functionality from Feature B. There's a proposal to introduce a "Feature Update" documentation for capturing such changes. However, detailing the interplay between features can be challenging due to the high-level nature of requirement documents. To ensure clarity, it's proposed that each feature's title be abbreviated by using the first letter of each word, creating a unique short name for easy referencing. This would help in clearly defining the boundaries and dependencies between features in the documentation.
-
 
 
 We aim to integrate the "Plan Of Change documentation" from Feature A with its initial requirements. Doing so will result in an updated requirements document that aligns seamlessly with the codebase. In this revised document, it's imperative to distinguish the functionalities of Feature A from those of Feature B, reflecting the clarity observed in our Plan Of Change documentation. For functional requirements that specifically relate to integration points with Feature B (and not just at the category level), consider using terms such as "Mandated By Feature B", "Specified By Feature B", or "Provided By Feature B". This will clearly indicate the influence of Feature B on that particular function.
@@ -165,46 +14,9 @@ Where "Requirement_1.1" represents the functional requirement and "Category_1" d
 Should you find more appropriate terminology, considering my English proficiency may fall short at times, I welcome your revisions. I value and trust your expertise. Above all, our objective is to ensure clear distinctions between the features in the new documentation, especially around integration points. I'd appreciate if you familiarize yourself with the context prior to making any changes.
 
 
-
 Target Reason Of POC: The requirement of FeatureA goes through changes.
 Target Reason of POC: Because other parts of the software has changes, which 
 influences the current feature.
-
-
-
-
-Version 3:
-Absolutely! Let's adjust the prompt to be more explicit by incorporating the structure you've provided to make it clear for ChatGPT.
-
----
-
-You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
-
-**Procedure**:
-1. Understand "How To Use This Feature" section from FeatureB.
-2. For each **individual functional requirement** listed under the structure:
-
-- **<Category_1>**:
-   - <Requirement_1.1>
-   - <Requirement_1.2>
-   - ...
-
-from `FeatureA`, answer the following questions:
-     - **Relevance with FeatureB**: Does <Requirement_1.1> (and others) still make sense with FeatureB? Should it be updated or removed?
-     - **Integration and Optimization**: How can <Requirement_1.1> (and others) work with FeatureB, and will it be improved or simplified?
-3. Based on the previous analysis, start to draft the documentation, following the `[Template]` format.
-
-
-
-You are a senior requirement engineer. You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
-
-**Procedure**:
-1. Understand "How To Use This Feature" section from FeatureB.
-2. Provide a detailed analysis for each individual functional requirement from `FeatureA`. For each requirement, answer the following questions and give comphrehensive reasoning:
-     - **Relevance with FeatureB**: Does this functional requirement still make sense with FeatureB? Should it be updated or removed?
-     - **Integration and Optimization**: How can this functional requirement work with FeatureB, and will it be improved or simplified?
-   Ensure that your analysis is comprehensive and offers specifics on how the integration will occur.
-3. Based on the detailed analysis from step 2, start to draft the documentation, following the `[Template]` format. 
 
 
 We intend to use the "Plan Of Change documentation" from Feature A to update it's original requirement. The goal is to ensure that the revised document aligns with the codebase and clearly differentiates between the functionalities of Feature A and Feature B. For functional requirements that specifically pertain to integration with Feature B, use terms like "Mandated By Feature B", "Specified By Feature B", or "Provided By Feature B". This terminology helps emphasize the influence of Feature B.
@@ -216,3 +28,64 @@ To clarify:
 
 Here, "Requirement_1.1" is a functional requirement, and "Category_1" is its category. The specified terminology should be applied at the individual requirement level.
 It's essential that our new documentation makes clear distinctions between the features, especially concerning integration points. Familiarize yourself with the context before making revisions, and I value your expertise in this matter.
+
+
+
+You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
+
+**Background**:
+In the realm of software engineering, as systems evolve and new features are developed, it's imperative to reassess existing features to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where features can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
+
+**Procedure**:
+1. Understand "How To Use This Feature" section from FeatureB.
+2. **Preliminarily Identify Relevant Requirement Items**: Summarize items from FeatureA that have the most relevance with FeatureB, forming a shortlist for a more detailed analysis.
+3. For each item shortlisted in step 2, follow the structured reasoning:
+   a. **Articulate the Current Functionality**:
+      "When examining the requirement from FeatureA, it is observed that it encompasses [specific functionality or role of the requirement]."
+      
+   b. **Introduce and Contrast with FeatureB**:
+      "On the other hand, FeatureB introduces [specific capability or feature of FeatureB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of FeatureA."
+      
+   c. **Provide a Clear Reasoning for Changes and Outcomes**:
+      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this requirement in FeatureA."
+      - If modifying: "The modified requirement for FeatureA, considering FeatureB's capabilities, would be [new detailed functional requirement description]."
+      - If removing: "This requirement from FeatureA is marked for removal due to [specific reason relating to FeatureB]."
+      - If identifying a new requirement: "A new requirement for FeatureA, influenced by FeatureB, would be [detailed description of the new requirement]."
+
+
+
+You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
+
+**Background**:
+In the realm of software engineering, as systems evolve and new features are developed, it's imperative to reassess existing features to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where features can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
+
+**Procedure**:
+1. Understand "How To Use This Feature" section from FeatureB.
+2. **Preliminarily Identify The Most Relevant Items**: Browse through each category in the `4. Requirements` section of FeatureA. For each category, summarize the specific requirement items that have the most relevance with FeatureB. This step will form a detailed shortlist for a deeper analysis.
+3. For each requirement item shortlisted in step 2, follow the structured reasoning:
+
+   a. **Define the Current Functionality**:
+      "When examining the requirement item from FeatureA, it is observed that it encompasses [specific functionality or role of the requirement item]."
+      
+   b. **Introduce and Contrast with FeatureB**:
+      "On the other hand, FeatureB introduces [specific capability or feature of FeatureB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the requirement item."
+      
+   c. **Provide a Clear Reasoning for Changes and Outcomes**:
+      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this requirement item in FeatureA."
+      - If modifying: "The modified description for this requirement item, considering FeatureB's capabilities, would be [new detailed functional requirement description]."
+      - If removing: "This requirement item from FeatureA is marked for removal due to [specific reason relating to FeatureB]."
+      - If identifying a new requirement: "A new requirement item for FeatureA, influenced by FeatureB, would be [detailed description of the new requirement item]."
+
+4. **Identify New Requirement Items**: Based on the capabilities of FeatureB, list out any new requirement items that should be added under the appropriate categories in FeatureA to fully leverage the functionalities of FeatureB.
+5. Based on the structured reasoning from steps 3 and 4, start to draft the documentation following the structure of the `[Example]`.
+
+Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously and comprehensive reasoning for each step.
+
+[Example]
+
+[FeatureA]
+
+[FeatureB]
+
+
+I wanna emphasize again about our context. So ChatGPT has executed one prompt. When it executed the prompt, it generated some outputs. Now the user has some opinions about the output. They are not satisfied about the output. So  the prompt evaluation prompt is used to analyze the possible problem with the original prompt given the three information "original prompt", "output", "user feedback". Could you please evaluate again step by step whether the latest prompt achieves this user requirement?

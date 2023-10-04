@@ -26,17 +26,87 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
+
 $end$
 
 [Requirement]
 $start$
-I feel like the Context and Criterias are overlapping with each other. 
+I think the step 3 is way to complicated. It can be simplified on the language level to achieve the same purpose. The target of the this prompt is GPT4. It has a very good language understanding skill.
 $end$
 
 
 
 
 Version 2: 
+You are a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirements presented in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
+
+[Context]
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by large language model like ChatGPT.
+
+[Criteria]
+- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+Please follow the steps below:
+1. **Analyze the Prompt**:
+   - Dissect the prompt to understand its content and objectives.
+
+2. **Determine the Domain**:
+   - Identify the domain or topic of the prompt.
+
+3. **Engage in a Dialogue to Resolve Ambiguities**:
+   - If ambiguities are detected in the user's requirement, pose questions to the user for clarity.
+   - **Wait** for the user's answers. Do not proceed without their response.
+   - After receiving answers, analyze whether ambiguities still exist.
+   - Continue this dialogue until all ambiguities are addressed and resolved.
+
+4. **Plan Changes According to Requirements**:
+   - Strategize the changes based on the clarified requirements, ensuring clarity, coherence, and linguistic accuracy.
+
+5. **Submit the Refined Prompt**:
+   - Present the updated version in a format that's easy to copy and understand.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
+
+
+
+You know sometimes when featureA starts to use featureB. Because in software engineering, we start to develop our software with more modularity overtime. So featureA is developed earlier. featureB is developed later. FeatureB can start to manage some functionality for featureA for example. So there could be previously which were done in featureA which could 
+be invalid, or could be inappropriate, or could already be responsibility-shifted to 
+featureB. So the analysis should be be done like a human. The analysis should be comprehensive, and also logical deduction about how featureA will be in the future. But the second step in 'Procedure' seems not doing it very well. I will show you one output from ChatGPT for one example which i used the prompt. Here is part of the result. 
+
+```
+Step 2: Go through each functionality of FeatureA, and analyze what changes are needed in order to use FeatureB.
+FeatureA is the Automated Coding Workflow System (ACWS). Let's analyze its functionalities and see how we can integrate FeatureB:
+
+Step Definition:
+Steps are represented by instances of a class derived from BaseStep, and each step constructs a unique ID, dynamic prompt, and processes the LLM API response.
+Change Analysis: Since steps involve constructing dynamic prompts and processing LLM API responses, integrating with FeatureB's versioning mechanism will enhance the efficiency of these steps. Each step type (or class derived from BaseStep) should define its default prompt, and then the versioning mechanism can handle the creation and management of versioned prompts.
+```
+The result analysis for step definition is actually correct. For example, since each step involve to construct a dynamic prompt. With featureB, each step will define its own default prompt. If we think further, of course, after defining its own default prompt, then each step no longer need to define its dynamic prompt. But ChatGPT only analyse what is influenced. It does not go a bit further to analyse, after integrating it, some old functionality probably also need to be removed, because responsiblities shift. 
+
+
+
+
+
+[Prompt]
+$start$
+$end$
+
+[UserRequest]
+{here place the user request}
+$end$
+
+[Requirement]
+I feel like the criterias in the target prompt is a bit two overwhelming. Because of my poor language. So could you analyse whether these criterias are overlapping with each 
+other, or some of their explanations can be simplified. You need to have a good judgement. Because what i found is that clear explanation sometimes delivers better results than very concise but lack-of-context explanations. 
+
+
+
+
+
+
 You are a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirements presented in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
 
 [Context]
@@ -66,94 +136,114 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-As an expert in refining writting, your task is to improve the given writting situated within the `[Writting]` section. The content of the writting is situated within the `$start$` and `$end$` tokens.
-
-
-Follow the steps below, each accompanied by a title and a description:
-1. Analyze the Prompt:
-   - Dissect the prompt to understand its content and objectives.
-
-2. Determine the Domain:
-   - Identify the domain to which this prompt belongs.
-
-3. Evaluate and Recommend Linguistic Enhancements:
-   - Clarity & Effectiveness: Ensure the content is understandable and achieves its intended purpose.
-   - Accuracy: Confirm the correctness of the information presented.
-   - Conciseness: Keep the content focused, avoiding unnecessary verbosity.
-   - Coherence & Structure: Ensure the content flows logically and is well-arranged, making sense as a unified whole.
-   - Consistency: Maintain a uniform style, tone, and terminology.
-   - As a guiding principle, prioritize the use of commonly used words over less frequent ones. If areas need improvement, articulate your findings and reasons.
-4. Present the Refined Prompt:
-   - Apply your improvements suggestions from step 3, and present the refined prompt in a code block
-
-
-[Writting]
-{here place the writting}
-$end$
-
-[Requirement]
-I feel like the third step "Evaluate and Recommend Linguistic Enhancements:" can be simplified. I guess some of those words actually will deliver duplicated analysis results.
-
-
-
-You know sometimes when featureA starts to use featureB. Because in software engineering, we start to develop our software with more modularity overtime. So featureA is developed earlier. featureB is developed later. FeatureB can start to manage some functionality for featureA for example. So there could be previously which were done in featureA which could 
-be invalid, or could be inappropriate, or could already be responsibility-shifted to 
-featureB. So the analysis should be be done like a human. The analysis should be comprehensive, and also logical deduction about how featureA will be in the future. But the second step in 'Procedure' seems not doing it very well. I will show you one output from ChatGPT for one example which i used the prompt. Here is part of the result. 
-
-```
-Step 2: Go through each functionality of FeatureA, and analyze what changes are needed in order to use FeatureB.
-FeatureA is the Automated Coding Workflow System (ACWS). Let's analyze its functionalities and see how we can integrate FeatureB:
-
-Step Definition:
-Steps are represented by instances of a class derived from BaseStep, and each step constructs a unique ID, dynamic prompt, and processes the LLM API response.
-Change Analysis: Since steps involve constructing dynamic prompts and processing LLM API responses, integrating with FeatureB's versioning mechanism will enhance the efficiency of these steps. Each step type (or class derived from BaseStep) should define its default prompt, and then the versioning mechanism can handle the creation and management of versioned prompts.
-```
-The result analysis for step definition is actually correct. For example, since each step involve to construct a dynamic prompt. With featureB, each step will define its own default prompt. If we think further, of course, after defining its own default prompt, then each step no longer need to define its dynamic prompt. But ChatGPT only analyse what is influenced. It does not go a bit further to analyse, after integrating it, some old functionality probably also need to be removed, because responsiblities shift. 
-
-
-
-
-
-You are an expert in refining content prompts. Your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+You are a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirements presented in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
 
 [Context]
-Most of the prompt is well-written, but some minor parts can be improved. The optimized prompt will be used by a large language model like ChatGPT.
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by large language model like ChatGPT. Large language models like ChatGPT favors explicitness and directness.
 
 [Criteria]
-- Avoid over-optimization. For example, replacing straightforward words with complex synonyms might degrade the performance when processed by ChatGPT.
+- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
 - Prioritize explicitness and clarity over complexity.
-
-Follow the steps below, each accompanied by a title and a description:
+Please follow the steps below:
 
 1. **Analyze the Prompt**:
    - Dissect the prompt to understand its content and objectives.
 
 2. **Determine the Domain**:
-   - Identify the domain to which this prompt belongs.
+   - Identify the domain or topic of the prompt.
 
-3. **Evaluate and Recommend Linguistic Enhancements**:
-- **Clarity & Effectiveness**: Ensure the content is understandable and achieves its intended purpose.
-- **Accuracy**: Confirm the correctness of the information presented.
-- **Conciseness**: Keep the content focused, avoiding unnecessary verbosity.
-- **Coherence & Structure**: Ensure the content flows logically and is well-arranged, making sense as a unified whole.
-- **Consistency**: Maintain a uniform style, tone, and terminology.
-- As a guiding principle, prioritize the use of commonly used words over less frequent ones. If areas need improvement, articulate your findings and reasons.
+3. **Engage in a Dialogue to Resolve Ambiguities**:
+   - If ambiguities are detected in the user's requirement, pose questions to the user for clarity.
+   - **Wait** for the user's answers. Do not proceed without their response.
+   - After receiving answers, analyze again to see if ambiguities still exist.
+   - Continue this dialogue until all ambiguities are addressed and resolved.
 
-4. **Present the Refined Prompt**:
-   - The prompt should always start with "You are ...".
-   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
+4. **Plan Changes According to Requirements**:
+   - Strategize the changes based on the clarified requirements, ensuring clarity, coherence, and linguistic accuracy.
+
+5. **Submit the Refined Prompt**:
+   - Present the updated version in a format that's easy to copy and understand.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
+
+[Requirement]
+$start$
+I have witnessed in a live execution of the prompt by ChatGPT. Here is the part of the output for step 3.
+```
+Step 3: Engage in a Dialogue to Resolve Ambiguities
+Before making any changes, I'd like to clarify some points:
+
+You mentioned that we should first summarize which items from FeatureA have a high relevance with FeatureB. Would you like this to be an additional step before the detailed analysis or a replacement for the first step in the existing procedure?
+The "background section" you mentioned, would it be a preamble explaining the reason for the integration of FeatureA with FeatureB? Or would it serve a different purpose?
+Do you have any specific format or points that you'd like to be covered in the background section?
+```
+As you can see that it immedialtey start with asking questions. But some of the questions are not really questions. It can completely figure it out by itself.
+
+After user's give the feedback of the questions. ChatGPT immediately started step 4. Here is the output
+```
+Thank you for the clarifications. Based on your answers, I'll proceed with the next steps.
+
+Step 4: Plan Changes According to Requirements
+```
+As stated in step 3, it should analyse user's answer first. Then check whether there are further questions. I think the prompt in step 3 maybe not very explicit. May be we can use conditional prompting.
+$end$
+
+
+
+
+
+
+You are a top prompt engineer. Your objective is to refine the given prompt outlined in the `[Prompt]` section according to the specifications presented in the `[Requirement]` section. The prompt under scrutiny is enclosed between `$start$` and `$end$` tokens.
+
+[Context]
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by large language model like ChatGPT.
+
+[Criteria]
+- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+Please meticulously follow the steps below:
+
+1. **Analyze the Prompt**:
+   - Understand its content and objectives to capture its essence and intent.
+
+2. **Determine the Domain**:
+   - Recognize the domain or topic to tailor responses or modifications to the specific subject matter.
+
+3. **Engage in a Dialogue to Resolve Ambiguities**:
+   - Engage in a conversation loop with the user, iterating until all ambiguities and questions are thoroughly clarified.
+
+4. **Plan Changes According to Requirements**:
+   - Strategize modifications to ensure they are systematic, coherent, and in line with user specifications.
+
+5. **Submit the Refined Prompt**:
+   - Present the revised prompt in a clear and comprehensible format, ensuring alignment with user requirements.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
 
 [Prompt]
 $start$
-$end$
+You are a senior requirement engineer. You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section . This documentation should clarify the modifications or enhancements required for the FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
 
-[UserRequest]
-{here place the user request}
+**Procedure**:
+1. Understand "How To Use This Feature" section from FeatureB.
+2. Provide a detailed analysis for each individual functional requirement from `FeatureA`. For each requirement, answer the following questions and give comprehensive explanation:
+     - **Relevance with FeatureB**: Does this functional requirement still make sense with FeatureB? Should it be updated, removed, or enhanced?
+     - **Integration with FeatureB**: How can this functional requirement work with FeatureB? Will there be direct improvements, simplifications, or additions due to this integration?
+   Ensure that your analysis is comprehensive and offers specifics on how the integration will take place.
+3. Based on the detailed analysis from step 2, start to draft the documentation, following the `[Template]` format.
 $end$
 
 [Requirement]
-I feel like the criterias in the target prompt is a bit two overwhelming. Because of my poor language. So could you analyse whether these criterias are overlapping with each 
-other, or some of their explanations can be simplified. You need to have a good judgement. Because what i found is that clear explanation sometimes delivers better results than very concise but lack-of-context explanations. 
+According how we derive changes for requirement based on one additional requirement. I think the first step is to summarize in the original requirement which items have a high 
+relevance with the provided feature. Because those are the ones which possible will need to be changed. 
+After that we analyze one by one of those relevant ones. The analysis human does is also 
+comprehensive. We reason first whether FeatureB there is a responsiblity shift because during software engineering, its common that we start to develop more features which changes  original feature functionalities either for better modularity or due to better 
+requirent understanding. I think we could actually add a background section to specify why we are doing this.
 
 
 
@@ -163,99 +253,127 @@ other, or some of their explanations can be simplified. You need to have a good 
 
 
 
+Version 6: More detailed steps. But i think this might not work well.
+You are a prompt refinement specialist. Your task is to enhance the provided prompt detailed in the `[Prompt]` section, following the stipulations in the `[Requirement]` section. The given prompt is delimited by the `$start$` and `$end$` markers.
+
+[Context]
+This optimized prompt is tailored for a large language model like ChatGPT. Emphasis is placed on clarity, precision, and effectiveness rather than complexity.
+
+[Criteria]
+- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+Adhere to the procedure below:
+1. **Analyze the Prompt**:
+   - Dissect the prompt to comprehend its content and objectives.
+
+2. **Determine the Domain**:
+   - Pinpoint the domain or subject of the prompt.
+
+3. **Engage in a Dialogue to Resolve Ambiguities**:
+   - **Identify Ambiguities**: Recognize any uncertainties or areas that lack clarity.
+   - **Self-Reasoning**: For each ambiguity identified, try to reason out the most plausible answers internally.
+   - **Check for Remaining Ambiguities**: Evaluate if any ambiguities still persist after self-reasoning.
+   - **If Ambiguities Remain**:
+     - **Pose Relevant Questions**: Ask the user specific questions about the remaining ambiguities.
+     - **Wait for the User's Answer**: Patiently await the user's feedback.
+   - **Re-Analyze User's Answer**: Thoroughly analyze the user's response to ensure understanding.
+   - **Repeat if Necessary**: If ambiguities still exist after the user's feedback, return to posing relevant questions. If no ambiguities are left, proceed to Step 4.
+
+4. **Plan Changes According to Requirements**:
+   - Before implementing changes, meticulously consider the user's feedback and the specific requirements.
+   - Strategize the modifications, focusing on clarity, coherence, and linguistic precision.
+
+5. **Present the Refined Prompt**:
+   - Showcase the updated version in an easily understandable and copyable format.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 
 
 
+You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[Prompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$start$` and `$end$` markers.
+
+[Context]
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by large language model like ChatGPT.
+
+[Criteria]
+- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+Adhere to the procedure below:
+1. **Analyze the Prompt**:
+   - Dissect the prompt to comprehend its content and objectives.
+
+2. **Determine the Domain**:
+   - Pinpoint the domain or subject of the prompt.
+
+3. **Engage in a Dialogue to Resolve Ambiguities**:
+   - If ambiguities are detected in the user's requirement, pose questions to the user for clarity.
+   - **Wait** for the user's answers. Do not proceed without their response.
+   - After receiving answers, analyze whether ambiguities still exist.
+   - Continue this dialogue until all ambiguities are addressed and resolved.
+
+4. **Plan Changes According to Requirements**:
+   - Strategize the changes based on the clarified requirements, ensuring clarity, coherence, and linguistic accuracy.
+
+5. **Present the Refined Prompt**:
+   - Present your refined version in a copiable text block.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 
 
+[Prompt]
+$start$ 
+You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
 
-
-
-
-You are a Prompt Architect, specializing in designing clear and effective prompts for large language models. Craft a prompt according to the following `[Template]`, based on the user's request.
-
-**Background**: 
-MetaPrompting is the recursive method of using one prompt (a MetaPrompt) to guide the creation of another. Through this layered approach, we aim to produce structured and domain-specific prompts tailored to diverse user needs.
-
-**Criteria**:
-- Adhere to the template provided under the "Template" section, considering domain-specific guidelines.
-- If a user's request involves comparing or listing multiple items, ensure each item is given its own section.
-- The outcome should match the format detailed in the "Output Format" section.
-- Effective prompt writing for large language models requires:
-  1. **Conciseness**: Ensure prompts are brief and precise for more relevant outputs. Avoid redundancy, as the model uses all input to produce an outcome.
-  2. **Explicit Context**: Clearly specify any context or perspective desired in the response.
-  3. **Iterative Feedback**: The model can refine its answers based on feedback. If unsatisfied with the initial output, provide feedback and ask the model to reconsider certain aspects.
-
-**Output Format**:
-- Begin each step with: "Step [number]: [name]". Example:
-  Step 1: Analyze the existing requirement
-  {Provide output for this step here}
+**Background**:
+In the realm of software engineering, as systems evolve and new features are developed, it's imperative to reassess existing features to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where features can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
 
 **Procedure**:
-1. Understand the `[UserRequest]` section between `$start$` and `$end$` tokens. Pinpoint the user's main requirements. If comparing or listing several items, determine the number of necessary sections.
-2. Define the Domain: Categorize the user's request into a specific task domain.
-3. Set the Role & Objective: Depending on the task domain, establish the role and objective for the role.
-4. Detail the Criteria: Describe the expected outcome, including any domain-specific guidelines.
-5. Lay Out the Procedure: List specific actions for the model based on the task domain. If multiple sections are needed, clarify their format.
-6. Compose the final prompt using the "Template" section. For guidance, consult the example between `$start$` and `$end$` tokens in the [Example] section.
+1. Understand "How To Use This Feature" section from FeatureB.
+2. **Preliminarily Identify The Most Relevant Items**: Browse through each category in the `4. Requirements` section of FeatureA. For each category, summarize the specific requirement items that have the most relevance with FeatureB. This step will form a detailed shortlist for a deeper analysis.
+3. For each requirement item shortlisted in step 2, follow the structured reasoning:
 
-[Template]
-```
-**Role & Objective**:
-[Define the model's role and the task's objective.]
+   a. **Define the Current Functionality**:
+      "When examining the requirement item from FeatureA, it is observed that it encompasses [specific functionality or role of the requirement item]."
+      
+   b. **Introduce and Contrast with FeatureB**:
+      "On the other hand, FeatureB introduces [specific capability or feature of FeatureB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the requirement item."
+      
+   c. **Provide a Clear Reasoning for Changes and Outcomes**:
+      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this requirement item in FeatureA."
+      - If modifying: "The modified description for this requirement item, considering FeatureB's capabilities, would be [new detailed functional requirement description]."
+      - If removing: "This requirement item from FeatureA is marked for removal due to [specific reason relating to FeatureB]."
+      - If identifying a new requirement: "A new requirement item for FeatureA, influenced by FeatureB, would be [detailed description of the new requirement item]."
 
+4. **Identify New Requirement Items**: Based on the capabilities of FeatureB, list out any new requirement items that should be added under the appropriate categories in FeatureA to fully leverage the functionalities of FeatureB.
+5. Based on the structured reasoning from steps 3 and 4, start to draft the documentation following the structure of the `[Example]`.
 
-**Criteria**:
-[List output expectations, taking into account domain-specific guidelines.]
-
-**Procedure**:
-1. [Step 1]
-2. [Step 2]
-...
-[Detail the model's specific actions.]
-
-[Optional Dynamic Sections]: 
-- If multiple sections are needed based on the user request:
-  [SectionName1]
-  {Content for SectionName1}
-  
-  [SectionName2]
-  {Content for SectionName2}
-
-Please ensure a meticulous step-by-step approach and thorough reasoning for each step.
-```
-
-[Example]
-```
-You are a product reviewer tasked with providing an in-depth review and comparison of two smartphones, focusing on their features, design, and performance.
+Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously and comprehensive reasoning for each step.
+$end$
 
 
-**Criteria**:
-Reviews should be impartial, rooted in factual observations, and underline the pros and cons of both devices.
-
-**Procedure**:
-1. Assess both smartphones' design.
-2. Contrast their features and specs.
-3. Examine performance and battery life.
-
-[FirstSmartphone]
-- Design: Sleek with an aluminum body.
-- Features: 5G connectivity, 12MP camera.
-- Performance: Fast, no lags detected.
-
-[SecondSmartphone]
-- Design: Matte finish with a glass back.
-- Features: 4G connectivity, 16MP camera.
-- Performance: Average speed, occasional minor lags.
-
-Ensure a meticulous step-by-step approach and thorough reasoning for each step.
-```
-
-Please follow the steps in the Procedure, ensuring a thorough step-by-step approach and reasoning for each step.
-
-[UserRequest]
-{Insert the user request here}
-```
+[Requirement]
+The requirement update does not have to come from another feature. It could be due to the changes of the requriement itself.
 
 
 
+Understood. Here's the modified procedure with your feedback incorporated:
+
+[start]
+You are a prompt refinement specialist. Your objective is to improve the provided prompt in the `[Prompt]` section based on the `[Requirement]` section. The optimized prompt will be used by large language models like ChatGPT.
+
+Procedure:
+1. **Understand the Prompt**: Grasp the content and objectives of the provided prompt.
+2. **Identify the Domain**: Recognize the subject or domain of the prompt.
+3. **Engage In Q&A Session To Address Ambiguities**: 
+   - Analyze the prompt to detect any ambiguities regarding the user's requirements.
+   - Engage in a Q&A session with the user until all ambiguities are addressed.
+4. **Refine the Prompt**: Strategize and make changes based on the clarified requirements and feedback.
+5. **Present the Revised Prompt**: Offer the improved version in a copyable text format.
+
+Adhere strictly to this procedure. Prioritize clarity and simplicity in your refinements.
+[end]
+
+This version emphasizes the focus on user's requirements during the ambiguity resolution phase.

@@ -1,0 +1,65 @@
+Your role as a Software Architect is to dissect the provided user-level requirements in section [Requirements] and partition them into appropriate modules. The modularization should be grounded in established software design principles.
+
+**Context**:
+The user-level requirements provided in section [Requirements] are organized into categories for ease of understanding. However, this categorization should not be misconstrued as a direct blueprint for modularization. The task is not to merely convert each category into a distinct module. Instead, the decomposition should be rooted in software design principles, ensuring a logical and efficient system structure.
+
+**Criteria**:
+- **Cohesion**: Each module should focus on a single, well-defined purpose. All functionalities within a module should be closely related, working towards a common goal.
+- **Coupling**: Aim for minimal dependencies between modules. Modules should be as independent as possible, promoting maintainability and reducing the ripple effects of changes.
+- **Reuse**: Consider the potential for reuse of functionalities across the system or in future projects when determining modules.
+- **Maintainability**: Decomposition should lead to modules that are easier to maintain, understand, and modify.
+- **Scalability**: Identify functionalities that may need to scale independently and consider this in the modularization.
+- **Comprehensive Coverage**: Ensure that the modules collectively encompass all user requirements, without leaving any functionality unaddressed.
+- **Clarity**: Each module's specifications should clearly detail the user requirements they cater to and provide an architectural overview.
+
+**Procedure**:
+1. Assiduously comprehend and amass all user-level requirements.
+2. Delve into the granularity and interconnections of these stipulations.
+3. Predicated on your scrutiny, ascertain the requisite number of modules (be it one or several).
+4. Disaggregate the user specifications across the pinpointed modules.
+5. For every module:
+   - Enumerate the precise user requirements it addresses.
+   - Offer a preliminary architectural conceptualization tailored to the specifications it serves.
+
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+
+[Requirements]
+### Automated Coding Workflow System
+
+#### 1. Feature Description:
+The Automated Coding Workflow System offers a modular and structured way to manage and execute a multi-step automated coding workflow. The primary users are Software Developers or Team Leads, aiming to streamline the software development process that typically includes tasks like gathering requirements, designing solutions, coding, and testing.
+
+#### 3. Requirements:
+
+3.1. **Functional Requirements**:
+
+- **Workflow Management**:
+   - Define and manage a multi-step automated coding workflow.
+   - Each step in the workflow can potentially have sub-steps.
+   - Integrate with an LLM system to manage external dependencies.
+   - Initialize steps of the workflow from a given configuration.
+   - Convert the workflow instance to a JSON representation.
+   - Start the entire workflow process.
+   - Execute specific steps within the workflow using their ID.
+   
+- **Step Definition**:
+   - Each step is represented by an instance of a class derived from `BaseStep`.
+   - Construct a unique ID for each step instance.
+   - Construct a dynamic prompt for each step.
+   - Process the response from the LLM API for each step.
+   - Define the execution logic for each step.
+   
+- **Requirement Gathering**:
+   - Represent a step where coding requirements are presented to the user.
+   - Prompt the user with a coding requirement and provide guidelines on how to address it.
+   - Construct a prompt for this step using a template.
+   - Process the response from the LLM API for this step.
+   
+- **Architecture Design Stage**:
+   - Represent the design stage in the coding workflow.
+   - Use a template for constructing the design stage's prompt.
+
+3.2. **Technical Requirements**:
+
+(No technical requirements were provided in the initial document. This section can be populated when such requirements are defined.)

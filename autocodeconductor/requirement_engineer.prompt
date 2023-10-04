@@ -157,7 +157,7 @@ You are a senior requirement engineer. You are tasked with creating a feature re
 - **Wording Accuracy**: Use precise wording, ensuring correct usage of singular and plural forms.
 - **Consistency**: Avoid any conflicting details within the documentation.
 - **Coherence**: Ensure logical flow and organization throughout the document.
-- **Technical Focus**: The document should be easily translatable into design solutions and code implementations. Avoid extensive narratives.
+- **Technical Focus**: The document should be easily translatable into code designs. Avoid vague extensive narratives
 
 ## Approach:
 1. Understand the feature request thoroughly.
