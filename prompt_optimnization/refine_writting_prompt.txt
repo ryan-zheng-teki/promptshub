@@ -1,0 +1,62 @@
+You are a writing refinement expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
+
+[Context]
+Most of the writting is well-written, but only some minor parts can be improved.
+The optimized writting will be used by large language model like ChatGPT.
+
+[Criteria]
+- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+Follow the steps below:
+1. **Analyze the Writing**:
+   - Examine the writing to grasp its content and goals.
+   - Identify the domain of the writing.
+
+2. **Analyze the User Request**:
+   - Understand the specific concerns of the user based on the writing.
+
+3. **Engage in a Dialogue to Resolve Ambiguities**:
+   - **Identify Potential Questions or Ambiguities**: 
+     * Based on the provided information, list out potential areas of uncertainty.
+   - **Self-Reasoning for Identified Ambiguities**:
+     * Attempt to resolve as many ambiguities as possible internally.
+   - **Are there genuine ambiguities left?**
+     * **Yes**: 
+       + Pose specific questions to the user for unresolved ambiguities.
+       + Wait for the user's feedback.
+       + Re-analyze the user's response.
+     * **No**: 
+       + Proceed to Step 4.
+
+4. **Plan Improvements**:
+   - Plan the necessary improvements considering the domain, writing's content, and clarified request. Keep in mind the following principles:
+     - **Clarity & Accuracy**: Use precise and appropriate terminology for the domain or context, ensuring word choices align with accepted norms. The content should be clear and convey its intended meaning.
+     - **Succinctness & Simplicity**: Be concise, avoiding unnecessary verbosity, and choose common and straightforward words over less common terms.
+     - **Logical Structure & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
+     - **Consistency**: Maintain a steady style and tone.
+
+5. **Present the Refined Writing**:
+   - Apply the improvements planned in step 4 and present the refined writing in a copiable text block.
+
+
+[Writing]
+$start$
+Software projects initiate with user requirements that outline a broad vision and desired functionalities. Often, these initial requirements are not exhaustive. As stakeholders engage in deeper discussions and analyses, the requirements become more nuanced and detailed. During this refinement process, the need for modular design becomes evident. To architect an efficient and maintainable software system, these detailed requirements are grouped and organized into specialized modules. Each module is tailored to handle specific tasks or functionalities, designed to function independently and to collaborate seamlessly to realize the overarching user requirements. The meticulous definition of each module's boundaries, responsibilities, and the specifics of their integration is of paramount importance.
+However, a notable challenge arises in the lifecycle of software development. Even as requirements evolve and modules are redefined, original user requirements often remain untouched.
+Several reasons contribute to this:
+1. **Difficulty in Tracing Original Requirements**: Over time, locating and tracing back to the original requirements becomes a daunting task. Systems like Jira, commonly used for requirement tracking, might not offer the most user-friendly experience in this regard.
+ 
+2. **Effort Overhead**: The effort required to find, revisit, and update the original requirements often outweighs the perceived benefits, especially when considering the pace of development cycles.
+ 
+3. **Human Limitations in Logical Writing**: Humans are inherently not adept at consistently logical and structured writing. This leads to requirements that are ambiguously written or lack comprehensive details.
+Despite these challenges, it's imperative that module specifications remain up-to-date, especially when accommodating ad-hoc user requirements. The reason is clear: module specifications are directly linked to the module's code specification. When there's a need to update a module due to evolving requirements, a "Plan Of Update" for the module specification is first crafted. This plan is pivotal as it drives the creation of the "Plan Of Update" for the code specification.
+Imagine a scenario where ChatGPT is provided with a "Module Specification", its corresponding "Module Code Specification", and a "Plan Of Update Of Module Specification". With this trio of documents, ChatGPT can discern the necessary code alterations and subsequently draft a "Plan Of Update Of Module Code Specification". Based on this plan, executable subtasks are generated, allowing ChatGPT to seamlessly update the existing codebase, ensuring it aligns with the updated user requirements.
+The ultimate vision is a groundbreaking shift in software development: codebase updates driven by user requirements and executed automatically. With rigorous documentation as its foundation, advanced language models have the potential to seamlessly translate user aspirations into real-world code implementations.$end$
+
+[UserRequest]
+$start$
+I feel like the article didn't explain in detail there are specialized modules. Who comes up with 
+those specicalized modules.
+$end$
+

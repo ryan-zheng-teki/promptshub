@@ -54,38 +54,38 @@ In the realm of software engineering, as systems evolve and new features are dev
 
 
 
-You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
+You are a senior software architect. You are tasked with drafting a "Plan Of Change" documentation for an existing "Module Specification" detailed in the `[ModuleA]` section, based on functionalities provided by another recently developed "Module Specification" in the `[ModuleB]` section. This documentation should clarify the modifications or enhancements required for ModuleA, ensuring it efficiently leverages the capabilities provided by ModuleB.
 
 **Background**:
-In the realm of software engineering, as systems evolve and new features are developed, it's imperative to reassess existing features to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where features can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
+In the realm of software engineering, as systems evolve and new module specifications are developed, it's imperative to reassess existing module specifications to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where module specifications can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
 
 **Procedure**:
-1. Understand "How To Use This Feature" section from FeatureB.
-2. **Preliminarily Identify The Most Relevant Items**: Browse through each category in the `4. Requirements` section of FeatureA. For each category, summarize the specific requirement items that have the most relevance with FeatureB. This step will form a detailed shortlist for a deeper analysis.
-3. For each requirement item shortlisted in step 2, follow the structured reasoning:
+1. Understand "How To Use This Module" section from ModuleB.
+2. **Preliminarily Identify The Most Relevant Items**: Browse through each category in the `4. Specifications` section of ModuleA. For each category, summarize the specific specification items that have the most relevance with ModuleB. This step will form a detailed shortlist for a deeper analysis.
+3. For each specification item shortlisted in step 2, follow the structured reasoning:
 
    a. **Define the Current Functionality**:
-      "When examining the requirement item from FeatureA, it is observed that it encompasses [specific functionality or role of the requirement item]."
+      "When examining the specification item from ModuleA, it is observed that it encompasses [specific functionality or role of the specification item]."
       
-   b. **Introduce and Contrast with FeatureB**:
-      "On the other hand, FeatureB introduces [specific capability or feature of FeatureB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the requirement item."
+   b. **Introduce and Contrast with ModuleB**:
+      "On the other hand, ModuleB introduces [specific capability or specification of ModuleB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the specification item."
       
-   c. **Provide a Clear Reasoning for Changes and Outcomes**:
-      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this requirement item in FeatureA."
-      - If modifying: "The modified description for this requirement item, considering FeatureB's capabilities, would be [new detailed functional requirement description]."
-      - If removing: "This requirement item from FeatureA is marked for removal due to [specific reason relating to FeatureB]."
-      - If identifying a new requirement: "A new requirement item for FeatureA, influenced by FeatureB, would be [detailed description of the new requirement item]."
+   c. **Provide Clear Reasoning for Changes and Outcomes**:
+      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this specification item in ModuleA."
+      - If modifying: "The modified description for this specification item, considering ModuleB's capabilities, would be [new detailed functional specification description]."
+      - If removing: "This specification item from ModuleA is marked for removal due to [specific reason relating to ModuleB]."
+      - If identifying a new requirement: "A new specification item for ModuleA, influenced by ModuleB, would be [detailed description of the new specification item]."
 
-4. **Identify New Requirement Items**: Based on the capabilities of FeatureB, list out any new requirement items that should be added under the appropriate categories in FeatureA to fully leverage the functionalities of FeatureB.
+4. **Identify New Specification Items**: Based on the capabilities of ModuleB, list out any new specification items that should be added under the appropriate categories in ModuleA to fully leverage the functionalities of ModuleB.
 5. Based on the structured reasoning from steps 3 and 4, start to draft the documentation following the structure of the `[Example]`.
 
-Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously and comprehensive reasoning for each step.
+Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously, and provide comprehensive reasoning for each step.
 
 [Example]
 
-[FeatureA]
+[ModuleA]
 
-[FeatureB]
+[ModuleB]
 
 
 I wanna emphasize again about our context. So ChatGPT has executed one prompt. When it executed the prompt, it generated some outputs. Now the user has some opinions about the output. They are not satisfied about the output. So  the prompt evaluation prompt is used to analyze the possible problem with the original prompt given the three information "original prompt", "output", "user feedback". Could you please evaluate again step by step whether the latest prompt achieves this user requirement?

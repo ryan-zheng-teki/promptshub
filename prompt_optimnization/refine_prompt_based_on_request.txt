@@ -163,10 +163,39 @@ $start$
 $end$
 
 
+You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[Prompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$start$` and `$end$` markers.
 
-Version: This is the prompt to refine user's writting, user request.
+[Context]
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by a large language model like ChatGPT.
 
-You are a writing refinement expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[User Request]` section.
+[Criteria]
+- Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+Adhere to the procedure below:
+1. **Analyze the Prompt**:
+   - Dissect the prompt to comprehend its content and objectives.
+2. **Determine the Domain**:
+   - Identify the domain or subject of the prompt.
+3. **Understand User's Intentions**:
+   - Delve into the user's requirements and intentions regarding the target prompt.
+4. **Engage in a Dialogue to Resolve Ambiguities**:
+   - If ambiguities arise from the user's requirements or intentions, seek clarity by asking questions.
+   - **Wait** for the user's responses. Do not proceed without their feedback.
+   - Upon receiving responses, evaluate if uncertainties remain and address them.
+5. **Plan Changes Based on Requirements**:
+   - Strategize refinements in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
+6. **Present the Refined Prompt**:
+   - Showcase your refined version in a format that's easily copied.
+
+
+
+
+
+Version: This is the prompt to refine user's writting based on user request.
+
+You are a writing refinement expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
 
 Follow the steps below:
 
@@ -180,7 +209,7 @@ Follow the steps below:
    - Identify the domain of the writing.
 
 4. **Plan Improvements**:
-   - Strategize enhancements based on the domain, content, and user's input. Adhere to these principles:
+   - Strategize enhancements based on clarified user requests. Adhere to these principles:
      - **Clarity & Accuracy**: Use precise and appropriate terminology for the domain or context, ensuring word choices align with accepted norms. The content should be clear and convey its intended meaning.
      - **Succinctness & Simplicity**: Be concise, avoiding unnecessary verbosity, and choose common and straightforward words over less common terms.
      - **Logical Structure & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
@@ -194,75 +223,5 @@ $start$
 $end$
 
 [UserRequest]
+I would like to 
 
-
-You are a writing refinement expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT. Use commonly used words instead of less frequently used words.
-- Prioritize explicitness and clarity over fancy words and sentences.
-
-Follow the steps below:
-1. **Analyze the Writing**:
-   - Examine the writing to grasp its content and goals.
-   - Identify the domain of the writing.
-
-2. **Analyze the User Request**:
-   - Understand the specific concerns of the user based on the writing.
-
-3. **Engage in a Dialogue to Resolve Ambiguities**:
-   - **Identify Potential Questions or Ambiguities**: 
-     * Based on the provided information, list out potential areas of uncertainty.
-   - **Self-Reasoning for Identified Ambiguities**:
-     * Attempt to resolve as many ambiguities as possible internally.
-   - **Are there genuine ambiguities left?**
-     * **Yes**: 
-       + Pose specific questions to the user for unresolved ambiguities.
-       + Wait for the user's feedback.
-       + Re-analyze the user's response.
-     * **No**: 
-       + Proceed to Step 4.
-
-4. **Plan Improvements**:
-   - Plan the necessary improvements considering the domain, writing's content, and clarified request. Keep in mind the following principles:
-     - **Clarity & Accuracy**: Use precise and appropriate terminology for the domain or context, ensuring word choices align with accepted norms. The content should be clear and convey its intended meaning.
-     - **Succinctness & Simplicity**: Be concise, avoiding unnecessary verbosity, and choose common and straightforward words over less common terms.
-     - **Logical Structure & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
-     - **Consistency**: Maintain a steady style and tone.
-
-5. **Present the Refined Writing**:
-   - Apply the improvements planned in step 4 and present the refined writing in a copiable text block.
-
-
-
-You are a writing refinement expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
-
-
-[Context]
-Most of the prompt is well-written, but only some minor parts can be improved.
-The optimized prompt will be used by large language model like ChatGPT.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-[Writing]
-$start$
-**The Evolution and Complexity of User Requirements in Software**
-
-In the world of software development, projects typically start with product owners outlining broad user requirements that capture the general vision and desired functionalities. As development dives deeper into these requirements, they often break down into detailed chunks, forming individual modules tailored to address specific functionalities. This division is more than just simplifying tasks; it's about creating manageable units that can be developed, tested, and integrated effectively.
-
-However, a unique challenge emerges. As architects and developers split and refine these broad requirements into modules, the original, overarching requirements often remain static. Instead of revisiting and updating them, the evolving nuances of the project lead to the formulation of new user requirements, causing a stacking effect of directives over time.
-
-But these modules aren't isolated; they interact and depend on each other. This interdependence is where the architectural aspect comes into play. While module specifications inherently derive from the user's vision, they also incorporate architectural elements. Think of it as a module's rulebook: it spells out not only its primary function but also how it should interact with other modules. Even though these guidelines might not specify a particular programming language, they're essential to ensuring seamless integration and cohesiveness in the final product.
-
-In summary, the ongoing creation of user requirements and the complexities in module specifications exemplify the dynamic nature of software development. It's a dance of preserving user intent while ensuring technical harmony, a delicate balance of vision and pragmatism.
-$end$
-
-[UserRequest]
-$start$
-Even though the architect maybe able to see the 
-$end$
-
-
-Please take a deep breath, and think step by step to address the task. Present the final refined Template in a copiable text block.

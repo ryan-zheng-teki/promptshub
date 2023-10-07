@@ -1,4 +1,4 @@
-1. **Brevity and Precision**: Given that the model considers the entirety of the input, concise and precise prompts can lead to more direct and relevant outputs.
+1. **Brevity and Precision**: Given that the model considers the entirety of the input to generate output, concise and precise prompts can lead to more direct and relevant outputs.
   
 2. **Avoiding Redundancy**: As seen in our discussion, explicitly asking the model to "understand" or "familiarize" itself with provided information can lead to repetitive outputs. Instead, focusing on actionable requests is more effective.
   
@@ -15,7 +15,7 @@ Of course! Here are the top 5 most important criteria for forward-path reasoning
 ---
 
 [Context]
-Certainly! Forward-path reasoning is a logical and coherent way of presenting information where prior context sets the stage for subsequent details. When used in text generation, especially for documentation and structured content, it ensures clarity and improved understanding.
+Forward-path reasoning is a logical and coherent way of presenting information where prior context sets the stage for subsequent details. When used in text generation, especially for documentation and structured content, it ensures clarity and improved understanding.
 
 Here's a concise criteria for forward-path reasoning:
 

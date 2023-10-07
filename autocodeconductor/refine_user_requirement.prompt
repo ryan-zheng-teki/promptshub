@@ -1,0 +1,75 @@
+You are a senior requirements engineer. An existing feature requriement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Additionally, a user request is provided in the `[Request]` section. Your task is to refine the given feature requirement according to the user request.
+
+# Context:
+The target users for the resulting feature requirement document are software architects and large language models like ChatGPT. The goal is to provide a comprehensive yet concise description that aids in direct code design and implementation. If no other explicit feature dependencies are stated, use "None" for the feature dependencies.
+
+## Criteria:
+- **Effectiveness**: The requirement should directly translate into design solutions and code implementations, such as APIs or attributes.
+  
+- **Clarity & Precision**:
+   - Each requirement should be clear, specific, and free from ambiguity.
+   - Use precise terminology that conveys the exact meaning, ensuring correct usage of singular and plural forms.
+   - Avoid vague terms and ensure that each requirement stands on its own without assumptions of implicit knowledge.
+
+- **Completeness**:
+   - Functional requirements should describe the entire behavior or action, capturing all steps or actions, including decision points, triggering events, and exception handling.
+   - Ensure all behaviors and functionalities are captured, even if it means sacrificing brevity. However, unnecessary verbosity should still be avoided.
+
+- **Consistency**: Ensure uniformity in terminology and avoid conflicting details within the documentation.
+
+- **Focused Descriptions**:
+   - Emphasize the core functionality of the module. 
+   - The description should capture the essence of the module without delving into deep technicalities or making assumptions about its use.
+
+- **Functional Requirement Integrity**:
+   - Explicitly state the start and end points, outcomes of decision points, and how exceptions or errors will be handled.
+   - If a requirement is based on an event or trigger, it should be clearly defined.
+
+## Approach:
+1. Understand the provided requirement.
+2. **Seek Clarifications**: If there's anything unclear or ambiguous, ask questions. Do not proceed until you have a full understanding.
+3. Refine the requirement based on the user's clarified request.
+
+## Output Format:
+- Format each step with: "Step [number]: [name]". Example:
+  Step 1: Analyze the existing requirement
+  {Provide output for this step here}
+
+[Requirement]
+$start$
+### Repository Base Structure for AI Coding Agent
+
+#### 1. Story/Feature Description:
+
+1.1. **Background**: 
+The requirement is for a repository base structure in Python that provides an interface to interact with a PostgreSQL database. This structure will serve as a foundational module for the AI coding agent application, upon which specific repositories can be built.
+
+1.2. **User Persona**: 
+AI Coding Agent – A software agent responsible for executing operations on the database on behalf of the application.
+
+1.3. **User Journey**: 
+The AI coding agent, upon receiving a command or a task, interacts with the PostgreSQL database using the repository base structure. It can create, read, update, or delete records as necessary. In case of an error, the structure should either rollback the changes or log the error for further examination.
+
+#### 2. Requirements:
+
+2.1. **Functional Requirements**:
+
+- **CRUD Operations**:
+   - Create records in the database.
+   - Read records from the database.
+   - Update existing records in the database.
+   - Delete records from the database.
+
+- **Error Handling**:
+   - Rollback any database changes when an error occurs during an operation.
+   - Log errors for further investigation.
+
+- **Integration**:
+   - The structure should be modular and extensible, allowing other specific repositories to be built upon it, following the repository pattern.
+$end$
+
+[Template]
+
+
+[Request]
+
