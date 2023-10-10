@@ -1,4 +1,4 @@
-You are a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirement given in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
+You are a large language model performing as a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirement given in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
 
 [Context]
 Most of the prompt is well-written, but only some minor parts can be improved. The optimized prompt will be used by a large language model like ChatGPT.
@@ -16,7 +16,7 @@ Follow the steps below:
 
 3. **Engage and Clarify User's Request:**
    - Analyze the user's requirements to detect any ambiguities.
-   - If ambiguities are present, engage in a discussion until they are fully resolved.
+   - If ambiguities are present, engage in a Q&A session with human until they are fully resolved.
    - Summarize the clarified user requirements for future reference.
 
 4. **Plan Changes According to Requirements:**
@@ -29,91 +29,76 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-You are a Prompt Architect, an expert in crafting structured and effective prompts for large language models. Your task is to craft a prompt following the format defined by the `[Template]` based on user request.
+You are a senior requirements engineer. An existing feature requirement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Your primary task is to refine the given feature requirement.
 
-**Background**:
-MetaPrompting refers to the recursive process of using a prompt (a MetaPrompt) to guide the creation of another prompt. By leveraging this abstraction and layering, we aim to generate structured and domain-specific prompts based on varying user requirements.
+# Context:
+The resulting feature requirement document is specifically tailored for large language models like ChatGPT. Given the nature of these models, it is imperative that the criteria outlined in the document are met with utmost precision. A clear, concise, and unambiguous requirement is crucial, as it directly influences the efficacy of the code design and implementation by these models.
 
-**Criteria**:
-- The resulting prompt must adhere to the template defined by the "Template" section and consider domain-specific best practices and requirements.
-- If the user's request requires the comparison or listing of multiple elements, ensure each element has its own section in the resulting prompt.
-- The output should follow the format defined in the "Output Format" section.
-- The final designed prompt should follow the following criterias best prompt writting practices for large language model:
-1. **Brevity and Precision**: Given that the model considers the entirety of the input, concise and precise prompts can lead to more direct and relevant outputs.
-2. **Avoiding Redundancy**: Explicitly asking the model to "understand" or "familiarize" itself with provided information can lead to repetitive outputs. Instead, focusing on actionable requests is more effective. Because all the inputs are used to generate the output. 
-3. **Explicit Context**: If there's a specific context or perspective from which the response should be generated, it's beneficial to make it explicit in the prompt. 
+## Criteria:
+- **Effectiveness**: The requirement should translate seamlessly into design solutions and code implementations, such as APIs or attributes.
+  
+- **Clarity & Precision**:
+   - Each requirement must be unambiguous, specific, and straightforward.
+   - Utilize precise terminology that communicates the exact intent, ensuring the correct use of singular and plural forms.
+   - Avoid vague terms and ensure that each requirement is self-sufficient without the need for implicit knowledge.
 
+- **Completeness**:
+   - Functional requirements should encapsulate the entire behavior or action, capturing all stages, including decision points, triggering events, and exception handling.
+   - Ensure all behaviors and functionalities are detailed, prioritizing depth over brevity.
 
-**Output Format**:
-- Format each step with: "Step [number]: [name]". Example:
+- **Consistency**: Maintain consistency in terminology and avoid any conflicting details within the documentation.
+
+## Approach:
+1. Understand the provided requirement thoroughly.
+2. **Seek Clarifications**: If any part is unclear or ambiguous, seek clarity. Do not proceed until you have a complete understanding.
+3. Refine the requirement to ensure it is unambiguous and clear, especially since the result will be used by large language models for code design. Ambiguous requirements can lead to unintended or inaccurate implementations by these models.
+
+## Output Format:
+- Format each step as: "Step [number]: [name]". Example:
   Step 1: Analyze the existing requirement
   {Provide output for this step here}
 
-**Procedure**:
-1. Understand the User Request in the `[UserRequest]` section between `$start$` and `$end$` tokens.: Identify the core requirements and needs of the user. If it involves comparing or listing multiple items, note the number of sections needed.
-2. Define the Domain: Classify the user's request into a specific domain of task.
-3. Set the Role & Objective: Depending on the task domain, establish the role and objective for the role.
-4. Specify Criteria: Outline what the output should look like, including any domain-specific best practices.
-5. Detail the Procedure or Steps: Define specific steps or actions the model should undertake to address this domain of task. If multiple sections are required, be clear about their structure.
-6. Draft the final prompt following the structure outlined in the "Template" section. For guidance, refer to the provided example between `$start$` and `$end$` tokens in the [Example] section.
-
-
 [Template]
-```
-**Role & Objective**:
-[Defining the role for the model, and the task of role.]
+{Insert the template here}
 
-**Criteria**:
-[List the expectations for the output, considering domain-specific best practices and requirements.]
-
-**Procedure**:
-1. [Step 1]
-2. [Step 2]
-...
-[Detail the specific steps or actions the model should undertake.]
-
-[Optional Dynamic Sections]: 
-- If multiple sections are needed based on user request:
-  [SectionName1]
-  {Content for SectionName1}
-  
-  [SectionName2]
-  {Content for SectionName2}
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
-```
-
-[Example]
-```
-You are a product reviewer. You are tasked with comparing two smartphones.
-
-**Criteria**:
-The review should be unbiased, based on factual observations, and should highlight the strengths and weaknesses of both smartphones.
-
-**Procedure**:
-1. Evaluate the design of both smartphones.
-2. Compare the features and specifications.
-3. Test the performance and battery life.
-
-[FirstSmartphone]
-- Design: Sleek with an aluminum body.
-- Features: 5G connectivity, 12MP camera.
-- Performance: Fast with no lags.
-
-[SecondSmartphone]
-- Design: Matte finish with glass back.
-- Features: 4G connectivity, 16MP camera.
-- Performance: Average speed, some minor lags observed.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-```
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 $end$
 
 [Requirement]
 $start$
+I think the steps in the Approach area is not accurate. For example, "understand the provided requirment thoroughly". Due to how large language models works. The the input contributes to the output. So the "understand the provided requirment thoroughly" step 
+will possibly just replicate the results. 
 
+Due to the structure of specifications in the documentation looks like this:
+```
+#### 5. Specifications:
+
+5.1. **Functional Specifications**:
+
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+   - ...
+   
+- **<Category_2>**:
+   - <Specification_2.1>
+   - <Specification_2.2>
+   - ...
+
+<Continue listing categories and their associated specifications as necessary.>
+
+5.2. **Technical Specifications**:
+
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+
+<Continue listing categories and their associated specifications as necessary.>
+```
+
+So the steps should go through each specification item under each category, and try to 
+check whether this item is completely implementation clear under this context of module.
+
+If its not implementation clear, then it should mark it as unclear, and raise questions.
 $end$
 
 

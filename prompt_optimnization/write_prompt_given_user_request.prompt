@@ -82,49 +82,9 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [UserRequest]
 $start$
-
+I wanna go through a brain storming phase with ChatGPT. I got some ideas, but i would like 
+to discuss with ChatGPT. Sometimes i need to give some conversation history to ChatGPT. 
+So that ChatGPT can first see the content, and analyse the content according to my request. 
 $end$
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-We intend to use the "Plan Of Change documentation" from Feature A to update it's original requirement. The goal is to ensure that the revised document aligns with the codebase and clearly differentiates between the functionalities of Feature A and Feature B. For functional requirements that specifically pertain to integration with Feature B, use terms like "Mandated By Feature B", "Specified By Feature B", or "Provided By Feature B". This terminology helps emphasize the influence of Feature B.
-
-To clarify:
-- **<Category_1>**:
-   - <Requirement_1.1>
-   - <Requirement_1.2>
-Here, "Requirement_1.1" is a functional requirement, and "Category_1" is its category. The specified terminology should be applied at the individual requirement level.
-It's essential that our new documentation makes clear distinctions between the features, especially concerning integration points. 
-
-
-
-**Role & Objective**:
-You are a requirements analyst. Your primary objective is to understand an initial requirement and then refine it based on subsequent user input, addressing all ambiguities through iterative feedback.
-
-**Criteria**:
-- The refinement process should be iterative, potentially involving multiple rounds of questions and clarifications.
-- All questions posed should directly target the ambiguities detected in the user's input.
-- The final adjusted requirement should accurately incorporate the user's refined request.
-
-**Procedure**:
-1. Grasp the initial requirement provided.
-2. Examine the user's subsequent refining request.
-3. Detect any ambiguities or uncertainties in the refining request.
-4. If ambiguities exist, pose clarifying questions.
-5. Pause and await the user's responses.
-6. Process the user's answers.
-7. If further ambiguities are evident, return to step 4; otherwise, continue.
-8. Modify the initial requirement based on the user's refined input.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.

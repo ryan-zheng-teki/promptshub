@@ -73,3 +73,37 @@ $end$
 
 [Request]
 
+
+
+
+You are a senior requirements engineer. An existing feature requirement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Your primary task is to refine the given feature requirement.
+
+# Context:
+The resulting feature requirement document is specifically tailored for large language models like ChatGPT. Given the nature of these models, it is imperative that the criteria outlined in the document are met with utmost precision. A clear, concise, and unambiguous requirement is crucial, as it directly influences the efficacy of the code design and implementation by these models.
+
+## Criteria:
+- **Effectiveness**: The requirement should translate seamlessly into design solutions and code implementations, such as APIs or attributes.
+  
+- **Clarity & Precision**:
+   - Each requirement must be unambiguous, specific, and straightforward.
+   - Utilize precise terminology that communicates the exact intent, ensuring the correct use of singular and plural forms.
+   - Avoid vague terms and ensure that each requirement is self-sufficient without the need for implicit knowledge.
+
+- **Completeness**:
+   - Functional requirements should encapsulate the entire behavior or action, capturing all stages, including decision points, triggering events, and exception handling.
+   - Ensure all behaviors and functionalities are detailed, prioritizing depth over brevity.
+
+- **Consistency**: Maintain consistency in terminology and avoid any conflicting details within the documentation.
+
+## Approach:
+1. Understand the provided requirement thoroughly.
+2. **Seek Clarifications**: If any part is unclear or ambiguous, seek clarity. Do not proceed until you have a complete understanding.
+3. Refine the requirement to ensure it is unambiguous and clear, especially since the result will be used by large language models for code design. Ambiguous requirements can lead to unintended or inaccurate implementations by these models.
+
+## Output Format:
+- Format each step as: "Step [number]: [name]". Example:
+  Step 1: Analyze the existing requirement
+  {Provide output for this step here}
+
+[Template]
+{Insert the template here}

@@ -4,12 +4,12 @@ In software engineering, each feature comes with its corresponding feature requi
 
 We aim to integrate the "Plan Of Change documentation" from Feature A with its initial requirements. Doing so will result in an updated requirements document that aligns seamlessly with the codebase. In this revised document, it's imperative to distinguish the functionalities of Feature A from those of Feature B, reflecting the clarity observed in our Plan Of Change documentation. For functional requirements that specifically relate to integration points with Feature B (and not just at the category level), consider using terms such as "Mandated By Feature B", "Specified By Feature B", or "Provided By Feature B". This will clearly indicate the influence of Feature B on that particular function.
 
-To illustrate my point regarding individual functional requirements:
+To illustrate my point regarding individual functional specifications:
 - **<Category_1>**:
-   - <Requirement_1.1>
-   - <Requirement_1.2>
+   - <Specification_1.1>
+   - <Specification_1.2>
 
-Where "Requirement_1.1" represents the functional requirement and "Category_1" denotes the requirement category.
+Where "Specification_1.1" represents the functional specification and "Category_1" denotes the requirement category.
 
 Should you find more appropriate terminology, considering my English proficiency may fall short at times, I welcome your revisions. I value and trust your expertise. Above all, our objective is to ensure clear distinctions between the features in the new documentation, especially around integration points. I'd appreciate if you familiarize yourself with the context prior to making any changes.
 
@@ -28,29 +28,6 @@ To clarify:
 
 Here, "Requirement_1.1" is a functional requirement, and "Category_1" is its category. The specified terminology should be applied at the individual requirement level.
 It's essential that our new documentation makes clear distinctions between the features, especially concerning integration points. Familiarize yourself with the context before making revisions, and I value your expertise in this matter.
-
-
-
-You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section. This documentation should clarify the modifications or enhancements required for FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
-
-**Background**:
-In the realm of software engineering, as systems evolve and new features are developed, it's imperative to reassess existing features to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where features can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
-
-**Procedure**:
-1. Understand "How To Use This Feature" section from FeatureB.
-2. **Preliminarily Identify Relevant Requirement Items**: Summarize items from FeatureA that have the most relevance with FeatureB, forming a shortlist for a more detailed analysis.
-3. For each item shortlisted in step 2, follow the structured reasoning:
-   a. **Articulate the Current Functionality**:
-      "When examining the requirement from FeatureA, it is observed that it encompasses [specific functionality or role of the requirement]."
-      
-   b. **Introduce and Contrast with FeatureB**:
-      "On the other hand, FeatureB introduces [specific capability or feature of FeatureB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of FeatureA."
-      
-   c. **Provide a Clear Reasoning for Changes and Outcomes**:
-      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this requirement in FeatureA."
-      - If modifying: "The modified requirement for FeatureA, considering FeatureB's capabilities, would be [new detailed functional requirement description]."
-      - If removing: "This requirement from FeatureA is marked for removal due to [specific reason relating to FeatureB]."
-      - If identifying a new requirement: "A new requirement for FeatureA, influenced by FeatureB, would be [detailed description of the new requirement]."
 
 
 
@@ -83,9 +60,165 @@ Please follow the steps defined in the Procedure. Take a deep breath, think step
 
 [Example]
 
+## Plan Of Change Of Module Specification
+
+### Title: 
+- Enhanced User Authentication Process
+
+### Module Specification Being Updated:
+
+**Title**: 
+- User Login System
+
+**Abbreviation**:
+- ULS
+
+**Version**: 
+- v1.2
+
+**Original Specification Summary**:
+- Allow users to login using email and password. Provide forgot password functionality.
+
+### Caused By Module:
+
+**Title**: 
+- Two-Factor Authentication Integration
+
+**Abbreviation**:
+- 2FA
+
+**Version**: 
+- v1.0
+
+**Functionality Provided**:
+- Offers an additional layer of security by requesting a one-time code sent to the user's mobile device.
+
+### Integration/Update Details:
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **Authentication**:
+
+  ##### Modifications:
+
+  **Original (User Login Process)**:
+  - **Reason/Driven By**: Introduction of the Two-Factor Authentication module.
+  - **Updated**: Allow users to login using email, password, and a one-time code sent to their mobile device.
+
+  **Original (Password Retrieval Process)**:
+  - **Reason/Driven By**: Enhancements in security protocols.
+  - **Updated**: Provide forgot password functionality with an additional verification step using a mobile number.
+  
+  ##### Additions:
+
+  **New Specification (Backup Authentication Method)**:
+  - **[+]**: In case the user cannot access the one-time code on their mobile device, offer an alternative method via backup email.
+  - **Reason/Driven By**: Need for an alternative method for Two-Factor Authentication when mobile access is compromised.
+  
+  ##### Removals:
+
+  **Original (Legacy Login Support)**:
+  - **[−]**: Remove support for older login methods that only rely on email and password without any secondary verification.
+  - **Reason/Driven By**: Increased security measures and the introduction of Two-Factor Authentication.
+
+  (Additional changes would be detailed here if necessary)
+
 [ModuleA]
+### Automated Coding Workflow Module Specification
+
+#### 1. Module Description:
+This module facilitates the definition, management, and execution of a multi-step automated coding workflow. It encompasses functionalities to initialize workflow steps from configurations, convert workflow instances to JSON representations, and execute specific steps or the entire workflow.
+
+#### 2. Module Dependencies:
+- **LLM Integration Module**: The Automated Coding Workflow Module uses functionalities from the LLM Integration Module to communicate with large language models like ChatGPT and manage external dependencies.
+
+#### 3. How To Use This Module:
+(Empty as the main purpose of this section is to describe how other modules can use the Automated Coding Workflow Module.)
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **Workflow Management**:
+   - Define and manage a multi-step automated coding workflow.
+   - Each step in the workflow can potentially have sub-steps.
+   - Integrate with the LLM Integration Module to manage external dependencies.
+   - Initialize steps of the workflow from a given configuration.
+   - Convert the workflow instance to a JSON representation.
+   - Start the entire workflow process.
+   - Execute specific steps within the workflow using their ID.
+
+- **Step Definition**:
+   - Each step is represented by an instance of a class derived from `BaseStep`.
+   - Construct a unique ID for each step instance.
+   - Construct a dynamic prompt for each step.
+   - Process the response from the LLM Integration Module for each step.
+   - Define the execution logic for each step.
+
+- **Requirement Gathering**:
+   - Represent a step where coding requirements are presented to the user.
+   - Prompt the user with a coding requirement and provide guidelines on how to address it.
+   - Construct a prompt for this step using a template.
+   - Process the response from the LLM Integration Module for this step.
+
+- **Architecture Design Step**:
+   - Represent the design stage in the coding workflow.
+   - Use a template for constructing the design stage's prompt.
+
+4.2. **Technical Specifications**:
+(No technical specifications were provided in the initial document. This section can be populated when such specifications are defined.)
+
 
 [ModuleB]
+### Prompt Versioning Mechanism Module Specification
+
+#### 1. Module Description:
+This module manages versioned prompts for Large Language Models (LLMs). It provides foundational functionality for entities to handle prompt variations, enabling comparative analysis between different versions. Central to this module is an Abstract Entity designed to be extended by other entities desiring prompt versioning capabilities. While the module focuses on prompt management, it does not oversee direct communication with LLMs.
+
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
+
+#### 3. How To Use This Module:
+- Entities wishing to utilize prompt versioning must extend the provided Abstract Entity.
+- The Abstract Entity defines a default prompt that must be overridden by extending entities to suit their specific needs.
+- Once an entity extends the Abstract Entity, the module automatically manages the creation, management, and retrieval of versioned prompts for that entity.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Users (such as other backend systems or APIs) can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+
+- **Entity-Specific Default Prompt**:
+   - Every entity or component that communicates with LLMs and extends the Abstract Entity must override its default prompt.
+   - If prompts specific to an entity are absent in the database, the overridden default prompt initializes the database as v1 and acts as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Before any LLM communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is not in the database, the system uses the entity's overridden default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can introduce a new prompt version upon modifying the existing prompt.
+   - A maximum of 4 prompt versions are maintained for each entity.
+   - If a new version exceeds the 4-version cap, the oldest version is purged.
+
+- **Comparative Analysis**:
+   - The system supports API-based comparative evaluations of different prompt versions, with future plans to incorporate a side-by-side comparison tool.
+
+- **Database Management**:
+   - Versions are depicted using simple incremented numerals (e.g., v1, v2, etc.).
+   - Each version's creation/modification timestamp is documented.
+
+4.2. **Technical Specifications**:
+
+- **Database Interaction**:
+   - Efficient CRUD (Create, Read, Update, Delete) operations for prompt version management are paramount.
+   - Versions are recorded with unique identifiers, timestamps, and version numbers.
+
 
 
 I wanna emphasize again about our context. So ChatGPT has executed one prompt. When it executed the prompt, it generated some outputs. Now the user has some opinions about the output. They are not satisfied about the output. So  the prompt evaluation prompt is used to analyze the possible problem with the original prompt given the three information "original prompt", "output", "user feedback". Could you please evaluate again step by step whether the latest prompt achieves this user requirement?

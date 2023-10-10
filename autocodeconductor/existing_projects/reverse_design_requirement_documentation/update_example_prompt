@@ -1,5 +1,5 @@
 
-You are a software engineer tasked with updating an existing feature code design example. The original template, from which the example was derived, has undergone changes, and it is crucial to align the example with the updated template while ensuring its functionality.
+You are large languag model performing as a software architect tasked with updating an existing feature code design example. The original template, from which the example was derived, has undergone changes, and it is crucial to align the example with the updated template while ensuring its functionality.
 
 **Criteria**:
 1. Reflect the changes made in the updated template accurately in the example.
@@ -13,13 +13,11 @@ You are a software engineer tasked with updating an existing feature code design
 4. Implement the required changes in the example while maintaining its overall coherence. And present the implemented new example in copiable code block.
 
 [Template]:
-
-### Feature Code Design Documentation Template:
-
-#### 1. Code Architecture Design:
+### <Title> (Title should be closely related to the module, such as xxx Module Code Specification)
+#### 1. Module Architecture Design:
 
 ##### 1.1. High-Level Design
-- Brief overview of the primary architecture.
+- Brief overview of the primary module architecture.
 - Design patterns, principles, or structures that will be applied.
 
 ##### 1.2. New Components Specifications
@@ -27,49 +25,49 @@ You are a software engineer tasked with updating an existing feature code design
 ###### 1.2.1. Fully Defined
 For each component:
   - **Name (New) [extends/relates OtherComponentName]** (if applicable)
-    - **Purpose**: Clear description of the component's role and functionality.
+    - **Purpose**: Clear description of the component's role and functionality within the module.
     - **Attributes**:
       - `attribute_name`: Short description of the attribute and its significance.
       ... Continue for all attributes.
     - **Methods/APIs**:
       - `method_name()`: Describe the method's purpose, expected input, and output.
       ... Continue for all methods.
-    - **Interactions**: Describe how this component interacts with other components.
+    - **Interactions**: Describe how this component interacts with other module components.
 
 ... Continue for all fully defined new components.
 
-###### 1.2.2. Placeholder Components (Pending File Provision)
+###### 1.2.2. Part-Of Components (Pending File Provision)
 For each component:
-  - **Name (New/Placeholder) [extends/relates OtherComponentName]** (if applicable)
-    - **Status Note**: _"This component is part of the feature, but its detailed specifications will be supplemented upon provision of the relevant file."_
+  - **Name (Part-Of) [extends/relates OtherComponentName]** (if applicable)
+    - **Status Note**: _"This component is part of the module, but its detailed specifications will be supplemented upon provision of the relevant file."_
     - **Tentative Purpose**: A general understanding or assumption about the component's role and tasks based on current knowledge.
 
 ... Continue for placeholders.
 
-##### 1.3. Dependencies (Unchanged Components)
+##### 1.3. Used-By Dependencies (Unchanged Components)
 
 For each component:
-  - **Name (Existing)**
-    - **Purpose**: Clear description of the component's role and functionality.
-    - **Interactions**: Describe its interactions with new components, if any.
+  - **Name (Used-By)**
+    - **Purpose**: Clear description of the component's role and functionality within the module.
+    - **Interactions**: Describe its interactions with new module components, if any.
 
 ... Continue for all dependencies.
 
 ##### 1.4. Interactions Overview
-- A broader perspective on how new components interact with each other and with existing components.
-- Highlight any specific sequence of operations or workflows.
+- A broader perspective on how new module components interact with each other and with existing components.
+- Highlight any specific sequence of operations or workflows within the module.
 
 ##### 1.5. External Dependencies
-- List any third-party libraries, services, or tools that will be used.
+- List any third-party libraries, services, or tools that the module will use.
 - Specific versions or configurations to be aware of.
 
 #### 2. UML Diagram
 
-- A UML diagram showcasing the relationships and interactions between components.
+- A UML diagram showcasing the relationships and interactions between module components.
 - **UML Legend**:
-  - Components marked with `(New)` are to be developed as part of this feature.
-  - Components marked with `(New/Placeholder)` are identified but not fully defined.
-  - Components marked with `(Existing)` are pre-existing and are treated as dependencies.
+  - Components marked with `(New)` are to be developed as part of this module.
+  - Components marked with `(Part-Of)` are identified but not fully defined within the module.
+  - Components marked with `(Used-By)` are pre-existing and are treated as dependencies within the module context.
 
 @startuml
 ... UML content here ...
@@ -78,15 +76,18 @@ For each component:
 
 [Example]
 
-### Example
+
+## Example
+### Feature Code Design Documentation:
+
 #### 1. Code Architecture Design:
 
 ##### 1.1. High-Level Design
 This feature is designed to implement the Observer Pattern, enabling multiple subscribers to be notified of certain events. The architecture ensures that event initiators and responders are decoupled, allowing for modularity and scalability.
 
-##### 1.2. Components Modifications
+##### 1.2. New Components Specifications
 
-###### 1.2.1. New Components
+###### 1.2.1. Fully Defined
 
 - **Publisher (New)**
     - **Purpose**: Acts as the broadcaster for events. It notifies all subscribers when an event occurs and logs them to the `EventDatabase`.
@@ -106,10 +107,17 @@ This feature is designed to implement the Observer Pattern, enabling multiple su
         - `on_event_received(event: Event)`: Handles the event and stores it in `event_history`.
     - **Interactions**: Receives event notifications from the `Publisher`.
 
-###### 1.3. Dependencies (Unchanged Components)
+###### 1.2.2. Part-Of Components (Pending File Provision)
 
-- **EventDatabase (Existing)**
+- **NotificationService (Part-Of)) [relates Publisher]**
+    - **Status Note**: _"This component is part of the feature, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: This service might be responsible for sending notifications to external systems or users when specific events are triggered.
+
+##### 1.3. Used-By Dependencies (Unchanged Components)
+
+- **EventDatabase (Used-By)**
     - **Purpose**: A database component designed to store all triggered events.
+    - **Interactions**: Stores events triggered by the `Publisher`.
 
 ##### 1.4. Interactions Overview
 - Users or systems interface with the `Publisher` to initiate events.
@@ -121,9 +129,10 @@ This feature is designed to implement the Observer Pattern, enabling multiple su
 
 #### 2. UML Diagram
 
-##### 2.1. UML Legend
-- Components marked with `(New)` are to be developed as part of this feature.
-- Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this feature.
+  - Components marked with `(Part-Of)` are identified but not fully defined.
+  - Components marked with `(Used-By)` are pre-existing and are treated as dependencies.
 
 @startuml
 
@@ -139,12 +148,15 @@ class "Subscriber (New)" {
     + on_event_received(event: Event)
 }
 
-class "EventDatabase (Existing)" {
+class "EventDatabase (Used-By)" {
     + save_event(event: Event)
 }
 
+class "NotificationService (Part-Of)"
+
 "Publisher (New)" --> "Subscriber (New)": Event notification
-"Publisher (New)" --> "EventDatabase (Existing)": Logs event
+"Publisher (New)" --> "EventDatabase (Used-By)": Logs event
+"Publisher (New)" --> "NotificationService (Part-Of)": Possible notification
 
 @enduml
 

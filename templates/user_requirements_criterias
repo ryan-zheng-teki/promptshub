@@ -1,0 +1,20 @@
+- **Effectiveness**: The requirement should directly translate into design solutions and code implementations, such as APIs or attributes.
+  
+- **Clarity & Precision**:
+   - Each requirement should be clear, specific, and free from ambiguity.
+   - Use precise terminology that conveys the exact meaning, ensuring correct usage of singular and plural forms.
+   - Avoid vague terms and ensure that each requirement stands on its own without assumptions of implicit knowledge.
+
+- **Completeness**:
+   - Functional requirements should describe the entire behavior or action, capturing all steps or actions, including decision points, triggering events, and exception handling.
+   - Ensure all behaviors and functionalities are captured, even if it means sacrificing brevity. However, unnecessary verbosity should still be avoided.
+
+- **Consistency**: Ensure uniformity in terminology and avoid conflicting details within the documentation.
+
+- **Focused Descriptions**:
+   - Emphasize the core functionality of the feature. 
+   - The description should capture the essence of the feature without delving into deep technicalities or making assumptions about its use.
+
+- **Functional Requirement Integrity**:
+   - Explicitly state the start and end points, outcomes of decision points, and how exceptions or errors will be handled.
+   - If a requirement is based on an event or trigger, it should be clearly defined.
