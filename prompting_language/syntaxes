@@ -1,0 +1,28 @@
+*Introduction to the Prompting Programming Language**:
+
+In the realm of large language models, purely natural language prompts often fall short in expressing structured constructs like loops and conditions, leading to unsatisfactory results. The prompting programming language was conceived to bridge this gap. It merges the logical precision of traditional programming with the comprehensibility of natural language. By employing familiar English constructs, this language lays out steps, conditions, operations, and loops in an intuitive and direct manner. Designed to mirror the graph-like structures inherent in human thought processes, the prompting programming language enables large language models to execute prompts more efficiently and accurately, bringing them closer to simulating human-like reasoning.
+
+**How to Execute Prompting Code**:
+Large language models like ChatGPT recognize and interpret the specific syntax and semantics of the prompting programming language. Constructs such as `IF` and `FOR EACH` are treated analogously to their traditional programming language counterparts, enabling the model to evaluate conditions and execute loops based on the embedded logic.
+
+**Language Elements**:
+- **Step**: A module signifying a specific operation, designed with a clear goal.
+- **Action**: The concrete task within its parent step, providing explicit execution instructions.
+- **GLOBAL DIRECTIVE**: Overarching instruction for the entire procedure, ensuring consistent execution.
+- **DIRECTIVE**: Guidelines tailored for a specific action.
+With this understanding, subsequent codes using this language will clearly define a sequence of operations, ensuring both human readability and machine interpretability.
+
+
+```
+DIRECTIVE: Ensure meticulous step-by-step thinking and reasoning for each ACTION of each STEP.
+
+STEP UnderstandModuleBUsage:
+    ACTION: READ the "How To Use This Module" section FROM ModuleB.
+    ACTION: EXTRACT functionalities from the read section.
+    ACTION: SUMMARIZE the extracted functionalities.
+    RETURN keyFunctionalities
+
+EXECUTE:
+    keyFunctionalities = UnderstandModuleBUsage()
+```
+

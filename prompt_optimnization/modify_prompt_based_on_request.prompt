@@ -29,44 +29,49 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-You are a senior requirements engineer. An existing feature requirement is provided in the `[Requirement]` section, marked by the `$start$` and `$end$` tokens. Your primary task is to refine the given feature requirement.
+**Role & Objective**
+You are a senior software architect. You are tasked with drafting a "Plan Of Change" documentation for an existing "Module Specification" detailed in the `[ModuleA]` section, based on functionalities provided by another recently developed "Module Specification" in the `[ModuleB]` section. This documentation should clarify the modifications or enhancements required for ModuleA, ensuring it efficiently leverages the capabilities provided by ModuleB.
 
-# Context:
-The resulting feature requirement document is specifically tailored for large language models like ChatGPT. Given the nature of these models, it is imperative that the criteria outlined in the document are met with utmost precision. A clear, concise, and unambiguous requirement is crucial, as it directly influences the efficacy of the code design and implementation by these models.
+**Background**:
+In the realm of software engineering, as systems evolve and new module specifications are developed, it's imperative to reassess existing module specifications to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where module specifications can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
 
-## Criteria:
-- **Effectiveness**: The requirement should translate seamlessly into design solutions and code implementations, such as APIs or attributes.
-  
-- **Clarity & Precision**:
-   - Each requirement must be unambiguous, specific, and straightforward.
-   - Utilize precise terminology that communicates the exact intent, ensuring the correct use of singular and plural forms.
-   - Avoid vague terms and ensure that each requirement is self-sufficient without the need for implicit knowledge.
+**Procedure**:
+1. Understand "How To Use This Module" section from ModuleB.
+2. **Preliminarily Identify The Most Relevant Items**: Browse through each category in the `4. Specifications` section of ModuleA. For each category, summarize the specific specification items that have the most relevance with ModuleB. This step will form a detailed shortlist for a deeper analysis.
+3. For each specification item shortlisted in step 2, follow the structured reasoning:
 
-- **Completeness**:
-   - Functional requirements should encapsulate the entire behavior or action, capturing all stages, including decision points, triggering events, and exception handling.
-   - Ensure all behaviors and functionalities are detailed, prioritizing depth over brevity.
+   a. **Define the Current Functionality**:
+      "When examining the specification item from ModuleA, it is observed that it encompasses [specific functionality or role of the specification item]."
+      
+   b. **Introduce and Contrast with ModuleB**:
+      "On the other hand, ModuleB introduces [specific capability or specification of ModuleB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the specification item."
+      
+   c. **Provide Clear Reasoning for Changes and Outcomes**:
+      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this specification item in ModuleA."
+      - If modifying: "The modified description for this specification item, considering ModuleB's capabilities, would be [new detailed functional specification description]."
+      - If removing: "This specification item from ModuleA is marked for removal due to [specific reason relating to ModuleB]."
+      - If identifying a new requirement: "A new specification item for ModuleA, influenced by ModuleB, would be [detailed description of the new specification item]."
 
-- **Consistency**: Maintain consistency in terminology and avoid any conflicting details within the documentation.
+4. **Identify New Specification Items**: Based on the capabilities of ModuleB, list out any new specification items that should be added under the appropriate categories in ModuleA to fully leverage the functionalities of ModuleB.
+5. Based on the structured reasoning from steps 3 and 4, start to draft the documentation following the structure of the `[Example]`.
 
-## Approach:
-1. Understand the provided requirement thoroughly.
-2. **Seek Clarifications**: If any part is unclear or ambiguous, seek clarity. Do not proceed until you have a complete understanding.
-3. Refine the requirement to ensure it is unambiguous and clear, especially since the result will be used by large language models for code design. Ambiguous requirements can lead to unintended or inaccurate implementations by these models.
-
-## Output Format:
-- Format each step as: "Step [number]: [name]". Example:
-  Step 1: Analyze the existing requirement
-  {Provide output for this step here}
-
-[Template]
-{Insert the template here}
+Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously, and provide comprehensive reasoning for each step.
 
 $end$
 
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
 [Requirement]
 $start$
-I think the steps in the Approach area is not accurate. For example, "understand the provided requirment thoroughly". Due to how large language models works. The the input contributes to the output. So the "understand the provided requirment thoroughly" step 
-will possibly just replicate the results. 
+I feel like there is quite much redundency in the "Role & Objective" and "Context" sections. Please simplify it, while without changing the intended information to be delivered.
+$end$
+
+
+
+[Requirement]
+$start$
+I would suggest to improve the explicitness of the "Preliminarily Identify The Most Relevant Items". 
 
 Due to the structure of specifications in the documentation looks like this:
 ```
@@ -95,10 +100,8 @@ Due to the structure of specifications in the documentation looks like this:
 <Continue listing categories and their associated specifications as necessary.>
 ```
 
-So the steps should go through each specification item under each category, and try to 
-check whether this item is completely implementation clear under this context of module.
-
-If its not implementation clear, then it should mark it as unclear, and raise questions.
+So the steps should go through each specification item under each category. Here the category means the category under either functional or technical specification. Because  if not make it clear, ChatGPT might think the category means 5.1 or 5.2. 
+Since the numbering is fixed. You could think about a way to make the second step even more clear about where specification item is located.
 $end$
 
 

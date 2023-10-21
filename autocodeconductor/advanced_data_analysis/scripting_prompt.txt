@@ -50,31 +50,26 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Requirement]
 $start$
-### **Automated Test Replicator**
+Got it. Incorporating the table name as an input parameter is essential for generating accurate SQL statements. Here's your requirement with the table name addition:
 
-#### **Objective**:
-Automate the generation of unit tests in a Python test file based on a template method. The tests should be generated based on JSON filenames in a specified directory, but only for those JSON files that don't already have corresponding tests.
+---
 
-#### **User Inputs**:
-1. **Test File Path**: Path to the test file where the template method is located. This is where replicated tests will be appended.
-2. **Input Folder**: Directory containing JSON input files. Each file acts as data for a unique test.
-3. **File Prefix**: Prefix of the JSON filenames to determine which files to consider for test replication.
-4. **Output Folder**: Directory with expected JSON output results corresponding to each input.
+### User Requirement (Updated):
 
-#### **Script Actions**:
-1. Scan the test file to identify the template method and find which input file it uses. This also helps in detecting tests that have already been generated.
-2. Scan the specified input folder to locate filenames with the provided prefix.
-3. Determine which input files do not yet have a corresponding test in the test file.
-4. For each input file without a matching test:
-    - Extract its suffix (e.g., `country_FR_city_Paris`).
-    - Clone the template test method.
-    - Within the cloned test:
-        1. Adjust the test method's header using the extracted suffix.
-        2. Modify the input file path in the test to match the extracted suffix.
-        3. Adapt the expected results file path using the extracted suffix.
-    - Append the new test method to the test file, directly after the template.
+#### Objective:
+- Convert all rows from an Excel sheet into SQL INSERT UPDATE statements. There are no duplicates in the Excel sheets.
+
+#### Input:
+- An Excel sheet with various column names.
+- User-provided input parameters specifying:
+  - A mapping between Excel column names and the desired SQL column names. This can be two lists: one for Excel column names and one for SQL column names.
+  - Data type configurations for each column in the Excel sheet to determine how the data should be processed and formatted in the SQL statements. Supported basic data types: "string", "integer", "date", etc.
+  - The name of the SQL table where the data will be inserted/updated.
+
+#### Output:
+- SQL INSERT UPDATE statements for each row of data from the Excel sheet, with column names transformed as per the provided configuration and values formatted based on the specified data types.
+- The output should be printed to the console.
 $end$
-
 
 
 

@@ -1,0 +1,8 @@
+I think all the prompting technique could potentially be achieved via prompting language. 
+
+The reason is that in its essence: programming language is basically a computation graph. However, natural language processing is more like thinking, speaking of the minds.
+
+However, human thinking for a certain task is also like thinking graph. Prompting language its self integrate the elements from programming language to prompting to 
+make large language model think more like humans.
+
+

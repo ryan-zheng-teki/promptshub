@@ -42,21 +42,115 @@ Follow the steps below:
 
 [Writing]
 $start$
-Software projects initiate with user requirements that outline a broad vision and desired functionalities. Often, these initial requirements are not exhaustive. As stakeholders engage in deeper discussions and analyses, the requirements become more nuanced and detailed. During this refinement process, the need for modular design becomes evident. To architect an efficient and maintainable software system, these detailed requirements are grouped and organized into specialized modules. Each module is tailored to handle specific tasks or functionalities, designed to function independently and to collaborate seamlessly to realize the overarching user requirements. The meticulous definition of each module's boundaries, responsibilities, and the specifics of their integration is of paramount importance.
-However, a notable challenge arises in the lifecycle of software development. Even as requirements evolve and modules are redefined, original user requirements often remain untouched.
-Several reasons contribute to this:
-1. **Difficulty in Tracing Original Requirements**: Over time, locating and tracing back to the original requirements becomes a daunting task. Systems like Jira, commonly used for requirement tracking, might not offer the most user-friendly experience in this regard.
- 
-2. **Effort Overhead**: The effort required to find, revisit, and update the original requirements often outweighs the perceived benefits, especially when considering the pace of development cycles.
- 
-3. **Human Limitations in Logical Writing**: Humans are inherently not adept at consistently logical and structured writing. This leads to requirements that are ambiguously written or lack comprehensive details.
-Despite these challenges, it's imperative that module specifications remain up-to-date, especially when accommodating ad-hoc user requirements. The reason is clear: module specifications are directly linked to the module's code specification. When there's a need to update a module due to evolving requirements, a "Plan Of Update" for the module specification is first crafted. This plan is pivotal as it drives the creation of the "Plan Of Update" for the code specification.
-Imagine a scenario where ChatGPT is provided with a "Module Specification", its corresponding "Module Code Specification", and a "Plan Of Update Of Module Specification". With this trio of documents, ChatGPT can discern the necessary code alterations and subsequently draft a "Plan Of Update Of Module Code Specification". Based on this plan, executable subtasks are generated, allowing ChatGPT to seamlessly update the existing codebase, ensuring it aligns with the updated user requirements.
-The ultimate vision is a groundbreaking shift in software development: codebase updates driven by user requirements and executed automatically. With rigorous documentation as its foundation, advanced language models have the potential to seamlessly translate user aspirations into real-world code implementations.$end$
+### Prompt Versioning Mechanism Module Specification
+
+#### 1. Module Responsibility:
+This module manages versioned prompts for Large Language Models (LLMs). It provides foundational functionality for entities to handle prompt variations, enabling comparative analysis between different versions. Central to this module is an Abstract Entity designed to be extended by other entities desiring prompt versioning capabilities. While the module focuses on prompt management, it does not oversee direct communication with LLMs.
+
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
+
+#### 3. How To Use This Module:
+- Entities wishing to utilize prompt versioning must extend the provided Abstract Entity.
+- The Abstract Entity defines a default prompt that must be overridden by extending entities to suit their specific needs.
+- Once an entity extends the Abstract Entity, the module automatically manages the creation, management, and retrieval of versioned prompts for that entity.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Users (such as other backend systems or APIs) can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+
+- **Entity-Specific Default Prompt**:
+   - Every entity or component that communicates with LLMs and extends the Abstract Entity must override its default prompt.
+   - If prompts specific to an entity are absent in the database, the overridden default prompt initializes the database as v1 and acts as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Before any LLM communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is not in the database, the system uses the entity's overridden default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can introduce a new prompt version upon modifying the existing prompt.
+   - A maximum of 4 prompt versions are maintained for each entity.
+   - If a new version exceeds the 4-version cap, the oldest version is purged.
+
+- **Comparative Analysis**:
+   - The system supports API-based comparative evaluations of different prompt versions, with future plans to incorporate a side-by-side comparison tool.
+
+- **Database Management**:
+   - Versions are depicted using simple incremented numerals (e.g., v1, v2, etc.).
+   - Each version's creation/modification timestamp is documented.
+
+4.2. **Technical Specifications**:
+
+- **Database Interaction**:
+   - Efficient CRUD (Create, Read, Update, Delete) operations for prompt version management are paramount.
+   - Versions are recorded with unique identifiers, timestamps, and version numbers.
+
+$end$
 
 [UserRequest]
 $start$
-I feel like the article didn't explain in detail there are specialized modules. Who comes up with 
-those specicalized modules.
+I would like to remove the mentioning of large language model in this case. To make the module 
+responsibility to focus on itself. Because it might create misunderstanding for people. They might 
+think the module also handles large language module related functionalities. But it actually only 
+manages the prompt versioning capabilities.
 $end$
 
+
+[Example]
+$start$ 
+BEGIN PROCEDURE:
+GLOBAL DIRECTIVE: Ensure meticulous step-by-step reasoning for each `Action` in every defined `Step` of the prompting procedure.
+
+Role & Objective:
+You're a language model functioning as a senior requirement engineer. Understand and clarify user requests. Resolve ambiguities through iterative Q&A sessions, then present the clarified request systematically.
+
+Context:
+Precision in understanding user requests is vital for accurate responses, especially since final user requests are processed by large language models like ChatGPT. If a request is unclear or ambiguous, it's crucial to seek structured clarification. Given the model's limited context length, it's imperative to summarize user requests after each Q&A. This summarized version serves as the input for subsequent interactions, ensuring earlier user requests are considered.
+
+Criteria:
+- Engage in iterative Q&A sessions until all ambiguities are addressed.
+- Thoroughly analyze user responses, integrating all clarified points.
+- Summarize after each Q&A session to maintain context for further model analysis.
+- The end result should be well-structured, clear, and unambiguous.
+
+Step AnalyzeInitialRequest(userRequest):
+    Action: IDENTIFY ambiguities OR unclear points IN userRequest
+    IF ambiguities DETECTED:
+        INITIATE QnASession
+    RETURN ambiguities
+
+Step QnASession(ambiguities):
+    Action: ASK user FOR clarification ON ambiguities
+    COLLECT userResponses
+    RETURN userResponses
+
+Step AnalyzeUserResponses(responses):
+    Action: EVALUATE responses TO resolve ambiguities
+    SUMMARIZE clarified request BASED ON responses
+    RETURN summarizedRequest
+
+Step CheckForFurtherAmbiguities(summarizedRequest):
+    Action: REVIEW summarized request FOR remaining ambiguities
+    IF ambiguities EXIST:
+        RETURN TO QnASession
+    ELSE:
+        PROCEED to next step
+
+Step PresentClarifiedRequest(summarizedRequest):
+    Action: FORMAT AND STRUCTURE the summarized request
+    RETURN structuredRequest
+
+EXECUTE:
+    userRequest=```I want to create a python script to read an excel sheet with specific formats, modify a certain column, and then write back to the sheet. The goal is to ensure the original format remains unchanged after the write-back.
+    ```
+    ambiguities = AnalyzeInitialRequest(userRequest)
+    userResponses = QnASession(ambiguities)
+    summarizedRequest = AnalyzeUserResponses(userResponses)
+    CheckForFurtherAmbiguities(summarizedRequest)
+    structuredRequest = PresentClarifiedRequest(summarizedRequest)
+END PROCEDURE
+$end$
