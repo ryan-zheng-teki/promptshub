@@ -4,7 +4,7 @@ You are a large language model performing as a top prompt engineer. Your objecti
 Most of the prompt is well-written, but only some minor parts can be improved. The optimized prompt will be used by a large language model like ChatGPT.
 
 [Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
+- Avoid excessive optimization unless it's what the user is asking for. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
 - Prioritize explicitness and clarity over complexity.
 
 Follow the steps below:
@@ -29,44 +29,294 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-**Role & Objective**
-You are a senior software architect. You are tasked with drafting a "Plan Of Change" documentation for an existing "Module Specification" detailed in the `[ModuleA]` section, based on functionalities provided by another recently developed "Module Specification" in the `[ModuleB]` section. This documentation should clarify the modifications or enhancements required for ModuleA, ensuring it efficiently leverages the capabilities provided by ModuleB.
+You're a "Prompting Code Developer".  Your task is to convert the prompt enclosed by `$start$` and `$end$` tokens in the `[GivenPrompt]` section to prompting procedure.  
 
-**Background**:
-In the realm of software engineering, as systems evolve and new module specifications are developed, it's imperative to reassess existing module specifications to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where module specifications can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
+**Introduction to the Prompting Programming Language**:
 
-**Procedure**:
-1. Understand "How To Use This Module" section from ModuleB.
-2. **Preliminarily Identify The Most Relevant Items**: Browse through each category in the `4. Specifications` section of ModuleA. For each category, summarize the specific specification items that have the most relevance with ModuleB. This step will form a detailed shortlist for a deeper analysis.
-3. For each specification item shortlisted in step 2, follow the structured reasoning:
+The Prompting Programming Language is a blend of conventional programming and natural language, designed to interact more structuredly with large language models like ChatGPT. Its core principle combines the precision of traditional programming with the comprehensibility of natural language, enhancing the clarity of instructions to the model.
 
-   a. **Define the Current Functionality**:
-      "When examining the specification item from ModuleA, it is observed that it encompasses [specific functionality or role of the specification item]."
-      
-   b. **Introduce and Contrast with ModuleB**:
-      "On the other hand, ModuleB introduces [specific capability or specification of ModuleB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the specification item."
-      
-   c. **Provide Clear Reasoning for Changes and Outcomes**:
-      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this specification item in ModuleA."
-      - If modifying: "The modified description for this specification item, considering ModuleB's capabilities, would be [new detailed functional specification description]."
-      - If removing: "This specification item from ModuleA is marked for removal due to [specific reason relating to ModuleB]."
-      - If identifying a new requirement: "A new specification item for ModuleA, influenced by ModuleB, would be [detailed description of the new specification item]."
+**Why Use the Prompting Programming Language?**:
 
-4. **Identify New Specification Items**: Based on the capabilities of ModuleB, list out any new specification items that should be added under the appropriate categories in ModuleA to fully leverage the functionalities of ModuleB.
-5. Based on the structured reasoning from steps 3 and 4, start to draft the documentation following the structure of the `[Example]`.
+Large language models can sometimes produce ambiguous or incorrect results from unstructured prompts. The Prompting Programming Language introduces structured constructs such as loops, conditions, and directives to provide clear and defined instructions, minimizing potential errors.
 
-Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously, and provide comprehensive reasoning for each step.
+**Language Elements and Their Descriptions**:
 
+1. **Step**:
+    - **Definition**: A distinct operation with a set objective.
+    - **Usage**: Organizes the flow of instructions into specific segments or phases.
+
+2. **Action**:
+    - **Definition**: A task within a step to be executed.
+    - **Usage**: The dynamic components of the language that process variables and return results. Comparable to a function in traditional programming.
+
+3. **GLOBAL DIRECTIVE**:
+    - **Definition**: An overarching command for the entire procedure.
+    - **Usage**: Sets consistent rules or guidelines for the entire procedure, similar to global variables in traditional programming.
+
+4. **DIRECTIVE**:
+    - **Definition**: Rules tailored for specific actions.
+    - **Usage**: Offers detailed instruction for actions, akin to local settings in conventional programming.
+
+**Current State of the Language**:
+- The language currently comprises the above elements. While it maintains simplicity for users, it's designed for potential future extensions based on user feedback and needs.
 $end$
-
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 
 [Requirement]
 $start$
-I feel like there is quite much redundency in the "Role & Objective" and "Context" sections. Please simplify it, while without changing the intended information to be delivered.
+
 $end$
 
+
+1. Module Description:
+The Prompt Versioning Module centralizes and encapsulates prompt-related functionalities, serving other entities within the application that need to communicate with large language models. This module facilitates the use of different versions of prompts, extracting and streamlining common prompt management functionalities, ensuring efficient and consistent communication.
+
+
+
+[ModuleA]
+### Automated Coding Workflow Module Requirements Specification
+
+#### 1. Module Description:
+This module facilitates the definition, management, and execution of a multi-step automated coding workflow. It encompasses functionalities to initialize workflow steps from configurations, convert workflow instances to JSON representations, and execute specific steps or the entire workflow.
+
+#### 2. Module Dependencies:
+- **LLM Integration Module**: This module utilizes the "LLM Integration Module" to interface with large language models like ChatGPT and execute coding instructions.
+
+#### 3. Symbols & Usage:
+- **[⇌ LLM Integration Module]**: Denotes functionalities or interactions that are directly tied to the LLM Integration Module.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **Workflow Management**:
+   - Define and manage a multi-step automated coding workflow.
+   - Each step in the workflow can potentially have sub-steps.
+   - [⇌ LLM Integration Module] Integrate with the "LLM Integration Module" to manage LLM communications.
+   - Initialize steps of the workflow from a given configuration.
+   - Convert the workflow instance to a JSON representation.
+   - Start the entire workflow process.
+   - Execute specific steps within the workflow using their ID.
+
+- **Shared Step Functionalities**:
+   - Construct a unique ID for each step instance.
+   - [⇌ LLM Integration Module] Process the response from the "LLM Integration Module" for each step.
+   - Define the execution logic for each step.
+   - Construct a dynamic prompt for each step.
+
+- **Requirement Clarification Step**:
+   - Represent a step where coding requirements are presented to the user.
+   - Construct a prompt for this step using a template.
+
+- **Architecture Design Step**:
+   - Represent the design stage in the coding workflow.
+   - Use a template for constructing the design stage's prompt.
+
+4.2. **Technical Specifications**:
+(No technical specifications were provided in the initial document. This section can be populated when such specifications are defined.)
+
+
+[ModuleB]
+### LLM Integration Module Requirements Specification
+
+#### 1. Module Description:
+The LLM Integration Module provides a comprehensive interface for integrating with various Language Learning Models (LLM) providers. It emphasizes on a consistent message processing mechanism across different LLM implementations, with a particular focus on OpenAI's models.
+
+#### 2. Module Dependencies:
+- **OpenAI Library**: This external library is essential for enabling interactions with OpenAI's API, which is a primary LLM provider supported by this module.
+
+#### 3. Symbols & Usage:
+- **[⇌ OpenAI]**: Denotes functionalities or interactions that directly involve the OpenAI Library or OpenAI's LLM implementations.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **Integration Foundation**:
+   - [⇌ OpenAI] Provide an abstract class (`BaseLLMIntegration`) that serves as a common interface for various LLM integrations, ensuring consistent message processing.
+   - Introduce a foundational abstract class (`BaseOpenAIApi`) to offer consistent functionalities for OpenAI API implementations.
+   
+- **OpenAI-Specific Implementations**:
+   - [⇌ OpenAI] Implement a concrete class (`OpenAIChatApi`) for processing message interactions using the OpenAI Chat API.
+   - [⇌ OpenAI] Provide a mechanism (`OpenAIApiFactory`) to instantiate specific OpenAI API classes based on defined types and model names.
+   - [⇌ OpenAI] Design a class (`OpenAIGPTIntegration`) that integrates OpenAI GPT models with external programs.
+
+- **Message Management**:
+   - [⇌ OpenAI] Define data structures (`openai_message_types`) to represent and manage messages in OpenAI communication.
+   - [⇌ OpenAI] Offer classes (`SystemMessage`, `UserMessage`, and `AssistantMessage`) that represent different roles a message can have in the OpenAI communication process.
+   - Introduce a utility (`MessageList`) to manage lists of messages, with methods to add and retrieve messages.
+
+- **Integration Registry**:
+   - Develop a centralized mechanism (`LLMIntegrationRegistry`) to store, manage, and retrieve various LLM integrations.
+
+4.2. **Technical Specifications**:
+
+- **Enumerations & Types**:
+   - [⇌ OpenAI] Define an enumeration (`OpenAIMessageRole`) to represent possible roles a message can have in OpenAI communication.
+   - [⇌ OpenAI] Enumerate different OpenAI models (`OpenAIModel`) that the integration supports.
+   - [⇌ OpenAI] Enumerate the different API types (`ApiType`) supported by the integration.
+
+- **Dependencies & Interactions**:
+   - [⇌ OpenAI] Ensure the module can utilize the `autobyteus.config` to obtain necessary API keys and configurations for LLM integration operations.
+   - Recognize and manage dependencies, with specific components like `BaseOpenAIApi` and `OpenAIChatApi` using configurations from `autobyteus.config`.
+
+
+[Example]
+### Prompt Versioning Mechanism Requirements Specification
+
+#### 1. Module Description:
+The Prompt Versioning Module encapsulates the prompt versioning capabilities for the entities in the application that require multiple versions of prompts for effective communication with large language models.
+
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
+
+#### 3. Symbols & Usage:
+(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
+- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Users (such as other backend systems or APIs) can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+
+- **Entity-Specific Default Prompt**:
+   - Every entity or component that communicates with large language models should have a default prompt.
+   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can introduce a new prompt version upon modifying the existing prompt.
+   - A maximum of 4 prompt versions are maintained for each entity.
+   - If a new version exceeds the 4-version cap, the oldest version is purged.
+
+- **Database Management**:
+   - Versions are depicted using simple incremented
+
+-----------------------------------------------
+
+### Prompt Versioning Module Code Specification:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous modules is utilized to facilitate smooth database interactions.
+
+#### 2. Component Modifications:
+
+2.1. **New Components**:
+
+- **PromptVersioningMixin**: 
+  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
+  - *Attributes*: 
+    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
+    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
+    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
+  - *Abstract Properties*:
+    - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
+  - *Methods*: 
+    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
+    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
+    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
+    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
+    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
+
+- **VersionedPrompt**:
+  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
+  - *Attributes*: 
+    - `version_no: int`: The version number.
+    - `prompt_content: str`: The content of the prompt for that version.
+
+- **PromptVersionModel (extends BaseModel)**:
+  - *Purpose*: Represents the database model for storing versioned prompts.
+  - *Attributes*: 
+    - `prompt_name: String`: Identifier for the prompt.
+    - `version_no: Integer`: Version number.
+    - `prompt_content: Text`: Content of the prompt.
+    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
+    (Note: The attributes `created_at` and `updated_at` are inherited from `BaseModel` and are therefore not explicitly defined here.)
+
+- **PromptVersionRepository (extends BaseRepository)**:
+  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
+  - *Methods*: 
+    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
+    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
+    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
+    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
+    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
+    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
+
+2.2. **Updated Components**:
+
+- **BaseStep**:
+  - *Modification*: Extend from `PromptVersioningMixin`.
+  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
+
+2.3. **Unchanged Components**:
+
+- **BaseModel**: 
+  - *Description*: The foundational model class for database entities.
+  
+- **BaseRepository**: 
+  - *Description*: Provides generic CRUD operations.
+
+#### 3. Interactions:
+
+3.1. **Component Interactions**:
+
+- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
+- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
+
+#### 4. External Dependencies: 
+
+- **SQLAlchemy**: ORM tool facilitating database operations.
+- **Alembic**: For database migration and versioning.
+
+
+
+
+[InitialModuleCodeDesign]
+### BaseLLMIntegration Module Code Specification
+
+#### 1. Module Architecture Design:
+
+##### 1.1. High-Level Design
+The `BaseLLMIntegration` module is designed to provide a standardized interface for all Language Model (LLM) integrations. The abstract base class ensures that any derived classes implement the necessary methods to process input messages and return LLM responses.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+
+- **BaseLLMIntegration (New)**
+    - **Purpose**: Serves as a common interface for various LLM integrations, ensuring consistent message processing across different implementations.
+    - **Attributes**: None.
+    - **Methods/APIs**:
+        - `process_input_messages(input_messages: list)`: An abstract method that processes a list of input messages and returns the LLM's responses.
+    - **Interactions**: None in this file, but derived classes in other parts of the module will interact with this base class by implementing the `process_input_messages` method.
+
+##### 1.3. Interactions Overview
+- Derived classes from the overarching module will implement the `process_input_messages` method to provide specific integrations with the LLM.
+  
+##### 1.4. External Dependencies
+- None.
+
+#### 2. UML Diagram
+
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this module.
+
+```plaintext
+@startuml
+
+abstract class "BaseLLMIntegration (New)" {
+    + process_input_messages(input_messages: list)
+}
+
+@enduml
+```
 
 
 [Requirement]
@@ -461,4 +711,5 @@ Procedure:
    - Engage in a Q&A session with the user until all ambiguities are addressed.
 4. **Refine the Prompt**: Strategize and make changes based on the clarified requirements and feedback.
 5. **Present the Revised Prompt**: Offer the improved version in a copyable text format.
+
 

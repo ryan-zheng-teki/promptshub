@@ -42,61 +42,50 @@ Follow the steps below:
 
 [Writing]
 $start$
-### Prompt Versioning Mechanism Module Specification
+**Introduction to the Prompting Programming Language**:
 
-#### 1. Module Responsibility:
-This module manages versioned prompts for Large Language Models (LLMs). It provides foundational functionality for entities to handle prompt variations, enabling comparative analysis between different versions. Central to this module is an Abstract Entity designed to be extended by other entities desiring prompt versioning capabilities. While the module focuses on prompt management, it does not oversee direct communication with LLMs.
+The Prompting Programming Language, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
 
-#### 2. Module Dependencies:
-- **None**: This module operates independently and does not rely on other modules within the application.
+**Why the Need for the Prompting Programming Language?**:
+While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Programming Language aids in providing clearer and more defined instructions, effectively reducing the room for error.
 
-#### 3. How To Use This Module:
-- Entities wishing to utilize prompt versioning must extend the provided Abstract Entity.
-- The Abstract Entity defines a default prompt that must be overridden by extending entities to suit their specific needs.
-- Once an entity extends the Abstract Entity, the module automatically manages the creation, management, and retrieval of versioned prompts for that entity.
+**Language Elements and Their Descriptions**:
 
-#### 4. Specifications:
+1. **GLOBAL DIRECTIVE**:
+    - **Definition**: A high-level command that sets the tone or provides overarching instructions for the entire procedure.
+    - **Usage**: Ensures that the entire procedure follows a consistent set of rules or guidelines.
 
-4.1. **Functional Specifications**:
+2. **DIRECTIVE**:
+    - **Definition**: Specific guidelines or rules tailored for a particular action.
+    - **Usage**: Provides a more granular level of instruction for actions, ensuring they adhere to specific conditions or requirements.
 
-- **Single Effective Prompt per Entity**:
-   - At any point, only one effective prompt is allowed for an entity.
-   - Users (such as other backend systems or APIs) can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+3. **Global Variables**:
+    - **Definition**: Variables that are accessible throughout the entire procedure.
+    - **Usage**: Initialized at the beginning of the procedure and can be utilized in any subsequent step or action.
 
-- **Entity-Specific Default Prompt**:
-   - Every entity or component that communicates with LLMs and extends the Abstract Entity must override its default prompt.
-   - If prompts specific to an entity are absent in the database, the overridden default prompt initializes the database as v1 and acts as the immediate effective prompt.
+4. **Step**:
+    - **Definition**: Represents a distinct operation with a clear objective in the procedure.
+    - **Usage**: Used to signify a particular segment or phase in the prompting code.
 
-- **Dynamic Initialization of Versioned Prompts**:
-   - Before any LLM communication, the system retrieves the effective prompt for the respective entity from the database.
-   - If a version for an entity is not in the database, the system uses the entity's overridden default prompt for initialization.
-
-- **Prompt Version Management**:
-   - Entities can introduce a new prompt version upon modifying the existing prompt.
-   - A maximum of 4 prompt versions are maintained for each entity.
-   - If a new version exceeds the 4-version cap, the oldest version is purged.
-
-- **Comparative Analysis**:
-   - The system supports API-based comparative evaluations of different prompt versions, with future plans to incorporate a side-by-side comparison tool.
-
-- **Database Management**:
-   - Versions are depicted using simple incremented numerals (e.g., v1, v2, etc.).
-   - Each version's creation/modification timestamp is documented.
-
-4.2. **Technical Specifications**:
-
-- **Database Interaction**:
-   - Efficient CRUD (Create, Read, Update, Delete) operations for prompt version management are paramount.
-   - Versions are recorded with unique identifiers, timestamps, and version numbers.
+5. **Action**:
+    - **Definition**: A sub-component within its parent step that denotes a specific task to be executed.
+    - **Usage**: Details out the exact operations to be performed.
+    - **Example**:
+      ```
+      content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+      ```
+6. **EXECUTE Block**:
+    - **Definition**: A section where the steps are invoked in sequence, leading to the execution of the entire procedure.
+    - **Usage**: Defines the flow of the procedure, showing the sequence in which steps are executed.
+  
+**Current State of the Language**:
+As of now, the Prompting Programming Language encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
 
 $end$
 
 [UserRequest]
 $start$
-I would like to remove the mentioning of large language model in this case. To make the module 
-responsibility to focus on itself. Because it might create misunderstanding for people. They might 
-think the module also handles large language module related functionalities. But it actually only 
-manages the prompt versioning capabilities.
+
 $end$
 
 

@@ -163,122 +163,221 @@ $end$
 
 Second Prompt: Refining and Expanding the Design Documentation
 
-You are a large language model performing as a python expert. Your task is to refine and expand the module code design documentation provided in the `[InitialModuleCodeDesign]` for an already-implemented module. Given the context size constraints, you can handle one file at a time. Use the provided file to update the initial documentation. The code is given in the `[SourceCode]` section.
+
+You are a large language model performing as a Python expert. Your task is to refine and expand the Module code design documentation provided in the `[InitialModuleCodeDesign]`, using insights from an additional Python file associated with this Module. Given the context size constraints, you can handle one Python file at a time. The code is given in the `[SourceCode]` section.
 
 ### Context:
 - The goal is to further develop the documentation, potentially transitioning components from the "Part-Of" section to "Fully Defined" if the associated code is now provided.
-- Ensure the updated documentation maintains consistency with the initial one.
+- It's essential to differentiate between a "Module" referring to an architectural component of an application and a "Python file." In this context, "Module" with an uppercase 'M' denotes the architectural component, whereas "Python file" refers to a file in the Python language.
 
 ### Criteria:
 - The updated documentation should be presented in a copiable code block.
+- Ensure the updated documentation conforms to the format defined by the `[Template]`.
 
 ### Procedure:
 1. **Review the Source Code**:
-   - Scrutinize the code file in the `[SourceCode]` section, identifying primary functionalities and structures.
+   - Examine the Python file in the `[SourceCode]` section, identifying primary functionalities and structures.
 
 2. **Determine the File's Main Component**:
-   - Establish the main role of the file within the module's broader context.
-   - If the main component of the file matches a "Part-Of" in the given documentation, move it to the "Fully Defined" section and supply its complete details.
+   - Establish the main role of the Python file within the Module's broader context.
+   - If the main component of the Python file matches a "Part-Of" in the given documentation, move it to the "Fully Defined" section and supply its complete details.
 
 3. **Assess Dependencies**:
    - Identify non-third-party dependencies within the same root package and answer:
-      - Is the component already defined as "Fully Defined" in the given documentation. If yes, no further action is needed.
+      - Is the component already defined as "Fully Defined" in the given documentation? If yes, no further action is needed.
       - What function might this dependency serve?
-      - Does the suspected function of the dependency directly contribute to the module? If its functionality is unclear or its contribution to the module is indirect or not part of the module, label it as `Used-By`. Otherwise, label it as `Part-Of` and state its potential function. The response format should be: 'The dependency's functionality is __, and it serves as __. Label it as `Part-Of`. If its role is uncertain, label it as `Used-By`.
-4. **Update and Refine the Documentation**: Based on the insights from previous analysis, update the existing design documentation.
+      - Does the suspected function of the dependency directly contribute to the Module? If its functionality is unclear or its contribution to the Module is indirect or not part of the Module, label it as `Used-By`. Otherwise, label it as `Part-Of` and state its potential function. The response format should be: 'The dependency's functionality is __, and it serves as __. Label it as `Part-Of`. If its role is uncertain, label it as `Used-By`.
 
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+4. **Expand the Documentation**: 
+   - Begin by refining the title and the "High-Level Design" section of the `[InitialModuleCodeDesign]` based on the insights gained from analyzing the source code, ensuring they accurately reflect the Module's functionalities and responsibilities.
+   - Then, incorporate all relevant insights from the previous steps enhance and expand the rest of the design documentation.
 
-[InitialFeatureDesign]
-### BaseLLMIntegration Module Code Specification
+Please follow the steps defined in the Procedure, ensuring meticulous step-by-step thinking and comprehensive reasoning for each step.
+
+[Template]
+### <Title> (Title should be closely related to the module, such as xxx Module Code Specification)
 
 #### 1. Module Architecture Design:
 
 ##### 1.1. High-Level Design
-The `BaseLLMIntegration` module is designed to provide a standardized interface for all Language Model (LLM) integrations. The abstract base class ensures that any derived classes implement the necessary methods to process input messages and return LLM responses.
+- Brief overview of the primary module architecture.
+- Design patterns, principles, or structures that will be applied.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+For each component:
+  - **Name (New) [extends/relates OtherComponentName]** (if applicable)
+    - **Purpose**: Clear description of the component's role and functionality within the module.
+    - **Attributes**:
+      - `attribute_name`: Short description of the attribute and its significance.
+      ... Continue for all attributes.
+    - **Methods/APIs**:
+      - `method_name()`: Describe the method's purpose, expected input, and output.
+      ... Continue for all methods.
+    - **Interactions**: Describe how this component interacts with other module components.
+
+... Continue for all fully defined new components.
+
+###### 1.2.2. Part-Of Components (Pending File Provision)
+For each component:
+  - **Name (Part-Of) [extends/relates OtherComponentName]** (if applicable)
+    - **Status Note**: _"This component is part of the module, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: A general understanding or assumption about the component's role and tasks based on current knowledge.
+
+... Continue for placeholders.
+
+##### 1.3. Used-By Dependencies (Unchanged Components)
+
+For each component:
+  - **Name (Used-By)**
+    - **Purpose**: Clear description of the component's role and functionality within the module.
+    - **Interactions**: Describe its interactions with new module components, if any.
+
+... Continue for all dependencies.
+
+##### 1.4. Interactions Overview
+- A broader perspective on how new module components interact with each other and with existing components.
+- Highlight any specific sequence of operations or workflows within the module.
+
+##### 1.5. External Dependencies
+- List any third-party libraries, services, or tools that the module will use.
+- Specific versions or configurations to be aware of.
+
+#### 2. UML Diagram
+
+- A UML diagram showcasing the relationships and interactions between module components.
+- **UML Legend**:
+  - Components marked with `(New)` are to be developed as part of this module.
+  - Components marked with `(Part-Of)` are identified but not fully defined within the module.
+  - Components marked with `(Used-By)` are pre-existing and are treated as dependencies within the module context.
+
+@startuml
+... UML content here ...
+@enduml
+
+[InitialModuleCodeDesign]
+### LLM Integration Framework Module Code Specification
+
+#### 1. Module Architecture Design:
+
+##### 1.1. High-Level Design
+The "LLM Integration Framework" module offers a comprehensive interface for integrating various Language Model (LLM) providers. The module lays out a foundational abstract class (`BaseLLMIntegration`) to assure consistent message processing across LLM implementations. Furthermore, it presents specialized classes for distinct LLM providers, notably OpenAI. The `OpenAIChatApi` class provides a concrete implementation for the OpenAI Chat API, ensuring standardized interactions through common functionalities and message types.
 
 ##### 1.2. New Components Specifications
 
 ###### 1.2.1. Fully Defined
 
-- **BaseLLMIntegration (New)**
+- **BaseLLMIntegration**
     - **Purpose**: Serves as a common interface for various LLM integrations, ensuring consistent message processing across different implementations.
     - **Attributes**: None.
     - **Methods/APIs**:
         - `process_input_messages(input_messages: list)`: An abstract method that processes a list of input messages and returns the LLM's responses.
-    - **Interactions**: None in this file, but derived classes in other parts of the module will interact with this base class by implementing the `process_input_messages` method.
+    - **Interactions**: Derived classes, such as the OpenAI specific integration, will interact with this base class by implementing the `process_input_messages` method.
 
-##### 1.3. Interactions Overview
-- Derived classes from the overarching module will implement the `process_input_messages` method to provide specific integrations with the LLM.
-  
-##### 1.4. External Dependencies
-- None.
+- **BaseOpenAIApi**
+    - **Purpose**: Serves as an abstract base class offering common functionalities for OpenAI API implementations.
+    - **Attributes**: 
+        - `_initialized`: Class attribute to ensure idempotent initialization.
+    - **Methods/APIs**:
+        - `initialize()`: Class method to initialize the OpenAI API with necessary configurations.
+        - `process_input_messages(messages: list) -> AssistantMessage`: Abstract method to process a list of message interactions using the specific OpenAI API.
+    - **Interactions**: Derived classes specific to OpenAI will implement the `process_input_messages` method.
+
+- **OpenAIChatApi (New)**
+    - **Purpose**: Concrete implementation of the `BaseOpenAIApi` class, designed to process message interactions and fetch responses using the OpenAI Chat API.
+    - **Attributes**: 
+        - `model`: Name of the OpenAI model to be used.
+    - **Methods/APIs**:
+        - `process_input_messages(messages: list) -> AssistantMessage`: Process a list of message interactions and returns the response using the OpenAI Chat API.
+        - `_extract_response_message(response: Dict) -> AssistantMessage`: Extracts the response message from the OpenAI Chat API's response.
+    - **Interactions**: Inherits from `BaseOpenAIApi` and makes use of message structures defined in `openai_message_types`.
+
+###### 1.2.2. Part-Of Components (Pending File Provision)
+
+- **openai_message_types (Part-Of)**
+    - **Status Note**: _"This component is part of the module, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: Defines the structure and/or data type of messages that are processed and returned by the LLM integration.
+
+- **OpenAIModel (Part-Of)**
+    - **Status Note**: _"This component is part of the module, but its detailed specifications will be supplemented upon provision of the relevant file."_
+    - **Tentative Purpose**: Enumerates different models supported by OpenAI, providing a consistent way to specify the model for the `OpenAIChatApi`.
+
+##### 1.3. Used-By Dependencies (Unchanged Components)
+
+- **autobyteus.config (Used-By)**
+    - **Purpose**: Provides necessary API keys and other configurations for the LLM integration to operate.
+    - **Interactions**: Used by `BaseOpenAIApi` and `OpenAIChatApi` to fetch the OpenAI API key and default model during initialization.
+
+##### 1.4. Interactions Overview
+- The `BaseLLMIntegration` class acts as a blueprint for derived classes to implement specific LLM integrations.
+- The `BaseOpenAIApi` class offers foundational functionalities for OpenAI API implementations.
+- The `OpenAIChatApi` class extends the functionalities of `BaseOpenAIApi` to provide a concrete implementation for the OpenAI Chat API, utilizing message types from `openai_message_types` and model enumerations from `OpenAIModel`.
+
+##### 1.5. External Dependencies
+- **openai**: External library used to interact with OpenAI's API.
 
 #### 2. UML Diagram
 
 - **UML Legend**:
   - Components marked with `(New)` are to be developed as part of this module.
+  - Components marked with `(Part-Of)` are identified but not fully defined within the module.
+  - Components marked with `(Used-By)` are pre-existing and are treated as dependencies within the module context.
 
 ```plaintext
 @startuml
 
-abstract class "BaseLLMIntegration (New)" {
+abstract class "BaseLLMIntegration" {
     + process_input_messages(input_messages: list)
 }
+
+abstract class "BaseOpenAIApi" {
+    - _initialized
+    + {static} initialize()
+    + process_input_messages(messages: list) -> AssistantMessage
+}
+
+class "OpenAIChatApi (New)" {
+    - model
+    + process_input_messages(messages: list) -> AssistantMessage
+    - _extract_response_message(response: Dict) -> AssistantMessage
+}
+
+OpenAIChatApi --|> BaseOpenAIApi
+BaseOpenAIApi --|> BaseLLMIntegration
 
 @enduml
 ```
 
 
 [SourceCode]
-# File: autobyteus/llm_integrations/openai_integration/base_openai_api.py
-
 """
-base_openai_api.py: Provides an abstract base class for OpenAI API implementations.
-This class offers common functionalities and enforces the structure for derived API classes.
+openai_api_factory.py: Implements the OpenAIApiFactory class.
+This class is responsible for creating instances of the OpenAI API classes based on the provided type.
 """
-from enum import Enum, auto
-from abc import ABC, abstractmethod
-import openai
-from autobyteus.config import config
-from autobyteus.llm_integrations.openai_integration.openai_message_types import AssistantMessage
 
+from autobyteus.llm_integrations.openai_integration.base_openai_api import ApiType, BaseOpenAIApi
+from autobyteus.llm_integrations.openai_integration.openai_chat_api import OpenAIChatApi
+from autobyteus.llm_integrations.openai_integration.openai_models import OpenAIModel
 
-class ApiType(Enum):
-    CHAT = auto()
-    
-from abc import ABC, abstractmethod
-
-class BaseOpenAIApi(ABC):
+class OpenAIApiFactory:
     """
-    An abstract base class offering common functionalities for OpenAI API implementations.
-    Derived classes should implement the process_input_messages method.
+    OpenAIApiFactory is a class responsible for creating instances of the OpenAI API classes based on the provided type.
     """
-    _initialized = False
 
-    @classmethod
-    def initialize(cls):
+    @staticmethod
+    def create_api(api_type: ApiType = ApiType.CHAT, model_name: OpenAIModel = None) -> BaseOpenAIApi:
         """
-        Initialize the OpenAI API with the necessary configurations.
-        This method ensures idempotent initialization.
+        Create an instance of an OpenAI API class based on the provided type and model name.
+
+        :param api_type: The type of the OpenAI API class to create an instance of.
+        :type api_type: ApiType, optional, default to ApiType.CHAT
+        :param model_name: Name of the OpenAI model to be used. If not provided, the default from the OpenAIChatApi class will be used.
+        :type model_name: OpenAIModel, optional
+        :return: An instance of an OpenAI API class.
+        :rtype: BaseOpenAIApi
         """
-        if not cls._initialized:
-            openai.api_key = config.get('OPENAI_API_KEY')
-            cls._initialized = True
-
-    @abstractmethod
-    def process_input_messages(self, messages: list) -> AssistantMessage:
-        """
-        Abstract method to process a list of message interactions using the specific OpenAI API.
-
-        :param messages: A list of message interactions to be processed.
-        :type messages: list
-        :return: Response from the specific OpenAI API.
-        :rtype: AssistantMessage
-        """
-        pass
-
-
-
-
-
+        if api_type == ApiType.CHAT:
+            return OpenAIChatApi(model_name=model_name)
+        else:
+            raise ValueError(f"Invalid API type: {api_type}. Valid types are {', '.join([api.name for api in ApiType])}.")
