@@ -67,86 +67,10 @@ List and briefly describe any features or modules that this feature is dependent
 <Continue listing categories and their associated requirements as necessary.>
 
 [Example]
-### File Management System
-
-#### 1. Feature Description:
-The File Management System is a cloud-based solution designed for secure and efficient storage, sharing, and management of documents. It emphasizes data integrity, seamless collaboration, and user-friendly file organization. Users, ranging from students to office workers, can save, share, and collaboratively edit documents while maintaining structured file organization.
-
-#### 2. Feature Dependencies:
-- **CloudSync Engine**: The backbone of our cloud storage capabilities, the CloudSync Engine ensures fast, secure, and reliable cloud storage. It handles the uploading, downloading, and synchronization of files across multiple devices. The File Management System integrates with this engine to provide its core cloud storage functionalities.
-
-#### 3. Requirements:
-
-3.1. **Functional Requirements**:
-
-- **File Operations**:
-   - Upload files to the cloud.
-   - Download files from the cloud.
-   - Delete files from the cloud.
-   - Rename files.
-
-- **Collaboration**:
-   - Enable real-time collaborative editing of documents.
-   - Allow users to comment on specific parts of a document.
-   - Maintain a track of changes and version history for documents.
-
-- **Organization**:
-   - Create and manage folders for document organization.
-   - Facilitate the movement of files between folders.
-   - Implement a search functionality to retrieve files using keywords.
 
 
 [FeatureRequest]
-Could you please update our earlier requirement according to the new template?
 
-[automated_coding_workflow_requirement_start]
-### Automated Coding Workflow System
-
-#### 1. Story/Feature Description:
-
-1.1. **Background**: 
-The software development process often follows a structured sequence of tasks such as gathering requirements, designing solutions, coding, and testing. The Automated Coding Workflow System aims to streamline this process by offering a modular and structured way to manage and execute a multi-step automated coding workflow.
-
-1.2. **User Persona**: 
-Software Developer or Team Lead who needs to:
-  - Set up an automated workflow for code development.
-  - Define specific tasks or steps in the coding process.
-  - Integrate with an LLM system to manage external dependencies.
-
-1.3. **User Journey**: 
-A user defines the steps for the workflow, such as gathering requirements or designing solutions. They can then execute individual steps or start the entire workflow. Each step in the workflow can have sub-steps, allowing for a more granular control over the coding process.
-
-#### 2. Requirements:
-
-2.1. **Functional Requirements**:
-
-- **Workflow Management**:
-   - Define and manage a multi-step automated coding workflow.
-   - Each step in the workflow can potentially have sub-steps.
-   - Integrate with an LLM system to manage external dependencies.
-   - Initialize steps of the workflow from a given configuration.
-   - Convert the workflow instance to a JSON representation.
-   - Start the entire workflow process.
-   - Execute specific steps within the workflow using their ID.
-   
-- **Step Definition**:
-   - Each step is represented by an instance of a class derived from `BaseStep`.
-   - Construct a unique ID for each step instance.
-   - Construct a dynamic prompt for each step.
-   - Process the response from the LLM API for each step.
-   - Define the execution logic for each step.
-   
-- **Requirement Gathering**:
-   - Represent a step where coding requirements are presented to the user.
-   - Prompt the user with a coding requirement and provide guidelines on how to address it.
-   - Construct a prompt for this step using a template.
-   - Process the response from the LLM API for this step.
-   
-- **Architecture Design Stage**:
-   - Represent the design stage in the coding workflow.
-   - Use a template for constructing the design stage's prompt.
-
-[automated_coding_workflow_requirement_end]
 
 
 

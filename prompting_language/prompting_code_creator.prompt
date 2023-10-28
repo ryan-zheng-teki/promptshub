@@ -40,7 +40,6 @@ While large language models are proficient in understanding and generating natur
 As of now, the Prompting Programming Language encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
 
 
-
 [Example]
 $start$
 BEGIN PROCEDURE:
@@ -99,40 +98,7 @@ $end$
 
 [GivenPrompt]
 $start$
-You are a large language model performing as a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirement given in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
 
-[Context]
-Most of the prompt is well-written, but only some minor parts can be improved. The optimized prompt will be used by a large language model like ChatGPT.
-
-[Criteria]
-- Avoid excessive optimization unless it's what the user is asking for. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-Follow the steps below:
-1. **Analyze the Prompt:**
-   - Dissect the prompt to grasp its content and objectives.
-
-2. **Determine the Domain:**
-   - Identify the domain of the prompt.
-
-3. **Engage and Clarify User's Request:**
-   - Analyze the user's requirements to detect any ambiguities.
-   - If ambiguities are present, engage in a Q&A session with human until they are fully resolved.
-   - Summarize the clarified user requirements for future reference.
-
-4. **Plan Changes According to Requirements:**
-   - Strategize the changes based on the specified and clarified requirements, ensuring clarity, coherence, and linguistic accuracy.
-
-5. **Submit the Refined Prompt:**
-   - Present your refined version in a copiable text block.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
-[Prompt]
-{here is the prompt}
-
-[Requirement]
-{here is the user requirement}
 $end$
 
 

@@ -25,18 +25,141 @@ I want to create a python script to read in excel sheet with predefined some for
 
 
 
-*The Essence of Prompting Language*: It’s a blend of programming’s logical clarity and natural language’s accessibility. Functions, conditions, and operations are presented in an easy-to-follow manner, using English phrasing to describe each step.
 
-Please execute the prompting codes below. 
-```
+
+Version 2: Prompting Language.
+**Introduction to the Prompting Procedure Programming**:
+
+The Prompting Procedure Programming, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
+
+**Why the Need for the Prompting Procedure Programming?**:
+While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Procedure Programming aids in providing clearer and more defined instructions, effectively reducing the room for error.
+
+**Language Elements and Their Descriptions**:
+
+1. **GLOBAL DIRECTIVE**:
+    - **Definition**: A high-level command that sets the tone or provides overarching instructions for the entire procedure.
+    - **Usage**: Ensures that the entire procedure follows a consistent set of rules or guidelines.
+
+2. **DIRECTIVE**:
+    - **Definition**: Specific guidelines or rules tailored for a particular action.
+    - **Usage**: Provides a more granular level of instruction for actions, ensuring they adhere to specific conditions or requirements.
+
+3. **Global Variables**:
+    - **Definition**: Variables that are accessible throughout the entire procedure.
+    - **Usage**: Initialized at the beginning of the procedure and can be utilized in any subsequent step or action.
+
+4. **Step**:
+    - **Definition**: Represents a distinct operation with a clear objective in the procedure.
+    - **Usage**: Used to signify a particular segment or phase in the prompting code.
+
+5. **Action**:
+    - **Definition**: A sub-component within its parent step that denotes a specific task to be executed.
+    - **Usage**: Details out the exact operations to be performed.
+    - **Example**:
+      ```
+      content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+      ```
+
+6. **IF and ELSE**:
+    - **Definition**: Conditional constructs used to introduce a condition (IF) and provide an alternative course of action (ELSE).
+    - **Usage**: Enables conditional execution of steps or actions based on specified criteria.
+
+7. **LABEL**:
+    - **Definition**: Marks a specific line or point in the procedure.
+    - **Usage**: Acts as a reference point for JUMP directives.
+
+8. **JUMP**:
+    - **Definition**: Directs the execution to jump to a specified labeled line.
+    - **Usage**: Used in conjunction with LABEL to control the flow of execution.
+
+9. **EXECUTION PLAN**:
+    - **Definition**: A structured sequence of steps or actions that outlines the flow and order of execution within a designated block.
+    - **Usage**: Mirrors the cognitive process humans undergo when mapping out tasks before performing them.
+
+**Current State of the Language**:
+As of now, the Prompting Procedure Programming encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
+
+Here is one example prompting procedure based on prompting programming language.
+
+[ExamplePromptingProcedure]
+$start$
 BEGIN PROCEDURE:
-GLOBAL DIRECTIVE: Ensure meticulous analysis for each "Action" of the "Step" defined in the prompting code.
+
+GLOBAL DIRECTIVE: Ensure meticulous step-by-step thinking and reasoning for each `Action` of each `Step` defined in the prompting procedure.
+GLOBAL DIRECTIVE: LOG the input arguments for every "Step" during runtime.
+
+Role & Objective:
+You are a large language model performing as a top prompt engineer. Your main task is to update the given prompt in the `[Prompt]` section according to the requirements specified in the `[Requirement]` section. The optimized prompt will be processed by large language models like ChatGPT.
+
+Context:
+While the majority of the prompt might be well-constructed, there could be minor areas of improvement. It's essential to make the prompt as explicit and clear as possible without overcomplicating it, ensuring the best performance when processed by ChatGPT.
+
+Criteria:
+- The optimization should not be excessive; only apply changes when they align with user requirements.
+- The language should prioritize clarity and explicitness over complexity.
+
+Step AnalyzeThePrompt(promptContent):
+    content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+    RETURN content, objectives
+
+Step DetermineTheDomain(contentAnalysis):
+    domain = Action: IDENTIFY the domain OF the contentAnalysis
+    RETURN domain
+
+Step EngageAndClarifyUsersRequest(requirement):
+    ambiguities = Action: ANALYZE the requirement TO detect ANY ambiguities
+    IF ambiguities DETECTED:
+        humanResponses = INITIATE QnASessionWithHuman(ambiguities)
+    clarifiedRequirements = Action: SUMMARIZE clarified user requirements BASED ON humanResponses
+    RETURN clarifiedRequirements
+
+Step QnASessionWithHuman(ambiguities):
+    humanResponses = Action: ASK human FOR clarification ON ambiguities, and Wait For responses
+    RETURN humanResponses
+
+Step PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent):
+    plannedChanges = Action: STRATEGIZE the changes BASED ON the specified AND clarified requirements
+    RETURN plannedChanges
+
+Step SubmitTheRefinedPrompt(plannedChanges, promptContent):
+    refinedPrompt = Action: APPLY plannedChanges TO promptContent AND FORMAT for clarity
+    RETURN refinedPrompt
+
+Step WaitForInitialPrompt:
+    initialPromptContent = Action: Ask user to provide initial prompt.
+    RETURN initialPromptContent
+
+Step WaitForUserRequirement:
+    userRequirement = Action: Ask user to provide requirement
+    RETURN userRequirement
+
+EXECUTE:
+    promptContent= WaitForInitialPrompt
+    userRequirement= WaitForUserRequirement
+    content, objectives = AnalyzeThePrompt(promptContent)
+    domain = DetermineTheDomain(content)
+    clarifiedRequirements = EngageAndClarifyUsersRequest(userRequirement)
+    plannedChanges = PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent)
+    refinedPrompt = SubmitTheRefinedPrompt(plannedChanges, promptContent)
+
+END PROCEDURE
+$end$
+
+With the understanding of "Prompting Programming Language", now please perform as human brain who is going to execute the prompting procedure given in the `[PromptingProcedure]`.
+
+[PromptingProcedure]
+$start$
+BEGIN PROCEDURE:
+
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` defined in the prompting code.
+GLOBAL DIRECTIVE: Print the entire `PromptingProcedure` and mark the current executing `Step` before executing the `Step` similar to mark the current function in the entire stack trace in the programming language.
 
 Role & Objective:
 You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions, and then present the clarified request in a structured format.
 
 Context:
-Understanding user requests with precision is crucial for providing accurate responses. Because final user requests will be handled by large language models like ChatGPT. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner. Due to the limited context length of the model, summarizing user requests post each Q&A session is imperative. This summarized version will be the input for the model in subsequent interactions, ensuring the entire context of the earlier user requests is considered.
+Understanding user requests with precision is crucial for providing accurate responses. Because final user requests will be handled by large language models like ChatGPT for further tasks. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner. Due to the limited context length of the model, summarizing user requests post each Q&A session is imperative. This summarized version will be the input for the model in subsequent interactions, ensuring the entire context of the earlier user requests is considered.
 
 Criteria:
 - The Q&A session should be iterative, involving the user until all ambiguities are resolved.
@@ -44,41 +167,85 @@ Criteria:
 - Summarization after each Q&A session is crucial to preserve context for subsequent model analysis.
 - The final output must be well-structured, formatted, and free from ambiguities.
 
-Step AnalyzeInitialRequest(userRequest):
-    Action: IDENTIFY ambiguities OR unclear points IN userRequest
-    IF ambiguities DETECTED:
-        INITIATE QnASession
+Global Variables:
+restructuredRequest = ""
+
+Step WaitForInitialUserRequest:
+    initialUserRequest = Action: Ask user to give initial user request
+    RETURN initialUserRequest
+
+Step AnalyzeFeedbackAgainstSummarizedRequest(feedback, summarizedRequest):
+    if feedback exists
+        ambiguities = Action: IDENTIFY ambiguities OR unclear points IN feedback AGAINST summarizedRequest        
+    else 
+        ambiguities = Action: IDENTIFY ambiguities OR unclear points in summarizedRequest
     RETURN ambiguities
 
 Step QnASession(ambiguities):
-    Action: ASK user FOR clarification ON ambiguities
-    COLLECT userResponses
+    userResponses = Action: ASK user FOR clarification ON ambiguities
     RETURN userResponses
 
 Step AnalyzeUserResponses(responses):
-    Action: EVALUATE responses TO resolve ambiguities
-    SUMMARIZE clarified request BASED ON responses
-    RETURN summarizedRequest
+    updatedUserRequests = Action: EVALUATE responses TO resolve ambiguities, and Print updated user requests.
+    restructuredRequest = updatedUserRequests
 
 Step CheckForFurtherAmbiguities(summarizedRequest):
-    Action: REVIEW summarized request FOR remaining ambiguities
-    IF ambiguities EXIST:
-        RETURN TO QnASession
-    ELSE:
-        PROCEED to next step
+    furtherAmbiguities = Action: REVIEW summarized request FOR remaining ambiguities
+    RETURN furtherAmbiguities
 
-Step PresentClarifiedRequest(summarizedRequest):
-    Action: FORMAT AND STRUCTURE the summarized request
-    RETURN structuredRequest
+Step AwaitForAdditionalFeedback:
+    feedback = Action: Ask user for any additional feedback on the clarified request
+    RETURN feedback
 
 EXECUTE:
-    userRequest=```I want to create a python script to read in an excel sheet with predefined formats, modify a certain column, and then write back to the excel sheet. The main purpose is to check whether, after writing back, the original format is preserved.
-    ```
-    ambiguities = AnalyzeInitialRequest(userRequest)
-    userResponses = QnASession(ambiguities)
-    summarizedRequest = AnalyzeUserResponses(userResponses)
-    CheckForFurtherAmbiguities(summarizedRequest)
-    structuredRequest = PresentClarifiedRequest(summarizedRequest)
-    additionalFeedBack = AwaitForAdditionalFeedback()
+    userRequest = WaitForInitialUserRequest()
+    restructuredRequest = userRequest
+    while True:
+        if restructuredRequest equals userRequest: # If it's the first round
+            ambiguities = AnalyzeFeedbackAgainstSummarizedRequest(userRequest, "")
+        else:
+            ambiguities = AnalyzeFeedbackAgainstSummarizedRequest(additionalFeedBack, restructuredRequest)
+        
+        if ambiguities exists:
+            userResponses = QnASession(ambiguities)
+            restructuredRequest = AnalyzeUserResponses(userResponses)
+            furtherAmbiguities = CheckForFurtherAmbiguities(restructuredRequest)
+            if furtherAmbiguities exists:
+                userResponses = QnASession(furtherAmbiguities)
+                restructuredRequest = AnalyzeUserResponses(userResponses)
+        additionalFeedBack = AwaitForAdditionalFeedback()
+        if additionalFeedBack not exists:
+            break
+
 END PROCEDURE
-```
+$end$
+
+
+
+
+
+Here's the refined structured request incorporating these resolutions:
+
+**Structured Request**:
+- **Application Type**: Python server application.
+- **Functionality**:
+  - **Website Navigation**:
+    - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+    - Click the "Termin Buchen" button.
+    - On the second page:
+      - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+      - Click the "Weiter" button.
+    - On the third page:
+      - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+      - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+      - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+      - Click the box "Aufenthaltstitel - verlängern".
+      - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+      - Click the "Weiter" button.
+  - **Check for Appointments and Notification**: 
+    - Continuously check for available appointments every 5 minutes.
+    - If a termin is available, navigate to the next page and stop further actions.
+    - If no termin is available, display a "Failure" message and wait for 5 minutes before rechecking.
+    - On finding an appointment, play music from the path specified in `config.json` as a notification.
+
+Would this refined request, based on the most reasonable assumptions, work for you?

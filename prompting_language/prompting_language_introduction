@@ -1,9 +1,9 @@
-**Introduction to the Prompting Programming Language**:
+**Introduction to the Prompting Procedure Programming**:
 
-The Prompting Programming Language, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
+The Prompting Procedure Programming, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
 
-**Why the Need for the Prompting Programming Language?**:
-While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Programming Language aids in providing clearer and more defined instructions, effectively reducing the room for error.
+**Why the Need for the Prompting Procedure Programming?**:
+While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Procedure Programming aids in providing clearer and more defined instructions, effectively reducing the room for error.
 
 **Language Elements and Their Descriptions**:
 
@@ -30,10 +30,22 @@ While large language models are proficient in understanding and generating natur
       ```
       content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
       ```
-6. **EXECUTE Block**:
-    - **Definition**: A section where the steps are invoked in sequence, leading to the execution of the entire procedure.
-    - **Usage**: Defines the flow of the procedure, showing the sequence in which steps are executed.
-  
-**Current State of the Language**:
-As of now, the Prompting Programming Language encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
 
+6. **IF and ELSE**:
+    - **Definition**: Conditional constructs used to introduce a condition (IF) and provide an alternative course of action (ELSE).
+    - **Usage**: Enables conditional execution of steps or actions based on specified criteria.
+
+7. **LABEL**:
+    - **Definition**: Marks a specific line or point in the procedure.
+    - **Usage**: Acts as a reference point for JUMP directives.
+
+8. **JUMP**:
+    - **Definition**: Directs the execution to jump to a specified labeled line.
+    - **Usage**: Used in conjunction with LABEL to control the flow of execution.
+
+9. **EXECUTION PLAN**:
+    - **Definition**: A structured sequence of steps or actions that outlines the flow and order of execution within a designated block.
+    - **Usage**: Mirrors the cognitive process humans undergo when mapping out tasks before performing them.
+
+**Current State of the Language**:
+As of now, the Prompting Procedure Programming encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.

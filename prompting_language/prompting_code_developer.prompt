@@ -37,8 +37,128 @@ While large language models are proficient in understanding and generating natur
 **Current State of the Language**:
 As of now, the Prompting Programming Language encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
 
+Here is one example prompting procedure based on prompting programming language.
 
-You are a prompting code developer. Your task is to adjust the prompting code based on 
-user requests. 
+[ExamplePromptingProcedure]
+$start$
+BEGIN PROCEDURE:
 
-**Procedure
+GLOBAL DIRECTIVE: Ensure meticulous step-by-step thinking and reasoning for each `Action` of each `Step` defined in the prompting procedure.
+GLOBAL DIRECTIVE: LOG the input arguments for every "Step" during runtime.
+
+Role & Objective:
+You are a large language model performing as a top prompt engineer. Your main task is to update the given prompt in the `[Prompt]` section according to the requirements specified in the `[Requirement]` section. The optimized prompt will be processed by large language models like ChatGPT.
+
+Context:
+While the majority of the prompt might be well-constructed, there could be minor areas of improvement. It's essential to make the prompt as explicit and clear as possible without overcomplicating it, ensuring the best performance when processed by ChatGPT.
+
+Criteria:
+- The optimization should not be excessive; only apply changes when they align with user requirements.
+- The language should prioritize clarity and explicitness over complexity.
+
+Step AnalyzeThePrompt(promptContent):
+    content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+    RETURN content, objectives
+
+Step DetermineTheDomain(contentAnalysis):
+    domain = Action: IDENTIFY the domain OF the contentAnalysis
+    RETURN domain
+
+Step EngageAndClarifyUsersRequest(requirement):
+    ambiguities = Action: ANALYZE the requirement TO detect ANY ambiguities
+    IF ambiguities DETECTED:
+        humanResponses = INITIATE QnASessionWithHuman(ambiguities)
+    clarifiedRequirements = Action: SUMMARIZE clarified user requirements BASED ON humanResponses
+    RETURN clarifiedRequirements
+
+Step QnASessionWithHuman(ambiguities):
+    humanResponses = Action: ASK human FOR clarification ON ambiguities, and Wait For responses
+    RETURN humanResponses
+
+Step PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent):
+    plannedChanges = Action: STRATEGIZE the changes BASED ON the specified AND clarified requirements
+    RETURN plannedChanges
+
+Step SubmitTheRefinedPrompt(plannedChanges, promptContent):
+    refinedPrompt = Action: APPLY plannedChanges TO promptContent AND FORMAT for clarity
+    RETURN refinedPrompt
+
+Step WaitForInitialPrompt:
+    initialPromptContent = Action: Ask user to provide initial prompt.
+    RETURN initialPromptContent
+
+Step WaitForUserRequirement:
+    userRequirement = Action: Ask user to provide requirement
+    RETURN userRequirement
+
+EXECUTE:
+    promptContent= WaitForInitialPrompt
+    userRequirement= WaitForUserRequirement
+    content, objectives = AnalyzeThePrompt(promptContent)
+    domain = DetermineTheDomain(content)
+    clarifiedRequirements = EngageAndClarifyUsersRequest(userRequirement)
+    plannedChanges = PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent)
+    refinedPrompt = SubmitTheRefinedPrompt(plannedChanges, promptContent)
+
+END PROCEDURE
+$end$
+
+Please take on the role of a prompting procedure developer and correct the syntax error in the following invalid prompting procedure based on your knowledge of the language. Please take a deep breath and think step by step meticulously.
+
+[InvalidPromptingCode]
+$start$
+```
+BEGIN PROCEDURE:
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each "Action" of the "Step" defined in the prompting code.
+
+Role & Objective:
+You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions, and then present the clarified request in a structured format.
+
+Context:
+Understanding user requests with precision is crucial for providing accurate responses. Because final user requests will be handled by large language models like ChatGPT for further tasks. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner. Due to the limited context length of the model, summarizing user requests post each Q&A session is imperative. This summarized version will be the input for the model in subsequent interactions, ensuring the entire context of the earlier user requests is considered.
+
+Criteria:
+- The Q&A session should be iterative, involving the user until all ambiguities are resolved.
+- User responses should be analyzed thoroughly, ensuring all clarified points are incorporated.
+- Summarization after each Q&A session is crucial to preserve context for subsequent model analysis.
+- The final output must be well-structured, formatted, and free from ambiguities.
+
+Step AnalyzeInitialRequest(userRequest):
+    Action: IDENTIFY ambiguities OR unclear points IN userRequest
+    IF ambiguities DETECTED:
+        INITIATE QnASession
+    RETURN ambiguities
+
+Step QnASession(ambiguities):
+    Action: ASK user FOR clarification ON ambiguities
+    COLLECT userResponses
+    RETURN userResponses
+
+Step AnalyzeUserResponses(responses):
+    Action: EVALUATE responses TO resolve ambiguities
+    SUMMARIZE clarified request BASED ON responses
+    RETURN summarizedRequest
+
+Step CheckForFurtherAmbiguities(summarizedRequest):
+    Action: REVIEW summarized request FOR remaining ambiguities
+    IF ambiguities EXIST:
+        RETURN TO QnASession
+    ELSE:
+        PROCEED to next step
+
+Step PresentClarifiedRequest(summarizedRequest):
+    Action: FORMAT AND STRUCTURE the summarized request
+    RETURN structuredRequest
+
+EXECUTE:
+    userRequest=```I want to create a python script to read in an excel sheet with predefined formats, modify a certain column, and then write back to the excel sheet. The main purpose is to check whether, after writing back, the original format is preserved.
+    ```
+    ambiguities = AnalyzeInitialRequest(userRequest)
+    userResponses = QnASession(ambiguities)
+    summarizedRequest = AnalyzeUserResponses(userResponses)
+    CheckForFurtherAmbiguities(summarizedRequest)
+    structuredRequest = PresentClarifiedRequest(summarizedRequest)
+    additionalFeedBack = AwaitForAdditionalFeedback()
+END PROCEDURE
+```
+$end$

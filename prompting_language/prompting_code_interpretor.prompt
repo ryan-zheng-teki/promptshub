@@ -1,9 +1,9 @@
-**Introduction to the Prompting Programming Language**:
+**Introduction to the Prompting Procedure Programming**:
 
-The Prompting Programming Language, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
+The Prompting Procedure Programming, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
 
-**Why the Need for the Prompting Programming Language?**:
-While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Programming Language aids in providing clearer and more defined instructions, effectively reducing the room for error.
+**Why the Need for the Prompting Procedure Programming?**:
+While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Procedure Programming aids in providing clearer and more defined instructions, effectively reducing the room for error.
 
 **Language Elements and Their Descriptions**:
 
@@ -30,21 +30,34 @@ While large language models are proficient in understanding and generating natur
       ```
       content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
       ```
-6. **EXECUTE Block**:
-    - **Definition**: A section where the steps are invoked in sequence, leading to the execution of the entire procedure.
-    - **Usage**: Defines the flow of the procedure, showing the sequence in which steps are executed.
-  
-**Current State of the Language**:
-As of now, the Prompting Programming Language encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
 
-Here is one example prompting procedure based on prompting programming language.
+6. **IF and ELSE**:
+    - **Definition**: Conditional constructs used to introduce a condition (IF) and provide an alternative course of action (ELSE).
+    - **Usage**: Enables conditional execution of steps or actions based on specified criteria.
+
+7. **LABEL**:
+    - **Definition**: Marks a specific line or point in the procedure.
+    - **Usage**: Acts as a reference point for JUMP directives.
+
+8. **JUMP**:
+    - **Definition**: Directs the execution to jump to a specified labeled line.
+    - **Usage**: Used in conjunction with LABEL to control the flow of execution.
+
+9. **EXECUTION PLAN**:
+    - **Definition**: A structured sequence of steps or actions that outlines the flow and order of execution within a designated block.
+    - **Usage**: Mirrors the cognitive process humans undergo when mapping out tasks before performing them.
+
+**Current State of the Language**:
+As of now, the Prompting Procedure Programming encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
+
+Here is one example prompting procedure based on prompting procedure programming language.
 
 [ExamplePromptingProcedure]
 $start$
 BEGIN PROCEDURE:
 
 GLOBAL DIRECTIVE: Ensure meticulous step-by-step thinking and reasoning for each `Action` of each `Step` defined in the prompting procedure.
-GLOBAL DIRECTIVE: LOG the input arguments for every "Step" during runtime.
+GLOBAL DIRECTIVE: Print the input arguments for every "Step" during runtime.
 
 Role & Objective:
 You are a large language model performing as a top prompt engineer. Your main task is to update the given prompt in the `[Prompt]` section according to the requirements specified in the `[Requirement]` section. The optimized prompt will be processed by large language models like ChatGPT.
@@ -91,7 +104,7 @@ Step WaitForUserRequirement:
     userRequirement = Action: Ask user to provide requirement
     RETURN userRequirement
 
-EXECUTE:
+EXECUTION PLAN:
     promptContent= WaitForInitialPrompt
     userRequirement= WaitForUserRequirement
     content, objectives = AnalyzeThePrompt(promptContent)
@@ -103,76 +116,67 @@ EXECUTE:
 END PROCEDURE
 $end$
 
-
-With the understanding of "Prompting Language", now please perform as human brain who is going to execute the prompting procedure given in the `[PromptingProcedure]`.
+With the understanding of "Prompting Procedure Programming Language", now please perform as human brain who is going to execute the prompting procedure given in the `[PromptingProcedure]`.
 
 [PromptingProcedure]
 $start$
 BEGIN PROCEDURE:
 
-GLOBAL DIRECTIVE: Ensure meticulous step-by-step thinking and reasoning for each `Action` of each `Step` defined in the prompting procedure.
-GLOBAL DIRECTIVE: LOG the input argument values before performing the actions for every "Step" during runtime.
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` defined in the prompting code.
 
 Role & Objective:
-You are a large language model performing as a top prompt engineer. Your main task is to update the given prompt in the `[Prompt]` section according to the requirements specified in the `[Requirement]` section. The optimized prompt will be processed by large language models like ChatGPT.
+You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions, and then present the clarified request in a structured format.
 
 Context:
-While the majority of the prompt might be well-constructed, there could be minor areas of improvement. It's essential to make the prompt as explicit and clear as possible without overcomplicating it, ensuring the best performance when processed by ChatGPT.
+Understanding user requests with precision is crucial for providing accurate responses. Because final user requests will be handled by large language models like ChatGPT for further tasks. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner. Due to the limited context length of the model, summarizing user requests post each Q&A session is imperative. This summarized version will be the input for the model in subsequent interactions, ensuring the entire context of the earlier user requests is considered.
 
 Criteria:
-- The optimization should not be excessive; only apply changes when they align with user requirements.
-- The language should prioritize clarity and explicitness over complexity.
+- The Q&A session should be iterative, involving the user until all ambiguities are resolved.
+- User responses should be analyzed thoroughly, ensuring all clarified points are incorporated.
+- Summarization after each Q&A session is crucial to preserve context for subsequent model analysis.
+- The final output must be well-structured, formatted, and free from ambiguities.
 
-Step AnalyzeThePrompt(promptContent):
-    content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
-    RETURN content, objectives
+Step AnalyzeInitialRequest(userRequest):
+    ambiguities = Action: IDENTIFY ambiguities OR unclear points IN userRequest
+    RETURN ambiguities
 
-Step DetermineTheDomain(contentAnalysis):
-    domain = Action: IDENTIFY the domain OF the contentAnalysis
-    RETURN domain
+Step QnASession(ambiguities):
+    userResponses = Action: ASK user FOR clarification ON ambiguities
+    RETURN userResponses
 
-Step EngageAndClarifyUsersRequest(requirement):
-    ambiguities = Action: ANALYZE the requirement TO detect ANY ambiguities
-    IF ambiguities DETECTED:
-        humanResponses = INITIATE QnASessionWithHuman(ambiguities)
-    clarifiedRequirements = Action: SUMMARIZE clarified user requirements BASED ON humanResponses
-    RETURN clarifiedRequirements
+Step AnalyzeUserResponses(responses):
+    clarifiedRequest = Action: EVALUATE responses TO resolve ambiguities
+    summarizedRequest = Action: SUMMARIZE clarified request BASED ON clarifiedRequest
+    RETURN summarizedRequest
 
-Step QnASessionWithHuman(ambiguities):
-    humanResponses = Action: ASK human FOR clarification ON ambiguities, and Wait For responses
-    RETURN humanResponses
+Step CheckForFurtherAmbiguities(summarizedRequest):
+    furtherAmbiguities = Action: REVIEW summarized request FOR remaining ambiguities
+    RETURN furtherAmbiguities
 
-Step PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent):
-    plannedChanges = Action: STRATEGIZE the changes BASED ON the specified AND clarified requirements
-    RETURN plannedChanges
+Step PresentClarifiedRequest(summarizedRequest):
+    structuredRequest = Action: Present the summarizedRequest in a good format in a copiable text block.
 
-Step SubmitTheRefinedPrompt(plannedChanges, promptContent):
-    refinedPrompt = Action: APPLY plannedChanges TO promptContent AND FORMAT for clarity
-    RETURN refinedPrompt
+Step AwaitForAdditionalFeedback:
+    feedback = Action: Ask user for any additional feedback on the clarified request
+    RETURN feedback
 
-Step WaitForInitialPrompt:
-    initialPromptContent = Action: Ask user to provide initial prompt.
-    RETURN initialPromptContent
-
-Step WaitForUserRequirement:
-    userRequirement = Action: Ask user to provide requirement
-    RETURN userRequirement
-
-STEP AskUserForFeedBack
-    userFeedBack = Action: Ask user for their feedback for the refined version.
-    If userFeedBack is satisfactory:
-        Action: Print "End the procedure"
-    If userFeedBack contains additional requirements:
-        INITIATE EngageAndClarifyUsersRequest(userFeedBack)
-EXECUTE:
-    promptContent= WaitForInitialPrompt
-    userRequirement= WaitForUserRequirement
-    content, objectives = AnalyzeThePrompt(promptContent)
-    domain = DetermineTheDomain(content)
-    clarifiedRequirements = EngageAndClarifyUsersRequest(userRequirement)
-    plannedChanges = PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent)
-    refinedPrompt = SubmitTheRefinedPrompt(plannedChanges, promptContent)
-    AskUserForFeedBack               
+Step WaitForInitialUserRequest:
+    initialUserRequest = Action: Ask user to give initial user request
+    RETURN initialUserRequest
+    
+EXECUTION PLAN:
+    userRequest = WaitForInitialUserRequest()
+    ambiguities = AnalyzeInitialRequest(userRequest)
+    if ambiguities:
+        userResponses = QnASession(ambiguities)
+        summarizedRequest = AnalyzeUserResponses(userResponses)
+        furtherAmbiguities = CheckForFurtherAmbiguities(summarizedRequest)
+        if furtherAmbiguities:
+            userResponses = QnASession(furtherAmbiguities)
+            summarizedRequest = AnalyzeUserResponses(userResponses)
+    else:
+        summarizedRequest = userRequest
+    additionalFeedBack = AwaitForAdditionalFeedback()
 
 END PROCEDURE
 $end$
