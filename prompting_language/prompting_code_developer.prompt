@@ -1,41 +1,71 @@
-**Introduction to the Prompting Programming Language**:
+**Introduction to the Prompting Procedure Programming**:
 
-The Prompting Programming Language, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
+The Prompting Procedure Programming, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
 
-**Why the Need for the Prompting Programming Language?**:
-While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Programming Language aids in providing clearer and more defined instructions, effectively reducing the room for error.
+**Why the Need for the Prompting Procedure Programming?**:
+While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Procedure Programming aids in providing clearer and more defined instructions, effectively reducing the room for error.
+
 
 **Language Elements and Their Descriptions**:
 
 1. **GLOBAL DIRECTIVE**:
-    - **Definition**: A high-level command that sets the tone or provides overarching instructions for the entire procedure.
-    - **Usage**: Ensures that the entire procedure follows a consistent set of rules or guidelines.
+- **Definition**: A high-level command that sets the tone or provides overarching instructions for the entire procedure.
+- **Usage**: Ensures that the entire procedure follows a consistent set of rules or guidelines.
 
 2. **DIRECTIVE**:
-    - **Definition**: Specific guidelines or rules tailored for a particular action.
-    - **Usage**: Provides a more granular level of instruction for actions, ensuring they adhere to specific conditions or requirements.
+- **Definition**: Specific guidelines or rules tailored for a particular action.
+- **Usage**: Provides a more granular level of instruction for actions, ensuring they adhere to specific conditions or requirements.
 
 3. **Global Variables**:
-    - **Definition**: Variables that are accessible throughout the entire procedure.
-    - **Usage**: Initialized at the beginning of the procedure and can be utilized in any subsequent step or action.
+- **Definition**: Variables that are accessible throughout the entire procedure.
+- **Usage**: Initialized at the beginning of the procedure and can be utilized in any subsequent step or action.
 
 4. **Step**:
-    - **Definition**: Represents a distinct operation with a clear objective in the procedure.
-    - **Usage**: Used to signify a particular segment or phase in the prompting code.
+- **Definition**: Represents a distinct goal or phase in the procedure.
+- **Usage**: Used to signify a particular segment or phase in the prompting procedure.
 
 5. **Action**:
-    - **Definition**: A sub-component within its parent step that denotes a specific task to be executed.
-    - **Usage**: Details out the exact operations to be performed.
-    - **Example**:
-      ```
-      content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
-      ```
-6. **EXECUTE Block**:
-    - **Definition**: A section where the steps are invoked in sequence, leading to the execution of the entire procedure.
-    - **Usage**: Defines the flow of the procedure, showing the sequence in which steps are executed.
-  
+- **Definition**: A sub-component within its parent `Step` that denotes a specific action to be executed.
+- **Usage**: Details out the exact action to be performed within a `Step`.
+- **Example**:
+```
+content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+```
+
+6. **IF and ELSE**:
+- **Definition**: Conditional constructs used to introduce a condition (IF) and provide an alternative course of action (ELSE).
+- **Usage**: Enables conditional execution of steps or actions based on specified criteria.
+
+7. **LABEL**:
+- **Definition**: Marks a specific line or point in the procedure.
+- **Usage**: Acts as a reference point for JUMP directives.
+
+8. **JUMP**:
+- **Definition**: Directs the execution to jump to a specified labeled line.
+- **Usage**: Used in conjunction with LABEL to control the flow of execution.
+- **Example**:
+```
+LABEL StartOfIteration:
+... [some actions]
+JUMP to "StartOfIteration"
+```
+
+9. **EXECUTION PLAN**:
+- **Definition**: A structured sequence of steps or actions that outlines the flow and order of execution within a designated block.
+- **Usage**: Mirrors the cognitive process humans undergo when mapping out tasks before performing them.
+
+10.  **RETURN**:
+- **Definition**: A command used to send back the result from a specific step.
+- **Usage**: Allows the returned value to be sent as an argument to subsequent steps or actions. 
+- **Example**:
+```
+Step AnalyzeThePrompt(promptContent):
+    content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+    RETURN content, objectives
+```
+
 **Current State of the Language**:
-As of now, the Prompting Programming Language encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
+As of now, the Prompting Procedure Programming encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
 
 Here is one example prompting procedure based on prompting programming language.
 
@@ -43,73 +73,9 @@ Here is one example prompting procedure based on prompting programming language.
 $start$
 BEGIN PROCEDURE:
 
-GLOBAL DIRECTIVE: Ensure meticulous step-by-step thinking and reasoning for each `Action` of each `Step` defined in the prompting procedure.
-GLOBAL DIRECTIVE: LOG the input arguments for every "Step" during runtime.
-
-Role & Objective:
-You are a large language model performing as a top prompt engineer. Your main task is to update the given prompt in the `[Prompt]` section according to the requirements specified in the `[Requirement]` section. The optimized prompt will be processed by large language models like ChatGPT.
-
-Context:
-While the majority of the prompt might be well-constructed, there could be minor areas of improvement. It's essential to make the prompt as explicit and clear as possible without overcomplicating it, ensuring the best performance when processed by ChatGPT.
-
-Criteria:
-- The optimization should not be excessive; only apply changes when they align with user requirements.
-- The language should prioritize clarity and explicitness over complexity.
-
-Step AnalyzeThePrompt(promptContent):
-    content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
-    RETURN content, objectives
-
-Step DetermineTheDomain(contentAnalysis):
-    domain = Action: IDENTIFY the domain OF the contentAnalysis
-    RETURN domain
-
-Step EngageAndClarifyUsersRequest(requirement):
-    ambiguities = Action: ANALYZE the requirement TO detect ANY ambiguities
-    IF ambiguities DETECTED:
-        humanResponses = INITIATE QnASessionWithHuman(ambiguities)
-    clarifiedRequirements = Action: SUMMARIZE clarified user requirements BASED ON humanResponses
-    RETURN clarifiedRequirements
-
-Step QnASessionWithHuman(ambiguities):
-    humanResponses = Action: ASK human FOR clarification ON ambiguities, and Wait For responses
-    RETURN humanResponses
-
-Step PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent):
-    plannedChanges = Action: STRATEGIZE the changes BASED ON the specified AND clarified requirements
-    RETURN plannedChanges
-
-Step SubmitTheRefinedPrompt(plannedChanges, promptContent):
-    refinedPrompt = Action: APPLY plannedChanges TO promptContent AND FORMAT for clarity
-    RETURN refinedPrompt
-
-Step WaitForInitialPrompt:
-    initialPromptContent = Action: Ask user to provide initial prompt.
-    RETURN initialPromptContent
-
-Step WaitForUserRequirement:
-    userRequirement = Action: Ask user to provide requirement
-    RETURN userRequirement
-
-EXECUTE:
-    promptContent= WaitForInitialPrompt
-    userRequirement= WaitForUserRequirement
-    content, objectives = AnalyzeThePrompt(promptContent)
-    domain = DetermineTheDomain(content)
-    clarifiedRequirements = EngageAndClarifyUsersRequest(userRequirement)
-    plannedChanges = PlanChangesAccordingToRequirements(clarifiedRequirements, promptContent)
-    refinedPrompt = SubmitTheRefinedPrompt(plannedChanges, promptContent)
-
-END PROCEDURE
-$end$
-
-Please take on the role of a prompting procedure developer and correct the syntax error in the following invalid prompting procedure based on your knowledge of the language. Please take a deep breath and think step by step meticulously.
-
-[InvalidPromptingCode]
-$start$
-```
-BEGIN PROCEDURE:
-GLOBAL DIRECTIVE: Ensure meticulous analysis for each "Action" of the "Step" defined in the prompting code.
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` defined in the prompting code.
+GLOBAL DIRECTIVE: During runtime, before executing a `Step`, print: "I am currently at Step [step_name] within the global `EXECUTION PLAN`. I will always remain mindful of this context."
+GLOBAL DIRECTIVE: When `JUMP` is being executed during runtime, always print "I am jumping to label [label_name]" 
 
 Role & Objective:
 You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions, and then present the clarified request in a structured format.
@@ -123,42 +89,250 @@ Criteria:
 - Summarization after each Q&A session is crucial to preserve context for subsequent model analysis.
 - The final output must be well-structured, formatted, and free from ambiguities.
 
-Step AnalyzeInitialRequest(userRequest):
-    Action: IDENTIFY ambiguities OR unclear points IN userRequest
-    IF ambiguities DETECTED:
-        INITIATE QnASession
+Step WaitForInitialUserRequest:
+    initialUserRequest = Action: Ask user to give initial user request
+    RETURN initialUserRequest
+
+Step AnalyzeInitialRequest(initialRequest):
+    ambiguities = Action: IDENTIFY ambiguities OR unclear points in initialRequest
+    RETURN ambiguities
+
+
+Step QnASession(ambiguities):
+    userResponses = Action: ASK user FOR clarification ON ambiguities
+    RETURN userResponses
+
+Step AnalyzeUserResponsesAndPrintUpdatedRequest(responses):
+    Action: Analyze responses TO resolve ambiguities 
+    restructuredRequest = Action: PRINT the clarified restructured user requests with good structure
+    RETURN restructuredRequest
+
+
+Step CheckForFurtherAmbiguities(summarizedRequest):
+    furtherAmbiguities = Action: REVIEW summarized request FOR remaining ambiguities
+    RETURN furtherAmbiguities
+
+Step FeedbackLoop(restructuredRequest):
+    additionalFeedBack = Action: Wait for user to submit their feedbacks regarding the restructuredRequest
+    if additionalFeedBack is about "user is happy":
+        RETURN "End Loop"
+    if additionalFeedBack is about CheckForFurtherAmbiguities:
+        furtherAmbiguities = CheckForFurtherAmbiguities(restructuredRequest)
+        if furtherAmbiguities exists:
+            userResponses = QnASession(furtherAmbiguities)
+            restructuredRequest = AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+            FeedbackLoop(restructuredRequest)
+    else:
+        restructuredRequest = AnalyzeUserResponsesAndPrintUpdatedRequest(additionalFeedBack, restructuredRequest)
+        FeedbackLoop(restructuredRequest)
+
+EXECUTION PLAN:
+    userRequest = WaitForInitialUserRequest()
+    ambiguities = AnalyzeInitialRequest(userRequest)
+    if ambiguities exists:
+        userResponses = QnASession(ambiguities)
+        restructuredRequest = AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+        FeedbackLoop(restructuredRequest)
+END PROCEDURE
+$end$
+
+Please take on the role of a prompting procedure developer and correct the invalid prompting procedure given in the `[InvalidPromptingProcedure]` based on your knowledge of the language while taking the user's comments from the `[UserComment]` section into consideration. 
+Please take a deep breath and think step by step meticulously.
+
+[InvalidPromptingProcedure]
+$start$
+BEGIN PROCEDURE:
+
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` defined in the prompting code.
+GLOBAL DIRECTIVE: During runtime, before executing a `Step`, print: "I am currently at Step [step_name] within the global `EXECUTION PLAN`. I will always remain mindful of this context."
+GLOBAL DIRECTIVE: When `JUMP` is being executed during runtime, always print "I am jumping to label [label_name]" 
+
+Role & Objective:
+You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions, and then present the clarified request in a structured format.
+
+Context:
+Understanding user requests with precision is crucial for providing accurate responses. Because final user requests will be handled by large language models like ChatGPT for further tasks. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner. Due to the limited context length of the model, summarizing user requests post each Q&A session is imperative. This summarized version will be the input for the model in subsequent interactions, ensuring the entire context of the earlier user requests is considered.
+
+Criteria:
+- The Q&A session should be iterative, involving the user until all ambiguities are resolved.
+- User responses should be analyzed thoroughly, ensuring all clarified points are incorporated.
+- Summarization after each Q&A session is crucial to preserve context for subsequent model analysis.
+- The final output must be well-structured, formatted, and free from ambiguities.
+
+Step WaitForInitialUserRequest:
+    initialUserRequest = Action: Ask user to give initial user request
+    RETURN initialUserRequest
+
+Step AnalyzeInitialRequest(initialRequest):
+    ambiguities = Action: IDENTIFY ambiguities OR unclear points in initialRequest
+    RETURN ambiguities
+
+Step AnalyzeFeedbackAgainstUpdatedRequest(feedback, updatedRequest):
+    if feedback exists:
+        ambiguities = Action: IDENTIFY ambiguities OR unclear points IN feedback AGAINST updatedRequest        
+    else:
+        ambiguities = Action: IDENTIFY ambiguities OR unclear points in updatedRequest
     RETURN ambiguities
 
 Step QnASession(ambiguities):
-    Action: ASK user FOR clarification ON ambiguities
-    COLLECT userResponses
+    userResponses = Action: ASK user FOR clarification ON ambiguities
     RETURN userResponses
 
-Step AnalyzeUserResponses(responses):
-    Action: EVALUATE responses TO resolve ambiguities
-    SUMMARIZE clarified request BASED ON responses
-    RETURN summarizedRequest
+Step AnalyzeUserResponsesAndPrintUpdatedRequest(responses):
+    Action: Analyze responses TO resolve ambiguities 
+    Action: PRINT the clarified restructured user requests with good formats
 
 Step CheckForFurtherAmbiguities(summarizedRequest):
-    Action: REVIEW summarized request FOR remaining ambiguities
-    IF ambiguities EXIST:
-        RETURN TO QnASession
-    ELSE:
-        PROCEED to next step
+    furtherAmbiguities = Action: REVIEW summarized request FOR remaining ambiguities
+    RETURN furtherAmbiguities
 
-Step PresentClarifiedRequest(summarizedRequest):
-    Action: FORMAT AND STRUCTURE the summarized request
-    RETURN structuredRequest
+Step AwaitForAdditionalFeedback():
+    additionalFeedBack = Action: Wait for additional user feedbacks.
+    RETURN additionalFeedBack
 
-EXECUTE:
-    userRequest=```I want to create a python script to read in an excel sheet with predefined formats, modify a certain column, and then write back to the excel sheet. The main purpose is to check whether, after writing back, the original format is preserved.
-    ```
+EXECUTION PLAN:
+    userRequest = WaitForInitialUserRequest()
     ambiguities = AnalyzeInitialRequest(userRequest)
-    userResponses = QnASession(ambiguities)
-    summarizedRequest = AnalyzeUserResponses(userResponses)
-    CheckForFurtherAmbiguities(summarizedRequest)
-    structuredRequest = PresentClarifiedRequest(summarizedRequest)
+    if ambiguities exists:
+        userResponses = QnASession(ambiguities)
+        AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+
+LABEL FeedbackLoop:
     additionalFeedBack = AwaitForAdditionalFeedback()
+    if additionalFeedBack is about "user is happy":
+        END EXECUTION PLAN
+    if additionalFeedBack is about CheckForFurtherAmbiguities:
+            furtherAmbiguities = CheckForFurtherAmbiguities(restructuredRequest)
+            if furtherAmbiguities exists:
+                userResponses = QnASession(furtherAmbiguities)
+                AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+                JUMP to "FeedbackLoop"
+    else 
+        AnalyzeFeedbackAgainstUpdatedRequest(additionalFeedBack, restructuredRequest)
+        JUMP to "FeedbackLoop"
+
 END PROCEDURE
-```
 $end$
+
+
+[UserComment]
+I feel like we can create FeedbackLoop step. Because if you look at these two statement
+```
+AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+                JUMP to "FeedbackLoop"
+```
+They are repeating each other. When you need to loop back, just use INITIATE FeedbackLoop step again. What do you think
+
+
+
+
+
+
+
+
+
+
+
+Version 2: Develop a new prompting procedure based on user request.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ExamplePromptingProcedure]
+$start$
+BEGIN PROCEDURE:
+
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` defined in the prompting code.
+GLOBAL DIRECTIVE: During runtime, before executing a `Step`, print: "I am currently at Step [step_name] within the global `EXECUTION PLAN`. I will always remain mindful of this context."
+GLOBAL DIRECTIVE: When `JUMP` is being executed during runtime, always print "I am jumping to label [label_name]" 
+
+Role & Objective:
+You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions, and then present the clarified request in a structured format.
+
+Context:
+Understanding user requests with precision is crucial for providing accurate responses. Because final user requests will be handled by large language models like ChatGPT for further tasks. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner. Due to the limited context length of the model, summarizing user requests post each Q&A session is imperative. This summarized version will be the input for the model in subsequent interactions, ensuring the entire context of the earlier user requests is considered.
+
+Criteria:
+- The Q&A session should be iterative, involving the user until all ambiguities are resolved.
+- User responses should be analyzed thoroughly, ensuring all clarified points are incorporated.
+- Summarization after each Q&A session is crucial to preserve context for subsequent model analysis.
+- The final output must be well-structured, formatted, and free from ambiguities.
+
+Step WaitForInitialUserRequest:
+    initialUserRequest = Action: Ask user to give initial user request
+    RETURN initialUserRequest
+
+Step AnalyzeInitialRequest(initialRequest):
+    ambiguities = Action: IDENTIFY ambiguities OR unclear points in initialRequest
+    RETURN ambiguities
+
+
+Step QnASession(ambiguities):
+    userResponses = Action: ASK user FOR clarification ON ambiguities
+    RETURN userResponses
+
+Step AnalyzeUserResponsesAndPrintUpdatedRequest(responses):
+    Action: Analyze responses TO resolve ambiguities 
+    restructuredRequest = Action: PRINT the clarified restructured user requests with good structure
+    RETURN restructuredRequest
+
+
+Step CheckForFurtherAmbiguities(summarizedRequest):
+    furtherAmbiguities = Action: REVIEW summarized request FOR remaining ambiguities
+    RETURN furtherAmbiguities
+
+Step FeedbackLoop(restructuredRequest):
+    additionalFeedBack = Action: Wait for user to submit their feedbacks regarding the restructuredRequest
+    if additionalFeedBack is about "user is happy":
+        RETURN "End Loop"
+    if additionalFeedBack is about CheckForFurtherAmbiguities:
+        furtherAmbiguities = CheckForFurtherAmbiguities(restructuredRequest)
+        if furtherAmbiguities exists:
+            userResponses = QnASession(furtherAmbiguities)
+            restructuredRequest = AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+            FeedbackLoop(restructuredRequest)
+    else:
+        restructuredRequest = AnalyzeUserResponsesAndPrintUpdatedRequest(additionalFeedBack, restructuredRequest)
+        FeedbackLoop(restructuredRequest)
+
+EXECUTION PLAN:
+    userRequest = WaitForInitialUserRequest()
+    ambiguities = AnalyzeInitialRequest(userRequest)
+    if ambiguities exists:
+        userResponses = QnASession(ambiguities)
+        restructuredRequest = AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+        FeedbackLoop(restructuredRequest)
+END PROCEDURE
+$end$
+
+
+
+Let's say, currently we are at FeedbackLoop from the execution plan. And since the feedbackLoop is recursive. So lets say, we are at the second recursion  for Feedbackloop and  currently at     additionalFeedBack = Action: Wait for user to submit their feedbacks regarding the restructuredRequest
+
+
+It will be something like 
+
+EXECUTION PLAN:
+    userRequest = WaitForInitialUserRequest()
+    ambiguities = AnalyzeInitialRequest(userRequest)
+    if ambiguities exists:
+        userResponses = QnASession(ambiguities)
+        restructuredRequest = AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+=======>   FeedbackLoop(restructuredRequest)
+END PROCEDURE
+$end$
+
+
+then you will have the stacktrace similar thing, because we are currently at the s

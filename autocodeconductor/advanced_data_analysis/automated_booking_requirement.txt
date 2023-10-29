@@ -1,0 +1,47 @@
+- **Application Type**: Python server application.
+
+- **Configuration**:
+  - The user will always provide a correct `config.json` structure.
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, or contains invalid data, the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues:
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder.
+    - The log entry format: `[TIMESTAMP] - [ERROR_DESCRIPTION]`.
+    - The server will keep beeping for 1 minute before aborting the operation.
+
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments. This should be done indefinitely until an appointment is found.
+  - If an appointment is available, navigate to the next page and stop further actions.
+  - If no appointment is available, display a "Failure" message on the top of the website as a bar: "No appointments available. Checking again in 5 minutes."
+  - Wait for 5 minutes before rechecking.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used:
+    - Web navigation and interaction: Selenium
+    - Playing the mp3 notification: playsound
+    - Server operations and logging: Flask and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, and library versions.
+

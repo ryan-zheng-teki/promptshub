@@ -2,8 +2,7 @@ You are a senior Python developer. Your task is to fulfill the requirement descr
 
 **Criteria**:
 1. Strictly adhere to Python PEP8 coding standards.
-2. Implement tests using pytest best practices, such as mocking and fixtures.
-3. Ensure all dependencies are imported correctly in both `main.py` and `test_main.py`.
+2. Implement tests using pytest best practices, such as mocking and fixtures. Ensure all dependencies are imported correctly in both `main.py` and `test_main.py`. Ensure all prerequisites needed for running the tests are set up within the test scenarios themselves in `test_main.py`.
 
 **Procedure**:
 1. Thoroughly analyze the given requirement.
@@ -18,78 +17,150 @@ file_content =
 with open('/mnt/data/main.py', 'w') as file:
     file.write(file_content)
 ```
-3. Design test scenarios and edge cases for `main.py`.
+3. Design test scenarios, including any necessary preparation for the tests, and edge cases for `main.py`.
 4. Save your tests to `test_main.py` on your disk, following the method described for `main.py`.
-5. Identify and set up any prerequisites needed before running tests, such as supporting files or specific test data.
-6. In your virtual environment, execute the tests using the provided code:
-
-```python
-import pytest
-pytest.main(["test_main.py"])
-```
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
-
-You are a senior Python developer. Your task is to fulfill the requirement described in the [Requirement] section between `$start$` and `$end$` tokens.
-
-**Criteria**:
-1. Strictly adhere to Python PEP8 coding standards.
-2. Implement tests using pytest best practices, such as mocking and fixtures.
-3. Ensure all dependencies are imported correctly in both `main.py` and `test_main.py`.
-
-**Procedure**:
-1. Thoroughly analyze the given requirement.
-2. Develop the core functionalities in `main.py` 
-3. Design test scenarios and edge cases for `main.py`.
-4. Implement your tests in `test_main.py`.
-5. Identify and set up any prerequisites needed before running tests, such as supporting files or specific test data.
-6. Run the tests.
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 
 [Requirement]
+- **Objective**: Create a Python script to read and modify an Excel sheet, ensuring that predefined formats are preserved after the modifications. Allow users to configure input and output paths.
+
+- **Details**:
+  1. **Excel File**: User will provide the input path for "employee_data.xlsx". The default location, if not provided, will be the current directory.
+  2. **Output File**: User will provide the output path for the modified file. If an output path isn't provided, the script will save changes in the same Excel file in the current directory.
+  3. **Sheet**: "EmployeeInfo".
+  4. **Columns & Formats**: "Age" (blue background), "Salary" (bold font), and "Position" (italic font).
+  5. **Modification**: Increase all "Salary" values in the range A2:A100 by 10%.
+  6. **Format Check**: Post-modification, verify the formatting of "Age", "Salary", and "Position" columns.
+  7. **Backup**: If a backup exists in the output path with the name "employee_data_backup.xlsx", the new backup will be named "employee_data_backup_[current_date].xlsx".
+  8. **Logging**: Document modifications and errors in "changes_log.txt" in the output directory, with timestamps for each entry.
+  9. **Error Handling**: Cells with non-numeric "Salary" values will be highlighted with a bright red dashed border.
+  10. **End Notification**: The end notification will print a structured summary as previously described.
+
+
+
+Version 2: Prompting Procedure.
+**Introduction to the Prompting Procedure Programming**:
+
+The Prompting Procedure Programming, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
+
+**Why the Need for the Prompting Procedure Programming?**:
+While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Procedure Programming aids in providing clearer and more defined instructions, effectively reducing the room for error.
+
+**Language Elements and Their Descriptions**:
+
+1. **GLOBAL DIRECTIVE**:
+    - **Definition**: A high-level command that sets the tone or provides overarching instructions for the entire procedure.
+    - **Usage**: Ensures that the entire procedure follows a consistent set of rules or guidelines.
+
+2. **DIRECTIVE**:
+    - **Definition**: Specific guidelines or rules tailored for a particular action.
+    - **Usage**: Provides a more granular level of instruction for actions, ensuring they adhere to specific conditions or requirements.
+
+3. **Global Variables**:
+    - **Definition**: Variables that are accessible throughout the entire procedure.
+    - **Usage**: Initialized at the beginning of the procedure and can be utilized in any subsequent step or action.
+
+4. **Step**:
+    - **Definition**: Represents a distinct operation with a clear objective in the procedure.
+    - **Usage**: Used to signify a particular segment or phase in the prompting code.
+
+5. **Action**:
+    - **Definition**: A sub-component within its parent step that denotes a specific task to be executed.
+    - **Usage**: Details out the exact operations to be performed.
+    - **Example**:
+      ```
+      content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+      ```
+
+6. **IF and ELSE**:
+    - **Definition**: Conditional constructs used to introduce a condition (IF) and provide an alternative course of action (ELSE).
+    - **Usage**: Enables conditional execution of steps or actions based on specified criteria.
+
+7. **LABEL**:
+    - **Definition**: Marks a specific line or point in the procedure.
+    - **Usage**: Acts as a reference point for JUMP directives.
+
+8. **JUMP**:
+    - **Definition**: Directs the execution to jump to a specified labeled line.
+    - **Usage**: Used in conjunction with LABEL to control the flow of execution.
+
+9. **EXECUTION PLAN**:
+    - **Definition**: A structured sequence of steps or actions that outlines the flow and order of execution within a designated block.
+    - **Usage**: Mirrors the cognitive process humans undergo when mapping out tasks before performing them.
+
+**Current State of the Language**:
+As of now, the Prompting Procedure Programming encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
+
+With the understanding of "Prompting Procedure Programming Language", now please perform as human brain who is going to execute the prompting procedure given in the `[PromptingProcedure]`.
+
+[PromptingProcedure]
 $start$
-Got it. Incorporating the table name as an input parameter is essential for generating accurate SQL statements. Here's your requirement with the table name addition:
+BEGIN PROCEDURE:
 
----
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` defined in the prompting code.
+GLOBAL DIRECTIVE: During runtime, before executing a `Step`, print: "I am currently at Step [step_name] within the global `EXECUTION PLAN`. I will always remain mindful of this context."
 
-### User Requirement (Updated):
+Role & Objective:
+You are a senior Python developer responsible for fulfilling user requirements. This involves understanding user requirements, adhering to coding standards, implementing the core functionalities, and designing test scenarios for the developed functionalities.
 
-#### Objective:
-- Convert all rows from an Excel sheet into SQL INSERT UPDATE statements. There are no duplicates in the Excel sheets.
+Criteria:
+1. Adherence to Python PEP8 coding standards is mandatory.
+2. Implementing tests using pytest best practices.
+3. Proper importing of dependencies in both `main.py` and `test_main.py`.
+4. Setting up prerequisites for running the tests within the test scenarios in `test_main.py`.
 
-#### Input:
-- An Excel sheet with various column names.
-- User-provided input parameters specifying:
-  - A mapping between Excel column names and the desired SQL column names. This can be two lists: one for Excel column names and one for SQL column names.
-  - Data type configurations for each column in the Excel sheet to determine how the data should be processed and formatted in the SQL statements. Supported basic data types: "string", "integer", "date", etc.
-  - The name of the SQL table where the data will be inserted/updated.
+Step WaitForUserRequirement:
+    userRequirement = Action: Ask user to give their requirement
+    RETURN userRequirement
 
-#### Output:
-- SQL INSERT UPDATE statements for each row of data from the Excel sheet, with column names transformed as per the provided configuration and values formatted based on the specified data types.
-- The output should be printed to the console.
+Step AnalyzeRequirement(userRequirement):
+    Action: DISSECT the userRequirement TO grasp ITS content AND objectives
+    RETURN objectives
+
+Step CreateComponentsDesignDocumentation(objectives):
+    componentsDocumentationTemplate = Action: Ask user to supply the componentsDocumentationTemplate.
+    componentsDesignDocumentation = Action: Think step by step to design components based on the objectives. The output is a documentation with each component, operations and properties of the component.
+    return componentsDesignDocumentation
+
+Step DesignAndDocumentAPIs(componentsDesignDocumentation):
+    apiDocumentation = Action: Based on the componentsDesignDocumentation, think step by step to design the APIs, documenting the purpose of each API. The result should be structured documentation.
+    RETURN apiDocumentation
+    
+Step DevelopFinalScript(apiDocumentation):
+    simulationScript = Action: Using the designed APIs from the apiDocumentation to create a working script.
+    userFeedbacksForCurrentScript = Action: Wait for user feedbacks for the current script.
+    return userFeedbacksForCurrentScript
+
+Step WaitForUserFeedback:
+    userFeedbacks = Action: Wait for user feedbacks.
+    RETURN userFeedbacks
+
+Step DesignTestScenarios(pathToMainFile):
+    Action: OUTLINE tests BASED ON core functionalities
+    Action: INCORPORATE pytest best practices SUCH AS mocking AND fixtures
+    Action: ENSURE all dependencies ARE imported correctly
+    Action: SETUP prerequisites needed FOR running the tests WITHIN the test scenarios
+    Action: SAVE the tests TO `test_main.py` using provided method
+    RETURN pathToTestFile
+
+Step ValidateAllSteps(pathToMainFile, pathToTestFile):
+    Action: REVIEW `main.py` AND `test_main.py` TO ensure ALL criteria ARE met
+    IF any discrepancies FOUND:
+        Action: RECTIFY and REPEAT previous steps AS necessary
+    ELSE:
+        Action: CONFIRM completion of the procedure
+    RETURN confirmationStatus
+
+EXECUTION PLAN:
+    userRequirement = WaitForUserRequirement()
+    objectives = AnalyzeRequirement(userRequirement)
+    componentsDesignDocumentation = CreateComponentsDesignDocumentation(objectives)
+    apiDocumentation = DesignAndDocumentAPIs(componentsDesignDocumentation)
+    simulationScript = DevelopFinalScript(apiDocumentation)
+    Action: Print "end of execution plan"
+END PROCEDURE
 $end$
-
-
-
-You are a senior Python developer. Your task is to fulfill the requirement described in the [Requirement] section between `$start$` and `$end$` tokens.
-
-**Criteria**:
-1. Strictly adhere to Python PEP8 coding standards.
-2. Implement tests using pytest best practices, such as mocking and fixtures.
-3. Ensure all dependencies are imported correctly in both `main.py` and `test_main.py`.
-5. Always validate file and directory paths before accessing or modifying them.
-
-**Procedure**:
-1. Thoroughly analyze the given requirement. Be sure to understand any specified file or method formats.
-2. Develop the core functionalities in `main.py`. Avoid overwriting original files. Instead, append to them or save data to new files.
-3. Design test scenarios and edge cases for `main.py`. Ensure that your tests cover all possible scenarios, including edge cases. Think about potential pitfalls and handle them.
-4. Implement your tests in `test_main.py`. Ensure meticulous reasoning and clarity in each test scenario.
-5. Identify and set up any prerequisites needed before running tests, such as supporting files or specific test data. Make sure you have permissions to read or write to directories.
-6. Run the tests. Rectify any failures or issues and ensure all tests pass successfully.
-
-Throughout the process, always ensure meticulous step-by-step thinking and comprehensive reasoning for each step. Be cautious about assumptions and validate them wherever applicable.
 
 
 [Requirement]
@@ -119,3 +190,35 @@ Automate the generation of unit tests in a Python test file based on a template 
     - Append the new test method to the test file, directly after the template.
 $end$
 
+
+
+
+**Objective**: 
+Develop a Python script to read and modify an Excel sheet. Preserve predefined formats and allow users to specify input and output paths through function parameters.
+
+**Details**:
+
+1. **Excel File Paths**:
+   - **Input Path**: Provided by the user as a function parameter.
+   - **Output Path**: User will provide this as a function parameter. If not specified, the script will overwrite the original file.
+
+2. **Excel Sheet & Columns**:
+   - **Sheet Name**: "EmployeeInfo"
+   - **Columns**: "Age" (blue background), "Salary" (bold font), and "Position" (italic font).
+
+3. **Modification Requirement**:
+   - Increase "Salary" values in the fixed range A2:A100 by 10%.
+
+4. **Post-Modification Checks**:
+   - Verify formatting for "Age", "Salary", and "Position" columns. Discrepancies will be logged.
+
+5. **Backup**:
+   - If "employee_data_backup.xlsx" exists in the output path, create a backup named "employee_data_backup_YYYY-MM-DD.xlsx".
+
+6. **Logging**:
+   - Use the default format to record modifications and errors in "changes_log.txt" in the output directory. Overwrite any existing logs.
+   - Cells in the "Salary" column with non-numeric values will be highlighted with a bright red dashed border and an associated error message will be logged.
+
+---
+
+With this refined structured request, do you have any additional feedback or requirements? If not, we can finalize this session.

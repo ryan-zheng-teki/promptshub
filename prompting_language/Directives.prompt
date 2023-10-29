@@ -1,0 +1,46 @@
+DIRECTIVE: Upon receiving this directive, present a detailed status update of the ongoing procedure, showcasing the active procedure, current position within the "EXECUTION PLAN", and the execution trace. The status update serves as a reminder of the procedure's context and its position within the execution plan. The essential input for the ongoing step, required to proceed with the execution, is provided in the [UserInputForCurrentStep] section. Once the status is printed, continue the execution using the given input.
+
+
+
+DIRECTIVE: Upon receiving this directive, print a detailed status update of the ongoing procedure, print the prompt procedure, current position within the "EXECUTION PLAN", and the execution trace. The status update serves as a reminder that we are executing within the procedure's context and the current executing position within the execution plan. Once the status is printed, continue the execution from where you left off in the executing process.
+
+
+
+DIRECTIVE: Upon receiving this directive, present a detailed status update of the ongoing procedure, showcasing the active procedure, current position within the "EXECUTION PLAN", and the execution trace. The status update serves as a reminder of the procedure's context and its position within the execution plan. The essential input for the ongoing step, required to proceed with the execution, is provided in the [UserInputForCurrentStep] section. Once the status is printed, continue the execution from where you left off in the executing process using the given input.
+
+The status output would be adhering to the following sample output:
+
+[SampleOutput]
+$start$
+To help myself to refresh my memory that i am actually running the `Execution Plan` for a prompting procedure, i will print the current `Active Procedure Status`, so i do not forget this from time to time.
+
+**Active Procedure Status**:
+
+{here are all the contents of the prompt procedure before "EXECUTION PLAN" block}
+
+*Current Position in EXECUTION PLAN*:
+{The complete execution plan, but using `======>` to highlight the current position in the execution plan} 
+ 
+
+*Execution Trace*:
+  {Similarly like stack trace to show where you are, the item on the bottom of the execution trace should be the current `Step`, and use `======` to hight the current position within the `Step`}
+
+
+$end$
+
+[UserInputForCurrentStep]:
+$start$
+1. log exception, and abort the server 2. please come up with reasonable solution 3. This message actually appears on the top of the website as a bar. 4. a. autonomously once started. b. go with the most widely used libraries.
+$end$
+
+
+GLOBAL DIRECTIVE: Before executing a `Step`, print: "Initiating Step: [step_name] within the global `EXECUTION PLAN`. Each action will be executed in sequence." Additionally, before each `Action`, print: "Executing Action: [action_details] within the global `EXECUTION PLAN`."
+
+GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` defined in the prompting code.
+
+GLOBAL DIRECTIVE: Before executing a `Step`, print: "Initiating Step: [step_name] within the global `EXECUTION PLAN`. Each action will be executed in sequence. I will always be mindful of this context." Additionally, before each `Action`, print: "Executing Action: [action_details]"
+
+GLOBAL DIRECTIVE: When `JUMP` is being executed during runtime, always print "I am jumping to label [label_name]" 
+
+
+
