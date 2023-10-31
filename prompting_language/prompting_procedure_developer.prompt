@@ -319,7 +319,7 @@ $end$
 
 
 
-Let's say, currently we are at FeedbackLoop from the execution plan. And since the feedbackLoop is recursive. So lets say, we are at the second recursion  for Feedbackloop and  currently at     additionalFeedBack = Action: Wait for user to submit their feedbacks regarding the restructuredRequest
+Let's say, currently we are at FeedbackLoop from the execution plan. And since the feedbackLoop is recursive. So lets say, we are at the second recursion  for Feedbackloop and  currently at  additionalFeedBack = Action: Wait for user to submit their feedbacks regarding the restructuredRequest
 
 
 It will be something like 
@@ -335,4 +335,4 @@ END PROCEDURE
 $end$
 
 
-then you will have the stacktrace similar thing, because we are currently at the s
+then you will have the stacktrace similar thing

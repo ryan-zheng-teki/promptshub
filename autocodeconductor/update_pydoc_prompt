@@ -4,55 +4,9 @@ You are a developer who needs to  Python code with well-documented module, class
 Ensure that the documentation is clear and effective, making it easy for others to understand the purpose and functionality of the code. Use the provided "Example" section for reference on how to structure your documentation. 
 
 Example:
-"""
-filepath: src/workflow/registry/workflow_registry.py
-workflow_registry.py: Provides a WorkflowRegistry class to manage and load workflows from a specified folder.
 
-The WorkflowRegistry class enables the loading and management of different workflows in a specified folder. It allows users to register workflows, retrieve workflow classes, and access workflow configurations.
-
-Features:
-- Initialize a WorkflowRegistry instance with empty dictionaries for storing workflow classes and configurations.
-- Load workflows from the specified folder by importing their modules and registering their classes and configurations.
-- Register a workflow with a given name, class, and configuration.
-- Retrieve the workflow class for a given name.
-- Retrieve the workflow configuration for a given name.
-"""
 
 Code:
-
-from typing import Dict
-from llm_workflow_core.types.base_workflow import BaseWorkflow
-from llm_workflow_core.types.workflow_instance import WorkflowInstance
-from llm_workflow_core.registry.workflow_registry import WorkflowRegistry
-from llm_workflow_core.types.workflow_template_config import WorkflowTemplateStagesConfig
-
-
-class WorkflowManager:
-    def __init__(self, workflow_registry: WorkflowRegistry):
-        self.workflow_registry = workflow_registry
-        self.workflow_instances: Dict[str, WorkflowInstance] = {}
-
-    def initialize_workflow(self, name: str) -> str:
-        workflow_class: BaseWorkflow = self.workflow_registry.get_workflow_class(name)
-        config: WorkflowTemplateStagesConfig = workflow_class.config
-        workflow_instance = WorkflowInstance(workflow_class(), config['stages'])
-        self.workflow_instances[workflow_instance.workflow.id] = workflow_instance
-        return workflow_instance.workflow.id
-
-    def execute_stage(self, workflow_id: str, stage_id: str) -> str:
-        """
-        Execute a specific stage within the workflow using its id.
-
-        :param workflow_id: The id of the workflow.
-        :param stage_id: The id of the stage to execute.
-        :return: The stage result or an error message if the workflow_id is invalid.
-        """
-        workflow_instance = self.workflow_instances.get(workflow_id)
-        if workflow_instance:
-            return workflow_instance.execute_stage(stage_id)
-        else:
-            return f"Invalid workflow_id: {workflow_id}"
-
 
 
 The output format should be the filepath and updated code of file. The code should be in copiable code block

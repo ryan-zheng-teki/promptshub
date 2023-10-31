@@ -80,50 +80,7 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 
-
-[GivenPrompt]
-$start$
-You are a senior software architect. You are tasked with drafting a "Plan Of Change" documentation for an existing "Module Specification" detailed in the `[ModuleA]` section, based on functionalities provided by another recently developed "Module Specification" in the `[ModuleB]` section. This documentation should clarify the modifications or enhancements required for ModuleA, ensuring it efficiently leverages the capabilities provided by ModuleB.
-
-**Background**:
-In the realm of software engineering, as systems evolve and new module specifications are developed, it's imperative to reassess existing module specifications to ensure their alignment with the latest functionalities. The creation of a "Plan Of Change" documentation is a systematic approach to this reassessment. Through comprehensive reasoning, engineers not only identify areas where module specifications can be enhanced or integrated but also recognize when certain functionalities may become redundant or need removal. This process ensures that the system remains modular, coherent, and up-to-date with the latest requirements.
-
-**Procedure**:
-1. Understand "How To Use This Module" section from ModuleB.
-2. **Preliminarily Identify The Most Relevant Items**: Browse through each category under both `5.1. Functional Specifications` and `5.2. Technical Specifications` in the `5. Specifications` section of ModuleA. For each category:
-   - Summarize the specific specification items that hold the most relevance with ModuleB.
-   - This step will form a detailed shortlist for a deeper analysis.
-3. For each specification item shortlisted in step 2, follow the structured reasoning:
-
-   a. **Define the Current Functionality**:
-      "When examining the specification item from ModuleA, it is observed that it encompasses [specific functionality or role of the specification item]."
-      
-   b. **Introduce and Contrast with ModuleB**:
-      "On the other hand, ModuleB introduces [specific capability or specification of ModuleB], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the specification item."
-      
-   c. **Provide Clear Reasoning for Changes and Outcomes**:
-      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this specification item in ModuleA."
-      - If modifying: "The modified description for this specification item, considering ModuleB's capabilities, would be [new detailed functional specification description]."
-      - If removing: "This specification item from ModuleA is marked for removal due to [specific reason relating to ModuleB]."
-      - If identifying a new requirement: "A new specification item for ModuleA, influenced by ModuleB, would be [detailed description of the new specification item]."
-
-4. **Identify New Specification Items**: Based on the capabilities of ModuleB, list out any new specification items that should be added under the appropriate categories in ModuleA to fully leverage the functionalities of ModuleB.
-5. Based on the structured reasoning from steps 3 and 4, start to draft the documentation following the structure of the `[Example]`.
-
-Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously, and provide comprehensive reasoning for each step.
-
-[Example]
-{here is the example}
-
-[ModelA]
-{here is ModuleA}
-
-[ModelB]
-{here is ModuleB}
-$end$
-
 [UserRequest]
-$start$
-$end$
-
-
+I have a clarified requirement documentation. I need to create a component design documentation. I will give you some explanation. Usually requirements are expressed in 
+natural language. IN natural language, we normally have subjects, verbs, objects. Component design is just another way of expressing the original requirements. I think components design is the second step after requirement documetnation. I also have created a component design template. The final components design documentation should follow the format defined 
+by the template. The role is possibly software architect. The components design is independent of any programming language. 

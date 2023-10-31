@@ -1,5 +1,1 @@
-Since we introduced variables in the prompting language. 
-Now it's possible to make the prompting language to accept user variables. 
-The original prompt also can accept user variables. But, the waiting is not easy to express, 
-and also it ends up with uncertainties.
 

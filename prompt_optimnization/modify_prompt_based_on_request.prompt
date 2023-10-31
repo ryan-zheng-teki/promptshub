@@ -63,7 +63,9 @@ $end$
 
 [Requirement]
 $start$
+I think the prompt structure can be improved to make the content has better inter connection. What i meant is, for example, if we have a sentence "based on the user requirement given in the `[UserRequirement]` section. You can see that we are refering to the section content.
 
+My idea is that You are a prompt code developer, you are first introduced the knowledge about prompting language which includes these three sections. After you understand the prompting language. Then you will react to user's. In this way, we can make the prompt more coherent and internally content-wise more connected.
 $end$
 
 

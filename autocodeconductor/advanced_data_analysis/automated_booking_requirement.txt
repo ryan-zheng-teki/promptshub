@@ -1,15 +1,16 @@
 - **Application Type**: Python server application.
 
 - **Configuration**:
-  - The user will always provide a correct `config.json` structure.
+  - The user will provide a correct `config.json` structure. 
   - `config.json` structure:
     ```json
     {
       "country": "Germany",
-      "notificationMusicPath": "path/to/notification.mp3"
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
     }
     ```
-  - If the `config.json` file is not found, is corrupted, or contains invalid data, the server should log the exception and abort the server operation.
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
 
 - **Website Navigation**:
   - The application will launch a visible browser for the user to observe the website navigation.
@@ -25,23 +26,18 @@
     - Click the box "Aufenthaltstitel - verlängern".
     - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
     - Click the "Weiter" button.
-  - In case of navigation issues:
-    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder.
-    - The log entry format: `[TIMESTAMP] - [ERROR_DESCRIPTION]`.
-    - The server will keep beeping for 1 minute before aborting the operation.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
 
 - **Check for Appointments and Notification**:
-  - Continuously check for available appointments. This should be done indefinitely until an appointment is found.
-  - If an appointment is available, navigate to the next page and stop further actions.
-  - If no appointment is available, display a "Failure" message on the top of the website as a bar: "No appointments available. Checking again in 5 minutes."
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
   - Wait for 5 minutes before rechecking.
-  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification.
 
 - **General**:
   - The application should operate autonomously once started.
-  - Libraries to be used:
-    - Web navigation and interaction: Selenium
-    - Playing the mp3 notification: playsound
-    - Server operations and logging: Flask and Python's built-in logging module.
-  - Best practices will be followed for logging formats, codebase structuring, and library versions.
+  - Libraries to be used: Selenium, playsound, Flask, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
 

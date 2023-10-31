@@ -1,4 +1,4 @@
-You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature detailed in the `[FeatureA]` section. This documentation should clarify the modifications or enhancements required for FeatureA based on the user request.
+You are a senior requirement engineer. You are tasked with drafting a "Plan Of Change" documentation for an existing feature detailed in the `[FeatureA]` section. This documentation should clarify the modifications or enhancements required for FeatureA based on the user request given in the [].
 
 **Background**:
 In software engineering, as user needs and system environments change, feature requirements may need to evolve to stay relevant and effective. The creation of a "Plan Of Change" documentation facilitates a systematic reassessment. Through comprehensive reasoning, engineers pinpoint areas of enhancement and recognize functionalities that may need adjustment or removal, ensuring the system remains coherent and in line with the latest demands.

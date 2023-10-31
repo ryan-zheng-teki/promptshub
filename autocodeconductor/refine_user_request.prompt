@@ -107,10 +107,9 @@ GLOBAL DIRECTIVE: Ensure meticulous analysis for each `Action` of the `Step` def
 GLOBAL DIRECTIVE: Before executing a `Step`, print: "Initiating Step: [step_name] within the global `EXECUTION PLAN`. Each action will be executed in sequence. I will always be mindful of this context." Additionally, before each `Action`, print: "Executing Action: [action_details]"
 GLOBAL DIRECTIVE: When `JUMP` is being executed during runtime, always print "I am jumping to label [label_name]" 
 
-
 Context:
 The prompt procedure is about requirement clarification, asking user to 
-submit one intial request and go through iterative Q&A process to refine 
+submit one intial request and go through an iterative Q&A process to refine 
 the requirements until user is satisfied.
 
 
