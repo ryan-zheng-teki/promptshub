@@ -29,43 +29,55 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-You're a "Prompting Code Developer".  Your task is to convert the prompt enclosed by `$start$` and `$end$` tokens in the `[GivenPrompt]` section to prompting procedure.  
 
-**Introduction to the Prompting Programming Language**:
+As a senior software architect, your task is to identify all the requirement specifications from `ModuleA` which are functionally relevant to `ModuleB`.
 
-The Prompting Programming Language is a blend of conventional programming and natural language, designed to interact more structuredly with large language models like ChatGPT. Its core principle combines the precision of traditional programming with the comprehensibility of natural language, enhancing the clarity of instructions to the model.
+**Context**
+In software engineering, module development is driven by requirements categorization or architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, responsiblity shifting or integration needs. The requirement documentations for both modules provided in the `[ModuleA]` and `[ModuleB]` sections are written adhering to the requirement specification format defined by the template in the `[Template]` section, with requirement specifications listed under "4.1 Functional Requirements" and "4.2 Technical Requirements." headings. Each detailed requirement specification is placed under its own category using the following structure
 
-**Why Use the Prompting Programming Language?**:
+```
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+   - ...
+```
 
-Large language models can sometimes produce ambiguous or incorrect results from unstructured prompts. The Prompting Programming Language introduces structured constructs such as loops, conditions, and directives to provide clear and defined instructions, minimizing potential errors.
+To identiy the relevant requirement items from `ModuleA`, typically, human will analyze each requirement specification item  from `ModuleA` and compare it to the `Module Description` of `ModuleB`, do a reasoning whether the item is functionally relevant to the `ModuleB`.
 
-**Language Elements and Their Descriptions**:
+In this task, you need to perform the same thinking process like human. Your thinking output for this analytical process should adhere to the following given format:
 
-1. **Step**:
-    - **Definition**: A distinct operation with a set objective.
-    - **Usage**: Organizes the flow of instructions into specific segments or phases.
+```
+I will review each specification item under each category within the "4.1 Functional Requirements" and "4.2 Technical Requirements" sections sequentially from `ModuleA`.
 
-2. **Action**:
-    - **Definition**: A task within a step to be executed.
-    - **Usage**: The dynamic components of the language that process variables and return results. Comparable to a function in traditional programming.
+Now, I will assess the specifications in all categories under "4.1 Functional Requirements" for ModuleA:
 
-3. **GLOBAL DIRECTIVE**:
-    - **Definition**: An overarching command for the entire procedure.
-    - **Usage**: Sets consistent rules or guidelines for the entire procedure, similar to global variables in traditional programming.
+The first category is ..., 
+  The first specification is ..., and the `Module Description` from ModuleB is ...,  Because ..., Hence, the specification is/is not relevant to ModuleB.
+  the second specification is ..., and the Module Description from ModuleB is ..., 
+  Because ..., Hence, the specification is/is not relevant to ModuleB.
 
-4. **DIRECTIVE**:
-    - **Definition**: Rules tailored for specific actions.
-    - **Usage**: Offers detailed instruction for actions, akin to local settings in conventional programming.
+The second category is ...,
+  the first specification is ..., and the `Module Description` from ModuleB is ..., 
+   Because ..., Hence, the specification is/is not relevant to ModuleB.
 
-**Current State of the Language**:
-- The language currently comprises the above elements. While it maintains simplicity for users, it's designed for potential future extensions based on user feedback and needs.
+This reasoning continues until all specifications items under all categories of "4.1 Functional Requirements" are covered.
+
+Now, I will proceed with each specification in all categories under "4.2 Technical Requirements":
+
+The first category is ..., 
+  The first specification is ...,and the `Module Description` from ModuleB is ..., 
+  Because ..., Hence, the specification is/is not relevant to ModuleB.
+  The second specification is ..., and the `Module Description` from ModuleB is ..., 
+  Because ..., Hence, the specification is/is not relevant to ModuleB.
+...
+```
+
+Now please take a deep breath, think step by step to perform the task.
 $end$
 
 [Requirement]
 $start$
-I think the prompt structure can be improved to make the content has better inter connection. What i meant is, for example, if we have a sentence "based on the user requirement given in the `[UserRequirement]` section. You can see that we are refering to the section content.
-
-My idea is that You are a prompt code developer, you are first introduced the knowledge about prompting language which includes these three sections. After you understand the prompting language. Then you will react to user's. In this way, we can make the prompt more coherent and internally content-wise more connected.
+I have tested the prompt, it works very well. But i think the writting could be improved. Since its already working well, you should only fix the grammar mistakes.
 $end$
 
 

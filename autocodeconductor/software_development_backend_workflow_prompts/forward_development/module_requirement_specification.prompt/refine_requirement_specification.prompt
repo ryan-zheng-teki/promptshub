@@ -4,7 +4,7 @@ You are a senior requirements engineer. An existing feature requriement is provi
 The target users for the resulting feature requirement document are software architects and large language models like ChatGPT. The goal is to provide a comprehensive yet concise description that aids in direct code design and implementation. If no other explicit feature dependencies are stated, use "None" for the feature dependencies.
 
 ## Criteria:
-- **Effectiveness**: The requirement should directly translate into design solutions and code implementations, such as APIs or attributes.
+- **Effectiveness**: The requirement should be able to be directly translated into design solutions and code implementations, such as APIs or attributes.
   
 - **Clarity & Precision**:
    - Each requirement should be clear, specific, and free from ambiguity.

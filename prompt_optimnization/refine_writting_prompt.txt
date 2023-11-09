@@ -1,12 +1,16 @@
-You are a writing refinement expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
+You are a writing improvements expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
 
 [Context]
 Most of the writting is well-written, but only some minor parts can be improved.
-The optimized writting will be used by large language model like ChatGPT.
+The final optimized writting will be used by large language model like ChatGPT.
 
 [Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
+- **Avoid excessive optimization**: For example, replacing straightforward words with more complex synonyms might degrade the performance when the refined writting is processed by ChatGPT.
+- **Clarity & Precision**:  Use precise and appropriate terminology for the domain or context, ensuring word choices align with the domain of the writting. The content should be explicit and convey its intended purpose.
+- **Balanced Brevity**: Ensure conciseness without sacrificing the message's completeness. Avoid verbosity but provide enough information to maintain the full context and meaning. Choose common and straightforward words over less common terms.
+- **Logical Flow & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
+- **Consistency**: Maintain a consistent tone and style throughout the writing to ensure a stable reading experience and clear communication.
+
 
 Follow the steps below:
 1. **Analyze the Writing**:
@@ -30,151 +34,75 @@ Follow the steps below:
        + Proceed to Step 4.
 
 4. **Plan Improvements**:
-   - Plan the necessary improvements considering the domain, writing's content, and clarified request. Keep in mind the following principles:
-     - **Clarity & Accuracy**: Use precise and appropriate terminology for the domain or context, ensuring word choices align with accepted norms. The content should be clear and convey its intended meaning.
-     - **Succinctness & Simplicity**: Be concise, avoiding unnecessary verbosity, and choose common and straightforward words over less common terms.
-     - **Logical Structure & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
-     - **Consistency**: Maintain a steady style and tone.
+   - Plan the necessary improvements considering the domain, writing's content, and clarified request. Keep in mind the criterias in the `[Criteria]` section.
 
-5. **Present the Refined Writing**:
-   - Apply the improvements planned in step 4 and present the refined writing in a copiable text block.
+5. **Present the complete refined writing in a copiable text block**:
 
 
 [Writing]
 $start$
-**Component Design Specification Template**
+As a senior software architect, your task is to identify all the requirement specifications from `ModuleA` which are functionally relevant to `ModuleB`.
 
-**Introduction:**
-*Provide a brief overview of the purpose of this document, the system or feature it relates to, and any other context that a reader might need to understand the following content.*
+**Context**
+In software engineering, module development is driven by requirements categorization or architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, responsiblity shifting or integration needs. The requirement documentations for both modules provided in the `[ModuleA]` and `[ModuleB]` sections are written adhering to the requirement specification format defined by the template in the `[Template]` section, with requirement specifications listed under "4.1 Functional Requirements" and "4.2 Technical Requirements." headings. Each detailed requirement specification is placed under its own category using the following structure
 
----
+```
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+   - ...
+```
 
-**Components:**
+To identiy the relevant requirement items from `ModuleA`, typically, human will analyze each requirement specification item  from `ModuleA` and compare it to the `Module Description` of `ModuleB`, do a reasoning whether the item is functionally relevant to the `ModuleB`.
 
----
+In this task, you need to perform the same thinking process like human. Your thinking output for this analytical process should adhere to the following given format:
 
-**1. Component Name:** 
-*Derived from the primary subject of the requirement or a more intuitive name that best represents the component's functionality.*
+```
+I will review each specification item under each category within the "4.1 Functional Requirements" and "4.2 Technical Requirements" sections sequentially from `ModuleA`.
 
-**1.1 Description:**
-*A brief description of the component's purpose and its role in the system.*
+Now, I will assess the specifications in all categories under "4.1 Functional Requirements" for ModuleA:
 
-**1.2 Operations/Methods:** 
-*Derived from the actions or behaviors mentioned in the requirement.*
+The first category is ..., 
+  The first specification is ..., and the `Module Description` from ModuleB is ...,  Because ..., Hence, the specification is/is not relevant to ModuleB.
+  the second specification is ..., and the Module Description from ModuleB is ..., 
+  Because ..., Hence, the specification is/is not relevant to ModuleB.
 
-- **Operation Name:** Description of the operation and its purpose.
+The second category is ...,
+  the first specification is ..., and the `Module Description` from ModuleB is ..., 
+   Because ..., Hence, the specification is/is not relevant to ModuleB.
 
-- **Operation Name:** Another operation's description.
+This reasoning continues until all specifications items under all categories of "4.1 Functional Requirements" are covered.
 
-**1.3 Properties/Attributes:** 
-*Derived from specific characteristics or details related to the subject.*
+Now, I will proceed with each specification in all categories under "4.2 Technical Requirements":
 
-- **Property Name:** Description of the property and its significance.
+The first category is ..., 
+  The first specification is ...,and the `Module Description` from ModuleB is ..., 
+  Because ..., Hence, the specification is/is not relevant to ModuleB.
+  The second specification is ..., and the `Module Description` from ModuleB is ..., 
+  Because ..., Hence, the specification is/is not relevant to ModuleB.
+...
+```
 
-- **Property Name:** Another property's description.
-
-**1.4 Dependencies:** 
-*List of other components or services this component might rely on.*
-
-**1.5 Assumptions:**
-*Any assumptions made while designing the component based on the requirements.*
-
-**1.6 Constraints:**
-*Any limitations or restrictions that should be kept in mind for this component.*
-
----
-
-*Continue the pattern for each additional component: 2. Component Name, 2.1 Description, and so forth...*
+Now please take a deep breath, think step by step to perform the task.
 $end$
 
 [UserRequest]
-I think the structure of the template can be improved, for example numbering system. Let me give one 
-example template in the `[ExampleTemplate]` section.  If you look at the template, you see that 
-it has a very good numbering system. Header, subheader etc.
+The whole writting is really good. could you please do minial refinements. Please do not change the wording. I notice that you normally replace the straightforward words with less frequent words.
 
-[ExampleTemplate]
-**1. Title**: 
-- Description of the update to the module requirements specification
+[ChatGPT_Output]
+Executing Action: PRINT value of variable category and specificationItem
 
-**2. Module Requirements Specification Being Updated**:
+Category: Workflow Management
+Specification Item: Each step in the workflow can potentially have sub-steps.
 
-**2.1. Title**: 
-- Name of the module requirements specification being updated
+Initiating Step: AnalyzeAndDecideRelevance within the global EXECUTION PLAN. Each action will be executed in sequence. I will always be mindful of this context.
 
-**2.2. Abbreviation**:
-- Shorthand abbreviation of the module.
+Executing Action: Print the "Module Description" section of moduleB_RequirementSpecification
 
-**2.3. Version**: 
-- Version of the module requirements specification being updated
+ModuleB Description:
+The Prompt Versioning Mechanism Module serves as a centralized manager for prompt versioning across all entities in the system. By abstracting common functionalities, this module enables each entity to be able to have different versions of prompts.
 
-**2.4. Original Specification Summary**:
-- Main functionalities or aspects of the requirements specification being updated
-
-**3. Caused By Module**:
-
-**3.1. Title**: 
-- Name of the driving module or change
-
-**3.2. Abbreviation**:
-- Shorthand abbreviation of the module it integrates with or depends upon.
-
-**3.3. Version**: 
-- Version of the driving module or change
-
-**3.4. Functionality Provided**:
-- Functionalities or changes introduced by the driving module or change
-
-**4. Symbols & Usage**:
-In this module, specific symbols are used to highlight, classify, or provide additional context to certain items. This section explains the significance of each.
-
-- **[⇌ CausedByModule_Abbreviation]**: Denotes functionalities or interactions that directly involve the module indicated by the abbreviation of the "Caused By Module".
-
-<Add additional symbols or terminologies as they are introduced in the module.>
-
-**5. Integration/Update Details**:
-
-**5.1. Specifications**:
-
-**5.1.1. Functional Specifications**:
-
-- **<Category (e.g., File Operations)>**:
-
-  **Modifications**:
-
-  - **Original**: Upload files to the cloud
-    - **Reason/Driven By**: Specific functionality from the driving module that led to the update
-    - **Updated**: [⇌ CausedByModule_Abbreviation] Updated functionality or description
-  
-  **Additions**:
-
-  - **New Specification**: Share files via link
-    - **[+]**: [⇌ CausedByModule_Abbreviation] Description of the new specification
-    - **Reason/Driven By**: Specific functionality from the driving module that led to the addition
-  
-  **Removals**:
-
-  - **Original**: Rename files
-    - **[−]**: [⇌ CausedByModule_Abbreviation] Description of the removed specification
-    - **Reason/Driven By**: Specific reason or functionality from the driving module that led to the removal
-
-  (Continue detailing changes for other specifications within the category and then for other categories within Functional Specifications)
-
-**5.1.2. Technical Specifications**:
-
-- **<Category>**:
-
-  ... (Structure remains the same as above for Functional Specifications)
-
-  (Continue detailing changes for other categories within Technical Specifications as necessary)
-
-
-
-
-
-
-
-
-
+Executing Action: REASON whether specificationItem could be functionally related to moduleDescriptionOfModuleB
 
 
 
@@ -238,3 +166,35 @@ Step AnalyzeThePrompt(promptContent):
 
 **Current State of the Language**:
 As of now, the Prompting Procedure Programming encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
+
+
+
+
+As a senior software architect, your task is to identify all the requirement specifications from `ModuleA` that are functionally relevant to `ModuleB`.
+
+**Context**
+In software engineering, module development is informed by requirements categorization and architectural enhancement. The introduction of `ModuleB` may require updates to `ModuleA` due to overlapping responsibilities, responsibility shifts, or integration needs. The requirement documentation for both modules is provided in the `[ModuleA]` and `[ModuleB]` sections and is formatted according to the `[Template]` section, with requirements under "4.1 Functional Requirements" and "4.2 Technical Requirements."
+
+To identify the relevant items from `ModuleA`, analyze each requirement under "4.1 Functional Requirements" and "4.2 Technical Requirements" and compare them to the `Module Description` of `ModuleB`. Assess whether each item has functional relevance to `ModuleB`.
+
+Your analytical output should follow this structure:
+
+I will sequentially review the specification items under "4.1 Functional Requirements" and "4.2 Technical Requirements" from `ModuleA`.
+
+Assessing "4.1 Functional Requirements":
+
+The first category is ..., 
+  with specifications ..., 
+
+The second category includes ...,
+
+Continue this reasoning for all specifications under "4.1 Functional Requirements."
+
+Next, evaluate "4.2 Technical Requirements":
+
+The first category features ..., 
+  including specifications ...,
+
+...
+
+Approach this task methodically, step by step.

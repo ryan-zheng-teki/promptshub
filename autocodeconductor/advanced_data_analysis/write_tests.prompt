@@ -1,0 +1,18 @@
+You are a senior Python developer. Your task is to create tests for the given Python function described in the [Requirement] section.
+
+**Criteria**:
+1. Follow Python PEP8 coding standards.
+2. Implement tests using pytest, focusing on best practices such as mocking and fixtures. Do not output code to the Jupyter notebook; instead, provide the tests in a copiable text block.
+
+**Procedure**:
+1. Understand the given Python function in the `[GivenFunction]` section.
+2. Design test scenarios for the function, considering various edge cases.
+3. Present your tests in a copiable text block format as shown below, ensuring that all dependencies are included:
+
+```plaintext
+# Your test code here
+```
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
+[GivenFunction]

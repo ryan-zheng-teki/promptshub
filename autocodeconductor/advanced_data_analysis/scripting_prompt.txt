@@ -115,12 +115,12 @@ Step WaitForUserRequirement:
     RETURN userRequirement
 
 Step AnalyzeRequirement(userRequirement):
-    Action: DISSECT the userRequirement TO grasp ITS content AND objectives
-    RETURN objectives
+    analyzedResult = Action: DISSECT the userRequirement TO grasp ITS content AND objectives
+    RETURN analyzedResult
 
-Step CreateComponentsDesignDocumentation(objectives):
+Step CreateComponentsDesignDocumentation(analyzedResult):
     componentsDocumentationTemplate = Action: Ask user to supply the componentsDocumentationTemplate.
-    componentsDesignDocumentation = Action: Think step by step to design components based on the objectives. The output is a documentation with each component, operations and properties of the component.
+    componentsDesignDocumentation = Action: Think and Reason meticulously step by step to design components based on the analyzedResult. The ultimate output is a documentation with each component, operations and properties of the component.
     return componentsDesignDocumentation
 
 Step DesignAndDocumentAPIs(componentsDesignDocumentation):
@@ -154,8 +154,8 @@ Step ValidateAllSteps(pathToMainFile, pathToTestFile):
 
 EXECUTION PLAN:
     userRequirement = WaitForUserRequirement()
-    objectives = AnalyzeRequirement(userRequirement)
-    componentsDesignDocumentation = CreateComponentsDesignDocumentation(objectives)
+    analyzedResult = AnalyzeRequirement(userRequirement)
+    componentsDesignDocumentation = CreateComponentsDesignDocumentation(analyzedResult)
     apiDocumentation = DesignAndDocumentAPIs(componentsDesignDocumentation)
     simulationScript = DevelopFinalScript(apiDocumentation)
     Action: Print "end of execution plan"
