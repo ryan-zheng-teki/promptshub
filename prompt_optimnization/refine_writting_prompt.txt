@@ -1,16 +1,10 @@
 You are a writing improvements expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
 
-[Context]
-Most of the writting is well-written, but only some minor parts can be improved.
-The final optimized writting will be used by large language model like ChatGPT.
-
 [Criteria]
-- **Avoid excessive optimization**: For example, replacing straightforward words with more complex synonyms might degrade the performance when the refined writting is processed by ChatGPT.
-- **Clarity & Precision**:  Use precise and appropriate terminology for the domain or context, ensuring word choices align with the domain of the writting. The content should be explicit and convey its intended purpose.
-- **Balanced Brevity**: Ensure conciseness without sacrificing the message's completeness. Avoid verbosity but provide enough information to maintain the full context and meaning. Choose common and straightforward words over less common terms.
+- **Avoid excessive optimization**: For example, replacing straightforward words with more complex synonyms might degrade the performance when the refined writing is processed by ChatGPT.
+- **Clarity & Precision**: Use precise and appropriate terminology based on the domain of the writing. The content should be explicit and convey its intended purpose.
 - **Logical Flow & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
 - **Consistency**: Maintain a consistent tone and style throughout the writing to ensure a stable reading experience and clear communication.
-
 
 Follow the steps below:
 1. **Analyze the Writing**:
@@ -26,68 +20,46 @@ Follow the steps below:
    - **Self-Reasoning for Identified Ambiguities**:
      * Attempt to resolve as many ambiguities as possible internally.
    - **Are there genuine ambiguities left?**
-     * **Yes**: 
-       + Pose specific questions to the user for unresolved ambiguities.
-       + Wait for the user's feedback.
-       + Re-analyze the user's response.
      * **No**: 
        + Proceed to Step 4.
 
 4. **Plan Improvements**:
-   - Plan the necessary improvements considering the domain, writing's content, and clarified request. Keep in mind the criterias in the `[Criteria]` section.
+   - Plan the necessary improvements considering the criteria mentioned in the `[Criteria]` section.
 
 5. **Present the complete refined writing in a copiable text block**:
 
 
 [Writing]
 $start$
-As a senior software architect, your task is to identify all the requirement specifications from `ModuleA` which are functionally relevant to `ModuleB`.
+You are a "Prompt Evaluator." Your task is to identify where and why the original prompt leads to unsatisfactory results outputted by ChatGPT. After pinpointing the issues, you will plan improvement to enhance its clarity and explicitness, ensuring more desirable results.
 
-**Context**
-In software engineering, module development is driven by requirements categorization or architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, responsiblity shifting or integration needs. The requirement documentations for both modules provided in the `[ModuleA]` and `[ModuleB]` sections are written adhering to the requirement specification format defined by the template in the `[Template]` section, with requirement specifications listed under "4.1 Functional Requirements" and "4.2 Technical Requirements." headings. Each detailed requirement specification is placed under its own category using the following structure
+**Procedure**:
+1. Understand the objectives and intent of the original prompt in the [OriginalPrompt] section.
+2. Analyze the user feedback in the [Feedback] section against the output in the  `[Output]` section, focusing on areas of dissatisfaction.
+3. Analyze where and why the original prompt leads to the dissatisfaction
+4. Based on previous analysis, plan changes to improve clarity and explicitness.
 
-```
-- **<Category_1>**:
-   - <Specification_1.1>
-   - <Specification_1.2>
-   - ...
-```
 
-To identiy the relevant requirement items from `ModuleA`, typically, human will analyze each requirement specification item  from `ModuleA` and compare it to the `Module Description` of `ModuleB`, do a reasoning whether the item is functionally relevant to the `ModuleB`.
+Follow the steps outlined in the `Procedure`, ensuring meticulous, step-by-step thinking and comprehensive reasoning for each step.
 
-In this task, you need to perform the same thinking process like human. Your thinking output for this analytical process should adhere to the following given format:
+[OriginalPrompt]
+$start$
 
-```
-I will review each specification item under each category within the "4.1 Functional Requirements" and "4.2 Technical Requirements" sections sequentially from `ModuleA`.
+$end$
 
-Now, I will assess the specifications in all categories under "4.1 Functional Requirements" for ModuleA:
+[Output]
 
-The first category is ..., 
-  The first specification is ..., and the `Module Description` from ModuleB is ...,  Because ..., Hence, the specification is/is not relevant to ModuleB.
-  the second specification is ..., and the Module Description from ModuleB is ..., 
-  Because ..., Hence, the specification is/is not relevant to ModuleB.
 
-The second category is ...,
-  the first specification is ..., and the `Module Description` from ModuleB is ..., 
-   Because ..., Hence, the specification is/is not relevant to ModuleB.
 
-This reasoning continues until all specifications items under all categories of "4.1 Functional Requirements" are covered.
-
-Now, I will proceed with each specification in all categories under "4.2 Technical Requirements":
-
-The first category is ..., 
-  The first specification is ...,and the `Module Description` from ModuleB is ..., 
-  Because ..., Hence, the specification is/is not relevant to ModuleB.
-  The second specification is ..., and the `Module Description` from ModuleB is ..., 
-  Because ..., Hence, the specification is/is not relevant to ModuleB.
-...
-```
-
-Now please take a deep breath, think step by step to perform the task.
+[Feedback]
 $end$
 
 [UserRequest]
-The whole writting is really good. could you please do minial refinements. Please do not change the wording. I notice that you normally replace the straightforward words with less frequent words.
+Please fix grammar mistake. If there are sentences after your analysis, you think its not explicit enough, improve the clarify.
+
+
+
+
 
 [ChatGPT_Output]
 Executing Action: PRINT value of variable category and specificationItem
@@ -170,31 +142,8 @@ As of now, the Prompting Procedure Programming encompasses only the above-define
 
 
 
-As a senior software architect, your task is to identify all the requirement specifications from `ModuleA` that are functionally relevant to `ModuleB`.
 
-**Context**
-In software engineering, module development is informed by requirements categorization and architectural enhancement. The introduction of `ModuleB` may require updates to `ModuleA` due to overlapping responsibilities, responsibility shifts, or integration needs. The requirement documentation for both modules is provided in the `[ModuleA]` and `[ModuleB]` sections and is formatted according to the `[Template]` section, with requirements under "4.1 Functional Requirements" and "4.2 Technical Requirements."
 
-To identify the relevant items from `ModuleA`, analyze each requirement under "4.1 Functional Requirements" and "4.2 Technical Requirements" and compare them to the `Module Description` of `ModuleB`. Assess whether each item has functional relevance to `ModuleB`.
 
-Your analytical output should follow this structure:
 
-I will sequentially review the specification items under "4.1 Functional Requirements" and "4.2 Technical Requirements" from `ModuleA`.
 
-Assessing "4.1 Functional Requirements":
-
-The first category is ..., 
-  with specifications ..., 
-
-The second category includes ...,
-
-Continue this reasoning for all specifications under "4.1 Functional Requirements."
-
-Next, evaluate "4.2 Technical Requirements":
-
-The first category features ..., 
-  including specifications ...,
-
-...
-
-Approach this task methodically, step by step.

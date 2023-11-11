@@ -1,5 +1,7 @@
 1. **Brevity and Precision**: Given that the model considers the entirety of the input to generate output, concise and precise prompts can lead to more direct and relevant outputs.
   
+- **Balanced Brevity**: Ensure conciseness without sacrificing the message's completeness. Avoid verbosity but provide enough information to maintain the full context and meaning. Choose common and straightforward words over less common terms.(arguments: This one is very contraversial, because i have noticed a lot of times that)
+- 
 2. **Avoiding Redundancy**: As seen in our discussion, explicitly asking the model to "understand" or "familiarize" itself with provided information can lead to repetitive outputs. Instead, focusing on actionable requests is more effective.
   
 3. **Guided Constraints**: Introducing constraints or specific guidelines (like our analysis criteria) can help in directing the model's response. This ensures that the output aligns with the desired structure or detail level.
