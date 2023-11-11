@@ -1,10 +1,10 @@
-You are a large language model performing as a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirement given in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
+As a as a top prompt engineer, your objective is to update the given prompt defined in the `[Prompt]` section according to the requirement given in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
 
 [Context]
 Most of the prompt is well-written, but only some minor parts can be improved. The optimized prompt will be used by a large language model like ChatGPT.
 
 [Criteria]
-- Avoid excessive optimization unless it's what the user is asking for. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
+- Avoid excessive optimization unless it's what the user is asking for. For example, replacing current straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT. 
 - Prioritize explicitness and clarity over complexity.
 
 Follow the steps below:
@@ -30,351 +30,13 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 [Prompt]
 $start$
 
-As a senior software architect, your task is to identify all the requirement specifications from `ModuleA` which are functionally relevant to `ModuleB`.
-
-**Context**
-In software engineering, module development is driven by requirements categorization or architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, responsiblity shifting or integration needs. The requirement documentations for both modules provided in the `[ModuleA]` and `[ModuleB]` sections are written adhering to the requirement specification format defined by the template in the `[Template]` section, with requirement specifications listed under "4.1 Functional Requirements" and "4.2 Technical Requirements." headings. Each detailed requirement specification is placed under its own category using the following structure
-
-```
-- **<Category_1>**:
-   - <Specification_1.1>
-   - <Specification_1.2>
-   - ...
-```
-
-To identiy the relevant requirement items from `ModuleA`, typically, human will analyze each requirement specification item  from `ModuleA` and compare it to the `Module Description` of `ModuleB`, do a reasoning whether the item is functionally relevant to the `ModuleB`.
-
-In this task, you need to perform the same thinking process like human. Your thinking output for this analytical process should adhere to the following given format:
-
-```
-I will review each specification item under each category within the "4.1 Functional Requirements" and "4.2 Technical Requirements" sections sequentially from `ModuleA`.
-
-Now, I will assess the specifications in all categories under "4.1 Functional Requirements" for ModuleA:
-
-The first category is ..., 
-  The first specification is ..., and the `Module Description` from ModuleB is ...,  Because ..., Hence, the specification is/is not relevant to ModuleB.
-  the second specification is ..., and the Module Description from ModuleB is ..., 
-  Because ..., Hence, the specification is/is not relevant to ModuleB.
-
-The second category is ...,
-  the first specification is ..., and the `Module Description` from ModuleB is ..., 
-   Because ..., Hence, the specification is/is not relevant to ModuleB.
-
-This reasoning continues until all specifications items under all categories of "4.1 Functional Requirements" are covered.
-
-Now, I will proceed with each specification in all categories under "4.2 Technical Requirements":
-
-The first category is ..., 
-  The first specification is ...,and the `Module Description` from ModuleB is ..., 
-  Because ..., Hence, the specification is/is not relevant to ModuleB.
-  The second specification is ..., and the `Module Description` from ModuleB is ..., 
-  Because ..., Hence, the specification is/is not relevant to ModuleB.
-...
-```
-
-Now please take a deep breath, think step by step to perform the task.
 $end$
 
 [Requirement]
 $start$
-I have tested the prompt, it works very well. But i think the writting could be improved. Since its already working well, you should only fix the grammar mistakes.
-$end$
 
 
-1. Module Description:
-The Prompt Versioning Module centralizes and encapsulates prompt-related functionalities, serving other entities within the application that need to communicate with large language models. This module facilitates the use of different versions of prompts, extracting and streamlining common prompt management functionalities, ensuring efficient and consistent communication.
 
-
-
-[ModuleA]
-### Automated Coding Workflow Module Requirements Specification
-
-#### 1. Module Description:
-This module facilitates the definition, management, and execution of a multi-step automated coding workflow. It encompasses functionalities to initialize workflow steps from configurations, convert workflow instances to JSON representations, and execute specific steps or the entire workflow.
-
-#### 2. Module Dependencies:
-- **LLM Integration Module**: This module utilizes the "LLM Integration Module" to interface with large language models like ChatGPT and execute coding instructions.
-
-#### 3. Symbols & Usage:
-- **[⇌ LLM Integration Module]**: Denotes functionalities or interactions that are directly tied to the LLM Integration Module.
-
-#### 4. Specifications:
-
-4.1. **Functional Specifications**:
-
-- **Workflow Management**:
-   - Define and manage a multi-step automated coding workflow.
-   - Each step in the workflow can potentially have sub-steps.
-   - [⇌ LLM Integration Module] Integrate with the "LLM Integration Module" to manage LLM communications.
-   - Initialize steps of the workflow from a given configuration.
-   - Convert the workflow instance to a JSON representation.
-   - Start the entire workflow process.
-   - Execute specific steps within the workflow using their ID.
-
-- **Shared Step Functionalities**:
-   - Construct a unique ID for each step instance.
-   - [⇌ LLM Integration Module] Process the response from the "LLM Integration Module" for each step.
-   - Define the execution logic for each step.
-   - Construct a dynamic prompt for each step.
-
-- **Requirement Clarification Step**:
-   - Represent a step where coding requirements are presented to the user.
-   - Construct a prompt for this step using a template.
-
-- **Architecture Design Step**:
-   - Represent the design stage in the coding workflow.
-   - Use a template for constructing the design stage's prompt.
-
-4.2. **Technical Specifications**:
-(No technical specifications were provided in the initial document. This section can be populated when such specifications are defined.)
-
-
-[ModuleB]
-### LLM Integration Module Requirements Specification
-
-#### 1. Module Description:
-The LLM Integration Module provides a comprehensive interface for integrating with various Language Learning Models (LLM) providers. It emphasizes on a consistent message processing mechanism across different LLM implementations, with a particular focus on OpenAI's models.
-
-#### 2. Module Dependencies:
-- **OpenAI Library**: This external library is essential for enabling interactions with OpenAI's API, which is a primary LLM provider supported by this module.
-
-#### 3. Symbols & Usage:
-- **[⇌ OpenAI]**: Denotes functionalities or interactions that directly involve the OpenAI Library or OpenAI's LLM implementations.
-
-#### 4. Specifications:
-
-4.1. **Functional Specifications**:
-
-- **Integration Foundation**:
-   - [⇌ OpenAI] Provide an abstract class (`BaseLLMIntegration`) that serves as a common interface for various LLM integrations, ensuring consistent message processing.
-   - Introduce a foundational abstract class (`BaseOpenAIApi`) to offer consistent functionalities for OpenAI API implementations.
-   
-- **OpenAI-Specific Implementations**:
-   - [⇌ OpenAI] Implement a concrete class (`OpenAIChatApi`) for processing message interactions using the OpenAI Chat API.
-   - [⇌ OpenAI] Provide a mechanism (`OpenAIApiFactory`) to instantiate specific OpenAI API classes based on defined types and model names.
-   - [⇌ OpenAI] Design a class (`OpenAIGPTIntegration`) that integrates OpenAI GPT models with external programs.
-
-- **Message Management**:
-   - [⇌ OpenAI] Define data structures (`openai_message_types`) to represent and manage messages in OpenAI communication.
-   - [⇌ OpenAI] Offer classes (`SystemMessage`, `UserMessage`, and `AssistantMessage`) that represent different roles a message can have in the OpenAI communication process.
-   - Introduce a utility (`MessageList`) to manage lists of messages, with methods to add and retrieve messages.
-
-- **Integration Registry**:
-   - Develop a centralized mechanism (`LLMIntegrationRegistry`) to store, manage, and retrieve various LLM integrations.
-
-4.2. **Technical Specifications**:
-
-- **Enumerations & Types**:
-   - [⇌ OpenAI] Define an enumeration (`OpenAIMessageRole`) to represent possible roles a message can have in OpenAI communication.
-   - [⇌ OpenAI] Enumerate different OpenAI models (`OpenAIModel`) that the integration supports.
-   - [⇌ OpenAI] Enumerate the different API types (`ApiType`) supported by the integration.
-
-- **Dependencies & Interactions**:
-   - [⇌ OpenAI] Ensure the module can utilize the `autobyteus.config` to obtain necessary API keys and configurations for LLM integration operations.
-   - Recognize and manage dependencies, with specific components like `BaseOpenAIApi` and `OpenAIChatApi` using configurations from `autobyteus.config`.
-
-
-[Example]
-### Prompt Versioning Mechanism Requirements Specification
-
-#### 1. Module Description:
-The Prompt Versioning Module encapsulates the prompt versioning capabilities for the entities in the application that require multiple versions of prompts for effective communication with large language models.
-
-#### 2. Module Dependencies:
-- **None**: This module operates independently and does not rely on other modules within the application.
-
-#### 3. Symbols & Usage:
-(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
-- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
-
-#### 4. Specifications:
-
-4.1. **Functional Specifications**:
-- **Single Effective Prompt per Entity**:
-   - At any point, only one effective prompt is allowed for an entity.
-   - Users (such as other backend systems or APIs) can designate any archived version as the current effective prompt, superseding the prior effective prompt.
-
-- **Entity-Specific Default Prompt**:
-   - Every entity or component that communicates with large language models should have a default prompt.
-   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
-
-- **Dynamic Initialization of Versioned Prompts**:
-   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
-   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
-
-- **Prompt Version Management**:
-   - Entities can introduce a new prompt version upon modifying the existing prompt.
-   - A maximum of 4 prompt versions are maintained for each entity.
-   - If a new version exceeds the 4-version cap, the oldest version is purged.
-
-- **Database Management**:
-   - Versions are depicted using simple incremented
-
------------------------------------------------
-
-### Prompt Versioning Module Code Specification:
-
-#### 1. Code Architecture Design:
-
-1.1. **High-Level Design**: 
-The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous modules is utilized to facilitate smooth database interactions.
-
-#### 2. Component Modifications:
-
-2.1. **New Components**:
-
-- **PromptVersioningMixin**: 
-  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
-  - *Attributes*: 
-    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
-    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
-    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
-  - *Abstract Properties*:
-    - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
-  - *Methods*: 
-    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
-    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
-    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
-    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
-    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
-
-- **VersionedPrompt**:
-  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
-  - *Attributes*: 
-    - `version_no: int`: The version number.
-    - `prompt_content: str`: The content of the prompt for that version.
-
-- **PromptVersionModel (extends BaseModel)**:
-  - *Purpose*: Represents the database model for storing versioned prompts.
-  - *Attributes*: 
-    - `prompt_name: String`: Identifier for the prompt.
-    - `version_no: Integer`: Version number.
-    - `prompt_content: Text`: Content of the prompt.
-    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
-    (Note: The attributes `created_at` and `updated_at` are inherited from `BaseModel` and are therefore not explicitly defined here.)
-
-- **PromptVersionRepository (extends BaseRepository)**:
-  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
-  - *Methods*: 
-    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
-    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
-    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
-    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
-    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
-    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
-
-2.2. **Updated Components**:
-
-- **BaseStep**:
-  - *Modification*: Extend from `PromptVersioningMixin`.
-  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
-
-2.3. **Unchanged Components**:
-
-- **BaseModel**: 
-  - *Description*: The foundational model class for database entities.
-  
-- **BaseRepository**: 
-  - *Description*: Provides generic CRUD operations.
-
-#### 3. Interactions:
-
-3.1. **Component Interactions**:
-
-- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
-- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
-
-#### 4. External Dependencies: 
-
-- **SQLAlchemy**: ORM tool facilitating database operations.
-- **Alembic**: For database migration and versioning.
-
-
-
-
-[InitialModuleCodeDesign]
-### BaseLLMIntegration Module Code Specification
-
-#### 1. Module Architecture Design:
-
-##### 1.1. High-Level Design
-The `BaseLLMIntegration` module is designed to provide a standardized interface for all Language Model (LLM) integrations. The abstract base class ensures that any derived classes implement the necessary methods to process input messages and return LLM responses.
-
-##### 1.2. New Components Specifications
-
-###### 1.2.1. Fully Defined
-
-- **BaseLLMIntegration (New)**
-    - **Purpose**: Serves as a common interface for various LLM integrations, ensuring consistent message processing across different implementations.
-    - **Attributes**: None.
-    - **Methods/APIs**:
-        - `process_input_messages(input_messages: list)`: An abstract method that processes a list of input messages and returns the LLM's responses.
-    - **Interactions**: None in this file, but derived classes in other parts of the module will interact with this base class by implementing the `process_input_messages` method.
-
-##### 1.3. Interactions Overview
-- Derived classes from the overarching module will implement the `process_input_messages` method to provide specific integrations with the LLM.
-  
-##### 1.4. External Dependencies
-- None.
-
-#### 2. UML Diagram
-
-- **UML Legend**:
-  - Components marked with `(New)` are to be developed as part of this module.
-
-```plaintext
-@startuml
-
-abstract class "BaseLLMIntegration (New)" {
-    + process_input_messages(input_messages: list)
-}
-
-@enduml
-```
-
-
-[Requirement]
-$start$
-I would suggest to improve the explicitness of the "Preliminarily Identify The Most Relevant Items". 
-
-Due to the structure of specifications in the documentation looks like this:
-```
-#### 5. Specifications:
-
-5.1. **Functional Specifications**:
-
-- **<Category_1>**:
-   - <Specification_1.1>
-   - <Specification_1.2>
-   - ...
-   
-- **<Category_2>**:
-   - <Specification_2.1>
-   - <Specification_2.2>
-   - ...
-
-<Continue listing categories and their associated specifications as necessary.>
-
-5.2. **Technical Specifications**:
-
-- **<Category_1>**:
-   - <Specification_1.1>
-   - <Specification_1.2>
-
-<Continue listing categories and their associated specifications as necessary.>
-```
-
-So the steps should go through each specification item under each category. Here the category means the category under either functional or technical specification. Because  if not make it clear, ChatGPT might think the category means 5.1 or 5.2. 
-Since the numbering is fixed. You could think about a way to make the second step even more clear about where specification item is located.
-$end$
-
-
-Do you think its better to set the role as "You are a large language model performed as python software architect" or just "You are a Python architect"? Because if you read later, for large language model, it has context size limitation. The context size is the 
-input plus output size of of the model. 
-
-Actually the target user of the result will be ChatGPT. The result will be used by chatgpt to act as software architect to design modules based on requirement and architectural analysis. That's why the requirements has to be completely clear. Without completely clear requirements, it's not possible to design modules. 
-
-Another point is, previously software developers are figuring out some software requirements during developments. However, now ChatGPT will generate the majority of code. To generate complete codebase, the requirements have to be completely clarified, otherwise, ChatGPT is not able to generate workable code.
 
 Version 2: 
 You are a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirements presented in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
@@ -407,26 +69,6 @@ Please follow the steps below:
    - Present the updated version in a format that's easy to copy and understand.
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
-
-
-
-You know sometimes when featureA starts to use featureB. Because in software engineering, we start to develop our software with more modularity overtime. So featureA is developed earlier. featureB is developed later. FeatureB can start to manage some functionality for featureA for example. So there could be previously which were done in featureA which could 
-be invalid, or could be inappropriate, or could already be responsibility-shifted to 
-featureB. So the analysis should be be done like a human. The analysis should be comprehensive, and also logical deduction about how featureA will be in the future. But the second step in 'Procedure' seems not doing it very well. I will show you one output from ChatGPT for one example which i used the prompt. Here is part of the result. 
-
-```
-Step 2: Go through each functionality of FeatureA, and analyze what changes are needed in order to use FeatureB.
-FeatureA is the Automated Coding Workflow System (ACWS). Let's analyze its functionalities and see how we can integrate FeatureB:
-
-Step Definition:
-Steps are represented by instances of a class derived from BaseStep, and each step constructs a unique ID, dynamic prompt, and processes the LLM API response.
-Change Analysis: Since steps involve constructing dynamic prompts and processing LLM API responses, integrating with FeatureB's versioning mechanism will enhance the efficiency of these steps. Each step type (or class derived from BaseStep) should define its default prompt, and then the versioning mechanism can handle the creation and management of versioned prompts.
-```
-The result analysis for step definition is actually correct. For example, since each step involve to construct a dynamic prompt. With featureB, each step will define its own default prompt. If we think further, of course, after defining its own default prompt, then each step no longer need to define its dynamic prompt. But ChatGPT only analyse what is influenced. It does not go a bit further to analyse, after integrating it, some old functionality probably also need to be removed, because responsiblities shift. 
-
-
-
 
 
 [Prompt]
@@ -475,58 +117,10 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-You are a top prompt engineer. Your objective is to update the given prompt defined in the `[Prompt]` section according to the requirements presented in the `[Requirement]` section. The given prompt is enclosed between `$start$` and `$end$` tokens.
-
-[Context]
-Most of the prompt is well-written, but only some minor parts can be improved.
-The optimized prompt will be used by large language model like ChatGPT. Large language models like ChatGPT favors explicitness and directness.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-Please follow the steps below:
-
-1. **Analyze the Prompt**:
-   - Dissect the prompt to understand its content and objectives.
-
-2. **Determine the Domain**:
-   - Identify the domain or topic of the prompt.
-
-3. **Engage in a Dialogue to Resolve Ambiguities**:
-   - If ambiguities are detected in the user's requirement, pose questions to the user for clarity.
-   - **Wait** for the user's answers. Do not proceed without their response.
-   - After receiving answers, analyze again to see if ambiguities still exist.
-   - Continue this dialogue until all ambiguities are addressed and resolved.
-
-4. **Plan Changes According to Requirements**:
-   - Strategize the changes based on the clarified requirements, ensuring clarity, coherence, and linguistic accuracy.
-
-5. **Submit the Refined Prompt**:
-   - Present the updated version in a format that's easy to copy and understand.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
 
 [Requirement]
 $start$
-I have witnessed in a live execution of the prompt by ChatGPT. Here is the part of the output for step 3.
-```
-Step 3: Engage in a Dialogue to Resolve Ambiguities
-Before making any changes, I'd like to clarify some points:
 
-You mentioned that we should first summarize which items from FeatureA have a high relevance with FeatureB. Would you like this to be an additional step before the detailed analysis or a replacement for the first step in the existing procedure?
-The "background section" you mentioned, would it be a preamble explaining the reason for the integration of FeatureA with FeatureB? Or would it serve a different purpose?
-Do you have any specific format or points that you'd like to be covered in the background section?
-```
-As you can see that it immedialtey start with asking questions. But some of the questions are not really questions. It can completely figure it out by itself.
-
-After user's give the feedback of the questions. ChatGPT immediately started step 4. Here is the output
-```
-Thank you for the clarifications. Based on your answers, I'll proceed with the next steps.
-
-Step 4: Plan Changes According to Requirements
-```
-As stated in step 3, it should analyse user's answer first. Then check whether there are further questions. I think the prompt in step 3 maybe not very explicit. May be we can use conditional prompting.
 $end$
 
 
@@ -566,142 +160,10 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [Prompt]
 $start$
-You are a senior requirement engineer. You are tasked with drafting an "Plan Of Change" documentation for an existing feature from the `[FeatureA]` section, based on new functionalities provided by another recently developed feature from the `[FeatureB]` section . This documentation should clarify the modifications or enhancements required for the FeatureA, ensuring it efficiently leverages the capabilities provided by FeatureB.
 
-**Procedure**:
-1. Understand "How To Use This Feature" section from FeatureB.
-2. Provide a detailed analysis for each individual functional requirement from `FeatureA`. For each requirement, answer the following questions and give comprehensive explanation:
-     - **Relevance with FeatureB**: Does this functional requirement still make sense with FeatureB? Should it be updated, removed, or enhanced?
-     - **Integration with FeatureB**: How can this functional requirement work with FeatureB? Will there be direct improvements, simplifications, or additions due to this integration?
-   Ensure that your analysis is comprehensive and offers specifics on how the integration will take place.
-3. Based on the detailed analysis from step 2, start to draft the documentation, following the `[Template]` format.
 $end$
 
 [Requirement]
-According how we derive changes for requirement based on one additional requirement. I think the first step is to summarize in the original requirement which items have a high 
-relevance with the provided feature. Because those are the ones which possible will need to be changed. 
-After that we analyze one by one of those relevant ones. The analysis human does is also 
-comprehensive. We reason first whether FeatureB there is a responsiblity shift because during software engineering, its common that we start to develop more features which changes  original feature functionalities either for better modularity or due to better 
-requirent understanding. I think we could actually add a background section to specify why we are doing this.
-
-
-
-
-
-
-
-
-
-Version 6: More detailed steps. But i think this might not work well.
-You are a prompt refinement specialist. Your task is to enhance the provided prompt detailed in the `[Prompt]` section, following the stipulations in the `[Requirement]` section. The given prompt is delimited by the `$start$` and `$end$` markers.
-
-[Context]
-This optimized prompt is tailored for a large language model like ChatGPT. Emphasis is placed on clarity, precision, and effectiveness rather than complexity.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-Adhere to the procedure below:
-1. **Analyze the Prompt**:
-   - Dissect the prompt to comprehend its content and objectives.
-
-2. **Determine the Domain**:
-   - Pinpoint the domain or subject of the prompt.
-
-3. **Engage in a Dialogue to Resolve Ambiguities**:
-   - **Identify Ambiguities**: Recognize any uncertainties or areas that lack clarity.
-   - **Self-Reasoning**: For each ambiguity identified, try to reason out the most plausible answers internally.
-   - **Check for Remaining Ambiguities**: Evaluate if any ambiguities still persist after self-reasoning.
-   - **If Ambiguities Remain**:
-     - **Pose Relevant Questions**: Ask the user specific questions about the remaining ambiguities.
-     - **Wait for the User's Answer**: Patiently await the user's feedback.
-   - **Re-Analyze User's Answer**: Thoroughly analyze the user's response to ensure understanding.
-   - **Repeat if Necessary**: If ambiguities still exist after the user's feedback, return to posing relevant questions. If no ambiguities are left, proceed to Step 4.
-
-4. **Plan Changes According to Requirements**:
-   - Before implementing changes, meticulously consider the user's feedback and the specific requirements.
-   - Strategize the modifications, focusing on clarity, coherence, and linguistic precision.
-
-5. **Present the Refined Prompt**:
-   - Showcase the updated version in an easily understandable and copyable format.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
-
-
-You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[Prompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$start$` and `$end$` markers.
-
-[Context]
-Most of the prompt is well-written, but only some minor parts can be improved.
-The optimized prompt will be used by large language model like ChatGPT.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-Adhere to the procedure below:
-1. **Analyze the Prompt**:
-   - Dissect the prompt to comprehend its content and objectives.
-
-2. **Determine the Domain**:
-   - Pinpoint the domain or subject of the prompt.
-
-3. **Engage in a Dialogue to Resolve Ambiguities**:
-   - If ambiguities are detected in the user's requirement, pose questions to the user for clarity.
-   - **Wait** for the user's answers. Do not proceed without their response.
-   - After receiving answers, analyze whether ambiguities still exist.
-   - Continue this dialogue until all ambiguities are addressed and resolved.
-
-4. **Plan Changes According to Requirements**:
-   - Strategize the changes based on the clarified requirements, ensuring clarity, coherence, and linguistic accuracy.
-
-5. **Present the Refined Prompt**:
-   - Present your refined version in a copiable text block.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
-
-[Prompt]
-$start$ 
-You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[Prompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$start$` and `$end$` markers.
-
-[Context]
-Most of the prompt is well-written, but only some minor parts can be improved.
-The optimized prompt will be used by large language model like ChatGPT.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-Adhere to the procedure below:
-1. **Analyze the Prompt**:
-   - Dissect the prompt to comprehend its content and objectives.
-
-2. **Determine the Domain**:
-   - Pinpoint the domain or subject of the prompt.
-
-3. **Engage in a Dialogue to Resolve Ambiguities**:
-   - If ambiguities are detected in the user's requirement, pose questions to the user for clarity.
-   - **Wait** for the user's answers. Do not proceed without their response.
-   - After receiving answers, analyze whether ambiguities still exist.
-   - Continue this dialogue until all ambiguities are addressed and resolved.
-
-4. **Plan Changes According to Requirements**:
-   - Strategize the changes based on the clarified requirements, ensuring clarity, coherence, and linguistic accuracy.
-
-5. **Present the Refined Prompt**:
-   - Present your refined version in a copiable text block.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-$end$
-
-
-[Requirement]
-I think there is a lack of analysing user's request step if you look carefully 
-at the steps defined. Steps 3 immedialtey asks for checking ambiguities. Before 
-ChatGPT is able to check ambiguities, it should first analyse the user's request.
-Then asks questions. However, actually a lot of questions can be solved by self-reasoning. 
 
 
 
@@ -725,5 +187,17 @@ Procedure:
    - Engage in a Q&A session with the user until all ambiguities are addressed.
 4. **Refine the Prompt**: Strategize and make changes based on the clarified requirements and feedback.
 5. **Present the Revised Prompt**: Offer the improved version in a copyable text format.
+
+
+
+
+
+
+
+
+
+
+
+
 
 

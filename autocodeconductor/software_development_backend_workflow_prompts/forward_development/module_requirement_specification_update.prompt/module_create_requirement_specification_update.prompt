@@ -1,3 +1,106 @@
+
+
+
+Version 2: Improved the steps "Preliminarily Identify The Most Relevant Items" to be more specific.
+
+You are a senior software architect, tasked with creating a "Plan Of Change" for an existing "Module Specification" in the `[ModuleA]` section. Your goal is to adapt ModuleA based on the major responsibilities of a newly developed "Module Specification" in the `[ModuleB]` section. This plan will detail modifications or enhancements ensuring that ModuleA effectively utilizes the capabilities of ModuleB.
+
+**Background**:
+In software engineering, as modules evolve, it's vital to regularly reassess and align them with newer functionalities. A "Plan Of Change" provides a systematic approach for this, ensuring that systems remain modular, coherent, and updated.
+
+**Procedure**:
+1. Understand the primary purpose of ModuleB from the "Module Description" section of `[ModuleB]`.
+
+2. **Identify Functionally Relevant Items Based Primary Purpose Of ModuleB**: Browse through each category under both `5.1. Functional Specifications` and `5.2. Technical Specifications` in the `5. Specifications` section of ModuleA. For each category:
+   - Identify specification items that are functionally related to the "How To Use This Module" section of ModuleB. This relevance can be determined by the presence of words, phrases, or concepts similar to those found in that section.
+   - Summarize these specification items as they hold the most relevance with the "How To Use This Module" content from ModuleB.
+   - This step will form a detailed shortlist for deeper analysis.
+
+3. For each specification item shortlisted in step 2, follow the structured reasoning:
+
+2. **Reason To Find Out The Relevant Specification Items From ModuleA Based on "Module Description" from ModuleB:**
+   - Browse through each category under both `4.1. Functional Specifications` and `4.2. Technical Specifications` in the `4. Specifications` section of ModuleA. For each specification item, follow the structured reasoning:
+   a. **Define the Current Functionality**:
+      "When examining the specification item from ModuleA, it is observed that it encompasses [specific functionality or role of the specification item]."
+      
+   b. **Introduce and Contrast with "How To Use This Module" from ModuleB**:
+      "On the other hand, the 'How To Use This Module' section from ModuleB introduces [specific capability or instruction], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the specification item."
+      
+   c. **Provide Clear Reasoning for Changes and Outcomes**:
+      - "Given this relationship between the functionalities, it becomes [logical conclusion: evident/apparent/clear] that there's a need to [specific action: enhance/update/retain/remove/add] this specification item in ModuleA."
+      - If modifying: "The modified description for this specification item, considering the instructions from 'How To Use This Module' in ModuleB, would be [new detailed functional specification description]."
+      - If removing: "This specification item from ModuleA is marked for removal due to [specific reason relating to ModuleB's usage instructions]."
+      - If identifying a new requirement: "A new specification item for ModuleA, influenced by the 'How To Use This Module' content from ModuleB, would be [detailed description of the new specification item]."
+
+4. Based on the structured reasoning from steps 3 and 4, start to draft the documentation following the structure of the `[Example]`.
+
+Please follow the steps defined in the Procedure. Take a deep breath, think step by step meticulously, and provide comprehensive reasoning for each step.
+
+
+[Example]
+
+
+**Procedure**:
+1. Understand the "Module Description" section from `[ModuleB]`.
+2. Reason To Find Out The Relevant Specification Items From ModuleA Based on "Module Description" of ModuleB:
+   - Browse through each category under both `4.1. Functional Specifications` and `4.2. Technical Specifications` in the `4. Specifications` section of ModuleA. For each specification item of the current category, perform the structured reasoning steps:
+   a. **Define the Current Functionality**:
+      "When examining the specification item from ModuleA, it is observed that it encompasses [specific functionality or role of the specification item]."
+      
+   b. **Introduce and Contrast with "Module Description" from ModuleB**:
+      "On the other hand, the 'Module Description' section from ModuleB introduces [specific capability or instruction], which has the potential to [complement/overlap with/challenge] the aforementioned functionality of the specification item."
+      
+   c. **Provide Clear Reasoning To check Relevance**:
+      - "Given this relationship between the functionalities, it becomes evident ...
+
+3. Present the relevant specification items under their specification category.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step. 
+
+[ModuleA]
+### Automated Coding Workflow Module Requirements Specification
+
+#### 1. Module Description:
+This module facilitates the definition, management, and execution of a multi-step automated coding workflow. It encompasses functionalities to initialize workflow steps from configurations, convert workflow instances to JSON representations, and execute specific steps or the entire workflow.
+
+#### 2. Module Dependencies:
+- **LLM Integration Module**: This module utilizes the "LLM Integration Module" to interface with large language models like ChatGPT and execute coding instructions.
+
+#### 3. Symbols & Usage:
+- **[⇌ LLM Integration Module]**: Denotes functionalities or interactions that are directly tied to the LLM Integration Module.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **Workflow Management**:
+   - Define and manage a multi-step automated coding workflow.
+   - Each step in the workflow can potentially have sub-steps.
+   - [⇌ LLM Integration Module] Integrate with the "LLM Integration Module" to manage LLM communications.
+   - Initialize steps of the workflow from a given configuration.
+   - Convert the workflow instance to a JSON representation.
+   - Start the entire workflow process.
+   - Execute specific steps within the workflow using their ID.
+
+- **Shared Step Functionalities**:
+   - Construct a unique ID for each step instance.
+   - [⇌ LLM Integration Module] Process the response from the "LLM Integration Module" for each step.
+   - Define the execution logic for each step.
+   - Construct a dynamic prompt for each step.
+
+- **Requirement Clarification Step**:
+   - Represent a step where coding requirements are presented to the user.
+   - Define a default prompt template for this step.
+
+- **Architecture Design Step**:
+   - Represent the design stage in the coding workflow.
+   - Define a default prompt template for this step.
+
+4.2. **Technical Specifications**:
+(No technical specifications were provided in the initial document. This section can be populated when such specifications are defined.)
+
+
+
 Version 3: Prompting language version.
 
 **Introduction to the Prompting Procedure Programming**:
@@ -111,7 +214,72 @@ END PROCEDURE
 
 
 
+Version 3: This prompt is a lot more stable. It actually goes through every specification under every category. The output is also stabe. Even though the reasoning results are not correct.
 
+As a senior software architect, your task is to identify all requirement specifications from `ModuleA` that are functionally relevant to `ModuleB`. List them under the `[RelevantSpecifications]` section after your analysis.
+
+**Context**
+In software engineering, module development is driven by requirements categorization or architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, responsibility shifting, or integration needs. The requirement documentation for both modules provided in the `[ModuleA]` and `[ModuleB]` sections is written adhering to the requirement specification format defined by the template in the `[Template]` section, with requirement specifications listed under "4.1 Functional Requirements" and "4.2 Technical Requirements" headings. Each detailed requirement specification is placed under its own category using the following structure:
+
+```
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+   - ...
+```
+
+To identify the relevant requirement items from `ModuleA`, analyze each requirement specification item from `ModuleA` and compare it to the `Module Description` of `ModuleB`, reasoning whether the item is functionally relevant to `ModuleB`.
+
+**Task Instructions**
+1. Review each specification item under each category within the "4.1 Functional Requirements" and "4.2 Technical Requirements" sections sequentially from `ModuleA`.
+2. Analyze each specification in all categories individually. For every specification, compare it with the `Module Description` of `ModuleB’ and determine its relevance.
+3. Maintain a consistent approach across all categories. Ensure that each specification in every category is evaluated.
+4. After completing each category, summarize the findings to ensure no specification is overlooked.
+5. List all relevant specifications under the `[RelevantSpecifications]` section for further review and action.
+
+**Required Output Format for Consistency**
+Your analysis should follow this specific format for each requirement within each category:
+```
+Analysis of ModuleA Functional Requirements for Relevance to ModuleB
+<Category Name>
+  - <Specification Name>:
+    ModuleB focuses on <ModuleB's relevant aspect>. <Relevance (Relevant/Not Relevant/Partially Relevant)> due to <brief reasoning>.
+
+  - <Next Specification Name>:
+    ModuleB's function includes <ModuleB's relevant aspect>. <Relevance (Relevant/Not Relevant/Partially Relevant)> because <brief reasoning>.
+
+  ...
+
+Continue in this manner for each specification within the category. After completing a category, move to the next one while maintaining the same format.
+```
+
+**Example Output:**
+```
+Analysis of ModuleA Functional Requirements for Relevance to ModuleB
+Data Processing
+  - Automate data aggregation from multiple sources:
+    ModuleB focuses on data visualization, not aggregation. Not Relevant.
+
+  - Apply real-time analytics to incoming data streams:
+    ModuleB incorporates real-time data visualization, which complements this feature. Relevant.
+
+  - Integrate advanced machine learning algorithms for data prediction:
+    ModuleB's scope is limited to visualization without predictive capabilities. Not Relevant.
+
+Security and Compliance
+  - Implement end-to-end encryption for data transmission:
+    ModuleB, being a visualization tool, does not handle direct data transmission. Not Relevant.
+
+  - Ensure compliance with international data protection regulations:
+    Both modules handle sensitive data. Compliance is essential for ModuleB as well. Relevant.
+
+  ...
+
+Continue this process for each category and specification.
+```
+
+**Checkpoint System**
+After analyzing each category, confirm completion before moving to the next. This ensures thorough coverage of all specifications.
 
 
 
@@ -123,6 +291,16 @@ As a senior software architect, your task is to identify all requirement specifi
 
 **Context**
 In software engineering, module development is driven by requirements categorization or architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, responsibility shifting, or integration needs. The requirement documentation for both modules provided in the `[ModuleA]` and `[ModuleB]` sections is written adhering to the requirement specification format defined by the template in the `[Template]` section, with requirement specifications listed under "4.1 Functional Requirements" and "4.2 Technical Requirements" headings. Each detailed requirement specification is placed under its own category using the following structure:
+
+```
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+   - ...
+```
+
+To identify the relevant requirement items from `ModuleA`, analyze each requirement specification item from `ModuleA` and compare it to the `Module Description` of `ModuleB`, reasoning whether the item is functionally relevant to `ModuleB`.
+
 
 **Task Instructions**
 1. **Detailed Review and Comparison**: Review each specification item under the "4.1 Functional Requirements" and "4.2 Technical Requirements" sections of `ModuleA`. Compare each specification in detail with the `Module Description` of `ModuleB`.
@@ -165,9 +343,7 @@ Security and Compliance
 **Checkpoint System**
 After completing the analysis for each category, conduct a brief review to ensure you have thoroughly compared each specification with ModuleB's description and provided detailed reasoning for your conclusions. This checkpoint system ensures a high-quality, comprehensive analysis.
 
-
-Now, please proceed with the task, ensuring a consistent and complete analysis across all categories, adhering strictly to the required output format.
-
+Now, please proceed with the task, adhering to the guidelines for a detailed and thorough analysis across all categories.
 
 
 [Template]
@@ -260,7 +436,6 @@ This module facilitates the definition, management, and execution of a multi-ste
 (No technical specifications were provided in the initial document. This section can be populated when such specifications are defined.)
 
 
-
 [ModuleB]
 ### Prompt Versioning Module Requirements Specification
 
@@ -296,47 +471,6 @@ The prompt versioning module serves as a centralized prompt management system. I
 
 - **Database Management**:
    - Versions are depicted using simple incremented
-
-4.2. **Technical Specifications**:
-(No technical specifications were provided in the initial document. This section can be populated when such specifications are defined.)
-
-### Automated Coding Workflow Module Requirements Specification
-
-#### 1. Module Description:
-This module facilitates the definition, management, and execution of a multi-step automated coding workflow. It encompasses functionalities to initialize workflow steps from configurations, convert workflow instances to JSON representations, and execute specific steps or the entire workflow.
-
-#### 2. Module Dependencies:
-- **LLM Integration Module**: This module utilizes the "LLM Integration Module" to interface with large language models like ChatGPT and execute coding instructions.
-
-#### 3. Symbols & Usage:
-- **[⇌ LLM Integration Module]**: Denotes functionalities or interactions that are directly tied to the LLM Integration Module.
-
-#### 4. Specifications:
-
-4.1. **Functional Specifications**:
-
-- **Workflow Management**:
-   - Define and manage a multi-step automated coding workflow.
-   - Each step in the workflow can potentially have sub-steps.
-   - [⇌ LLM Integration Module] Integrate with the "LLM Integration Module" to manage LLM communications.
-   - Initialize steps of the workflow from a given configuration.
-   - Convert the workflow instance to a JSON representation.
-   - Start the entire workflow process.
-   - Execute specific steps within the workflow using their ID.
-
-- **Shared Step Functionalities**:
-   - Construct a unique ID for each step instance.
-   - [⇌ LLM Integration Module] Process the response from the "LLM Integration Module" for each step.
-   - Define the execution logic for each step.
-   - Construct a dynamic prompt for each step.
-
-- **Requirement Clarification Step**:
-   - Represent a step where coding requirements are presented to the user.
-   - Define a default prompt template for this step.
-
-- **Architecture Design Step**:
-   - Represent the design stage in the coding workflow.
-   - Define a default prompt template for this step.
 
 4.2. **Technical Specifications**:
 (No technical specifications were provided in the initial document. This section can be populated when such specifications are defined.)

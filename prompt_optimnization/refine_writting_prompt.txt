@@ -31,50 +31,42 @@ Follow the steps below:
 
 [Writing]
 $start$
-You are a "Prompt Evaluator." Your task is to identify where and why the original prompt leads to unsatisfactory results outputted by ChatGPT. After pinpointing the issues, you will plan improvement to enhance its clarity and explicitness, ensuring more desirable results.
+As a senior software architect, your task is to assess whether the specific requirement specification from `ModuleA`, provided in the `[RequirementItem]` section, is functionally relevant to `ModuleB`.
 
-**Procedure**:
-1. Understand the objectives and intent of the original prompt in the [OriginalPrompt] section.
-2. Analyze the user feedback in the [Feedback] section against the output in the  `[Output]` section, focusing on areas of dissatisfaction.
-3. Analyze where and why the original prompt leads to the dissatisfaction
-4. Based on previous analysis, plan changes to improve clarity and explicitness.
+**Context**
+In software engineering, module development is driven by requirements categorization and architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, shifts in responsibility, or integration needs. The requirement documentation for both modules, provided in the `[ModuleA]` and `[ModuleB]` sections, adheres to the requirement specification format defined by the template in the `[Template]` section. The specifications are listed under "4.1 Functional Requirements" and "4.2 Technical Requirements" headings. Each detailed requirement specification is categorized as follows:
 
+```
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+   - ...
+```
 
-Follow the steps outlined in the `Procedure`, ensuring meticulous, step-by-step thinking and comprehensive reasoning for each step.
+In this task, you will need to perform in-depth reasoning to judge whether the given requirement item in the `[RequirementItem]` section is functionally relevant to `ModuleB`. Be specific in your reasoning, avoiding broad interpretations that could misrepresent the nature of the given requirement item of `ModuleA`. Because `ModuleA` also has other requirements.
 
-[OriginalPrompt]
-$start$
+**Required Output Format for Consistency and Depth**
+```
+Category: <Category Name>
+Requirement: <Specification Item>
+Reasoning: [Provide in-depth reasoning linked to specific aspects of ModuleB’s description]. <State the Relevance (Relevant/Not Relevant/Partially Relevant)>.
+Decision: (Relevant/Not Relevant/Partially Relevant)
+```
 
-$end$
+Please conduct the analysis, ensuring your reasoning is comprehensive and adheres to the required output format.
 
-[Output]
-
-
-
-[Feedback]
+```
 $end$
 
 [UserRequest]
-Please fix grammar mistake. If there are sentences after your analysis, you think its not explicit enough, improve the clarify.
+I feel like this sentence 
+```
+In this task, you will need to perform in-depth reasoning to judge whether the given requirement item in the `[RequirementItem]` section is functionally relevant to `ModuleB`. Be specific in your reasoning, avoiding broad interpretations that could misrepresent the nature of the given requirement item of `ModuleA`. Because `ModuleA` also has other requirements.
+```
+didn't deliver the maximum clarity. My intention is because in the global context of  ModuleA, there are other requirement items as well.The reasoning should focus on the given requirement item itself. Too broad interpretation might touches on other requirements from ModuleA. 
 
 
 
-
-
-[ChatGPT_Output]
-Executing Action: PRINT value of variable category and specificationItem
-
-Category: Workflow Management
-Specification Item: Each step in the workflow can potentially have sub-steps.
-
-Initiating Step: AnalyzeAndDecideRelevance within the global EXECUTION PLAN. Each action will be executed in sequence. I will always be mindful of this context.
-
-Executing Action: Print the "Module Description" section of moduleB_RequirementSpecification
-
-ModuleB Description:
-The Prompt Versioning Mechanism Module serves as a centralized manager for prompt versioning across all entities in the system. By abstracting common functionalities, this module enables each entity to be able to have different versions of prompts.
-
-Executing Action: REASON whether specificationItem could be functionally related to moduleDescriptionOfModuleB
 
 
 

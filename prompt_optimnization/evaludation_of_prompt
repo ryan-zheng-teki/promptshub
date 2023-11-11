@@ -90,14 +90,12 @@ You are a "Prompt Evaluator." Your task is to identify where and why the origina
 Follow the steps outlined in the `Procedure`. Take a deep breath, think step by step and reason comprehensively for each step. The output should use the defined format in the `Output Format` section.
 
 
-
 [OriginalPrompt]
 $start$
-
-As a senior software architect, your task is to identify all requirement specifications from `ModuleA` that are functionally relevant to `ModuleB`. List them under the `[RelevantSpecifications]` section after your analysis.
+As a senior software architect, your task is to assess whether the specific requirement specification from `ModuleA`, provided in the `[RequirementItem]` section, is functionally relevant to `ModuleB`.
 
 **Context**
-In software engineering, module development is driven by requirements categorization or architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, responsibility shifting, or integration needs. The requirement documentation for both modules provided in the `[ModuleA]` and `[ModuleB]` sections is written adhering to the requirement specification format defined by the template in the `[Template]` section, with requirement specifications listed under "4.1 Functional Requirements" and "4.2 Technical Requirements" headings. Each detailed requirement specification is placed under its own category using the following structure:
+In software engineering, module development is driven by requirements categorization and architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, shifts in responsibility, or integration needs. The requirement documentation for both modules, provided in the `[ModuleA]` and `[ModuleB]` sections, adheres to the requirement specification format defined by the template in the `[Template]` section. The specifications are listed under "4.1 Functional Requirements" and "4.2 Technical Requirements" headings. Each detailed requirement specification is categorized as follows:
 
 ```
 - **<Category_1>**:
@@ -106,157 +104,52 @@ In software engineering, module development is driven by requirements categoriza
    - ...
 ```
 
-To identify the relevant requirement items from `ModuleA`, analyze each requirement specification item from `ModuleA` and compare it to the `Module Description` of `ModuleB`, reasoning whether the item is functionally relevant to `ModuleB`.
+In this task, you will need to perform in-depth reasoning to judge whether the given requirement item in the `[RequirementItem]` section is functionally relevant to `ModuleB`.
 
-**Task Instructions**
-1. Review each specification item under each category within the "4.1 Functional Requirements" and "4.2 Technical Requirements" sections sequentially from `ModuleA`.
-2. Analyze each specification in all categories individually. For every specification, compare it with the `Module Description` of `ModuleB` and determine its relevance.
-3. Maintain a consistent approach across all categories. Ensure that each specification in every category is evaluated.
-4. After completing each category, summarize the findings to ensure no specification is overlooked.
-5. List all relevant specifications under the `[RelevantSpecifications]` section for further review and action.
-
-**Example for Consistency**
+**Required Output Format for Consistency and Depth**
 ```
-Now assessing specifications in "Category X" under "4.1 Functional Requirements" for ModuleA:
-  - Specification X.1 is ..., and the `Module Description` from ModuleB is ...
-    Because ..., hence, the specification is/is not relevant to ModuleB.
-  - Specification X.2 is ..., and the `Module Description` from ModuleB is ...
-    Because ..., hence, the specification is/is not relevant to ModuleB.
+Category: <Category Name>
+Requirement: <Specification Item>
+Reasoning: [Provide in-depth reasoning linked to specific aspects of ModuleB’s description]. <State the Relevance (Relevant/Not Relevant/Partially Relevant)>.
+Decision: (Relevant/Not Relevant/Partially Relevant)
 ```
-Continue this process for each category and specification.
 
-**Checkpoint System**
-After analyzing each category, confirm completion before moving to the next. This ensures thorough coverage of all specifications.
+Please conduct the analysis, ensuring your reasoning is comprehensive and adheres to the required output format.
 
-Now, please proceed with the task, ensuring a consistent and complete analysis across all categories.
+[RequirementItem]
+Category:Workflow Management
+Requirement:Define and manage a multi-step automated coding workflow.
 
+...
 $end$
 
-
 [Feedback]
-I have run the prompt three times. The output of the prompt from ChatGPT is not consistent in terms of format. Currently it does a good job that it goes through every requirement under every category. However, output is not consistent.
-
+If you look at the output from ChatGPT. Even though the requirement item "Define and manage a multi-step automated coding workflow." has nothing to do with the promt versioning management module, ChatGPT still thinks so broadly, then it thinks that they are partially relevant. Reasoning must focus on the functionality of the specification itself, it should be focused. Because if you look at ModuleA, we have other requirement items which are indeed dealing with prompts. for example: 
+```
+- **Requirement Clarification Step**:
+   - Represent a step where coding requirements are presented to the user.
+   - Define a default prompt template for this step.
+```.
+So i would say that when ChatGPT is doing the reasoning, its not even considering that ModuleA actually has other requirements which is dealing with the prompt. My suggestion is that maybe during reasoning, it should really focus on the functionality itself, instead thinking too broadly.
 
 
 [Output]
-$start$
-First time From ChatGPT:
-Analysis of ModuleA Functional Requirements for Relevance to ModuleB
-Workflow Management
-Define and manage a multi-step automated coding workflow:
-ModuleB focuses on prompt versioning, not workflow management. Not Relevant.
-Each step in the workflow can potentially have sub-steps:
-ModuleB does not involve step-based workflow. Not Relevant.
-[⇌ LLM Integration Module] Integrate with the "LLM Integration Module" to manage LLM communications:
-Both modules interact with LLM but in different contexts. Partially Relevant due to LLM communication.
-Initialize steps of the workflow from a given configuration:
-ModuleB's function does not include workflow initialization. Not Relevant.
-Convert the workflow instance to a JSON representation:
-ModuleB's focus is prompt versioning, not workflow representation. Not Relevant.
-Start the entire workflow process:
-ModuleB is about prompt versioning, not initiating workflows. Not Relevant.
-Execute specific steps within the workflow using their ID:
-ModuleB's purpose does not include executing workflow steps. Not Relevant.
-Shared Step Functionalities
-Construct a unique ID for each step instance:
-Unique IDs are relevant for versioning in ModuleB. Relevant.
-[⇌ LLM Integration Module] Process the response from the "LLM Integration Module" for each step:
-Shared interaction with LLM, but specific functionalities differ. Partially Relevant.
-Define the execution logic for each step:
-ModuleB doesn't manage execution logic of steps. Not Relevant.
-Construct a dynamic prompt for each step:
-Dynamic prompts are key in ModuleB for versioning. Relevant.
-Requirement Clarification Step
-Represent a step where coding requirements are presented to the user:
-This is specific to ModuleA's workflow, not ModuleB's function. Not Relevant.
-Define a default prompt template for this step:
-Default prompts are essential in ModuleB for initial versioning. Relevant.
-Architecture Design Step
-Represent the design stage in the coding workflow:
-Specific to ModuleA's workflow design, not related to ModuleB. Not Relevant.
-Define a default prompt template for this step:
-Default prompt templates are significant for ModuleB's initial versioning. Relevant.
-... {the rest of output are ommited}
-
-Second time from ChatGPT:
-Analysis of ModuleA Requirements in Relation to ModuleB
-Workflow Management
-Define and manage a multi-step automated coding workflow:
-
-ModuleB Description: Centralized prompt management system without large language model communication.
-Relevance: Not directly relevant as ModuleB does not handle workflow management or execution.
-Each step in the workflow can potentially have sub-steps:
-
-ModuleB Description: Manages versioning for prompts.
-Relevance: Indirectly relevant. ModuleB could benefit from managing versions of prompts for each sub-step in a workflow.
-[⇌ LLM Integration Module] Integrate with "LLM Integration Module":
-
-ModuleB Description: Does not handle communication with large language models.
-Relevance: Not relevant.
-Initialize steps of the workflow from a given configuration:
-
-ModuleB Description: Centralized prompt management.
-Relevance: Indirectly relevant. ModuleB could utilize configurations for initializing versioned prompts.
-Convert the workflow instance to a JSON representation:
-
-ModuleB Description: No direct correlation with prompt versioning.
-Relevance: Potentially relevant for JSON representation of versioned prompts.
-Start the entire workflow process:
-
-ModuleB Description: Manages prompt versioning.
-Relevance: Not directly relevant.
-Execute specific steps within the workflow using their ID:
-
-ModuleB Description: Manages prompt versioning.
-Relevance: Not directly relevant.
-Shared Step Functionalities
-Construct a unique ID for each step instance:
-
-ModuleB Description: Manages versioned prompts.
-Relevance: Indirectly relevant for managing and referencing specific prompt versions.
-[⇌ LLM Integration Module] Process response from "LLM Integration Module":
-
-ModuleB Description: Does not handle large language model communication.
-Relevance: Not relevant.
-Define the execution logic for each step:
-
-ModuleB Description: No direct correlation with prompt versioning.
-Relevance: Not directly relevant, but could indirectly affect how versioned prompts are selected or used.
-Construct a dynamic prompt for each step:
-
-ModuleB Description: Manages versioned prompts.
-Relevance: Directly relevant. ModuleB's functionality aligns with managing and selecting appropriate versioned prompts for different steps.
-Requirement Clarification Step
-Represent a step where coding requirements are presented to the user:
-
-ModuleB Description: Manages prompt versioning.
-Relevance: Potentially relevant for presenting versioned prompts for requirement clarification.
-Define a default prompt template for this step:
-
-ModuleB Description: Manages default prompts for entities.
-Relevance: Directly relevant. ModuleB can manage these default prompt templates.
-.. {The rest are ommited}
+First Time From ChatGPT:
+Category: Workflow Management
+Requirement: Define and manage a multi-step automated coding workflow.
+Reasoning: The requirement to define and manage a multi-step automated coding workflow in ModuleA is closely related to the operational needs of ModuleB, the Prompt Versioning Module. ModuleB's primary function is to manage versioning for prompts used in communications with a large language model. Since ModuleA includes steps that potentially require different versions of prompts for each step or sub-step in the workflow, especially those involving large language models, there is a functional overlap. The management of these workflows in ModuleA will likely necessitate the use of ModuleB's capabilities to handle different prompt versions effectively. The integration between the two modules would allow for efficient management of prompt versions corresponding to different steps in the automated coding workflow of ModuleA, ensuring that the correct version of the prompt is used at each stage. Therefore, the requirement from ModuleA has a direct functional relevance to the operations and capabilities of ModuleB.
+Decision: Relevant
 
 
-Third time from ChatGPT:
-Analysis of ModuleA Specifications in Relation to ModuleB
-Workflow Management (ModuleA) vs. Module Description (ModuleB):
-Define and manage a multi-step automated coding workflow: Relevant. ModuleB focuses on prompt versioning which may require managing multiple versions in a workflow-like manner.
-Each step in the workflow can potentially have sub-steps: Relevant. This structure aligns with ModuleB's need for managing multiple prompt versions.
-[⇌ LLM Integration Module] Integrate with "LLM Integration Module" to manage LLM communications: Not directly relevant. ModuleB does not handle LLM communications.
-Initialize steps of the workflow from a given configuration: Relevant. This could align with initializing different prompt versions in ModuleB.
-Convert the workflow instance to a JSON representation: Relevant. ModuleB may benefit from JSON representations for managing different prompt versions.
-Start the entire workflow process: Relevant. It's analogous to managing prompt version flows in ModuleB.
-Execute specific steps within the workflow using their ID: Relevant. Similar to selecting specific prompt versions in ModuleB.
-Shared Step Functionalities (ModuleA) vs. Module Description (ModuleB):
-Construct a unique ID for each step instance: Relevant. ModuleB could use this for uniquely identifying prompt versions.
-[⇌ LLM Integration Module] Process the response from "LLM Integration Module" for each step: Not directly relevant. ModuleB does not involve LLM communication processing.
-Define the execution logic for each step: Relevant. Execution logic could be analogous to managing different prompt versions in ModuleB.
-Construct a dynamic prompt for each step: Relevant. This aligns closely with ModuleB's focus on prompt versioning.
-Requirement Clarification Step (ModuleA) vs. Module Description (ModuleB):
-Represent a step where coding requirements are presented to the user: Potentially relevant. ModuleB's prompt versioning might involve presenting specific versions to users or systems.
-Define a default prompt template for this step: Relevant. This mirrors ModuleB's concept of a default prompt for entities.
-Architecture Design Step (ModuleA) vs. Module Description (ModuleB):
-Represent the design stage in the coding workflow: Potentially relevant. Design considerations in ModuleA might influence how prompt versions are structured in ModuleB.
-Define a default prompt template for this step: Relevant. Directly correlates with ModuleB's need for default prompt templates.
-$end$
+
+Second Time From ChatGPT:
+Category: Workflow Management
+Requirement: Define and manage a multi-step automated coding workflow.
+Reasoning: The requirement to define and manage a multi-step automated coding workflow in ModuleA primarily focuses on the process of structuring and overseeing various coding tasks in a sequential or logical manner. This involves initializing, configuring, and executing different steps within a workflow. ModuleB, the Prompt Versioning Module, is centered around the management of prompt versions for entities communicating with large language models. There is no direct functional overlap between managing coding workflows and managing prompt versions. However, if ModuleB's functionality includes the need to handle different versions of prompts for each step in the coding workflow managed by ModuleA, then there is a partial relevance. ModuleB's role in providing versioned prompts could be an integral part of the communication steps within ModuleA's automated coding workflow. On the other hand, if ModuleB's scope is strictly limited to versioning prompts without any involvement in the broader workflow process of coding tasks, then the requirement from ModuleA is not relevant to ModuleB.
+Decision: Partially Relevant (if ModuleB's prompt versioning functionality is used within ModuleA's coding workflow steps) / Not Relevant (if ModuleB's scope is strictly limited to prompt versioning without integration into ModuleA's workflow processes).
+
+Third Time From ChatGPT:
+Category: Workflow Management
+Requirement: Define and manage a multi-step automated coding workflow.
+Reasoning: The requirement to define and manage a multi-step automated coding workflow in ModuleA primarily focuses on the process of structuring and overseeing various coding tasks in a sequential or logical manner. This involves initializing, configuring, and executing different steps within a workflow. ModuleB, the Prompt Versioning Module, is centered around the management of prompt versions for entities communicating with large language models. There is no direct functional overlap between managing coding workflows and managing prompt versions. However, if ModuleB's functionality includes the need to handle different versions of prompts for each step in the coding workflow managed by ModuleA, then there is a partial relevance. ModuleB's role in providing versioned prompts could be an integral part of the communication steps within ModuleA's automated coding workflow. On the other hand, if ModuleB's scope is strictly limited to versioning prompts without any involvement in the broader workflow process of coding tasks, then the requirement from ModuleA is not relevant to ModuleB.
+Decision: Partially Relevant (if ModuleB's prompt versioning functionality is used within ModuleA's coding workflow steps) / Not Relevant (if ModuleB's scope is strictly limited to prompt versioning without integration into ModuleA's workflow processes).
