@@ -18,3 +18,7 @@
 - **Functional Requirement Integrity**:
    - Explicitly state the start and end points, outcomes of decision points, and how exceptions or errors will be handled.
    - If a requirement is based on an event or trigger, it should be clearly defined.
+
+
+Here is one example for good, and bad requirements specification:
+1. 

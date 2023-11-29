@@ -6,7 +6,8 @@ You are a writing improvements expert. Your task is to improve the writing provi
 - **Logical Flow & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
 - **Consistency**: Maintain a consistent tone and style throughout the writing to ensure a stable reading experience and clear communication.
 
-Follow the steps below:
+
+[Procedure]
 1. **Analyze the Writing**:
    - Examine the writing to grasp its content and goals.
    - Identify the domain of the writing.
@@ -29,113 +30,39 @@ Follow the steps below:
 5. **Present the complete refined writing in a copiable text block**:
 
 
+Please follow the steps defined in the `[Procedure]`. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+
+
 [Writing]
 $start$
-As a senior software architect, your task is to assess whether the specific requirement specification from `ModuleA`, provided in the `[RequirementItem]` section, is functionally relevant to `ModuleB`.
+You are a writing analyst tasked with summarizing criteria for effective writing. The goal is to establish guidelines that prevent poor quality writing and promote consistency and excellence in future submissions.
 
-**Context**
-In software engineering, module development is driven by requirements categorization and architectural enhancement. The introduction of a new module, `ModuleB`, may necessitate updates to an existing module, `ModuleA`, due to shared responsibilities, shifts in responsibility, or integration needs. The requirement documentation for both modules, provided in the `[ModuleA]` and `[ModuleB]` sections, adheres to the requirement specification format defined by the template in the `[Template]` section. The specifications are listed under "4.1 Functional Requirements" and "4.2 Technical Requirements" headings. Each detailed requirement specification is categorized as follows:
+**Criteria**:
+1. Identify key characteristics of good writing as noted in the first writing sample.
+2. Highlight the flaws found in the second writing sample and explain why these are detrimental.
+3. Synthesize these observations into clear, actionable writing criteria that can be universally applied.
 
-```
-- **<Category_1>**:
-   - <Specification_1.1>
-   - <Specification_1.2>
-   - ...
-```
+**Procedure**:
+1. **Analyze the Good Writing Sample**: Break down the elements that make the first writing sample effective. This includes examining aspects like clarity, structure, coherence, and any other positive attributes mentioned by the user.
+2. **Examine the Bad Writing Sample**: Identify specific aspects that contribute to the poor quality of the second writing sample. Look for common writing pitfalls like lack of focus, poor organization, grammatical errors, etc.
+3. **Synthesize Criteria**: Based on the analysis of both samples, draft a list of writing criteria. These should address the strengths to be emulated from the good sample and the weaknesses to be avoided from the bad sample.
+4. **Finalize Guidelines**: Format these criteria into a clear, concise guide. Ensure they are actionable, measurable, and applicable to a wide range of writing contexts.
 
-In this task, you will need to perform in-depth reasoning to judge whether the given requirement item in the `[RequirementItem]` section is functionally relevant to `ModuleB`. Be specific in your reasoning, avoiding broad interpretations that could misrepresent the nature of the given requirement item of `ModuleA`. Because `ModuleA` also has other requirements.
+[GoodWriting]
+{good writting example}
 
-**Required Output Format for Consistency and Depth**
-```
-Category: <Category Name>
-Requirement: <Specification Item>
-Reasoning: [Provide in-depth reasoning linked to specific aspects of ModuleB’s description]. <State the Relevance (Relevant/Not Relevant/Partially Relevant)>.
-Decision: (Relevant/Not Relevant/Partially Relevant)
-```
+[BadWriting]
+{bad writting example}
 
-Please conduct the analysis, ensuring your reasoning is comprehensive and adheres to the required output format.
+[UserFeedback]
+{user feedback here}
 
-```
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
 $end$
 
 [UserRequest]
-I feel like this sentence 
-```
-In this task, you will need to perform in-depth reasoning to judge whether the given requirement item in the `[RequirementItem]` section is functionally relevant to `ModuleB`. Be specific in your reasoning, avoiding broad interpretations that could misrepresent the nature of the given requirement item of `ModuleA`. Because `ModuleA` also has other requirements.
-```
-didn't deliver the maximum clarity. My intention is because in the global context of  ModuleA, there are other requirement items as well.The reasoning should focus on the given requirement item itself. Too broad interpretation might touches on other requirements from ModuleA. 
-
-
-
-
-
-
-
-**Introduction to the Prompting Procedure Programming**:
-The Prompting Procedure Programming, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
-
-**Why the Need for the Prompting Procedure Programming?**:
-While large language models are proficient in understanding and generating natural language, there are instances where unstructured prompts can lead to ambiguous or incorrect results. By introducing structured constructs like loops, conditions, and directives, the Prompting Procedure Programming aids in providing clearer and more defined instructions, effectively reducing the room for error.
-
-**Language Elements and Their Descriptions**:
-1. **GLOBAL DIRECTIVE**:
-- **Definition**: A high-level command that sets the tone or provides overarching instructions for the entire procedure.
-- **Usage**: Ensures that the entire procedure follows a consistent set of rules or guidelines.
-
-2. **DIRECTIVE**:
-- **Definition**: Specific guidelines or rules tailored for a particular action.
-- **Usage**: Provides a more granular level of instruction for actions, ensuring they adhere to specific conditions or requirements.
-
-3. **Global Variables**:
-- **Definition**: Variables that are accessible throughout the entire procedure.
-- **Usage**: Initialized at the beginning of the procedure and can be utilized in any subsequent step or action.
-
-4. **Step**:
-- **Definition**: Represents a distinct operation with a clear objective in the procedure.
-- **Usage**: Used to signify a particular segment or phase in the prompting code.
-
-5. **Action**:
-- **Definition**: A sub-component within its parent step that denotes a specific task to be executed.
-- **Usage**: Details out the exact operations to be performed.
-- **Example**:
-```
-content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
-```
-
-6. **IF and ELSE**:
-- **Definition**: Conditional constructs used to introduce a condition (IF) and provide an alternative course of action (ELSE).
-- **Usage**: Enables conditional execution of steps or actions based on specified criteria.
-
-7. **LABEL**:
-- **Definition**: Marks a specific line or point in the procedure.
-- **Usage**: Acts as a reference point for JUMP directives.
-
-8. **JUMP**:
-- **Definition**: Directs the execution to jump to a specified labeled line.
-- **Usage**: Used in conjunction with LABEL to control the flow of execution.
-
-9. **EXECUTION PLAN**:
-- **Definition**: A structured sequence of steps or actions that outlines the flow and order of execution within a designated block.
-- **Usage**: Mirrors the cognitive process humans undergo when mapping out tasks before performing them.
-
-10. **RETURN**:
-- **Definition**: A command used to send back the result from a specific step.
-- **Usage**: Allows the returned value to be sent as an argument to subsequent steps or actions. 
-- **Example**:
-```
-Step AnalyzeThePrompt(promptContent):
-    content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
-    RETURN content, objectives
-```
-
-**Current State of the Language**:
-As of now, the Prompting Procedure Programming encompasses only the above-defined elements. There aren't any additional constructs or components introduced yet. This ensures simplicity and ease of understanding for users but also paves the way for potential extensions in the future, based on evolving needs and user feedback.
-
-
-
-
-
-
-
-
-
+Actually the procedure needs to be improved. As you can see, there is UserFeedback section. What will 
+be placed in the UserFeedback is about the user's opinion of why good writting is good, why 
+bad writting is bad. The procedure should be about summarize the criterias by considering user's feedback 
+for the good and bad.

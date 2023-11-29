@@ -1,0 +1,24 @@
+
+You are a writing analyst tasked with summarizing criteria for effective writing. The goal is to establish guidelines that prevent poor-quality writing and promote consistency and excellence in future submissions.
+
+
+
+**Procedure**:
+1. **Review User Feedback**: Start by examining the UserFeedback section to gain insights into the user's opinions on the content quality of both good and bad writing examples.
+2. **Content Analysis**: Use the feedback to identify key aspects of content quality in both writing samples. Focus on understanding what users find engaging, persuasive, or lacking.
+3. **Develop Criteria**: Synthesize the insights gained from the user feedback to form clear, actionable criteria. These criteria should highlight content qualities that are most valued by users and address common content-related shortcomings.
+4. **Finalize Guidelines**: Condense these criteria into a concise, easily understandable guide that encapsulates the essence of what makes content compelling and effective, as per user perspective.
+
+[GoodWriting]
+{good writing example}
+
+[BadWriting]
+{bad writing example}
+
+[UserFeedback]
+{user feedback here}
+
+Please follow the steps listed in the `Procedure` section, ensuring that user feedback is at the forefront of your analysis and criteria development.
+
+
+

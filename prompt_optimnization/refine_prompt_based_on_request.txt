@@ -1,9 +1,8 @@
 Version 1: Without user's request.
-As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
+As an expert in refining content prompts, your task is to refine the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
 
 [Context]
-Most of the prompt is well-written, but only some minor parts can be improved.
-The optimized prompt will be used by large language model like ChatGPT.
+Focus primarily on the user's specific requirements when modifying the prompt, avoiding unnecessary optimizations that are not requested by the user.
 
 [Criteria]
 - Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT. Use commonly used words instead of less frequently used words.
@@ -23,34 +22,18 @@ Follow the steps below, each accompanied by a title and a description:
    - The prompt should always start with "You are ...".
    - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
 
-
 [Prompt]
 $start$
+As a software architect, your task is to break down the user's requirements into smaller, logically incremental, updatable units for one existing Module Requirement Specification. This ensures that each sub-requirement is created and they are internally incrementally organized.
 
-As an expert in refining writing, your task is to improve the given piece of writing situated within the `[Writing]` section between `$start$` and `$end$` tokens, according to the user request given in the `[User Request]` section.
+**Context**
+In software engineering, applications are divided into different modules. Over time, users might need to provide new requirements for existing module requirements. `ModuleA` is a developed module in the application which adheres to the format defined by the template in the `[Template]` section. It contains detailed module requirement specifications. `NewUserRequirement` represents the new requirement given by the user. If the user's requirement is a simple change, then it's fine. But if the user's requirement contains multiple changes, we need to break down the user's requirement into smaller, logically incremental pieces. With these smaller incremental chaanges, we we are able to apply each piece of change sequentially and incrementally.
 
-Follow the steps below, each accompanied by a title and a description:
+So, the task is to analyze the user's new requirements against the existing requirement specification given in the `[ModuleRequirementSpecification]` section and break down the requirements into individual incremental pieces.
 
-1. **Analyze the Writing**:
-   - Dissect the writing to understand its content and objectives.
-
-2. **Analyze the User Request**:
-   - Understand the user's specific areas of concern based on your understanding of the writing.
-
-3. **Determine the Domain**:
-   - Identify the domain to which this writing belongs.
-
-4. **Plan Changes**:
-   - Strategize the necessary refinements based on the domain, the writing's content, and the user's request. When planning changes, consider the following guiding principles:
-     - **Clarity & Accuracy**: Use precise and appropriate terminology for the domain or context, ensuring word choices align with accepted norms. The content should be clear and convey its intended meaning.
-     - **Succinctness & Simplicity**: Be concise, avoiding unnecessary verbosity, and choose common and straightforward words over less common terms.
-     - **Logical Structure & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
-     - **Consistency**: Maintain a steady style and tone.
-
-5. **Present the Refined Writing**:
-   - Apply the changes strategized in step 4 and present the refined writing in a code block.
-
+Please take a deep breath, and think step by step comprehensively to address the task. At the end of your thinking and analysis, you will put the broken-down pieces in the section [IncrementalPieces].
 $end$
+
 
 
 
@@ -188,40 +171,4 @@ Adhere to the procedure below:
    - Strategize refinements in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
 6. **Present the Refined Prompt**:
    - Showcase your refined version in a format that's easily copied.
-
-
-
-
-
-Version: This is the prompt to refine user's writting based on user request.
-
-You are a writing refinement expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
-
-Follow the steps below:
-
-1. **Analyze the Writing**:
-   - Examine the writing to grasp its content and goals.
-
-2. **Analyze the User Request**:
-   - Understand the specific concerns of the user based on the writing.
-
-3. **Determine the Domain**:
-   - Identify the domain of the writing.
-
-4. **Plan Improvements**:
-   - Strategize enhancements based on clarified user requests. Adhere to these principles:
-     - **Clarity & Accuracy**: Use precise and appropriate terminology for the domain or context, ensuring word choices align with accepted norms. The content should be clear and convey its intended meaning.
-     - **Succinctness & Simplicity**: Be concise, avoiding unnecessary verbosity, and choose common and straightforward words over less common terms.
-     - **Logical Structure & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
-     - **Consistency**: Maintain a steady style and tone.
-
-5. **Present the Refined Writing**:
-   - Apply the improvements planned in step 4 and present the refined writing in a copiable text block.
-
-[Writing]
-$start$
-$end$
-
-[UserRequest]
-I would like to 
 
