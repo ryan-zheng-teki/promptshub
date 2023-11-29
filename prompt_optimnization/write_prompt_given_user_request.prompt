@@ -78,6 +78,9 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 $end$
 
 
+Please follow the steps defined in the `[Procedure]` section. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step. The output should adhere to the output format defined in the `[Output Format]` section.
+
+
 [UserRequest]
 $start$
 I have two writtings. One is good, one is bad. The user also expressed why the first is good, 
@@ -86,4 +89,3 @@ when people are delievering writting, they always stick to these criterias. So e
 get rid of falling into the bad case. 
 $end$
 
-Please follow the steps defined in the `[Procedure]` section. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step. The output should adhere to the output format defined in the `[Output Format]` section.
