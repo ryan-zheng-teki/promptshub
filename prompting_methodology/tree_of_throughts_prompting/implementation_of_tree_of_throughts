@@ -6,3 +6,11 @@ However, human thinking for a certain task is also like thinking graph. Promptin
 make large language model think more like humans.
 
 
+How can you create a question, and then ChatGPT solve it step by step to completely improve its accuracy. 
+
+The example 
+- create task(planning)
+- mental execution
+- validation
+- update plan(recursive way)
+

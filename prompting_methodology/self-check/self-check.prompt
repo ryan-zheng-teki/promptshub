@@ -1,0 +1,7 @@
+1. During forward-reasoning. There is no garantee that something is missing, 
+or the complete code is not working. A self-improving process is needed by 
+forming a cycle. As long as we can add a check step, the check step is able to 
+provide different feedback. Use the feedback with the original imformation, 
+then ChatGPT will be able to 
+
+plan -> action -> check -> check result+earlier result-> improve

@@ -1,0 +1,80 @@
+As a software architect, your task is to break down new user requirements given in the [NewUserRequirement] section for an existing software module, `ModuleA` given in the `[ModuleRequirementSpecification]` section, into smaller, logically incremental sub-requirements. Ensure that each sub-requirement is created in a way that they can be sequentially applied to the module's code specification which is not presented in the prompt. Focus solely on breaking down the user's requirement into smaller, logical pieces, without considering implementation details such as code refactoring, testing, or feedback mechanisms.
+
+**Context**
+In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module with detailed requirement specifications given in the [ModuleARequirementSpecification]. When updating `ModuleA` with `NewUserRequirement`, it's crucial to break down these new requirements into individual, orderly incremental pieces. These pieces are typically organized from the simplest to the more complex, ensuring a smooth and logical progression in the update process. While the code specification, which documents the complete code designs for the module, is significant in this context, it will not be presented as part of this task. This focus ensures the scope remains on requirement analysis, avoiding direct engagement with the code specification. For example, if the requirement update is divided into three smaller pieces (A, B, C) and the current code specification is F, the update process would be A+F=>G, B+G=>H, C+H=>J. This systematic breakdown and application ensure potential autonomous code update correctness and manageability, avoiding dramatic and potentially problematic changes to the existing code specification.
+
+[Example]
+$start$
+Consider a user requirement for a data processing module that includes three tasks: "Rename the existing data analysis feature, add a new data validation feature, then create a report generation capability based on the validated data." The first step (A) would be the simple task of renaming the data analysis feature, setting a clear foundation for further changes. Once the renaming is complete (A+Module Code => B), the next step (B) involves implementing the new data validation feature, building upon the renamed component. After successfully integrating the data validation (B+Module Code => C), the final and more complex task (C) is developing the report generation feature.
+
+Hence, the incremental pieces could be:
+1. Renaming the data analysis feature (A)
+2. Implementing the new data validation feature (B)
+3. Developing the report generation capability (C)
+
+This step-by-step approach demonstrates how each part of the requirement is addressed in a logical and manageable order, reflecting the progression from foundational changes like renaming to more advanced functionalities.
+$end$
+
+**Procedure**
+1. Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+2. Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
+3. **Analytically** break down the new requirements into incremental, manageable segments. This should follow a structured approach similar to the `[Example]` section, outlining each step's objective and its logical progression.
+4. Present the final subdivided requirements pieces under `[IncrementalPiecies]` section.
+
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
+
+[ModuleRequirementSpecification]
+### Prompt Versioning Module Requirements Specification
+
+#### 1. Module Description:
+The prompt versioning module serves as a centralized prompt management system. It offers versioning for all the entities in the application that intend to have different versions of prompts for communication with a large language model. However, communication with the large language model is not handled within this module.
+
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
+
+#### 3. Symbols & Usage:
+(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
+- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Entity can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+
+- **Entity-Specific Default Prompt**:
+   - Every entity or component that communicates with large language models should have a default prompt.
+   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can introduce a new prompt version upon modifying the existing prompt.
+   - A maximum of 4 prompt versions are maintained for each entity.
+   - If a new version exceeds the 4-version cap, the oldest version is purged.
+
+- **Database Management**:
+   - Versions are depicted using simple incremented integers.
+
+
+[NewUserRequirement]
+I have two major update 
+1: Actually its not prompt versioning. It's actually prompt template versioning. So i would like to rename "prompt" to "prompt template". Here is some background: "Because what each entity in the sytem has is actually one 
+prompt template. A prompt template is able to accept different parameters, then we can instantiate one prompt from the parameterized template."
+
+2. i would like to have a more clear naming like prompt template versioning manager. So it's more clear that this module is a manager module.
+
+[IncrementalPiecies]
+{Here you will put the broken-down piecies}
+

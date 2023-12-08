@@ -24,14 +24,7 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-As a software architect, your task is to break down the user's requirements into smaller, logically incremental, updatable units for one existing Module Requirement Specification. This ensures that each sub-requirement is created and they are internally incrementally organized.
 
-**Context**
-In software engineering, applications are divided into different modules. Over time, users might need to provide new requirements for existing module requirements. `ModuleA` is a developed module in the application which adheres to the format defined by the template in the `[Template]` section. It contains detailed module requirement specifications. `NewUserRequirement` represents the new requirement given by the user. If the user's requirement is a simple change, then it's fine. But if the user's requirement contains multiple changes, we need to break down the user's requirement into smaller, logically incremental pieces. With these smaller incremental chaanges, we we are able to apply each piece of change sequentially and incrementally.
-
-So, the task is to analyze the user's new requirements against the existing requirement specification given in the `[ModuleRequirementSpecification]` section and break down the requirements into individual incremental pieces.
-
-Please take a deep breath, and think step by step comprehensively to address the task. At the end of your thinking and analysis, you will put the broken-down pieces in the section [IncrementalPieces].
 $end$
 
 
@@ -62,6 +55,7 @@ Follow the steps below, each accompanied by a title and a description:
 4. Present the Refined Prompt:
    - The prompt should always start with "You are ...".
    - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
+
 
 Version 3:
 You are tasked with refining the content of a given prompt found between the `$start$` and `$end$` tokens. 
@@ -143,32 +137,77 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Prompt]
 $start$
-$end$
 
+$end$
 
 You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[Prompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$start$` and `$end$` markers.
 
 [Context]
 Most of the prompt is well-written, but only some minor parts can be improved.
-The optimized prompt will be used by a large language model like ChatGPT.
+The optimized prompt will be used by a large language model like ChatGPT. So it is essential that the prompt is clear and direct, prioritizing these qualities over ambiguity and vagueness.
 
 [Criteria]
 - Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
 - Prioritize explicitness and clarity over complexity.
 
-Adhere to the procedure below:
+[Procedure]
 1. **Analyze the Prompt**:
    - Dissect the prompt to comprehend its content and objectives.
 2. **Determine the Domain**:
    - Identify the domain or subject of the prompt.
-3. **Understand User's Intentions**:
+3. **Analyse User's Requirement**:
    - Delve into the user's requirements and intentions regarding the target prompt.
-4. **Engage in a Dialogue to Resolve Ambiguities**:
-   - If ambiguities arise from the user's requirements or intentions, seek clarity by asking questions.
-   - **Wait** for the user's responses. Do not proceed without their feedback.
-   - Upon receiving responses, evaluate if uncertainties remain and address them.
-5. **Plan Changes Based on Requirements**:
+4. **Engage User in a Q&A Session**:
+   - Interact with the user in a question-and-answer session until all ambiguities are resolved.
+5. **Plan Changes Based on Previous Analysis**:
    - Strategize refinements in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
 6. **Present the Refined Prompt**:
    - Showcase your refined version in a format that's easily copied.
+7. **Wait for User Feedback**:
+   - Wait for user's feedback about the refined prompt. Repeat the procedure from step 1 using the refined prompt as the initial prompt.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+
+Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+[Prompt]
+$start$
+As a software architect, your task is to break down new user requirements given in the [NewUserRequirement] section for an existing software module, `ModuleA` given in the `[ModuleARequirementSpecification]` section, into smaller, logically incremental sub-requirements. Ensure that each sub-requirement is created in a way that they can be sequentially applied to the module's code specification which is not presented in the prompt. Focus solely on breaking down the user's requirement into smaller, logical pieces, without considering implementation details such as code refactoring, testing, or feedback mechanisms.
+
+**Context**
+In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module with detailed requirement specifications given in the [ModuleARequirementSpecification]. When updating `ModuleA` with `NewUserRequirement`, it's crucial to break down these new requirements into individual, orderly incremental pieces. These pieces are typically organized from the simplest to the more complex, ensuring a smooth and logical progression in the update process. While the code specification, which documents the complete code designs for the module, is significant in this context, it will not be presented as part of this task. This focus ensures the scope remains on requirement analysis, avoiding direct engagement with the code specification. For example, if the requirement update is divided into three smaller pieces (A, B, C) and the current code specification is F, the update process would be A+F=>G, B+G=>H, C+H=>J. This systematic breakdown and application ensure potential autonomous code update correctness and manageability, avoiding dramatic and potentially problematic changes to the existing code specification.
+
+[Example]
+Consider a user requirement for a data processing module that includes three tasks: "Rename the existing data analysis feature, add a new data validation feature, then create a report generation capability based on the validated data." The first step (A) would be the simple task of renaming the data analysis feature, setting a clear foundation for further changes. Once the renaming is complete (A+Module Code => B), the next step (B) involves implementing the new data validation feature, building upon the renamed component. After successfully integrating the data validation (B+Module Code => C), the final and more complex task (C) is developing the report generation feature.
+
+Hence, the incremental pieces could be:
+1. Renaming the data analysis feature (A)
+2. Implementing the new data validation feature (B)
+3. Developing the report generation capability (C)
+
+This step-by-step approach demonstrates how each part of the requirement is addressed in a logical and manageable order, reflecting the progression from foundational changes like renaming to more advanced functionalities.
+
+
+**Procedure**
+1. Review and summarize `ModuleA's` existing specifications from the `[ModuleARequirementSpecification]` section.
+2. Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
+3. **Analytically** break down the new requirements into incremental, manageable segments. This should follow a structured approach similar to the Example section, outlining each step's objective and its logical progression.
+4. Present the final subdivided requirements pieces under `[IncrementalPiecies]` section.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. If you do it right, i will give you 200 dollars.
+$end$
+
+[Requirement]
+$start$
+I feel procedure section has grammar mistake. Could you please focus on Procedure section, and check for potential grammar mistake?
+$end$
+
+
+
+
 

@@ -1,24 +1,305 @@
-
 You are a writing analyst tasked with summarizing criteria for effective writing. The goal is to establish guidelines that prevent poor-quality writing and promote consistency and excellence in future submissions.
-
 
 
 **Procedure**:
 1. **Review User Feedback**: Start by examining the UserFeedback section to gain insights into the user's opinions on the content quality of both good and bad writing examples.
 2. **Content Analysis**: Use the feedback to identify key aspects of content quality in both writing samples. Focus on understanding what users find engaging, persuasive, or lacking.
 3. **Develop Criteria**: Synthesize the insights gained from the user feedback to form clear, actionable criteria. These criteria should highlight content qualities that are most valued by users and address common content-related shortcomings.
-4. **Finalize Guidelines**: Condense these criteria into a concise, easily understandable guide that encapsulates the essence of what makes content compelling and effective, as per user perspective.
 
-[GoodWriting]
-{good writing example}
-
-[BadWriting]
-{bad writing example}
-
-[UserFeedback]
-{user feedback here}
 
 Please follow the steps listed in the `Procedure` section, ensuring that user feedback is at the forefront of your analysis and criteria development.
 
+
+[GoodWriting]
+### Module Code Specification Documentation:
+
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the `PromptTempate`, we are able to create different prompts using the same template.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+
+- **PromptTemplate (New)**
+    - **Purpose**: Represents a prompt with potential template variables. Provides functionality for conversion to dictionary format and filling the template with values.
+    - **Attributes**:
+        - `template`: The raw template string.
+        - `variables`: A list of associated `PromptTemplateVariable` instances.
+    - **Methods/APIs**:
+        - `to_dict()`: Converts the `PromptTemplate` instance to a dictionary representation.
+        - `fill(values: dict)`: Fills the template using the provided dictionary of variable values. Raises a `KeyError` if a required variable is missing.
+    - **Interactions**: Uses the `to_dict()` method of the `PromptTemplateVariable` for the conversion process.
+
+- **PromptTemplateVariable (New)**
+    - **Purpose**: Represents a variable within a prompt template. Each variable can have a source (e.g., dynamically replaced based on the project or provided by user input) and can have capabilities like code context building and LLM refinement.
+    - **Attributes**:
+        - `name`: The variable name.
+        - `source`: The source of the variable. Values can be either `DYNAMIC` or `USER_INPUT`.
+        - `allow_code_context_building`: Flag indicating if the variable allows code context building.
+        - `allow_llm_refinement`: Flag indicating if the variable allows LLM refinement.
+    - **Methods/APIs**:
+        - `set_value(value: str)`: Sets the value for this variable.
+        - `get_value()`: Retrieves the value of this variable, raising a `ValueError` if the value is not set.
+        - `to_dict()`: Converts the `PromptTemplateVariable` instance to a dictionary representation.
+    - **Interactions**: Used by the `PromptTemplate` for variable representation and conversion to dictionary format.
+
+##### 1.3. Used-By Dependencies (Unchanged Components)
+
+- None.
+
+##### 1.4. Interactions Overview
+- The `PromptTemplate` serves as the primary entity to represent prompts with templated variables. 
+- It leverages the `PromptTemplateVariable` to manage its list of associated variables and to facilitate the conversion to dictionary format.
+
+##### 1.5. External Dependencies
+- None.
+
+[BadWriting]
+### Module Code Design Documentation:
+
+#### 1. Module Architecture Design:
+
+##### 1.1. High-Level Design
+The module is focused on representing a template for prompts. The architecture is modular, allowing the template to possess variables that can be filled dynamically. The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal.
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+
+- **PromptTemplate (New)**
+    - **Purpose**: Manages prompt templates with dynamic variables for conversion to dictionary format and template filling.
+    - **Attributes**:
+        - `template`: Raw template string.
+        - `variables`: List of `PromptTemplateVariable` instances.
+    - **Methods/APIs**:
+        - `to_dict()`: Converts to a dictionary representation.
+        - `fill(values: dict)`: Fills template with variable values, checking for missing variables.
+    - **Interactions**: Utilizes `PromptTemplateVariable` for variable handling and dictionary conversion.
+
+- **PromptTemplateVariable (New)**
+    - **Purpose**: Represents a variable in a prompt template, enabling dynamic replacement and LLM refinement.
+    - **Attributes**:
+        - `name`: Variable name.
+        - `source`: Source of the variable (DYNAMIC/USER_INPUT).
+        - `allow_code_context_building`: Enables code context building.
+        - `allow_llm_refinement`: Permits LLM refinement.
+    - **Methods/APIs**:
+        - `set_value(value: str)`: Assigns value to the variable.
+        - `get_value()`: Retrieves variable value, checking if set.
+        - `to_dict()`: Converts to a dictionary representation.
+    - **Interactions**: Integral to `PromptTemplate` for variable management.
+
+##### 1.3. Used-By Dependencies (Unchanged Components)
+- None.
+
+##### 1.4. Interactions Overview
+- `PromptTemplate` acts as the central component, managing templated variables through `PromptTemplateVariable`.
+- The interaction focuses on template management and format conversion.
+
+##### 1.5. External Dependencies
+- None.
+
+
+[UserFeedback]
+$start$
+If you look at the `High-Level Design` in the good and bad. In the bad version:```
+- The architecture is modular, ...```
+Of course the architecture is modular, then why do we design modules. This is completely redundant and does not deliver any value. Also ```The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal.
+```
+This sentence ```which suggests that communication with the frontend or other systems might be a primary goal``` is completely useless information.
+
+If you look at the good one. It focuses on factual information. Every sentence is informative. Every sentence is not redundant or superficial.
+$end$
+
+
+
+
+
+
+You are a writing analyst tasked with summarizing criteria for effective writing. Your goal is to outline the strengths and weaknesses of both good and bad writing, presenting your findings following the template provided in the `Template` section.
+
+**Procedure**:
+1. **Review User Feedback**: Examine the `[UserFeedback]` section to understand the users' opinions on the content quality of both good and bad writing examples in the `[GoodWriting]` and `[BadWriting]` sections.
+2. **Content Analysis**: Utilize the feedback to identify key aspects of content quality in both writing examples, focusing on elements that users find engaging or deficient.
+3. **Present The Final Output**: Present your findings following the template given in the following `[Template]` section. You can refer to the example given in the `[Example]` section for guidance.
+
+
+[Template]
+**Bad Writing Pitfalls:**
+- **Keyword**: [Description]
+- **Keyword**: [Description]
+- ...
+
+**Example of Bad Writing:**
+- [Insert Example Here]
+
+**Good Writing Criteria:**
+- **Keyword**: [Description]
+- **Keyword**: [Description]
+- ...
+
+**Example of Good Writing:**
+- [Insert Example Here]
+
+
+[Example]
+**Bad Writing Pitfalls:**
+- **Redundancy**: The bad writing example contains redundant statements, such as mentioning the modularity of the architecture, which is an inherent aspect of module design. This adds no value and can be seen as unnecessary.
+- **Vagueness**: The bad writing includes vague statements, like suggesting the primary goal without clear evidence or context. This can lead to misinterpretation and confusion.
+- **Lack of Precision**: The example lacks precise information and factual details. This can render the content less informative and reliable.
+
+**Example of Bad Writing:**
+- "The module is focused on representing a template for prompts. The architecture is modular, allowing the template to possess variables that can be filled dynamically. The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal."
+
+**Good Writing Criteria:**
+- **Factual and Informative**: Each sentence in the good writing example provides clear and factual information, avoiding unnecessary elaboration.
+- **Specificity**: The good writing is specific, offering detailed explanations about the module's purpose, attributes, and methods.
+- **Clarity and Precision**: The content is written with clarity and precision, making it easy for the reader to understand the technical details without ambiguity.
+
+**Example of Good Writing:**
+- "The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the `PromptTempate`, we are able to create different prompts using the same template."
+
+
+Please follow the steps defined in the `Procedure` section, ensuring meticulous, step-by-step thinking and comprehensive reasoning for each step.
+
+[GoodWriting]
+### Module Code Specification Documentation:
+
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the `PromptTempate`, we are able to create different prompts using the same template.
+
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+
+- **PromptTemplate (New)**
+    - **Purpose**: Represents a prompt with potential template variables. Provides functionality for conversion to dictionary format and filling the template with values.
+    - **Attributes**:
+        - `template`: The raw template string.
+        - `variables`: A list of associated `PromptTemplateVariable` instances.
+    - **Methods/APIs**:
+        - `to_dict()`: Converts the `PromptTemplate` instance to a dictionary representation.
+        - `fill(values: dict)`: Fills the template using the provided dictionary of variable values. Raises a `KeyError` if a required variable is missing.
+    - **Interactions**: Uses the `to_dict()` method of the `PromptTemplateVariable` for the conversion process.
+
+- **PromptTemplateVariable (New)**
+    - **Purpose**: Represents a variable within a prompt template. Each variable can have a source (e.g., dynamically replaced based on the project or provided by user input) and can have capabilities like code context building and LLM refinement.
+    - **Attributes**:
+        - `name`: The variable name.
+        - `source`: The source of the variable. Values can be either `DYNAMIC` or `USER_INPUT`.
+        - `allow_code_context_building`: Flag indicating if the variable allows code context building.
+        - `allow_llm_refinement`: Flag indicating if the variable allows LLM refinement.
+    - **Methods/APIs**:
+        - `set_value(value: str)`: Sets the value for this variable.
+        - `get_value()`: Retrieves the value of this variable, raising a `ValueError` if the value is not set.
+        - `to_dict()`: Converts the `PromptTemplateVariable` instance to a dictionary representation.
+    - **Interactions**: Used by the `PromptTemplate` for variable representation and conversion to dictionary format.
+
+##### 1.3. Used-By Dependencies (Unchanged Components)
+
+- None.
+
+##### 1.4. Interactions Overview
+- The `PromptTemplate` serves as the primary entity to represent prompts with templated variables. 
+- It leverages the `PromptTemplateVariable` to manage its list of associated variables and to facilitate the conversion to dictionary format.
+
+##### 1.5. External Dependencies
+- None.
+
+[BadWriting]
+### Module Code Design Documentation:
+
+#### 1. Module Architecture Design:
+
+##### 1.1. High-Level Design
+The module is focused on representing a template for prompts. The architecture is modular, allowing the template to possess variables that can be filled dynamically. The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal.
+##### 1.2. New Components Specifications
+
+###### 1.2.1. Fully Defined
+
+- **PromptTemplate (New)**
+    - **Purpose**: Manages prompt templates with dynamic variables for conversion to dictionary format and template filling.
+    - **Attributes**:
+        - `template`: Raw template string.
+        - `variables`: List of `PromptTemplateVariable` instances.
+    - **Methods/APIs**:
+        - `to_dict()`: Converts to a dictionary representation.
+        - `fill(values: dict)`: Fills template with variable values, checking for missing variables.
+    - **Interactions**: Utilizes `PromptTemplateVariable` for variable handling and dictionary conversion.
+
+- **PromptTemplateVariable (New)**
+    - **Purpose**: Represents a variable in a prompt template, enabling dynamic replacement and LLM refinement.
+    - **Attributes**:
+        - `name`: Variable name.
+        - `source`: Source of the variable (DYNAMIC/USER_INPUT).
+        - `allow_code_context_building`: Enables code context building.
+        - `allow_llm_refinement`: Permits LLM refinement.
+    - **Methods/APIs**:
+        - `set_value(value: str)`: Assigns value to the variable.
+        - `get_value()`: Retrieves variable value, checking if set.
+        - `to_dict()`: Converts to a dictionary representation.
+    - **Interactions**: Integral to `PromptTemplate` for variable management.
+
+##### 1.3. Used-By Dependencies (Unchanged Components)
+- None.
+
+##### 1.4. Interactions Overview
+- `PromptTemplate` acts as the central component, managing templated variables through `PromptTemplateVariable`.
+- The interaction focuses on template management and format conversion.
+
+##### 1.5. External Dependencies
+- None.
+
+
+[UserFeedback]
+$start$
+If you look at the `High-Level Design` in the good and bad. In the bad version:```
+- The architecture is modular, ...```
+Of course the architecture is modular, then why do we design modules. This is completely redundant and does not deliver any value. Also ```The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal.
+```
+This sentence ```which suggests that communication with the frontend or other systems might be a primary goal``` is completely useless information.
+
+If you look at the good one. It focuses on factual information. Every sentence is informative. Every sentence is not redundant or superficial.
+$end$
+
+
+
+[Template]
+**Bad Writing Pitfalls:**
+- **Keyword**: [Description]
+- **Keyword**: [Description]
+- ...
+
+**Example of Bad Writing:**
+- [Insert Example Here]
+
+**Good Writing Criteria:**
+- **Keyword**: [Description]
+- **Keyword**: [Description]
+- ...
+
+**Example of Good Writing:**
+- [Insert Example Here]
+
+
+[Example]
+**Bad Writing Pitfalls:**
+- **Redundancy**: The bad writing example contains redundant statements, such as mentioning the modularity of the architecture, which is an inherent aspect of module design. This adds no value and can be seen as unnecessary.
+- **Vagueness**: The bad writing includes vague statements, like suggesting the primary goal without clear evidence or context. This can lead to misinterpretation and confusion.
+- **Lack of Precision**: The example lacks precise information and factual details. This can render the content less informative and reliable.
+
+**Example of Bad Writing:**
+- "The module is focused on representing a template for prompts. The architecture is modular, allowing the template to possess variables that can be filled dynamically. The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal."
+
+**Good Writing Criteria:**
+- **Factual and Informative**: Each sentence in the good writing example provides clear and factual information, avoiding unnecessary elaboration.
+- **Specificity**: The good writing is specific, offering detailed explanations about the module's purpose, attributes, and methods.
+- **Clarity and Precision**: The content is written with clarity and precision, making it easy for the reader to understand the technical details without ambiguity.
+
+**Example of Good Writing:**
+- "The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the `PromptTempate`, we are able to create different prompts using the same template."
 
 

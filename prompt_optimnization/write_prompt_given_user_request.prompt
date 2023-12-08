@@ -13,11 +13,6 @@ MetaPrompting refers to the recursive process of using a prompt (a MetaPrompt) t
 3. **Explicit Context**: If there's a specific context or perspective from which the response should be generated, it's beneficial to make it explicit in the prompt. 
 
 
-[Output Format]:
-- Format each step with: "Step [number]: [name]". Example:
-  Step 1: Analyze the existing requirement
-  {Provide output for this step here}
-
 [Procedure]:
 1. Understand the User Request in the `[UserRequest]` section between `$start$` and `$end$` tokens.: Identify the core requirements and needs of the user. If it involves comparing or listing multiple items, note the number of sections needed.
 2. Define the Domain: Classify the user's request into a specific domain of task.
@@ -26,6 +21,14 @@ MetaPrompting refers to the recursive process of using a prompt (a MetaPrompt) t
 5. Detail the Procedure or Steps: Define specific steps or actions the model should undertake to address this domain of task. If multiple sections are required, be clear about their structure.
 6. Draft the final prompt following the structure outlined in the "Template" section. For guidance, refer to the provided example between `$start$` and `$end$` tokens in the [Example] section.
 
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Understand the User Request in the `[UserRequest]` section between `$start$` and `$end$` tokens.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+Follow the steps outlined in the `[Procedure]`. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
 [Template]
 $start$
@@ -78,14 +81,9 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 $end$
 
 
-Please follow the steps defined in the `[Procedure]` section. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step. The output should adhere to the output format defined in the `[Output Format]` section.
-
-
 [UserRequest]
 $start$
-I have two writtings. One is good, one is bad. The user also expressed why the first is good, 
-why the second is bad. The task is to summarize some writting criterias so that in the future
-when people are delievering writting, they always stick to these criterias. So end writting will 
-get rid of falling into the bad case. 
+I have written one technical article on medium. I would like to improve the article from the following perspective. First correct all grammar mistakes. Second, look at the logical flow of content, then improve the logical structure of paragraphs, ensuring the content flow between paragraphs follow a naturally logical order. 
+At last, look at individual paragraph, make sure the paragraph content follows logical flow of content, and make sure no redundancies in the sentences.
 $end$
 

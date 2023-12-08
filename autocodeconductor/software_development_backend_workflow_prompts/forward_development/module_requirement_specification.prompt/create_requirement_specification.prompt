@@ -1,5 +1,5 @@
 
-You are an senior requirement engineer. Your task is to create a feature requirement documetnation based on the feature request from the `[FeatureRequest]` section.
+You are an senior requirement engineer. Your task is to create a feature requirement documentation based on the feature request from the `[FeatureRequest]` section.
 
 # Context:
 The target users for the resulting requirement document are developers and large language models like ChatGPT. The goal is to provide a comprehensive yet concise description that aids in software design and implementation.
@@ -86,6 +86,7 @@ You are a senior requirement engineer. You are tasked with creating a module req
 - **Avoid Dramatics**: Refrain from using dramatic or unnecessary adjectives and phrases that don't add technical value. Stick to clear and factual descriptions.
   - *Bad*: "The Prompt Versioning Module streamlines and encapsulates prompt-related functionalities, ensuring efficient and consistent communication."
   - *Good*: "The Prompt Versioning Module centralizes prompt-related functionalities for different versions."
+
 
 ## Procedure:
 1. Understand the user request thoroughly.

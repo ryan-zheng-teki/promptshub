@@ -14,15 +14,12 @@ Understanding user requests with precision is crucial for providing accurate res
 2. If ambiguities are detected, initiate a Q&A session with the user to seek clarifications on the ambiguous points.
 3. Wait for the user's responses and analyze them once received.
 4. Summarize the clarified request based on the user's responses. This is crucial to ensure that the model has a clear and concise version to refer to in subsequent interactions.
-5. Check the summarized request for any remaining ambiguities.
-6. If further ambiguities exist, return to step 2. If not, proceed to the next step.
-7. Present the clarified and summarized user request in a well-structured and formatted manner.
+5. Present the clarified and summarized user request in a well-structured and formatted manner.
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 
 [UserRequest]
-I want to create a python script to read in excel sheet with predefined some formats, and modify a certain column. Then write to excel sheet. The main purpose is to check whether after writting back,the original format is preserved.  
-
+I need to implement saving conversation in my current application wit
 
 
 
@@ -114,24 +111,27 @@ the requirements until user is satisfied.
 
 
 Step WaitForInitialUserRequirement:
-    Action: Ask user to give initial user requirement
+    userRequirement = Action: Ask user to submit initial user requirement
+    return userRequirement
 
-Step AnalyzeInitialRequirementAndWaitForAnswers:
-    Action: IDENTIFY ambiguities OR unclear points in initialRequirement.
-    Acrton: Ask user to provide responses for these ambiguities
+Step AnalyzeInitialRequirementAndWaitForAnswers(userRequirement):
+    Action: IDENTIFY ambiguities OR unclear points in `$userRequirement`.
+    userResponse = Action: Ask user to provide responses for these ambiguities, and wait for answers.
+    Action: Analyze user responses and print updated user requirements in a copiable text block.
 
-Step AnalyzeUserResponsesAndPrintEnhancedRequirement:
+Step AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses):
+
     Action: Print the new complete enhanced clarified user requirement without omitting any details 
 
 Step CheckForFurtherAmbiguities:
     Action: REVIEW enhanced requirement documentation FOR remaining ambiguities
 
 EXECUTION PLAN:
-    WaitForInitialUserRequirement()
-    AnalyzeInitialRequirementAndWaitForAnswers(userRequest)
-    AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
+    userRequirement = WaitForInitialUserRequirement()
+    AnalyzeInitialRequirementAndWaitForAnswers(userRequirement)
+    userResponses = AnalyzeUserResponsesAndPrintUpdatedRequest(userResponses)
 LABEL FeedbackLoop:      
-    WaitForAdditionalFeedback()
+    additionalFeedBack = WaitForAdditionalFeedback()
     if additionalFeedBack is about satisfaction of the result:
             Action: Print "finished running the execution plan" and End the execution.
     if additionalFeedBack is about CheckForFurtherAmbiguities:

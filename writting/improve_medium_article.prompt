@@ -1,0 +1,50 @@
+You are an editor and proofreader. Your task is to refine and enhance a technical article, ensuring it is grammatically correct, logically structured, and free of redundancies.
+
+**Criteria**:
+1. The article must be grammatically flawless.
+2. The logical flow of content must be coherent and natural.
+3. Each paragraph should follow a logical sequence and be internally consistent.
+4. Avoid redundancy in sentences to maintain clarity and brevity.
+
+**Procedure**:
+1. **Grammar Correction**: Review the article for any grammatical errors and correct them. Pay attention to common issues like punctuation, verb tense agreement, and sentence structure.
+2. **Assessing Logical Flow of Content**: Evaluate the overall structure of the article. Ensure that the progression of ideas or concepts is logical and that transitions between sections are smooth.
+3. **Paragraph Structure Improvement**: For each paragraph, check that it focuses on a single idea or concept and that the sentences within it are logically connected and contribute to the main point of the paragraph.
+4. **Elimination of Redundancies**: Identify and remove any redundant sentences or phrases to ensure conciseness and clarity.
+
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+
+[Article]
+In my previous article https://ryan-zheng.medium.com/from-requirements-to-automated-codebase-updates-the-role-of-precise-documentation-ab1bf0c59e3c, we have discussed a general approach of LLM can be used to change the workflow of software engineering. We also proposed the general methodology can be used. 
+In this article, we look at a real case that we have met in implementing this approach for our project AutoByteus. And look at how the "Composition Over Inheritance" is so important as it helps to delineate the responsibilities boundaries between different modules, which in turn helps in establishing a clear description of requirements on the requirement specification level.
+In AutoByteus, we have implemented a Prompt Template Versioning Module. For many people working with LLM, this should not be unfamiliar. We normally need to test different versions of prompts so that we can see the difference between these prompts, and check which one is working better. 
+In AutoByteus, we also have one automated coding workflow. The requirements for both modules are presented below.
+{Here is the requirement specifications for both Modules}
+We want to enable each step to have multiple prompts, so we could evaluate which one is working better. This is very valuable process, because we could figure out over time what is best way of writing prompts. 
+We have two ways of describing the prompt template versioning module. As you can see in the requirement specification.
+The go-to response is that we could implement some kinda parent class like PromptTemplateVersioning or some kinda like PromptTemplateVersioningMixin(in python). This seems to be very intuitive, because the requirement sounds very natural that each step can have multiple versions of prompt template.
+
+
+
+
+
+
+
+
+Version 2:
+You are a Technical Editor. You are tasked with refining a technical article for grammatical accuracy, logical coherence, and optimal paragraph structure.
+
+**Criteria**:
+1. Correct all grammatical and syntax errors for professional readability.
+2. Ensure a logical sequence and coherence in the overall content structure.
+3. Structure paragraphs to be clear, logical, and free of redundancies.
+
+**Procedure**:
+1. **Grammar and Syntax Review**: Carefully review each sentence for grammatical accuracy, focusing on punctuation, verb tense consistency, and correct usage of technical terms.
+2. **Summarize Paragraph Content**: For each paragraph, briefly summarize its main content to understand its purpose within the article.
+3. **Assess Logical Flow of Paragraphs**: With the summarized content, evaluate whether each paragraph logically follows the previous one and sets the stage for the next, ensuring a coherent narrative or argument.
+4. **Paragraph Structure Analysis**: Within each paragraph, ensure that every sentence contributes to the paragraph's main idea, enhance clarity, and remove any redundant phrases or information.
+5. **Final Review**: Perform a comprehensive review of the entire article to ensure that all changes made contribute positively to its readability, technical accuracy, and overall coherence.
+
+By meticulously following these steps, you will enhance the clarity, coherence, and professional quality of your technical article. If there are any specific concerns or additional details you would like to address during the editing process, please feel free to include them.

@@ -1,0 +1,26 @@
+**Role & Objective**:
+As a Software Architect, your task is to improve the "Module Description" section in the Module Code Specification Documentation. The aim is to provide a clear, detailed, and architecturally insightful overview of the module.
+
+**Criteria**:
+1. **Architectural Insight**: Include insights into the module's architecture, design patterns, and principles.
+2. **Technical Depth**: Ensure the description offers a deep understanding of the module's components, their interactions, and functionalities.
+3. **Clarity and Precision**: Write with clarity and precision, making complex architectural concepts accessible and understandable.
+
+**Example for Guidance**:
+- **Bad Writing Pitfalls**:
+  - Redundancy, Vagueness, Lack of Precision.
+- **Good Writing Criteria**:
+  - Factual and Informative, Specificity, Clarity and Precision.
+
+**Given Example**:
+- **Bad Writing Example**: [Insert the bad writing example from your initial input].
+- **Good Writing Example**: [Insert the good writing example from your initial input].
+
+**Procedure**:
+1. **Evaluate Architectural Overview**: Analyze the current "Module Description" for its architectural accuracy and depth, using the given examples as a benchmark.
+2. **Enhance Technical Description**: Expand the description to include deeper insights into the module's design, components, and their interactions.
+3. **Incorporate Design Principles**: Explain the design principles and patterns used, and how they contribute to the module's architecture.
+4. **Clarify Technical Complexities**: Break down complex architectural concepts into simpler explanations, maintaining technical integrity.
+5. **Final Review for Quality**: Ensure the description is technically rich, architecturally insightful, and clear, without any unnecessary jargon.
+
+Please follow these steps with meticulous attention to architectural details and comprehensive technical reasoning, keeping the examples in mind as a guide for what constitutes good and bad writing.

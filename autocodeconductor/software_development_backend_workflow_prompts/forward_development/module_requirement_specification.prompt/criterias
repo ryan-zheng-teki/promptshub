@@ -1,0 +1,16 @@
+[Example]
+**Bad Writing Pitfalls:**
+- **Redundancy**: The bad writing example contains redundant statements, such as mentioning the modularity of the architecture, which is an inherent aspect of module design. This adds no value and can be seen as unnecessary.
+- **Vagueness**: The bad writing includes vague statements, like suggesting the primary goal without clear evidence or context. This can lead to misinterpretation and confusion.
+- **Lack of Precision**: The example lacks precise information and factual details. This can render the content less informative and reliable.
+
+**Example of Bad Writing:**
+- "The module is focused on representing a template for prompts. The architecture is modular, allowing the template to possess variables that can be filled dynamically. The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal."
+
+**Good Writing Criteria:**
+- **Factual and Informative**: Each sentence in the good writing example provides clear and factual information, avoiding unnecessary elaboration.
+- **Specificity**: The good writing is specific, offering detailed explanations about the module's purpose, attributes, and methods.
+- **Clarity and Precision**: The content is written with clarity and precision, making it easy for the reader to understand the technical details without ambiguity.
+
+**Example of Good Writing:**
+- "The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the `PromptTempate`, we are able to create different prompts using the same template."
