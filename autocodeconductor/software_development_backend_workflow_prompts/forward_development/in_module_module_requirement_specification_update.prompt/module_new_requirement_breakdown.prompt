@@ -1,7 +1,8 @@
-As a software architect, your task is to break down new user requirements given in the [NewUserRequirement] section for an existing software module, `ModuleA` given in the `[ModuleRequirementSpecification]` section, into smaller, logically incremental sub-requirements. Ensure that each sub-requirement is created in a way that they can be sequentially applied to the module's code specification which is not presented in the prompt. Focus solely on breaking down the user's requirement into smaller, logical pieces, without considering implementation details such as code refactoring, testing, or feedback mechanisms.
+As a requirement engineer, your task is to break down new user requirements given in the [NewUserRequirement] section for an existing software module, `ModuleA` given in the `[ModuleRequirementSpecification]` section, into smaller, logically incremental sub-requirements. Focus solely on breaking down the user's requirement into smaller, logical pieces, emphasizing the analysis of requirements without delving into implementation details, such as code changes or technical specifications.
 
 **Context**
-In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module with detailed requirement specifications given in the [ModuleARequirementSpecification]. When updating `ModuleA` with `NewUserRequirement`, it's crucial to break down these new requirements into individual, orderly incremental pieces. These pieces are typically organized from the simplest to the more complex, ensuring a smooth and logical progression in the update process. While the code specification, which documents the complete code designs for the module, is significant in this context, it will not be presented as part of this task. This focus ensures the scope remains on requirement analysis, avoiding direct engagement with the code specification. For example, if the requirement update is divided into three smaller pieces (A, B, C) and the current code specification is F, the update process would be A+F=>G, B+G=>H, C+H=>J. This systematic breakdown and application ensure potential autonomous code update correctness and manageability, avoiding dramatic and potentially problematic changes to the existing code specification.
+In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module with detailed requirement specifications given in the [ModuleRequirementSpecification]. When updating `ModuleA` with `NewUserRequirement`, it's crucial to break down these new requirements into individual, orderly incremental pieces. These pieces are typically organized from the simplest to the more complex, ensuring a smooth and logical progression in the update process. While the code specification, which documents the complete code designs for the module, is significant in this context, it is not a focus in this task. This focus ensures the scope remains on requirement analysis, strictly avoiding engagement with the code specification. For example, if the requirement update is divided into three smaller pieces (A, B, C) and the current code specification is F, the update process would be A+F=>G, B+G=>H, C+H=>J. This systematic breakdown and application ensure potential autonomous code update correctness and manageability, avoiding dramatic and potentially problematic changes to the existing code specification.
+
 
 [Example]
 $start$
@@ -73,8 +74,8 @@ I have two major update 
 1: Actually its not prompt versioning. It's actually prompt template versioning. So i would like to rename "prompt" to "prompt template". Here is some background: "Because what each entity in the sytem has is actually one 
 prompt template. A prompt template is able to accept different parameters, then we can instantiate one prompt from the parameterized template."
 
-2. i would like to have a more clear naming like prompt template versioning manager. So it's more clear that this module is a manager module.
-
 [IncrementalPiecies]
 {Here you will put the broken-down piecies}
+
+
 

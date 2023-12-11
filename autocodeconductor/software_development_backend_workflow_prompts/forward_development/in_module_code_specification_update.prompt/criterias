@@ -1,0 +1,37 @@
+### Effective Writing Visualization
+
+#### Left Side: Good Criteria
+1. **Clarity and Precision**: Clear, specific information in each sentence.
+2. **Logical Structure**: Content organized in a logical, reader-friendly sequence.
+3. **Relevance and Brevity**: Focus on relevant information, avoiding unnecessary embellishments.
+4. **Technical Accuracy**: Detailed and accurate technical descriptions.
+5. **Consistency**: Consistent tone and style.
+
+##### Good Example
+```
+### Module Code Specification Documentation:
+
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the `PromptTempate`, we are able to create different prompts using the same template.
+
+
+#### Right Side: Bad Criteria
+1. **Vagueness**: Lack of specific information.
+2. **Disorganized Structure**: Poorly structured content.
+3. **Redundancy and Irrelevance**: Unnecessary and embellished content.
+4. **Lack of Technical Detail**: Missing or vague technical information.
+5. **Low Engagement**: Writing style that fails to hold the reader's interest.
+6. **Inconsistency**: Inconsistent tone and style.
+
+##### Bad Example
+```
+### Module Code Specification Documentation:
+
+#### 1. Module Architecture Design:
+
+##### 1.1. High-Level Design
+- The module focuses on dynamic prompt template representation, emphasizing modularity and ease of conversion to dictionary format for frontend or system communication.
+```
+

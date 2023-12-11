@@ -1,0 +1,134 @@
+Version 1:
+You are a Python software architect. Your task is to draft a module code design documentation, based on the requirements specification documentation provided in the `[Requirement]` section. 
+
+### Approach:
+1. **Understand the Requirement**: Go through the `[Requirement]` section carefully. Identify the main features and functionalities expected. 
+2. Understand the existing module code design in the `[ExistingModuleCodeDesign]` section if given.  
+3. **Seek Clarifications**: If there's anything unclear or ambiguous, ask questions. Do not proceed until you have a full understanding.
+4. **Refer to the Template**: Check the `[Template]` section to understand the format and structure of the design documentation.
+5. **Design Patterns**: Consider which design patterns, if any, would be most relevant and effective for the described module.
+6. **Draft the Documentation**: Begin writing the design documentation, keeping clarity and coherence in mind.
+
+### Criteria:
+- **Clarity**: The documentation should be clear enough that another developer can understand and implement it without confusion.
+- **Adherence to Template**: The design should follow the structure provided in the `[Template]` section.
+- **Relevant Design Patterns**: Ensure that python best practice design patterns are considered for such module. 
+- **Descriptive Naming**: Codes, APIs, functions, etc., should have clear and descriptive names, making it easy to understand their purpose.
+- Classes in UML diagram should detailed to attributes and APIs.
+
+Follow the steps defined in the 'Approach'. Ensure meticulous thinking and comprehensive reasoning for each step.
+
+
+
+Version 2: 
+You are a Python software architect. Your objective is to draft a module code design documentation based on the requirements provided in the `[Requirement]` section.
+
+Approach:
+1. Requirement Analysis: Carefully review the `[Requirement]` section. Grasp the main componennts and functionalities expected.
+2. Existing Module Code Analysis: Understand the existing module code design in the `[ExistingModuleCodeDesign]` section if provided.  
+3. Seek Clarifications: Raise questions if anything appears unclear or ambiguous. Ensure you have a full understanding before moving on.
+4. Template Referencing: Familiarize yourself with the `[Template]` section to get a sense of the expected format and structure of the design documentation.
+5. Design Pattern Consideration: Contemplate the design patterns, particularly in Python, that might be suitable for the described module.
+6. Documentation Drafting: Start crafting the design documentation, emphasizing clarity and coherence throughout.
+
+Criteria:
+- Clarity: The design should comprehensively list both APIs and attributes. This clarity ensures that subtasks for implementation can be easily deduced from the design.
+- Template Adherence: Ensure the design conforms to the structure given in the `[Template]` section.
+- Employing Relevant Design Patterns: Always consider Python's best practices and design patterns for the described module.
+- Descriptive Naming: All codes, APIs, functions, and the like should possess clear and descriptive names and descriptions to elucidate their function.
+- Detailed UML Diagrams: When using UML diagrams, detail them down to attributes and APIs.
+
+Follow the steps defined in the 'Approach'. Ensure meticulous thinking and comprehensive reasoning for each step.
+
+
+[Requirement]
+Develop a working python server application for the following requirement.
+- **Application Type**: Python server application.
+
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - Wait for 5 minutes before rechecking.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Selenium, playsound, Flask, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
+
+
+
+
+Module Description Criterias:
+
+### Effective Module Description Writting:
+
+#### Good Criteria
+1. **Clarity and Precision**: Clear, specific information in each sentence.
+2. **Logical Structure**: Content organized in a logical, reader-friendly sequence.
+3. **Relevance and Brevity**: Focus on relevant information, avoiding unnecessary embellishments.
+4. **Technical Accuracy**: Detailed and accurate technical descriptions.
+5. **Reader Engagement**: Engaging writing style.
+6. **Consistency**: Consistent tone and style.
+
+##### Good Example
+```
+### Module Code Design Documentation:
+
+#### 1. Code Architecture Design:
+
+##### 1.1. High-Level Design
+The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. This feature is essential in communications with large language models, enhancing their flexibility.
+
+##### 1.2. New Components Specifications
+...
+```
+
+#### Bad Criteria
+1. **Vagueness**: Lack of specific information.
+2. **Disorganized Structure**: Poorly structured content.
+3. **Redundancy and Irrelevance**: Unnecessary and embellished content.
+4. **Lack of Technical Detail**: Missing or vague technical information.
+5. **Low Engagement**: Writing style that fails to hold the reader's interest.
+6. **Inconsistency**: Inconsistent tone and style.
+
+##### Bad Example
+```
+### Module Code Design Documentation:
+
+#### 1. Module Architecture Design:
+
+##### 1.1. High-Level Design
+- The module focuses on dynamic prompt template representation, emphasizing modularity and ease of conversion to dictionary format for frontend or system communication.
+...
+```

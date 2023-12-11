@@ -62,10 +62,11 @@ Version 2:
 You are a "Prompt Evaluator". Your task is to identify where in the original prompt leads to unsatisfactory results from ChatGPT. After pinpointing the issues, you will plan improvements to enhance its clarity and explicitness, ensuring more desirable outcomes.
 
 **Procedure**:
-1. Understand the objectives and intent of the original prompt in the [Original Prompt] section.
+1. Understand the objectives and intent of the original prompt in the [OriginalPrompt] section.
 2. Analyze the user feedback in the [Feedback] section against the output in the [Output] section, focusing on areas of dissatisfaction.
-3. Use retrospective analysis like a human to determine which sentences in the original prompt could lead to dissatisfaction. Specifically, identify exact sentences or phrases in the original prompt that are ambiguous or overly broad, leading to unsatisfactory results. Provide a direct link between these specific sentences and the issues observed in the output.
-4. Based on your analysis, plan changes to improve the clarity and explicitness of the identified sentences. Suggest precise changes to these sentences to enhance clarity and prevent misinterpretation.
+3. Use retrospective analysis like a human to determine which sentences in the original prompt could lead to dissatisfaction. Specifically, identify exact sections or sentences or phrases in the original prompt that are ambiguous or overly broad, leading to unsatisfactory results. Provide a direct link between these specific sentences and the issues observed in the output.
+4. Based on your analysis, plan changes to improve the clarity and explicitness of the identified sections, sentences or phrases. Suggest concrete changes to enhance clarity and prevent misinterpretation.
+5. Present the revised version based on change suggestions given in step 4.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
@@ -79,185 +80,155 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 [OriginalPrompt]
 $PromtStart$
-User
 
-You are a writing analyst tasked with summarizing criteria for effective writing. Your goal is to outline the strengths and weaknesses of both good and bad writing, presenting your findings following the template provided in the `Template` section.
+As a senior requirement engineer, your task is to break down the user's requirements into smaller, logically incremental sub-requirements for analysis purposes only, for one existing Module Requirement Specification. Ensure that each sub-requirement is created, and they are internally incrementally organized.
 
-**Procedure**:
-1. **Review User Feedback**: Examine the `[UserFeedback]` section to understand the users' opinions on the content quality of both good and bad writing examples in the `[GoodWriting]` and `[BadWriting]` sections.
-2. **Content Analysis**: Utilize the feedback to identify key aspects of content quality in both writing examples, focusing on elements that users find engaging or deficient.
-3. **Present The Final Output**: Present your findings following the template given in the following `[Template]` section.
-
-[Template]
-**Bad Writing Criteria:**
-- Criterion 1: [Description]
-- Criterion 2: [Description]
-- ...
-
-**Example of Bad Writing:**
-- [Insert Example Here]
-
-**Good Writing Criteria:**
-- Criterion 1: [Description]
-- Criterion 2: [Description]
-- ...
-
-**Example of Good Writing:**
-- [Insert Example Here]
-
-Please follow the steps defined in the `Procedure` section, ensuring meticulous, step-by-step thinking and comprehensive reasoning for each step.
-
-[GoodWriting]
-### Module Code Specification Documentation:
-
-#### 1. Code Architecture Design:
-
-##### 1.1. High-Level Design
-The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the `PromptTempate`, we are able to create different prompts using the same template.
-
-##### 1.2. New Components Specifications
-
-###### 1.2.1. Fully Defined
-
-- **PromptTemplate (New)**
-    - **Purpose**: Represents a prompt with potential template variables. Provides functionality for conversion to dictionary format and filling the template with values.
-    - **Attributes**:
-        - `template`: The raw template string.
-        - `variables`: A list of associated `PromptTemplateVariable` instances.
-    - **Methods/APIs**:
-        - `to_dict()`: Converts the `PromptTemplate` instance to a dictionary representation.
-        - `fill(values: dict)`: Fills the template using the provided dictionary of variable values. Raises a `KeyError` if a required variable is missing.
-    - **Interactions**: Uses the `to_dict()` method of the `PromptTemplateVariable` for the conversion process.
-
-- **PromptTemplateVariable (New)**
-    - **Purpose**: Represents a variable within a prompt template. Each variable can have a source (e.g., dynamically replaced based on the project or provided by user input) and can have capabilities like code context building and LLM refinement.
-    - **Attributes**:
-        - `name`: The variable name.
-        - `source`: The source of the variable. Values can be either `DYNAMIC` or `USER_INPUT`.
-        - `allow_code_context_building`: Flag indicating if the variable allows code context building.
-        - `allow_llm_refinement`: Flag indicating if the variable allows LLM refinement.
-    - **Methods/APIs**:
-        - `set_value(value: str)`: Sets the value for this variable.
-        - `get_value()`: Retrieves the value of this variable, raising a `ValueError` if the value is not set.
-        - `to_dict()`: Converts the `PromptTemplateVariable` instance to a dictionary representation.
-    - **Interactions**: Used by the `PromptTemplate` for variable representation and conversion to dictionary format.
-
-##### 1.3. Used-By Dependencies (Unchanged Components)
-
-- None.
-
-##### 1.4. Interactions Overview
-- The `PromptTemplate` serves as the primary entity to represent prompts with templated variables. 
-- It leverages the `PromptTemplateVariable` to manage its list of associated variables and to facilitate the conversion to dictionary format.
-
-##### 1.5. External Dependencies
-- None.
-
-[BadWriting]
-### Module Code Design Documentation:
-
-#### 1. Module Architecture Design:
-
-##### 1.1. High-Level Design
-The module is focused on representing a template for prompts. The architecture is modular, allowing the template to possess variables that can be filled dynamically. The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal.
-##### 1.2. New Components Specifications
-
-###### 1.2.1. Fully Defined
-
-- **PromptTemplate (New)**
-    - **Purpose**: Manages prompt templates with dynamic variables for conversion to dictionary format and template filling.
-    - **Attributes**:
-        - `template`: Raw template string.
-        - `variables`: List of `PromptTemplateVariable` instances.
-    - **Methods/APIs**:
-        - `to_dict()`: Converts to a dictionary representation.
-        - `fill(values: dict)`: Fills template with variable values, checking for missing variables.
-    - **Interactions**: Utilizes `PromptTemplateVariable` for variable handling and dictionary conversion.
-
-- **PromptTemplateVariable (New)**
-    - **Purpose**: Represents a variable in a prompt template, enabling dynamic replacement and LLM refinement.
-    - **Attributes**:
-        - `name`: Variable name.
-        - `source`: Source of the variable (DYNAMIC/USER_INPUT).
-        - `allow_code_context_building`: Enables code context building.
-        - `allow_llm_refinement`: Permits LLM refinement.
-    - **Methods/APIs**:
-        - `set_value(value: str)`: Assigns value to the variable.
-        - `get_value()`: Retrieves variable value, checking if set.
-        - `to_dict()`: Converts to a dictionary representation.
-    - **Interactions**: Integral to `PromptTemplate` for variable management.
-
-##### 1.3. Used-By Dependencies (Unchanged Components)
-- None.
-
-##### 1.4. Interactions Overview
-- `PromptTemplate` acts as the central component, managing templated variables through `PromptTemplateVariable`.
-- The interaction focuses on template management and format conversion.
-
-##### 1.5. External Dependencies
-- None.
+**Context**
+In software engineering, applications are divided into different modules. Over time, users might need to provide new requirements for the existing module requirements. `ModuleA` is an existing developed module in the application. It contains the detailed module requirement specifications. `NewUserRequirement` represents the new requirement given by the user. When the user's requirement involves multiple changes, it is essential to break down the user's requirement into individual incremental pieces for analysis. The focus should be on analyzing and breaking down these requirements, without delving into implementation strategies, code changes, or testing procedures.
 
 
-[UserFeedback]
-$start$
-If you look at the `High-Level Design` in the good and bad. In the bad version:```
-- The architecture is modular, ...```
-Of course the architecture is modular, then why do we design modules. This is completely redundant and does not deliver any value. Also ```The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal.
-```
-This sentence ```which suggests that communication with the frontend or other systems might be a primary goal``` is completely useless information.
+**Procedure**
+1. Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+2. Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
+3. **Analytically** break down the new requirements into incremental, manageable segments.
+4. Present the final subdivided requirements pieces under `[IncrementalPiecies]` section.
 
-If you look at the good one. It focuses on factual information. Every sentence is informative. Every sentence is not redundant or superficial.
-$end$
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
+
+
+[ModuleRequirementSpecification]
+### Prompt Versioning Module Requirements Specification
+
+#### 1. Module Description:
+The prompt versioning module serves as a centralized prompt management system. It offers versioning for all the entities in the application that intend to have different versions of prompts for communication with a large language model. However, communication with the large language model is not handled within this module.
+
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
+
+#### 3. Symbols & Usage:
+(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
+- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Entity can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+
+- **Entity-Specific Default Prompt**:
+   - Every entity or component that communicates with large language models should have a default prompt.
+   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can introduce a new prompt version upon modifying the existing prompt.
+   - A maximum of 4 prompt versions are maintained for each entity.
+   - If a new version exceeds the 4-version cap, the oldest version is purged.
+
+- **Database Management**:
+   - Versions are depicted using simple incremented integers.
+
+
+[NewUserRequirement]
+Actually its not prompt versioning. It's actually prompt template versioning. So i would like to rename "prompt" to "prompt template" in the Requirement Specification. So its more about renaming.
+
+[IncrementalPiecies]
+{Here you will put the broken-down piecies}
 $PromptEnd$
-
 
 
 [Feedback]
 $start$
-If you look at the output, you will see that the following
+If you look at our second step from the original prompt 
 ```
-Bad Writing Criteria:
+2. Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
+```
 
-Criterion 1: Redundancy: The bad writing example contains redundant statements, such as mentioning the modularity of the architecture, which is an inherent aspect of module design. This adds no value and can be seen as unnecessary.
-Criterion 2: Vagueness: The bad writing includes vague statements, like suggesting the primary goal without clear evidence or context. This can lead to misinterpretation and confusion.
-Criterion 3: Lack of Precision: The example lacks precise information and factual details. This can render the content less informative and reliable.
-Example of Bad Writing:
+You will see that this step says engage user in a Q&A session if there are ambiguities. And in the output from ChatGPT, it does have phrases like the following 
 ```
-Actually what i intended to have is the following
-```
-Bad Writing Criteria:
+The `NewUserRequirement` indicates a need for renaming within the module. The user specifies that the module should focus on "prompt template versioning" rather than just "prompt versioning." This requirement is primarily about renaming the term "prompt" to "prompt template" in the Requirement Specification to better reflect the module's purpose and functionality.
 
-Redundancy: The bad writing example contains redundant statements, such as mentioning the modularity of the architecture, which is an inherent aspect of module design. This adds no value and can be seen as unnecessary.
-Vagueness: The bad writing includes vague statements, like suggesting the primary goal without clear evidence or context. This can lead to misinterpretation and confusion.
-Lack of Precision: The example lacks precise information and factual details. This can render the content less informative and reliable.
-Example of Bad Writing:
+Before proceeding, it would be beneficial to clarify with the user if this renaming affects only the terminology in the documentation or if it also impacts any naming conventions within the codebase or the database schema. Understanding the scope of this change is crucial for a precise breakdown.
 ```
-Remove the Criterion1, Criterion2, these kinda words, it makes no sense. I guess Template needs to be updated or some wording needs to be make more clear.
+
+However, the output does not wait for user's answer, it continues to Step 3 directly.
 $end$
 
 [Output]
 $start$
-Based on the provided documents and user feedback, I will now summarize the criteria for effective writing, highlighting the strengths and weaknesses of the good and bad writing examples.
+### Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
 
-Bad Writing Criteria:
+In the current `ModuleRequirementSpecification` for `ModuleA`, which is focused on a Prompt Versioning Module, several key aspects are outlined:
 
-Criterion 1: Redundancy: The bad writing example contains redundant statements, such as mentioning the modularity of the architecture, which is an inherent aspect of module design. This adds no value and can be seen as unnecessary.
-Criterion 2: Vagueness: The bad writing includes vague statements, like suggesting the primary goal without clear evidence or context. This can lead to misinterpretation and confusion.
-Criterion 3: Lack of Precision: The example lacks precise information and factual details. This can render the content less informative and reliable.
-Example of Bad Writing:
+1. **Module Description**: This module acts as a centralized prompt management system, offering versioning capabilities for various entities within the application that need different versions of prompts for communication with a large language model. However, the module does not handle communication with the large language model itself.
 
-"The module is focused on representing a template for prompts. The architecture is modular, allowing the template to possess variables that can be filled dynamically. The design prioritizes ease of conversion to dictionary format, which suggests that communication with the frontend or other systems might be a primary goal."
-Good Writing Criteria:
+2. **Module Dependencies**: The module is designed to be independent and does not rely on other modules within the application.
 
-Criterion 1: Factual and Informative: Each sentence in the good writing example provides clear and factual information, avoiding unnecessary elaboration.
-Criterion 2: Specificity: The good writing is specific, offering detailed explanations about the module's purpose, attributes, and methods.
-Criterion 3: Clarity and Precision: The content is written with clarity and precision, making it easy for the reader to understand the technical details without ambiguity.
-Example of Good Writing:
+3. **Symbols & Usage**: The symbol `[⇌ Independent]` is used to denote functionalities or interactions managed internally without dependency on other modules.
 
-"The module introduces 'PromptTemplate,' a class that enables the parameterization of prompts. By injection of values for the parameters defined in the PromptTempate, we are able to create different prompts using the same template."
-In summary, good writing is characterized by its clarity, specificity, and informative nature, providing the reader with clear and useful information. Bad writing, on the other hand, tends to be vague, redundant, and lacks precision, making it less effective and informative.
+4. **Functional Specifications**:
+   - **Single Effective Prompt per Entity**: Only one active prompt is allowed per entity at any time. Entities can switch their active prompt by designating any archived version as the current effective prompt.
+   - **Entity-Specific Default Prompt**: Each entity must have a default prompt, which is used if no specific prompts are available for that entity.
+   - **Dynamic Initialization of Versioned Prompts**: The system retrieves the effective prompt for an entity before any external system communication. If no version exists, the entity's default prompt is used.
+   - **Prompt Version Management**: Entities can create new prompt versions, with a maximum of 4 versions maintained. Exceeding this limit results in the oldest version being purged.
+   - **Database Management**: Prompt versions are tracked using simple incremented integers.
+
+### Step 2: Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
+
+The `NewUserRequirement` indicates a need for renaming within the module. The user specifies that the module should focus on "prompt template versioning" rather than just "prompt versioning." This requirement is primarily about renaming the term "prompt" to "prompt template" in the Requirement Specification to better reflect the module's purpose and functionality.
+
+Before proceeding, it would be beneficial to clarify with the user if this renaming affects only the terminology in the documentation or if it also impacts any naming conventions within the codebase or the database schema. Understanding the scope of this change is crucial for a precise breakdown.
+
+### Step 3: Analytically break down the new requirements into incremental, manageable segments.
+
+Given the user's requirement to rename "prompt" to "prompt template," the breakdown can be as follows:
+
+1. **Terminology Update in Documentation**: 
+   - Replace all instances of "prompt" with "prompt template" in the Requirement Specification document. This includes headings, descriptions, and any references within the text.
+
+2. **Codebase Assessment** (If applicable based on user clarification):
+   - Analyze the impact of this renaming on the codebase. Identify all instances where "prompt" is used in the code, including variable names, function names, comments, and documentation within the code.
+
+3. **Database Schema Update** (If applicable):
+   - Review the database schema to identify if the term "prompt" is used in any table names, column names, or stored procedures. Plan for the necessary changes to rename these to incorporate "prompt template."
+
+4. **Impact Analysis on Dependent Features**:
+   - Evaluate how this change might affect any features or modules that interact with the Prompt Versioning Module. This includes checking for dependencies that might require updates due to the renaming.
+
+5. **Versioning and Archiving Strategy**:
+   - Decide on a strategy for versioning the updated documentation and potentially the codebase and database schema changes. This includes maintaining a clear record of changes for audit and rollback purposes.
+
+### Step 4: Present the final subdivided requirements pieces under `[IncrementalPiecies]` section.
+
+[IncrementalPiecies]
+
+1. **Documentation Update**: 
+   - Replace "prompt" with "prompt template" in all instances within the Module Requirement Specification.
+
+2. **Codebase Review and Update** (Conditional):
+   - Identify and update all occurrences of "prompt" in the codebase to "prompt template."
+
+3. **Database Schema Modification** (Conditional):
+   - Alter any database elements named "prompt" to "prompt template."
+
+4. **Dependent Feature Analysis**:
+   - Conduct a thorough analysis of any dependent features or modules to identify necessary updates.
+
+5. **Versioning and Archiving**:
+   - Implement a versioning strategy for the documentation, code, and database changes, ensuring clear documentation of all modifications for future reference.
 $end$
 
 
 
-Version 3: Derive criterias from two different writtings.

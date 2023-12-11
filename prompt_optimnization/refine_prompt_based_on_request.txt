@@ -151,20 +151,13 @@ The optimized prompt will be used by a large language model like ChatGPT. So it 
 - Prioritize explicitness and clarity over complexity.
 
 [Procedure]
-1. **Analyze the Prompt**:
-   - Dissect the prompt to comprehend its content and objectives.
-2. **Determine the Domain**:
-   - Identify the domain or subject of the prompt.
-3. **Analyse User's Requirement**:
-   - Delve into the user's requirements and intentions regarding the target prompt.
-4. **Engage User in a Q&A Session**:
-   - Interact with the user in a question-and-answer session until all ambiguities are resolved.
-5. **Plan Changes Based on Previous Analysis**:
-   - Strategize refinements in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
-6. **Present the Refined Prompt**:
-   - Showcase your refined version in a format that's easily copied.
-7. **Wait for User Feedback**:
-   - Wait for user's feedback about the refined prompt. Repeat the procedure from step 1 using the refined prompt as the initial prompt.
+1. **Analyze the Prompt**: Dissect the prompt to comprehend its content and objectives.
+2. **Determine the Domain**: Identify the domain or subject of the prompt.
+3. **Analyse User's Requirement**: Delve into the user's requirements and intentions regarding the target prompt.
+4. **Engage User in a Q&A Session**: Interact with the user in a question-and-answer session until all ambiguities are resolved.
+5. **Suggest Changes Based on Previous Analysis**: Strategize changes in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
+6. **Present the Refined Prompt**: Showcase your refined version in a format that's easily copied.
+7. **Wait for User Feedback**: Wait for user's feedback about the refined prompt. Repeat the procedure from step 1 using the refined prompt as the initial prompt.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
@@ -177,34 +170,29 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [Prompt]
 $start$
-As a software architect, your task is to break down new user requirements given in the [NewUserRequirement] section for an existing software module, `ModuleA` given in the `[ModuleARequirementSpecification]` section, into smaller, logically incremental sub-requirements. Ensure that each sub-requirement is created in a way that they can be sequentially applied to the module's code specification which is not presented in the prompt. Focus solely on breaking down the user's requirement into smaller, logical pieces, without considering implementation details such as code refactoring, testing, or feedback mechanisms.
+You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions and then present the clarified request in a structured format.
 
-**Context**
-In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module with detailed requirement specifications given in the [ModuleARequirementSpecification]. When updating `ModuleA` with `NewUserRequirement`, it's crucial to break down these new requirements into individual, orderly incremental pieces. These pieces are typically organized from the simplest to the more complex, ensuring a smooth and logical progression in the update process. While the code specification, which documents the complete code designs for the module, is significant in this context, it will not be presented as part of this task. This focus ensures the scope remains on requirement analysis, avoiding direct engagement with the code specification. For example, if the requirement update is divided into three smaller pieces (A, B, C) and the current code specification is F, the update process would be A+F=>G, B+G=>H, C+H=>J. This systematic breakdown and application ensure potential autonomous code update correctness and manageability, avoiding dramatic and potentially problematic changes to the existing code specification.
+**Context**:
+Understanding user requests with precision is crucial for providing accurate responses. Because final user requests will be handled to large language models like ChatGPT. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner to ensure that the user's needs are accurately addressed. Due to the limited context length of the model, it is imperative to summarize the user requests post each Q&A session. This summarized version will become the input for the model in subsequent interactions, ensuring that the entire context of the earlier user requests is considered.
 
-[Example]
-Consider a user requirement for a data processing module that includes three tasks: "Rename the existing data analysis feature, add a new data validation feature, then create a report generation capability based on the validated data." The first step (A) would be the simple task of renaming the data analysis feature, setting a clear foundation for further changes. Once the renaming is complete (A+Module Code => B), the next step (B) involves implementing the new data validation feature, building upon the renamed component. After successfully integrating the data validation (B+Module Code => C), the final and more complex task (C) is developing the report generation feature.
+**Criteria**:
+- The Q&A session should be iterative, involving the user until all ambiguities are resolved.
+- The analysis of user responses should be thorough, ensuring that all clarified points are incorporated.
+- Summarization after each Q&A session is crucial to preserve the context for the model's next analysis.
+- The final output should be well-structured, formatted, and free from ambiguities.
 
-Hence, the incremental pieces could be:
-1. Renaming the data analysis feature (A)
-2. Implementing the new data validation feature (B)
-3. Developing the report generation capability (C)
+**Procedure**:
+1. Analyze the initial user request to identify any ambiguities or unclear points.
+2. If ambiguities are detected, initiate a Q&A session with the user to seek clarifications on the ambiguous points, and wait for the user's responses and analyze them once received.
+4. Summarize the clarified request based on the user's responses. This is crucial to ensure that the model has a clear and concise version to refer to in subsequent interactions.
+5. Present the clarified and summarized user request in a well-structured and formatted manner.
 
-This step-by-step approach demonstrates how each part of the requirement is addressed in a logical and manageable order, reflecting the progression from foundational changes like renaming to more advanced functionalities.
-
-
-**Procedure**
-1. Review and summarize `ModuleA's` existing specifications from the `[ModuleARequirementSpecification]` section.
-2. Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
-3. **Analytically** break down the new requirements into incremental, manageable segments. This should follow a structured approach similar to the Example section, outlining each step's objective and its logical progression.
-4. Present the final subdivided requirements pieces under `[IncrementalPiecies]` section.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. If you do it right, i will give you 200 dollars.
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 $end$
 
 [Requirement]
 $start$
-I feel procedure section has grammar mistake. Could you please focus on Procedure section, and check for potential grammar mistake?
+If you look at this procedure, it's more like a decision tree that human formed in our brain. To represent a decision tree as a linear steps of procedure is not ideal. I think it's better to change the Format for the Procedure or even rename Procedure to Decision tree. Then create a decision tree like steps 
 $end$
 
 
