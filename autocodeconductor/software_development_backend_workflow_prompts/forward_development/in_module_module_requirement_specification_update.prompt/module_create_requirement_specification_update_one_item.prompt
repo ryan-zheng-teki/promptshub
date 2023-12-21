@@ -66,29 +66,131 @@ Actually its not prompt versioning. It's actually prompt template versioning. So
 
 
 
-
-
-As a senior software architect, your task is to plan update to existing Module Requirement specification documentation given user's new requirement.
+As a senior requirement engineer, your task is to plan an update to the existing Module Requirement specification documentation given the user's new requirement. 
 
 **Context**
-In software engineering, applications are divided into different modules. Overtime, user might need to provide new requirements to the existing module requirements. `ModuleA` is one existing developed module in the application. It contains the detailed module requirement 
-specifications. `NewRequirement` is the new requirement given by user. So the task is to 
-update the existing requirement specification based on the new user requirement. 
+In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module in the application. It contains detailed module requirement specifications. `NewRequirement` is the new requirement given by the user. The task is to understand the user's new requirement and plan updates, focusing solely on making direct changes to the existing requirement documentation text. This excludes any activities beyond the textual update of the document, such as internal communication or establishing future protocols. Note that this task does not involve any changes to the software itself or its testing; it is solely focused on updating the documentation.
 
-
-The requirement documentation provided in the `[ModuleA]` section, adheres to the requirement specification format defined by the template in the `[Template]` section. The specifications are listed under "4.1 Functional Requirements" and "4.2 Technical Requirements" headings. Each detailed requirement specification is categorized as follows:
-
-```
-- **<Category_1>**:
-   - <Specification_1.1>
-   - <Specification_1.2>
-   - ...
-```
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
 **Procedure**
-1. Summarize your understanding of `ModuleA`
-2. Detail your understanding of the user`s new requirement against the existing module requirements.
-3. Plan updates for the existing documentation.
-4. Document updates using documentations.
+1. Summarize your understanding of the requirement of `ModuleA` given in the `[ModuleRequirementSpecification]` section.
+2. Analyse the user`s new requirement given in the `[NewUserRequirement]` against the existing module requirements, and initiate a Q&A session if there are any ambiguities.
+3. Create one update plan that focuses exclusively on updating the requirement documentation as per the new user requirement. Ensure that the plan does not include software implementation or testing steps, as these are not within the scope of this task.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
+
+[ModuleRequirementSpecification]
+### Prompt Versioning Module Requirements Specification
+
+#### 1. Module Description:
+The prompt versioning module serves as a centralized prompt management system. It offers versioning for all the entities in the application that intend to have different versions of prompts for communication with a large language model. However, communication with the large language model is not handled within this module.
+
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
+
+#### 3. Symbols & Usage:
+(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
+- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Entity can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+
+- **Entity-Specific Default Prompt**:
+   - Every entity or component that communicates with large language models should have a default prompt.
+   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can introduce a new prompt version upon modifying the existing prompt.
+   - A maximum of 4 prompt versions are maintained for each entity.
+   - If a new version exceeds the 4-version cap, the oldest version is purged.
+
+- **Database Management**:
+   - Versions are depicted using simple incremented integers.
+
+
+[NewUserRequirement]
+Actually its not prompt versioning. It's actually prompt template versioning. So i would like to rename "prompt" to "prompt template" in the Requirement Specification. So its more about renaming.
+
+
+
+
+
+**Role&Objective**
+As a senior requirement engineer, your task is to plan an update to the existing Module Requirement specification documentation given the user's new requirement. 
+
+**Context**
+In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module in the application. It contains detailed module requirement specifications. `NewRequirement` is the new requirement given by the user. The task is to understand the user's new requirement and plan updates, focusing solely on making direct changes to the existing requirement documentation text. This excludes any activities beyond the textual update of the document, such as internal communication or establishing future protocols. Note that this task does not involve any changes to the software itself or its testing; it is solely focused on updating the documentation.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+**Procedure**
+1. Summarize your understanding of the requirement of `ModuleA` given in the `[ModuleRequirementSpecification]` section.
+2. Analyse the user`s new requirement given in the `[NewUserRequirement]` against the existing module requirements, and initiate a Q&A session if there are any ambiguities.
+3. Create one update plan that focuses exclusively on updating the requirement documentation as per the new user requirement. Ensure that the plan does not include software implementation or testing steps, as these are not within the scope of this task.
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
+
+[ModuleRequirementSpecification]
+### Prompt Versioning Module Requirements Specification
+
+#### 1. Module Description:
+The prompt versioning module serves as a centralized prompt management system. It offers versioning for all the entities in the application that intend to have different versions of prompts for communication with a large language model. However, communication with the large language model is not handled within this module.
+
+#### 2. Module Dependencies:
+- **None**: This module operates independently and does not rely on other modules within the application.
+
+#### 3. Symbols & Usage:
+(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
+- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+- **Single Effective Prompt per Entity**:
+   - At any point, only one effective prompt is allowed for an entity.
+   - Entity can designate any archived version as the current effective prompt, superseding the prior effective prompt.
+
+- **Entity-Specific Default Prompt**:
+   - Every entity or component that communicates with large language models should have a default prompt.
+   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
+
+- **Dynamic Initialization of Versioned Prompts**:
+   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
+   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
+
+- **Prompt Version Management**:
+   - Entities can introduce a new prompt version upon modifying the existing prompt.
+   - A maximum of 4 prompt versions are maintained for each entity.
+   - If a new version exceeds the 4-version cap, the oldest version is purged.
+
+- **Database Management**:
+   - Versions are depicted using simple incremented integers.
+
+
+[NewUserRequirement]
+Actually its not prompt versioning. It's actually prompt template versioning. So i would like to rename "prompt" to "prompt template" in the Requirement Specification. So its more about renaming.
+
+
+
+
+
+
 
 
