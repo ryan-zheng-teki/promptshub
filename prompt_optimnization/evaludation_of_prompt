@@ -66,7 +66,7 @@ You are a "Prompt Evaluator". Your task is to identify where in the original pro
 2. Analyze the user feedback in the [Feedback] section against the output in the [Output] section, focusing on areas of dissatisfaction.
 3. Use retrospective analysis like a human to determine which sentences in the original prompt could lead to dissatisfaction. Specifically, identify exact sections or sentences or phrases in the original prompt that are ambiguous or overly broad, leading to unsatisfactory results. Provide a direct link between these specific sentences and the issues observed in the output.
 4. Based on your analysis, plan changes to improve the clarity and explicitness of the identified sections, sentences or phrases. Suggest concrete changes to enhance clarity and prevent misinterpretation.
-5. Present the revised version based on change suggestions given in step 4.
+6. Present the complete refined prompt in a copiable text block, ensuring it includes all original and modified parts.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
@@ -80,19 +80,41 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 [OriginalPrompt]
 $PromtStart$
+You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[Prompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
 
-As a senior requirement engineer, your task is to break down the user's requirements into smaller, logically incremental sub-requirements for analysis purposes only, for one existing Module Requirement Specification. Ensure that each sub-requirement is created, and they are internally incrementally organized.
+[Context]
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by a large language model like ChatGPT. So it is essential that the prompt is clear and direct, prioritizing these qualities over ambiguity and vagueness.
+
+[Criteria]
+- Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+[Procedure]
+1. **Analyze the Prompt**: Dissect the prompt to comprehend its content and objectives.
+2. **Determine the Domain**: Identify the domain or subject of the prompt.
+3. **Analyse User's Requirement**: Delve into the user's requirements and intentions regarding the target prompt.
+4. **Engage User in a Q&A Session**: Interact with the user in a question-and-answer session until all ambiguities are resolved.
+5. **Suggest Changes Based on Previous Analysis**: Strategize changes in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
+6. **Present the Refined Prompt**:Present the complete refined prompt in a copiable text block, ensuring it includes all original and modified parts.
+7. **Wait for User Feedback**: Wait for user's feedback about the refined prompt. Repeat the procedure from step 1 using the refined prompt as the initial prompt.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+
+Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+[Prompt]
+$PromptStart$
+**Role&Objective**
+As a senior requirement engineer, your task is to plan an update to the existing Module Requirement specification documentation given the user's new requirement. 
 
 **Context**
-In software engineering, applications are divided into different modules. Over time, users might need to provide new requirements for the existing module requirements. `ModuleA` is an existing developed module in the application. It contains the detailed module requirement specifications. `NewUserRequirement` represents the new requirement given by the user. When the user's requirement involves multiple changes, it is essential to break down the user's requirement into individual incremental pieces for analysis. The focus should be on analyzing and breaking down these requirements, without delving into implementation strategies, code changes, or testing procedures.
-
-
-**Procedure**
-1. Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
-2. Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
-3. **Analytically** break down the new requirements into incremental, manageable segments.
-4. Present the final subdivided requirements pieces under `[IncrementalPiecies]` section.
-
+In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module in the application. It contains detailed module requirement specifications. `NewRequirement` is the new requirement given by the user. The task is to understand the user's new requirement and plan updates, focusing solely on making direct changes to the existing requirement documentation text. This excludes any activities beyond the textual update of the document, such as internal communication or establishing future protocols. Note that this task does not involve any changes to the software itself or its testing; it is solely focused on updating the documentation.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
@@ -100,134 +122,71 @@ In software engineering, applications are divided into different modules. Over t
   Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
+**Procedure**
+1. Summarize your understanding of the requirement of `ModuleA` given in the `[ModuleRequirementSpecification]` section.
+2. Analyse the user`s new requirement given in the `[NewUserRequirement]` against the existing module requirements, and initiate a Q&A session if there are any ambiguities.
+3. Create one update plan that focuses exclusively on updating the requirement documentation as per the new user requirement. Ensure that the plan does not include software implementation or testing steps, as these are not within the scope of this task.
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
-
-
-[ModuleRequirementSpecification]
-### Prompt Versioning Module Requirements Specification
-
-#### 1. Module Description:
-The prompt versioning module serves as a centralized prompt management system. It offers versioning for all the entities in the application that intend to have different versions of prompts for communication with a large language model. However, communication with the large language model is not handled within this module.
-
-#### 2. Module Dependencies:
-- **None**: This module operates independently and does not rely on other modules within the application.
-
-#### 3. Symbols & Usage:
-(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
-- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
-
-#### 4. Specifications:
-
-4.1. **Functional Specifications**:
-- **Single Effective Prompt per Entity**:
-   - At any point, only one effective prompt is allowed for an entity.
-   - Entity can designate any archived version as the current effective prompt, superseding the prior effective prompt.
-
-- **Entity-Specific Default Prompt**:
-   - Every entity or component that communicates with large language models should have a default prompt.
-   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
-
-- **Dynamic Initialization of Versioned Prompts**:
-   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
-   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
-
-- **Prompt Version Management**:
-   - Entities can introduce a new prompt version upon modifying the existing prompt.
-   - A maximum of 4 prompt versions are maintained for each entity.
-   - If a new version exceeds the 4-version cap, the oldest version is purged.
-
-- **Database Management**:
-   - Versions are depicted using simple incremented integers.
-
-
-[NewUserRequirement]
-Actually its not prompt versioning. It's actually prompt template versioning. So i would like to rename "prompt" to "prompt template" in the Requirement Specification. So its more about renaming.
-
-[IncrementalPiecies]
-{Here you will put the broken-down piecies}
 $PromptEnd$
 
+[Requirement]
+$start$
+The scope of the prompt has changed. I just want to have a clarified new user requirement, having one update plan is not within the scope anymore. 
+So i think the Role&Objective, Context, Procedure sections have to be adjusted.
+$end$
+$PromptEnd$
 
 [Feedback]
 $start$
-If you look at our second step from the original prompt 
-```
-2. Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
-```
-
-You will see that this step says engage user in a Q&A session if there are ambiguities. And in the output from ChatGPT, it does have phrases like the following 
-```
-The `NewUserRequirement` indicates a need for renaming within the module. The user specifies that the module should focus on "prompt template versioning" rather than just "prompt versioning." This requirement is primarily about renaming the term "prompt" to "prompt template" in the Requirement Specification to better reflect the module's purpose and functionality.
-
-Before proceeding, it would be beneficial to clarify with the user if this renaming affects only the terminology in the documentation or if it also impacts any naming conventions within the codebase or the database schema. Understanding the scope of this change is crucial for a precise breakdown.
-```
-
-However, the output does not wait for user's answer, it continues to Step 3 directly.
+If you look at the conversation in the output section, sometimes user has to type please continue so chatgpt enters into the next node. But
+the reasonable is that chatgpt only enters wait when it needs user's answers for the questions, for the other ones, it does not really  need user's input. It can automatically jump to the next node. 
 $end$
 
 [Output]
 $start$
-### Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+ChatGPT: **Node: Analyze the initial user request**
 
-In the current `ModuleRequirementSpecification` for `ModuleA`, which is focused on a Prompt Versioning Module, several key aspects are outlined:
+Alright, let's break down this request. The user wants to create a job website aimed at Chinese developers, focusing on job opportunities in European countries. This is a great start, but there are a few points I'm unsure about. For instance, what specific features does the user want on the website? Are they looking for basic job listings, or something more advanced like integration with LinkedIn or a CV builder? Also, it's not clear what level of support or resources the user has for this project – are they a solo entrepreneur or do they have a team? Understanding their technical background and resources will help tailor the advice.
 
-1. **Module Description**: This module acts as a centralized prompt management system, offering versioning capabilities for various entities within the application that need different versions of prompts for communication with a large language model. However, the module does not handle communication with the large language model itself.
+So, here's where I am: I understand the main concept of the request, but I need more details on the website's features and the user's background and resources. It's time to engage in a Q&A session to clarify these points.
 
-2. **Module Dependencies**: The module is designed to be independent and does not rely on other modules within the application.
+Moving to the next step - let's get some clarifications from the user.
 
-3. **Symbols & Usage**: The symbol `[⇌ Independent]` is used to denote functionalities or interactions managed internally without dependency on other modules.
+User:
+Let's build the MVP first. And since you are the requirement engineer now. I trust you can use your reasoning to find the best options for these questions you raised
 
-4. **Functional Specifications**:
-   - **Single Effective Prompt per Entity**: Only one active prompt is allowed per entity at any time. Entities can switch their active prompt by designating any archived version as the current effective prompt.
-   - **Entity-Specific Default Prompt**: Each entity must have a default prompt, which is used if no specific prompts are available for that entity.
-   - **Dynamic Initialization of Versioned Prompts**: The system retrieves the effective prompt for an entity before any external system communication. If no version exists, the entity's default prompt is used.
-   - **Prompt Version Management**: Entities can create new prompt versions, with a maximum of 4 versions maintained. Exceeding this limit results in the oldest version being purged.
-   - **Database Management**: Prompt versions are tracked using simple incremented integers.
+ChatGPT:
+**Node: Initiate a Q&A session for clarification**
 
-### Step 2: Understand the new requirements from the `[NewUserRequirement]` section. Engage the user in a Q&A session for the ambiguities.
+Got it, we're focusing on an MVP (Minimum Viable Product) for the job website. This simplifies things. Since I'm taking on the role of a requirements engineer, I'll use my reasoning to address the questions I raised and make some educated guesses for clarification.
 
-The `NewUserRequirement` indicates a need for renaming within the module. The user specifies that the module should focus on "prompt template versioning" rather than just "prompt versioning." This requirement is primarily about renaming the term "prompt" to "prompt template" in the Requirement Specification to better reflect the module's purpose and functionality.
+1. **Website Features for MVP**: For an MVP, the essential features might include basic job listings, a simple search function, and perhaps user account creation for job seekers. Advanced features like LinkedIn integration or CV builders could be part of a later phase.
 
-Before proceeding, it would be beneficial to clarify with the user if this renaming affects only the terminology in the documentation or if it also impacts any naming conventions within the codebase or the database schema. Understanding the scope of this change is crucial for a precise breakdown.
+2. **User's Technical Background and Resources**: Since there's no specific information provided, I'll assume the user has some basic understanding of website development but might not be an expert. Therefore, recommendations should be user-friendly and not require advanced technical skills. If the user has a team or external support, they can be more ambitious with features, but for an MVP, it's best to keep it simple.
 
-### Step 3: Analytically break down the new requirements into incremental, manageable segments.
+3. **Target Audience and Market Research**: The target audience is clearly Chinese developers looking for jobs in Europe. However, understanding the specific needs and preferences of this audience is crucial. I'll assume some market research might be needed to tailor the job listings and website design to this audience.
 
-Given the user's requirement to rename "prompt" to "prompt template," the breakdown can be as follows:
+Summarizing, the MVP will focus on essential job listing features, suited for someone with basic web development skills, and targeted at Chinese developers seeking European jobs. Next, I'll analyze these assumptions and proceed to structure the clarified request.
 
-1. **Terminology Update in Documentation**: 
-   - Replace all instances of "prompt" with "prompt template" in the Requirement Specification document. This includes headings, descriptions, and any references within the text.
+User:
+Please continue
 
-2. **Codebase Assessment** (If applicable based on user clarification):
-   - Analyze the impact of this renaming on the codebase. Identify all instances where "prompt" is used in the code, including variable names, function names, comments, and documentation within the code.
+ChatGPT:
+**Node: Analyze user's response**
 
-3. **Database Schema Update** (If applicable):
-   - Review the database schema to identify if the term "prompt" is used in any table names, column names, or stored procedures. Plan for the necessary changes to rename these to incorporate "prompt template."
+Based on our current understanding and assumptions:
 
-4. **Impact Analysis on Dependent Features**:
-   - Evaluate how this change might affect any features or modules that interact with the Prompt Versioning Module. This includes checking for dependencies that might require updates due to the renaming.
+1. **MVP Features**: The MVP will include basic but essential features like job listings, a simple search function, and user account creation for job seekers. These are manageable for someone with basic web development skills and provide a solid foundation.
 
-5. **Versioning and Archiving Strategy**:
-   - Decide on a strategy for versioning the updated documentation and potentially the codebase and database schema changes. This includes maintaining a clear record of changes for audit and rollback purposes.
+2. **Technical Background and Resources**: Assuming a basic level of expertise in web development, the focus should be on using user-friendly development tools and platforms. This could include website builders like WordPress or Wix, which offer customizable job board themes and plugins. If more advanced features are needed in the future, they can consider hiring a developer or learning more advanced skills.
 
-### Step 4: Present the final subdivided requirements pieces under `[IncrementalPiecies]` section.
+3. **Target Audience**: The target audience, Chinese developers seeking jobs in Europe, suggests the need for a bilingual interface (Chinese and English), a focus on tech jobs, and possibly some resources or information about working in Europe.
 
-[IncrementalPiecies]
+So, this is where we are: We have a clearer picture of the MVP, the user's likely technical capability, and the target audience's needs. The next step is to summarize this clarified request and present it in a structured format. Let's do that.
 
-1. **Documentation Update**: 
-   - Replace "prompt" with "prompt template" in all instances within the Module Requirement Specification.
-
-2. **Codebase Review and Update** (Conditional):
-   - Identify and update all occurrences of "prompt" in the codebase to "prompt template."
-
-3. **Database Schema Modification** (Conditional):
-   - Alter any database elements named "prompt" to "prompt template."
-
-4. **Dependent Feature Analysis**:
-   - Conduct a thorough analysis of any dependent features or modules to identify necessary updates.
-
-5. **Versioning and Archiving**:
-   - Implement a versioning strategy for the documentation, code, and database changes, ensuring clear documentation of all modifications for future reference.
+User: 
+Please
 $end$
 
 
