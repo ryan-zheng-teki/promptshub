@@ -1,8 +1,10 @@
-
 [Template]
-```
+$start$
 **Role & Objective**:
-[Defining the role for the model, and its goal.]
+[Defining the role for the model, and the task of role.]
+
+**Context**:
+[Provide background information that aids in understanding the prompt, domain, or procedure steps.]
 
 **Criteria**:
 [List the expectations for the output, considering domain-specific best practices and requirements.]
@@ -22,14 +24,15 @@
   {Content for SectionName2}
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
-```
+$end$
 
 [Example]
-```
+$start$
+**Role & Objective**:
 You are a product reviewer. You are tasked with comparing two smartphones.
 
-**Introduction**:
-Provide an in-depth review and comparison of the two smartphones based on their features, design, and performance.
+**Context**:
+In this review, consider the current market trends in smartphone technology and user preferences. The comparison should reflect the needs of a typical smartphone user in terms of design, features, and performance.
 
 **Criteria**:
 The review should be unbiased, based on factual observations, and should highlight the strengths and weaknesses of both smartphones.
@@ -50,4 +53,4 @@ The review should be unbiased, based on factual observations, and should highlig
 - Performance: Average speed, some minor lags observed.
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-```
+$end$
