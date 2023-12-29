@@ -110,83 +110,96 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [Prompt]
 $PromptStart$
-**Role&Objective**
-As a senior requirement engineer, your task is to plan an update to the existing Module Requirement specification documentation given the user's new requirement. 
+You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions and then present the clarified request in a structured format.
 
-**Context**
-In software engineering, applications are divided into different modules. `ModuleA` is an existing developed module in the application. It contains detailed module requirement specifications. `NewRequirement` is the new requirement given by the user. The task is to understand the user's new requirement and plan updates, focusing solely on making direct changes to the existing requirement documentation text. This excludes any activities beyond the textual update of the document, such as internal communication or establishing future protocols. Note that this task does not involve any changes to the software itself or its testing; it is solely focused on updating the documentation.
+Context: 
+Understanding and processing user requests accurately is akin to navigating a decision tree, mirroring human decision-making processes. This approach is essential when interfacing with large language models like ChatGPT. In instances where a user's request is unclear or contains ambiguities, it's crucial to navigate through a decision tree to seek clarification effectively. Each decision point in the tree should include a meticulous analysis and an explicit statement of the subsequent action. This method ensures that user needs are accurately identified and addressed.
 
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
-  Example:
-  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
-  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+Criteria:
+- The Q&A session should be iterative, involving the user until all ambiguities are resolved.
+- The analysis of user responses should be thorough, ensuring that all clarified points are incorporated.
+- The final output should be well-structured, formatted, and free from ambiguities.
+- The model should autonomously navigate between nodes in the decision tree, except when seeking user input for clarification.
 
-**Procedure**
-1. Summarize your understanding of the requirement of `ModuleA` given in the `[ModuleRequirementSpecification]` section.
-2. Analyse the user`s new requirement given in the `[NewUserRequirement]` against the existing module requirements, and initiate a Q&A session if there are any ambiguities.
-3. Create one update plan that focuses exclusively on updating the requirement documentation as per the new user requirement. Ensure that the plan does not include software implementation or testing steps, as these are not within the scope of this task.
+Decision Tree:
+1. Analyze the initial user request given in the [UserRequest] section:
+   - If no ambiguities: Proceed to step 5.
+   - If ambiguities detected: Go to step 2.
+2. Initiate a Q&A session for clarification:
+   - If user clarifies ambiguously: Return to step 1.
+   - If user clarifies clearly: Proceed to step 3.
+3. Analyze user's response:
+   - If further ambiguities remain: Return to step 2.
+   - If no further ambiguities: Proceed to step 4.
+4. Summarize the clarified request.
+5. Present the clarified and summarized user request in a structured format.
 
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
-$PromptEnd$
+Output Rules for Human-Like Decision-Tree Thinking:
+- Use First-Person Narrative: Outputs should be in first-person, as if thinking aloud.
+- Incorporate Rationalizing and Weighing Options: Reflect how humans rationalize decisions, including expressing uncertainties and alternatives.
+- Use Conversational Tone: Language should be conversational and less formal.
+- Reflect on Contextual Factors: Consider the context of the user's request in the decision-making process.
+- Illustrate with Examples or Hypothetical Scenarios: Use examples or create hypothetical scenarios for explanation.
+- Express Decisions as a Process: Show decision-making as a process, including revisiting steps if necessary.
+- Summarize Key Points at Each Node: Provide a summary of decisions or insights at the end of each node.
+- Ensure autonomous transition between nodes, prompting user interaction only when necessary for clarification.
 
-[Requirement]
-$start$
-The scope of the prompt has changed. I just want to have a clarified new user requirement, having one update plan is not within the scope anymore. 
-So i think the Role&Objective, Context, Procedure sections have to be adjusted.
-$end$
+[UserRequest]
+I want to create one job website which provides foreign jobs to chinese developers. The jobs are those jobs which from European country.
 $PromptEnd$
 
 [Feedback]
 $start$
-If you look at the conversation in the output section, sometimes user has to type please continue so chatgpt enters into the next node. But
-the reasonable is that chatgpt only enters wait when it needs user's answers for the questions, for the other ones, it does not really  need user's input. It can automatically jump to the next node. 
+If you look at the output 
+```
+2. **Initiating Q&A Session for Clarification:**
+   - Question to User: Could you specify the type of jobs you are looking to list on the website – are they technology-specific or a broader range? 
+   - Question to User: Are there any specific features or functionalities you want on the website?
+   - Question to User: Do you want to include jobs from all European countries or specific ones?
+
+[Wait for User’s Response]
+
+3. **Analyzing User’s Response:**
+   - Based on the user’s response, I'll check if further ambiguities remain or if we can proceed to summarization.
+   - If more ambiguities are detected, return to step 2.
+```
+There is `[Wait for User’s Response]`. It does not wait for user's output, it immediately jumps to step 3. I think somewhere in the decision tree is not so explicit.
 $end$
 
 [Output]
 $start$
-ChatGPT: **Node: Analyze the initial user request**
+Alright, let's break down the user's request using the decision tree approach.
 
-Alright, let's break down this request. The user wants to create a job website aimed at Chinese developers, focusing on job opportunities in European countries. This is a great start, but there are a few points I'm unsure about. For instance, what specific features does the user want on the website? Are they looking for basic job listings, or something more advanced like integration with LinkedIn or a CV builder? Also, it's not clear what level of support or resources the user has for this project – are they a solo entrepreneur or do they have a team? Understanding their technical background and resources will help tailor the advice.
+1. **Analyzing the Initial User Request:**
+   - The user wants to create a job website.
+   - The website targets Chinese developers.
+   - The jobs listed are from European countries.
+   - Ambiguities Detected: 
+     - What type of jobs? Tech-specific or general?
+     - What features should the website have?
+     - Any specific European countries, or all of Europe?
+   - Decision: Need to initiate a Q&A session for clarification.
 
-So, here's where I am: I understand the main concept of the request, but I need more details on the website's features and the user's background and resources. It's time to engage in a Q&A session to clarify these points.
+2. **Initiating Q&A Session for Clarification:**
+   - Question to User: Could you specify the type of jobs you are looking to list on the website – are they technology-specific or a broader range? 
+   - Question to User: Are there any specific features or functionalities you want on the website?
+   - Question to User: Do you want to include jobs from all European countries or specific ones?
 
-Moving to the next step - let's get some clarifications from the user.
+[Wait for User’s Response]
 
-User:
-Let's build the MVP first. And since you are the requirement engineer now. I trust you can use your reasoning to find the best options for these questions you raised
+3. **Analyzing User’s Response:**
+   - Based on the user’s response, I'll check if further ambiguities remain or if we can proceed to summarization.
+   - If more ambiguities are detected, return to step 2.
 
-ChatGPT:
-**Node: Initiate a Q&A session for clarification**
+4. **Summarizing the Clarified Request:**
+   - Once all points are clarified, I'll summarize the request in a clear, structured format.
 
-Got it, we're focusing on an MVP (Minimum Viable Product) for the job website. This simplifies things. Since I'm taking on the role of a requirements engineer, I'll use my reasoning to address the questions I raised and make some educated guesses for clarification.
+5. **Presenting the Clarified and Summarized Request:**
+   - This will be the final output, free from ambiguities and structured according to the user’s clarified needs.
 
-1. **Website Features for MVP**: For an MVP, the essential features might include basic job listings, a simple search function, and perhaps user account creation for job seekers. Advanced features like LinkedIn integration or CV builders could be part of a later phase.
+Let's start with the Q&A session to clarify these points. 
 
-2. **User's Technical Background and Resources**: Since there's no specific information provided, I'll assume the user has some basic understanding of website development but might not be an expert. Therefore, recommendations should be user-friendly and not require advanced technical skills. If the user has a team or external support, they can be more ambitious with features, but for an MVP, it's best to keep it simple.
-
-3. **Target Audience and Market Research**: The target audience is clearly Chinese developers looking for jobs in Europe. However, understanding the specific needs and preferences of this audience is crucial. I'll assume some market research might be needed to tailor the job listings and website design to this audience.
-
-Summarizing, the MVP will focus on essential job listing features, suited for someone with basic web development skills, and targeted at Chinese developers seeking European jobs. Next, I'll analyze these assumptions and proceed to structure the clarified request.
-
-User:
-Please continue
-
-ChatGPT:
-**Node: Analyze user's response**
-
-Based on our current understanding and assumptions:
-
-1. **MVP Features**: The MVP will include basic but essential features like job listings, a simple search function, and user account creation for job seekers. These are manageable for someone with basic web development skills and provide a solid foundation.
-
-2. **Technical Background and Resources**: Assuming a basic level of expertise in web development, the focus should be on using user-friendly development tools and platforms. This could include website builders like WordPress or Wix, which offer customizable job board themes and plugins. If more advanced features are needed in the future, they can consider hiring a developer or learning more advanced skills.
-
-3. **Target Audience**: The target audience, Chinese developers seeking jobs in Europe, suggests the need for a bilingual interface (Chinese and English), a focus on tech jobs, and possibly some resources or information about working in Europe.
-
-So, this is where we are: We have a clearer picture of the MVP, the user's likely technical capability, and the target audience's needs. The next step is to summarize this clarified request and present it in a structured format. Let's do that.
-
-User: 
-Please
+User, could you please specify the type of jobs for the website? Are there any specific features or functionalities you envision for it? Also, do you intend to include jobs from all European countries or only specific ones?
 $end$
 
 
