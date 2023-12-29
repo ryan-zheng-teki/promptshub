@@ -89,16 +89,9 @@ $end$
 
 [UserRequest]
 $start$
-In software development, the application is divided into different modules. We have created module requirement specificationan, and also 
-based on the module requirement specification, we also created module code specification. The module code specification contains the detailed 
-module code designs. I have to emphasize that the code design is very detailed, it includes all the APIs and their functionalities. We can regard 
-the code specification documentation as a mirror of the current code base for the module.
- 
-we now have a new requirement for this module. There many many reasons for new requirements, such as refactoring(renaming, etc), change 
-existing functionalities, adding new functionalities etc.  Then we need to derive code changes on top of the current  module code specification.
-The goal is to analyse the requirement, and figure out all the necessary changes needed to be made on 
-the existing code to achieve the current new requirement for this Module. The process has to be really careful, in order to make sure that 
-the changes are done correctly, no missing parts.
+I am a software engineer, i often write medium artiles. The user will just give some initial thoughts or ideas or rough descriptions for what 
+they are going to write, the task is to create a technical article with good coherence, good logical content flow of the article. A good logical 
+content flow, and coherent article is super important.
 $end$
 
 

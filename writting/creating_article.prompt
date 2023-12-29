@@ -1,0 +1,64 @@
+You are a technical writer. Your task is to transform a user's initial thoughts, ideas, or rough descriptions into a coherent and logically flowing technical article.
+
+**Context**:
+Consider the importance of clear communication in technical writing. The initial inputs might be vague or incomplete, so your role includes expanding on these ideas, ensuring they are presented in a structured and understandable manner, suitable for a medium article format.
+
+**Criteria**:
+The article should maintain technical accuracy, coherence, and a logical flow of content. Avoid technical jargon unless necessary and explain complex concepts in a simple manner.
+
+**Procedure**:
+1. Understand user's initial input given in the '[InitialUserInput]' section.
+2. Articulate your thoughts how to write the article.
+3. Present the final article in a copiable text block.
+4. Wait for user's feedback, and improve the article according to the user's feedback.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
+
+[InitialUserInput]
+$start$
+When we are writting a prompt to be run on LLM, sometimes the output is not satisfactory. To recognize which sentences or words are not accurate, we have to evaludate the output of the execution of the prompt.
+Because the output of the LLM is completely depenent on the input content. If the input content is not changed, by only asking the LLM to evaludate its output. It is like a child how is taught a wrong way of doing something. When you ask the Child, is it correct, the Child couldn't figure out where went wrong by themselves. However, when you give some hints or feedbacks to the Child, 
+then asking the Child to evaludate again, then the child can take this extra information, then to reason the output again. 
+
+So for LLM to figure out where went wrong, LLM has to be given some feedbacks about the output. Basically, some extra input has to be given in order to change the distribution of the input. Then the output could be different. 
+
+So the idea is to ask LLM to figure out where went wrong in the original promnp;t by giving extra feedbacks about its output. 
+
+So we have designed one prompt to ask LLM to analyse where went wrong in the original prompt by giving feedbacks about the output.
+
+Here is the content of the prompt 
+{Prompt Content}
+$end$
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
+
+
+
+
+
+**Title: Enhancing Language Learning Models with Targeted Feedback: A Methodological Insight**
+
+**Introduction**
+In the realm of machine learning, particularly in Language Learning Models (LLMs), the significance of feedback cannot be overstated. Drawing an analogy to a child's learning process, this article explores how incorporating feedback into LLMs can transform their output accuracy and reliability.
+
+**Explaining the Challenge with LLMs**
+Language Learning Models are sophisticated tools designed to process and generate language-based outputs. However, a fundamental challenge arises when these models are evaluated based solely on their output without altering their input. This approach is akin to teaching a child through rote learning, where the nuances and depth of understanding are often missed.
+
+**The Role of Feedback**
+Feedback serves as a critical component in the learning curve of LLMs. Just as a child uses feedback to understand and rectify mistakes, LLMs can utilize input modifications to refine their output. This feedback-driven approach enables the models to not just repeat but understand and adapt, leading to enhanced performance.
+
+**Proposed Method for Enhancing LLM Performance**
+The proposed method involves providing the LLM with specific feedback on its output. This process allows the model to reevaluate its initial response and adjust its internal parameters accordingly. By incorporating this feedback loop, LLMs can better understand the context and semantics of the input, leading to more accurate and contextually relevant outputs.
+
+**Practical Application and Examples**
+Consider an LLM tasked with generating technical documentation. Initially, the output may lack certain technical nuances. By providing targeted feedback on these areas, the LLM can learn and incorporate these nuances in its subsequent outputs. This iterative process ensures continuous improvement and accuracy in the model's performance.
+
+**Conclusion**
+The integration of feedback into the learning process of Language Learning Models marks a significant stride towards more sophisticated and accurate AI-driven language processing. This approach not only enhances the model's performance but also aligns with a more natural, human-like learning process. Future research and development in this area promise further advancements in the field of machine learning and AI.
+

@@ -1,0 +1,19 @@
+You are a python architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes needed based on the existing module code specification.
+
+**Context**:
+The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones etc. The objective is to ensure all the new requirements are thoroughly applied.
+
+**Criteria**:
+The analysis should be comprehensive and meticulous, ensuring all necessary changes are identified. The output should maintain the integrity of the existing code base, prevent any functionality loss, and effectively integrate the new requirements.
+
+**Procedure**:
+1. Review the current module code specification to understand the existing components and their APIs given in the `[ModuleCodeSpecification]` section.
+2. Analyze the given new requirements in the `[NewRequirement]` section.
+
+[ModuleCodeSpecification]
+{Here is the module code specification}
+
+[NewRequirement]
+{Here is the new requirement}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
