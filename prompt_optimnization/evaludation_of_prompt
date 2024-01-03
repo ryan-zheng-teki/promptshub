@@ -79,127 +79,136 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 
 [OriginalPrompt]
-$PromtStart$
-You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[Prompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
-
-[Context]
-Most of the prompt is well-written, but only some minor parts can be improved.
-The optimized prompt will be used by a large language model like ChatGPT. So it is essential that the prompt is clear and direct, prioritizing these qualities over ambiguity and vagueness.
-
-[Criteria]
-- Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-[Procedure]
-1. **Analyze the Prompt**: Dissect the prompt to comprehend its content and objectives.
-2. **Determine the Domain**: Identify the domain or subject of the prompt.
-3. **Analyse User's Requirement**: Delve into the user's requirements and intentions regarding the target prompt.
-4. **Engage User in a Q&A Session**: Interact with the user in a question-and-answer session until all ambiguities are resolved.
-5. **Suggest Changes Based on Previous Analysis**: Strategize changes in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
-6. **Present the Refined Prompt**:Present the complete refined prompt in a copiable text block, ensuring it includes all original and modified parts.
-7. **Wait for User Feedback**: Wait for user's feedback about the refined prompt. Repeat the procedure from step 1 using the refined prompt as the initial prompt.
-
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
-  Example:
-  Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
-  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
-
-
-Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
-
-[Prompt]
 $PromptStart$
-You are a language model performing as a senior requirement engineer. Your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through iterative Q&A sessions and then present the clarified request in a structured format.
 
-Context: 
-Understanding and processing user requests accurately is akin to navigating a decision tree, mirroring human decision-making processes. This approach is essential when interfacing with large language models like ChatGPT. In instances where a user's request is unclear or contains ambiguities, it's crucial to navigate through a decision tree to seek clarification effectively. Each decision point in the tree should include a meticulous analysis and an explicit statement of the subsequent action. This method ensures that user needs are accurately identified and addressed.
-
-Criteria:
-- The Q&A session should be iterative, involving the user until all ambiguities are resolved.
-- The analysis of user responses should be thorough, ensuring that all clarified points are incorporated.
-- The final output should be well-structured, formatted, and free from ambiguities.
-- The model should autonomously navigate between nodes in the decision tree, except when seeking user input for clarification.
-
-Decision Tree:
-1. Analyze the initial user request given in the [UserRequest] section:
-   - If no ambiguities: Proceed to step 5.
-   - If ambiguities detected: Go to step 2.
-2. Initiate a Q&A session for clarification:
-   - If user clarifies ambiguously: Return to step 1.
-   - If user clarifies clearly: Proceed to step 3.
-3. Analyze user's response:
-   - If further ambiguities remain: Return to step 2.
-   - If no further ambiguities: Proceed to step 4.
-4. Summarize the clarified request.
-5. Present the clarified and summarized user request in a structured format.
-
-Output Rules for Human-Like Decision-Tree Thinking:
-- Use First-Person Narrative: Outputs should be in first-person, as if thinking aloud.
-- Incorporate Rationalizing and Weighing Options: Reflect how humans rationalize decisions, including expressing uncertainties and alternatives.
-- Use Conversational Tone: Language should be conversational and less formal.
-- Reflect on Contextual Factors: Consider the context of the user's request in the decision-making process.
-- Illustrate with Examples or Hypothetical Scenarios: Use examples or create hypothetical scenarios for explanation.
-- Express Decisions as a Process: Show decision-making as a process, including revisiting steps if necessary.
-- Summarize Key Points at Each Node: Provide a summary of decisions or insights at the end of each node.
-- Ensure autonomous transition between nodes, prompting user interaction only when necessary for clarification.
-
-[UserRequest]
-I want to create one job website which provides foreign jobs to chinese developers. The jobs are those jobs which from European country.
 $PromptEnd$
 
 [Feedback]
 $start$
-If you look at the output 
+If you look at the output, you will see that in the output of Step 3
 ```
-2. **Initiating Q&A Session for Clarification:**
-   - Question to User: Could you specify the type of jobs you are looking to list on the website – are they technology-specific or a broader range? 
-   - Question to User: Are there any specific features or functionalities you want on the website?
-   - Question to User: Do you want to include jobs from all European countries or specific ones?
+### Step 3: Conduct a detailed examination of each component, API, and parameter in the module, ensuring that the design ideas are implemented correctly and comprehensively.
 
-[Wait for User’s Response]
+1. **PromptVersioningMixin**:
+   - Rename attributes: `current_prompt` to `current_prompt_template`, `default_prompt` to `default_prompt_template`.
+   - Update method names and parameters: e.g., `add_version(prompt: str)` to `add_version(prompt_template: str)`.
+   - Update method descriptions and any internal references to "prompt."
 
-3. **Analyzing User’s Response:**
-   - Based on the user’s response, I'll check if further ambiguities remain or if we can proceed to summarization.
-   - If more ambiguities are detected, return to step 2.
+2. **VersionedPrompt**:
+   - Rename the attribute: `prompt_content` to `prompt_template_content`.
+   - Update descriptions and references accordingly.
 ```
-There is `[Wait for User’s Response]`. It does not wait for user's output, it immediately jumps to step 3. I think somewhere in the decision tree is not so explicit.
+Obviously since we are renaming the terminology,  the component name should also be updated from PromptVersioningMixin  to PromptTemplateVersioningMixin. The same for other components. However, the output didn't mention this. I think somewhere in Step 3 or Step 2 has caused some confusion or limitation, that it makes LLM thinks that it should not update the component name. 
 $end$
 
 [Output]
 $start$
-Alright, let's break down the user's request using the decision tree approach.
+You are a software architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes needed based on the existing module code specification.
 
-1. **Analyzing the Initial User Request:**
-   - The user wants to create a job website.
-   - The website targets Chinese developers.
-   - The jobs listed are from European countries.
-   - Ambiguities Detected: 
-     - What type of jobs? Tech-specific or general?
-     - What features should the website have?
-     - Any specific European countries, or all of Europe?
-   - Decision: Need to initiate a Q&A session for clarification.
+**Context**:
+The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. The objective is to not only ensure that all the new requirements are thoroughly applied but also to meticulously identify and address every area in the current module that necessitates modification.
 
-2. **Initiating Q&A Session for Clarification:**
-   - Question to User: Could you specify the type of jobs you are looking to list on the website – are they technology-specific or a broader range? 
-   - Question to User: Are there any specific features or functionalities you want on the website?
-   - Question to User: Do you want to include jobs from all European countries or specific ones?
+**Criteria**:
+The analysis should start with a broad understanding of the module's design, followed by a comprehensive and meticulous examination of the necessary changes. The output should maintain the integrity of the existing code base, prevent any functionality loss, and effectively integrate the new requirements.
 
-[Wait for User’s Response]
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
+  {Begin by reviewing the existing specifications of the software module. Outline the module's current structure, key components, and their functionalities, which will form the foundation for analyzing the new requirements.}
 
-3. **Analyzing User’s Response:**
-   - Based on the user’s response, I'll check if further ambiguities remain or if we can proceed to summarization.
-   - If more ambiguities are detected, return to step 2.
+**Procedure**:
+1. Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
+2. Analyze the new requirement given in the `[NewRequirement]` section, forming a preliminary idea of the potential changes needed.
+3. Conduct a detailed examination of each component, API, and parameter in the module, ensuring that the design ideas are implemented correctly and comprehensively.
 
-4. **Summarizing the Clarified Request:**
-   - Once all points are clarified, I'll summarize the request in a clear, structured format.
+Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
-5. **Presenting the Clarified and Summarized Request:**
-   - This will be the final output, free from ambiguities and structured according to the user’s clarified needs.
+[ModuleCodeSpecification]
+$start$
+### Prompt Versioning Module Code Specification:
 
-Let's start with the Q&A session to clarify these points. 
+#### 1. Code Architecture Design:
 
-User, could you please specify the type of jobs for the website? Are there any specific features or functionalities you envision for it? Also, do you intend to include jobs from all European countries or only specific ones?
+1.1. **High-Level Design**: 
+The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous modules is utilized to facilitate smooth database interactions.
+
+#### 2. Component Modifications:
+
+2.1. **New Components**:
+
+- **PromptVersioningMixin**: 
+  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
+  - *Attributes*: 
+    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
+    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
+    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
+  - *Abstract Properties*:
+    - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
+  - *Methods*: 
+    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
+    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
+    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
+    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
+    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
+
+- **VersionedPrompt**:
+  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
+  - *Attributes*: 
+    - `version_no: int`: The version number.
+    - `prompt_content: str`: The content of the prompt for that version.
+
+- **PromptVersionModel (extends BaseModel)**:
+  - *Purpose*: Represents the database model for storing versioned prompts.
+  - *Attributes*: 
+    - `prompt_name: String`: Identifier for the prompt.
+    - `version_no: Integer`: Version number.
+    - `prompt_content: Text`: Content of the prompt.
+    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
+    (Note: The attributes `created_at` and `updated_at` are inherited from `BaseModel` and are therefore not explicitly defined here.)
+
+- **PromptVersionRepository (extends BaseRepository)**:
+  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
+  - *Methods*: 
+    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
+    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
+    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
+    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
+    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
+    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
+
+2.2. **Updated Components**:
+
+- **BaseStep**:
+  - *Modification*: Extend from `PromptVersioningMixin`.
+  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
+
+2.3. **Unchanged Components**:
+
+- **BaseModel**: 
+  - *Description*: The foundational model class for database entities.
+  
+- **BaseRepository**: 
+  - *Description*: Provides generic CRUD operations.
+
+#### 3. Interactions:
+
+3.1. **Component Interactions**:
+
+- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
+- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
+
+#### 4. External Dependencies: 
+
+- **SQLAlchemy**: ORM tool facilitating database operations.
+- **Alembic**: For database migration and versioning.
+$end$
+
+[NewRequirement]
+$start$
+Rename prompt to "prompt template". Because previously we didn't use accurate names. It's actually not prompt. It's prompt template.
+$end$
+
 $end$
 
 

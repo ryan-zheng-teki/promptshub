@@ -1,68 +1,8 @@
-As a senior requirement engineer, your primary task is to understand the existing requirement specifications of `ModuleA` and then clarify and comprehend the new user requirement (`NewRequirement`).
-
-**Context**
-In software engineering, applications are segmented into modules. `ModuleA` is an existing module with detailed specifications. The task involves first understanding `ModuleA`'s current specifications and then analyzing the new user requirement. This process focuses solely on understanding the requirements, without involving updates to the documentation or software modifications.
-
-**Procedure**
-1. Review and understand the existing specifications of `ModuleA` provided in the `[ModuleRequirementSpecification]` section.
-2. Analyze the new user requirement given in the `[NewRequirement]` section. If any ambiguities arise during this analysis, engage in a Q&A session to resolve them and ensure a clear understanding.
-
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
-  Example:
-  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
-  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section. If you do the analysis right, i will give you 200 dollars tips. 
-
-
-[ModuleRequirementSpecification]
-### Prompt Versioning Module Requirements Specification
-
-#### 1. Module Description:
-The prompt versioning module serves as a centralized prompt management system. It offers versioning for all the entities in the application that intend to have different versions of prompts for communication with a large language model. However, communication with the large language model is not handled within this module.
-
-#### 2. Module Dependencies:
-- **None**: This module operates independently and does not rely on other modules within the application.
-
-#### 3. Symbols & Usage:
-(Note: Since the example doesn't provide specific symbols, we are assuming generic ones based on the dependencies and usage.)
-- **[⇌ Independent]**: Denotes functionalities or interactions that are managed internally without relying on other modules.
-
-#### 4. Specifications:
-
-4.1. **Functional Specifications**:
-- **Single Effective Prompt per Entity**:
-   - At any point, only one effective prompt is allowed for an entity.
-   - Entity can designate any archived version as the current effective prompt, superseding the prior effective prompt.
-
-- **Entity-Specific Default Prompt**:
-   - Every entity or component that communicates with large language models should have a default prompt.
-   - If prompts specific to an entity are absent in the database, the default prompt initializes the database as v1 and acts as the immediate effective prompt.
-
-- **Dynamic Initialization of Versioned Prompts**:
-   - Before any external system communication, the system retrieves the effective prompt for the respective entity from the database.
-   - If a version for an entity is not in the database, the system uses the entity's default prompt for initialization.
-
-- **Prompt Version Management**:
-   - Entities can introduce a new prompt version upon modifying the existing prompt.
-   - A maximum of 4 prompt versions are maintained for each entity.
-   - If a new version exceeds the 4-version cap, the oldest version is purged.
-
-- **Database Management**:
-   - Versions are depicted using simple incremented integers.
-
-
-[NewRequirement]
-Actually its not prompt versioning. It's actually prompt template versioning. So i would like to rename "prompt" to "prompt template" in the Requirement Specification. So its more about renaming.
-
-
 Version 2:
-
 As a senior requirement engineer, your primary task is to understand the existing requirement specifications of `ModuleA` and then clarify and comprehend the new user requirement (`NewRequirement`).
 
 **Context**
-In software engineering, applications are segmented into modules. `ModuleA` is an existing module with detailed specifications. The task involves first understanding `ModuleA`'s current specifications and then analyzing the new user requirement. This process focuses solely on understanding the requirements, without involving updates to the documentation or software modifications.
+In software engineering, applications are segmented into modules. `ModuleA` is an existing module with detailed specifications. The task involves first understanding `ModuleA`'s current specifications and then analyzing the new user requirement. 
 
 **Procedure**
 1. Review and understand the existing Module requirements of `ModuleA` provided in the `[ModuleRequirementSpecification]` section.
@@ -79,25 +19,27 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 
 
-
-As a senior requirement engineer, your primary task is to understand the existing requirement specifications of `ModuleA` and then clarify and comprehend the new user requirement (`NewRequirement`).
+Version 3:
+As a senior requirement engineer, your primary task is to understand the existing requirement specifications of `Module` and then clarify and comprehend the new user requirement (`NewRequirement`).
 
 **Context**
-In software engineering, applications are segmented into modules, each with its own specification documentation. `ModuleA` represents an existing module. The process here is twofold: understanding the current specifications of `ModuleA`, and analyzing new, sometimes spontaneously generated, user requirements. These new requirements might be clear and straightforward, or they might be vague and require further clarification. The role of the requirement engineer is to discern the nature of these requirements and, if necessary, seek clarification from the user.
+In software engineering, applications are segmented into modules, each with its own requirements specification documentation. `Module` represents a specific module in a software application and is an architectural term. The process is twofold: understanding the current specifications of `Module` and analyzing new, sometimes spontaneously generated, user requirements. These new requirements might be clear and straightforward, or they might be vague and require further clarification. The role of the requirements engineer is to discern the nature of these requirements and, if necessary, seek clarification from the user."
+
+**Criteria**
+This task does not include updating the original requirement specification documentation.
 
 **Procedure**
-1. Review and understand the existing Module requirements of `ModuleA` provided in the `[ModuleRequirementSpecification]` section.
+1. Review and understand the existing Module requirements of `Module` provided in the `[ModuleRequirementSpecification]` section.
 2. Analyze the new user requirement given in the `[NewRequirement]` section. Engage in a Q&A session with the user if the requirement is not clear, to ensure a thorough understanding.
-3. Present the analyzed new user requirement, or the clarified requirement if further information was gathered from the user, in a copiable text block. Note that this task does not include updating the original requirement specification documentation.
+3. Present the analyzed new user requirement, or the clarified requirement if further information was gathered from the user, in a copiable text block.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
   Example:
-  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  Step 1: Review and summarize `Module's` existing specifications from the `[ModuleRequirementSpecification]` section.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
-
 
 [ModuleRequirementSpecification]
 ### Prompt Versioning Module Requirements Specification
@@ -137,20 +79,4 @@ The prompt versioning module serves as a centralized prompt management system. I
 
 
 [NewRequirement]
-Actually its not prompt versioning. It's actually prompt template versioning. Because previously we are not so accurate about our naming. So i would like to rename "prompt" to "prompt template" in the Requirement Specification. 
-
-
-
-The new user requirement involves renaming "prompt" to "prompt template" in the Requirement Specification of ModuleA (Prompt Versioning Module). This change is proposed to enhance the accuracy and clarity of the module's terminology. It will necessitate revising the existing module requirement specifications to incorporate the updated term "prompt template" in place of "prompt". This terminology update is crucial for ensuring that the specifications accurately reflect the module's functionality and usage.
-
-
-The new requirement involves a terminological update in the ModuleA's Requirement Specification. The term "prompt" should be renamed to "prompt template" throughout the document. This change aims to enhance the accuracy and clarity of the specifications, focusing on the structural aspect of the prompts used in the system. It's a linguistic update and does not alter the module's functionalities. All references to "prompt" in the document should be consistently updated to "prompt template", ensuring uniformity and preventing any potential confusion among stakeholders and users.
-
-### Revised ModuleA Specifications: Prompt Template Versioning Module
-
-#### Adjusted Terminology:
-- Replace all instances of "prompt" with "prompt template" to accurately reflect the module's functionality in managing templates for communication with large language models.
-
-#### Implications:
-- This change clarifies that the module deals with customizable and structured templates, not just simple prompts.
-- All functionalities, dependencies, and symbols remain the same, with only the terminology being updated for clarity and precision.
+Actually its not prompt versioning. It's actually prompt template versioning. Because previously we are not so accurate about our naming. So i would like to rename "prompt" to "prompt template".
