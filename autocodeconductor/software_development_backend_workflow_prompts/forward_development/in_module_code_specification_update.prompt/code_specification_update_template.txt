@@ -1,0 +1,23 @@
+**Introduction**
+- Overview of the module
+- Current state
+- Purpose of the changes
+
+**Requirements Summary**
+- Description of new requirements
+
+**Detailed Changes**
+- **Component-Level Changes**
+  - **For Each Component**:
+    - **Current State**: Overview of the component's existing purpose, attributes, methods/APIs, and interactions.
+    - **Planned Changes**:
+      - **Purpose**: Modifications to the component's purpose or role.
+      - **Attributes**: Specific additions, removals, or modifications to attributes.
+      - **Methods/APIs**: Changes in methods/APIs including renaming, removal, or modification.
+      - **Interactions**: Updates in how the component interacts with other components or systems.
+    - **Rationale**: Reasons for these changes at the component level
+
+**Impact Analysis**
+- Effects on other components/modules/system
+- Potential risks and dependencies
+
