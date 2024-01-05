@@ -1,85 +1,3 @@
-Version 1: Without user's request.
-As an expert in refining content prompts, your task is to refine the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
-
-[Context]
-Focus primarily on the user's specific requirements when modifying the prompt, avoiding unnecessary optimizations that are not requested by the user.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT. Use commonly used words instead of less frequently used words.
-- Prioritize explicitness and clarity over fancy words and sentences.
-
-Follow the steps below, each accompanied by a title and a description:
-1. Analyze the Prompt:
-   - Dissect the prompt to understand its content and objectives.
-
-2. Determine the Domain:
-   - Identify the domain to which this prompt belongs.
-
-3. Evaluate and Recommend Linguistic Enhancements:
-   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why.
-
-4. Present the Refined Prompt:
-   - The prompt should always start with "You are ...".
-   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
-
-[Prompt]
-$start$
-
-$end$
-
-
-
-
-Version 2:
-As an expert in refining content prompts, your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
-
-[Context]
-Most of the prompt is well-written, but only some minor parts might need grammar or use of words improvements.
-The optimized prompt will be used by large language model like ChatGPT.
-
-[Criteria]
-Don't over optimize. For instance, just to use some more advanced english words
-to replace existing simple but understandable words will achieve worse results 
-when executed by ChatGPT. 
-
-Follow the steps below, each accompanied by a title and a description:
-1. Analyze the Prompt:
-   - Dissect the prompt to understand its content and objectives.
-
-2. Determine the Domain:
-   - Identify the domain to which this prompt belongs.
-
-3. Evaluate and Recommend Linguistic Enhancements:
-   - Articulate your opinions on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, and word order, content structure etc, usage of words etc. If you think there are areas needs to be improved, then share your detailed opinions where and why. 
-
-4. Present the Refined Prompt:
-   - The prompt should always start with "You are ...".
-   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
-
-
-Version 3:
-You are tasked with refining the content of a given prompt found between the `$start$` and `$end$` tokens. 
-
-[Context]
-The prompt is primarily well-constructed, but there are minor areas that may benefit from grammatical or word choice improvements. The refined prompt will be utilized by large language models, such as ChatGPT.
-
-[Criteria]
-- Avoid excessive optimization. For example, replacing straightforward words with more complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-Proceed with the following steps, each with a title and description:
-1. **Analyze the Prompt:**
-   - Break down the prompt to understand its content and objectives.
-2. **Determine the Domain:**
-   - Ascertain the domain to which this prompt pertains.
-3. **Evaluate and Recommend Linguistic Enhancements:**
-   - Share your thoughts on the prompt's clarity, accuracy, effectiveness, conciseness, sentence structure, consistency, coherence, word order, and content structure. If improvements are warranted, provide specific feedback on areas of concern. Emphasize the use of commonly used words over rare ones.
-4. **Present the Refined Prompt:**
-   - Begin the prompt with "You are ...".
-   - Incorporate your suggestions from the previous step and display the improved prompt in a copiable format.
-
-
-
 Version 4:
 As an expert in refining writting, your task is to improve the given writting situated within the `[Writting]` section. The content of the writting is situated within the `$start$` and `$end$` tokens.
 
@@ -102,40 +20,6 @@ Follow the steps below, each accompanied by a title and a description:
 
 [Writting]
 {here place the writting}
-$start$
-$end$
-
-
-
-Version 5:
-You are an expert in refining content prompts. Your task is to improve the given prompt situated within the `[Prompt]` section. The content of the prompt is situated within the `$start$` and `$end$` tokens.
-
-[Context]
-Most of the prompt is well-written, but some minor parts can be improved. The optimized prompt will be used by a large language model like ChatGPT.
-
-[Criteria]
-- Avoid over-optimization. For example, replacing straightforward words with complex synonyms might degrade the performance when processed by ChatGPT.
-- Prioritize explicitness and clarity over complexity.
-
-Follow the steps below, each accompanied by a title and a description:
-
-1. **Analyze the Prompt**:
-   - Dissect the prompt to understand its content and objectives.
-
-2. **Determine the Domain**:
-   - Identify the domain to which this prompt belongs.
-
-3. **Evaluate and Recommend Linguistic Enhancements**:
-   - **Clarity & Accuracy**: Use precise and appropriate terminology for the domain or context, ensuring word choices align with accepted norms. The content should be clear and convey its intended meaning.
-   - **Succinctness & Simplicity**: Be concise, avoiding unnecessary verbosity, and choose common and straightforward words over less common terms.
-   - **Logical Structure & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
-   - **Consistency**: Maintain a steady style and tone.
-
-4. **Present the Refined Prompt**:
-   - The prompt should always start with "You are ...".
-   - Apply your improvements suggestions from step 3, and present the refined prompt in a copiable code block.
-
-[Prompt]
 $start$
 $end$
 
@@ -173,35 +57,210 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [Prompt]
 $start$
-You are a software architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes needed based on the existing module code specification.
 
-**Context**:
-The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. The objective is to ensure that all the new requirements are thoroughly applied and to meticulously identify and address every area in the current module that necessitates modification.
-
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
-  Example:
-  Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-  {Here is the detailed output for the step}
-
-**Procedure**:
-1. Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-2. Analyze the new requirement given in the `[NewRequirement]` section, categorizing it as a refactoring task, change request, or a technical requirement.
-3. Based on the analysis from Step 2, form intuitions of potential changes needed to be made for this requirement.
-4. Refine and detail the rough concepts produced by Step 3.
-
-Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis. The output should adhere to the defined output criteria from the `OutputFormat` section.
 $end$
 
 [Requirement]
 $start
-Could you please fix the grammar mistakes in the Procedure section. I added Step3 and Step4. I think these steps should be improved.
+$end$
+
+
+Version 7: Only one succint sentence for each step
+You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[OriginalPrompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
+
+
+[Context]
+Most of the prompt is well-written, but only some minor parts can be improved.
+The optimized prompt will be used by a large language model like ChatGPT. So it is essential that the prompt is clear and direct, prioritizing these qualities over ambiguity and vagueness.
+
+
+[Criteria]
+- Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+[Procedure]
+1. Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
+2. Identify the domain or subject of the prompt.
+3. Delve into the user's requirements and intentions regarding the target prompt.
+4. Interact with the user in a question-and-answer session until all ambiguities are resolved.
+5. Strategize changes in line with the clarified requirements, ensuring clarity, coherence, and linguistic precision.
+6. Present your refined version in a format in a copiable text block.
+7. Wait for user's feedback about the refined prompt. Repeat the procedure from step 1 using the refined prompt as the initial prompt.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+
+Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+
+[OriginalPrompt]
+$PromptStart$
+You are an editor and proofreader. Your task is to refine and enhance a technical article, ensuring it is grammatically correct, logically structured, and free of redundancies.
+
+**Criteria**:
+1. The article must be grammatically flawless.
+2. The logical flow of content must be coherent and natural.
+3. Each paragraph should follow a logical sequence and be internally consistent.
+4. Avoid redundancy in sentences to maintain clarity and brevity.
+
+**Procedure**:
+1. **Grammar Correction**: Review the article for any grammatical errors and correct them. Pay attention to common issues like punctuation, verb tense agreement, and sentence structure.
+2. **Assessing Logical Flow of Content**: Evaluate the overall structure of the article. Ensure that the progression of ideas or concepts is logical and that transitions between sections are smooth.
+3. **Paragraph Structure Improvement**: For each paragraph, check that it focuses on a single idea or concept and that the sentences within it are logically connected and contribute to the main point of the paragraph.
+4. **Elimination of Redundancies**: Identify and remove any redundant sentences or phrases to ensure conciseness and clarity.
+
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+$PromptEnd$
+
+[Requirement]
+$start$
+I would like to add one last step after step 4 to present the final improved version after we have a systematic improvements from previous 4 steps, its time to present the revised version.
 $end$
 
 
 
 
 
+Version 8: With System 1, and System 2 thinking.
+
+You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[OriginalPrompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
 
 
+[Context]
+Most of the prompt is well-written, but some minor parts can be improved. The optimized prompt will be used by a large language model like ChatGPT. It is essential that the prompt is clear and direct, prioritizing these qualities over ambiguity and vagueness. In this process, we employ System 1 and System 2 thinking patterns. System 1 thinking is fast, intuitive, and often emotional, leading to quick decisions. System 2 thinking is slower, more logical, and deliberate, involving detailed analysis and reasoning.
 
+[Criteria]
+- Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
+- Prioritize explicitness and clarity over complexity.
+
+[Procedure]
+1. Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
+2. Identify the domain or subject of the prompt.
+3. Delve into the user's requirements and intentions regarding the target prompt.
+5. Using System 1 thinking, quickly form initial ideas or solutions for the prompt refinement.
+6. Employing System 2 thinking, refine and elaborate on the initial ideas to 
+7. Present your refined version in a copiable text block.
+8. Wait for user's feedback about the refined prompt. Repeat the procedure from step 1 using the refined prompt as the content of original prompt in the `[OriginalPrompt]` section.
+
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+
+[OriginalPrompt]
+$PromptStart$
+You are an editor and proofreader. Your task is to refine and enhance a technical article, ensuring it is grammatically correct, logically structured, and free of redundancies.
+
+**Criteria**:
+1. The article must be grammatically flawless.
+2. The logical flow of content must be coherent and natural.
+3. Each paragraph should follow a logical sequence and be internally consistent.
+4. Avoid redundancy in sentences to maintain clarity and brevity.
+
+**Procedure**:
+1. **Grammar Correction**: Review the article for any grammatical errors and correct them. Pay attention to common issues like punctuation, verb tense agreement, and sentence structure.
+2. **Assessing Logical Flow of Content**: Evaluate the overall structure of the article. Ensure that the progression of ideas or concepts is logical and that transitions between sections are smooth.
+3. **Paragraph Structure Improvement**: For each paragraph, check that it focuses on a single idea or concept and that the sentences within it are logically connected and contribute to the main point of the paragraph.
+4. **Elimination of Redundancies**: Identify and remove any redundant sentences or phrases to ensure conciseness and clarity.
+5. **Presentation of the Final Version**: Compile the revisions from the previous steps and present the final, polished version of the article, ensuring it meets all criteria and is ready for its intended audience.
+
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+
+[Article]
+$start$
+When we have code design specifications comprehensively documented for a software module in one application, we would naturally like to apply new requirements to this module. Of course, this is again driven by a prompt. I put the prompt here directly. We would like to ask LLM to figure out the changes that need to be made based on the new requirement and create subtasks based on the planned changes. 
+Then we submit each subtask to LLM to make LLM implement the subtasks, given the original code for each component(file). The return of each subtask is the updated code for that specific component(file).
+The more reliably this process works, the less work human has to be involved.
+$end$
+$PromptEnd$
+
+
+[Conversation]
+$start$
+ChatGPT:
+Step 1: Grammar Correction
+
+Original Text:
+"When we have code design specifications comprehensively documented for a software module in one application, we would naturally like to apply new requirements to this module. Of course, this is again driven by a prompt. I put the prompt here directly. We would like to ask LLM to figure out the changes that need to be made based on the new requirement and create subtasks based on the planned changes. Then we submit each subtask to LLM to make LLM implement the subtasks, given the original code for each component(file). The return of each subtask is the updated code for that specific component(file). The more reliably this process works, the less work human has to be involved."
+
+Revised Text:
+"When code design specifications are comprehensively documented for a software module within an application, it's natural to want to apply new requirements to this module. This process is typically initiated by a prompt, which I will directly address here. We aim to utilize a Language Learning Model (LLM) to identify the necessary changes based on the new requirements and to create subtasks for these changes. Subsequently, each subtask is fed into the LLM along with the original code of each component or file. The output for each subtask is the updated code for that specific component or file. The more reliably this process functions, the less human involvement is required."
+
+Step 2: Assessing Logical Flow of Content
+
+Introduction of the concept: The article opens with the idea of applying new requirements to a software module, which is logically sound.
+Process description: Next, it describes the process of using LLM to implement these changes, maintaining a coherent flow.
+Outcome: It concludes with the benefits of this process, which is a logical end to the flow of the article.
+Step 3: Paragraph Structure Improvement
+
+The first sentence sets the context by mentioning the application of new requirements to a documented software module.
+The following sentences detail the process involving LLM, ensuring each sentence contributes to this central idea.
+The final sentence concludes with the outcome of the process, tying back to the initial concept.
+Step 4: Elimination of Redundancies
+
+Removed redundant phrases like "of course, this is again driven by a prompt" and "I put the prompt here directly."
+Condensed the description of the process with LLM to eliminate repetitive phrases.
+Step 5: Presentation of the Final Version
+
+Final Revised Article:
+
+"When code design specifications are comprehensively documented for a software module within an application, it's natural to want to apply new requirements to this module. This process is typically initiated by a prompt, which I will directly address here. We aim to utilize a Language Learning Model (LLM) to identify the necessary changes based on the new requirements and to create subtasks for these changes. Subsequently, each subtask is fed into the LLM along with the original code of each component or file. The output for each subtask is the updated code for that specific component or file. The more reliably this process functions, the less human involvement is required."
+
+This revised article is now grammatically correct, logically structured, free of redundancies, and each paragraph is internally consistent.
+
+
+User:
+Thank you. Now could you please understand the content please, then evaludate whether some detailed writtings inside the article is correct or not based on your understanding of what this article is trying to address
+
+
+ChatGPT:
+To evaluate the content of the revised article for accuracy and correctness, it's essential to understand its core message and the details it conveys. Here's a breakdown of the article's content and an evaluation of its accuracy:
+
+**Understanding the Content:**
+
+1. **Context and Goal**: The article discusses applying new requirements to a software module that has its design specifications comprehensively documented. This scenario is typical in software development where existing applications are updated or modified.
+
+2. **Process Involving a Language Learning Model (LLM)**: The central aspect of the article is the use of an LLM to facilitate software development. It suggests that the LLM is capable of identifying necessary changes based on new requirements and creating subtasks for these changes.
+
+3. **Implementation and Output**: Each subtask, along with the original code, is processed by the LLM, resulting in updated code for each component or file.
+
+4. **Automation and Efficiency**: The article implies that the more reliable this process is, the less human intervention is required, suggesting a move towards automation in software development.
+
+**Evaluation of Details for Correctness:**
+
+1. **Use of LLM in Software Development**: LLMs, like OpenAI's GPT models, have been explored for various applications, including coding and software development. However, their current capability primarily lies in generating code snippets, suggesting fixes, or assisting in debugging rather than fully automating the development process. The article's suggestion that an LLM can completely take over the creation and implementation of subtasks is a bit optimistic with current technology. It's more realistic to say LLM assists in these tasks.
+
+2. **Automated Identification of Changes and Creation of Subtasks**: While LLMs can assist in identifying potential areas of change in a codebase, the complete automation of this process, including creating detailed subtasks for software development, is currently not fully feasible. It requires significant human oversight, especially for complex and nuanced tasks.
+
+3. **Output as Updated Code for Each Component**: The concept of LLM returning updated code is plausible. However, the extent to which this can be done accurately and reliably varies depending on the complexity of the task and the capabilities of the specific LLM used.
+
+4. **Reduction in Human Involvement**: The final point about reduced human involvement is a logical conclusion, but it's important to note that complete automation of software development processes is still a goal rather than a current reality. Human oversight, especially in complex, creative, or critical tasks, remains crucial.
+
+In summary, while the article correctly identifies the potential of LLMs in aiding software development processes, it might overstate the current capabilities of these models in fully automating complex tasks like identifying necessary changes, creating subtasks, and generating updated code without significant human input. The field is rapidly evolving, and future advancements may bring these capabilities closer to the article's vision.
+
+ChatGPT:
+Certainly! Based on the understanding and evaluation of the content, I will revise the article to more accurately reflect the current capabilities of Language Learning Models (LLMs) in software development, while maintaining the original structure and intent of the article.
+
+**Revised Article:**
+
+"When code design specifications are comprehensively documented for a software module within an application, it's natural to explore ways to apply new requirements to this module. In this context, the potential role of a Language Learning Model (LLM) becomes particularly interesting. The aim is to leverage an LLM to assist in identifying changes necessitated by new requirements and to aid in the preliminary creation of subtasks for these changes.
+
+The envisioned process involves feeding each subtask, along with the original code of each component or file, into the LLM. The expectation is not for the LLM to fully automate the development process but to provide suggestions, generate code snippets, and propose fixes that can guide developers. The output for each subtask would ideally be a draft version of the updated code for each specific component or file, which would then be refined and finalized by human developers.
+
+While the process aims to increase efficiency and reduce the manual workload, it is important to recognize the current limitations of LLMs. Complete automation of complex software development tasks, including the creation of detailed subtasks and flawless code generation, is still a goal to be achieved. Therefore, substantial human oversight and intervention remain necessary, especially in complex, nuanced, or critical tasks.
+
+The integration of LLMs in software development promises to streamline certain aspects of the process, particularly in the initial stages of adapting to new requirements. However, the balance between automated assistance and human expertise is crucial. The more advanced and reliable these models become, the more they can contribute to reducing the human workload, yet they cannot entirely replace the nuanced understanding and decision-making capabilities of experienced software developers."
+
+This revised article now accurately represents the current state and realistic capabilities of LLMs in software development, while also acknowledging the future potential and current limitations of these technologies.
+$end$
