@@ -90,11 +90,10 @@ You are a software architect. Your task is to analyze a new requirement for a so
 The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. In approaching this task, it's essential to leverage both System 1 and System 2 thinking patterns. System 1 thinking is intuitive, fast, and emotional, often leading to swift, gut-feel decisions. System 2 thinking, in contrast, is more deliberate, logical, and methodical, requiring analytical and detailed consideration. The objective is to ensure that all the new requirements are thoroughly applied, intuitively and analytically identifying and addressing every area in the current module that necessitates modification.
 
 **OutputFormat**:
-- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+- The output should align closely with the procedure's step objectives, using concise versions of the step descriptions for clarity. Each step should be formatted to reflect its core purpose, ensuring the content under each step is directly relevant and maintains coherence and consistency.
   Example:
   Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-  {Here is the detailed output for the step}
-
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
 
 **Procedure**:
 1. Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
@@ -104,6 +103,36 @@ The software module in question has been thoroughly documented, including all th
 5. Systematically and in detail, articulate the change plans for each new and modified component identified in the `[ModuleCodeSpecification]`. This step involves creating a comprehensive plan for each change, which will serve as a foundation for subsequent subtask creation.
 
 Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis. The output of each step should adhere to the defined output criteria from the `OutputFormat` section.
+
+
+
+Version 7: Without understand the original module code specification.
+
+You are a software architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes based on the existing module code specification.
+
+**Context**:
+The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. In approaching this task, it's essential to leverage both System 1 and System 2 thinking patterns. System 1 thinking is intuitive, fast, and emotional, often leading to swift, gut-feel decisions. System 2 thinking, in contrast, is more deliberate, logical, and methodical, requiring analytical and detailed consideration. The objective is to ensure that all the new requirements are thoroughly applied, intuitively and analytically identifying and addressing every area in the current module that necessitates modification.
+
+**Criteria**:
+- Focus solely on changes within the ModuleCodeSpecification.
+- Exclude broader considerations such as impacts on test cases or downstream systems.
+- Both System 1 (intuitive) and System 2 (analytical) thinking patterns should be specifically targeted towards identifying the necessary code changes in the ModuleCodeSpecification.
+
+
+**Procedure**:
+1. Analyze the new requirement given in the `[NewRequirement]` section, categorizing it as a refactoring task, change request, or a technical requirement.
+2. Form intuitions of potential changes that might be required for this requirement, using System 1 thinking.
+3. Refine and elaborate on the initial intuitions in Step 3, employing System 2 thinking.
+4. Systematically articulate the change plans for those components identified as requiring updates or changes, based on the analysis conducted in the previous steps.
+
+**OutputFormat**:
+- The output should align closely with the procedure's step objectives, using concise versions of the step descriptions for clarity. Each step should be formatted to reflect its core purpose, ensuring the content under each step is directly relevant and maintains coherence and consistency.
+  Example:
+  Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
+
+Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis while adhering to the criteria given in the `Criteria` section. The output of each step should adhere to the defined output criteria from the `OutputFormat` section.
+
 [ModuleCodeSpecification]
 $start$
 ### Prompt Versioning Module Code Specification:
@@ -197,3 +226,107 @@ $end$
 
 
 
+
+
+
+
+
+
+
+Version 8: Now procedure, just think step by step.
+You are a software architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes based on the existing module code specification.
+
+**Context**:
+The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. In approaching this task, it's essential to leverage both System 1 and System 2 thinking patterns. System 1 thinking is intuitive, fast, and emotional, often leading to swift, gut-feel decisions. System 2 thinking, in contrast, is more deliberate, logical, and methodical, requiring analytical and detailed consideration. The objective is to ensure that all the new requirements are thoroughly applied, intuitively and analytically identifying and addressing every area in the current module that necessitates modification.
+
+**Criteria**:
+- Focus solely on changes within the ModuleCodeSpecification.
+- Exclude broader considerations such as impacts on test cases or downstream systems.
+- Both System 1 (intuitive) and System 2 (analytical) thinking patterns should be specifically targeted towards identifying the necessary code changes in the module.
+
+Please use System 1 and System 2 thinking pattern, think step by step and reason methodically to figure out the neccessary changes.
+
+[ModuleCodeSpecification]
+$start$
+### Prompt Versioning Module Code Specification:
+
+#### 1. Code Architecture Design:
+
+1.1. **High-Level Design**: 
+The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous modules is utilized to facilitate smooth database interactions.
+
+#### 2. Component Modifications:
+
+2.1. **New Components**:
+
+- **PromptVersioningMixin**: 
+  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
+  - *Attributes*: 
+    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
+    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
+    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
+  - *Abstract Properties*:
+    - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
+  - *Methods*: 
+    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
+    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
+    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
+    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
+    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
+
+- **VersionedPrompt**:
+  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
+  - *Attributes*: 
+    - `version_no: int`: The version number.
+    - `prompt_content: str`: The content of the prompt for that version.
+
+- **PromptVersionModel (extends BaseModel)**:
+  - *Purpose*: Represents the database model for storing versioned prompts.
+  - *Attributes*: 
+    - `prompt_name: String`: Identifier for the prompt.
+    - `version_no: Integer`: Version number.
+    - `prompt_content: Text`: Content of the prompt.
+    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
+    (Note: The attributes `created_at` and `updated_at` are inherited from `BaseModel` and are therefore not explicitly defined here.)
+
+- **PromptVersionRepository (extends BaseRepository)**:
+  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
+  - *Methods*: 
+    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
+    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
+    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
+    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
+    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
+    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
+
+2.2. **Updated Components**:
+
+- **BaseStep**:
+  - *Modification*: Extend from `PromptVersioningMixin`.
+  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
+
+2.3. **Unchanged Components**:
+
+- **BaseModel**: 
+  - *Description*: The foundational model class for database entities.
+  
+- **BaseRepository**: 
+  - *Description*: Provides generic CRUD operations.
+
+#### 3. Interactions:
+
+3.1. **Component Interactions**:
+
+- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
+- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
+
+#### 4. External Dependencies: 
+
+- **SQLAlchemy**: ORM tool facilitating database operations.
+- **Alembic**: For database migration and versioning.
+$end$
+
+[NewRequirement]
+$start$
+Rename prompt to prompt template. Because previously we didn't use accurate names. We are not actually managing the prompt for entity, but prompt template for entity. 
+$end$
