@@ -135,7 +135,7 @@ LABEL FeedbackLoop:
         CheckForFurtherAmbiguities()
         if furtherAmbiguities exists:
             WaitForUserToProvideResponses()
-            AnalyzeUserResponsesAndPrintUpdatedRequest
+            AnalyzeUserResponsesAndPrintUpdatedRequest()
             JUMP to LABEL FeedbackLoop
     if additionalFeedBack is about additional requirements or unsatisfaction:
         AnalyzeUserResponsesAndPrintUpdatedRequest
