@@ -1,0 +1,3 @@
+Due to the context size, the output of the chatgpt is put as input. The context size is limited. It's just like a human who has very limited working memory. We
+have to load the long-term memory again into the working memory. This means that we need to load some previous setup into the input, and give some context, so that chatgpt is able to pickup from where it is left off.  This is very important.
+

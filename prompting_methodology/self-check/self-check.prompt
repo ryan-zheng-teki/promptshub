@@ -5,3 +5,12 @@ provide different feedback. Use the feedback with the original imformation,
 then ChatGPT will be able to 
 
 plan -> action -> check -> check result+earlier result-> improve
+
+How does human fix errors?
+We do some kinda consistency check. For example, we use the solution we arrive, and trace each step or use the final answer to validate the problem step by step. Then we found the error. 
+
+In software engineering, after one batch of code design, we have to validate that all the requirements are being satisfied, given the idea that the requirement is complete. But of course, many times the requirement is not complete. A lot of times, we have to pushback from the code to requirements. 
+LLM has to have some kinda conciousness that something is not provided or not 
+complete. 
+
+
