@@ -38,6 +38,6 @@
 
 - **General**:
   - The application should operate autonomously once started.
-  - Libraries to be used: Selenium, playsound, Flask, and Python's built-in logging module.
+  - Libraries to be used: Puppeteer, playsound, Flask, and Python's built-in logging module.
   - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
 

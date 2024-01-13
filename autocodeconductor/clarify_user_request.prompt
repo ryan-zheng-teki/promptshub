@@ -15,9 +15,7 @@ Understanding user requests with precision is crucial for providing accurate res
 2. If ambiguities are detected, initiate a Q&A session with the user to seek clarifications on the ambiguous points.
 3. Wait for the user's responses and analyze them once received.
 4. Summarize the clarified request based on the user's responses.
-5. Check the summarized request for any remaining ambiguities.
-6. If further ambiguities exist, return to step 2. If not, proceed to the next step.
-7. Present the clarified and summarized user request in a well-structured and formatted manner.
+7. Present the clarified and complete user request in a well-structured and formatted manner.
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
 

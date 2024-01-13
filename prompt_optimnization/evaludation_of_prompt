@@ -80,203 +80,167 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 [OriginalPrompt]
 $PromptStart$
-You are a software architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes needed based on the existing module code specification.
+You are a senior Python software developer. Your objective is to analyze user requirements and set up a foundational working development environment for a Python backend application, ensuring it is well-organized and adheres to best practices for the specific application being developed.
 
 **Context**:
-The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base of the given module. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. In approaching this task, it's essential to leverage both System 1 and System 2 thinking patterns. System 1 thinking is intuitive, fast, and emotional, often leading to swift, gut-feel decisions. System 2 thinking, in contrast, is more deliberate, logical, and methodical, requiring analytical and detailed consideration. The objective is to ensure that all the new requirements are thoroughly applied, intuitively and analytically identifying and addressing every area in the current module that necessitates modification.
+The process of setting up a Python backend application begins with a thorough analysis of user requirements. This analysis helps in determining the type of application being developed, which is crucial for the subsequent setup of the necessary environments. For instance, the realization that the application is a Python backend prompts the identification of a suitable framework, such as Flask or FastAPI. This initial stage involves establishing foundational libraries and file structures based on the best practices of the identified framework:
 
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
-  Example:
-  Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-  {Here is the detailed output for the step}
+- For a Flask application, this might entail setting up files like `app.py`, `requirements.txt`, and a `templates` folder.
+- In a FastAPI application, this includes `main.py`, `requirements.txt`, `uvicorn`, and a `models` directory.
+
+Following this, the second stage of the setup focuses on integrating additional libraries required to meet specific business needs of the application. This means tailoring the environment beyond the typical framework requirements to address unique business functionalities and requirements.
+
+The completion of these two stages results in a fully operational development environment, ready for the implementation and development of the specific business requirements.
+
+**Criteria**:
+- Set up a backend application structure that is organized and follows best practices.
+- Include all necessary libraries and structures, both foundational and business-specific.
 
 
 **Procedure**:
-1. Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-2. Analyze the new requirement given in the `[NewRequirement]` section, categorizing it as a refactoring task, change request, or a technical requirement.
-3. Based on the analysis from Step 2, form intuitions of potential changes that might be required for this requirement, using System 1 thinking.
-4. Refine and elaborate on the initial intuitions in Step 3, ensuring they are thoroughly detailed, employing System 2 thinking.
-5. Systematically and in detail, articulate the change plans for each new and modified component identified in the `[ModuleCodeSpecification]`. This step involves creating a comprehensive plan for each change, which will serve as a foundation for subsequent subtask creation.
+1. Determine the application type (e.g., Flask, FastAPI) and articulate the best-practice setup for the foundational environment, including standard files and directory structures.
+2. Analyze the requirements to identify libraries needed specific to the business needs of the application, tailoring the environment to these unique requirements.
+3. Based on previous analysis, create a single block of Bash commands in a dependency-resolved order in a copiable text format.
 
-Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis. The output of each step should adhere to the defined output criteria from the `OutputFormat` section.
 
-[ModuleCodeSpecification]
-$start$
-### Prompt Versioning Module Code Specification:
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the output of each step reflect the continuous and detailed analytical nature of human thought process to achieve the objetive of the step, while maintaining clarity and consistency.
+  Example:
+  Step 1: Determine the application type (e.g., Flask, FastAPI) and articulate the best-practice setup for the foundational environment, including standard files and directory structures.
+  - {articulate the human-like detailed analytical thinking to achieve the step's objective}
 
-#### 1. Code Architecture Design:
 
-1.1. **High-Level Design**: 
-The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous modules is utilized to facilitate smooth database interactions.
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
-#### 2. Component Modifications:
+[UserRequirement]
+- **Application Type**: Python server application.
 
-2.1. **New Components**:
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
 
-- **PromptVersioningMixin**: 
-  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
-  - *Attributes*: 
-    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
-    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
-    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
-  - *Abstract Properties*:
-    - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
-  - *Methods*: 
-    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
-    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
-    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
-    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
-    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
 
-- **VersionedPrompt**:
-  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
-  - *Attributes*: 
-    - `version_no: int`: The version number.
-    - `prompt_content: str`: The content of the prompt for that version.
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - Wait for 5 minutes before rechecking.
 
-- **PromptVersionModel (extends BaseModel)**:
-  - *Purpose*: Represents the database model for storing versioned prompts.
-  - *Attributes*: 
-    - `prompt_name: String`: Identifier for the prompt.
-    - `version_no: Integer`: Version number.
-    - `prompt_content: Text`: Content of the prompt.
-    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
-    (Note: The attributes `created_at` and `updated_at` are inherited from `BaseModel` and are therefore not explicitly defined here.)
-
-- **PromptVersionRepository (extends BaseRepository)**:
-  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
-  - *Methods*: 
-    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
-    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
-    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
-    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
-    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
-    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
-
-2.2. **Updated Components**:
-
-- **BaseStep**:
-  - *Modification*: Extend from `PromptVersioningMixin`.
-  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
-
-2.3. **Unchanged Components**:
-
-- **BaseModel**: 
-  - *Description*: The foundational model class for database entities.
-  
-- **BaseRepository**: 
-  - *Description*: Provides generic CRUD operations.
-
-#### 3. Interactions:
-
-3.1. **Component Interactions**:
-
-- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
-- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
-
-#### 4. External Dependencies: 
-
-- **SQLAlchemy**: ORM tool facilitating database operations.
-- **Alembic**: For database migration and versioning.
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Puppeteer, playsound, FastAPI, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
 $end$
-
-[NewRequirement]
-$start$
-Rename prompt to prompt template. Because previously we didn't use accurate names. We are not actually managing the prompt for entity, but prompt template for entity. 
-$end$
-
 $PromptEnd$
 
 [Feedback]
 $start$
-If you look at the output of step 3 and step 4, i paste it here as well
+if you look at the step 3 output 
+
 ```
-### Step 3: Form intuitions of potential changes that might be required for this requirement, using System 1 thinking.
+# Create a project directory
+mkdir my_fastapi_project
+cd my_fastapi_project
 
-Intuitively, the primary change involves updating the terminology across the codebase. This includes:
-
-- Renaming variables, attributes, and method parameters that reference "prompt" to "prompt template."
-- Adjusting comments and documentation to reflect the new terminology.
-- Ensuring that these changes do not impact the functionality of the existing methods and interactions.
-
-The intuitive approach suggests that these changes will be straightforward and largely confined to textual replacements.
-
-### Step 4: Refine and elaborate on the initial intuitions generated in Step 3, ensuring they are thoroughly detailed, employing System 2 thinking.
-
-A detailed analysis reveals that the renaming task must be done carefully to avoid disrupting existing functionalities. Key points include:
-
-- Methodically searching and replacing instances of "prompt" with "prompt template" in the entire module, including class and variable names, method signatures, comments, and documentation.
-- Reviewing each change to ensure that it does not inadvertently alter the logic or interaction patterns of the module.
-- Updating test cases and documentation to reflect the new terminology.
-- Considering the impact on downstream modules or systems that interact with this module, ensuring they are updated accordingly to maintain compatibility.
-- Performing regression testing to confirm that the renaming has not introduced any new bugs or issues.
+# Set up a Python virtual environment
+python -m venv venv
+source venv/bin/activate
 ```
-As you can see that System1 and System2 thinking is correct.  but quite broad. Especially System2 thinking. System2 thinking output has already jumped outside of the scope of the purpose of the prompt. It even mentions "- Updating test cases and documentation to reflect the new terminology." which is correct and quite considerate, but not really in the scope of this prompt.
 
-As you can see the goal of the prompt is just recognize all neccessary changes needed to be made to the ModuleCodeSpecification which is a mirror of the codebase of the Module in the application. That means recognizing all the changes.
+both the project directory and environment name is not really ideal. We should have meaningful names for the environment and root project names.
 
-I feel like we either have to add more context, or adjust the step instruction for system1 and system2 thinking to be used for the goal of the task. 
+I think we should enhance the Criteria section.
 $end$
 
 [Output]
 $start$
-### Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
+### Step 1: Determine the application type (e.g., Flask, FastAPI) and articulate the best-practice setup for the foundational environment, including standard files and directory structures.
 
-The current software module is designed to implement a versioning system for prompts used in interactions with Large Language Models (LLMs). This system uses a `PromptVersioningMixin` to enable various entities or classes to manage versioned prompts in a database, thereby ensuring optimized communication with LLMs. Key components of this system include:
+Given the user requirements, the application appears to be a Python server application with a focus on web scraping, automation, and media handling. The application needs to be highly responsive and capable of handling asynchronous tasks effectively, such as navigating web pages and monitoring for changes over extended periods. This leads me to choose FastAPI as the most suitable framework for this project. FastAPI provides robust support for asynchronous operations, which is essential for web scraping and continuous monitoring tasks. 
 
-- **PromptVersioningMixin**: A mixin class providing versioning capabilities and database interactions. It includes methods for adding, fetching, and setting prompt versions, as well as managing the current effective prompt.
-- **VersionedPrompt**: Represents a specific version of a prompt in-memory.
-- **PromptVersionModel**: A database model to store versioned prompts, along with a version number, content, and a flag indicating if it is the current effective version.
-- **PromptVersionRepository**: Extends `BaseRepository`, providing CRUD operations and managing version-specific actions.
-- **BaseStep**: Modified to extend from `PromptVersioningMixin`, removing static prompt templates in favor of dynamic version-based prompts.
-- **Unchanged Components**: `BaseModel` and `BaseRepository` remain unchanged, providing foundational and generic CRUD functionalities.
+The foundational environment setup for a FastAPI application typically includes:
 
-The system heavily relies on SQLAlchemy for ORM and Alembic for database migration and versioning. The overall design focuses on integrating prompt versioning into existing workflows and components, allowing dynamic and efficient prompt management.
+- **main.py**: The entry point of the application. Here, we'll define the FastAPI app instance, route declarations, and the main logic for the server's operation.
+- **requirements.txt**: This file lists all the necessary Python libraries. For this project, this will include FastAPI, uvicorn (an ASGI server for FastAPI), Puppeteer (for web scraping), playsound (for playing the notification sound), and any other dependencies.
+- **config.json**: As specified, this file will contain configurable parameters like the country, notification music path, and CSS selector values.
+- **models**: A directory to define data models, which can help in validating the structure of `config.json` and any other structured data we handle.
+- **utils**: A directory for utility scripts, such as the one handling the web scraping and navigation logic.
+- **logs**: A folder for storing log files, specifically for error logs as per the requirement.
 
-### Step 2: Analyze the new requirement given in the `[NewRequirement]` section, categorizing it as a refactoring task, change request, or a technical requirement.
+This structure ensures a clean separation of concerns, making the codebase easy to navigate and maintain. It also aligns with FastAPI's best practices and accommodates the specific functionalities required by the application.
 
-The new requirement involves renaming "prompt" to "prompt template" to more accurately reflect its function. This is a refactoring task aimed at renaming elements within the codebase to improve clarity and maintainability. It does not introduce new functionalities or change the logic of the existing system but instead focuses on updating terminology for better alignment with its purpose.
+### Step 2: Analyze the requirements to identify libraries needed specific to the business needs of the application, tailoring the environment to these unique requirements.
 
-### Step 3: Form intuitions of potential changes that might be required for this requirement, using System 1 thinking.
+The user requirements necessitate a selection of specialized libraries and tools to meet the specific business needs:
 
-Intuitively, the primary change involves updating the terminology across the codebase. This includes:
+- **Puppeteer**: Essential for automating browser-based tasks, like navigating web pages and interacting with web elements. This library is critical for fulfilling the web scraping and navigation requirements.
+- **playsound**: Required for playing a notification sound when an appointment is found. This library meets the user's need for an auditory alert.
+- **FastAPI**: Chosen for its asynchronous support and ease of use, this framework is ideal for setting up a responsive and efficient backend server.
+- **Uvicorn**: As an ASGI server, Uvicorn will serve the FastAPI application. It's necessary for running the application in production.
+- **Python's built-in logging module**: This will be used for creating timestamped log files, ensuring robust error handling and debugging capabilities.
+- **Additional libraries for HTTP requests, JSON handling, and date/time operations**: Libraries like `requests`, `json`, and `datetime` might be necessary for handling HTTP requests, parsing JSON files, and managing time-related operations, respectively.
 
-- Renaming variables, attributes, and method parameters that reference "prompt" to "prompt template."
-- Adjusting comments and documentation to reflect the new terminology.
-- Ensuring that these changes do not impact the functionality of the existing methods and interactions.
+These libraries and tools are selected to efficiently address the specific functionalities such as web scraping, UI interaction, asynchronous processing, and logging, which are central to the application's business requirements.
 
-The intuitive approach suggests that these changes will be straightforward and largely confined to textual replacements.
+### Step 3: Based on previous analysis, create a single block of Bash commands in a dependency-resolved order in a copiable text format.
 
-### Step 4: Refine and elaborate on the initial intuitions generated in Step 3, ensuring they are thoroughly detailed, employing System 2 thinking.
+```bash
+# Create a project directory
+mkdir my_fastapi_project
+cd my_fastapi_project
 
-A detailed analysis reveals that the renaming task must be done carefully to avoid disrupting existing functionalities. Key points include:
+# Set up a Python virtual environment
+python -m venv venv
+source venv/bin/activate
 
-- Methodically searching and replacing instances of "prompt" with "prompt template" in the entire module, including class and variable names, method signatures, comments, and documentation.
-- Reviewing each change to ensure that it does not inadvertently alter the logic or interaction patterns of the module.
-- Updating test cases and documentation to reflect the new terminology.
-- Considering the impact on downstream modules or systems that interact with this module, ensuring they are updated accordingly to maintain compatibility.
-- Performing regression testing to confirm that the renaming has not introduced any new bugs or issues.
+# Install FastAPI and Uvicorn
+pip install fastapi uvicorn
 
-### Step 5: Systematically and in detail, articulate the change plans for each new and modified component identified in the `[ModuleCodeSpecification]`.
+# Install Puppeteer for Python
+pip install pyppeteer
 
-For the `PromptVersioningMixin`:
-- Rename relevant attributes, methods, and parameters from "prompt" to "prompt template."
-- Update internal logic where necessary to reflect the new naming convention.
-- Ensure that all interactions with `PromptVersionRepository` are updated to use the new terminology.
+# Install playsound for audio playback
+pip install playsound
 
-For `VersionedPrompt` and `PromptVersionModel`:
-- Update class and attribute names to reflect the change from "prompt" to "prompt template."
-- Ensure that database schema changes, if required, are managed through Alembic migrations.
+# Create the basic file structure
+touch main.py requirements.txt
+mkdir models utils logs
 
-For `PromptVersionRepository`:
-- Modify method names and parameters to align with the new naming convention.
-- Update CRUD operations to handle the renamed `PromptVersionModel`.
+# Write dependencies to requirements.txt
+echo "fastapi==[SPECIFY_VERSION]" > requirements.txt
+echo "uvicorn==[SPECIFY_VERSION]" >> requirements.txt
+echo "pyppeteer==[SPECIFY_VERSION]" >> requirements.txt
+echo "playsound==[SPECIFY_VERSION]" >> requirements.txt
 
-For `BaseStep`:
-- Update any references to prompts, ensuring they are consistent with the new terminology.
+# Note: Replace [SPECIFY_VERSION] with the specific versions as needed.
+```
 
-Additionally, a comprehensive review of all documentation, comments, and test cases related to these components is required to ensure consistency and accuracy in reflecting the new terminology. The final step involves thorough testing to confirm that these changes have been successfully implemented without affecting the module's overall functionality.
+This Bash script sets up the initial development environment tailored to our FastAPI application. It creates a project directory, sets up a Python virtual environment, installs necessary dependencies (ensuring version control for each library), and establishes the basic directory and file structure. This script is a foundational step, allowing developers to start implementing the specific functionalities outlined in the user requirements.
 $end$
 
 
