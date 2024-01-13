@@ -26,16 +26,17 @@ You are a software architect. Your task is to analyze a new requirement for a so
 **Context**:
 The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. The objective is to not only ensure that all the new requirements are thoroughly applied but also to meticulously identify and address every area in the current module that necessitates modification.
 
+**Procedure**:
+1. Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
+2. Analyze the new requirement given in the `[NewRequirement]` section, forming a preliminary idea of the potential changes needed.
+3. Conduct a detailed examination of each component, API, and parameter in the module, ensuring that the design ideas are implemented correctly and comprehensively.
+
+
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
   Example:
   Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
   {Here is the detailed output for the step}
-
-**Procedure**:
-1. Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-2. Analyze the new requirement given in the `[NewRequirement]` section, forming a preliminary idea of the potential changes needed.
-3. Conduct a detailed examination of each component, API, and parameter in the module, ensuring that the design ideas are implemented correctly and comprehensively.
 
 Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
@@ -81,7 +82,7 @@ You are a software architect. Your task is to analyze a new requirement for a so
 The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. In approaching this task, it's essential to leverage both System 1 and System 2 thinking patterns. System 1 thinking is intuitive, fast, and emotional, often leading to swift, gut-feel decisions. System 2 thinking, in contrast, is more deliberate, logical, and methodical, requiring analytical and detailed consideration. The objective is to ensure that all the new requirements are thoroughly applied, intuitively and analytically identifying and addressing every area in the current module that necessitates modification.
 
 **OutputFormat**:
-- The output should align closely with the procedure's step objectives, using concise versions of the step descriptions for clarity. Each step should be formatted to reflect its core purpose, ensuring the content under each step is directly relevant and maintains coherence and consistency.
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
   Example:
   Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
@@ -113,11 +114,11 @@ The software module in question has been thoroughly documented, including all th
 1. Analyze the new requirement given in the `[NewRequirement]` section, categorizing it as a refactoring task, change request, or a technical requirement.
 2. Form intuitions of potential changes that might be required for this requirement, using System 1 thinking.
 3. Utilizing System 2 thinking, based on the the intuitions formed in Step 2, methodically identify and list all the necessary code changes required to implement the new requirement.
-4. Based on the changes identified in Step 3, create a detailed module code change plan. Follow the format given in the `[Template]` section, ensuring all identified changes are comprehensively documented.
+4. Based on the changes identified in Step 3, create a detailed module code change plan. Follow the format given in the `[Template]` section, ensuring all identified component changes are completely documented in their individual section as shown in the Template.
 
 
 **OutputFormat**:
-- The output should align closely with the procedure's step objectives, using concise versions of the step descriptions for clarity. Each step should be formatted to reflect its core purpose, ensuring the content under each step is directly relevant and maintains coherence and consistency.
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
   Example:
   Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
@@ -218,11 +219,11 @@ Title: [Insert a concise title here that directly describes the new requirement]
 
 ### Component-Level Changes:
 - **List of Affected Components:** 
-  - Begin with a list of specific components (classes, modules, etc.) that will undergo changes. This serves as an index or roadmap of what is covered in the plan.
+  - Begin with a list of specific components that will undergo changes. This serves as an index or roadmap of what is covered in the plan.
 
 ### Detailed Change Plans:
-- **Component Name:** 
-  - Specify the exact name of the component (class, module, etc.) being modified.
+- **Individual Component Affected:** 
+  - Specify the exact name of the component being modified.
   - **Rationale:** 
     - Justify why these changes are necessary, aiding stakeholders in understanding the reasoning behind each modification.
   - **Description of Changes:** 
@@ -245,109 +246,3 @@ The software module in question has been thoroughly documented, including all th
 
 Please use System 1 and System 2 thinking patterns, think step by step and reason methodically to figure out the necessary changes. Following this analysis, document the identified changes using the template format provided in the `[Template]` section.
 
-
-[Template]
-Title: [Insert a concise title here that directly describes the new requirement]
-
-### Overview:
-- **Description:** Provide a brief paragraph outlining the goals, scope, and purpose of the changes. This section sets the context for the entire change plan.
-
-### Component-Level Changes:
-- **List of Affected Components:** 
-  - Begin with a list of specific components (classes, modules, etc.) that will undergo changes. This serves as an index or roadmap of what is covered in the plan.
-
-### Detailed Change Plans:
-- **Component Name:** 
-  - Specify the exact name of the component (class, module, etc.) being modified.
-  - **Rationale:** 
-    - Justify why these changes are necessary, aiding stakeholders in understanding the reasoning behind each modification.
-  - **Description of Changes:** 
-    - Detail the specific changes being made, including additions, removals, or modifications to the component's functionality, methods, attributes, etc. Use bullet points or numbered lists for clarity.
-  - **Impact Analysis:** 
-    - Evaluate the potential impact of these changes on both the component itself and the overall system, considering aspects like performance, usability, and maintainability.
-
-
-[ModuleCodeSpecification]
-$start$
-### Prompt Versioning Module Code Specification:
-
-#### 1. Code Architecture Design:
-
-1.1. **High-Level Design**: 
-The enhancement introduces a versioning mechanism for prompts designed for entities or classes that leverage prompts to communicate with Large Language Models (LLMs). By integrating the `PromptVersioningMixin`, entities, such as workflow steps or any other component interfacing with LLMs, can store, manage, and refine versioned prompts in a database. This ensures consistent and optimized interactions with LLMs, capitalizing on the most effective prompt versions. The Repository Pattern from previous modules is utilized to facilitate smooth database interactions.
-
-#### 2. Component Modifications:
-
-2.1. **New Components**:
-
-- **PromptVersioningMixin**: 
-  - *Purpose*: A mixin class offering versioning capabilities with integrated database interactions.
-  - *Attributes*: 
-    - `current_prompt: str`: The in-memory cached value of the current effective prompt for the entity. This value is initially fetched from the database, and then it's used for subsequent operations to reduce database accesses. This attribute is updated whenever a new current effective version is set.
-    - `default_prompt: str`: The default prompt intrinsic to the entity's code.
-    - `repository: PromptVersionRepository`: An instance of the repository to handle database operations related to versioning.
-  - *Abstract Properties*:
-    - `prompt_name: str`: An abstract property that mandates implementing classes to provide a unique identifier for their prompts.
-  - *Methods*: 
-    - `add_version(prompt: str)`: Creates and stores a new version of the prompt. If the number of versions surpasses the limit (4), it deletes the oldest version.
-    - `get_version(version_no: int)`: Retrieves the content of a specified prompt version.
-    - `set_current_effective_version(version_no: int)`: Sets a specific version as the current effective prompt. This method updates the `current_prompt` attribute with the content of the specified version and marks this version as the effective one in the database.
-    - `get_current_effective_prompt()`: Fetches the content of the current effective prompt from the database. If no effective prompt exists for the entity, it initializes the database with the entity's intrinsic default prompt, designating it as version 'v1', and then returns this default prompt. The method should handle potential errors gracefully, ensuring that a prompt is always returned.
-    - `load_latest_version()`: Retrieves the content of the latest created prompt version.
-
-- **VersionedPrompt**:
-  - *Purpose*: Represents the state of a prompt at a particular version in-memory.
-  - *Attributes*: 
-    - `version_no: int`: The version number.
-    - `prompt_content: str`: The content of the prompt for that version.
-
-- **PromptVersionModel (extends BaseModel)**:
-  - *Purpose*: Represents the database model for storing versioned prompts.
-  - *Attributes*: 
-    - `prompt_name: String`: Identifier for the prompt.
-    - `version_no: Integer`: Version number.
-    - `prompt_content: Text`: Content of the prompt.
-    - `is_current_effective: Boolean`: Indicates if this version is the current effective prompt.
-    (Note: The attributes `created_at` and `updated_at` are inherited from `BaseModel` and are therefore not explicitly defined here.)
-
-- **PromptVersionRepository (extends BaseRepository)**:
-  - *Purpose*: Offers CRUD operations for `PromptVersionModel` and manages version-specific operations.
-  - *Methods*: 
-    - `create_version(prompt_version: PromptVersionModel)`: Stores a new prompt version.
-    - `get_version(prompt_name: String, version_no: int)`: Fetches a specific version of a prompt.
-    - `get_current_effective_version(prompt_name: String)`: Retrieves the current effective prompt for an entity.
-    - `get_latest_created_version(prompt_name: String)`: Retrieves the most recently created prompt version.
-    - `delete_version(prompt_name: String, version_no: int)`: Deletes a specific version.
-    - `delete_oldest_version(prompt_name: String)`: Deletes the oldest version when the limit is surpassed.
-
-2.2. **Updated Components**:
-
-- **BaseStep**:
-  - *Modification*: Extend from `PromptVersioningMixin`.
-  - *Purpose*: Inherits versioning capabilities with database integration. The static prompt template from `BaseStep` is removed, and prompts are dynamically derived based on the version.
-
-2.3. **Unchanged Components**:
-
-- **BaseModel**: 
-  - *Description*: The foundational model class for database entities.
-  
-- **BaseRepository**: 
-  - *Description*: Provides generic CRUD operations.
-
-#### 3. Interactions:
-
-3.1. **Component Interactions**:
-
-- Entities augmented with `PromptVersioningMixin` will possess versioning capabilities with database operations.
-- `PromptVersioningMixin` will interface with `PromptVersionRepository` for database interactions.
-
-#### 4. External Dependencies: 
-
-- **SQLAlchemy**: ORM tool facilitating database operations.
-- **Alembic**: For database migration and versioning.
-$end$
-
-[NewRequirement]
-$start$
-Rename prompt to prompt template. Because previously we didn't use accurate names. We are not actually managing the prompt for entity, but prompt template for entity. 
-$end$

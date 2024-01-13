@@ -65,6 +65,8 @@ $start
 $end$
 
 
+
+
 Version 7: Only one succint sentence for each step
 You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[OriginalPrompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
 
@@ -72,7 +74,6 @@ You are a prompt refinement specialist. Your objective is to enhance the provide
 [Context]
 Most of the prompt is well-written, but only some minor parts can be improved.
 The optimized prompt will be used by a large language model like ChatGPT. So it is essential that the prompt is clear and direct, prioritizing these qualities over ambiguity and vagueness.
-
 
 [Criteria]
 - Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
@@ -96,72 +97,63 @@ The optimized prompt will be used by a large language model like ChatGPT. So it 
 
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
-
 [OriginalPrompt]
 $PromptStart$
-You are a software architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes based on the existing module code specification.
+You are a senior Python software developer. Your objective is to analyze user requirements and set up a foundational working development environment for a Python backend application, ensuring it is well-organized and adheres to best practices for the specific application being developed.
 
 **Context**:
-The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. In approaching this task, it's essential to leverage both System 1 and System 2 thinking patterns. System 1 thinking is intuitive, fast, and emotional, often leading to swift, gut-feel decisions. System 2 thinking, in contrast, is more deliberate, logical, and methodical, requiring analytical and detailed consideration. The objective is to ensure that all the new requirements are thoroughly applied, intuitively and analytically identifying and addressing every area in the current module that necessitates modification.
+The process of setting up a Python backend application begins with a thorough analysis of user requirements. This analysis helps in determining the type of application being developed, which is crucial for the subsequent setup of the necessary environments. For instance, the realization that the application is a Python backend prompts the identification of a suitable framework, such as Flask or FastAPI. This initial stage involves establishing foundational libraries and file structures based on the best practices of the identified framework:
+
+- For a Flask application, this might entail setting up files like `app.py`, `requirements.txt`, and a `templates` folder.
+- In a FastAPI application, this includes `main.py`, `requirements.txt`, `uvicorn`, and a `models` directory.
+
+Following this, the second stage of the setup focuses on integrating additional libraries required to meet specific business needs of the application. This means tailoring the environment beyond the typical framework requirements to address unique business functionalities and requirements.
+
+The completion of these two stages results in a fully operational development environment, ready for the implementation and development of the specific business requirements.
 
 **Criteria**:
-- Focus solely on changes within the ModuleCodeSpecification.
-- Exclude broader considerations such as impacts on test cases or downstream systems due to changes of codes.
-- Both System 1 (intuitive) and System 2 (analytical) thinking patterns should be specifically targeted towards thinking about the necessary code changes in the ModuleCodeSpecification.
-
+- Set up a backend application structure that is organized and follows best practices.
+- Include all necessary libraries and structures, both foundational and business-specific.
 
 **Procedure**:
-1. Analyze the new requirement given in the `[NewRequirement]` section, categorizing it as a refactoring task, change request, or a technical requirement.
-2. Form intuitions of potential changes that might be required for this requirement, using System 1 thinking.
-3. Refine and elaborate on the initial intuitions in Step 3, employing System 2 thinking.
-4. Systematically articulate the change plans for those components identified as requiring updates or changes, based on the analysis conducted in the previous steps.
+1. Determine the application type (e.g., Flask, FastAPI) and set up the foundational environment, including standard files and structures like `requirements.txt`, `uvicorn`, `fastapi`.
+2. Identify and integrate libraries specific to the business needs of the application, tailoring the environment to these unique requirements.
+3. Present a complete list of Bash commands with dependency-resolved order in a copiable text block, ensuring a functional server environment is created for further development.
+
 
 **OutputFormat**:
-- The output should align closely with the procedure's step objectives, using concise versions of the step descriptions for clarity. Each step should be formatted to reflect its core purpose, ensuring the content under each step is directly relevant and maintains coherence and consistency.
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
   Example:
-  Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
+  Step 1: Analyze the user's project requirements given in the `[UserRequirement]` section to understand the scope and needs.
+  {Articulate the detailed thoughts of analysis in this step, ensuring it aligns with the step's objective.}
 
-Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis while adhering to the criteria given in the `Criteria` section. The output of each step should adhere to the defined output criteria from the `OutputFormat` section.
-$PromptEnd$
-
-
-[OriginalPrompt]
-$PromptStart$
-You are a software architect. Your task is to analyze a new requirement for a software module and derive the necessary code changes based on the existing module code specification.
-
-**Context**:
-The software module in question has been thoroughly documented, including all the components with their detailed APIs and their functionalities. This documentation acts as a mirror to the current code base. The new requirement could involve refactoring, changing existing functionalities, or adding new ones, etc. In approaching this task, it's essential to leverage both System 1 and System 2 thinking patterns. System 1 thinking is intuitive, fast, and emotional, often leading to swift, gut-feel decisions. System 2 thinking, in contrast, is more deliberate, logical, and methodical, requiring analytical and detailed consideration. The objective is to ensure that all the new requirements are thoroughly applied, intuitively and analytically identifying and addressing every area in the current module that necessitates modification.
-
-**Criteria**:
-- Focus solely on changes within the ModuleCodeSpecification.
-- Exclude broader considerations such as impacts on test cases or downstream systems due to changes of codes.
-- Both System 1 (intuitive) and System 2 (analytical) thinking patterns should be specifically targeted towards thinking about the necessary code changes in the ModuleCodeSpecification.
-
-**Procedure**:
-1. Analyze the new requirement given in the `[NewRequirement]` section, categorizing it as a refactoring task, change request, or a technical requirement.
-2. Form intuitions of potential changes that might be required for this requirement, using System 1 thinking.
-3. Based on initial intuitions from Step 3, employing System 2 thinking to locate all the changes needed to implement the requirement.
-4. Based all the identified changes in Step 3, create module code change plan documentation following the format given in the `[Template]` section, 
-
-**OutputFormat**:
-- The output should align closely with the procedure's step objectives, using concise versions of the step descriptions for clarity. Each step should be formatted to reflect its core purpose, ensuring the content under each step is directly relevant and maintains coherence and consistency.
-  Example:
-  Step 1: Understand the overall design and structure of the software module implementation given in the `[ModuleCodeSpecification]` section.
-  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
-
-Please follow the steps defined in the Procedure. Ensure a methodical approach that combines intuitive understanding with detailed analysis while adhering to the criteria given in the `Criteria` section. The output of each step should adhere to the defined output criteria from the `OutputFormat` section.
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
 $PromptEnd$
 
 [UserRequirement]
-$start$
-Do i have grammar mistake, or unclarity in the Procedure  Step 3 and Step 4, because i adjusted these two steps.
+The current content under OutputFormat  is already quite good.
+
+like this 
+```
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Analyze the user's project requirements given in the `[UserRequirement]` section to understand the scope and needs.
+  {Articulate the detailed thoughts of analysis in this step, ensuring it aligns with the step's objective.}
+```
+ I think we can enhance the content with  emphasis that the output format for each step should really simulate human thinking. What i mean is that human thinking is very meticulous. The thinking itself is continuous. The step in the procedure is actually like different steps in achieving one overall goal. What human does for each step is that they really do meticulous thinking. Emphasize the output for each step should be really like human detailed thinking is very important. Because the result prompt is executed by large language model. They need to be very explicit.
 $end$
 
 
 
 
+**OutputFormat**:
+- Each step in the output should meticulously align with the original procedure's objectives, reflecting the continuous and detailed nature of human thought processes. Ensure each step's title directly corresponds to the specified procedure, and the content beneath each step is a clear, coherent exposition of the thinking and actions relevant to that step, thereby maintaining clarity and consistency.
+  Example:
+  Step 1: Determine the Application Type
+  - {In this initial step, engage in a detailed and thoughtful analysis to identify the type of application being developed (e.g., Flask, FastAPI). Carefully consider the requirements to select the appropriate framework. This step involves setting up the foundational environment, including essential files and structures like `requirements.txt`, `uvicorn`, `fastapi`. Focus on ensuring that the foundation laid here is robust, adaptable, and aligned with the best practices in Python backend development.}
 
 
 
@@ -193,4 +185,14 @@ Most of the prompt is well-written, but some minor parts can be improved. The op
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+
+
+
+$PromptStart$
+Role&Objective
+
+$PromptEnd$
+
+
 
