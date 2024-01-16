@@ -67,6 +67,29 @@ $end$
 
 
 
+
+$PromptStart$
+You are a senior Python software developer. Your objective is to understand the user requirements and set up a basic development environment for a Python application.
+
+**Context**:
+The process of developing a Python application begins with setting up fundamental development environments before diving into the business needs.
+
+To set up a fundamental environment, we need to first determine the type of application being developed, be it a web-based application like Flask or FastAPI, or simply a console application.
+
+- For web applications such as Flask or FastAPI, this typically includes a suitable framework and establishing foundational libraries and file structures like `app.py`, `requirements.txt`, and specific folders such as `templates` for Flask or `models` for FastAPI.
+- For console applications, just a simple `main.py` is sufficient for initial setup.
+
+With this fundamental setup, we can establish a basic structure to develop the business files afterward.
+
+**Criteria**:
+- Set up a foundational backend application structure that is organized and adheres to best practices for the application type (e.g., web-based, console), excluding business-specific details.
+- Include only foundational libraries and structures necessary for the basic functioning of the application type, without incorporating business-specific elements.
+- Use meaningful and context-specific names for the project directory and environment. These names should clearly reflect the application's primary function or unique characteristics. For example, if the application is designed for automated web scraping and appointment handling, consider a project name like `AppointmentScraperApp` and an environment name such as `appointment-scraper-env` to directly indicate the application's purpose.
+- The final command in the Bash script should start the server, ensuring that after one execution of all the
+
+
+
+
 Version 7: Only one succint sentence for each step
 You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[OriginalPrompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
 
@@ -99,61 +122,33 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [OriginalPrompt]
 $PromptStart$
-You are a senior Python software developer. Your objective is to analyze user requirements and set up a foundational working development environment for a Python backend application, ensuring it is well-organized and adheres to best practices for the specific application being developed.
+You are a senior Python software developer. Your objective is to the user requirements and set up a basic development environment for a Python application.
 
 **Context**:
-The process of setting up a Python backend application begins with a thorough analysis of user requirements. This analysis helps in determining the type of application being developed, which is crucial for the subsequent setup of the necessary environments. For instance, the realization that the application is a Python backend prompts the identification of a suitable framework, such as Flask or FastAPI. This initial stage involves establishing foundational libraries and file structures based on the best practices of the identified framework:
+The process of developing a Python application begins with setting up a fundamential development environments before diving into the business needs.
 
-- For a Flask application, this might entail setting up files like `app.py`, `requirements.txt`, and a `templates` folder.
-- In a FastAPI application, this includes `main.py`, `requirements.txt`, `uvicorn`, and a `models` directory.
+To set up a fundamential environment, we need to first determine the type of application being developed, be it a web-based application like Flask or FastAPI, or simply a console application. 
 
-Following this, the second stage of the setup focuses on integrating additional libraries required to meet specific business needs of the application. This means tailoring the environment beyond the typical framework requirements to address unique business functionalities and requirements.
+- For web applications such as Flask or FastAPI, this typically includes a suitable framework and establishing foundational libraries and file structures like `app.py`, `requirements.txt`, and specific folders such as `templates` for Flask or `models` for FastAPI.
+- For console applications, just a simple main.py is enough.
 
-The completion of these two stages results in a fully operational development environment, ready for the implementation and development of the specific business requirements.
+With this fundamental setup, we could have a basic structure to develop the business files afterwords.
 
 **Criteria**:
-- Set up a backend application structure that is organized and follows best practices.
-- Include all necessary libraries and structures, both foundational and business-specific.
-
-**Procedure**:
-1. Determine the application type (e.g., Flask, FastAPI) and set up the foundational environment, including standard files and structures like `requirements.txt`, `uvicorn`, `fastapi`.
-2. Identify and integrate libraries specific to the business needs of the application, tailoring the environment to these unique requirements.
-3. Present a complete list of Bash commands with dependency-resolved order in a copiable text block, ensuring a functional server environment is created for further development.
-
-
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
-  Example:
-  Step 1: Analyze the user's project requirements given in the `[UserRequirement]` section to understand the scope and needs.
-  {Articulate the detailed thoughts of analysis in this step, ensuring it aligns with the step's objective.}
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+- Set up a foundational backend application structure that is organized and adheres to best practices for the application type (e.g., web-based, console), excluding business-specific details.
+- Include only foundational libraries and structures necessary for the basic functioning of the application type, without incorporating business-specific elements.
+- Use meaningful and context-specific names for the project directory and environment. These names should clearly reflect the application's primary function or unique characteristics. For example, if the application is designed for automated web scraping and appointment handling, consider a project name like `AppointmentScraperApp` and an environment name such as `appointment-scraper-env` to directly indicate the application's purpose.
+- The final command in the Bash script should start the server, ensuring that after one execution of all the commands, the barebone server can be started and its operational readiness can be validated.
+- Ensure the script is self-contained and immediately executable without requiring external actions or modifications.
 
 $PromptEnd$
 
 [UserRequirement]
-The current content under OutputFormat  is already quite good.
-
-like this 
-```
-
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
-  Example:
-  Step 1: Analyze the user's project requirements given in the `[UserRequirement]` section to understand the scope and needs.
-  {Articulate the detailed thoughts of analysis in this step, ensuring it aligns with the step's objective.}
-```
- I think we can enhance the content with  emphasis that the output format for each step should really simulate human thinking. What i mean is that human thinking is very meticulous. The thinking itself is continuous. The step in the procedure is actually like different steps in achieving one overall goal. What human does for each step is that they really do meticulous thinking. Emphasize the output for each step should be really like human detailed thinking is very important. Because the result prompt is executed by large language model. They need to be very explicit.
+$start$
+please fix the grammar mistakes for the content in the Context section.
 $end$
 
 
-
-
-**OutputFormat**:
-- Each step in the output should meticulously align with the original procedure's objectives, reflecting the continuous and detailed nature of human thought processes. Ensure each step's title directly corresponds to the specified procedure, and the content beneath each step is a clear, coherent exposition of the thinking and actions relevant to that step, thereby maintaining clarity and consistency.
-  Example:
-  Step 1: Determine the Application Type
-  - {In this initial step, engage in a detailed and thoughtful analysis to identify the type of application being developed (e.g., Flask, FastAPI). Carefully consider the requirements to select the appropriate framework. This step involves setting up the foundational environment, including essential files and structures like `requirements.txt`, `uvicorn`, `fastapi`. Focus on ensuring that the foundation laid here is robust, adaptable, and aligned with the best practices in Python backend development.}
 
 
 
