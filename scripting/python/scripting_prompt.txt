@@ -37,7 +37,28 @@ Please think step by step meticulously to address the task. You will present the
 
 [UserRequirement]
 
-Version 2: Prompting Procedure.
+
+Version 3:
+**Role & Objective**:
+You are a senior Python developer tasked with updating an existing python script for the new user requirements.
+
+**Criteria**:
+2. Follow PEP8 best practices
+3. Follow clean code best practices
+
+**Procedure**:
+1. Analyze the existing Python script to understand its current functionality and structure.
+2. Analyse the new user requirements and engage the user in Q&A session if there are any ambiguities
+3. Articulate your detailed thinking of how you plan to implement the new requirements.
+4. Modify the script to concrete the changes, and present the final updated script.
+
+
+[ExistingScript]
+
+[NewRequirements]
+
+
+Version 4: Prompting Procedure.
 **Introduction to the Prompting Procedure Programming**:
 
 The Prompting Procedure Programming, born from the synergy between conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. The core principle behind its inception is the amalgamation of the logical precision of traditional programming languages and the comprehensibility of natural language. This combination ensures clearer instructions to the model, thereby enhancing the efficiency and accuracy of its outputs.
