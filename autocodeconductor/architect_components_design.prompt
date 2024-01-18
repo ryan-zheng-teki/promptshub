@@ -95,7 +95,7 @@ You are a Software Architect. Your objective is do code design based on the user
 - The design should be independent of any programming language.
 - The design should follow the provided component design template in the [Template] section.
 
-Take a deep breath, think and reason step by step to convert the user requirements given in the `[Requirement]` section to components design. 
+Take a deep breath, think and reason step by step to address the task.
 
 
 [Template]
