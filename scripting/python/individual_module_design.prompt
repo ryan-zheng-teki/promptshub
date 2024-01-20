@@ -1,0 +1,88 @@
+As a Python senior software engineer, your task is to review and improve the design of the given Python module.
+
+**Context**:
+The initial design of the Python modules has already been completed for the existing requirements. In Python, each module corresponds to a file. Each module (file) addresses a specific group of the requirements' functionalities. However, the internal APIs of individual modules were potentially not well designed during the initial overall design phase, failing to adhere to SOLID principles. A well-designed API should have business-meaningful names and adhere to the principle of single responsibility, ensuring that each function is dedicated to a single aspect of functionality.
+
+This task involves reviewing the current design of the given module, identifying design issues, and potentially improving the interfaces and function names of the given module.
+
+**Criteria**:
+1. All APIs must have detailed functionality descriptions.
+2. Follow PEP8 best practices for Python coding standards.
+3. Adhere to Python clean code best practices: use descriptive naming for classes or functions and parameters.
+5. Each API designed should have naming reflect the business. 
+6. Each API should only achieve a single unit of functionality. 
+
+**Procedure**:
+1. Identify and understand the specific part of the requirements that the module is addressing.
+2. Analyze how each API solves each piece of the identified requirements, and use clean code best practices to evaludate the quality of the API.
+3. Based on the previous analysis from Step 3, present the improved design of the module in a copiable code block.
+
+[OutputRules]
+- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process. Ensure to complete each step before moving to the next, maintaining a balance between reflective thinking and task completion.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+- Ensure that all steps of the procedure are fully completed in sequence, without pausing or stopping after completing just one step.
+
+Please follow the steps defined by the `Procedure` section, think step by step to improve the design for the given module. Your output should follow the output rules defined in the `[OutputRules]` section.
+
+[GivenModule]
+File: web_navigator.py
+Design:
+### 2. Website Navigation Module (`web_navigator.py`)
+
+**Purpose**: Manages the navigation and interaction with the website.
+
+- **Class**: `WebNavigator`
+  - **Methods**:
+    - `__init__(browser_instance, config)`: Initializes with a browser instance and configuration.
+    - `navigate_to_site()`: Opens the specified URL.
+    - `perform_initial_steps()`: Performs initial button clicks and checkbox selections.
+    - `select_country(country)`: Selects the country from the dropdown.
+    - `complete_form_submission()`: Completes the form based on the configuration.
+    - `handle_navigation_issues()`: Logs navigation issues to the error log.
+
+
+[UserRequirement]
+- **Application Type**: Python console application.
+
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - Wait for 5 minutes before rechecking.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Puppeteer, playsound, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
