@@ -80,100 +80,39 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 [OriginalPrompt]
 $PromptStart$
-You are a senior Python software developer. Your objective is to set up an initial development environment for a Python application that user wants to develop.
+As a Python senior software engineer, your task is to review and improve the design of the given Python module.
 
 **Context**:
-The process of developing a brand-new Python application begins with setting up a virtual environment. This step is crucial as it allows for the management of dependencies specific to the project, ensuring that it runs consistently across different setups.
-
-To create a virtual environment, use the `env` tool. Once the environment is activated, it isolates the project's dependencies from the global Python setup, allowing for a more controlled development process.
-
-After setting up the virtual environment, the next step is to establish an initial development environment based on the type of application you are creating. Begin by preparing a `requirements.txt` file, include all necessary framework libraries. Once your `requirements.txt` file is ready, use `pip install -r requirements.txt` to install these dependencies. 
-
-For web-based applications using Flask or FastAPI, include an app.py file as the entry file. For console applications, use main.py as the starting file. Initially, these files will be placeholders, setting the stage for future development where you'll implement the core logic and features tailored to specific business requirements.
+The initial modules design has already been done for the existing requirements. 
+In Python, each module is a file. Each module(file) addresses a specific group of functionalities of the requirements. However, during the initial overall modules design, the internal APIs of individual modules were not designed with sufficient care. This necessitates a focused effort on improving the internal design, including the interfaces and function names of the given module.
 
 **Criteria**:
-- Choose names for the main project directory and virtual environment that clearly reflect the application's purpose.
-- The boilerplate setup must always include one entry file with empty content.
-- Make sure the script is self-contained and executable without needing modifications like replacing placeholder values for the initial development environment setup.
+1. All APIs must have detailed functionality descriptions.
+2. Follow PEP8 best practices for Python coding standards.
+3. Adhere to Python clean code best practices: use descriptive naming for classes or functions and parameters.
+4. Utilize design patterns where appropriate.
 
+**Procedure**:
+1. Identify and understand the specific part of the requirements that the module is addressing.
+2. Analyze how the current design solves these specific requirements.
+3. Evaluate the effectiveness of the current design in meeting these requirements.
+4. Identify potential areas for improvement in the module's design based on Python clean code best practices.
+6. Present the improved design of the module in a copiable code block.
 
-Please think step by step meticulously to create this initial development environment. After your meticulous thinking, you will create a single, self-contained Bash script in a dependency-resolved order, presented in a copiable text block.
-$PromptEnd$
+[OutputRules]
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
+
+Please follow the steps defined by the `Procedure` section, think step by step to improve the design for the given module. Your output should follow the output rules defined in the `[OutputRules]` section.
+$PrompteEnd$
 
 [Feedback]
 $start$
-if you look at the output, you will see that entry file main.py is not empty. I think our prompt maybe lack explicity somewhere or somewhere 
-still is causing some confusion
+
 $end$
+
 
 [Output]
 $start$
-To create an initial development environment for the specified Python console application, we'll write a Bash script that sets up everything needed. The application will use Python along with libraries like Puppeteer, playsound, and the built-in logging module for web automation, playing sounds, and logging, respectively.
-
-The script will:
-1. Create a project directory named `AppointmentChecker`.
-2. Set up a virtual environment within this directory.
-3. Create a `requirements.txt` file with necessary libraries.
-4. Install dependencies from `requirements.txt`.
-5. Create a `main.py` file as the entry point of the application.
-6. Add a basic structure to handle `config.json`.
-7. Create necessary subdirectories (like `logs`) and placeholder files.
-
-Here is the Bash script for setting up this environment:
-
-```bash
-#!/bin/bash
-
-# Step 1: Create the main project directory
-mkdir AppointmentChecker
-cd AppointmentChecker
-
-# Step 2: Create a virtual environment
-python -m venv env
-source env/bin/activate
-
-# Step 3: Create requirements.txt with necessary libraries
-cat <<EOT >> requirements.txt
-puppeteer==5.1.0 # Version may vary
-playsound==1.3.0 # Version may vary
-EOT
-
-# Step 4: Install dependencies
-pip install -r requirements.txt
-
-# Step 5: Create the main.py file
-cat <<EOT >> main.py
-import json
-import os
-
-# Function to load and validate config
-def load_config():
-    try:
-        with open('config.json', 'r') as file:
-            config = json.load(file)
-        # Add validation logic for config here
-        return config
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        # Log and handle exceptions related to config loading
-        print(f"Error loading config: {e}")
-        exit(1)
-
-# Main function
-def main():
-    config = load_config()
-    # Application logic goes here
-
-if __name__ == '__main__':
-    main()
-EOT
-
-# Step 6: Create directories and placeholder files
-mkdir logs
-touch logs/.gitkeep
-
-echo "Initial development environment setup complete."
-```
-
-This script should be run in a Unix-like environment where Python and virtualenv are already installed. It will create the necessary structure for starting the development of the console application, with `main.py` serving as the starting point for implementing the specific functionalities as per the user requirements.
 $end$
-

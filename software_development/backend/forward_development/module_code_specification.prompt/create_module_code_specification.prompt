@@ -99,7 +99,7 @@ The initial project environment for the python project is already created, but w
 
 **Criteria**:
 - The design should clearly articulate the purpose and functionality of each module and function.
-- Follow PIP 8 best practices for coding style and conventions.
+- Follow PEP 8 best practices for coding style and conventions.
 - Documentation should be detailed and clear, providing insights into the functionality and usage of each module and function.
 
 **Procedure**:
@@ -107,7 +107,7 @@ The initial project environment for the python project is already created, but w
 2. **Module Design**: Break down the project into logical modules, where each module represents a specific feature or aspect of the project.
 3. **Function Design**: Within each module, define functions with clear names and responsibilities. Functions should be small and focused, handling a single aspect of the module's functionality.
 4. **Documentation**: For each module and function, write detailed documentation explaining its purpose, inputs, outputs, and any specific details relevant to its usage.
-5. **Adherence to PIP 8**: Ensure that the naming conventions, code structuring, and other style-related aspects adhere to PIP 8 standards.
+
 
 [ModulesDesign]
 - Module 1: {Description of its functionality and purpose.}
