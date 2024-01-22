@@ -36,8 +36,9 @@ At the design stage, methods within these classes or functions are not yet imple
 Criteria:
 1. All APIs must have detailed functionality descriptions.
 2. Follow PEP8 best practices for Python coding standards.
-3. Adhere to Python clean code best practices: use descriptive naming for functions and parameters.
+3. Adhere to Python clean code best practices: use business meaningful naming for functions and parameters.
 4. Utilize design patterns where appropriate in the design.
+
 
 OutputRules:
 - Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.

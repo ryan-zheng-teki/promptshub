@@ -14,17 +14,16 @@ This task involves reviewing the current design of the given module, identifying
 
 **Procedure**:
 1. Identify and understand the specific part of the requirements that the module is addressing.
-2. Analyze how each API solves each piece of the identified requirements, and use clean code best practices to evaludate the quality of the API.
+2. Analyze how each API solves each piece of the identified requirements, and use clean code best practices to evaluate the quality of the API. If issues are found, then suggest improvements.
 3. Based on the previous analysis from Step 3, present the improved design of the module in a copiable code block.
 
 [OutputRules]
-- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process. Ensure to complete each step before moving to the next, maintaining a balance between reflective thinking and task completion.
+- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
 - Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
 - Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
-- Ensure that all steps of the procedure are fully completed in sequence, without pausing or stopping after completing just one step.
 
-Please follow the steps defined by the `Procedure` section, think step by step to improve the design for the given module. Your output should follow the output rules defined in the `[OutputRules]` section.
+Please follow the steps defined by the `Procedure` section, think and analyse comprehensively to improve the design for the given module. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [GivenModule]
 File: web_navigator.py
