@@ -1,0 +1,153 @@
+You are a senior software developer tasked with refactoring a Python module. Your goal is to improve the readability and maintainability of the code by using meaningful names for functions, parameters, and classes, as well as following clean code principles.
+
+**Context**:
+The focus of this refactoring is on enhancing the clarity of the code through better naming conventions that reflect the business logic and functionality. Additionally, the code should be restructured to promote reusability, maintainability, and adherence to the principle that functions should have a single responsibility.
+
+**Criteria**:
+1. Function, class, and parameter names must be meaningful and reflective of their purpose and business logic.
+2. Adhere to Python clean code best practices, including readability and maintainability.
+3. Ensure functions are concise, performing a single responsibility to facilitate code reuse and simplicity.
+4. Refactor or merge functions where necessary to eliminate redundancy and promote efficiency.
+5. The refactored code should implement completely the same functionalities of the original code.
+
+**Procedure**:
+1. Analyse and understand what the current given code is doing.
+2. Use the criteria given in the `Criteria` section to evaluate the quality of the API, and propose concrete improvement suggestions considering user suggestions.
+3. Based on the previous analysis from Step 3, present the improved codes of the module in a copiable code block. The improved codes must be functionally the same as the original code.
+
+[OutputRules]
+- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+
+Please follow the steps defined by the `Procedure` section, think and analyse comprehensively to improve the design for the given module. Your output should follow the output rules defined in the `[OutputRules]` section.
+
+[GivenModule]
+File: web_navigator.py
+class WebNavigator:
+    def __init__(self, config):
+        """Initializes with the configuration."""
+        self.config = config
+        self.browser = None
+        self.page = None
+
+    async def navigate_to_site(self):
+        """Launches the browser and navigates to the specified URL."""
+        try:
+            self.browser = await launch({'executablePath': '/usr/bin/google-chrome', 'ignoreDefaultArgs': True,
+            'args': ['--flag-switches-begin', '--flag-switches-end', '--no-first-run']})
+            self.page = await self.browser.newPage()
+            await self.page.goto(self.config['rootUrl'])
+        except Exception as e:
+            logging.error(f"Error navigating to site: {str(e)}")
+            await self.browser.close()
+            raise
+
+    async def perform_initial_steps(self):
+        """Performs initial button clicks and checkbox selections with enhanced element waiting."""
+        try:
+            # Wait and click 'Termin Buchen'
+            await self.click_and_wait_for_navigation("a.button.arrow-right[href*='/ams/TerminBuchen/wizardng?sprachauswahl=de']")
+
+            # Wait, checkbox and Weiter button on the second page
+            await self.page.waitForSelector('#xi-cb-1', { 'state': 'attached' })
+            await self.page.click('#xi-cb-1')
+
+            await self.click_and_wait_for_navigation('#applicationForm\\:managedForm\\:proceed')
+
+            # Complete the form on the third page
+            await self.update_dropdown('#xi-sel-400', self.config['country'])
+
+            ## there is one ajax call when selecting the country. Looks like i have to wait until 
+            ## the ajax call finishes. However, even when the ajax call finished, and the next element is visible.
+            ## there seems to be still problems.
+            await self.update_dropdown('#xi-sel-422', self.config['number_of_persons'])
+            await self.update_dropdown('#xi-sel-427', self.config['live_with_family'])
+            ## there is one ajax call when selecting the country. Looks like i have to wait until 
+            ## the ajax call finishes. However, even when the ajax call finished, and the next element is visible.
+            ## there seems to be still problems.
+            await self.click_div_for_radio_button('.ozg-kachel.kachel-479-0-2')
+            await self.click_div_for_radio_button('.ozg-accordion.accordion-479-0-2-1')
+            await self.click_div_for_radio_button('.level2-content .level3')
+
+            await self.click_and_wait_for_navigation('#applicationForm\\:managedForm\\:proceed')
+
+
+            print("hello world")
+            # Additional steps...
+        except asyncio.TimeoutError as e:
+            logging.error(f"Timeout error: {str(e)}")
+            # Handle timeout specific logic
+        except Exception as e:
+            logging.error(f"Error in initial steps: {str(e)}")
+            # Handle other exceptions
+        finally:
+            await self.browser.close()
+            raise OperatingWebsiteError("error happened")
+
+    async def click_div_for_radio_button(self, selector):
+        """Clicks a div that encompasses a radio button based on its selector."""
+        try:
+            await self.page.waitForSelector(selector, {'state': 'visible'})
+            await self.page.click(selector)
+        except Exception as e:
+            print(f"Failed to click the div {selector}: {e}")
+
+    async def update_dropdown(self, dropdown_selector, option_text):
+        """
+        Updates a dropdown selection based on the provided selector and option text.
+        Optionally waits for the network to become idle if the dropdown change triggers AJAX calls.
+
+        Args:
+            dropdown_selector (str): The CSS selector for the dropdown.
+            option_text (str): The text of the option to select.
+        """
+        js_code = f"""
+        var selectElement = document.querySelector('{dropdown_selector}');
+        Array.from(selectElement.options).forEach(function(optionElement) {{
+            if (optionElement.text === '{option_text}') {{
+                selectElement.value = optionElement.value;
+            }}
+        }});
+        var event = new Event('change', {{ bubbles: true }});
+        selectElement.dispatchEvent(event);
+        """
+        await self.page.waitForSelector(dropdown_selector, {'state': 'visible'})
+        await self.page.evaluate(js_code)
+        time.sleep(0.5)
+
+
+    async def handle_appointment_checking(self):
+        """Handles the checking for available appointments."""
+        # This method should implement the logic for checking appointments.
+        # For example, it can continuously check for available appointments and act accordingly.
+        pass
+
+    async def display_failure_message(self):
+        """Displays a failure message using the provided CSS selector."""
+        try:
+            await self.page.evaluate(f"""document.querySelector('{self.config['failureLabelCSS']}').innerText = 'Failure';""")
+        except Exception as e:
+            logging.error(f"Error in displaying failure message: {str(e)}")
+            raise
+
+
+    async def click_and_wait_for_navigation(self, selector):
+        """Clicks a button and waits for page navigation to complete."""
+        try:
+            # Start navigation and click simultaneously
+            navigationPromise = self.page.waitForNavigation({'waitUntil': 'networkidle0'})
+            await self.page.waitForSelector(selector, { 'state': 'visible' })
+            await self.page.click(selector)
+            # Wait for the navigation to complete
+            await navigationPromise
+        except Exception as e:
+            logging.error(f"Error during click and navigation: {str(e)}")
+            raise
+
+
+[UserSuggestion]
+We could create separate small functions with meaningful names for the update_dropdown. For example, we could call it select_coutry_dropdown, select_person_dropdown etc. Internally, they call the update_dropdown. Please make the change. All the other places remain the same.
+
+
