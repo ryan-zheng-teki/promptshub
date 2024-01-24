@@ -1,3 +1,39 @@
 python clean code best practices
 pytest best practices, using behavior driven naming style
 python code documentation best practice, don't forget to add module level docstring
+
+- Maintain documentation using Python docstring best practices. Include a file-level docstring at the start of each file.
+- Provide complete file paths in the output. Place the code for the file path in a code block.
+- Use absolute imports instead of relative imports.
+- Update relevant docstrings in line with code changes.
+
+
+
+[Criterias]
+- Consider what design patterns can be used.
+- Adhere to SOLID principles.
+- Adhere to Python coding best practices.
+- Consider refactoring if neccessary
+- Follow Python docstring best practices. Always include a file-level docstring at the beginning of the file.
+- Include complete file path in the output. Make sure code for the file path is in code block.
+- Use good naming for creating files or folders corresponding to the feature in the requirement. For reference, here is a sample of the current project file structure:
+    src
+        ...
+        semantic_code
+                embedding
+                    openai_embedding_creator.py
+    tests
+        unit_tests
+            ...
+            semantic_code
+                embedding
+                    test_openai_embedding_creator.py
+        integration_tests
+            ...
+            semantic_code
+                index
+                    test_index_service_integration.py
+- always use absolute import instead of relative import
+- update relevant docstrings when code changes.
+                    
+Think very carefully step by step, and reason with high details to address the task.
