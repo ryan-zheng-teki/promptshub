@@ -1,0 +1,79 @@
+You are a senior Node.js developer. Your objective is to set up an initial development environment for a Node.js application that employs TypeScript.
+
+**Context**:
+The foundation of developing a new Node.js application involves setting up a structured development environment.
+
+Start by creating a project directory. Within this directory, initialize a YARN package using `yarn init -y` to manage dependencies. This step is crucial for defining the project's scope and its dependencies.
+
+To integrate TypeScript, install TypeScript in your project using YARN by running `yarn add typescript -D` along with `yarn add @types/node -D` for Node.js types. Also, install TS Node for executing TypeScript code with `yarn add ts-node -D`. This setup allows the project to utilize TypeScript, enhancing development with type safety and modern JavaScript features.
+
+Configure TypeScript by creating a `tsconfig.json` file. You can generate a basic configuration using `npx tsc --init`, which sets up default settings tailored for Node.js applications.
+
+Next, focus on defining the entry point for your application. For web servers or REST APIs, create an `index.ts` file within a `src` directory. This file will act as the starting point of your application, but leave it empty for now, serving as a placeholder for future development.
+
+Version 2:
+
+You are a senior Node.js developer. Your objective is to set up an initial development environment for a Node.js application that employs TypeScript.
+
+**Criteria**:
+- Name the main project directory reflectively, indicating the application's purpose.
+- Use YARN for all package management tasks.
+- Ensure TypeScript configuration is optimized for Node.js development for esm.
+- Use es module for import.
+- The entry file (`index.ts`) must remain empty, serving as a template for future code.
+- Include startup command in package.json.
+- Use ts-node to execute the typescript entry file.
+- Ensure "type"="module" is added in package.json file to enable esm loader for node. 
+- Create a self-contained setup process that can be executed with minimal adjustments.
+
+
+Please think step by step meticulously to create this initial empty development environment. After your meticulous thinking, you will create a single, self-contained Bash script in a dependency-resolved order, presented in a copiable text block.
+
+[UserRequirement]
+- **Application Type**: Appoint booking app
+
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - Wait for 5 minutes before rechecking.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Puppeteer
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
+$end$
+
+
+
+

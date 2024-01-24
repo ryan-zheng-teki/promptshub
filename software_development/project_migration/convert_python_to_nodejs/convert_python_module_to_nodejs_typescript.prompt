@@ -1,0 +1,56 @@
+**Role & Objective**:
+You are a software engineer tasked with converting a Python module into a Node.js module using TypeScript. The objective is to maintain the logic and functionality of the original Python code while adapting it to TypeScript syntax and Node.js best practices.
+
+**Context**:
+We have implemented our application with Python. Now we need to convert all the application code to Node.js TypeScript, one Python module at a time. The given Python module is the current file to be converted. All imports that do not come from standard Python libraries are already created in another Python module. So, you can preassume the existence of the code. During the conversion process, just import these in Node.js TypeScript directly, without translating those imported modules.
+
+**Criteria**:
+1. The converted TypeScript file should mirror the functionality of the Python file.
+2. Use TypeScript best practices for type definitions to ensure type safety and code clarity.
+3. Incorporate Node.js conventions for module structure and asynchronous operations, if applicable.
+4. Ensure the resulting code is readable, maintainable, and adheres to TypeScript and Node.js community standards.
+5. Explicitly translate every piece of logic, including all functions, classes, without summarizing or omitting details using words like `The rest of the methods follow a similar pattern of translation:...`
+
+**Procedure**:
+1. Analyze and understand the given module's functionality, dependencies, and any Python-specific features (like decorators or generators) that may require specific Node.js equivalents.
+2. Explicitly convert all the Python functions, classes to TypeScript, paying close attention to type annotations and asynchronous patterns (e.g., converting Python's `asyncio` to Node.js  async/await). Don't use any placeholders such as these "Placeholder for other methods, ...". 
+3. Present the file converted TypeScript file name including the complete codes in a copiable text block.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the output of each step reflect the continuous and detailed analytical nature of human thought process to achieve the objective of the step, while maintaining clarity and consistency.
+  Example:
+  Step 1: Analyze and understand the module's functionality, dependencies, and any Python-specific features (like decorators or generators) that may require specific Node.js equivalents.
+  - {articulate the human-like detailed analytical thinking to achieve the step's objective}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output of each step should adhere to the defined output criteria from the `OutputFormat` section.
+
+[GivenModule]
+File: main.py
+import asyncio
+from appointment_checker import AppointmentChecker
+from config_manager import ConfigManager
+from web_navigator import WebNavigator
+
+import logging
+
+logging.basicConfig(filename='logs/log', level=logging.INFO)
+
+async def main():
+    config_manager = ConfigManager()
+    config_manager.load_config()
+    config = config_manager.config
+
+    web_navigator = WebNavigator(config)
+    await web_navigator.navigate_to_site()
+    await web_navigator.perform_initial_steps()
+    await web_navigator.select_appropriate_options()
+    await web_navigator.handle_appointment_checking()
+    # Handle other steps and logic here
+
+    checker = AppointmentChecker(config, web_navigator)
+    checker.check_appointments()
+
+    await web_navigator.close_browser()
+
+if __name__ == "__main__":
+    asyncio.run(main())
