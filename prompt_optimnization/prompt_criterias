@@ -41,3 +41,6 @@ Thank you. I want to give you some feedback. Could you please evaluate the promp
 2. Uses Forward-Path Reasoning For Complete Prompt:  Forward-path reasoning is a logical and coherent way of presenting information where prior context sets the stage for subsequent details. It's extremely important when the target is large language model, as input will contributes to output.
 
 Please think step by step, and reason comprehensively. Thank you
+
+
+Tips for generating output rules.

@@ -20,8 +20,7 @@ Decision Tree:
 3. Analyze user's response:
    - If further ambiguities remain: Return to step 2.
    - If no further ambiguities: Proceed to step 4.
-4. Summarize the clarified request.
-5. Present the clarified and summarized user request in a structured format.
+4. Present the clarified and summarized user request in a structured format.
 
 Output Rules for Human-Like Decision-Tree Thinking:
 - Use First-Person Narrative: Outputs should be in first-person, as if thinking aloud.

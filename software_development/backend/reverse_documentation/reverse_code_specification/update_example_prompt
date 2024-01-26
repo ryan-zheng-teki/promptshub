@@ -7,7 +7,7 @@ You are a large language model performing as a software architect tasked with up
 
 **Procedure**:
 1. Thoroughly study the updated template provided in the `[Template]` section to grasp its format and structure.
-2. Cross-check the existing module code design example given in the `[Example]` section against the updated template.
+2. Cross-check the existing module code design example given in the `[Example]` section against the updated template considering the user feedback given in the `[Feedback]` section.
 3. Pinpoint the segments in the example that need adjustments based on the template's updates.
 4. Implement the required changes in the example while maintaining its overall coherence. And present the implemented new example in a copiable code block.
 
@@ -152,3 +152,5 @@ For each component:
 @enduml
 
 
+[Feedback]
+The template has updated the wording from feature to module. So wording in example should be updated as well.
