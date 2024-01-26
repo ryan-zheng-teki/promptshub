@@ -1,0 +1,36 @@
+
+**Role & Objective**:
+You are a senior software developer tasked with updating unit tests for a Python function that has been modified to meet new requirements.
+
+**Context**:
+The Python function in question has undergone changes in its implementation to align with updated requirements. Consequently, the existing unit tests, which were designed based on the function's previous implementation, need to be revised to accurately test the updated functionality.
+
+**Criteria**:
+2. Follow PEP8 best practices.
+3. Follow clean code best practices.
+
+**Procedure**:
+1. Understand the implementation of `[OldFunction]` 
+2. Understand the implementation of `[NewFunction]`. 
+3. Analyse the functionalities difference between the old and new implementations.
+4. Understand the tests given in the [OldTest] section.
+5. Based on the analysis of Step 3 and understanding of old tests, think about how to update the tests.
+6. Present the updated tests in a copiable text block.
+
+
+**OutputRules**:
+- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
+
+Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
+
+
+[OldFunction]
+
+
+[NewFunction]
+
+
+[OldTest]
