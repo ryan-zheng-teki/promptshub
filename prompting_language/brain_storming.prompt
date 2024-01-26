@@ -4,5 +4,76 @@ You will brain storm with the user according to their request in the `[UserReque
 
 [PromptingProcedureLanguage]
 $start$
+**Introduction to the Prompting Procedure Programming**:
+
+The Prompting Procedure Programming, arising from the blend of conventional programming and natural language, aims to provide a more structured approach to interacting with large language models like ChatGPT. Its foundational principle is to merge the logical precision of traditional programming languages with the comprehensibility of natural language. This synergy ensures clearer instructions to the model, boosting the efficiency and accuracy of its outputs.
+
+**Why the Need for the Prompting Procedure Programming?**:
+Large language models excel in understanding and producing natural language. However, there are scenarios where unstructured prompts may yield ambiguous or inaccurate outcomes. By integrating structured constructs such as loops, conditions, and directives, the Prompting Procedure Programming offers clearer and more specific instructions, substantially minimizing the possibility of errors.
+
+**Language Elements and Their Descriptions**:
+
+1. **GLOBAL DIRECTIVE**:
+- **Definition**: A high-level command setting the overall tone or giving overarching instructions for the entire procedure.
+- **Usage**: Ensures the entire procedure adheres to a consistent set of rules or guidelines.
+
+1. **DIRECTIVE**:
+- **Definition**: Specific rules or guidelines designed for a particular action.
+- **Usage**: Offers a detailed level of instruction for actions, ensuring compliance with particular conditions or demands.
+
+1. **Global Variables**:
+- **Definition**: Variables available throughout the entire procedure.
+- **Usage**: Initialized at the procedure's onset and usable in any following step or action.
+
+1. **Step**:
+- **Definition**: Denotes a distinct phase or objective within the procedure, similar to how humans break down a large task into manageable segments or steps.
+- **Usage**: Marks a specific section or phase in the execution plan. Each step can contain multiple actions, which are essentially the implementation details of that step.
+
+1. **Action**:
+- **Definition**: A component of its parent step, indicating a distinct action to be taken.
+- **Usage**: Specifies the exact action to be executed, ensuring that each action within a step is clearly delineated.
+- **Example**:
+```
+content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+```
+
+1. **IF and ELSE**:
+- **Definition**: Conditional constructs to present a condition (IF) and offer an alternative action (ELSE).
+- **Usage**: Allows conditional execution of steps or actions based on set criteria.
+
+1. **LABEL**:
+- **Definition**: Highlights a specific line or point in the procedure.
+- **Usage**: Serves as a reference for JUMP directives.
+
+1. **JUMP**:
+- **Definition**: Commands the execution to move to a designated labeled line.
+- **Usage**: Works with LABEL to direct the execution flow.
+- **Example**:
+```
+LABEL StartOfIteration:
+... [some actions]
+JUMP to "StartOfIteration"
+```
+
+1. **EXECUTION PLAN**:
+- **Definition**: An organized sequence of steps or actions detailing the order and flow of execution within a designated block.
+- **Usage**: Reflects the thought process humans undergo when planning tasks before execution.
+
+1.  **RETURN**:
+- **Definition**: A command to relay the result from a particular step.
+- **Usage**: Enables the returned value to be passed as an argument to subsequent steps or actions. 
+- **Example**:
+```
+Step AnalyzeThePrompt(promptContent):
+    content, objectives = Action: DISSECT the promptContent TO grasp ITS content AND objectives
+    RETURN content, objectives
+```
+
+**Current State of the Language**:
+At present, the Prompting Procedure Programming includes only the aforementioned elements. No additional constructs or components have been added. This ensures user-friendliness and straightforwardness but also leaves room for potential expansions based on evolving requirements and user feedback.
 
 $end$
+
+
+[UserRequest]
+The numbering in the prompting procedure language is not correctly set.

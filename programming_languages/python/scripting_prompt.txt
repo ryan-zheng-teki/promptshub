@@ -108,62 +108,25 @@ You are a senior Python developer tasked with updating an existing python script
 Please follow the steps defined by the `Procedure` section, think step by step to address the task. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [ExistingScript]
-    async def perform_initial_steps(self):
-        """Performs initial button clicks and checkbox selections with enhanced element waiting."""
+    async def click_div_for_radio_button(self, selector):
+        """Clicks a div that encompasses a radio button based on its selector."""
         try:
-            # Wait and click 'Termin Buchen'
-            await self.click_and_wait_for_navigation("a.button.arrow-right[href*='/ams/TerminBuchen/wizardng?sprachauswahl=de']")
-
-            # Wait, checkbox and Weiter button on the second page
-            await self.page.waitForSelector('#xi-cb-1', { 'state': 'attached' })
-            await self.page.click('#xi-cb-1')
-
-            await self.click_and_wait_for_navigation('#applicationForm\\:managedForm\\:proceed')
-
-            # Complete the form on the third page
-            await self.update_dropdown('#xi-sel-400', self.config['country'])
-
-            ## there is one ajax call when selecting the country. Looks like i have to wait until 
-            ## the ajax call finishes. However, even when the ajax call finished, and the next element is visible.
-            ## there seems to be still problems.
-            await self.update_dropdown('#xi-sel-422', self.config['number_of_persons'])
-            await self.update_dropdown('#xi-sel-427', self.config['live_with_family'])
-            ## there is one ajax call when selecting the country. Looks like i have to wait until 
-            ## the ajax call finishes. However, even when the ajax call finished, and the next element is visible.
-            ## there seems to be still problems.
-            await self.click_div_for_radio_button('.ozg-kachel.kachel-479-0-2')
-            await self.click_div_for_radio_button('.ozg-accordion.accordion-479-0-2-1')
-            await self.click_div_for_radio_button('.level2-content .level3')
-
-            await self.click_and_wait_for_navigation('#applicationForm\\:managedForm\\:proceed')
-
-
-    async def click_and_wait_for_navigation(self, selector):
-        """Clicks a button and waits for page navigation to complete."""
-        try:
-            # Start navigation and click simultaneously
-            navigationPromise = self.page.waitForNavigation({'waitUntil': 'networkidle0'})
-            await self.page.waitForSelector(selector, { 'state': 'visible' })
+            await self.page.waitForSelector(selector, {'state': 'visible'})
             await self.page.click(selector)
-            # Wait for the navigation to complete
-            await navigationPromise
         except Exception as e:
-            logging.error(f"Error during click and navigation: {str(e)}")
-            raise
-        finally:
-            print("navigating page finished")
+            print(f"Failed to click the div {selector}: {e}")
 
-
+    async def update_dropdown(self, dropdown_selector, option_text, monitored_url=None):
+        if monitored_url:
+            await self.strategy.inject_monitoring_code(self.page, monitored_url)
+        await self.page.waitForSelector(dropdown_selector, {'state': 'visible'})
+        await self.select_dropdown_option(dropdown_selector, option_text)
+        if monitored_url:
+            await self.strategy.wait_for_completion(self.page)
+            await self.strategy.cleanup(self.page)
 
 [NewRequirements]
-Actually the last await self.click_and_wait_for_navigation is not correct.
-After click the button, we should not wait for navigation. We should wait for 
-the notification message on the top. Because the UI will show error message if no 
-available appointment.
-
-<div id="messagesBox"><ul class="messagesBox"><li class="errorMessage">Für die gewählte Dienstleistung sind aktuell keine Termine frei! Bitte 
-versuchen Sie es zu einem späteren Zeitpunkt erneut.</li></ul>
-        </div>
+The click_div_for_radio_button should be implemented also with the monitored_url, the other logic remains the same.
 
 
 [OutputRules]
@@ -360,34 +323,3 @@ Automate the generation of unit tests in a Python test file based on a template 
 $end$
 
 
-
-
-**Objective**: 
-Develop a Python script to read and modify an Excel sheet. Preserve predefined formats and allow users to specify input and output paths through function parameters.
-
-**Details**:
-
-1. **Excel File Paths**:
-   - **Input Path**: Provided by the user as a function parameter.
-   - **Output Path**: User will provide this as a function parameter. If not specified, the script will overwrite the original file.
-
-2. **Excel Sheet & Columns**:
-   - **Sheet Name**: "EmployeeInfo"
-   - **Columns**: "Age" (blue background), "Salary" (bold font), and "Position" (italic font).
-
-3. **Modification Requirement**:
-   - Increase "Salary" values in the fixed range A2:A100 by 10%.
-
-4. **Post-Modification Checks**:
-   - Verify formatting for "Age", "Salary", and "Position" columns. Discrepancies will be logged.
-
-5. **Backup**:
-   - If "employee_data_backup.xlsx" exists in the output path, create a backup named "employee_data_backup_YYYY-MM-DD.xlsx".
-
-6. **Logging**:
-   - Use the default format to record modifications and errors in "changes_log.txt" in the output directory. Overwrite any existing logs.
-   - Cells in the "Salary" column with non-numeric values will be highlighted with a bright red dashed border and an associated error message will be logged.
-
----
-
-With this refined structured request, do you have any additional feedback or requirements? If not, we can finalize this session.

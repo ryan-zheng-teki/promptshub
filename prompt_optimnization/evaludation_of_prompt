@@ -83,8 +83,9 @@ $PromptStart$
 As a Python senior software engineer, your task is to review and improve the design of the given Python module.
 
 **Context**:
-The initial modules design has already been done for the existing requirements. 
-In Python, each module is a file. Each module(file) addresses a specific group of functionalities of the requirements. However, during the initial overall modules design, the internal APIs of individual modules were not designed with sufficient care. This necessitates a focused effort on improving the internal design, including the interfaces and function names of the given module.
+The initial design of the Python modules has already been completed for the existing requirements. In Python, each module corresponds to a file. Each module (file) addresses a specific group of the requirements' functionalities. However, the internal APIs of individual modules were potentially not well designed during the initial overall design phase, failing to adhere to SOLID principles. A well-designed API should have business-meaningful names and adhere to the principle of single responsibility, ensuring that each function is dedicated to a single aspect of functionality.
+
+This task involves reviewing the current design of the given module, identifying design issues, and potentially improving the interfaces and function names of the given module.
 
 **Criteria**:
 1. All APIs must have detailed functionality descriptions.
@@ -94,12 +95,12 @@ In Python, each module is a file. Each module(file) addresses a specific group o
 
 **Procedure**:
 1. Identify and understand the specific part of the requirements that the module is addressing.
-2. Analyze how the current design solves these specific requirements.
-3. Evaluate the effectiveness of the current design in meeting these requirements.
-4. Identify potential areas for improvement in the module's design based on Python clean code best practices.
-6. Present the improved design of the module in a copiable code block.
+2. Analyze how each API solves each piece of the identified requirements.
+3. Use Python clean code best practices to analyse the current design of the module
+4. Based on the previous analysis, present the improved design of the module in a copiable code block.
 
 [OutputRules]
+- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process.
 - Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
 - Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
@@ -109,10 +110,38 @@ $PrompteEnd$
 
 [Feedback]
 $start$
-
+If you look at the output, It stopped at ```Understanding these requirements, I'll now proceed to analyze how each API in the module addresses these requirements.
+```
+What i want is that it should continue with the steps in the procedure until finish. I think we should add another rule in the outputRule section to give emphasize that finish all steps, don't wait, stuff like that.
 $end$
 
 
 [Output]
 $start$
+I am now executing the first step of the review process, which involves understanding the specific part of the requirements that the module 'web_navigator.py' is addressing. 
+
+The purpose of the 'web_navigator.py' module is to handle website navigation and interaction for a Python console application. This module is responsible for:
+
+1. Launching a visible browser and navigating to a specific URL.
+2. Performing a series of actions on the website, such as clicking buttons, selecting options, and checking checkboxes, based on the sequence and data provided in the `config.json` file.
+3. Handling exceptional cases, such as navigation issues or discrepancies in the website's UI, by logging errors and aborting operations if necessary.
+
+To meet these requirements, the module should:
+
+- Initialize with a browser instance and a configuration.
+- Navigate to the specified URL.
+- Perform a series of predefined actions (clicks, selections, etc.).
+- Handle country selection dynamically based on the configuration.
+- Manage error logging for navigation issues.
+- Adhere to clean code practices, ensuring readability, maintainability, and robustness.
+
+Understanding these requirements, I'll now proceed to analyze how each API in the module addresses these requirements.
 $end$
+
+
+
+[OutputRules]
+- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process. Ensure to complete each step before moving to the next, maintaining a balance between reflective thinking and task completion.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
