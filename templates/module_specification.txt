@@ -1,6 +1,0 @@
-1. Module Overview & Purpose:
-Purpose:
-A concise statement describing the primary function or objective of the module.
-
-Overview:
-A brief conceptual view of the module, highlighting its main components and its place within the system. Instead of going into detailed design elements, provide a snapshot that gives readers an understanding of the module's essence.

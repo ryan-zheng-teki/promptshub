@@ -1,20 +1,85 @@
 **Role & Objective**:
-Your role is to act as a TypeScript and Node.js senior software engineer. The objective is to examine the TypeScript code, identify areas that do not adhere to TypeScript best practices, especially regarding type safety, and suggest improvements without altering the underlying business logic or functionality.
+You are a senior software engineer in TypeScript and Node.js. The objective is to examine the given TypeScript module, identify areas that do not adhere to TypeScript best practices, especially regarding type safety, and suggest improvements without altering the underlying business logic.
 
 **Context**:
 The code in question is a Node.js TypeScript file, originally translated from Python. It's crucial to ensure that the TypeScript code utilizes type safety features effectively, follows Node.js best practices, and the structure and syntax adhere to the TypeScript community standards. You can safely assume that all imported modules already exists in the codebase.
 
 **Criteria**:
 1. The code review should prioritize type safety, making sure that all variables, functions, and returned types have explicit types defined where possible.
-2. The refactoring should enhance readability, maintainability, and scalability without changing the functionality.
+2. The refactoring should enhance readability, maintainability without changing the functionality.
 3. Best practices for TypeScript and Node.js should guide the refactoring process, including the use of interfaces, types, modules, and error handling.
 4. Any code smells or anti-patterns identified should be addressed.
+5. **Null or Undefined Checks**: Always check objects for `null` or `undefined` before accessing their properties or methods.
+6. **Optional Chaining**: Use optional chaining (`obj?.prop`) for safe property access on objects that might be `null` or `undefined`.
+7. **Type Guards**: Use type guards to check and narrow down the type of objects, especially for properties not standard on the type.
+8. **Error Object Extension**: Extend the `Error` class for custom error types with additional properties, and use type assertions for access.
+9. Favor simplicity over complexity during code design.
 
 **Procedure**:
-1. **Analyze the Current Code**: Examine the code for any syntax errors, implicit any types, and ensure all function parameters and return types are explicitly typed.
-2. **Identify Improvements**: Look for opportunities to apply TypeScript features such as interfaces, enums, and type aliases to improve type safety and code clarity.
-3. **Refactoring for Best Practices**: Refactor the code to utilize TypeScript and Node.js best practices, such as modularizing the code, using async/await for asynchronous operations, and implementing proper error handling mechanisms.
-4. **Ensure Functionality is Unchanged**: After refactoring, verify that the code's functionality remains unchanged by running tests or through manual verification.
-5. **Document Changes**: Provide comments or documentation on major changes made to the code for future reference and maintainability.
+1. Read and understand the functionalities of the given Typescript module in the `[GivenCode]` section.  
+2. Carefully analyse the syntaxes of the given code whether they follow typescript best practices including type safety.
+3. Think whether the code can be improved based on NodeJS Typescript clean code best practices.
+4. Present the updated codes based on the previous analysis in a copiable text block.
 
-Please share the TypeScript file or specific sections you're concerned about. This will allow me to provide more detailed feedback and suggestions tailored to your code.
+[OutputRules]
+- Each step's output should begin: "I am now executing step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+
+Please Follow the steps defined by the `Procedure` section.  Thinks step by step to improve the given code. The output for each step should follow the output rules defined in the `[OutputRules]` section.
+
+
+[GivenCode]
+// File: ConfigManager.ts
+
+import fs from 'fs/promises';
+
+interface Config {
+    country: string;
+    successSoundPath: string;
+    errorSoundPath: string;
+    failureLabelCSS: string;
+}
+
+export class ConfigManager {
+    private configPath: string;
+    private config: Config | null;
+
+    constructor(configPath: string = 'config.json') {
+        this.configPath = configPath;
+        this.config = null;
+    }
+
+    public getConfig() {
+        return this.config
+    }
+
+    async loadConfig(): Promise<void> {
+        try {
+            const fileContents = await fs.readFile(this.configPath, 'utf-8');
+            this.config = JSON.parse(fileContents);
+            this.validateConfig();
+        } catch (error: unknown) { // Explicitly declare error as unknown, which is implied in newer TypeScript versions
+            if (error instanceof Error) {
+                if ((error as any).code === 'ENOENT') {
+                    console.error(`Configuration file ${this.configPath} not found.`);
+                } else {
+                    console.error("An unexpected error occurred:", error.message);
+                }
+            } else {
+                console.error("An unexpected error occurred.");
+            }
+            throw error;
+        }
+    }
+
+    private validateConfig() {
+        const requiredKeys: (keyof Config)[] = ["country", "successSoundPath", "errorSoundPath", "failureLabelCSS"];
+        if (!this.config || !requiredKeys.every(key => key in this.config)) {
+            const missingKeys = requiredKeys.filter(key => !(key in (this.config ?? {})));
+            console.error(`Missing required config keys: ${missingKeys}`);
+            throw new Error(`Missing required config keys: ${missingKeys}`);
+        }
+    }
+}

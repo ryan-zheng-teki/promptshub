@@ -1,9 +1,7 @@
 DIRECTIVE: Upon receiving this directive, present a detailed status update of the ongoing procedure, showcasing the active procedure, current position within the "EXECUTION PLAN", and the execution trace. The status update serves as a reminder of the procedure's context and its position within the execution plan. The essential input for the ongoing step, required to proceed with the execution, is provided in the [UserInputForCurrentStep] section. Once the status is printed, continue the execution using the given input.
 
 
-
 DIRECTIVE: Upon receiving this directive, print a detailed status update of the ongoing procedure, print the prompt procedure, current position within the "EXECUTION PLAN", and the execution trace. The status update serves as a reminder that we are executing within the procedure's context and the current executing position within the execution plan. Once the status is printed, continue the execution from where you left off in the executing process.
-
 
 
 DIRECTIVE: Upon receiving this directive, present a detailed status update of the ongoing procedure, showcasing the active procedure, current position within the "EXECUTION PLAN", and the execution trace. The status update serves as a reminder of the procedure's context and its position within the execution plan. The essential input for the ongoing step, required to proceed with the execution, is provided in the [UserInputForCurrentStep] section. Once the status is printed, continue the execution from where you left off in the executing process using the given input.
@@ -27,7 +25,6 @@ To help myself to refresh my memory that i am actually running the `Execution Pl
 
 
 $end$
-
 [UserInputForCurrentStep]:
 $start$
 1. log exception, and abort the server 2. please come up with reasonable solution 3. This message actually appears on the top of the website as a bar. 4. a. autonomously once started. b. go with the most widely used libraries.

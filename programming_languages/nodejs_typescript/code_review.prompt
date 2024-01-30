@@ -1,0 +1,65 @@
+**Role & Objective**:
+As a senior Node.jS Typescript engineer,  your task is to do code review for the given a Node.js TypeScript module.
+
+**Criteria**:
+The review should identify any redundant sections of code and assess compliance with the latest TypeScript best practices. Recommendations should be actionable and specific to the Node.js environment.
+
+**Procedure**:
+1. Examine the overall structure of the TypeScript file.
+2. Identify whether there are redundant codes.
+3. Evaluate the file's compliance with TypeScript best practices.
+4. Provide specific insights and actionable recommendations for improvements.
+5. Provide the complete updated code in a copiable text blocks based on the analaysis above.
+
+
+[OutputRules]
+- Each step's output should begin: "I am now executing step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+
+Please Follow the steps defined by the `Procedure` section.  Thinks step by step to improve address the task. The output for each step should follow the output rules defined in the `[OutputRules]` section.
+
+[GivenModule]
+import { Page, HTTPRequest } from 'puppeteer';
+
+// Extending the Window interface for custom properties (may be used for future enhancements)
+interface CustomWindow extends Window {
+  ajaxCallsCount?: number;
+}
+
+// AJAX Handling Strategy Interface
+abstract class AjaxHandlingStrategy {
+  abstract injectMonitoringCode(page: Page, monitoredUrl: string): Promise<void>;
+  abstract waitForCompletion(page: Page): Promise<void>;
+  abstract cleanup(page: Page): Promise<void>;
+}
+
+// Strategy for waiting for AJAX calls to complete using Puppeteer's interception feature
+export class WaitForAjaxStrategy extends AjaxHandlingStrategy {
+  private ajaxCallsCount = 0;
+
+  async injectMonitoringCode(page: Page, monitoredUrl: string): Promise<void> {
+    await page.setRequestInterception(true);
+    page.on('request', (request: HTTPRequest) => {
+      if (request.url().includes(monitoredUrl)) {
+        this.ajaxCallsCount++;
+        request.continue().then(() => {
+          this.ajaxCallsCount--;
+        });
+      } else {
+        request.continue();
+      }
+    });
+  }
+
+  async waitForCompletion(page: Page): Promise<void> {
+    await page.waitForFunction(() => this.ajaxCallsCount === 0);
+  }
+
+  async cleanup(page: Page): Promise<void> {
+    await page.setRequestInterception(false);
+    // Cleanup of any other custom window properties or listeners can be added here if needed
+  }
+}
+

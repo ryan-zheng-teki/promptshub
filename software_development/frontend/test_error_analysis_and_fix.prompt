@@ -1,3 +1,4 @@
+Version 1:
 As a top Vue3 frontend engineer, your task is to analyze the error and relevant codes, and based on your analysis results either propose a solution or add more debugging information for further analysis.
 
 Follow the standards below:
@@ -24,113 +25,13 @@ Executed Command:yarn test src/components/prompt/__tests__/PromptEditor.spec.ts 
 
 [Error]
 ```
- ❯ src/components/prompt/__tests__/PromptEditor.spec.ts (6)
-   ❯ PromptEditor.vue (6)
-     ↓ renders the entire prompt from the template prop [skipped]
-     × renders placeholders with correct labels
-     ↓ binds placeholder values [skipped]
-     ↓ emits update:variable event when textarea value changes [skipped]
-     ↓ resizes textarea on input [skipped]
-     ↓ resizes all textareas on component mount [skipped]
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-
- FAIL  src/components/prompt/__tests__/PromptEditor.spec.ts > PromptEditor.vue > renders placeholders with correct labels
-AssertionError: expected 4 to be 2 // Object.is equality
-
-- Expected
-+ Received
-
-- 2
-+ 4
-
- ❯ src/components/prompt/__tests__/PromptEditor.spec.ts:36:33
-     34|     const placeholders = wrapper.findAll('.placeholder-input');
-     35|     const labels = wrapper.findAll('label');
-     36|     expect(placeholders.length).toBe(2);
-       |                                 ^
-     37|     expect(labels[0].text()).toBe('name');
-     38|     expect(labels[1].text()).toBe('age');
+ 
 ```
 [Codes]
 $start$
 File: src/components/prompt/__tests__/PromptEditor.spec.ts
 
 ```
-# Relevant code
-  it('renders placeholders with correct labels', () => {
-    const wrapper = mount(PromptEditor, {
-      props: {
-        template: {
-          template: 'Hello, {name}! Age: {age}',
-          variables: [
-            { name: 'name', source: 'USER_INPUT', allow_code_context_building: false, allow_llm_refinement: false },
-            { name: 'age', source: 'USER_INPUT', allow_code_context_building: false, allow_llm_refinement: false }
-          ]
-        }
-      }
-    });
-    const placeholders = wrapper.findAll('.placeholder-input');
-    const labels = wrapper.findAll('label');
-    expect(placeholders.length).toBe(2);
-    expect(labels[0].text()).toBe('name');
-    expect(labels[1].text()).toBe('age');
-  });
-```
-File: src/components/prompt/PromptEditor.spec.ts
-```
-<template>
-  <div class="prompt-editor">
-    <Collapsible>
-      <ResizableTextArea 
-          v-model="entirePrompt" 
-          class="entire-prompt-editor"
-      />
-    </Collapsible>
-
-    <Collapsible>
-      <div 
-          v-for="promptTemplateVariable in promptTemplateVariables" 
-          :key="promptTemplateVariable.name" 
-          class="input-container">
-        <label :for="promptTemplateVariable.name">{{ promptTemplateVariable.name }}</label>
-        <ResizableTextArea 
-            v-model="values[promptTemplateVariable.name]" 
-            :placeholder="promptTemplateVariable.name" 
-            class="placeholder-input"
-        />
-      </div>
-    </Collapsible>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, computed, reactive, watch, Ref } from 'vue';
-import Collapsible from '../utils/Collapsible.vue';
-import ResizableTextArea from '../utils/ResizableTextArea.vue';
-import type { PromptTemplate } from '../../types/Workflow';
-
-const props = defineProps<{ template: PromptTemplate }>();
-const emit = defineEmits();
-
-const entirePrompt = ref(props.template.template);
-const promptTemplateVariables = computed(() => 
-  props.template.variables.filter(variable => variable.source === 'USER_INPUT')
-);
-const values: Ref<{ [key: string]: string }> = reactive({});
-
-// Watch for changes in the values object and emit updated value
-watch(values, (newValues, oldValues) => {
-  for (const key in newValues) {
-    if (newValues[key] !== oldValues[key]) {
-      emit('update:variable', { variableName: key, value: newValues[key] });
-      break;
-    }
-  }
-});
-
-</script>
-# styles ommited
 ```
 $end$
 
@@ -184,127 +85,10 @@ Ensure your explanations are comprehensive, and the rationale behind your analys
 
 [Error]
 ```
- ❯ src/components/workflow/__tests__/WorkflowDetails.spec.ts  (5 tests | 1 failed | 4 skipped) 33ms
-vendor-cli-api.bf4b62a8.js:12594
-   ❯ src/components/workflow/__tests__/WorkflowDetails.spec.ts > WorkflowDetails > renders the PromptEditor with the correct template
-vendor-cli-api.bf4b62a8.js:12594
-     → Apollo client with id default not found. Use provideApolloClient() if you are outside of a component setup.
-vendor-cli-api.bf4b62a8.js:12594
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
-vendor-cli-api.bf4b62a8.js:12598
- FAIL  src/components/workflow/__tests__/WorkflowDetails.spec.ts > WorkflowDetails > renders the PromptEditor with the correct template
-vendor-cli-api.bf4b62a8.js:12598
-Error: Apollo client with id default not found. Use provideApolloClient() if you are outside of a component setup.
-vendor-cli-api.bf4b62a8.js:12598
- ❯ resolveClient node_modules/@vue/apollo-composable/src/useApolloClient.ts:68:13
-vendor-cli-api.bf4b62a8.js:12598
- ❯ start node_modules/@vue/apollo-composable/src/useQuery.ts:242:20
-vendor-cli-api.bf4b62a8.js:12598
- ❯ useQueryImpl node_modules/@vue/apollo-composable/src/useQuery.ts:578:5
-vendor-cli-api.bf4b62a8.js:12598
- ❯ Module.useQuery node_modules/@vue/apollo-composable/src/useQuery.ts:132:10
-vendor-cli-api.bf4b62a8.js:12598
- ❯ setup src/components/workflow/WorkflowStepDetails.vue:52:78
-vendor-cli-api.bf4b62a8.js:12598
-     50| const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
-     51| 
-     52| const { result: searchResult, loading: searchLoading, error: searchErr…
-       |                                                                              ^
-     53|   SearchCodeEntities, 
-     54|   { query: "dummy_query" }  // This is the dummy query for now
-vendor-cli-api.bf4b62a8.js:12598
- ❯ callWithErrorHandling node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:156:18
-vendor-cli-api.bf4b62a8.js:12598
- ❯ setupStatefulComponent node_modules/@vue/runtime-core/dist/runtime-core.cjs.js:7190:25
-vendor-cli-api.bf4b62a8.js:12598
 ```
 
 [Codes]
-File: src/components/workflow/WorkflowStepDetails.vue
-```
-<template>
-  <!-- Slide-down Panel for Selected Step Details -->
-  <transition name="slide-fade">
-    <div v-if="selectedStep" class="selected-step-details">
-      <h3>Selected Step: {{ selectedStep.name }}</h3>
-      
-      <!-- Prompt Editor Integration -->
-      <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
-        <h4>Edit Prompt:</h4>
-        <PromptEditor :template="selectedStep.prompt_template" />
-        
-        <!-- Show Search Code Context button based on allow_code_context_building -->
-        <button v-if="showSearchContextButton" @click="searchCodeContext" class="search-context-button">Search Code Context</button>
-        
-        <!-- Show Refine Requirement button based on allow_llm_refinement -->
-        <button v-if="showRefineRequirementButton" class="refine-requirement-button">Refine Requirement</button>
-      </div>
 
-      <!-- Search Results Section -->
-      <div class="search-results-section">
-        <h4>Search Results:</h4>
-        <CodeSearchResult v-for="result in searchResults" :key="result.entity.file_path" :snippet="result.entity.docstring" />
-      </div>
-
-      <button @click="startExecution" class="start-execution-button">Start Execution</button>
-      <p>Execution Status: {{ executionStatus }}</p>
-      
-      <!-- Integration of the ExecutionLogsPanel component -->
-      <ExecutionLogsPanel :logs="executionLogs" />
-    </div>
-  </transition>
-</template>
-  
-<script setup lang="ts">
-import { inject, Ref, ref, computed } from 'vue';
-import PromptEditor from '../prompt/PromptEditor.vue';
-import CodeSearchResult from './CodeSearchResult.vue';
-import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
-import { useQuery } from "@vue/apollo-composable";
-import { SearchCodeEntities } from "../../graphql/queries";
-
-// Importing the required types and functions
-import type { Step } from '../../types/Workflow';
-import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
-import { deserializeSearchResult } from '../../utils/JSONParser';
-
-const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
-const executionStatus = ref('Not Started');
-const executionLogs = ref('');
-const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
-
-const { result: searchResult, loading: searchLoading, error: searchError } = useQuery(
-  SearchCodeEntities, 
-  { query: "dummy_query" }  // This is the dummy query for now
-);
-
-const searchCodeContext = () => {
-  if (searchResult.value) {
-    const parsedSearchResult: SearchResult = deserializeSearchResult(searchResult.value);
-    searchResults.value = parsedSearchResult.entities;
-  }
-  if (searchError.value) {
-    console.error("Error while searching for code entities:", searchError.value);
-  }
-};
-
-const startExecution = () => {
-  executionStatus.value = 'Running';
-  // ... start execution process
-  // ... update executionLogs with streaming logs from the backend
-};
-
-// Computed property to determine if the Search Code Context button should be displayed
-const showSearchContextButton = computed(() => {
-  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_code_context_building);
-});
-
-// Computed property to determine if the Refine Requirement button should be displayed
-const showRefineRequirementButton = computed(() => {
-  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_llm_refinement);
-});
-</script>
-# styles ommited
 ```
 
 
@@ -356,204 +140,17 @@ Think step by step, ensure your explanation is thorough, and that the reasoning 
 
 [Error]
 ```
-[@vue/compiler-sfc] `defineProps` is a compiler macro and no longer needs to be imported.
 
-compiler-sfc.cjs.js:3536
- ❯ src/components/workflow/__tests__/WorkflowStepDetails.spec.ts  (5 tests | 1 failed | 4 skipped) 381597ms
-vendor-cli-api.bf4b62a8.js:12594
-   ❯ src/components/workflow/__tests__/WorkflowStepDetails.spec.ts > WorkflowDetails > shows Search Code Context button if allow_code_context_building is true
-vendor-cli-api.bf4b62a8.js:12594
-     → expected false to be true // Object.is equality
-vendor-cli-api.bf4b62a8.js:12594
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
-vendor-cli-api.bf4b62a8.js:12598
- FAIL  src/components/workflow/__tests__/WorkflowStepDetails.spec.ts > WorkflowDetails > shows Search Code Context button if allow_code_context_building is true
-vendor-cli-api.bf4b62a8.js:12598
-AssertionError: expected false to be true // Object.is equality
-vendor-cli-api.bf4b62a8.js:12598
-
-- Expected
-+ Received
-
-- true
-+ false
-
-vendor-cli-api.bf4b62a8.js:12513
- ❯ src/components/workflow/__tests__/WorkflowStepDetails.spec.ts:70:42
-vendor-cli-api.bf4b62a8.js:12598
-     68| 
-     69|     const searchContextButton = wrapper.find('.search-context-button');
-     70|     expect(searchContextButton.exists()).toBe(true);
-       |                                          ^
-     71| });
-     72| 
-vendor-cli-api.bf4b62a8.js:12598
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
 ```
 [Codes]
 $start$
-File: src/components/workflow/__tests__/WorkflowStepDetails.spec.ts
-```
-
-     it('shows Search Code Context button if allow_code_context_building is true', () => {
-    const selectedStepMock = {
-      name: "Step One",
-      prompt_template: {
-        template: "Hello, {name}!",
-        variables: [{
-          name: "name",
-          source: "DYNAMIC",
-          allow_code_context_building: true,
-          allow_llm_refinement: false
-        }]
-      }
-    };
-
-    const wrapper = shallowMount(WorkflowStepDetails, {
-      global: {
-        provide: {
-          selectedStep: selectedStepMock
-        }
-      }
-    });
-
-    const searchContextButton = wrapper.find('.search-context-button');
-    expect(searchContextButton.exists()).toBe(true);
-});
-```
-File: src/components/workflow/WorkflowStepDetails.ts
-```
-<template>
-  <!-- Slide-down Panel for Selected Step Details -->
-  <transition name="slide-fade">
-    <div v-if="selectedStep" class="selected-step-details">
-      <h3>Selected Step: {{ selectedStep.name }}</h3>
-      
-      <!-- Prompt Editor Integration -->
-      <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
-        <h4>Edit Prompt:</h4>
-        <PromptEditor :template="selectedStep.prompt_template" />
-        
-        <!-- Show Search Code Context button based on allow_code_context_building -->
-        <button v-if="showSearchContextButton" @click="searchCodeContext" class="search-context-button">Search Code Context</button>
-        
-        <!-- Show Refine Requirement button based on allow_llm_refinement -->
-        <button v-if="showRefineRequirementButton" class="refine-requirement-button">Refine Requirement</button>
-      </div>
-
-      <!-- Search Results Section -->
-      <div class="search-results-section">
-        <h4>Search Results:</h4>
-        <CodeSearchResult v-for="result in searchResults" :key="result.entity.file_path" :snippet="result.entity.docstring" />
-      </div>
-
-      <button @click="startExecution" class="start-execution-button">Start Execution</button>
-      <p>Execution Status: {{ executionStatus }}</p>
-      
-      <!-- Integration of the ExecutionLogsPanel component -->
-      <ExecutionLogsPanel :logs="executionLogs" />
-    </div>
-  </transition>
-</template>
-  
-<script setup lang="ts">
-import { inject, Ref, ref, computed } from 'vue';
-import PromptEditor from '../prompt/PromptEditor.vue';
-import CodeSearchResult from './CodeSearchResult.vue';
-import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
-import { useQuery } from "@vue/apollo-composable";
-import { SearchCodeEntities } from "../../graphql/queries";
-
-// Importing the required types and functions
-import type { Step } from '../../types/Workflow';
-import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
-import { deserializeSearchResult } from '../../utils/JSONParser';
-
-const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
-const executionStatus = ref('Not Started');
-const executionLogs = ref('');
-const searchResults = ref<ScoredEntity<CodeEntity>[]>([]);
-
-const { result: searchResult, loading: searchLoading, error: searchError } = useQuery(
-  SearchCodeEntities, 
-  { query: "dummy_query" }  // This is the dummy query for now
-);
-
-const searchCodeContext = () => {
-  if (searchResult.value) {
-    const parsedSearchResult: SearchResult = deserializeSearchResult(searchResult.value);
-    searchResults.value = parsedSearchResult.entities;
-  }
-  if (searchError.value) {
-    console.error("Error while searching for code entities:", searchError.value);
-  }
-};
-
-const startExecution = () => {
-  executionStatus.value = 'Running';
-  // ... start execution process
-  // ... update executionLogs with streaming logs from the backend
-};
-
-// Computed property to determine if the Search Code Context button should be displayed
-const showSearchContextButton = computed(() => {
-  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_code_context_building);
-});
-
-// Computed property to determine if the Refine Requirement button should be displayed
-const showRefineRequirementButton = computed(() => {
-  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_llm_refinement);
-});
-</script>
 
 ```
 $end$
 
 
-As a seasoned Vue3 frontend engineer, your responsibility is to diagnose the error and associated code. Based on your findings, either suggest a remedy or enhance debugging details for a deeper analysis.
-
-Think step by step.
-
-Executed Command: yarn test src/components/prompt/__tests__/PromptEditor.spec.ts --testNamePattern "emits update:variable event when textarea value changes"
-
-
 [Error]
 ```
- ❯ src/components/prompt/__tests__/PromptEditor.spec.ts (6)
-   ❯ PromptEditor.vue (6)
-     ↓ renders the entire prompt from the template prop [skipped]
-     ↓ renders placeholders with correct labels [skipped]
-     ↓ binds placeholder values [skipped]
-     × emits update:variable event when textarea value changes
-     ↓ resizes textarea on input [skipped]
-     ↓ resizes all textareas on component mount [skipped]
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-
- FAIL  src/components/prompt/__tests__/PromptEditor.spec.ts > PromptEditor.vue > emits update:variable event when textarea value changes
-AssertionError: expected undefined to be truthy
-
-- Expected: 
-undefined
-
-+ Received: 
-false
-
- ❯ src/components/prompt/__tests__/PromptEditor.spec.ts:74:50
-     72|     const textarea = wrapper.find('.placeholder-input');
-     73|     await textarea.setValue('John');
-     74|     expect(wrapper.emitted()['update:variable']).toBeTruthy();
-       |                                                  ^
-     75|     expect(wrapper.emitted()['update:variable'][0]).toEqual([{ variableName: 'name', value: 'John' }]);
-     76|   });
-
-
-
-```
-[Codes]
-$start$
-File: src/components/prompt/__tests__/PromptEditor.spec.ts
-
 ```
 $end$
 
@@ -597,177 +194,21 @@ Think step by step.
 
 [Error]
 ```
-ResizableTextArea: Emitting update:modelValue with value Hello, John!
-How are you today?
-ResizableTextArea: Emitting update:modelValue with value Hello, John!
-How are you today?
-Height without px: undefined
-
- ❯ src/components/prompt/__tests__/PromptEditor.spec.ts (6)
-   ❯ PromptEditor.vue (6)
-     ↓ renders the entire prompt from the template prop [skipped]
-     ↓ renders placeholders with correct labels [skipped]
-     ↓ binds placeholder values [skipped]
-     ↓ emits update:variable event when textarea value changes [skipped]
-     × resizes textarea on input
-     ↓ resizes all textareas on component mount [skipped]
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
-
- FAIL  src/components/prompt/__tests__/PromptEditor.spec.ts > PromptEditor.vue > resizes textarea on input
-AssertionError: expected NaN to be greater than 1
- ❯ src/components/prompt/__tests__/PromptEditor.spec.ts:98:39
-     96|     const heightWithoutPx = textarea.element.style.height.replace('px', '');
-     97|     console.log("Height without px:", heightWithoutPx);  // Add this line
-     98|     expect(parseInt(heightWithoutPx)).toBeGreaterThan(1);
-       |                                       ^
-     99|     
-    100|   });
-
-
 ```
 [Codes]
 $start$
 File: src/components/prompt/__tests__/PromptEditor.spec.ts
 
 ```
-# Relevant test code
-it('resizes textarea on input', async () => {
-  const wrapper = mount(PromptEditor, {
-    props: {
-      template: 'Hello, {{name}}!\nHow are you today?'
-    }
-  });
-
-  const textarea = wrapper.find('.placeholder-input');
-  await textarea.setValue('Hello, John!\nHow are you today?');
-  await textarea.trigger('input');
-  
-  // Add a delay to allow any asynchronous operations to complete
-  await new Promise(resolve => setTimeout(resolve, 100));
-  
-  const heightWithoutPx = textarea.element.style.height.replace('px', '');
-  console.log("Height without px:", heightWithoutPx);  // Log the height
-
-  // Check if heightWithoutPx is defined before making the assertion
-  if (heightWithoutPx) {
-    expect(parseInt(heightWithoutPx)).toBeGreaterThan(1);
-  } else {
-    // Log or handle the case when height is not set
-    console.log("Height not set!");
-  }
-});
 
 ```
 File: src/components/prompt/PromptEditor.spec.ts
 ```
-<template>
-  <div class="prompt-editor">
-    <Collapsible>
-      <ResizableTextArea 
-          v-model="entirePrompt" 
-          class="entire-prompt-editor"
-      />
-    </Collapsible>
 
-    <Collapsible class="placeholders-section">
-      <div 
-          v-for="promptTemplateVariable in promptTemplateVariables" 
-          :key="promptTemplateVariable.name" 
-          class="input-container">
-        <label :for="promptTemplateVariable.name">{{ promptTemplateVariable.name }}</label>
-        <ResizableTextArea 
-            :modelValue="values[promptTemplateVariable.name]" 
-            @update:modelValue="updateValue(promptTemplateVariable.name, $event)"
-            :placeholder="promptTemplateVariable.name" 
-            class="placeholder-input"
-        />
-      </div>
-    </Collapsible>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, computed, reactive, Ref, watch } from 'vue';
-import Collapsible from '../utils/Collapsible.vue';
-import ResizableTextArea from '../utils/ResizableTextArea.vue';
-import type { PromptTemplate } from '../../types/Workflow';
-
-const props = defineProps<{ template: PromptTemplate }>();
-const emit = defineEmits();
-
-const entirePrompt = ref(props.template.template);
-const promptTemplateVariables = computed(() => 
-  props.template.variables.filter(variable => variable.source === 'USER_INPUT')
-);
-
-// Initialize values with an empty string for 'name'
-const values: Ref<{ [key: string]: string }> = reactive({ name: '' });
-
-const updateValue = (key, newValue) => {
-  values[key] = newValue;
-  emit('update:variable', { variableName: key, value: newValue });
-};
-
- // Log the computed promptTemplateVariables for debugging.
- watch(promptTemplateVariables, (newVal) => {
-    console.log("promptTemplateVariables:", newVal);
-  });
-
-</script>
-# styles ommited
 ```
 File: src/components/utils/ResizableTextArea.spec.ts
 ```
-<template>
-    <textarea 
-        ref="textareaRef"
-        :value="modelValue"
-        @input="handleInput"
-        class="resizable-textarea"
-    ></textarea>
-</template>
-  
-<script setup lang="ts">
-import { ref, nextTick, onMounted } from 'vue';
 
-const props = defineProps({
-    modelValue: String
-});
-
-const emit = defineEmits(['update:modelValue']);
-const textareaRef = ref(null);
-
-const handleInput = (event: Event) => {
-    console.log("ResizableTextArea: Emitting update:modelValue with value", event.target.value); // Added log
-    resizeTextarea();
-    emit('update:modelValue', event.target.value);
-};
-
-const resizeTextarea = () => {
-    const textarea = textareaRef.value;
-    if (textarea) {
-        const currentHeight = textarea.clientHeight;
-        const scrollHeight = textarea.scrollHeight;
-
-        if (currentHeight !== scrollHeight) {
-            textarea.style.height = scrollHeight + 'px';
-        }
-    }
-};
-
-onMounted(() => {
-    nextTick(() => {
-        resizeTextarea();
-    });
-});
-</script>
-
-<style>
-.resizable-textarea {
-    /* ... common styles here ... */
-}
-</style>
 
 ```
 $end$

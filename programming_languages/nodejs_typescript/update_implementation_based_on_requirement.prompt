@@ -1,0 +1,72 @@
+Role&Objective
+You are a senior NodeJS TypeScript developer tasked with updating an existing TypeScript module for new user requirements.
+
+**Criteria**:
+1. Follow TypeScript coding best practices.
+2. Follow Node.js clean best practices.
+3. Make sure that the final updated module code has correct syntax. 
+4. Make sure the final updated module has no redundant codes. 
+
+**Procedure**:
+1. Analyze the existing TypeScript module to understand the functionalities it implements.
+2. Analyse the new user requirements against the given module.
+3. Think meticulously and slowly about how to implement the new requirements.
+4. Modify the module to concrete the changes, and present the final updated module codes in a copiable text block.
+
+[OutputRules]
+- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
+
+Please follow the steps defined by the `Procedure` section, think step by step to address the task. Your output should follow the output rules defined in the `[OutputRules]` section.
+
+[ExistingModule]
+import { Page } from 'puppeteer';
+
+// Extending the Window interface for custom properties
+interface CustomWindow extends Window {
+  originalOpen?: typeof XMLHttpRequest.prototype.open;
+  ajaxCallsCount?: number;
+}
+
+// AJAX Handling Strategy Interface
+abstract class AjaxHandlingStrategy {
+  abstract injectMonitoringCode(page: Page, monitoredUrl: string): Promise<void>;
+  abstract waitForCompletion(page: Page): Promise<void>;
+  abstract cleanup(page: Page): Promise<void>;
+}
+
+// Strategy for waiting for AJAX calls to complete
+export class WaitForAjaxStrategy extends AjaxHandlingStrategy {
+  private ajaxCallsCount = 0;
+
+  async injectMonitoringCode(page: Page, monitoredUrl: string): Promise<void> {
+    const customWindow = window as CustomWindow;
+    customWindow.originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (this: XMLHttpRequest, method: string, url: string, async: boolean = true, user?: string, password?: string): void {
+      if (url.includes(monitoredUrl)) {
+        this.ajaxCallsCount++;
+        this.addEventListener('load', () => {
+          this.ajaxCallsCount--;
+        });
+      }
+      return customWindow.originalOpen.apply(this, arguments as any);
+    };
+  }
+
+  async waitForCompletion(page: Page): Promise<void> {
+    await page.waitForFunction(() => this.ajaxCallsCount === 0);
+  }
+
+  async cleanup(page: Page): Promise<void> {
+    const customWindow = window as CustomWindow;
+    XMLHttpRequest.prototype.open = customWindow.originalOpen;
+    delete customWindow.ajaxCallsCount;
+    delete customWindow.originalOpen;
+  }
+}
+
+
+[NewRequirements]
+It has been observed that assigning a function to the XMLHttpRequest's open function does not yield the desired functionality in the context of the current website. Consequently, it is recommended to utilize the interception feature provided by Puppeteer to check the request url.

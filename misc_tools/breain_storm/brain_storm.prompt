@@ -1,26 +1,111 @@
 **Role & Objective**:
-You are a brainstorming Partner and Content Analyst: Assist the user in generating or refining ideas and analyze any provided conversation history to give insights or feedback as required by the user.
+You are a brainstorming Partner and Content Analyst: Assist the user in generating or refining ideas.
 
 **Criteria**:
 - Engage interactively with the user to generate or refine ideas.
-- Analyze provided conversation history to understand context.
 - Ensure feedback or insights are based on the user's request and are constructive.
 
 **Procedure**:
-1. Understand the user's current ideas in the `[UserIdea]` section they want to brainstorm.
-2. If conversation history is provided in the `[ConversationHistory]` section between `$ConversationStart$` and `$ConversationEnd$` tokens, review it to grasp the context better.
-3. Based on the conversation history and the user's ideas, engage in an interactive brainstorming session, suggesting, refining, or expanding on the ideas.
-4. Continuously loop back to step 1 as the conversation evolves.
+1. Analyse the user's current ideas in the `[UserIdea]` section.
+3. Based the user's ideas, engage in an interactive brainstorming session, suggesting, refining, or expanding on the ideas.
+3. Continuously loop back to step 1 as the conversation evolves.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
 
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
+[UserIdea]
+I have a generic code design template, as you can see in the `[CodeDesignTemplate]` section. The current documentation utilizes a generic structure focusing on Components, Methods/APIs, and Attributes, typically interpreting 'Component' as Classes. However, Python's modular design involves distinct modules for various functionalities, each in a separate file. A Python module can encapsulate a class or pure functions, tailored to the required functionality. This necessitates adapting the conventional use of 'Component' to better suit Python's specific module-centric approach.
 
 
+[CodeDesignTemplate]
+### Module Code Specification Template:
 
+#### 1. Document Context
 
+- **Programming Language**: This specification is tailored for **Python**, emphasizing terminologies and structures inherent to Python. Some principles might apply universally, but specific details are Python-centric.
+  
+- **Terminology**: 
+  - **Component**: A primary building block of the module. In Python, this can be a **Class** or a **Standalone Function**.
+  - **Module**: A grouping of related functionalities. Distinct from Python's term, where "module" typically refers to a file.
 
+#### 2. Module Architecture Design:
 
+##### 2.1. High-Level Design
+This module is designed to implement the Observer Pattern, enabling multiple subscribers to be notified of certain events. The architecture ensures that event initiators and responders are decoupled, allowing for modularity and scalability.
 
+##### 2.2. Components Modifications
+
+###### 2.2.1. New Components
+
+- **Publisher (New - Class)**
+    - **Purpose**: Acts as the broadcaster for events. It notifies all subscribers when an event occurs and logs them to the `EventDatabase`.
+    - **Attributes**:
+        - `subscribers_list`: List storing all the registered subscribers.
+    - **Methods/APIs**:
+        - `trigger_event()`: Initiates an event, logs it, and notifies subscribers.
+        - `add_subscriber(subscriber: Subscriber)`: Adds a new subscriber to the subscribers list.
+        - `log_event_to_database(event: Event)`: Logs the event to the `EventDatabase`.
+    - **Interactions**: Connects with the `EventDatabase` to log events and communicates with `Subscriber` entities to notify them of events.
+
+- **Subscriber (New - Class)**
+    - **Purpose**: Monitors and responds to particular events triggered by the `Publisher`.
+    - **Attributes**:
+        - `event_history`: List to store received events.
+    - **Methods/APIs**:
+        - `on_event_received(event: Event)`: Handles the event and stores it in `event_history`.
+    - **Interactions**: Receives event notifications from the `Publisher`.
+
+###### 2.3. Dependencies (Unchanged Components)
+
+- **EventDatabase (Existing - Class)**
+    - **Purpose**: A database component designed to store all triggered events.
+
+##### 2.4. Interactions Overview
+- Users or systems interface with the `Publisher` to initiate events.
+- Once an event is triggered, the `Publisher` logs the event to the `EventDatabase`.
+- The `Publisher` then notifies all `Subscriber` entities of this event.
+
+##### 2.5. External Dependencies
+- None.
+
+#### 3. Module Diagram
+
+##### 3.1. Diagram Terminology
+
+- Components marked with `(New)` are to be developed as part of this module.
+- Components marked with `(Existing)` are pre-existing and should be treated as dependencies.
+- In the diagram, "component" can refer to either a class or a standalone function. Classes are represented traditionally. Standalone functions, for flexibility, are represented as rectangles with a dashed border.
+
+##### 3.2. UML Representation
+
+@startuml
+
+class "Publisher (New)" {
+    + subscribers_list: List[Subscriber]
+    + trigger_event()
+    + add_subscriber(subscriber: Subscriber)
+    + log_event_to_database(event: Event)
+}
+
+class "Subscriber (New)" {
+    + event_history: List[Event]
+    + on_event_received(event: Event)
+}
+
+class "EventDatabase (Existing)" {
+    + save_event(event: Event)
+}
+
+"Publisher (New)" --> "Subscriber (New)": Event notification
+"Publisher (New)" --> "EventDatabase (Existing)": Logs event
+
+@enduml
 
 
 

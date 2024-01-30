@@ -1,0 +1,6 @@
+Certainly, here are the TypeScript best practices mentioned in a concise format:
+
+1. **Null or Undefined Checks**: Always check objects for `null` or `undefined` before accessing their properties or methods.
+2. **Optional Chaining**: Use optional chaining (`obj?.prop`) for safe property access on objects that might be `null` or `undefined`.
+3. **Type Guards**: Use type guards to check and narrow down the type of objects, especially for properties not standard on the type.
+4. **Error Object Extension**: Extend the `Error` class for custom error types with additional properties, and use type assertions for access.

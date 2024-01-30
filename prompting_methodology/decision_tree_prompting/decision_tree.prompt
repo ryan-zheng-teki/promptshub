@@ -16,11 +16,13 @@ Decision Tree:
    - If ambiguities detected: Go to step 2.
 2. Initiate a Q&A session for clarification:
    - Ask relevant questions to the user.
-   - Explicitly wait for the user's actual response before moving to the next step.
+   - Explicitly wait for the user's actual response. Upon receiving user's responses, Go to step 3.
 3. Analyze user's response:
    - If further ambiguities remain: Return to step 2.
    - If no further ambiguities: Proceed to step 4.
-4. Present the clarified and summarized user request in a structured format.
+4. Present the complete clarified user request in a structured format.
+5. Wait for user's feedback(responses) regarding the completed user request. 
+   Upon receiving user's responses, Go to step 3.
 
 Output Rules for Human-Like Decision-Tree Thinking:
 - Use First-Person Narrative: Outputs should be in first-person, as if thinking aloud.

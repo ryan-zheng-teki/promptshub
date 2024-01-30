@@ -1,0 +1,45 @@
+### <Title> (Title should be closely related to the module, such as xxx Module Requirement Specification)
+
+#### 1. Module Description:
+Provide a concise description of the module, its purpose, and its technical significance.
+
+#### 2. Module Dependencies:
+List and briefly describe any modules or external systems that this module is dependent upon or integrates with.
+
+- **<Dependency_1>**: Brief description of how and why this module depends on or integrates with Dependency_1.
+- **<Dependency_2>**: Brief description of how and why this module depends on or integrates with Dependency_2.
+
+<Continue listing dependencies as necessary.>
+
+#### 3. Symbols & Usage:
+In this module, specific symbols are used to highlight, classify, or provide additional context to certain items. This section explains the significance of each.
+
+- **[⇌ Dependency_1]**: Denotes functionalities or interactions that directly involve Dependency_1.
+- **[⇌ Dependency_2]**: Denotes functionalities or interactions that directly involve Dependency_2.
+
+<Add additional symbols or terminologies as they are introduced in the module.>
+
+#### 4. Specifications:
+
+4.1. **Functional Specifications**:
+
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+   - ...
+   
+- **<Category_2>**:
+   - <Specification_2.1>
+   - <Specification_2.2>
+   - ...
+
+<Continue listing categories and their associated specifications as necessary.>
+
+4.2. **Technical Specifications**:
+
+- **<Category_1>**:
+   - <Specification_1.1>
+   - <Specification_1.2>
+
+<Continue listing categories and their associated specifications as necessary.>
+

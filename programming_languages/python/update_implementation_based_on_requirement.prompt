@@ -20,9 +20,44 @@ You are a senior Python developer tasked with updating an existing python script
 Please follow the steps defined by the `Procedure` section, think step by step to address the task. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [ExistingScript]
+    async def click_until_session_timeout(self, selector):
+        """Clicks a button and waits for a specific error message to appear on the page."""
+        
+        attempt_count = 0
+        while True:
+            try:
+                await self.page.waitForSelector(selector, {'state': 'visible'})
+                await self.page.click(selector)
+                await asyncio.sleep(2)
+                attempt_count+=1
+                # Play error sound and wait if attempts reach 40
+                if attempt_count == 20:
+                    await asyncio.sleep(15)
+                    await self.appoint_checker.play_tried_many_times()
+                    attempt_count = 0
+
+                 # Check if the session has timed out
+                if await self.is_session_time_out():
+                    await self.appoint_checker.play_session_ended_sound()
+                    break
+
+            except Exception as e:
+                logging.error(f"Error navigating to site: {str(e)}")
+                await self.appoint_checker.play_error_sound()
+                
+                # Check if the session has timed out
+                if await self.is_session_time_out():
+                    await self.appoint_checker.play_session_ended_sound()
+                else: 
+                    self.appoint_checker.notify_user_success()
+                    while True:
+                        time.sleep(1)
+                raise
+
 
 
 [NewRequirements]
+
 
 
 Version 4:
@@ -51,3 +86,10 @@ Please follow the steps defined by the `Procedure` section, think step by step t
 
 
 [NewRequirements]
+<li class="antcl_active"><div class="antcl_circle">3</div><span>Terminauswahl</span></li>
+
+
+
+
+
+<li class="antcl_active"><div class="antcl_circle">2</div><span>Servicewahl</span></li>
