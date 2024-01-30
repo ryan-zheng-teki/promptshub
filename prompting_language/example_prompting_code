@@ -89,10 +89,8 @@ Criteria:
 
 Step AnalyzeThePrompt(promptContent):
     Action: DISSECT promptContent to understand its content and objectives.
-
-Step DetermineTheDomain(contentAnalysis):
     Action: IDENTIFY the domain from the contentAnalysis.
-    RETURN domain
+
 
 Step EngageAndClarifyUsersRequest(requirement):
     ambiguities = Action: ANALYZE the requirement to uncover any ambiguities.
@@ -124,12 +122,10 @@ Step WaitForUserRequirement:
     RETURN userRequirement
 
 EXECUTION PLAN:
-    initialPromptContent = INITIATE Step WaitForInitialPrompt.
-    userRequirement = INITIATE Step WaitForUserRequirement.
-    INITIATE Step AnalyzeThePrompt(initialPromptContent).
-    domain = INITIATE Step DetermineTheDomain(content).
-    clarifiedRequirements = INITIATE Step EngageAndClarifyUsersRequest(userRequirement).
-    plannedChanges = INITIATE Step PlanChangesAccordingToRequirements(clarifiedRequirements, content).
-    refinedPrompt = INITIATE Step SubmitTheRefinedPrompt(plannedChanges, initialPromptContent).
-
+    initialPromptContent = WaitForInitialPrompt().
+    userRequirement = WaitForUserRequirement().
+    AnalyzeThePrompt(initialPromptContent).
+    clarifiedRequirements = EngageAndClarifyUsersRequest(userRequirement).
+    plannedChanges = PlanChangesAccordingToRequirements(clarifiedRequirements, content).
+    refinedPrompt = SubmitTheRefinedPrompt(plannedChanges, initialPromptContent).
 END PROCEDURE

@@ -69,3 +69,42 @@ Then we submit each subtask to LLM to make LLM implement the subtask, given the 
 This streamlined process is driven by multiple prompts. The more reliably this process works, the less work human has to be involved.
 $end$
 
+
+
+
+
+
+The advent of large language models has significantly altered traditional software engineering practices and impacted various industries. The efficacy of these models largely depends on the design of structured prompts, which serve as task-specific instructions. These prompts should be logically organized and sufficiently detailed to guide the models effectively. However, optimizing prompts presents challenges, including determining the appropriate level of detail and managing the costs associated with their evaluation. Despite these challenges, the optimization of prompts is a critical component, with humans playing a pivotal role in assessing and refining these prompts to ensure their effectiveness.
+
+To iteratively improve prompts for large language models, the process begins with the creation of a meta prompt. This meta prompt serves to generate an initial prompt by first identifying the user's task, establishing the role and objective, setting the context, and outlining the procedure. The initial prompt, often imperfect, is then refined through a critical evaluation of its components, identifying and rectifying any evident flaws. This iterative process not only enhances the prompt itself but also offers insights into potential improvements for the meta prompt, thereby increasing the effectiveness of future prompts.
+
+The process described involves an iterative refinement of prompts using a large language model, primarily ChatGPT. Initially, noticeable errors or unsatisfactory elements within the original prompt are corrected. The revised prompt is then submitted to the language model for evaluation. The output is critically analyzed, with a focus on identifying deficiencies. To articulate the desired changes more effectively, both the original prompt and the model's output are incorporated into an evaluation prompt, which includes specific feedback. This step guides the language model towards producing improved content or enables an evaluation based on the provided feedback, with a particular emphasis on addressing areas of dissatisfaction. The iterative nature of this process, involving continuous feedback and modification, results in text that more accurately reflects the intended meaning. Elements of this text are subsequently integrated back into the original prompt for further processing. This cycle of evaluation and refinement is repeated as necessary to extract text that best represents the desired outcome.
+
+
+The method discussed involves the use of a refinement prompt as an integral part of enhancing the quality of initial prompts. This refinement prompt is capable of processing the original prompt alongside specific user requirements. It is particularly useful when the user identifies a need for modification in the original prompt but faces challenges in expressing these changes in formal language. In such instances, the user employs informal or rough language to convey their intentions. The refinement prompt is then utilized to implement specific modifications, applicable when the output from the language model is unsatisfactory, lacks detail, or requires supplementary information. The decision to modify is contingent upon the specific requirements of the task.
+
+A key strategy in this method is the precision of feedback regarding dissatisfaction with the original prompt. Generalized feedback can lead to the language model making extensive, potentially unintended changes. Conversely, specifying particular sections or sentences that need improvement allows for a more controlled and incremental enhancement process. This focused approach fosters gradual improvements in the original prompt, guiding it towards a more refined and accurate representation of the desired outcome.
+
+
+The proposed experiment involves the application of a generic code design template across various programming languages. This template, while broadly applicable, includes specific details such as methods, APIs, and attributes crucial for design. Although the template may resemble a class in object-oriented programming, its intention is to be universally applicable, encompassing languages that support both functional and object-oriented programming styles.
+
+A challenge is identified when processing this generic template through a large language model. The model tends to interpret the components of the template as classes, which is not always the most suitable approach for languages with multiple programming paradigms. The objective of the experiment is to adapt this generic code design documentation into a language-specific template, for instance, for Python. This adaptation process requires a significant amount of creativity and ideation, which can be time-consuming. The experiment aims to utilize the creative potential of a large language model to facilitate and improve the efficiency of this transformation process.
+
+The optimization process begins with the creation of an initial prompt, utilizing a specialized meta prompt. This meta prompt is tasked with a specific challenge: to convert a generic code design template into one that is language-specific. It accomplishes this by determining the task's domain and generating procedures and context relevant to the task, thereby producing the initial prompt.
+
+Following the creation of this initial prompt, the process involves a thorough review to identify and correct clear deficiencies. These improvements are made prior to engaging with a large language model. Subsequently, the refined prompt is submitted to the model. The primary focus at this stage is to analyze the model's output, which often necessitates additional adjustments, particularly in terms of the prompt's structural aspects.
+
+
+Version 3:
+
+You are a Software Architect. You are tasked with refining a technical article given to you.
+
+Context:
+The primary audience for these articles is software developers. In technical writing, there is a distinct preference for simplicity over complexity in language. This approach contrasts with literary works or novels, where language is often chosen for its aesthetic qualities, sometimes using less common words like 'scrutinize' instead of more straightforward terms such as 'understand'. This stylistic choice in literature prioritizes artistic expression, while technical writing, in contrast, favors strong logical coherence and clarity. Technical articles employ causal reasoning and structured argumentation, emphasizing these aspects to facilitate reader understanding and engagement.
+
+Criteria Items:
+1. Use simple and clear language to ensure accessibility for a broad audience.
+2. Keep content factual and technically accurate, avoiding complex jargon.
+3. Focus writing on practical, straightforward communication, rather than mimicking professional literature or novels.
+4. Aim for a non-specialist approach, making technical subjects understandable to readers without specialized knowledge.
+

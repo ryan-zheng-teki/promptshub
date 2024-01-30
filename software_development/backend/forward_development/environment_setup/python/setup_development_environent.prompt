@@ -33,48 +33,7 @@ The completion of these stages results in a fully operational development enviro
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output of each step should adhere to the defined output criteria from the `OutputFormat` section.
 
 [UserRequirement]
-- **Application Type**: Python console application.
 
-- **Configuration**:
-  - The user will provide a correct `config.json` structure. 
-  - `config.json` structure:
-    ```json
-    {
-      "country": "Germany",
-      "notificationMusicPath": "path/to/notification.mp3",
-      "failureLabelCSS": "CSS_SELECTOR_VALUE"
-    }
-    ```
-  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
-
-- **Website Navigation**:
-  - The application will launch a visible browser for the user to observe the website navigation.
-  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
-  - Click the "Termin Buchen" button.
-  - On the second page:
-    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
-    - Click the "Weiter" button.
-  - On the third page:
-    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
-    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
-    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
-    - Click the box "Aufenthaltstitel - verlängern".
-    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
-    - Click the "Weiter" button.
-  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
-    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
-
-- **Check for Appointments and Notification**:
-  - Continuously check for available appointments from 8:00 to 18:00.
-  - Handle appointments as specified.
-  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
-  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
-  - Wait for 5 minutes before rechecking.
-
-- **General**:
-  - The application should operate autonomously once started.
-  - Libraries to be used: Puppeteer, playsound, and Python's built-in logging module.
-  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
 $end$
 
 
@@ -104,46 +63,10 @@ For web-based applications using Flask or FastAPI, include an `app.py` file as t
 Please think step by step meticulously to create this initial empty development environment. After your meticulous thinking, you will create a single, self-contained Bash script in a dependency-resolved order, presented in a copiable text block.
 
 [UserRequirement]
-- **Application Type**: Python console application.
+The requirement is to develop a FastAPI server with these specific features:
 
-- **Configuration**:
-  - The user will provide a correct `config.json` structure. 
-  - `config.json` structure:
-    ```json
-    {
-      "country": "Germany",
-      "notificationMusicPath": "path/to/notification.mp3",
-      "failureLabelCSS": "CSS_SELECTOR_VALUE"
-    }
-    ```
-  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
-
-- **Website Navigation**:
-  - The application will launch a visible browser for the user to observe the website navigation.
-  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
-  - Click the "Termin Buchen" button.
-  - On the second page:
-    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
-    - Click the "Weiter" button.
-  - On the third page:
-    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
-    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
-    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
-    - Click the box "Aufenthaltstitel - verlängern".
-    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
-    - Click the "Weiter" button.
-  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
-    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
-
-- **Check for Appointments and Notification**:
-  - Continuously check for available appointments from 8:00 to 18:00.
-  - Handle appointments as specified.
-  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
-  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
-  - Wait for 5 minutes before rechecking.
-
-- **General**:
-  - The application should operate autonomously once started.
-  - Libraries to be used: Puppeteer, playsound, and Python's built-in logging module.
-  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
+It should host a single API endpoint.
+This endpoint will return a "Hello World" message.
+The response format of the message should be JSON.
+The implementation needs to be as simple as possible, focusing only on the functionality of this server.
 $end$

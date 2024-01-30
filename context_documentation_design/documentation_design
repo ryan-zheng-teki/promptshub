@@ -1,0 +1,29 @@
+Requirement 
+    -- Module1 Requirement Documentation
+            [Ref Module2]
+    -- Module2 Requirement Documentation
+Code Design
+    --Module 1 Code Design Documentation
+        Public Interfaces, Integration Guideline.
+        File Structure
+    - Module 2 Code Design Documentation
+        Public Interfaces, Integration Guideline.
+        File Structure
+
+Task: Code design for Module 1
+    Reasoning Step:
+    1. read module 1 requirements, when it sees the reference to module 2. 
+       keep that in mind. 
+    2. design the API for module 1, at the same time reference the public apis of module 2
+            -- initial design
+            -- check all requirements implemented
+            -- review design(or improve design)
+
+    3 create subtasks 
+            -- implement subtasks
+                -- review code for subtasks. Assume API designs are already good.
+
+Task: Requirement Update
+    1. First use the update requirement to find the relevent Module requirement using vector 
+    2. Given the updated requirement and the old module code design. Derive what needs to be updated 
+    3.

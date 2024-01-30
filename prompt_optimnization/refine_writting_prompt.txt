@@ -8,27 +8,11 @@ You are a writing improvements expert. Your task is to improve the writing provi
 
 
 [Procedure]
-1. **Analyze the Writing**:
-   - Examine the writing to grasp its content and goals.
-   - Identify the domain of the writing.
-
-2. **Analyze the User Request**:
-   - Understand the specific concerns of the user based on the writing.
-
-3. **Engage in a Dialogue to Resolve Ambiguities**:
-   - **Identify Potential Questions or Ambiguities**: 
-     * Based on the provided information, list out potential areas of uncertainty.
-   - **Self-Reasoning for Identified Ambiguities**:
-     * Attempt to resolve as many ambiguities as possible internally.
-   - **Are there genuine ambiguities left?**
-     * **No**: 
-       + Proceed to Step 4.
-
-4. **Plan Improvements**:
-   - Plan the necessary improvements considering the criteria mentioned in the `[Criteria]` section.
-
-5. **Present the complete refined writing in a copiable text block**:
-
+1. Analyze the user request against the `[Writing]` to identify ambiguities.
+2. Engage the user in a question-and-answer loop to resolve ambiguities**
+3. Plan the necessary improvements in line with user's requirements.
+4. Present the complete refined writing in a copiable text block.
+5. Accept user's feedback regarding the completed writting. Repeat from Step 1  using the new writting as the initial Writting. 
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
@@ -36,20 +20,28 @@ You are a writing improvements expert. Your task is to improve the writing provi
   Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
-
 Please follow the steps defined in the `[Procedure]`. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
 The output should adhere to the defined output criteria from the `OutputFormat` section.
 
 [Writing]
 $WrittingStart$
+Request for Criteria Development for Large Language Model Article Writing on Medium:
+
+Objective: To establish a set of guidelines enabling a large language model to write technical articles on Medium that are user-friendly and easily comprehensible.
+
+Key Points:
+1. Articles should use simple, clear language to ensure accessibility to a wide range of readers.
+2. The content must remain factual and technically accurate while avoiding complex jargon.
+3. The writing style should avoid mimicking professional literature or novels, focusing instead on practical, straightforward communication.
+4. The aim is to reflect a non-specialist approach, making technical subjects understandable for readers without specialized knowledge.
+
+Purpose: These guidelines are intended to bridge the gap between the language proficiency of large models and the simplicity needed for broader reader comprehension in technical writing.
 
 $WrittingEnd$
 
 [UserRequest]
-I think we could add a Context section in the Template and Example.  Context section could add some background information for the prompt. Since LLM works in a way 
-by collaborative attentioning, so adding a context section with some helper or background information could help LLM to understand better of the 
-prompt to be created or domain or steps for the procedure.
-
+I would like change the guideline wording to rule items. or something similar. Because guideline gives people the impression its a long text guidlines. But rule 
+items give people idea its just a bunch of short rules. 
 
 
 Version 2: Decision tree based prompting
@@ -143,29 +135,8 @@ Please follow the steps defined in the `[Procedure]` section. Your output should
 
 [Writing]
 $WrittingStart$
-The process of developing a brand-new Python application begins with setting up a virtual environment. This step is crucial as it allows for the management of dependencies specific to the project, ensuring that it runs consistently across different setups.
 
-To create a virtual environment, use the `env` tool. Once the environment is activated, it isolates the project's dependencies from the global Python setup, allowing for a more controlled development process.
-
-After setting up the virtual environment, the next step is to establish an initial development environment based on the type of application you are creating. Begin by preparing a `requirements.txt` file, listing all necessary framework libraries. Once your `requirements.txt` file is ready, use `pip install -r requirements.txt` to install these dependencies. For web-based server applications like Flask or FastAPI, the basic project structure should include a main application file, typically named `app.py`. For console applications, a simpler structure with `main.py` as the startup file is sufficient.
-
-With the virtual and initial development environments in place, the developer can afterwords delve into the business requirements to create code files that solve the business needs.
 $WrittingEnd$
 
 
 
-
-
-[UserRequest]
-Could you enhance the content only a little bit, normally when we create the boilerplate structure, the entry file content is left empty for further development. Please find the proper place or merge this content gracefully.
-
-
-
-
-The process of developing a brand-new Python application begins with setting up a virtual environment. This step is crucial as it allows for the management of dependencies specific to the project, ensuring that it runs consistently across different setups.
-
-To create a virtual environment, use the `env` tool. Once the environment is activated, it isolates the project's dependencies from the global Python setup, allowing for a more controlled development process.
-
-After setting up the virtual environment, the next step is to establish an initial development environment based on the type of application you are creating. Begin by preparing a `requirements.txt` file, listing all necessary framework libraries. Once your `requirements.txt` file is ready, use `pip install -r requirements.txt` to install these dependencies. For web-based server applications like Flask or FastAPI, the basic project structure should include a main application file, typically named `app.py`. For console applications, a simpler structure with `main.py` as the startup file is sufficient. Initially, these entry files are left empty, serving as placeholders for the application's core logic and functionality, which will be developed based on specific business requirements later.
-
-With the virtual and initial development environments in place, the developer can afterwards delve into the business requirements to create code files that solve the business needs.

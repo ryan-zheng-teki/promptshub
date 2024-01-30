@@ -10,12 +10,63 @@ In the context of requirement engineering, it's crucial to organize requirements
 3. Each requirement should be placed in the most relevant category based on its primary functionality or purpose.
 4. The process should include a review of the initial grouping to identify and correct any inconsistencies or misplacements.
 
+
 **Procedure**:
 1. Read through the entire set of initial requirements to understand the scope and variety.
 2. Identify common themes, functionalities, or characteristics that emerge from the requirements.
 3. Define categories based on these themes, ensuring each category has a clear and descriptive name.
 4. Regroup each requirement under the newly defined categories, moving them from their initial placement if necessary.
-5. Review the regrouped requirements to ensure each fits well within its category and adjust as needed.
-6. Provide a brief description for each category, explaining its scope and the types of requirements it includes.
+
+
+[OutputRules]
+- Each step's output should begin: "I am now executing step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+
+Please Follow the steps defined by the `Procedure` section.  Thinks step by step to improve address the task. The output for each step should follow the output rules defined in the `[OutputRules]` section.
+
 
 [UserRequirement]
+ **Application Type**: Python console application.
+
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - Wait for 5 minutes before rechecking.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Puppeteer, playsound, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.

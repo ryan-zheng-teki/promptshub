@@ -80,68 +80,111 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 [OriginalPrompt]
 $PromptStart$
-As a Python senior software engineer, your task is to review and improve the design of the given Python module.
+You are a requirements engineer tasked with breaking down a large software requirement into smaller, modular components.
 
 **Context**:
-The initial design of the Python modules has already been completed for the existing requirements. In Python, each module corresponds to a file. Each module (file) addresses a specific group of the requirements' functionalities. However, the internal APIs of individual modules were potentially not well designed during the initial overall design phase, failing to adhere to SOLID principles. A well-designed API should have business-meaningful names and adhere to the principle of single responsibility, ensuring that each function is dedicated to a single aspect of functionality.
-
-This task involves reviewing the current design of the given module, identifying design issues, and potentially improving the interfaces and function names of the given module.
+In the realm of software engineering, managing complex requirements is made easier through modularization. This approach involves dividing a large requirement into smaller modules, each focusing on a specific functionality or aspect. All modules work together to fulfill the overall application.
 
 **Criteria**:
-1. All APIs must have detailed functionality descriptions.
-2. Follow PEP8 best practices for Python coding standards.
-3. Adhere to Python clean code best practices: use descriptive naming for classes or functions and parameters.
-4. Utilize design patterns where appropriate.
+Ensure each module is clearly defined and covers a distinct aspect of the application. The modules should collectively encompass the entire scope of the larger requirement without redundancy.
 
 **Procedure**:
-1. Identify and understand the specific part of the requirements that the module is addressing.
-2. Analyze how each API solves each piece of the identified requirements.
-3. Use Python clean code best practices to analyse the current design of the module
-4. Based on the previous analysis, present the improved design of the module in a copiable code block.
+1. Identify key functionalities of given user requirements.
+2. Develop modules around these functionalities.
+3. Assign individual requirements to the appropriate modules.
 
-[OutputRules]
-- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process.
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
 
-Please follow the steps defined by the `Procedure` section, think step by step to improve the design for the given module. Your output should follow the output rules defined in the `[OutputRules]` section.
+**OutputFormat**:
+- The output should align closely with the procedure's step objectives, using concise versions of the step descriptions for clarity. Each step should be formatted to reflect its core purpose, ensuring the content under each step is directly relevant and maintains coherence and consistency.
+  Example:
+  Step 1: Identify key functionalities of given user requirements..
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
+
+Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+[UserRequirement]
+I have created one requirement as listed below.
+
+- **Application Type**:  Automated appoint booking application.
+
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+
+- **Check for Appointments and Notification**:
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - Wait for 5 minutes before rechecking.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Puppeteer, playsound, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
 $PrompteEnd$
 
 [Feedback]
 $start$
-If you look at the output, It stopped at ```Understanding these requirements, I'll now proceed to analyze how each API in the module addresses these requirements.
-```
-What i want is that it should continue with the steps in the procedure until finish. I think we should add another rule in the outputRule section to give emphasize that finish all steps, don't wait, stuff like that.
-$end$
+If you look at output of the second step. You will see that it even has "Code Standards and Library Integration Module:". This is not a module. As you know when we develop software, the original requirements could be big, the modularization only break the bigger one into smaller one. The smaller ones are normally independent. Each module could be considered as groupping of several individual related requirements from the overall requirements.
 
+Code Standards andLibray Integration is not Module. As it will not contain any business requirements. 
+
+I think the Context could be further improved. 
+$end$
 
 [Output]
 $start$
-I am now executing the first step of the review process, which involves understanding the specific part of the requirements that the module 'web_navigator.py' is addressing. 
+Step 2: Develop modules around these functionalities.
+Configuration Module:
 
-The purpose of the 'web_navigator.py' module is to handle website navigation and interaction for a Python console application. This module is responsible for:
+Purpose: Manage the reading and validation of the config.json file.
+Responsibilities: Validate the JSON structure, check for mandatory keys, handle missing or corrupted files, and log errors.
+Website Navigation Module:
 
-1. Launching a visible browser and navigating to a specific URL.
-2. Performing a series of actions on the website, such as clicking buttons, selecting options, and checking checkboxes, based on the sequence and data provided in the `config.json` file.
-3. Handling exceptional cases, such as navigation issues or discrepancies in the website's UI, by logging errors and aborting operations if necessary.
+Purpose: Automate navigation and interaction with the website.
+Responsibilities: Open the website, interact with elements like buttons and checkboxes, and handle changes in the website's UI.
+Appointment Management Module:
 
-To meet these requirements, the module should:
+Purpose: Check for appointment availability and handle notifications.
+Responsibilities: Monitor appointment slots, play notification sounds, display failure messages, and handle rechecking intervals.
+Error Handling and Logging Module:
 
-- Initialize with a browser instance and a configuration.
-- Navigate to the specified URL.
-- Perform a series of predefined actions (clicks, selections, etc.).
-- Handle country selection dynamically based on the configuration.
-- Manage error logging for navigation issues.
-- Adhere to clean code practices, ensuring readability, maintainability, and robustness.
+Purpose: Manage errors and log activities.
+Responsibilities: Log various types of errors and exceptions, manage error files, and ensure timestamped entries in logs.
+Autonomous Operation Module:
 
-Understanding these requirements, I'll now proceed to analyze how each API in the module addresses these requirements.
+Purpose: Facilitate the application's autonomous functionality.
+Responsibilities: Integrate all other modules to ensure smooth, uninterrupted operation.
+Code Standards and Library Integration Module:
+
+Purpose: Ensure adherence to coding standards and proper use of libraries.
+Responsibilities: Integrate Puppeteer, playsound, and logging modules effectively, and maintain code quality.
 $end$
 
 
 
-[OutputRules]
-- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process. Ensure to complete each step before moving to the next, maintaining a balance between reflective thinking and task completion.
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+
