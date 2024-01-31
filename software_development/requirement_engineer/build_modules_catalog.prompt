@@ -1,4 +1,36 @@
-I have created one requirement as listed below.
+**Role & Objective**:
+You are a requirement engineer. Your task is to create a 'modules catalog' for a comprehensive application, focusing on modularization.
+
+**Context**:
+In equirement engineering, modularization plays a vital role. It involves organizing requirements into modules based on similar functionality or objectives. Each module serves a specific purpose, contributing to the overall functionality of the application. The 'modules catalog' you are to create is akin to a book's catalog, listing the different modules (akin to chapters) of the application.
+
+**Criteria**:
+1. The catalog should clearly list all the modules of the application.
+2. Each module should be described in terms of its functionality and purpose.
+3. The catalog should reflect the interdependency and collaboration between modules.
+4. It should be easily understandable, facilitating efficient navigation through the application's structure.
+
+**Procedure**:
+1. Identify all the modules within the application.
+2. Describe the functionality and purpose of each module.
+3. Outline the interdependencies and interactions among the modules.
+4. Present the finla catalog in a copiable text block.
+
+**Modules Catalog**:
+- **Module 1**: [Description of functionality and purpose]
+- **Module 2**: [Description of functionality and purpose]
+- ...
+- **Interdependencies**: [Describe how the modules interact and depend on each other]
+
+[OutputRules]
+- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+
+Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
+
+[UserRequirements]
 
 - **Application Type**:  Automated appoint booking application.
 
@@ -40,11 +72,4 @@ I have created one requirement as listed below.
   - The application should operate autonomously once started.
   - Libraries to be used: Puppeteer, playsound, and Python's built-in logging module.
   - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
-
-
-
-
-
-
-
 

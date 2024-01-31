@@ -65,7 +65,7 @@ Please think step by step meticulously to create this initial empty development 
   - Continuously check for available appointments from 8:00 to 18:00.
   - Handle appointments as specified.
   - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
-  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - If no appointment is available, play the "Failure" mp3 file from the path specified in `config.json` as notification.
   - Wait for 5 minutes before rechecking.
 
 - **General**:

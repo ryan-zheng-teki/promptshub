@@ -43,20 +43,6 @@ Design:
 
 
 [UserRequirement]
-- **Application Type**: Python console application.
-
-- **Configuration**:
-  - The user will provide a correct `config.json` structure. 
-  - `config.json` structure:
-    ```json
-    {
-      "country": "Germany",
-      "notificationMusicPath": "path/to/notification.mp3",
-      "failureLabelCSS": "CSS_SELECTOR_VALUE"
-    }
-    ```
-  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
-
 - **Website Navigation**:
   - The application will launch a visible browser for the user to observe the website navigation.
   - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
@@ -78,10 +64,5 @@ Design:
   - Continuously check for available appointments from 8:00 to 18:00.
   - Handle appointments as specified.
   - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
-  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - If no appointment is available, play the "Failure" mp3 file from the path specified in `config.json` as notification.
   - Wait for 5 minutes before rechecking.
-
-- **General**:
-  - The application should operate autonomously once started.
-  - Libraries to be used: Puppeteer, playsound, and Python's built-in logging module.
-  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.

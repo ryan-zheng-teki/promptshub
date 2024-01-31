@@ -73,6 +73,135 @@ $end$
 
 
 
+Version 3:
+
+You are a Software Architect. You are tasked with refining a technical article given to you.
+
+**Context**:
+The primary audience for these articles is software developers. In technical writing, there is a distinct preference for simplicity over complexity in language. This approach contrasts with literary works or novels, where language is often chosen for its aesthetic qualities, sometimes using less common words like 'scrutinize' instead of more straightforward terms such as 'understand'. This stylistic choice in literature prioritizes artistic expression, while technical writing, in contrast, favors strong logical coherence and clarity. Technical articles employ causal reasoning and structured argumentation, emphasizing these aspects to facilitate reader understanding and engagement.
+
+**Criteria**:
+1. Use simple and clear language to ensure accessibility for a broad audience.
+2. Keep content factual and technically accurate, avoiding complex jargon.
+3. Focus writing on practical, straightforward communication, rather than mimicking professional literature or novels.
+4. Aim for a non-specialist approach, making technical subjects understandable to readers without specialized knowledge.
+
+**Procedure**:
+1. Summarize each paragraph of the given `[UserArticle] using a short concise sentence`.
+2. Assess the logical flow between the summarized paragraphs and identify any redundancies across them, to facilitate the merging or repositioning of paragraphs that discuss similar topics.
+3. Based on previous analysis, reorganize paragraphs for coherence in a copiable text block.
+4. Present the final complete article with strong logical coherence and content flow in a copiable text block. 
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Summarize each paragraph under '[Paragraph Summaries]'..
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+[UserArticle]
+$start$
+
+The user suggests that in the future, software development will parallel book writing, driven by the extensive use of large language models throughout the software engineering process. This includes stages from requirement engineering to deployment. Effectively employing these models requires providing them with coherent and structured contexts, essential for navigating different development phases.
+
+In software engineering, the process of modularization originates from requirement categorization. This involves organizing numerous requirements into categories based on similar functionalities that achieve a specific purpose. These categories then guide the modular architecture in software design.
+
+Software architects play a crucial role in understanding and grouping requirement entries into broader categories, a task that can be significantly aided by large language models. Additionally, the interaction among different modules or categories, which collectively fulfill the application's functionality, is vital. This involves using special symbols or catalog pages to list modules and describe their interactions and contents.
+
+
+The user continues discussing the integration of individual requirement entries into specific software modules, comparing it to organizing a book's chapters. The process involves designing APIs for each module, ensuring these designs fulfill all module requirements without immediate implementation.
+
+Post-API design, the focus shifts to detailing each API's functionality, leading to the creation of implementation tasks. Clear API descriptions, linked to their original requirements, are crucial. This clarity in documentation and design enhances the effectiveness of large language models in automating implementation tasks.
+
+Furthermore, the user highlights the role of unit testing, which benefits from well-structured API designs and comprehensive documentation. Such thorough preparation enables large language models to contribute more effectively, particularly in implementation and testing phases of software development.
+
+
+The user describes the next stages in software module development, focusing on the period after the API design is completed for each module. The API designs are documented for individual modules. Subsequently, implementation tasks are generated, resulting in the creation of files. These files contain the implementations of the APIs and are organized under their respective modules. This process illustrates a structured approach in software development, with each module being a distinct entity with its dedicated APIs and implementations.
+
+
+In software development, there exists a hierarchical navigation process, comparable to navigating a book. This process begins at the application level, encompassing various modules, and progresses into specific requirements and API designs of each module.
+
+Upon the introduction of a new requirement, the procedure involves analyzing module descriptions to pinpoint the relevant module for modification. This is achieved by constructing vectors for each module's description. Large language models are utilized, fed with both existing module requirements and new requirements, to aid in reasoning and suggesting changes. This process culminates in the generation of requirement update documentation.
+
+The established linkage between the module's API design and its requirements documentation facilitates efficient updates to APIs in light of new requirements. As each API is linked to its corresponding location in the file system, the model can effectively navigate to the pertinent files for implementation updates. This systematic approach establishes a comprehensive navigation path, providing a structured context for large language models in software engineering.
+
+The software development process is described as a structured system akin to navigating through a book. This system enables the integration of large language models at various stages, such as updating requirements, modifying APIs, and implementing codebase changes. The well-structured documentation within this system provides a clear reasoning path for the model.
+
+The importance of detailed documentation is emphasized, as it facilitates the creation of efficient prompts for the large language model. These prompts provide essential background information, guiding the model to focus on specific tasks. The model operates similarly to editing a specific chapter or section in a book, allowing for precise adjustments in the software's knowledge base.
+$end$
+
+
+
+Large language models will play a significant role in future software development, akin to the process of writing a book. This involves stages from requirement engineering to deployment, requiring coherent and structured contexts.
+
+Modularization in software engineering begins with categorizing requirements, which guide software design. Software architects use large language models to categorize requirements and understand module interactions.
+
+The integration of individual requirements into software modules involves API design, similar to organizing a book's chapters. Post-API design, the focus shifts to detailing API functionality, leading to the creation of implementation tasks.
+
+Unit testing benefits from well-structured API designs and comprehensive documentation, which are enhanced by large language models. This thorough preparation enables the models to contribute effectively in the implementation and testing phases.
+
+The stages after API design involve documenting APIs for individual modules, generating implementation tasks, and file creation. This process illustrates a structured approach in software development, where each module is a distinct entity with its dedicated APIs and implementations.
+
+Software development involves a hierarchical navigation process, starting from the application level to specific requirements and API designs. Upon the introduction of new requirements, large language models analyze module descriptions and suggest changes.
+
+A structured approach in software development links module's API design to requirements, aiding in efficient updates. The established linkage facilitates updates to APIs in light of new requirements, with each API linked to its corresponding location in the file system.
+
+Detailed documentation is crucial for creating efficient prompts for large language models, enabling precise software adjustments. These prompts guide the model, similar to editing a specific chapter or section in a book.
+
+
+
+**Software Application Knowledge Tree (Book-Like Structure)**
+
+1. **Application Overview (Book Cover)**
+   - Title: Application Name
+   - Summary: Brief Description of the Application
+
+2. **Table of Contents (Modules Overview)**
+   - List of Major Modules (Chapters)
+   - Brief Description of Each Module
+
+3. **Modules (Chapters)**
+   - Each module represents a chapter in the book.
+   - Contents of each Module (Chapter):
+     1. **Module Requirements (Chapter Introduction)**
+        - Detailed Requirements of the Module
+        - Overview of Module's Purpose and Functionalities
+     2. **Public API Section (External Interface)**
+        - Description of Public APIs
+        - Integration Guidelines
+     3. **Detailed Design (Comprehensive Overview)**
+        - Description of Internal APIs
+        - In-depth Coverage of Public APIs
+        - Internal Structure and File Organization
+     4. **Implementation Details (Implementation Specifics)**
+        - Code Implementations
+     5. **Subtasks (Implementation Breakdown)**
+        - Specific Implementation Tasks
+        - Reference to File Path for Each Task
+     6. **Unit Testing (Quality Assurance)**
+        - Test Cases Specific to the Module
+        - Documentation of Testing Procedures
+        - File Path for Each Test Case
+     7. **Integration Testing (Inter-Module Testing)**
+        - Testing Procedures for Module Interactions
+        - File Paths for Integration Test Scripts
+
+4. **Deployment (Application Launch)**
+   - Deployment Strategies and Best Practices
+   - Environment Setup and Configuration
+   - Version Control and Release Management
+
+Prompting.
+
+
+
+
+
+
+
+
+
 
 The advent of large language models has significantly altered traditional software engineering practices and impacted various industries. The efficacy of these models largely depends on the design of structured prompts, which serve as task-specific instructions. These prompts should be logically organized and sufficiently detailed to guide the models effectively. However, optimizing prompts presents challenges, including determining the appropriate level of detail and managing the costs associated with their evaluation. Despite these challenges, the optimization of prompts is a critical component, with humans playing a pivotal role in assessing and refining these prompts to ensure their effectiveness.
 
@@ -93,18 +222,17 @@ A challenge is identified when processing this generic template through a large 
 The optimization process begins with the creation of an initial prompt, utilizing a specialized meta prompt. This meta prompt is tasked with a specific challenge: to convert a generic code design template into one that is language-specific. It accomplishes this by determining the task's domain and generating procedures and context relevant to the task, thereby producing the initial prompt.
 
 Following the creation of this initial prompt, the process involves a thorough review to identify and correct clear deficiencies. These improvements are made prior to engaging with a large language model. Subsequently, the refined prompt is submitted to the model. The primary focus at this stage is to analyze the model's output, which often necessitates additional adjustments, particularly in terms of the prompt's structural aspects.
+$stop$
 
 
-Version 3:
 
-You are a Software Architect. You are tasked with refining a technical article given to you.
 
-Context:
-The primary audience for these articles is software developers. In technical writing, there is a distinct preference for simplicity over complexity in language. This approach contrasts with literary works or novels, where language is often chosen for its aesthetic qualities, sometimes using less common words like 'scrutinize' instead of more straightforward terms such as 'understand'. This stylistic choice in literature prioritizes artistic expression, while technical writing, in contrast, favors strong logical coherence and clarity. Technical articles employ causal reasoning and structured argumentation, emphasizing these aspects to facilitate reader understanding and engagement.
 
-Criteria Items:
-1. Use simple and clear language to ensure accessibility for a broad audience.
-2. Keep content factual and technically accurate, avoiding complex jargon.
-3. Focus writing on practical, straightforward communication, rather than mimicking professional literature or novels.
-4. Aim for a non-specialist approach, making technical subjects understandable to readers without specialized knowledge.
+
+
+
+
+
+5. Refine each paragraph individually in '[Paragraph Optimization]'.
+6. Adjust style and tone uniformly in '[Style and Tone Adjustment]'.
 

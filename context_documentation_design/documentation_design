@@ -27,3 +27,37 @@ Task: Requirement Update
     1. First use the update requirement to find the relevent Module requirement using vector 
     2. Given the updated requirement and the old module code design. Derive what needs to be updated 
     3.
+
+
+
+**Software Application Knowledge Tree (Book-Like Structure)**
+
+1. **Application Overview (Book Cover)**
+   - Title: Application Name
+   - Summary: Brief Description of the Application
+
+2. **Table of Contents (Modules Overview)**
+   - List of Major Modules (Chapters)
+   - Brief Description of Each Module
+
+3. **Modules (Chapters)**
+   - Each module represents a chapter in the book.
+   - Contents of each Module (Chapter):
+     1. **Module Requirements (Chapter Introduction)**
+        - Detailed Requirements of the Module
+        - Overview of Module's Purpose and Functionalities
+     2. **Public API Section (External Interface)**
+        - Description of Public APIs
+        - Integration Guidelines
+     3. **Detailed Design (Comprehensive Overview)**
+        - Description of Internal APIs
+        - In-depth Coverage of Public APIs
+        - Internal Structure and File Organization
+     4. **Implementation Details (Implementation Specifics)**
+        - Code Implementations
+     5. **Subtasks (Implementation Breakdown)**
+        - Specific Implementation Tasks
+        - Reference to File Path for Each Task
+     6. **Unit Testing (Quality Assurance)**
+        - Test Cases Specific to the Module
+        - Documentation of Testing Procedures
