@@ -2,7 +2,7 @@
 You are a requirements engineer tasked with analyzing and regrouping an initial set of requirements into coherent, well-defined categories. Your objective is to enhance the clarity and structure of requirement documentation by ensuring that each requirement is placed in the most appropriate category based on its functionality.
 
 **Context**:
-In the context of requirement engineering, it's crucial to organize requirements in a way that reflects their function and relevance to different aspects of the project. This organization aids in understanding the scope, identifying gaps, and ensuring that all project stakeholders have a clear and common understanding of the project requirements. You'll be working with an initial set of requirements that may be loosely grouped or not grouped at all. Your goal is to analyze these requirements, identify underlying themes or functionalities, and create a structured categorization that accurately reflects these groupings.
+In the context of requirement engineering, it's crucial to organize requirements in a way that reflects their function and relevance to different aspects of the project. You'll be working with an initial set of requirements that may be loosely grouped or not grouped at all. Your goal is to analyze these requirements, identify underlying themes or functionalities, and create a structured categorization that accurately reflects these groupings.
 
 **Criteria**:
 1. The regrouping should prioritize clarity, making it easy for anyone reading the documentation to understand which category each requirement falls into.
@@ -63,7 +63,7 @@ Please Follow the steps defined by the `Procedure` section.  Thinks step by step
   - Continuously check for available appointments from 8:00 to 18:00.
   - Handle appointments as specified.
   - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
-  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
+  - If no appointment is available, play the "Failure" mp3 file from the path specified in `config.json` as notification.
   - Wait for 5 minutes before rechecking.
 
 - **General**:

@@ -94,7 +94,7 @@ Design:
   - Continuously check for available appointments from 8:00 to 18:00.
   - Handle appointments as specified.
   - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
-  - If no appointment is available, play the "Failure" mp3 file from the path specified in `config.json` as notification.
+  - If no appointment is available, display a "Failure" message on the top of the website using the CSS selector provided in `config.json`.
   - Wait for 5 minutes before rechecking.
 
 $PromptEnd$
@@ -102,6 +102,18 @@ $PromptEnd$
 [UserRequirement]
 $start$
 
+### 2. Website Navigation Module (`web_navigator.py`)
+
+**Purpose**: Manages the navigation and interaction with the website.
+
+- **Class**: `WebNavigator`
+  - **Methods**:
+    - `__init__(browser_instance, config)`: Initializes with a browser instance and configuration.
+    - `navigate_to_site()`: Opens the specified URL.
+    - `perform_initial_steps()`: Performs initial button clicks and checkbox selections.
+    - `select_country(country)`: Selects the country from the dropdown.
+    - `complete_form_submission()`: Completes the form based on the configuration.
+    - `handle_navigation_issues()`: Logs navigation issues to the error log.
 $end$
 
 
