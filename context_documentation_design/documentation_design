@@ -61,3 +61,12 @@ Task: Requirement Update
      6. **Unit Testing (Quality Assurance)**
         - Test Cases Specific to the Module
         - Documentation of Testing Procedures
+        - File Path for Each Test Case
+     7. **Integration Testing (Inter-Module Testing)**
+        - Testing Procedures for Module Interactions
+        - File Paths for Integration Test Scripts
+
+4. **Deployment (Application Launch)**
+   - Deployment Strategies and Best Practices
+   - Environment Setup and Configuration
+   - Version Control and Release Management
