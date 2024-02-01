@@ -80,120 +80,84 @@ You are a Software Architect. You are tasked with refining a technical article g
 **Context**:
 The primary audience for these articles is software developers. In technical writing, there is a distinct preference for simplicity over complexity in language. This approach contrasts with literary works or novels, where language is often chosen for its aesthetic qualities, sometimes using less common words like 'scrutinize' instead of more straightforward terms such as 'understand'. This stylistic choice in literature prioritizes artistic expression, while technical writing, in contrast, favors strong logical coherence and clarity. Technical articles employ causal reasoning and structured argumentation, emphasizing these aspects to facilitate reader understanding and engagement.
 
+**Methodology**
+The process of revising a lengthy and poorly structured article begins with extracting key points from each paragraph, capturing the core information succinctly. The next phase involves analyzing the relationship between these key points to ascertain the coherence and logical sequence of the article. This analysis is crucial as each key point represents its original paragraph. If key points are found to be similar, it suggests that merging the corresponding paragraphs would be effective. This merging aims to balance the consolidation of key points into a cohesive key point with the careful elimination of redundancies. It ensures that the revised article retains essential details and the full spectrum of the original content, while enhancing its overall coherence and conciseness. The ultimate goal is to restructure the article in a way that maintains the original information and intent, presenting it in a clearer, more logically coherent format. By reordering and merging paragraphs based on the assessment of their key points, the article is reshaped into a format that displays a strong and logical progression of ideas, accurately reflecting the intended message of the original text while preserving its informational richness.
+
+**Example**:
+$ExampleStart$
+Original Paragraphs:
+1. "Modern software development relies heavily on agile methodologies. Agile focuses on iterative development and collaboration."
+2. "Collaborative efforts in software teams are crucial. Teams often use tools like JIRA to track progress."
+3. "Iterative development allows for flexibility in software projects. It enables continuous improvement."
+
+Optimization Process:
+1. Key Points:
+   - Paragraph 1: Agile methodologies in software development.
+   - Paragraph 2: Importance of collaboration and tools in teams.
+   - Paragraph 3: Benefits of iterative development for flexibility and improvement.
+
+2. Analyzing Logical Coherence and Similarities:
+   - Agile methodologies (Paragraph 1) enhance iterative development (Paragraph 3), which is essential for collaboration and using tools like JIRA in teams (Paragraph 2).
+
+3. Reorganizing and Merging for Coherence:
+   - Merging the key points of agile methodologies and iterative development (Paragraphs 1 & 3) highlights their role in fostering collaboration and tool usage in teams (Paragraph 2).
+
+Revised Paragraph:
+"Agile methodologies, such as iterative development, are fundamental in modern software development. They enhance flexibility and continuous improvement, fostering collaborative efforts and effective tool usage like JIRA within software teams."
+$ExampleEnd$
+
+
 **Criteria**:
 1. Use simple and clear language to ensure accessibility for a broad audience.
 2. Keep content factual and technically accurate, avoiding complex jargon.
 3. Focus writing on practical, straightforward communication, rather than mimicking professional literature or novels.
 4. Aim for a non-specialist approach, making technical subjects understandable to readers without specialized knowledge.
+5. Eliminate subjective language and personal opinions, ensuring all statements are objective and factual.
+6. Find a balance during merging: Ensure that while merging paragraphs, the article retains essential details and covers the full range of original content, while removing unnecessary parts to make it clearer and more concise.
 
 **Procedure**:
-1. Summarize each paragraph of the given `[UserArticle] using a short concise sentence`.
-2. Assess the logical flow between the summarized paragraphs and identify any redundancies across them, to facilitate the merging or repositioning of paragraphs that discuss similar topics.
-3. Based on previous analysis, reorganize paragraphs for coherence in a copiable text block.
-4. Present the final complete article with strong logical coherence and content flow in a copiable text block. 
+1. Identify each paragraph's key point in `[UserArticle]`.
+2. Analyze the logical sequence and similarities between these key points. Consider potential reorganizations, such as merging and reordering.
+3. Use the analysis from Step 2 to guide the reorganization of the original paragraphs. This involves merging and reordering paragraphs as dictated by the reorganized key points.
+4. Present the revised complete article in copiable text block.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
   Example:
-  Step 1: Summarize each paragraph under '[Paragraph Summaries]'..
+  Step 1. Identify each paragraph's key point in `[UserArticle]`.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
 [UserArticle]
 $start$
+Step 1. Identify each paragraph's key point in `[UserArticle]`.
 
-The user suggests that in the future, software development will parallel book writing, driven by the extensive use of large language models throughout the software engineering process. This includes stages from requirement engineering to deployment. Effectively employing these models requires providing them with coherent and structured contexts, essential for navigating different development phases.
+1. Future software development will mirror book writing, utilizing large language models for various stages from requirement engineering to deployment. These models require structured contexts for effective operation.
+2. Modularization in software engineering starts with requirement categorization, organizing requirements into functional categories that guide modular design.
+3. Software architects are pivotal in categorizing requirements, a task aided by large language models. The interaction among different modules, represented by special symbols or catalog pages, is crucial.
+4. Integration of requirement entries into software modules is likened to organizing book chapters, focusing on designing APIs that meet module requirements.
+5. After designing APIs, the next step involves detailing API functionality and creating implementation tasks. Clear API documentation is vital for leveraging large language models in automation.
+6. Unit testing benefits from well-structured API designs and comprehensive documentation, enabling large language models to contribute effectively in implementation and testing.
+7. Following API design, module development includes documenting API designs, generating implementation tasks, and creating files with API implementations, each organized under respective modules.
+8. Hierarchical navigation in software development resembles navigating a book, starting from the application level to module-specific requirements and API designs.
+9. New requirements are integrated by analyzing module descriptions using vectors, with large language models assisting in suggesting changes and generating requirement update documentation.
+10. Linkage between API designs and requirements documentation aids in efficient API updates in response to new requirements, with each API linked to its file system location.
+11. The structured software development process facilitates the integration of large language models in various stages, from updating requirements to implementing codebase changes.
+12. Detailed documentation is crucial for creating effective prompts for large language models, guiding them to focus on specific tasks like editing a book chapter.
 
-In software engineering, the process of modularization originates from requirement categorization. This involves organizing numerous requirements into categories based on similar functionalities that achieve a specific purpose. These categories then guide the modular architecture in software design.
+Step 2. Analyze the logical sequence and similarities between these key points.
 
-Software architects play a crucial role in understanding and grouping requirement entries into broader categories, a task that can be significantly aided by large language models. Additionally, the interaction among different modules or categories, which collectively fulfill the application's functionality, is vital. This involves using special symbols or catalog pages to list modules and describe their interactions and contents.
+- Paragraphs 1, 4, 5, 6, 7, 8, 9, 10, 11, and 12 discuss the integration and significance of large language models in various stages of software development, emphasizing structured documentation and categorization.
+- Paragraph 2 introduces the concept of modularization in software development, which is foundational to the subsequent discussion on the integration of large language models.
+- Paragraph 3 expands on the role of software architects in categorizing requirements, a critical step in creating structured contexts for large language models.
+- The logical sequence suggests starting with the general concept of integrating large language models (Paragraphs 1, 4, 5, 6, 7, 8, 9, 10, 11, 12), then detailing the foundational steps of modularization and the role of software architects (Paragraphs 2 and 3).
 
+Step 3. Use the analysis from Step 2 to guide the reorganization of the original paragraphs.
 
-The user continues discussing the integration of individual requirement entries into specific software modules, comparing it to organizing a book's chapters. The process involves designing APIs for each module, ensuring these designs fulfill all module requirements without immediate implementation.
+Revised Article:
 
-Post-API design, the focus shifts to detailing each API's functionality, leading to the creation of implementation tasks. Clear API descriptions, linked to their original requirements, are crucial. This clarity in documentation and design enhances the effectiveness of large language models in automating implementation tasks.
-
-Furthermore, the user highlights the role of unit testing, which benefits from well-structured API designs and comprehensive documentation. Such thorough preparation enables large language models to contribute more effectively, particularly in implementation and testing phases of software development.
-
-
-The user describes the next stages in software module development, focusing on the period after the API design is completed for each module. The API designs are documented for individual modules. Subsequently, implementation tasks are generated, resulting in the creation of files. These files contain the implementations of the APIs and are organized under their respective modules. This process illustrates a structured approach in software development, with each module being a distinct entity with its dedicated APIs and implementations.
-
-
-In software development, there exists a hierarchical navigation process, comparable to navigating a book. This process begins at the application level, encompassing various modules, and progresses into specific requirements and API designs of each module.
-
-Upon the introduction of a new requirement, the procedure involves analyzing module descriptions to pinpoint the relevant module for modification. This is achieved by constructing vectors for each module's description. Large language models are utilized, fed with both existing module requirements and new requirements, to aid in reasoning and suggesting changes. This process culminates in the generation of requirement update documentation.
-
-The established linkage between the module's API design and its requirements documentation facilitates efficient updates to APIs in light of new requirements. As each API is linked to its corresponding location in the file system, the model can effectively navigate to the pertinent files for implementation updates. This systematic approach establishes a comprehensive navigation path, providing a structured context for large language models in software engineering.
-
-The software development process is described as a structured system akin to navigating through a book. This system enables the integration of large language models at various stages, such as updating requirements, modifying APIs, and implementing codebase changes. The well-structured documentation within this system provides a clear reasoning path for the model.
-
-The importance of detailed documentation is emphasized, as it facilitates the creation of efficient prompts for the large language model. These prompts provide essential background information, guiding the model to focus on specific tasks. The model operates similarly to editing a specific chapter or section in a book, allowing for precise adjustments in the software's knowledge base.
 $end$
-
-
-
-Large language models will play a significant role in future software development, akin to the process of writing a book. This involves stages from requirement engineering to deployment, requiring coherent and structured contexts.
-
-Modularization in software engineering begins with categorizing requirements, which guide software design. Software architects use large language models to categorize requirements and understand module interactions.
-
-The integration of individual requirements into software modules involves API design, similar to organizing a book's chapters. Post-API design, the focus shifts to detailing API functionality, leading to the creation of implementation tasks.
-
-Unit testing benefits from well-structured API designs and comprehensive documentation, which are enhanced by large language models. This thorough preparation enables the models to contribute effectively in the implementation and testing phases.
-
-The stages after API design involve documenting APIs for individual modules, generating implementation tasks, and file creation. This process illustrates a structured approach in software development, where each module is a distinct entity with its dedicated APIs and implementations.
-
-Software development involves a hierarchical navigation process, starting from the application level to specific requirements and API designs. Upon the introduction of new requirements, large language models analyze module descriptions and suggest changes.
-
-A structured approach in software development links module's API design to requirements, aiding in efficient updates. The established linkage facilitates updates to APIs in light of new requirements, with each API linked to its corresponding location in the file system.
-
-Detailed documentation is crucial for creating efficient prompts for large language models, enabling precise software adjustments. These prompts guide the model, similar to editing a specific chapter or section in a book.
-
-
-
-**Software Application Knowledge Tree (Book-Like Structure)**
-
-1. **Application Overview (Book Cover)**
-   - Title: Application Name
-   - Summary: Brief Description of the Application
-
-2. **Table of Contents (Modules Overview)**
-   - List of Major Modules (Chapters)
-   - Brief Description of Each Module
-
-3. **Modules (Chapters)**
-   - Each module represents a chapter in the book.
-   - Contents of each Module (Chapter):
-     1. **Module Requirements (Chapter Introduction)**
-        - Detailed Requirements of the Module
-        - Overview of Module's Purpose and Functionalities
-     2. **Public API Section (External Interface)**
-        - Description of Public APIs
-        - Integration Guidelines
-     3. **Detailed Design (Comprehensive Overview)**
-        - Description of Internal APIs
-        - In-depth Coverage of Public APIs
-        - Internal Structure and File Organization
-     4. **Implementation Details (Implementation Specifics)**
-        - Code Implementations
-     5. **Subtasks (Implementation Breakdown)**
-        - Specific Implementation Tasks
-        - Reference to File Path for Each Task
-     6. **Unit Testing (Quality Assurance)**
-        - Test Cases Specific to the Module
-        - Documentation of Testing Procedures
-        - File Path for Each Test Case
-     7. **Integration Testing (Inter-Module Testing)**
-        - Testing Procedures for Module Interactions
-        - File Paths for Integration Test Scripts
-
-4. **Deployment (Application Launch)**
-   - Deployment Strategies and Best Practices
-   - Environment Setup and Configuration
-   - Version Control and Release Management
-
-Prompting.
-
 
 
 
@@ -235,4 +199,26 @@ $stop$
 
 5. Refine each paragraph individually in '[Paragraph Optimization]'.
 6. Adjust style and tone uniformly in '[Style and Tone Adjustment]'.
+
+
+
+
+Your message emphasizes the process of enhancing written content by identifying key points within each paragraph. These key points are then reordered or merged to ensure logical progression or coherence. This approach leads to a restructuring of the original article, especially by combining paragraphs with similar key points, to create a more organized and coherent piece of writing.
+
+
+
+
+The essence of the approach is to distill each paragraph to its key point, allowing these points to represent the respective sections. This extraction process paves the way for reorganizing or merging the content to ensure a robust logical flow or coherence. When key points are found to be similar, they can be merged, signifying the combination of the original paragraphs. This method lays the groundwork for effectively restructuring or rewriting the original article.
+
+
+
+
+
+
+
+
+
+
+
+
 
