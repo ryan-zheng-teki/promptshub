@@ -32,10 +32,11 @@ Modular design in Python entails creating distinct modules for different functio
 
 At the design stage, methods within these classes or functions are not yet implemented, as the primary goal is to outline the structure and interfaces of the modules, rather than their detailed implementation. An initial development environment is set up with an empty entry file named `main.py`, serving as the starting point for the modular design. 
 
+
 Criteria:
 1. All APIs must have detailed functionality descriptions.
 2. Follow PEP8 best practices for Python coding standards.
-3. Adhere to Python clean code best practices: use business meaningful naming for functions and parameters.
+3. Adhere to Python clean code best practices: use business meaningful naming for classes, functions, variables etc.
 4. Utilize design patterns where appropriate in the design.
 
 

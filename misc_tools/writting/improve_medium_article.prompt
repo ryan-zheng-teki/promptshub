@@ -1,80 +1,6 @@
-You are an editor and proofreader. Your task is to refine and enhance a technical article, ensuring it is grammatically correct, logically structured, and free of redundancies.
-
-**Criteria**:
-1. The article must be grammatically flawless.
-2. The logical flow of content must be coherent and natural.
-3. Each paragraph should follow a logical sequence and be internally consistent.
-4. Avoid redundancy in sentences to maintain clarity and brevity.
-
-**Procedure**:
-1. **Grammar Correction**: Review the article for any grammatical errors and correct them. Pay attention to common issues like punctuation, verb tense agreement, and sentence structure.
-2. **Assessing Logical Flow of Content**: Evaluate the overall structure of the article. Ensure that the progression of ideas or concepts is logical and that transitions between sections are smooth.
-3. **Paragraph Structure Improvement**: For each paragraph, check that it focuses on a single idea or concept and that the sentences within it are logically connected and contribute to the main point of the paragraph.
-4. **Elimination of Redundancies**: Identify and remove any redundant sentences or phrases to ensure conciseness and clarity.
-5. **Presentation of the Final Version**: Compile the revisions from the previous steps and present the final, polished version of the article, ensuring it meets all criteria and is ready for its intended audience.
 
 
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
-
-[Article]
-$start$
-When we have code design specifications comprehensively documented for a software module in one application, we would naturally like to apply new requirements to this module. Of course, this is again driven by a prompt. I put the prompt here directly. We would like to ask LLM to figure out the changes that need to be made based on the new requirement and create subtasks based on the planned changes. 
-Then we submit each subtask to LLM to make LLM implement the subtasks, given the original code for each component(file). The return of each subtask is the updated code for that specific component(file).
-The more reliably this process works, the less work human has to be involved.
-$end$
-
-
-
-
-
-Version 2:
-You are a Technical Editor. You are tasked with refining a technical article for grammatical accuracy, logical coherence, and optimal paragraph structure.
-
-**Criteria**:
-1. Correct all grammatical and syntax errors for professional readability.
-2. Ensure a logical sequence and coherence in the overall content structure.
-3. Structure paragraphs to be clear, logical, and free of redundancies.
-
-**Procedure**:
-1. **Grammar and Syntax Review**: Carefully review each sentence for grammatical accuracy, focusing on punctuation, verb tense consistency, and correct usage of technical terms.
-2. **Summarize Paragraph Content**: For each paragraph, briefly summarize its main content to understand its purpose within the article.
-3. **Assess Logical Flow of Paragraphs**: With the summarized content, evaluate whether each paragraph logically follows the previous one and sets the stage for the next, ensuring a coherent narrative or argument.
-4. **Paragraph Structure Analysis**: Within each paragraph, ensure that every sentence contributes to the paragraph's main idea, enhance clarity, and remove any redundant phrases or information.
-5. **Final Review**: Perform a comprehensive review of the entire article to ensure that all changes made contribute positively to its readability, technical accuracy, and overall coherence.
-
-By meticulously following these steps, you will enhance the clarity, coherence, and professional quality of your technical article. If there are any specific concerns or additional details you would like to address during the editing process, please feel free to include them.
-
-
-Version 3: Understand the content of the user's writting first.
-You are an editor and proofreader tasked with refining a diverse range of articles. Your primary goal is to understand the author's intent and ensure the article accurately conveys it.
-
-**Criteria**:
-1. Achieve grammatical accuracy.
-2. Clarify and accurately convey the author's intended message.
-3. Maintain logical flow and coherence in the content.
-4. Eliminate redundancies for clarity.
-
-**Procedure**:
-1. **Understanding Author's Intent**: Understand the author's main objectives and intended message of the article.
-2. **Content Clarification**: Revise the article to better articulate the author's ideas, ensuring accuracy and clarity.
-3. **Final Presentation**: Present the final version, ensuring it accurately reflects the author's intended message and meets all criteria for its intended audience.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step.
-
-[Article]
-$start$
-When we have code design specifications comprehensively documented for a software module in one application, we would naturally need to apply new requirements to this module over the life cycle of the application. Of course, this is again driven by a prompt. I put the prompt here directly. This prompt will ask LLM to figure out the changes that need to be made on the existing code base based on the new requirement and create plan of change for each applicable component mentioned in the code documentation.
-Then we will use another prompt to instruct LLM to create subtask for each planned change. 
-Then we submit each subtask to LLM to make LLM implement the subtask, given the original code for each component(file). The return of each subtask is the updated code for that specific component(file).
-This streamlined process is driven by multiple prompts. The more reliably this process works, the less work human has to be involved.
-$end$
-
-
-
-
-
-Version 3:
-
+Version 1:
 You are a Software Architect. You are tasked with refining a technical article given to you.
 
 **Context**:
@@ -131,42 +57,6 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 [UserArticle]
 $start$
-Step 1. Identify each paragraph's key point in `[UserArticle]`.
-
-1. Future software development will mirror book writing, utilizing large language models for various stages from requirement engineering to deployment. These models require structured contexts for effective operation.
-2. Modularization in software engineering starts with requirement categorization, organizing requirements into functional categories that guide modular design.
-3. Software architects are pivotal in categorizing requirements, a task aided by large language models. The interaction among different modules, represented by special symbols or catalog pages, is crucial.
-4. Integration of requirement entries into software modules is likened to organizing book chapters, focusing on designing APIs that meet module requirements.
-5. After designing APIs, the next step involves detailing API functionality and creating implementation tasks. Clear API documentation is vital for leveraging large language models in automation.
-6. Unit testing benefits from well-structured API designs and comprehensive documentation, enabling large language models to contribute effectively in implementation and testing.
-7. Following API design, module development includes documenting API designs, generating implementation tasks, and creating files with API implementations, each organized under respective modules.
-8. Hierarchical navigation in software development resembles navigating a book, starting from the application level to module-specific requirements and API designs.
-9. New requirements are integrated by analyzing module descriptions using vectors, with large language models assisting in suggesting changes and generating requirement update documentation.
-10. Linkage between API designs and requirements documentation aids in efficient API updates in response to new requirements, with each API linked to its file system location.
-11. The structured software development process facilitates the integration of large language models in various stages, from updating requirements to implementing codebase changes.
-12. Detailed documentation is crucial for creating effective prompts for large language models, guiding them to focus on specific tasks like editing a book chapter.
-
-Step 2. Analyze the logical sequence and similarities between these key points.
-
-- Paragraphs 1, 4, 5, 6, 7, 8, 9, 10, 11, and 12 discuss the integration and significance of large language models in various stages of software development, emphasizing structured documentation and categorization.
-- Paragraph 2 introduces the concept of modularization in software development, which is foundational to the subsequent discussion on the integration of large language models.
-- Paragraph 3 expands on the role of software architects in categorizing requirements, a critical step in creating structured contexts for large language models.
-- The logical sequence suggests starting with the general concept of integrating large language models (Paragraphs 1, 4, 5, 6, 7, 8, 9, 10, 11, 12), then detailing the foundational steps of modularization and the role of software architects (Paragraphs 2 and 3).
-
-Step 3. Use the analysis from Step 2 to guide the reorganization of the original paragraphs.
-
-Revised Article:
-
-$end$
-
-
-
-
-
-
-
-
-
 The advent of large language models has significantly altered traditional software engineering practices and impacted various industries. The efficacy of these models largely depends on the design of structured prompts, which serve as task-specific instructions. These prompts should be logically organized and sufficiently detailed to guide the models effectively. However, optimizing prompts presents challenges, including determining the appropriate level of detail and managing the costs associated with their evaluation. Despite these challenges, the optimization of prompts is a critical component, with humans playing a pivotal role in assessing and refining these prompts to ensure their effectiveness.
 
 To iteratively improve prompts for large language models, the process begins with the creation of a meta prompt. This meta prompt serves to generate an initial prompt by first identifying the user's task, establishing the role and objective, setting the context, and outlining the procedure. The initial prompt, often imperfect, is then refined through a critical evaluation of its components, identifying and rectifying any evident flaws. This iterative process not only enhances the prompt itself but also offers insights into potential improvements for the meta prompt, thereby increasing the effectiveness of future prompts.
@@ -186,7 +76,7 @@ A challenge is identified when processing this generic template through a large 
 The optimization process begins with the creation of an initial prompt, utilizing a specialized meta prompt. This meta prompt is tasked with a specific challenge: to convert a generic code design template into one that is language-specific. It accomplishes this by determining the task's domain and generating procedures and context relevant to the task, thereby producing the initial prompt.
 
 Following the creation of this initial prompt, the process involves a thorough review to identify and correct clear deficiencies. These improvements are made prior to engaging with a large language model. Subsequently, the refined prompt is submitted to the model. The primary focus at this stage is to analyze the model's output, which often necessitates additional adjustments, particularly in terms of the prompt's structural aspects.
-$stop$
+$end$
 
 
 
@@ -196,19 +86,12 @@ $stop$
 
 
 
+The advent of large language models has revolutionized software engineering practices, emphasizing the critical role of structured, logically organized prompts for effective task execution. This necessitates a meticulous design process, where human assessment plays a pivotal role in optimizing these prompts to ensure their effectiveness. To address this, an iterative improvement process is established, beginning with the creation of a meta prompt. This meta prompt lays the groundwork for generating and refining initial prompts through critical evaluation, focusing on identifying and rectifying any flaws. This not only enhances the prompt itself but also contributes to the continuous improvement of the meta prompt, thereby increasing the effectiveness of future prompts.
 
-5. Refine each paragraph individually in '[Paragraph Optimization]'.
-6. Adjust style and tone uniformly in '[Style and Tone Adjustment]'.
+Iterative refinement using ChatGPT, a large language model, involves a cycle of feedback and modification. Initial errors within prompts are corrected, and the revised prompts undergo evaluation. The output is critically analyzed, and specific feedback is integrated into an evaluation prompt. This process, emphasizing precise, targeted feedback, results in incremental enhancements that guide the prompt towards a refined and accurate representation of the desired outcome.
 
+In practical application, the method extends to refining generic code design templates for specific programming languages. This involves the creation of an initial prompt using a specialized meta prompt designed to adapt a generic template into a language-specific one. Through a thorough review and refinement process, before and after engaging with a large language model, structural improvements to the prompt are made. This iterative process of evaluation and adjustment demonstrates the practical utility of large language models in facilitating and enhancing the efficiency of software development tasks.
 
-
-
-Your message emphasizes the process of enhancing written content by identifying key points within each paragraph. These key points are then reordered or merged to ensure logical progression or coherence. This approach leads to a restructuring of the original article, especially by combining paragraphs with similar key points, to create a more organized and coherent piece of writing.
-
-
-
-
-The essence of the approach is to distill each paragraph to its key point, allowing these points to represent the respective sections. This extraction process paves the way for reorganizing or merging the content to ensure a robust logical flow or coherence. When key points are found to be similar, they can be merged, signifying the combination of the original paragraphs. This method lays the groundwork for effectively restructuring or rewriting the original article.
 
 
 
