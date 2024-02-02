@@ -85,8 +85,28 @@ $PrompteEnd$
 
 [Feedback]
 $start$
-
+I didn't put the original article in the prompt. However, the output 
 $end$
 
 
 [Output]
+Step 1. Identify and note the key point of each paragraph in the revised [UserArticle]. This involves understanding the core message or idea represented in each paragraph.
+
+Paragraph 1: Large language models will play a pivotal role in various stages of future software development, which will be similar to book writing.
+Paragraph 2: Modularization in software engineering, aided by large language models, involves grouping requirements into categories that influence module interactions and API designs.
+Paragraph 3: Post-API design, the focus is on detailing API functionality and creating implementation tasks, with clear documentation essential for automating tasks using large language models.
+Paragraph 4: The hierarchical navigation process in software development, akin to book navigation, involves progressing from the application level to specific requirements and API designs.
+Paragraph 5: Detailed documentation is key for creating efficient prompts for large language models, enabling precise adjustments in the software's knowledge base.
+Step 2. Analyze the logical sequence and similarities between these key points. Consider potential reorganizations, such as merging and reordering.
+
+The article sequentially progresses from a broad overview of the role of large language models in future software development (Paragraph 1) to specific methodologies and processes (Paragraphs 2 to 5).
+Paragraphs 2 and 3, focusing on modularization, API design, and the post-design process, are closely related and could be merged for a more cohesive explanation of the software development process.
+Paragraphs 4 and 5, discussing the hierarchical navigation and the importance of documentation in software development, are thematically connected and could be combined to emphasize the structure and organization in software development.
+Step 3. Use the analysis from Step 2 to guide the reorganization of the original paragraphs. This involves merging and reordering paragraphs as dictated by the reorganized key points.
+
+Revised Article:
+"In the future of software development, large language models are expected to significantly influence various stages, akin to the process of writing a book. This advancement will necessitate coherent and structured contexts to effectively navigate the different phases of development.
+
+The process of modularization in software engineering, greatly assisted by large language models, involves the categorization of requirements into groups that dictate module interactions and API designs. Following the design of APIs, attention shifts to detailing their functionality and the creation of implementation tasks. Clear documentation is paramount in this phase to enable the effective use of large language models in automating these tasks.
+
+The development process is characterized by a hierarchical navigation system, similar to navigating through a book. This system starts at the application level and delves into specific requirements and API designs for each module. The creation of detailed documentation is crucial throughout this process, as it provides the necessary context for large language models to make precise adjustments in the software's knowledge base. This structured approach not only streamlines the development process but also ensures that each stage is well-defined and accessible for model intervention."
