@@ -28,7 +28,7 @@ MetaPrompting refers to the recursive process of using a prompt (a MetaPrompt) t
   Step 1: Understand the User Request in the `[UserRequest]` section between `$start$` and `$end$` tokens.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
-You must follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. The output of each step should adhere to the defined output format from the `OutputFormat` section.
+You must follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. The output of each step should adhere to the defined output format defined by the `OutputFormat` section.
 
 [Template]
 $TemplateStart$
@@ -47,11 +47,6 @@ $TemplateStart$
 ...
 [Detail the specific steps or actions the model should undertake.]
 
-**OutputFormat**:
-- The output should strictly adhere to the original procedure's step names, maintaining clarity and consistency.
-  Example:
-  Step 1: {here is the name of the first step}
-  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
 [Optional Dynamic Sections]: 
 - If multiple sections are needed based on user request:
@@ -61,7 +56,8 @@ $TemplateStart$
   [SectionName2]
   {Content for SectionName2}
 
-You must follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. The output of each step should adhere to the defined output format from the `OutputFormat` section.$TemplateEnd$
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
+$TemplateEnd$
 
 [Example]
 $ExampleStart$
@@ -96,7 +92,7 @@ The review should be unbiased, based on factual observations, and should highlig
 - Features: 4G connectivity, 16MP camera.
 - Performance: Average speed, some minor lags observed.
 
-You must follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. The output of each step should adhere to the defined output format from the `OutputFormat` section.
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
 $ExampleEnd$
 
 
