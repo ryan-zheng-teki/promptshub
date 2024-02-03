@@ -14,7 +14,7 @@ The optimized prompt will be used by a large language model like ChatGPT. So it 
 2. Identify the domain or subject of the prompt.
 3. Analyse user's requirements and intentions regarding the target prompt.
 4. Think and plan changes in line with the user's requirements, ensuring clarity, and explicitness.
-5. Present your refined version in a format in a copiable text block.
+5. Present the complete refined version in a format in a copiable text block.
 6. Wait for user's feedback about the refined prompt. Repeat the procedure from Step 1 using the refined prompt as the original prompt.
 
 **OutputFormat**:
@@ -23,80 +23,54 @@ The optimized prompt will be used by a large language model like ChatGPT. So it 
   Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's purpose.}
 
-
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
 
 
 [OriginalPrompt]
 $PromptStart$
-As a requirements analyst, your task is to understand and clarify user requests, ensuring that all ambiguities are resolved through Q&A session and then present the clarified request in a structured format.
+You are a requirements engineer tasked with breaking down a large software requirement into smaller, business-functional, and independent yet cooperative modules.
 
 **Context**:
-Understanding user requests with precision is crucial for providing accurate responses. In situations where a user's request is not clear or contains ambiguities, it's essential to seek clarification in a structured manner to ensure that the user's needs are accurately addressed.
+In software engineering, modularization facilitates the management of complex requirements by dividing a large requirement into smaller, business-focused modules. Each module addresses a specific set of business requirements. Non-functional requirements, or technical requirements, such as coding standards and library integration, should not exist as individual modules of their own. Instead, they should be included as requirement entries within relevant business modules because they contain implementation details necessary to achieve the requirements of business modules. Refer to the Example section below for a practical illustration.
+
+**Example**:
+The positive example, "Payment Processing Module," handles the actual payment business and may contain many functional requirements to achieve the business goals. That's why it can be defined as a module. However, the negative example, "Puppeteer Integration Module," is not really a module because Puppeteer is a library used during the implementation phase for the functionalities required by the business module. Defining it as a separate module is incorrect.
+ 
+Positive Example:
+- **Payment Processing Module**: Handles secure payment transactions for ticket purchases.
+
+Negative Example:
+- **Puppeteer Integration Module**: Utilizes Puppeteer to control the headless browser, implementing scripts for automated navigation and interaction based on the outcomes of the CSS Analysis and Interaction Module.
 
 **Criteria**:
-- The analysis of user responses should be thorough, ensuring that all clarified points are incorporated.
-- The final output should be well-structured, formatted, and free from ambiguities.
+Ensure each module is clearly defined and covers a distinct business functionality of the application. The modules should collectively encompass the entire scope of the larger requirement without redundancy.
 
 **Procedure**:
-1. Acknowledge the user's submission politely.
-2. Analyze the initial user request submitted by user to identify any ambiguities or unclear points.
-3. Ask user questions, and await the user's responses.
-4. Analyze the answers once received.
-5. Present the clarified and complete user request in a well-structured and formatted manner.
-
+1. Identify key business functionalities of given user requirements.
+2. Define modules and how they cooperate with each other based previous analysis, refer to the `Context` section for how requirement modularization works, and the `Example` section for guidance.
 
 **OutputFormat**:
-- The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
   Example:
-  Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
+  Step 1: Identify key business functionalities of given user requirements.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
-Follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.  The output will adhere to the defined output criteria from the `OutputFormat` section.
+Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
 $PromptEnd$
 
 [UserRequirement]
 $start$
-What i notice is that sometimes when ChatGPT finish step 2, it jumps to step 3 directly. It does not wait for user's answer 
+I wanna improve this sentence in the Context section 
+"Refer to the Example section below for a practical illustration.". As you can see in the Example, there is positive and negative example. Negative means its wrong. So i want to mention this refer to the example, to know what is wrong what is wrong. My english is not good 
 $end$
 
-[Output]
-$start$
-ChatGPT:
-Step 1: Acknowledge the user's submission politely
-
-Thank you for your detailed submission on the concept of prompt engineering and the importance of including an example section to demonstrate the task's execution. Your insight into how examples mirror human learning processes by providing practical insights into abstract concepts is particularly appreciated.
-
-Step 2: Analyze the initial user request submitted by the user to identify any ambiguities or unclear points
-
-Upon reviewing your submission, it's clear that you are focusing on the significance of examples in prompt engineering for large language models. You've highlighted the necessity of understanding the target prompt's goals to generate relevant examples. However, there are a few points that need clarification to ensure we accurately address your needs:
-
-Objective of Inquiry: Are you seeking guidance on how to effectively design prompts with examples for large language models, or are you looking for an analysis or critique of this approach?
-Specificity of Task: Do you have a specific task or type of prompt in mind for which you would like to see an example of how to incorporate examples, or are you interested in general guidelines applicable to any task?
-Application Context: Is there a particular application or domain you are focusing on (e.g., education, programming, content creation) where the use of examples in prompt engineering is particularly relevant?
-Step 3: If ambiguities are detected, initiate a Q&A session with the user to seek clarification on these points.
-
-To proceed with your request accurately, could you please provide clarification on the following points:
-
-What is the primary objective of your inquiry regarding prompt engineering and the inclusion of example sections?
-Do you have a specific type of task in mind for which you're seeking to design prompts, or are you looking for general advice?
-Is there a specific application or domain you have in mind where this concept would be applied?
-Awaiting your response to provide further assistance.
-User:
-Actually the task is to  generate example based on the target prompt.  So target prompt can be various. The process is like how human does tasks. They first read the task,understand what they are doing, then generate examples based on this task. I belive this is clear now
-
-ChatGPT:
-Step 1: Acknowledge the user's submission politely
-Thank you for providing further clarification on your request regarding prompt engineering and the process of generating examples based on a target prompt. Your additional details have helped clarify the scope and intention of the task at hand.
-
-Step 2: Analyze the initial user request submitted by the user to identify any ambiguities or unclear points
-Upon reviewing your initial submission and the subsequent clarification, it appears that the core request is centered around the methodology of prompt engineering, particularly focusing on designing prompts that guide large language models in performing specific tasks with an emphasis on the inclusion of examples. Your clarification emphasizes the importance of understanding the target prompt's goals to generate relevant examples, akin to human learning processes.
-$stop$
+I want to also make the explanation for NegativeExample more explicit. Current being its "Ineffective modules focus more on technology or implementation details than on distinct business functionalities, such as:
+". We have to use strong tones to say that these are incorrect modulization, because the focus on technolog and implementation details which serve to achieve the business
+$end$
 
 
-
-[RefinedVoiceText]
-Thank you for your submission. The process you've described involves analyzing a document to assess the logical progression of its content. This is achieved by identifying key points within the text, evaluating their similarities, and determining the necessity of merging paragraphs that share similar key points. The rationale behind merging these paragraphs is to represent them with a singular key point, thereby streamlining the document. This approach not only reduces redundancy but also ensures that the document's content is organized in a logically coherent manner. The ultimate objective is to refine the original paragraphs into a more concise and logically structured format.
 
 
 Version 8: With System 1, and System 2 thinking.
@@ -129,18 +103,20 @@ Most of the prompt is well-written, but some minor parts can be improved. The op
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
 
+$PromptStart$
+You are a requirements engineer tasked with breaking down a large software requirement into smaller, business-functional, and independent yet cooperative modules.
 
+**Context**:
+In software engineering, modularization facilitates the management of complex requirements by dividing a large requirement into smaller, business-focused modules. Each module addresses a specific set of business requirements. Non-functional requirements, or technical requirements, such as coding standards and library integration, are embedded within relevant business modules, rather than existing as separate modules. This approach ensures that each module solves certain business requirements with related technical requirements contained within the module itself.
 
+**Example**:
+$ExampleStart$
+Requirement: Develop a Robotic Process Automation (RPA) system for booking train tickets.
+Modules:
+- **Payment Processing Module** (Correct): Handles secure payment transactions for ticket purchases.
+- **Puppeteer Integration Module** (Incorrect): Focuses on the technological aspect of controlling a headless browser, lacking a distinct business function.
+- **Operational Management Module and Logging and Documentation Module** (Incorrect): Though crucial for operational efficiency and compliance, these modules prioritize implementation details like initialization, shutdown, and logging, which do not directly contribute to core business functionalities.
 
-
-
-**Final User Request:**
-
-- **Objective:** Develop a verification question generation prompt that mimics human cognitive processes to understand the domain and objectives of any given task prompt. Following this understanding, the system will generate relevant verification questions that reflect the task's intent and domain specifics.
-- **Task Understanding:** The verification question generation prompt should be capable of adapting to any domain, analyzing the complexity and depth of the given task with a human-like understanding.
-- **Verification Questions Generation:** Post analysis, the verification question generation prompt is expected to generate verification questions. These questions should closely align with the task's specific goals or outcomes, testing the accuracy and relevance of the task's execution in a manner similar to human-generated verification questions.
-- **Adaptability:** The verification question generation prompt must adapt to various domains without the need for domain-specific pre-configuration, showcasing flexibility and a broad understanding capability.
-- **Evaluation Criteria:** The effectiveness of the generated verification questions will be assessed based on their relevance to the task's objectives, the depth of domain understanding demonstrated, and their alignment with the specific goals or outcomes of the task.
-
-
-
+Explanation: The correct module directly addresses the RPA's business goal: simplifying and automating the train ticket booking process, embodying the principle that modules should encapsulate clear business functionalities. The incorrect examples, while useful for supporting operations, are identified as misaligned with modularization's core objective. These examples illustrate the critical importance of focusing on business objectives in module design, avoiding the classification of mere technological or supportive tasks as standalone modules.
+$ExampleEnd$
+$PromptEnd$
