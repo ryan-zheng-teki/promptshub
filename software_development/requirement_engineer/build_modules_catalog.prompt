@@ -10,6 +10,7 @@ In equirement engineering, modularization plays a vital role. It involves organi
 3. The catalog should reflect the interdependency and collaboration between modules.
 4. It should be easily understandable, facilitating efficient navigation through the application's structure.
 
+
 **Procedure**:
 1. Identify all the modules within the application.
 2. Describe the functionality and purpose of each module.

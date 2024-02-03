@@ -3,24 +3,26 @@ Version 1:
 You are a requirements engineer tasked with breaking down a large software requirement into smaller, business-functional, and independent yet cooperative modules.
 
 **Context**:
-In software engineering, modularization facilitates the management of complex requirements by dividing a large requirement into smaller, business-focused modules. Each module addresses a specific set of  business requirements. Non-functional requirements, or technical requirements, such as coding standards and library integration are embedded within relevant business modules, rather than existing as separate modules. This approach ensures that each module solves certain business requirments with related technical requirements contained in the module itself.
+In software engineering, modularization facilitates the management of complex requirements by dividing a large requirement into smaller, business-focused modules. Each module addresses a specific set of business requirements. Non-functional requirements, or technical requirements, such as coding standards and library integration, should not exist as individual modules of their own. Instead, they should be included as requirement entries within relevant business modules because they contain implementation details necessary to achieve the requirements of business modules. Refer to the `Example` section below for practical illustrations, including both positive examples, which demonstrate correct modularization, and negative examples, highlighting incorrect approaches to avoid.
 
 **Example**:
-Consider a more detailed example of a bookstore website. This website might have the following modules:
-- **User Management Module**: Handles user accounts, profiles, and authentication. It ensures users can sign up, log in, and manage their personal information securely.
-- **Inventory Management Module**: Manages the books available for sale, including adding new books, updating book information, and tracking stock levels.
-- **Search and Recommendation Module**: Allows users to search for books and provides recommendations based on user preferences and browsing history.
-- **Payment Module**: Handles transactions, including payment processing, invoicing, and managing different payment methods.
-- **Order Fulfillment Module**: Oversees the process from order placement to delivery, including order tracking, shipping management, and returns.
-- **Customer Service Module**: Provides support for customer inquiries and issues, integrating features like live chat and ticketing systems.
+The positive example, "Payment Processing Module," handles the actual payment business and may contain many functional requirements to achieve the business goals. That's why it can be defined as a module. However, the negative example, "Puppeteer Integration Module," is not really a module because Puppeteer is a library used during the implementation phase for the functionalities required by the business module. Defining it as a separate module is incorrect.
+ 
+Positive Example:
+- **Payment Processing Module**: Handles secure payment transactions for ticket purchases.
+
+Negative Example:
+- **Puppeteer Integration Module**: Utilizes Puppeteer to control the headless browser, implementing scripts for automated navigation and interaction based on the outcomes of the CSS Analysis and Interaction Module.
 
 **Criteria**:
-Ensure each module is clearly defined and covers a distinct business functionality of the application. The modules should collectively encompass the entire scope of the larger requirement without redundancy.
-
+1. Each module define must directly contribute to a distinct business functionality within the application.
+2. Avoid establishing modules solely for documentation, library integration, or other non-functional aspects; these do not qualify as standalone business modules.
+3. Ensure the modules collectively cover the entire scope of the larger requirement without redundancy.
+4. Modules should be clearly defined, with their purposes and functionalities explicitly described.
 
 **Procedure**:
 1. Identify key business functionalities of given user requirements.
-2. Develop modules based these business functionalities, refer to `Context` section for how requirement modularization works, and `Example` section for guidance.
+2. Define modules and how they cooperate with each other based previous analysis, refer to the `Context` section for how requirement modularization works, and the `Example` section for guidance.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
@@ -31,6 +33,48 @@ Ensure each module is clearly defined and covers a distinct business functionali
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
 [UserRequirement]
+####  RPA to Book Train Tickets on https://www.12306.cn/index/:
+
+1. **Objective**: Develop an RPA for booking train tickets on the specified website.
+2. **CSS Analysis**:
+   - Implement a dynamic analysis process to read and interpret the page's CSS.
+   - Identify actionable elements based on the analysis, using reasoning to determine the most probable elements for interaction.
+   - This process should simulate human-like planning, action, reasoning, and plan adjustments in a recursive manner as necessary.
+3. **Technology Stack**:
+   - Use Node.js as the programming environment.
+   - Utilize Puppeteer for controlling a headless browser to interact with the web page.
+4. **Operational Requirements**:
+   - The RPA is intended for a single use or test run, designed to demonstrate the capability rather than for long-term use.
+5. **Logging**:
+   - Implement a logging mechanism to document the process and outcomes of the RPA's operations.
+   - The logs should capture key actions, decisions made based on CSS analysis, and the final outcome of the booking process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 I have created one requirement as listed below.
 
 - **Application Type**:  Automated appoint booking application.
