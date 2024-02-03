@@ -20,7 +20,7 @@ Ensure each module is clearly defined and covers a distinct business functionali
 
 **Procedure**:
 1. Identify key business functionalities of given user requirements.
-2. Develop modules based these business functionalities, refer to Context section for how requirement modularization works.
+2. Develop modules based these business functionalities, refer to `Context` section for how requirement modularization works, and `Example` section for guidance.
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.

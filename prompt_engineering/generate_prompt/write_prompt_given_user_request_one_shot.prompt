@@ -98,9 +98,6 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-Refine one already revised article. This time is more about still analyse the sequence, and pick up 
-some paragraphs which seem not fitting in the article, that well. If the fitting is very well, 
-then we need to check what user want to express, whether there are some missing linkage content 
-which achieves the overall goal of the article.
+When we are doing prompt refinement, the inclusion of an example section in the target prompt significantly enhances the effectiveness of the prompt. This section, showcasing instances of both good and bad practices, serves to clearly illustrate the expected outcomes and standards for target prompt. The task is about integrates such an example section in the target prompt,  requiring a thorough understanding of the prompt's objectives, the domain it addresses, and the criteria defined. 
 $end$
 
