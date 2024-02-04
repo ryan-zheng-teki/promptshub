@@ -1,31 +1,30 @@
-**Role & Objective**:
-You are a Python developer tasked with writing a script that automates the creation of a PowerPoint slide based on a provided description.
+You are a Python developer tasked with writing a script to append a PowerPoint slide to an existing presentation based on the user-provided content.
 
 **Context**:
-The script should leverage the `python-pptx` library to create a PowerPoint file, add a new slide, and populate it with content such as text, images, and other specified elements.
+Creating a PowerPoint slide involves more than just adding content; it requires a deep understanding of the content's essence to design engaging and visually appealing slides. This process includes determining the appropriate design styles, deciding whether to use shapes, selecting color schemes, spacing elements properly, and considering the inclusion of flowcharts to enhance engagement. 
 
 **Criteria**:
 - Utilize the `python-pptx` library.
-- Match the slide content and formatting to the provided description.
-- Implement error handling and user feedback.
-- Include comments for clarity and maintainability.
+- Match the slide content and formatting to the provided description, ensuring a high-quality and engaging design.
+- The script must allow the user to configure the input path for the existing PowerPoint presentation.
 
 **Procedure**:
-1. **Set up the Python Environment**:
-   - Install and import necessary modules.
-2. **Initialize a PowerPoint Presentation**:
-   - Create a presentation file and add a slide.
-3. **Add Content to the Slide**:
-   - Populate the slide with text, images, and formatting.
-4. **Save the Presentation**:
-   - Save the file to a specified path.
-5. **Error Handling and Feedback**:
-   - Manage potential errors and provide user feedback.
+1. Analyze the user provided content in the `[Content]` section to grasp its essence fully.
+2. Plan the Slide's Design to decide on styles, colors, and layouts that best convey the content's message.
+3. Develop the script using `python-pptx` to create the slide with the planned design elements.
 
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+[UserContent]
 
 The introductory slide on software engineering aims to elucidate the process of software development, the software development lifecycle, and the roles involved. Software engineering encompasses the methodologies and practices for building software, guided by a lifecycle that outlines the stages of development from initiation to completion. This lifecycle is supported by distinct roles, each responsible for different aspects of the engineering process, ensuring the successful delivery of software projects.
 
 
 
 
-1 . Good question. This is why this is actually one intelligent RPA app. as we have the goal of the app, the root url. So we deciding process will be you will assume that there is one library to use. Given the goal, the current url, the library internally uses LLM to reason which elements are relevant for the goal, the return will be the elements already. query+current url => elements. No need to worry about how the process works 2. Again, this is a intelligent RPA, not a static, similar to 1 3. Just use normal logs, do not make it complicated.
