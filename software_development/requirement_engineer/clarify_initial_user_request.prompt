@@ -85,7 +85,7 @@ Precisely understanding and addressing user requirements is foundational to prov
 
 **OutputFormat**:
 - The output should strictly adhere to the original procedure's step names, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to its title without creating new titles or altering the original ones, thus maintaining clarity and consistency.
-  Example:
+  Example For Demonstration Purpose:
   Step 1: Understand the objectives and intent of the original prompt in the `[OriginalPrompt]` section.
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
@@ -133,16 +133,6 @@ Precisely understanding and addressing user requirements is foundational to prov
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
 Follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.  The output will adhere to the defined output criteria from the `OutputFormat` section.
-
-
-
-Prompt engineering involves designing a directive that guides a large language model in performing specific tasks. An essential aspect of this process is the inclusion of an example section, which serves to concretely demonstrate the task's execution. This approach not only clarifies the prompt's objectives but also mirrors human learning processes, where examples provide practical insights into abstract concepts. Understanding the target prompt's goals is pivotal in generating relevant examples, thereby facilitating a clearer comprehension and implementation of the task at hand.
-
-
-
-
-Enhancing a target prompt for a large language model involves the strategic inclusion of positive and negative examples. This method is intended to sharpen the model's task execution by clearly delineating effective from ineffective prompt structures. Positive examples illustrate the desired approach, showcasing clarity, coherence, and precision, while negative examples highlight common pitfalls, such as vagueness or redundancy. This contrast aids the model in producing more accurate and focused responses, aligning closely with the intended task requirements. 
-
 
 
 

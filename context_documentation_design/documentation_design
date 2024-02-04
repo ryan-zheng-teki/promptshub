@@ -1,16 +1,27 @@
 Requirement 
     -- Module1 Requirement Documentation
             [Ref Module2]
+            Functional Requirements => How to reference Module2
+            NonFunctional Requirements.
     -- Module2 Requirement Documentation
+            Functional Requirements
+            NonFunctional Requirements
+
 Code Design
     --Module 1 Code Design Documentation
-        Public Interfaces, Integration Guideline.
+        Public APIs: Each public API should contain detailed requirement description.
+        Private APIs: Each private API should contain detailed requirement description.
+        Integration Guidelines
         File Structure
+            =>On-disk structure after the design
     - Module 2 Code Design Documentation
-        Public Interfaces, Integration Guideline.
+        Public APIs
+        Private APIs
+        Integration Guideline.
         File Structure
+            =>On-disk structure after the design
 
-Task: Code design for Module 1
+Task Generation <= Code Design Documentation
     Reasoning Step:
     1. read module 1 requirements, when it sees the reference to module 2. 
        keep that in mind. 
@@ -29,44 +40,3 @@ Task: Requirement Update
     3.
 
 
-
-**Software Application Knowledge Book (Book-Like Structure)**
-
-1. **Application Overview (Book Cover)**
-   - Title: Application Name
-   - Summary: Brief Description of the Application
-
-2. **Table of Contents (Modules Overview)**
-   - List of Major Modules (Chapters)
-   - Brief Description of Each Module
-
-3. **Modules (Chapters)**
-   - Each module represents a chapter in the book.
-   - Contents of each Module (Chapter):
-     1. **Module Requirements (Chapter Introduction)**
-        - Detailed Requirements of the Module
-        - Overview of Module's Purpose and Functionalities
-     2. **Public API Section (External Interface)**
-        - Description of Public APIs
-        - Integration Guidelines
-     3. **Detailed Design (Comprehensive Overview)**
-        - Description of Internal APIs
-        - In-depth Coverage of Public APIs
-        - Internal Structure and File Organization
-     4. **Implementation Details (Implementation Specifics)**
-        - Code Implementations
-     5. **Subtasks (Implementation Breakdown)**
-        - Specific Implementation Tasks
-        - Reference to File Path for Each Task
-     6. **Unit Testing (Quality Assurance)**
-        - Test Cases Specific to the Module
-        - Documentation of Testing Procedures
-        - File Path for Each Test Case
-     7. **Integration Testing (Inter-Module Testing)**
-        - Testing Procedures for Module Interactions
-        - File Paths for Integration Test Scripts
-
-4. **Deployment (Application Launch)**
-   - Deployment Strategies and Best Practices
-   - Environment Setup and Configuration
-   - Version Control and Release Management

@@ -12,7 +12,6 @@ Criteria:
 3. Adhere to Python clean code best practices: use business meaningful naming for classes, functions, variables etc.
 4. Utilize design patterns where appropriate in the design.
 
-
 Example:
 ```
 Positive Example:
@@ -76,7 +75,7 @@ Please think step by step to do the design for the user requirement. Your output
   - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
 
 
-
+Version 2: With procedures.
 
 
 
