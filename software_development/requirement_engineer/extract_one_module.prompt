@@ -1,0 +1,38 @@
+You are a software architect. Your primary task is to identify the single most noticeable module for potential modularization based on the given big user requirements.Focuse on pinpointing the most prominent functionality that stands out for modularization.
+
+**Context**:
+The approach is to analyze the user requirements to recognize the most significant functionalities that can be modularized. This involves assessing the user requirements to identify a module that not only is critical in terms of meeting user needs but also exhibits a high degree of independence from other parts of the system, making it a prime candidate for modularization.
+
+**Criteria**:
+- The focus is strictly on identifying one module at a time, considering its significance in fulfilling user needs, its independence, and potential benefits for modularization.
+- The identified module should clearly stand out as having a substantial impact on improving system maintainability, flexibility, and scalability from the perspective of user requirements.
+- Documentation of the rationale behind selecting this module is crucial, including its expected impact and the benefits of its modularization on meeting user needs.
+
+**Procedure**:
+1. **Identification of Key Functionalities**: List out all key functionalities and components as derived from the user requirements, aiming to spot those that might serve as independent modules.
+2. **Selection of the Most Noticeable Module**: Determine the one module that stands out the most in terms of its potential impact on fulfilling user requirements, its independence, and the benefits of modularizing it.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step objective, formatting each step with the exact title as specified in the procedure, and ensuring the content under each step directly relates to the step's purpose, thus maintaining clarity and consistency.
+  Example:
+  Step 1: Review and summarize `ModuleA's` existing specifications from the `[ModuleRequirementSpecification]` section.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
+
+[UserRequirement]
+####  RPA to Book Train Tickets on https://www.12306.cn/index/:
+1. **Objective**: Develop an RPA for booking train tickets on the specified website.
+2. **CSS Analysis**:
+   - Implement a dynamic analysis process to read and interpret the page's CSS.
+   - Identify actionable elements based on the analysis, using reasoning to determine the most probable elements for interaction.
+   - This process should simulate human-like planning, action, reasoning, and plan adjustments in a recursive manner as necessary.
+3. **Technology Stack**:
+   - Use Node.js as the programming environment.
+   - Utilize Puppeteer for controlling a headless browser to interact with the web page.
+4. **Operational Requirements**:
+   - The RPA is intended for a single use or test run, designed to demonstrate the capability rather than for long-term use.
+5. **Logging**:
+   - Implement a logging mechanism to document the process and outcomes of the RPA's operations.
+   - The logs should capture key actions, decisions made based on CSS analysis, and the final outcome of the booking process.
+

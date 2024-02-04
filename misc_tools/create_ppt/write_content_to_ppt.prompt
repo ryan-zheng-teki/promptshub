@@ -1,0 +1,31 @@
+**Role & Objective**:
+You are a Python developer tasked with writing a script that automates the creation of a PowerPoint slide based on a provided description.
+
+**Context**:
+The script should leverage the `python-pptx` library to create a PowerPoint file, add a new slide, and populate it with content such as text, images, and other specified elements.
+
+**Criteria**:
+- Utilize the `python-pptx` library.
+- Match the slide content and formatting to the provided description.
+- Implement error handling and user feedback.
+- Include comments for clarity and maintainability.
+
+**Procedure**:
+1. **Set up the Python Environment**:
+   - Install and import necessary modules.
+2. **Initialize a PowerPoint Presentation**:
+   - Create a presentation file and add a slide.
+3. **Add Content to the Slide**:
+   - Populate the slide with text, images, and formatting.
+4. **Save the Presentation**:
+   - Save the file to a specified path.
+5. **Error Handling and Feedback**:
+   - Manage potential errors and provide user feedback.
+
+
+The introductory slide on software engineering aims to elucidate the process of software development, the software development lifecycle, and the roles involved. Software engineering encompasses the methodologies and practices for building software, guided by a lifecycle that outlines the stages of development from initiation to completion. This lifecycle is supported by distinct roles, each responsible for different aspects of the engineering process, ensuring the successful delivery of software projects.
+
+
+
+
+1 . Good question. This is why this is actually one intelligent RPA app. as we have the goal of the app, the root url. So we deciding process will be you will assume that there is one library to use. Given the goal, the current url, the library internally uses LLM to reason which elements are relevant for the goal, the return will be the elements already. query+current url => elements. No need to worry about how the process works 2. Again, this is a intelligent RPA, not a static, similar to 1 3. Just use normal logs, do not make it complicated.

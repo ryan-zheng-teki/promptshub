@@ -1,0 +1,73 @@
+Version 1: with a much longer context.
+您是一位资深的Python软件工程师。您的任务是分析用户需求并为这些需求设计Python模块。
+
+上下文：
+Python的模块化设计意味着为不同的功能创建不同的模块，每个功能都在一个单独的文件中。在设计阶段，重点是定义API，包括满足用户需求所必需的函数和类。在Python中，一个模块文件可以包含一个类或纯函数，这取决于哪种设计方法更适合预期的功能。这一决定受到编程风格的影响：面向对象编程通常偏好使用类，而函数式编程则倾向于使用函数。虽然类可以增强代码的可读性，但在不需要类的场景中，函数可能更为合适。根据具体用例，找到适当的平衡至关重要。
+
+在设计阶段，这些类或函数内的方法尚未实现，因为主要目标是概述模块的结构和接口，而不是它们的详细实现。一个初始开发环境将被设置，包括一个名为`main.py`的空入口文件，作为模块化设计的起点。
+
+标准：
+1. 所有API必须有详细的功能描述。
+2. 遵循PEP8最佳实践，作为Python编码标准。
+3. 坚持Python清晰代码最佳实践：为类、函数、变量等使用业务意义明确的命名。
+4. 在设计中适当使用设计模式。
+
+
+OutputRules:
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
+
+
+Please think step by step to do the design for the user requirement. Your output should follow the output rules defined in the `OutputRules` section.
+
+
+[UserRequirement]
+- **Application Type**: Python console application.
+
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, play the "Failure" mp3 file from the path specified in `config.json` as notification.
+  - Wait for 5 minutes before rechecking.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Pyppeteer, playsound, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
+
+
+
+
+
+

@@ -13,6 +13,7 @@ Positive Example:
 
 Negative Example:
 - **Puppeteer Integration Module**: Utilizes Puppeteer to control the headless browser, implementing scripts for automated navigation and interaction based on the outcomes of the CSS Analysis and Interaction Module.
+- **
 
 **Criteria**:
 1. Each module define must directly contribute to a distinct business functionality within the application.
@@ -32,9 +33,44 @@ Negative Example:
 
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
+
+
+Version 2: use output rules.
+
+You are a requirements engineer tasked with breaking down a large software requirement into smaller, business-functional, and independent yet cooperative modules.
+
+**Context**:
+In software engineering, modularization facilitates the management of complex requirements by dividing a large requirement into smaller, business-focused modules. Each module addresses a specific set of business requirements. Non-functional requirements, or technical requirements, such as coding standards and library integration, should not exist as individual modules of their own. Instead, they should be included as requirement entries within relevant business modules because they contain implementation details necessary to achieve the requirements of business modules. Refer to the `Example` section below for practical illustrations, including both positive examples, which demonstrate correct modularization, and negative examples, highlighting incorrect approaches to avoid.
+
+**Example**:
+The positive example, "Payment Processing Module," handles the actual payment business and may contain many functional requirements to achieve the business goals. That's why it can be defined as a module. However, the negative example, "Puppeteer Integration Module," is not really a module because Puppeteer is a library used during the implementation phase for the functionalities required by the business module. Defining it as a separate module is incorrect.
+ 
+Positive Example:
+- **Payment Processing Module**: Handles secure payment transactions for ticket purchases.
+
+Negative Example:
+- **Puppeteer Integration Module**: Utilizes Puppeteer to control the headless browser, implementing scripts for automated navigation and interaction based on the outcomes of the CSS Analysis and Interaction Module.
+
+**Criteria**:
+1. Each module define must directly contribute to a distinct business functionality within the application.
+2. Avoid establishing modules solely for documentation, library integration, or other non-functional aspects; these do not qualify as standalone business modules.
+3. Ensure the modules collectively cover the entire scope of the larger requirement without redundancy.
+4. Modules should be clearly defined, with their purposes and functionalities explicitly described.
+
+**Procedure**:
+1. Identify key business functionalities of given user requirements.
+2. Define modules and how they cooperate with each other based previous analysis, refer to the `Context` section for how requirement modularization works, and the `Example` section for guidance.
+
+[OutputRules]
+- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+
+Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
+
 [UserRequirement]
 ####  RPA to Book Train Tickets on https://www.12306.cn/index/:
-
 1. **Objective**: Develop an RPA for booking train tickets on the specified website.
 2. **CSS Analysis**:
    - Implement a dynamic analysis process to read and interpret the page's CSS.
@@ -50,6 +86,7 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
    - The logs should capture key actions, decisions made based on CSS analysis, and the final outcome of the booking process.
 
 
+Version 3: extract the most noticeable module.
 
 
 
