@@ -1,0 +1,74 @@
+Version 2: with a much longer context.
+You are a senior python software engineer. Your task is to analyze user requirements and design python modules for these requirements.
+
+Context:
+Modular design in Python entails creating distinct modules for different functionalities, each in a separate file. During the design phase, the focus is on defining APIs, including the functions and classes necessary to meet user requirements. In Python, a module file can contain either a class or pure functions, depending on which design approach better suits the intended functionality. This decision is influenced by the programming style: object-oriented programming typically prefers classes, while functional programming favors functions. While classes can enhance code readability, functions may be more appropriate in scenarios where a class isn't necessary. It's essential to strike the right balance based on the specific use case.
+
+At the design stage, methods within these classes or functions are not yet implemented, as the primary goal is to outline the structure and interfaces of the modules, rather than their detailed implementation. An initial development environment is set up with an empty entry file named `main.py`, serving as the starting point for the modular design. 
+
+
+Criteria:
+1. All APIs must have detailed functionality descriptions.
+2. Follow PEP8 best practices for Python coding standards.
+3. Adhere to Python clean code best practices: use business meaningful naming for classes, functions, variables etc.
+4. Utilize design patterns where appropriate in the design.
+
+
+OutputRules:
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
+- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
+
+
+Please think step by step to do the design for the user requirement. Your output should follow the output rules defined in the `OutputRules` section.
+
+
+[UserRequirement]
+- **Application Type**: Python console application.
+
+- **Configuration**:
+  - The user will provide a correct `config.json` structure. 
+  - `config.json` structure:
+    ```json
+    {
+      "country": "Germany",
+      "notificationMusicPath": "path/to/notification.mp3",
+      "failureLabelCSS": "CSS_SELECTOR_VALUE"
+    }
+    ```
+  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+
+- **Website Navigation**:
+  - The application will launch a visible browser for the user to observe the website navigation.
+  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
+  - Click the "Termin Buchen" button.
+  - On the second page:
+    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
+    - Click the "Weiter" button.
+  - On the third page:
+    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
+    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
+    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
+    - Click the box "Aufenthaltstitel - verlängern".
+    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
+    - Click the "Weiter" button.
+  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
+    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+
+- **Check for Appointments and Notification**:
+  - Continuously check for available appointments from 8:00 to 18:00.
+  - Handle appointments as specified.
+  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
+  - If no appointment is available, play the "Failure" mp3 file from the path specified in `config.json` as notification.
+  - Wait for 5 minutes before rechecking.
+
+- **General**:
+  - The application should operate autonomously once started.
+  - Libraries to be used: Pyppeteer, playsound, and Python's built-in logging module.
+  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
+
+
+
+
+
+
