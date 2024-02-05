@@ -2,19 +2,31 @@
 
 1. **Application Overview (Book Cover)**
    - Title: Application Name
+   - Application Type:
    - Summary: Brief Description of the Application
 
-2. **Table of Contents (Modules Overview)**
-   - List of Major Modules (Chapters)
-   - Brief Description of Each Module
-
-3. **Technology Specifications (Framework and Libraries)**
-   - Overview of the Core Technologies used in the Application
-   - Specific Frameworks and Libraries, including versions and configurations
+2. **Technology Specifications (Framework and Libraries)**
+   - Application Type:
+   - Frameworks and Libraries, including versions and configurations
    - Rationale for Technology Choices and their Global Impact on the Application
 
-4. **Modules (Chapters)**
+3. **Architecture** 
+   - List of Major Modules (Chapters). 
+   - Brief Description of Each Module
+   - How the modules interact with each other
+
+4. **Global Configuration**
+   - Here we put some global configurations{not sure what to put here now}
+
+5. **Design Pattern**
+   - Here we describe some design patterns we use. For example, to access the database, we have used 
+     repository pattern. Please refer to the 
+
+6. **Modules (Chapters)**
    - Each module represents a chapter in the book.
+   - **Table of Contents (Modules Overview)**
+     - List of Major Modules (Chapters)
+     - Brief Description of Each Module
    - Contents of each Module (Chapter):
      1. **Module Requirements (Chapter Introduction)**
         - Detailed Requirements of the Module
@@ -39,37 +51,26 @@
         - Testing Procedures for Module Interactions
         - File Paths for Integration Test Scripts
 
-5. **System Testing (Application-Level Testing)**
+7. **Non-Modular Components**
+   - **main.py (Entry File)**: Introduction to the application's entry point, outlining its role in initializing modules, orchestrating the flow between configuration reading, website navigation, and notification handling.
+
+8. **System Testing (Application-Level Testing)**
    - Testing Procedures for the Entire Application
    - Test Cases for End-to-End Functionality
    - Documentation of System Testing Processes
    - File Paths for System Test Scripts
 
-6. **Deployment (Application Launch)**
+9. **Deployment (Application Launch)**
    - Deployment Strategies and Best Practices
    - Environment Setup and Configuration
    - Version Control and Release Management
 
+10. **Data Management and Storage**
+    - Discusses how `config.json` is utilized for dynamic configuration management and details the structure for maintaining logs in the "logs" folder.
 
 
 
 
-Functional Requirements:
-- The RPA must dynamically identify and interact with relevant webpage elements for booking train tickets based on the user's input goals and the current webpage context.
-- The application should initiate the booking process on-demand, upon user request, ensuring that it automates the entire flow from selecting the train to finalizing the booking.
-- Incorporate the capability to process inputs such as travel dates, departure and arrival cities, train numbers, and seat preferences dynamically, using an LLM-based library to interpret and act on these inputs within the website's interface.
 
-Technical Specifications:
-- Overview of the Core Technologies used in the Application:
-  The application will leverage Node.js as the runtime environment, providing the necessary backend structure for executing JavaScript code outside a web browser. Puppeteer, a Node library, will be utilized for its web scraping and automation capabilities, enabling the RPA to programmatically control a headless Chrome or Chromium browser. TypeScript will be used to add static type definitions to the JavaScript code, enhancing code quality and maintainability.
 
-- Specific Frameworks and Libraries, including versions and configurations:
-  - Node.js (version to be determined based on the latest stable release at the time of development commencement)
-  - Puppeteer (version to be determined, aligning with the latest version compatible with the chosen Node.js version)
-  - TypeScript (latest stable version)
-  The application may also utilize an unspecified LLM-based library for interpreting webpage content and determining relevant actions based on user goals and webpage context. The version and configuration of this library will depend on its compatibility with the rest of the technology stack and its ability to fulfill the application's requirements.
 
-- Rationale for Technology Choices and their Global Impact on the Application:
-  Node.js is chosen for its efficiency and scalability, which are crucial for handling the asynchronous events typical in web scraping and automation tasks. Puppeteer is selected for its direct integration with Chrome or Chromium, offering a high level of control over web page interactions, essential for dynamically responding to webpage elements during the booking process. TypeScript is used to enhance code reliability and developer productivity through static typing.
-  
-  The integration of an LLM-based library represents an innovative approach to RPA development, allowing the application to intelligently interpret user goals and webpage contexts, thereby significantly reducing the need for predefined automation scripts. This approach is expected to improve the application's flexibility and adaptability to changes in the website's layout and booking processes.
