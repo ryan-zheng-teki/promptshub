@@ -89,7 +89,6 @@ Please follow the steps defined in the `[Procedure]` section. Your output should
 
 [Writing]
 $WrittingStart$
-
 **Software Application Knowledge Book (Book-Like Structure)**
 
 1. **Application Overview (Book Cover)**
@@ -100,7 +99,12 @@ $WrittingStart$
    - List of Major Modules (Chapters)
    - Brief Description of Each Module
 
-3. **Modules (Chapters)**
+3. **Technology Stack (Framework and Libraries)**
+   - Overview of the Core Technologies used in the Application
+   - Specific Frameworks and Libraries, including versions and configurations
+   - Rationale for Technology Choices and their Global Impact on the Application
+
+4. **Modules (Chapters)**
    - Each module represents a chapter in the book.
    - Contents of each Module (Chapter):
      1. **Module Requirements (Chapter Introduction)**
@@ -126,7 +130,7 @@ $WrittingStart$
         - Testing Procedures for Module Interactions
         - File Paths for Integration Test Scripts
 
-4. **Deployment (Application Launch)**
+5. **Deployment (Application Launch)**
    - Deployment Strategies and Best Practices
    - Environment Setup and Configuration
    - Version Control and Release Management
@@ -135,4 +139,4 @@ $WrittingEnd$
 
 
 [UserRequest]
-could you please add another section called "Technology Stack". Because Technology Stack will contain for example framework, library stuff which is global for the whole application.
+Could you please add a testing before the deployment, please.
