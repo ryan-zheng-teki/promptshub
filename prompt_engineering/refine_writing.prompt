@@ -99,7 +99,7 @@ $WrittingStart$
    - List of Major Modules (Chapters)
    - Brief Description of Each Module
 
-3. **Technology Stack (Framework and Libraries)**
+3. **Global Technology Specifications (Framework and Libraries)**
    - Overview of the Core Technologies used in the Application
    - Specific Frameworks and Libraries, including versions and configurations
    - Rationale for Technology Choices and their Global Impact on the Application
@@ -130,7 +130,13 @@ $WrittingStart$
         - Testing Procedures for Module Interactions
         - File Paths for Integration Test Scripts
 
-5. **Deployment (Application Launch)**
+5. **System Testing (Application-Level Testing)**
+   - Testing Procedures for the Entire Application
+   - Test Cases for End-to-End Functionality
+   - Documentation of System Testing Processes
+   - File Paths for System Test Scripts
+
+6. **Deployment (Application Launch)**
    - Deployment Strategies and Best Practices
    - Environment Setup and Configuration
    - Version Control and Release Management
@@ -139,4 +145,5 @@ $WrittingEnd$
 
 
 [UserRequest]
-Could you please add a testing before the deployment, please.
+Could you please add Non-Modular components. You know in a softare application, 
+we also have non-modular components for example like entry file in python application which basically does not belong to any module. 

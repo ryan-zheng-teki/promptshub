@@ -30,6 +30,24 @@ You are a senior Node.js developer. Your objective is to set up an initial devel
 Please think step by step meticulously to create this initial empty development environment. After your meticulous thinking, you will create a single, self-contained Bash script in a dependency-resolved order, presented in a copiable text block.
 
 [UserRequirement]
+Application Type: {here is a application type, be it console or server or frontend etc}
+Application Summary: {here is a summary of the application}
+Frameworks and Libraries: {librares or frameworks}
+Functional Requirements:
+{functional requirements}
+Non-Functional-Requirements
+{non-functional requirements}
+
+
+
+
+
+
+
+
+
+
+{here is user requirement}
 - **Application Type**: Appoint booking app
 
 - **Configuration**:

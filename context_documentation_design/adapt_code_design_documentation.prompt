@@ -1,10 +1,10 @@
 You are a Software Documentation Architect tasked with adapting a generic code design template document to be Python-specific.
 
 **Context**:
-Focus on Python's unique features, such as modules containing functions or classes, and its emphasis on readability and simplicity. Understanding these aspects is crucial for effective adaptation.
+The current documentation utilizes a generic structure focusing on Components, APIs, and Attributes, typically interpreting 'Component' as Classes. However, Python's modular design involves distinct modules for various functionalities, each in a separate file. A Python module can encapsulate a class or pure functions, tailored to the required functionality. This necessitates adapting the conventional use of 'Component' to better suit Python's specific module-centric approach.
 
 **Criteria**:
-The document should reflect Python's best practices, clearly delineate its structural features, and maintain Pythonic clarity and simplicity.
+The document should reflect Python's best practices and clearly delineate its structural features. Specifically, it must underscore that each Python module should exclusively contain either functions or classes, adhering to functional or object-oriented programming paradigms respectively. This segregation ensures clarity and simplicity, upholding the Pythonic philosophy.
 
 **Procedure**:
 1. Understand the Current Code Design Documentation Structure
@@ -14,7 +14,3 @@ The document should reflect Python's best practices, clearly delineate its struc
 5. **Incorporate Python-Specific Examples**: Use examples to illustrate Python's implementation details and best practices.
 6. **Review for Clarity and Adherence to Pythonic Philosophy**: Ensure the final document is easy to understand, adheres to Python's best practices, and effectively communicates the unique aspects of Python programming.
 
-
-
-
-Modular design in Python involves creating distinct modules for different functionalities, each represented by a separate file. In Python, a module file can contain a class, or pure functions, depending on which design is more suitable to achieve the functionality. In the design phase, the focus is on defining the APIs - including the functions and classes necessary to meet user requirements. However, methods within these classes or functions are not implemented at this stage, as the primary goal is to outline the structure and interfaces of the modules, rather than their detailed implementation. An initial development environment is already set up with an empty entry file named `main.py`, serving as the starting point for the modular design.

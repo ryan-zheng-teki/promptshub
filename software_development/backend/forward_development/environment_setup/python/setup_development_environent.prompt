@@ -63,10 +63,8 @@ For web-based applications using Flask or FastAPI, include an `app.py` file as t
 Please think step by step meticulously to create this initial empty development environment. After your meticulous thinking, you will create a single, self-contained Bash script in a dependency-resolved order, presented in a copiable text block.
 
 [UserRequirement]
-The requirement is to develop a FastAPI server with these specific features:
-
-It should host a single API endpoint.
-This endpoint will return a "Hello World" message.
-The response format of the message should be JSON.
-The implementation needs to be as simple as possible, focusing only on the functionality of this server.
+$start$
+[UserRequirement]
+Application Type: backend Python console application
+Frameworks and Libraries: Python, Pyppeteer, playsound, and the logging module.
 $end$
