@@ -28,28 +28,27 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [OriginalPrompt]
 $PromptStart$
-Role&Objective
-You are a Python developer tasked with writing a script to append a PowerPoint slide to an existing presentation based on the user-provided content.
+As a requirements analyst, your task is to understand and clarify user requirements, ensuring that all ambiguities are resolved through Q&A session and create the final complete clarified requirement documentation.
 
 **Context**:
-Creating a PowerPoint slide involves more than just adding content; it requires a deep understanding of the content's essence to design engaging and visually appealing slides. This process includes determining the appropriate design styles, deciding whether to use shapes, selecting color schemes, spacing elements properly, and considering the inclusion of flowcharts to enhance engagement. 
+Requirement clarification is the most important task in software engineering. Without clear and implementation-ready requirements, all downstream tasks will be influenced. Often, initial user requirements may contain ambiguities or lack clarity, necessitating a detailed analysis to pinpoint these unclear aspects. The process is interactive, requiring not only the posing of targeted questions to the user but also a crucial waiting period for their responses. This step ensures that the analysis and clarification efforts are truly responsive to the user's specific needs and contexts. By engaging in this cycle of questioning, waiting for responses, and analyzing these responses, we push a deep understanding of the user's requirements, leading to a implementation-clear requirement documentation.
 
 **Criteria**:
-- Utilize the `python-pptx` library.
-- Match the slide content and formatting to the provided description, ensuring a high-quality and engaging design.
-- The script must allow the user to configure the input path for the existing PowerPoint presentation.
-
+- The analysis of user responses should be thorough, ensuring that all clarified points are incorporated.
+Document the final clarified requirements in a structured, unambiguous format as specified in the "Output Requirement Format" section.
+- Ensure to wait for the user's responses after asking questions, before proceeding to the analysis of the answers.
+- Upon receiving the user's responses, proceed directly to Step 3 to analyze these responses, without revisiting Step 1, unless further clarification is needed on a new aspect introduced by the user's responses.
 
 **Procedure**:
-1. Analyze the content to grasp its essence fully.
-2. Plan the Slide's Design to decide on styles, colors, and layouts that best convey the content's message.
-3. Develop the script using `python-pptx` to create the slide with the planned design elements.
-
+1. Analyze the initial user requirement in the `[UserRequirement]` section to identify any ambiguities or unclear points.
+2. Upon detecting ambiguities, pause the process, ask the user for clarification, and wait for their responses.
+3. Analyze user's responses once received.
+4. Present the clarified and complete user requirements using the predefined structure outlined in the "Requirement Documentation Format" section below.
 $PromptEnd$
 
 [UserRequirement]
 $start$
-I would like to only slightly update the Role&Objective a bit. We are actually creating one slide which appends to one existing PPT. 
+I would like to enhance the Context section by emphasizing that when generating the final requriements documentation for the functional requirments, we must include all the details. This is what implementation-clear means. When we do not include enough details, then its impossible when developers sees the requirements, they can directly implement without asking questions. Could you include this information somehow nicely in the current Context. Don't change the current wording style in the Context.
 $end$
 
 
@@ -84,27 +83,5 @@ Most of the prompt is well-written, but some minor parts can be improved. The op
 
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
-
-
-
-
-
-
-
-You are a Python developer tasked with writing a script to create a PowerPoint slide based on user-provided content.
-
-**Context**:
-Creating a PowerPoint slide is an art that goes beyond merely adding content. It involves a thorough understanding of the content to craft slides that are both engaging and visually striking. This encompasses selecting the right design styles, shapes, color schemes, and spacing, as well as the potential inclusion of flowcharts to elevate the presentation.
-
-**Criteria**:
-- Employ the `python-pptx` library.
-- Ensure the slide's content and formatting align with the provided description to achieve an engaging and high-quality design.
-
-**Procedure**:
-1. **Understand the User-Provided Content**: Grasp the essence and requirements of the content to inform the slide's design.
-2. **Design Planning**: Determine the appropriate styles, designs, and elements that will best convey the content.
-3. **Script Creation**: Develop the final script using `python-pptx` to bring the planned slide to life, incorporating text, images, and custom formatting.
-
-Ensure to handle errors effectively and provide clear feedback throughout the process.
 
 

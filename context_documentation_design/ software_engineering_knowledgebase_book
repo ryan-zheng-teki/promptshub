@@ -1,14 +1,12 @@
 **Software Application Knowledge Book (Book-Like Structure)**
 
-1. **Application Overview (Book Cover)**
+1. **Application Overview**
    - Title: Application Name
-   - Application Type:
-   - Summary: Brief Description of the Application
+   - Summary: Brief Description of the Application, which captures the essense of the application.
 
 2. **Technology Specifications (Framework and Libraries)**
-   - Application Type:
+   - Application Type: 
    - Frameworks and Libraries, including versions and configurations
-   - Rationale for Technology Choices and their Global Impact on the Application
 
 3. **Architecture** 
    - List of Major Modules (Chapters). 
@@ -19,8 +17,8 @@
    - Here we put some global configurations{not sure what to put here now}
 
 5. **Design Pattern**
-   - Here we describe some design patterns we use. For example, to access the database, we have used 
-     repository pattern. Please refer to the 
+   - Here we describe some design patterns we use. For example, to access the database, we have used some design patterns, so when we are developing certain module, this kinda global information can be sent as context information. This will drive the overall design.
+   - repository pattern. Please refer to the 
 
 6. **Modules (Chapters)**
    - Each module represents a chapter in the book.
