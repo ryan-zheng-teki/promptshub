@@ -30,21 +30,14 @@ You are a senior Node.js developer. Your objective is to set up an initial devel
 Please think step by step meticulously to create this initial empty development environment. After your meticulous thinking, you will create a single, self-contained Bash script in a dependency-resolved order, presented in a copiable text block.
 
 [UserRequirement]
-Application Type: {here is a application type, be it console or server or frontend etc}
-Application Summary: {here is a summary of the application}
-Frameworks and Libraries: {librares or frameworks}
-Functional Requirements:
-{functional requirements}
-Non-Functional-Requirements
-{non-functional requirements}
+Application Type: Node.js console application
+Application Summary: This application is an intelligent RPA designed to automate the process of booking train tickets on https://www.12306.cn/index/. It utilizes TypeScript and Puppeteer for web interactions, and integrates with a Large Language Model (LLM) to intelligently navigate and interact with web pages based on the current URL and the application's objective. The application dynamically requests user inputs throughout the booking process and uses this information, along with intelligent reasoning, to automate the booking task without manual identification of webpage elements.
 
-
-
-
-
-
-
-
+Frameworks and Libraries:
+- Node.js: Runtime environment for executing the application.
+- TypeScript: Programming language for developing the application, offering type safety and modern JavaScript features.
+- Puppeteer: Library for automating web browser interactions, essential for navigating web pages and simulating user actions.
+- LLM Integration (Specific LLM library/framework to be determined): For intelligent reasoning about webpage elements and automation logic based on the application's goal and the current URL.
 
 
 {here is user requirement}

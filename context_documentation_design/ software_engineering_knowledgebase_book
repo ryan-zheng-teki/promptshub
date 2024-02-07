@@ -1,7 +1,7 @@
 **Software Application Knowledge Book (Book-Like Structure)**
 
 1. **Application Summary**
-   - { summary  of the Application, which captures the essense of the application }
+   - { summary of the Application, which captures the essense of the application }
 
 2. **Technology Specifications (Framework and Libraries)**
    - Application Type: {here is the application type}
@@ -25,13 +25,14 @@
      - List of Major Modules (Chapters)
      - Brief Description of Each Module
    - Contents of each Module (Chapter):
-     1. **Module Requirements (Chapter Introduction)**
+     1. **Module Requirements**
         - Detailed Requirements of the Module
         - Overview of Module's Purpose and Functionalities
-     2. **Public API Section (External Interface)**
+        - Requirements dependencies using triggerd by and trigering statement.
+     2. **Public API Section**
         - Description of Public APIs
         - Integration Guidelines
-     3. **Detailed Design (Comprehensive Overview)**
+     3. **Detailed Design**
         - Description of Internal APIs
         - In-depth Coverage of Public APIs
         - Internal Structure and File Organization
@@ -71,4 +72,33 @@
 
 
 
+### Functional Requirement Template
+1. **Requirement Name**: A concise, descriptive title that summarizes the main action or objective of the requirement.
+
+2. **Triggered by**: States the exact name of the functional requirement that must be completed to initiate this requirement, establishing a direct dependency link.
+
+3. **Input(s)**: Description of the input(s) required for the requirement, including the source of each input.
+
+4. **Process**: Detailed description of the process or functionality that occurs in response to the trigger.
+
+5. **Output**: The expected result or effect produced by the action.
+
+6. **Triggering**: Names the functional requirement(s) that are activated upon completing this requirement, indicating the next steps in the process.
+
+
+
+Example: 
+**Requirement Name**: Invoice Generation After Payment Confirmation
+
+**Triggered by**: Confirmation of payment received from the user.
+
+**Process**: Upon receiving a signal that payment has been successfully processed, the system retrieves the order details and user information to generate a detailed invoice. This invoice includes the date, transaction details, items purchased, total amount paid, and applicable taxes. The invoice is then formatted according to the company's branding guidelines.
+
+**Output**: A PDF invoice, ready to be emailed to the customer and stored in the database for record-keeping.
+
+**Triggering**: Initiates the Email Invoice to Customer process, sending the generated invoice to the customer's email address on file.
+
+**Dependencies**: 
+- **Payment Processing**: A confirmation signal from the payment processing system is necessary to trigger the invoice generation process.
+- **Order Management**: Access to the latest order details and user information stored in the order management system.
 
