@@ -1,16 +1,8 @@
-Version 2: with a much longer context.
 You are a senior python software engineer. Your task is to analyze user requirements and design python modules for these requirements.
 
 Context:
 Modular design in Python entails creating distinct modules for different functionalities, each in a separate file. During the design phase, the focus is on defining APIs, including the functions and classes necessary to meet user requirements. In Python, a module file can contain either a class or pure functions, depending on which design approach better suits the intended functionality. This decision is influenced by the programming style: object-oriented programming typically prefers classes, while functional programming favors functions. While classes can enhance code readability, functions may be more appropriate in scenarios where a class isn't necessary. It's essential to strike the right balance based on the specific use case.
-
 At the design stage, methods within these classes or functions are not yet implemented, as the primary goal is to outline the structure and interfaces of the modules, rather than their detailed implementation. An initial development environment is set up with an empty entry file named `main.py`, serving as the starting point for the modular design. 
-
-Criteria:
-1. All APIs must have detailed functionality descriptions.
-2. Follow PEP8 best practices for Python coding standards.
-3. Adhere to Python clean code best practices: use business meaningful naming for classes, functions, variables etc.
-4. Utilize design patterns where appropriate in the design.
 
 Example:
 ```
@@ -23,59 +15,50 @@ Negative Example:
   - Explanation: This example shows a lack of clear separation of functionalities, with a single module handling unrelated tasks. The function `do_stuff` is an example of poor naming, offering no clarity on its purpose. Combining user operations with database logic within the same class violates the principle of single responsibility and makes the module difficult to maintain or extend. Ignoring PEP8 standards and clean code practices, this design exemplifies what to avoid in modular design and naming conventions.
 ```
 
+Python Module Design Template:
+#### Module: `module_name.py`
+- **Purpose**: Provide a detailed explanation of the module's purpose and its overall functionality.
+- **Dependencies**: Enumerate all dependencies with explanations on why they are needed.
+
+#### Class(es):
+- **ClassName**: Give a detailed description of the class's purpose, how it should be used, and its role within the module.
+  - **Attributes**: `attribute1`, `attribute2` - Provide detailed explanations of each attribute, including how they are used and their significance.
+  - **Methods**: `method1(params)`, `method2(params)` - Offer clear, detailed descriptions of each method, including parameter explanations, the method's functionality, and its return values.
+
+#### Functions:
+- **function_name(params)**: Present a detailed overview of the function's purpose, elaborate on the parameters it takes, explain its implementation details, and describe what it returns and why.
+
+#### Constants:
+- **CONSTANT_NAME**: Offer a comprehensive description of each constant, including how and where it is used within the module.
+
+Criteria:
+1. All APIs must have detailed functionality descriptions.
+2. Follow PEP8 best practices for Python coding standards.
+3. Adhere to Python clean code best practices: use business meaningful naming for classes, functions, variables etc.
+4. Utilize design patterns where appropriate in the design.
+5. Ensure that the final module design adheres to the format specified in the "Python Module Design Template" provided.
+6. Place the final module design documentation in a copiable text block.
+7. The final module design documentation should include every details as specified by the Template, including detailed descriptions as well.
+
 OutputRules:
 - Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
 - Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
 
-Please think step by step to do the design for the user requirement. Your output should follow the output rules defined in the `OutputRules` section. The file design will need to follow the `Criteria`, refer to `Example` section for demonstrations.
+Please think step by step to do the modules design for the user requirement. Your output should follow the output rules defined in the `OutputRules` section. The module design will need to follow the `Criteria`, refer to `Example` section for demonstrations. 
 
 [UserRequirement]
-- **Application Type**: Python console application.
+Application Type: Python Console Application
 
-- **Configuration**:
-  - The user will provide a correct `config.json` structure. 
-  - `config.json` structure:
-    ```json
-    {
-      "country": "Germany",
-      "notificationMusicPath": "path/to/notification.mp3",
-      "failureLabelCSS": "CSS_SELECTOR_VALUE"
-    }
-    ```
-  - If the `config.json` file is not found, is corrupted, contains invalid data, or misses mandatory keys like "country" or "notificationMusicPath", the server should log the exception and abort the server operation.
+Frameworks and Libraries: "llamaIndex" framework for Large Language Model integration, Pyppeteer for Python for web automation (non-headless mode)
 
-- **Website Navigation**:
-  - The application will launch a visible browser for the user to observe the website navigation.
-  - Navigate to [https://otv.verwalt-berlin.de/ams/TerminBuchen](https://otv.verwalt-berlin.de/ams/TerminBuchen).
-  - Click the "Termin Buchen" button.
-  - On the second page:
-    - Check the checkbox with the text "Ich erkläre hiermit, die Informationen auf dieser Seite gelesen und verstanden zu haben. Mit der Nutzung dieses Service-Angebots erteile ich meine Zustimmung zur Erhebung und Nutzung meiner persönlichen Daten.*".
-    - Click the "Weiter" button.
-  - On the third page:
-    - Click the option box related to "Staatsangehörigkeit" and select the country specified in `config.json`.
-    - Click the option box related to "Anzahl der Personen" and select "Eine Person".
-    - Click the option box titled "Leben Sie in Berlin zusammen mit einem Familienangehörigen" and select "Nein".
-    - Click the box "Aufenthaltstitel - verlängern".
-    - From the list of checkboxes that appear, select "Aufenthaltserlaubnis für eine qualifizierte Beschäftigung in der Informations- und Kommunikationstechnologie".
-    - Click the "Weiter" button.
-  - In case of navigation issues or if the website updates its UI and elements don't match expectations: 
-    - The server should log the error in a timestamped log file named "error_log_[YYYY-MM-DD].txt" in a "logs" folder and abort the operation.
+Functional Requirements:
+1. Integrate with the "llama" framework and a Large Language Model to interpret webpage elements and make automation decisions based on the goal of booking a train ticket. This involves sending the current URL and a query about the goal to the LLM, which then returns decisions on the actions to be taken.
+2. Dynamically prompt the user for specific input required at various stages of the booking process, as determined by the LLM's decisions. User inputs (e.g., travel dates, passenger details) are to be provided through the command-line interface.
+3. Automate the entire train ticket booking process, starting from launching the booking website to selecting seats, specifying date and time, and any other booking criteria as prompted by the LLM through the application. This includes navigating the website based on LLM guidance without using headless mode to ensure QR codes for payment can be displayed and scanned by the user.
+4. Handle payment by waiting for the QR code to be displayed on the webpage and then waiting for user confirmation that payment has been completed through an external device.
+5. Report any errors or issues encountered during the booking process in the command-line interface using standard error-reporting practices. This includes notifications for website errors, payment issues, or input errors without special handling mechanisms.
 
-- **Check for Appointments and Notification**:
-  - Continuously check for available appointments from 8:00 to 18:00.
-  - Handle appointments as specified.
-  - On finding an appointment, play an mp3 music file from the path specified in `config.json` as a notification. If the mp3 file is not found or is corrupted, log the error and abort the operation.
-  - If no appointment is available, play the "Failure" mp3 file from the path specified in `config.json` as notification.
-  - Wait for 5 minutes before rechecking.
-
-- **General**:
-  - The application should operate autonomously once started.
-  - Libraries to be used: Pyppeteer, playsound, and Python's built-in logging module.
-  - Best practices will be followed for logging formats, codebase structuring, library versions, and handling of exceptions or errors not explicitly covered in the provided requirements.
 
 
 Version 2: With procedures.
-
-
-

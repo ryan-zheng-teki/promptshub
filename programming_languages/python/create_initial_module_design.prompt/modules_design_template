@@ -1,0 +1,36 @@
+### Python Module Design Template Structure
+---
+#### Module Name: `module_name.py`
+
+- **Purpose**: Briefly describe what this module is responsible for.
+- **Dependencies**: List any external libraries or other modules this module depends on.
+
+---
+
+#### Class(es) (if applicable):
+
+- **ClassName**: Describe the purpose of the class.
+  - **Attributes**:
+    - `attribute1`: Description of attribute1.
+    - `attribute2`: Description of attribute2.
+  - **Methods**:
+    - `method1(self, parameter1)`: Briefly describe what this method does and any return values.
+    - `method2(self)`: Briefly describe what this method does and any return values.
+
+---
+
+#### Function(s) (if no classes are needed):
+
+- **function_name(parameter1, parameter2)**:
+  - **Purpose**: Describe what the function does and its return value.
+  - **Parameters**:
+    - `parameter1`: Description of parameter1.
+    - `parameter2`: Description of parameter2.
+  - **Returns**: Description of the return value.
+
+---
+
+#### Constants (if any):
+
+- **CONSTANT_NAME**: Description of what this constant represents and how it's used within the module.
+
