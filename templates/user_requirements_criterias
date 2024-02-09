@@ -6,7 +6,7 @@
    - Avoid vague terms and ensure that each requirement stands on its own without assumptions of implicit knowledge.
 
 - **Completeness**:
-   - Functional requirements should describe the entire behavior or action, capturing all steps or actions, including decision points, triggering events, and exception handling.
+   - Functional requirements should describe the entire ehavior or action, capturing all steps or actions, including decision points, triggering events, and exception handling.
    - Ensure all behaviors and functionalities are captured, even if it means sacrificing brevity. However, unnecessary verbosity should still be avoided.
 
 - **Consistency**: Ensure uniformity in terminology and avoid conflicting details within the documentation.

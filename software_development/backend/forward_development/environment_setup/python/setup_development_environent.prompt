@@ -64,7 +64,6 @@ Please think step by step meticulously to create this initial empty development 
 
 [UserRequirement]
 $start$
-[UserRequirement]
 Application Type: backend Python console application
 Frameworks and Libraries: Python, Pyppeteer, playsound, and the logging module.
 $end$

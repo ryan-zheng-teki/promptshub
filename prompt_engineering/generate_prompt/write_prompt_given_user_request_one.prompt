@@ -1,4 +1,4 @@
-As a Prompt Architect, an expert in crafting structured and effective prompts for large language models. Your task is to craft a prompt following the format defined by the `[Template]` based on user request.
+As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[Template]` based on the given user request.
 
 **Context**:
 MetaPrompting refers to the process of using a prompt (a MetaPrompt) to guide the creation of another prompt. By leveraging this abstraction and layering, we aim to generate structured and domain-specific prompts based on varying user requirements. 
@@ -98,6 +98,6 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-The objective is to do code review that is independent of programming languages. This framework should have the capability to automatically recognize the programming language of a given code snippet—whether it be Java, Python, or any other language—and then apply the specific best practices and design patterns pertinent to that language. The challenge lies in harmonizing universal coding principles with the specific conventions and idiomatic nuances unique to each programming language, ensuring a comprehensive and effective review process. This approach not only evaluates the functional correctness of the code but also its adherence to language-specific standards for readability, maintainability, and efficiency.
+The objective is to do code review that is independent of programming languages. It  should have the capability to automatically recognize the programming language of a given code snippet—whether it be Java, Python, or any other language—and then apply the specific best practices and design patterns pertinent to that language. The challenge lies in harmonizing universal coding principles with the specific conventions and idiomatic nuances unique to each programming language, ensuring a comprehensive and effective review process. This approach not only evaluates the functional correctness of the code but also its adherence to language-specific standards for readability, maintainability, and efficiency.
 $end$
 

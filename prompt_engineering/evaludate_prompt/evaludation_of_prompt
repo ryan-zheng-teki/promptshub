@@ -34,75 +34,89 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 [OriginalPrompt]
 $PromptStart$
-You are a senior python software engineer. Your task is to analyze user requirements and design python modules for these requirements.
+You are a software developer tasked with implementing Python code based on a detailed module design. The design includes APIs that are not implemented.
 
-Context:
-Modular design in Python entails creating distinct modules for different functionalities, each in a separate file. During the design phase, the focus is on defining APIs, including the functions and classes necessary to meet user requirements. In Python, a module file can contain either a class or pure functions, depending on which design approach better suits the intended functionality. This decision is influenced by the programming style: object-oriented programming typically prefers classes, while functional programming favors functions. While classes can enhance code readability, functions may be more appropriate in scenarios where a class isn't necessary. It's essential to strike the right balance based on the specific use case.
-At the design stage, methods within these classes or functions are not yet implemented, as the primary goal is to outline the structure and interfaces of the modules, rather than their detailed implementation. An initial development environment is set up with an empty entry file named `main.py`, serving as the starting point for the modular design. 
+**Context**:
+Given a module design, your goal is to implement working Python code. This design may include a mix of classes orfunctions with detailed explanations.
 
-Example:
-```
-Positive Example:
-- A module named `authentication.py` containing a class `AuthenticationService` with methods like `verify_user` and `register_user`. 
-  - Explanation: This example demonstrates a clear separation of concerns, with a dedicated module for handling user authentication. The class `AuthenticationService` provides a descriptive and meaningful name that reflects its purpose. Methods like `verify_user` and `register_user` have self-explanatory names, making the API easy to understand. The design adheres to PEP8 standards and utilizes an object-oriented approach suitable for managing user data and behaviors, illustrating good practices in modular design and clean code.
+**Criteria**:
+1. The implementation must adhere to Python's best practices, such as PEP 8 style guide, proper use of comments, and documentation strings (docstrings) for classes and functions.
+2. The code should efficiently implement the functionality as described in the module design, ensuring it is bug-free and maintainable.
+3. Ensure that the code is optimized for performance where necessary, without compromising readability.
+4. Include error handling and validation as outlined in the module design to ensure robustness.
+5. The use of Python's standard library and, if necessary, external libraries should be justified and appropriate for the task at hand.
 
-Negative Example:
-- A module named `misc_operations.py` containing functions `do_stuff` and classes with mixed responsibilities, such as `UserAndDatabaseOperations`.
-  - Explanation: This example shows a lack of clear separation of functionalities, with a single module handling unrelated tasks. The function `do_stuff` is an example of poor naming, offering no clarity on its purpose. Combining user operations with database logic within the same class violates the principle of single responsibility and makes the module difficult to maintain or extend. Ignoring PEP8 standards and clean code practices, this design exemplifies what to avoid in modular design and naming conventions.
-```
+**Procedure**:
+1. Thoroughly review the given module design, Understand the purpose of each class or function, including inputs, outputs, and any specified algorithms or logic.
+2. Implement classes and functions, making sure the designed codes follow `Criteria`.Present the final code in a copiable text block.
 
-Python Module Design Template:
-#### Module: `module_name.py`
-- **Purpose**: Brief description of module purpose.
-- **Dependencies**: List of dependencies.
-
-#### Class(es):
-- **ClassName**: Purpose and description.
-  - **Attributes**: `attribute1`, `attribute2` - Descriptions.
-  - **Methods**: `method1(params)`, `method2(params)` - Brief descriptions.
-
-#### Functions:
-- **function_name(params)**: Purpose, parameters, and return value description.
-
-#### Constants:
-- **CONSTANT_NAME**: Description and usage.
-
-Criteria:
-1. All APIs must have detailed functionality descriptions.
-2. Follow PEP8 best practices for Python coding standards.
-3. Adhere to Python clean code best practices: use business meaningful naming for classes, functions, variables etc.
-4. Utilize design patterns where appropriate in the design.
-5. Ensure that the final module design adheres to the format specified in the "Python Module Design Template" provided.
-6. Place the final module design documentation in a copiable text block.
-7. The final module design documentation should include every details as specified by the Template, including detailed descriptions as well.
-
-OutputRules:
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
-
-Please think step by step to do the modules design for the user requirement. Your output should follow the output rules defined in the `OutputRules` section. The module design will need to follow the `Criteria`, refer to `Example` section for demonstrations. 
 $PrompteEnd$
 
 [Feedback]
 $FeedbackStart$
-What i noticed that every time the generated output is highly influenced by the example. For example, even if my target prompt is not related to modules. Its related to design API, but the generated example from the [Output] section is still highly similar to the example in the original prompt. 
+if you look at the output. It even includes a usage main.script
 
-I think maybe instead of specifiying concrete positive and negative examples. We only specify the Example formats. The format itself tells user to fill things. 
+# Example usage
+if __name__ == "__main__":
+    api_key = "your_api_key_here"
+    communicator = LLMCommunicator(api_key)
+    decision = communicator.send_query("https://example.com", "Book a train ticket from A to B")
+    print(decision)
+
+This means our script
 $FeedbackEnd$
 [Output]
 
 $OutputStart$
-ChatGPT:
- Positive Example:
-- **User Authentication Module**: Handles user authentication including login, logout, and password management.
-  - Explanation: The "User Authentication Module" is a good example because it directly deals with a core functionality of many applications, user authentication. This module could potentially encompass numerous functional requirements to achieve the business goals, making it a valid module.
+import requests
 
-Negative Example:
-- **NumPy Operations Module**: Utilizes NumPy library to perform mathematical operations.
-  - Explanation: The "NumPy Operations Module" is considered a negative example because NumPy is a library used during the implementation phase for functionalities required by the business module, not a module in its own right. Defining it as a separate module is incorrect.
+class LLMCommunicator:
+    """
+    Manages communication with the Large Language Model through the "llamaIndex" framework,
+    facilitating dynamic interaction with web pages for automation tasks like booking train tickets.
+    
+    Attributes:
+        api_key (str): Authentication key for the "llamaIndex" service.
+        session (requests.Session): Session object for persistent communication with "llamaIndex".
+    """
+    
+    def __init__(self, api_key):
+        """
+        Initializes the LLMCommunicator with the necessary API key and a new session.
+        
+        Parameters:
+            api_key (str): The API key for authenticating with the "llamaIndex" service.
+        """
+        self.api_key = api_key
+        self.session = requests.Session()
+        self.session.headers.update({'Authorization': f'Bearer {self.api_key}'})
+    
+    def send_query(self, url, query):
+        """
+        Sends a query to the LLM via "llamaIndex", including the current webpage URL and a user or system-generated query,
+        and returns the LLM's decision on what action to take next.
+        
+        Parameters:
+            url (str): The current webpage URL.
+            query (str): A description of the goal or question related to the webpage.
+        
+        Returns:
+            dict: A decision or action to be taken as determined by the LLM.
+        """
+        try:
+            response = self.session.post('https://llamaIndex.example.com/send_query', json={'url': url, 'query': query})
+            response.raise_for_status()  # Raises an HTTPError if the response was an error
+            return response.json()  # Assuming the response contains JSON with the decision or action
+        except requests.exceptions.RequestException as e:
+            print(f"An error occurred while sending the query: {e}")
+            return None
 
-Finally, I am executing step 4: Presenting the final complete updated prompt in a copiable text block.
+# Example usage
+if __name__ == "__main__":
+    api_key = "your_api_key_here"
+    communicator = LLMCommunicator(api_key)
+    decision = communicator.send_query("https://example.com", "Book a train ticket from A to B")
+    print(decision)
 $OutputEnd$
 
 

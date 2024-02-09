@@ -20,6 +20,36 @@ You are a senior Python developer tasked with updating an existing python script
 Please follow the steps defined by the `Procedure` section, think step by step to address the task. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [ExistingScript]
+    async def perform_booking_navigations(self):
+        """Performs initial button clicks and checkbox selections with enhanced element waiting."""
+        try:
+            await self.page.goto(self.config['rootUrl'])
+            # Wait and click 'Termin Buchen'
+            await self.click_and_wait_for_navigation("a.button.arrow-right[href*='/ams/TerminBuchen/wizardng?sprachauswahl=de']")
+
+            # Wait, checkbox and Weiter button on the second page
+            await self.page.waitForSelector('#xi-cb-1', { 'state': 'attached' })
+            await self.page.click('#xi-cb-1')
+
+            await self.click_and_wait_for_navigation('#applicationForm\\:managedForm\\:proceed')
+
+            # Complete the form on the third page
+            await self.update_dropdown('#xi-sel-400', self.config['country'], monitored_url='https://otv.verwalt-berlin.de/plugin?name=DynamicFilterServlet&dsName=SERVICEWAHL_DE')
+
+            ## there is one ajax call when selecting the country. Looks like i have to wait until 
+            ## the ajax call finishes. However, even when the ajax call finished, and the next element is visible.
+            ## there seems to be still problems.
+            await self.update_dropdown('#xi-sel-422', self.config['number_of_persons'], monitored_url='hello')
+            await self.update_dropdown('#xi-sel-427', self.config['live_with_family'], monitored_url='https://otv.verwalt-berlin.de/plugin?name=DynamicFilterServlet&dsName=SERVICEWAHL_DE')
+            ## there is one ajax call when selecting the country. Looks like i have to wait until 
+            ## the ajax call finishes. However, even when the ajax call finished, and the next element is visible.
+            ## there seems to be still problems.
+            await self.click_div_for_radio_button('.ozg-kachel.kachel-479-0-2', monitored_url='https://otv.verwalt-berlin.de/plugin?name=DynamicFilterServlet&dsName=SERVICEWAHL_DE')
+            await self.click_div_for_radio_button('.ozg-accordion.accordion-479-0-2-1', monitored_url='https://otv.verwalt-berlin.de/plugin?name=DynamicFilterServlet&dsName=SERVICEWAHL_DE')
+            await self.click_div_for_radio_button('.level2-content .level3', monitored_url='https://otv.verwalt-berlin.de/plugin?name=ValidationServlet')
+
+            await self.click_until_session_timeout('#applicationForm\\:managedForm\\:proceed')
+
     async def click_until_session_timeout(self, selector):
         """Clicks a button and waits for a specific error message to appear on the page."""
         
@@ -57,6 +87,21 @@ Please follow the steps defined by the `Procedure` section, think step by step t
 
 
 [NewRequirements]
+we have to improve the function click_until_session_timeout click_until_session_timeout. Actuall 
+there are different options at this page. They are presented as different tabs. 
+We have to enhance the check whether we are still on the same tab. The first step is 
+the following css 
+<li class="antcl_active"><div class="antcl_circle">2</div><span>Servicewahl</span></li>
+
+When servicewahl tab is activated, then on this page there is another element at the same time.
+<legend>Informationen zur ausgewählten Dienstleistung</legend>
+
+When we click the button, if there is available appoint, then we will jump to the second 
+step, however, on the same page. The second tab element is 
+<li class="antcl_active"><div class="antcl_circle">3</div><span>Terminauswahl</span></li>
+
+So i think we need to create meaningful to check whether we are still on the service wahl tab.
+
 
 
 
