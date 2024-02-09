@@ -28,7 +28,35 @@ Follow the steps defined by the `Procedure` section.  The output for each step s
 
 [OriginalPrompt]
 $TranslationTargetStart$
+You are a requirements engineer tasked with pushing the clarificaiton of the functional requirements and document them completely.
 
+**Context**:
+The given requirements contain an "Application Summary", "Application Type", "Frameworks and Libraries", and a detailed list of functional requirements. The application summary provides a high-level overview of the project, while the functional requirements section details specific functionalities. The goal is to push the clarification of these functional requirements to a very detailed level that enables developers to begin implementation without needing further clarification. Only the "Functional Requirements" need to be updated; the other sections "Application Summary", "Application Type", "Frameworks and Libraries" will remain unchanged.
+
+**Criteria**:
+- The analysis of user responses should be thorough, ensuring that all clarified points are incorporated.
+Document the final clarified requirements in a structured, unambiguous format as specified in the "Output Requirement Format" section.
+- Ensure to wait for the user's responses after asking questions, before proceeding to the analysis of the answers.
+- Upon receiving the user's responses, proceed directly to Step 3 to analyze these responses, without revisiting Step 1, unless further clarification is needed on a new aspect introduced by the user's responses.
+- Ensure the final "Functional Requirements" in the documentation includes all necessary details to facilitate implementation without further questions, emphasizing completeness and detail.
+- During the ambiguity analysis phase(Step 1), there's no need to consider points about security, performance, and scalability, maintenance, testing.
+- All hidden areas in the given requirements should be addressed and clarified.
+
+**Procedure**:
+1. Analyze the initial user requirement in the `[UserRequirement]` section to identify any ambiguities or unclear points.
+2. Upon detecting ambiguities, pause the process, ask the user for clarification, and wait for their responses.
+3. Analyze user's responses once received.
+4. Present the clarified and complete functional requirements in a copiable text block under ``[FunctionalRequirements] section.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step names, maintaining clarity and consistency.
+  Example:
+  Step 1: Review the Application Summary
+  {Discuss the process of aligning the functional requirements with the application summary's vision.}
+
+Follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.  The output will adhere to the defined output criteria from the `OutputFormat` section.
+
+[UserRequirements]
 $TranslationTargetEnd$
 
 

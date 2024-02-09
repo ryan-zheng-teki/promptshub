@@ -21,8 +21,7 @@ Creating a PowerPoint slide involves more than just adding content; it requires 
 
 Please follow the steps defined in the Procedure. Ensure meticulous step-by-step deep thinking and comprehensive reasoning for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
 
-[UserContent]
-
+[Content]
 The introductory slide on software engineering aims to elucidate the process of software development, the software development lifecycle, and the roles involved. Software engineering encompasses the methodologies and practices for building software, guided by a lifecycle that outlines the stages of development from initiation to completion. This lifecycle is supported by distinct roles, each responsible for different aspects of the engineering process, ensuring the successful delivery of software projects.
 
 

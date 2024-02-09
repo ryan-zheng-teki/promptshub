@@ -102,3 +102,109 @@ Example:
 - **Payment Processing**: A confirmation signal from the payment processing system is necessary to trigger the invoice generation process.
 - **Order Management**: Access to the latest order details and user information stored in the order management system.
 
+
+
+
+
+
+
+
+
+Thank you for submitting your request.
+
+$TemplateStart$
+**Role & Objective**:
+Your role is to perform an in-depth analysis of functional requirements for an application, focusing specifically on the interdependencies between these requirements. The objective is to systematically convert each functional requirement into a structured format that clearly delineates its dependencies, processes, inputs, and outputs, thereby facilitating the identification of any problematic requirements that do not properly integrate into the application's overall workflow.
+
+**Context**:
+In the development of complex applications, understanding the intricate web of dependencies between functional requirements is crucial. This ensures that the application functions as a cohesive whole, with each requirement triggering or being triggered by others in a logical sequence. This analysis is key to identifying any gaps or mismatches in the dependency chain that could potentially disrupt the application's functionality.
+
+**Criteria**:
+- All functional requirements must be converted into the specified format, highlighting their "triggered by" and "triggering" relationships, as well as their inputs, processes, and outputs.
+- The analysis must confirm that each requirement fits into a continuous dependency chain, with no isolated or improperly linked elements.
+- Problematic requirements are those that do not have clear "triggered by" or "triggering" relationships or exhibit inconsistencies in their inputs and outputs.
+
+**Functional Requirement Template**:
+This predefined format is essential for structuring each requirement's analysis:
+1. **Requirement Name**: A concise, descriptive title summarizing the main action or objective.
+2. **Triggered by**: The name of the prerequisite requirement that must be fulfilled to initiate this requirement.
+3. **Input(s)**: The necessary input(s) for the requirement, including each input's source.
+4. **Process**: A detailed description of the process or functionality that occurs in response to the trigger.
+5. **Output**: The expected result or effect produced by the requirement.
+6. **Triggering**: The subsequent requirement(s) that are activated upon completing this requirement.
+
+**Methodology**:
+The methodology outlines the steps for converting and analyzing the functional requirements:
+1. Start with the first functional requirement, converting it into the predefined format.
+2. Accurately document the "triggered by", "triggering", inputs, process, and outputs for each requirement.
+3. Proceed through the requirements sequentially, ensuring to fill in "triggering" and "triggered by" fields as connections are identified.
+4. After analyzing all requirements, review the documentation to ensure each is fully integrated into the dependency chain.
+5. Identify requirements lacking clear dependency links or integration as problematic.
+
+**Procedure**:
+1. List and format each functional requirement according to the predefined template, starting from the first.
+2. For each requirement, detail the "triggered by", "triggering", inputs, process, and outputs.
+3. Verify the interconnectedness of the requirements through their dependency chain, updating relationships as needed.
+4. Identify and explain any requirements that are problematic due to missing links or inconsistencies.
+5. Provide a rationale for why each problematic requirement is considered such, based on the criteria and methodology.
+
+**OutputFormat**:
+- Ensure each functional requirement is documented according to the predefined format, maintaining clarity and consistency.
+- Clearly outline the "triggered by", "triggering", inputs, process, and outputs for each requirement.
+- Identify any problematic requirements and provide a detailed explanation, based on the analysis criteria and methodology.
+
+[Optional Dynamic Sections]: 
+- If detailed analysis of specific requirements or complex dependency chains is necessary, additional sections can be created to accommodate this.
+
+$TemplateEnd$
+
+Please review this refined prompt structure with the added "Functional Requirement Template" section. If there are any more adjustments or specific details you'd like to incorporate, feel free to let me know.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thank you for submitting your request.
+
+$TemplateStart$
+**Role & Objective**:
+Your role is to conduct a thorough dependency analysis of given functional requirements for an application, focusing on understanding and documenting the interdependencies between requirements. The objective is to convert each functional requirement into a specified format that highlights its inputs, outputs, and its triggering and triggered by relationships, thereby identifying any problematic requirements that do not fit within the established dependency chain.
+
+**Context**:
+A systematic approach to analyzing functional requirements is essential to ensure that the application's workflow is cohesive and logical. This analysis involves converting each requirement into a format that clearly outlines its dependencies, processes, and outcomes. Understanding these interdependencies is crucial for identifying any requirements that may be isolated or improperly linked, which could potentially disrupt the application's functionality.
+
+**Criteria**:
+- Requirements must be converted into the specified format, detailing their "triggered by", "triggering", inputs, process, and outputs.
+- The dependency analysis must ensure that each requirement is part of a continuous chain, without any standalone elements.
+- Problematic requirements are identified as those lacking proper "triggered by" or "triggering" links or any inconsistencies within their defined inputs and outputs.
+
+
+
+**Procedure**:
+1. List and convert each functional requirement to the specified format, starting from the first one.
+2. Document the "triggered by", "triggering", inputs, process, and outputs for each requirement.
+3. Ensure that every requirement is interconnected through the dependency chain, updating relationships as necessary.
+4. After processing all requirements, identify any that lack clear dependency links or are inconsistent with the application's workflow.
+5. Explain why each identified problematic requirement is considered such, based on its failure to integrate into the dependency chain.
+
+**OutputFormat**:
+- Adhere to the specified format for each functional requirement, ensuring clarity and consistency in documentation.
+- Clearly delineate the "triggered by", "triggering", inputs, process, and outputs for each requirement.
+- Explicitly identify and provide rationale for any problematic requirements, according to the defined criteria and methodology.
+
+[Optional Dynamic Sections]: 
+- If necessary, additional sections can be created to further detail the analysis of specific requirements or to highlight complex dependency chains.
+
+$TemplateEnd$
+
+Please review this updated prompt structure with the added Methodology section. If there are any further adjustments or details you'd like to add, feel free to let me know.
