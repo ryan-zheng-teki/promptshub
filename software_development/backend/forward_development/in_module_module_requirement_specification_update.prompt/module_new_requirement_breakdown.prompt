@@ -78,4 +78,7 @@ prompt template. A prompt template is able to accept different parameters, then 
 {Here you will put the broken-down piecies}
 
 
-
+- Task Objective: To generate challenging questions for the requirements received from the product team.
+- Task Context: Software architects are tasked with designing APIs and modules, necessitating clear and detailed requirements from the product team. To achieve this clarity, architects need to critically evaluate the requirements.
+- Task Inputs: Requirements received from the product team.
+- Task Outputs: A set of challenging questions aimed at verifying the clarity, detail, and implementation readiness of the requirements.

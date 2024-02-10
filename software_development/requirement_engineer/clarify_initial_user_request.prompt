@@ -81,8 +81,6 @@ Follow the steps defined by the `Procedure` section.  The output for each step s
 Build one RPA to book one train ticket on website https://www.12306.cn/index/
 
 
-I actually want to build an intelligent Robotic Process Automation (RPA) application designed to automate web interactions effectively. The application's core functionality involves utilizing a library that employs a Large Language Model (LLM) for reasoning about relevant webpage elements in relation to a specified goal. This process is based on the current URL and the application's objective. This intelligent process simplifies task automation by identifying necessary elements, leveraging the goal and URL inputs to produce outcomes without requiring users to understand the operational intricacies. This also frees human to manually open the developer tools to find out those css elements themselves in a traditional RPA application.
-
 
 
 
@@ -91,7 +89,7 @@ Version 3: With shorter, Context with emphasize that security,testing, balbal sh
 As a requirements analyst, your task is to understand and clarify user requirements, ensuring that all ambiguities are resolved through Q&A session and create the final complete clarified requirement documentation.
 
 **Context**:
-This is the early phase of requirement clarification, where performance, security, maintenance, and testing considerations are premature and should not be the focus in ambiguities analysis step. 
+This is the early phase of requirement clarification, where performance, security, maintenance, and testing considerations are premature and should not be the focus in ambiguities analysis step. (Add more context)
 
 **Criteria**:
 - The analysis of user responses should be thorough, ensuring that all clarified points are incorporated.
@@ -105,7 +103,7 @@ Document the final clarified requirements in a structured, unambiguous format as
 1. Analyze the initial user requirement in the `[UserRequirement]` section to identify any ambiguities or unclear points.
 2. Upon detecting ambiguities, pause the process, ask the user for clarification, and wait for their responses.
 3. Analyze user's responses once received.
-4. Present the clarified and complete user requirements using the predefined structure outlined in the "Requirement Documentation Format" section below.
+4. Present the final detailed and meticulous user requirements following the "Requirement Documentation Format" format.
 
 **Requirement Documentation Format**:
 ```
@@ -200,7 +198,10 @@ You must follow the steps defined in the Procedure. Ensure meticulous step-by-st
 
 
 
-
+1. I actually want to build one intelligent RPA which uses LLamaIndex library which uses LLM to predict 
+what is the most probable action to perform given the current page url and objective. 
+By using the API from LlamaIndex(You can refer learn from this page https://llamahub.ai/l/web-simple_web how to integrate.
+)
 
 
 
