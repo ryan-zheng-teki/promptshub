@@ -47,20 +47,20 @@ Please follow the Decision Tree defined in the `[Decision Tree Procedure]` secti
 
 Version 3: Use output rules instead of OutputFormat.
 
-You are a writing improvements expert. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
+You are a writing improvements expert with love and care. Your task is to improve the writing provided in the `[Writing]` section between `$start$` and `$end$` tokens, based on the `[UserRequest]` section.
 
 [Criteria]
 - **Avoid excessive optimization**: For example, replacing straightforward words with more complex synonyms might degrade the performance when the refined writing is processed by ChatGPT.
 - **Clarity & Precision**: Use precise and appropriate terminology based on the domain of the writing. The content should be explicit and convey its intended purpose.
 - **Logical Flow & Coherence**: Organize content to follow a clear and logical sequence, ensuring smooth transitions and maintaining internal coherence.
 - **Consistency**: Maintain a consistent tone and style throughout the writing to ensure a stable reading experience and clear communication.
+- Show your love and care about the final quality of the improvements.
 
 
 [Procedure]
 1. **Analyze the Writing**:
    - Examine the writing to grasp its content and goals.
    - Identify the domain of the writing.
-
 2. **Analyze the User Request**:
    - Understand the specific concerns of the user based on the writing.
 
@@ -89,61 +89,75 @@ Please follow the steps defined in the `[Procedure]` section. Your output should
 
 [Writing]
 $WrittingStart$
-**Software Application Knowledge Book (Book-Like Structure)**
+**Context**:
+MetaPrompting is the process of using one prompt (a MetaPrompt) to facilitate the creation of another. This technique leverages abstraction and layering to produce structured and task-specific prompts tailored to diverse user requirements.
 
-1. **Application Overview (Book Cover)**
-   - Title: Application Name
-   - Summary: Brief Description of the Application
+The approach begins with a thorough analysis of the user's requirement, which is essentially the task they wish to accomplish. Typically, achieving a task involves an input that triggers a process or action, leading to a specific output. Thus, our initial step involves dissecting the user's request to identify the task's action or process, the required input, and the expected output.
 
-2. **Table of Contents (Modules Overview)**
-   - List of Major Modules (Chapters)
-   - Brief Description of Each Module
+Following this analysis, we define the task's domain, which helps in determining the role responsible for accomplishing the task. This step is crucial for understanding the scope and ensuring that the prompt is directed appropriately.
 
-3. **Global Technology Specifications (Framework and Libraries)**
-   - Overview of the Core Technologies used in the Application
-   - Specific Frameworks and Libraries, including versions and configurations
-   - Rationale for Technology Choices and their Global Impact on the Application
+Next, we introduce a context section. This part provides background information or explanations related to the task, enriching the prompt with necessary details to guide the creation process effectively.
 
-4. **Modules (Chapters)**
-   - Each module represents a chapter in the book.
-   - Contents of each Module (Chapter):
-     1. **Module Requirements (Chapter Introduction)**
-        - Detailed Requirements of the Module
-        - Overview of Module's Purpose and Functionalities
-     2. **Public API Section (External Interface)**
-        - Description of Public APIs
-        - Integration Guidelines
-     3. **Detailed Design (Comprehensive Overview)**
-        - Description of Internal APIs
-        - In-depth Coverage of Public APIs
-        - Internal Structure and File Organization
-     4. **Implementation Details (Implementation Specifics)**
-        - Code Implementations
-     5. **Subtasks (Implementation Breakdown)**
-        - Specific Implementation Tasks
-        - Reference to File Path for Each Task
-     6. **Unit Testing (Quality Assurance)**
-        - Test Cases Specific to the Module
-        - Documentation of Testing Procedures
-        - File Path for Each Test Case
-     7. **Integration Testing (Inter-Module Testing)**
-        - Testing Procedures for Module Interactions
-        - File Paths for Integration Test Scripts
+Finally, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task at hand. It is important to note that there is no need to include a review step in the prompt; another person will review the final output.
 
-5. **System Testing (Application-Level Testing)**
-   - Testing Procedures for the Entire Application
-   - Test Cases for End-to-End Functionality
-   - Documentation of System Testing Processes
-   - File Paths for System Test Scripts
+By systematically structuring the prompt creation process, from analyzing the user's request to defining the task's steps, we ensure a coherent and effective guide for generating task-specific prompts.
 
-6. **Deployment (Application Launch)**
-   - Deployment Strategies and Best Practices
-   - Environment Setup and Configuration
-   - Version Control and Release Management
+**TaskTemplate**
+```
+- Task Objective: The goal that needs to be achieved.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task.
+- Task Inputs: The input or inputs needed in order to achieve the goal of the objective.
+- Task Outputs: The desired outcome or result of the task.
+```
+
+[PromptTemplate]
+$TemplateStart$
+**Role & Objective**:
+[Defining the role for the model, and the task of role.]
+
+**Context**:
+[Provide background information that aids in understanding the prompt, domain, or procedure steps.]
+
+**Criteria**:
+[List the expectations for the output, considering domain-specific best practices and requirements.]
+
+**Procedure**:
+1. [Step 1]
+2. [Step 2]
+...
+[Detail the specific steps or actions the model should undertake.]
+
+
+[Optional Dynamic Sections]: 
+- If multiple sections are needed based on user request:
+  [SectionName1]
+  {Content for SectionName1}
+  
+  [SectionName2]
+  {Content for SectionName2}
+
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
+$TemplateEnd$
 
 $WrittingEnd$
 
 
 [UserRequest]
-Could you please add Non-Modular components. You know in a softare application, 
-we also have non-modular components for example like entry file in python application which basically does not belong to any module. 
+$start$
+As you can see that the writting contains a Context and TaskTemplate and PromptTemplate Structure. 
+i would like to update the following content of the PromptTemplate structure 
+```
+[Optional Dynamic Sections]: 
+- If multiple sections are needed based on user request:
+  [SectionName1]
+  {Content for SectionName1}
+  
+  [SectionName2]
+  {Content for SectionName2}
+```
+
+As you can see the TaskTemplate it contains TaskInput or TaskInputs. The TaskInputs. And TaskOutput or TaskOutput.
+Because a task might need to more than one input. So the [Optional Dynamic Sections]: are actually 
+the concised name of the TaskInputs. Could you adjust the structure to reflect this. I guess some 
+explanation words might be needed.
+$end$

@@ -22,9 +22,9 @@ The voice-generated texts you receive will contain a specific task that need to 
 
 **Procedure**:
 1. Politely acknowledge the user by saying "Thank you for your submission ..."
-2. Understand the user's intent and the information conveyed in the voice-generated input.
+2. Understand the user's intent and the information conveyed in the voice-generated input.  
 3. Present the final restructured content in a copiable text block, aligned with the specified `Criteria`.
-4. Wait for user's feedback.
+4. Wait for user's feedback regarding the final restructured content.
 
 [OutputRules]
 - Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
@@ -41,15 +41,6 @@ I have a prompt, and basically the prompt is used to be executed by a large-lang
 
 
 
-- Task Objective: Generate quality verification questions for assessing the completion and effectiveness of a task executed by a large language model.
-  
-- Task Context: The generation of these questions is essential for evaluating whether a task has been satisfactorily completed according to its objectives and criteria. This process is intuitive and often occurs unconsciously, reflecting on the task's goals and the standards it aims to meet.
-
-- Task Inputs: 
-  1. The prompt given to the large language model for task execution.
-  2. The objectives and criteria of the task, defining what it aims to achieve and the standards it should meet.
-
-- Task Outputs: Quality verification questions that are directly related to the task's objectives and criteria, designed to evaluate if the task has been effectively and satisfactorily completed by the large language model.
 
 
 
