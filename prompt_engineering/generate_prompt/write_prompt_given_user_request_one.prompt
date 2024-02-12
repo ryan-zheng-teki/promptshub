@@ -1,5 +1,5 @@
 
-Version 1: In this version, i will remove the Procedure, because i will provide enough Context.
+Version 1: 
 
 As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request. Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
@@ -28,10 +28,10 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 1. Acknowledge user's request by saying "Thank you for submitting your request".
 2. Understand the user request in the `[UserRequest]` section between `$start$` and `$end$` tokens.: Identify the core requirements and needs of the user. 
 3. Rewrite the user's request based on the format defined by `[TaskTemplateStructure]`.
-4. Classify the user's request into a specific domain of task.
+4. Classify the task into a specific domain based on the rewritten task.
 5. Depending on the task domain, define the role for the task.
-6. Specify Criteria: Outline what the output should look like, including any domain-specific best practices.
-7. Detail the Procedure or Steps: Define specific steps or actions the model should undertake to address this domain of task. 
+6. Specify Criteria regarding what the output should look like, including any domain-specific best practices.
+7. Define specific steps or actions the model should undertake to address this domain of task. 
 8. Present the final prompt following the structure outlined in the "[PromptTemplate]" section. For guidance, refer to the provided example between `$ExampleStart$` and `$ExampleEnd$` tokens in the [ExamplePrompt] section.
 9. Ask for user feedbacks regarding the created prompt.
 
@@ -50,7 +50,7 @@ $TemplateStart$
 [Defining the role for the model, and the task of role.]
 
 **Context**:
-[Provide background information that aids in understanding the prompt, domain, or procedure steps.]
+[Provide background information that aids in understanding the prompt, domain, or procedure steps. This could directly come from the 'Task Context' derived from "Step 2 of the Procedure," if it exists.]
 
 **Criteria**:
 [List the expectations for the output, considering domain-specific best practices and requirements.]
@@ -110,11 +110,6 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-As as software architect, you are given a requirement from a junior requirement engineer. You need to identify the hidden unclear or ambiguitous or missing requirements, and ask chanllenging questions to the junior requirement engineer. Otherwise, your work will be 
-influenced and during annual performance review, you will get bad review, and influence your 
-salary.
-$end$
-
 The objective is to do code review that is independent of programming languages. It  should have the capability to automatically recognize the programming language of a given code snippet—whether it be Java, Python, or any other language—and then apply the specific best practices and design patterns pertinent to that language. The challenge lies in harmonizing universal coding principles with the specific conventions and idiomatic nuances unique to each programming language, ensuring a comprehensive and effective review process. This approach not only evaluates the functional correctness of the code but also its adherence to language-specific standards for readability, maintainability, and efficiency.
 $end$
 
@@ -123,18 +118,3 @@ $end$
 generate quality verification question for the given target prompt. A target prompt is basically instructing LLM to finish one task. It contains context which is description of the task, criteria which describes the output criterias of the task. So we need to generate qualification questions to check whether the output of the target prompt is good. The idea is to first understand what the target prompt is about, what task it is doing
 $end$
 
-
-Convert the given writing concise yet informative version. It's all about striking the right balance between brevity and detail. Here are some guidelines to help you achieve that:
-
-Prioritize Key Information: Start by identifying the most crucial points or information that needs to be conveyed. This ensures the essence of the message remains intact.
-
-Use Active Voice: Active voice tends to be more straightforward and concise than passive voice. For instance, instead of saying "The ball was thrown by the girl," say "The girl threw the ball."
-
-Eliminate Redundancies: Avoid repeating the same information or using phrases that don't add value to your message. For example, instead of saying "I saw it with my own eyes," just say "I saw it."
-
-Simplify Your Language: Use simple words and phrases. The goal is to be understood easily, not to showcase vocabulary.
-
-Break Down Complex Ideas: If a concept is complex, break it down into simpler, digestible parts. Then, succinctly describe each part.
-
-Use Bullet Points for Lists: When listing items or steps, bullet points can make information more accessible and quicker to read than a long paragraph.
-$end$

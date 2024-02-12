@@ -1,6 +1,14 @@
 Version 1: Only one succint sentence for each step
 You are a prompt refinement specialist. Your objective is to improve the provided prompt detailed in the `[TaskPrompt]` section, given the requirement in the `[Requirement]` section. The given task prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
 
+$ContextStart$
+MetaPrompting involves using a primary prompt (MetaPrompt) to generate task-specific prompts tailored to diverse user requirements.
+The process starts by analyzing the user's request to identify the task's action, required input, and expected output. Then we define the task's domain, which helps in determining the role responsible for accomplishing the task.
+Next, we introduce a context section. This part provides background information or explanations related to the task, highlighting the importance of cross-referencing task inputs and outputs within the procedure steps to enhance coherence. For example, the last step from the given Example "Present the final review result under the [ReviewResult] section enclosed by `$start$` and `$end$` tokens" clearly demonstrates how the step description refers to the `[ReviewResult]`, which is the name of the output section. This explicit referencing ensures clarity by directly connecting the procedure steps with their relevant input and output names in the created target prompt.
+Lastly, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task, ensuring that descriptions of steps created for the procedure explicitly reference the names of the task inputs and outputs for clarity.
+$ContextEnd$
+
+
 [Context]
 Most of the given prompt is well-written, but only some minor parts can be improved.
 The optimized prompt will be used by a large language model like ChatGPT. So it is essential that the prompt is clear, direct, and explicit, prioritizing these qualities over ambiguity and vagueness. 
@@ -28,18 +36,21 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [OriginalPrompt]
 $PromptStart$
+
 As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request. Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
 **Context**:
+$ContextStart$
 MetaPrompting involves using a primary prompt (MetaPrompt) to generate task-specific prompt tailored to diverse user requirements.
 The process starts by analyzing the user's request to identify the task's action, required input, and expected output. Then we define the task's domain, which helps in determining the role responsible for accomplishing the task.
 Next, we introduce a context section. This part provides background information or explanations related to the task.
 At last, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task. Note that there is no need to include a review step at the end, as another person will review the final output.
+$ContextEnd$
 
 [TaskTemplateStructure]
 ```
 - Task Objective: The objective of the task.
-- Task Context: Background or explanation or any other supportive information that explains or supports the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
 - Task Inputs: The input or inputs required for the objective
 - Task Outputs: The desired outcome or result of the task.
 ```
@@ -55,7 +66,7 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 1. Acknowledge user's request by saying "Thank you for submitting your request".
 2. Understand the user request in the `[UserRequest]` section between `$start$` and `$end$` tokens.: Identify the core requirements and needs of the user. 
 3. Rewrite the user's request based on the format defined by `[TaskTemplateStructure]`.
-4. Classify the user's request into a specific domain of task.
+4. Classify the task into a specific domain based on the rewritten task.
 5. Depending on the task domain, define the role for the task.
 6. Specify Criteria: Outline what the output should look like, including any domain-specific best practices.
 7. Detail the Procedure or Steps: Define specific steps or actions the model should undertake to address this domain of task. 
@@ -67,6 +78,7 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 - Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
 - Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+- Reasoning When Necessary: For actions or tasks that involve complexity or require decision-making, include reasoning to precede the output. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that the output is not only precise but also well-considered.
 
 Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
@@ -76,7 +88,7 @@ $TemplateStart$
 [Defining the role for the model, and the task of role.]
 
 **Context**:
-[Provide background information that aids in understanding the prompt, domain, or procedure steps.]
+[Provide background information that aids in understanding the prompt, domain, or procedure steps. This could directly come from the 'Task Context' derived from "Step 2 of the Procedure," if it exists.]
 
 **Criteria**:
 [List the expectations for the output, considering domain-specific best practices and requirements.]
@@ -87,45 +99,68 @@ $TemplateStart$
 ...
 [Detail the specific steps or actions the model should undertake.]
 
-[InputSummaryName1 - A summarized label derived from one of the 'TaskInputs']
+[Short Name Of `TaskInput1`]
 {here provide the input for the task}
   
-[InputSummaryName2 - A summarized label derived from one of the 'TaskInputs']
-{here provide the input for the task}
+[Short Name Of `TaskInput2` If Exists]
+{here provide the second input for the task if exists}
   
-[OutputSummaryName - A summarized label derived from the 'TaskInput']
+[Short Name Of `TaskOutput`]
 {here provide the output of the task}
 
 Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
 $TemplateEnd$
+
+[Example]
+$ExampleStart$
+**Role & Objective**:
+You are a product reviewer. You are tasked with comparing two smartphones.
+
+**Context**:
+In this review, consider the current market trends in smartphone technology and user preferences. The comparison should reflect the needs of a typical smartphone user in terms of design, features, and performance.
+
+**Criteria**:
+The review should be unbiased, based on factual observations, and should highlight the strengths and weaknesses of both smartphones.
+
+**Procedure**:
+1. Evaluate the design of both smartphones given by `[FirstSmartphone]` and `[SecondSmartphone]`
+2. Compare the features and specifications.
+3. Test the performance and battery life.
+4. Present the final review result under the [ReviewResult] section enclosed by `$start$` and `$end$` tokens.
+
+**OutputFormat**:
+- The output should strictly adhere to the original procedure's step names, maintaining clarity and consistency.
+  Example:
+  Step 1: Evaluate the design of both smartphones.
+  {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
+
+[FirstSmartphone]
+{here is the input for the first smart phone}
+
+[SecondSmartphone]
+{here is the input of the second smart phone}
+
+[ReviewResult]
+{here is the final review result presented between `$start$` and `$end$` tokens.}
+
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
+$ExampleEnd$
+
+[UserRequest]
+{here is the user request}
 $PromptEnd$
 
 [UserRequirement]
 $start$
-If you look at the output from the Output section, you will see wording like "TaskInput", and "TaskOutput",
-Actually what i want is a summarized name for the input. The output already creates a structure like 
+section cross referencing increases the coherence of the given target prompt.  IF you look at the given Example in the original prompt, "Present the final review result under the [ReviewResult] section enclosed by `$start$` and `$end$` tokens." Here, the final review result is referecing the task output section named "ReviewResult".
 
-```
-Task Inputs: The initial set of requirements provided by the junior requirement engineer.
-Task Outputs: A list of identified unclear, ambiguous, or missing requirements and the challenging questions asked to clarify these requirements.
-```
-So the summarized name for the input will be InitialRequirements. 
-The summarized name for the Output will be [ChallengingQuestions] or [AmbiguitousPoints]
+The first step in the Procecure of the given Example is also referencing the [FirstSmartphone] and [SecondSmartphone] section which is input for the target task.
 
-So i think somewhere lacks clarify in the original prompt. I guess we need to improve this section
-
-```
-[InputRelatedSectionName1]
-{here provide the input for the task}
-  
-[InputRelatedSectionName2]
-{here provide the input of the task}
-
-[OutputRelatedSectionName]
-{here provide the output of the task}
-```
-To improve the clarify that its a summarized or short name of the input, not TaskInputs stuff.
+I think we need to also enhance the Context section by giving some information that the desription of the step  created for the procedure should reference the name of the task input and task output. For example,  the last step from the Given Example "Present the final review result under the [ReviewResult] section enclosed by `$start$` and `$end$` tokens." As you an see that the step description is refering to the `[ReviewResult]` which is the output section name.
 $end$
+
+MetaPrompting leverages a primary prompt (MetaPrompt) to generate customized prompts. The process involves analyzing the user's request to define the task's domain, required inputs, and expected outputs. It's crucial to reference task inputs and outputs by their section names within the procedure steps for enhanced clarity and coherence.
+
 
 [Output]
 $start$
@@ -161,7 +196,6 @@ Most of the prompt is well-written, but some minor parts can be improved. The op
 [Criteria]
 - Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by ChatGPT.
 - Prioritize explicitness and clarity over complexity.
-
 
 
 [Procedure]

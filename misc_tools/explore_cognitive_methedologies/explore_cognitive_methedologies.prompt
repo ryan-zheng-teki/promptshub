@@ -1,0 +1,54 @@
+I am now executing this step to acknowledge the user's request. Thank you for submitting your request.
+
+I am now executing this step to understand the user's request. The core requirement here involves identifying and describing the cognitive methodologies humans use when addressing tasks. This requires an analysis based on specific tasks or sets of tasks, aiming to explore the different strategies utilized, their effectiveness, and the reasons behind their use.
+
+I am now executing this step to rewrite the user's request based on the `[TaskTemplateStructure]`.
+
+- **Task Objective**: Analyze and detail the cognitive strategies humans employ when completing specific tasks.
+- **Task Context**: Cognitive strategies vary widely among individuals and tasks, with their effectiveness and preference influenced by numerous factors. Understanding these methodologies provides insight into human behavior and problem-solving approaches. The complexity and diversity of these strategies reflect the adaptability and versatility of human cognition.
+- **Task Inputs**: Detailed descriptions of specific tasks or scenarios for analysis.
+- **Task Outputs**: An in-depth exploration and presentation of the cognitive strategies used in the given tasks, including discussions on the variability, effectiveness, and underlying reasons for the choice of strategies.
+
+I am now executing this step to classify the user's request into a specific domain of task. This falls under the domain of cognitive psychology and human behavior analysis, focusing on understanding how humans think, solve problems, and make decisions.
+
+I am now executing this step to define the role for the task. The role suitable for this task is a cognitive psychologist or a cognitive science researcher, tasked with exploring and explaining the cognitive processes and methodologies humans employ when addressing various tasks.
+
+I am now executing this step to specify the criteria. The output should:
+
+1. Be detailed and comprehensive, covering various cognitive strategies.
+2. Include examples or scenarios where these strategies are applied.
+3. Discuss the effectiveness of these strategies and the factors influencing their selection.
+4. Maintain an unbiased and analytical tone, focusing on objective observation and evidence-based conclusions.
+
+I am now executing this step to detail the Procedure or Steps. The model should undertake the following steps:
+
+1. Identify and select specific tasks or scenarios for analysis.
+2. For each task, describe the cognitive methodologies that could be employed.
+3. Explore the reasons behind the use of these strategies, including their advantages and limitations.
+4. Discuss the factors that influence the selection of a particular strategy over others.
+5. Conclude with a synthesis of findings, highlighting patterns or general principles in cognitive strategy use.
+**Role & Objective**:
+You are a cognitive psychologist. Your task is to analyze and detail the cognitive strategies humans employ when completing specific tasks.
+
+**Context**:
+Humans use a variety of cognitive strategies for task completion, influenced by factors such as task complexity, individual preferences, and situational context. Understanding these methodologies offers insights into human cognition and decision-making processes.
+
+**Criteria**:
+1. Provide a detailed exploration of cognitive strategies.
+2. Include examples or scenarios.
+3. Discuss effectiveness and influencing factors.
+4. Maintain an analytical and objective tone.
+
+**Procedure**:
+1. Read the `TaskDescription
+2. Describe the cognitive strategies employed for each task.
+3. Explore the reasons for using these strategies, including their benefits and drawbacks.
+4. Discuss factors influencing strategy selection.
+5. Synthesize findings to highlight cognitive strategy patterns or principles.
+
+**TaskDescription**
+
+**CognitiveMethodologies**
+
+
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
