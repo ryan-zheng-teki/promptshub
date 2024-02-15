@@ -10,13 +10,13 @@ The voice-generated texts you receive will contain a specific task that need to 
 **Template Structure**
 ```
 - Task Objective: The goal that needs to be achieved.
-- Task Context: Background or explanation or any other supportive information that explains or supports the task.
+- Task Context: A detailed background or explanation, including all supportive information that elucidates or underpins the task. It's crucial to meticulously preserve the essence and comprehensive details of the original message.
 - Task Inputs: The input or inputs needed in order to achieve the goal of the objective.
 - Task Outputs: The desired outcome or result of the task.
 ```
 
 **Criteria**:
-- Retain all relevant details from the original message to maintain its informational value. 
+- Retain all relevant details from the original message to maintain its informational value, especially in the Task Context, to ensure no loss of detail from the original user's description.
 - Use objective, factual language.
 - The final rewritten texts should follow the given `Template Structure`
 
@@ -41,14 +41,48 @@ I have a prompt, and basically the prompt is used to be executed by a large-lang
 
 
 
+- Task Objective: Implement a dynamic requirement engineering process that adapts based on the outcomes of previous actions.
+- Task Context: The requirement engineering process is characterized by an action pool, allowing for a flexible approach to requirement analysis. This approach facilitates the identification and clarification of ambiguities in initial requirements through iterative actions and feedback.
+- Task Inputs: 
+  1. Initial given requirements to analyze.
+  2. User feedback and responses to questions regarding ambiguities or unclear points.
+- Task Outputs: 
+  1. Identification of ambiguities and unclear points in the initial requirements.
+  2. Clarified and refined requirements based on the analysis of user responses and the resolution of ambiguities.
 
 
 
-- Task Objective: Generate quality verification questions to assess the effectiveness and completion of tasks executed by a large language model, based on the criteria embedded within the given prompt.
 
-- Task Context: The necessity of generating verification questions stems from the goal to ensure that tasks performed by a large language model meet the predefined standards and objectives. These standards and objectives are already specified within the prompt, facilitating a more streamlined evaluation process.
+- Task Objective: Implement a dynamic requirement engineering process that adapts and evolves based on iterative actions and feedback to clarify and refine initial requirements.
+
+- Task Context: The requirement engineering process is depicted as a non-sequential, flexible approach that revolves around an action pool. This pool consists of various actions, such as analyzing initial requirements to identify ambiguities, engaging users in Q&A sessions to clarify these ambiguities, and analyzing users' responses for further ambiguities or clarification. The process is inherently iterative, with each action's outcome influencing the selection of the next action. This approach addresses the dynamic nature of requirement engineering, accommodating changes and clarifications as they arise during the process.
 
 - Task Inputs: 
-  1. The prompt provided to the large language model, which includes both the task to be executed and the criteria for evaluating its completion and quality.
+  1. Initial given requirements for analysis.
+  2. Action Pool containing all available actions, including but not limited to:
+     - Analyzing initial requirements to identify ambiguities and unclear points.
+     - Engaging users in Q&A sessions to clarify ambiguities.
+     - Analyzing users' responses to refine the requirements further.
 
-- Task Outputs: Quality verification questions that utilize the criteria embedded in the prompt to effectively assess whether the task has been completed to a satisfactory standard by the large language model.
+- Task Outputs: 
+  1. Final clarified and refined requirements, devoid of ambiguities and enriched with insights gained through the iterative process of analysis, user engagement, and feedback.
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Task Objective: The goal is to generate verification questions for assessing the quality of task completion by a large language model, ensuring the task meets predetermined criteria.
+
+- Task Context: When a task is executed by a large language model, it's crucial to evaluate whether the outcome meets the expected quality standards. This evaluation is inherently based on the task's objectives and specific criteria that define its successful completion. Humans intuitively formulate questions to verify task quality, which reflects a deep understanding of the task's goals and the criteria against which its success is measured. This process involves not only recognizing that a task has been completed but also assessing the quality of its execution in alignment with the set objectives.
+
+- Task Inputs: 1) A detailed description of the task executed by the large language model, including its objectives and completion criteria. 2) The outcomes or results produced by the model in response to the task.
+
+- Task Outputs: A set of well-constructed verification questions that are directly aligned with the task's objectives and criteria. These questions are designed to assess whether the task's execution by the large language model has met the expected quality standards, ensuring a comprehensive evaluation of its success.

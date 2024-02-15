@@ -4,8 +4,9 @@
    - { summary of the Application, which captures the essense of the application }
 
 2. **Technology Specifications (Framework and Libraries)**
-   - Application Type: {here is the application type}
-   - Frameworks and Libraries, including versions and configurations
+   - Application Type: {here is the application type, could be Python console applicatio, NodeJS Server application, Vue3 Frontend Application ...}
+   - Frameworks and Libraries
+      -- Name Of Framework or Library: Usage Explanation
 
 3. **Architecture** 
    - List of Major Modules (Chapters). 
