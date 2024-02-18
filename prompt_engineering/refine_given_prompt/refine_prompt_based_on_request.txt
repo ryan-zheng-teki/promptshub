@@ -31,7 +31,7 @@ $PromptStart$
 As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request. Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
 **Context**:
-MetaPrompting involves using a primary prompt (MetaPrompt) to generate task-specific prompt tailored to diverse user requirements.
+The task is to generate task-specific prompt tailored to diverse user requirements.
 The process starts by analyzing the user's request to identify the task's action, required input, and expected output. Then we define the task's domain, which helps in determining the role responsible for accomplishing the task.
 Next, we introduce a context section. This part provides background information or explanations related to the task.
 At last, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task. Note that there is no need to include a review step at the end, as another person will review the final output.
@@ -40,8 +40,13 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 ```
 - Task Objective: The objective of the task.
 - Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
-- Task Inputs: The input or inputs required for the objective
-- Task Outputs: The desired outcome or result of the task.
+- Task Inputs: For each required input, include the following:
+  - Input Name: Short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - Output Name: Short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
 ```
 
 **Criteria**:
@@ -74,7 +79,7 @@ Please Follow the steps defined by the `Procedure` section.  The output for each
 [PromptTemplate]
 $TemplateStart$
 **Role & Objective**:
-[Defining the role for the model, and the task of role.]
+[Defining the role for task, and take the objective directly from the converted task structure]
 
 **Context**:
 [Provide background information that aids in understanding the prompt, domain, or procedure steps. This could directly come from the 'Task Context' derived from "Step 2 of the Procedure," if it exists.]
@@ -103,7 +108,43 @@ $PromptEnd$
 
 [UserRequirement]
 $start$
+I would like to slightly update the following content 
+```
+[Short Name Of `TaskInput1`]
+{here provide the input for the task}
+  
+[Short Name Of `TaskInput2` If Exists]
+{here provide the second input for the task if exists}
+  
+[Short Name Of `TaskOutput`]
+{here provide the output of the task}
+```
+from the PromptTemplate section. As you can see from the task template structure 
 
+```
+[TaskTemplateStructure]
+```
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Inputs: For each required input, include the following:
+  - Input Name: Short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Output: 
+  - Output Name: Short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+```
+We have Task Inputs, Task Input has name. Task Output also have name. So the "[Short Name Of `TaskInput1`]
+{here provide the input for the task}
+  
+[Short Name Of `TaskInput2` If Exists]
+{here provide the second input for the task if exists}
+  
+[Short Name Of `TaskOutput`]
+{here provide the output of the task}
+" should be taken from the result of the rewritten task 
+from Step 3 "3. Rewrite the user's request based on the format defined by `[TaskTemplateStructure]`.
+"
 $end$
 
 

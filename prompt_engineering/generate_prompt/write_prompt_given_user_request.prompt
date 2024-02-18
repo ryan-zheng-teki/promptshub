@@ -4,7 +4,7 @@ Version 1:
 As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request. Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
 **Context**:
-MetaPrompting involves using a primary prompt (MetaPrompt) to generate task-specific prompt tailored to diverse user requirements.
+The task is to generate task-specific prompt tailored to diverse user requirements.
 The process starts by analyzing the user's request to identify the task's action, required input, and expected output. Then we define the task's domain, which helps in determining the role responsible for accomplishing the task.
 Next, we introduce a context section. This part provides background information or explanations related to the task.
 At last, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task. Note that there is no need to include a review step at the end, as another person will review the final output.
@@ -13,15 +13,22 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 ```
 - Task Objective: The objective of the task.
 - Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
-- Task Inputs: The input or inputs required for the objective
-- Task Outputs: The desired outcome or result of the task.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
 ```
 
 **Criteria**:
 - The resulting prompt must adhere to the template defined by the "PromptTemplate" section and consider domain-specific best practices and requirements.
 - The final designed prompt should follow these best practices for large language model prompting:
   1. **Brevity and Precision**: Concise and precise prompts lead to more direct and relevant outputs.
-  2. **Explicity and Directness**: Prefer explicity and directness over vagueness, and euphemism.
+  2. **Explicitness and Directness**: Prefer explicitness and directness over vagueness and euphemism.
+  3. **Reference to Input Names**: Ensure that step descriptions directly refer to the input section names, enhancing clarity and coherence. For example, if a step involves evaluating information from specific inputs, the step should explicitly state, "Evaluate the information provided in the [InputName] section.", as demonstrated in Step 1 of the `[ExamplePrompt]`.
+  4. **Reference to Output Names**: Similarly, when steps involve generating or presenting outputs, they should directly refer to the output section names. This ensures clear guidance on where to present the results. For example, "Present the final review result under the [OutputName] section enclosed by `$start$` and `$end$` tokens," as demonstrated in Step 4 of the `[ExamplePrompt]`.
 - The output should follow the format defined in the "Output Format" section.
 
 [Procedure]:
@@ -31,7 +38,7 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 4. Classify the task into a specific domain based on the rewritten task.
 5. Depending on the task domain, define the role for the task.
 6. Specify Criteria regarding what the output should look like, including any domain-specific best practices.
-7. Define specific steps or actions the model should undertake to address this domain of task. 
+7. Define specific steps or actions the model should undertake to address this domain of task. Ensure to refer directly to the input and output sections by name when appropriate.
 8. Present the final prompt following the structure outlined in the "[PromptTemplate]" section. For guidance, refer to the provided example between `$ExampleStart$` and `$ExampleEnd$` tokens in the [ExamplePrompt] section.
 9. Ask for user feedbacks regarding the created prompt.
 
@@ -47,7 +54,7 @@ Please Follow the steps defined by the `Procedure` section.  The output for each
 [PromptTemplate]
 $TemplateStart$
 **Role & Objective**:
-[Defining the role for the model, and the task of role.]
+[Defining the role for task, and take the objective directly from the converted task structure]
 
 **Context**:
 [Provide background information that aids in understanding the prompt, domain, or procedure steps. This could directly come from the 'Task Context' derived from "Step 2 of the Procedure," if it exists.]
@@ -61,19 +68,19 @@ $TemplateStart$
 ...
 [Detail the specific steps or actions the model should undertake.]
 
-[Short Name Of `TaskInput1`]
-{here provide the input for the task}
-  
-[Short Name Of `TaskInput2` If Exists]
-{here provide the second input for the task if exists}
-  
-[Short Name Of `TaskOutput`]
-{here provide the output of the task}
+[Input Name from rewritten task]: 
+{here provide the explanation of the first input, using the specific input name wrapped in square brackets and description as identified in the rewritten task structure in Step 3}
+
+[Additional Input Name from rewritten task if exists]: 
+{here provide the explanation for any additional input, using specific names wrapped in square brackets and descriptions as identified in the rewritten task structure in Step 3}
+
+[Output Name from rewritten task]: 
+{here provide the output of the task, using the specific name wrapped in square brackets and detailed explanation as derived from the rewritten task structure in Step 3}
 
 Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
 $TemplateEnd$
 
-[Example]
+[ExamplePrompt]
 $ExampleStart$
 **Role & Objective**:
 You are a product reviewer. You are tasked with comparing two smartphones.
@@ -85,7 +92,7 @@ In this review, consider the current market trends in smartphone technology and 
 The review should be unbiased, based on factual observations, and should highlight the strengths and weaknesses of both smartphones.
 
 **Procedure**:
-1. Evaluate the design of both smartphones.
+1. Evaluate the design of both smartphones given by `[FirstSmartphone]` and `[SecondSmartphone]`
 2. Compare the features and specifications.
 3. Test the performance and battery life.
 4. Present the final review result under the [ReviewResult] section enclosed by `$start$` and `$end$` tokens.
@@ -103,18 +110,24 @@ The review should be unbiased, based on factual observations, and should highlig
 {here is the input of the second smart phone}
 
 [ReviewResult]
+$start$
 {here is the final review result presented between `$start$` and `$end$` tokens.}
+$end$
 
 Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
 $ExampleEnd$
 
 [UserRequest]
 $start$
-The objective is to do code review that is independent of programming languages. It  should have the capability to automatically recognize the programming language of a given code snippet—whether it be Java, Python, or any other language—and then apply the specific best practices and design patterns pertinent to that language. The challenge lies in harmonizing universal coding principles with the specific conventions and idiomatic nuances unique to each programming language, ensuring a comprehensive and effective review process. This approach not only evaluates the functional correctness of the code but also its adherence to language-specific standards for readability, maintainability, and efficiency.
-$end$
-
-
 
 generate quality verification question for the given target prompt. A target prompt is basically instructing LLM to finish one task. It contains context which is description of the task, criteria which describes the output criterias of the task. So we need to generate qualification questions to check whether the output of the target prompt is good. The idea is to first understand what the target prompt is about, what task it is doing
 $end$
 
+
+
+$end$
+
+
+
+
+generate quality verification question for the given target prompt. A target prompt is basically instructing LLM to finish one task. It contains context which is description of the task, criteria which describes the output criterias of the task. So we need to generate qualification questions to check whether the output of the target prompt is good. The idea is to first understand what the target prompt is about, what task it is doing
