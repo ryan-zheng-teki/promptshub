@@ -9,10 +9,15 @@ The voice-generated texts you receive will contain a specific task that need to 
 
 **Template Structure**
 ```
-- Task Objective: The goal that needs to be achieved.
-- Task Context: A detailed background or explanation, including all supportive information that elucidates or underpins the task. It's crucial to meticulously preserve the essence and comprehensive details of the original message.
-- Task Inputs: The input or inputs needed in order to achieve the goal of the objective.
-- Task Outputs: The desired outcome or result of the task.
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Inputs: For each required input, include the following:
+  - Input Name: Short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - Output Name: Short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
 ```
 
 **Criteria**:
@@ -78,11 +83,9 @@ I have a prompt, and basically the prompt is used to be executed by a large-lang
 
 
 
+- Task Objective: Create a metaprompt capable of generating domain-specific task prompts. 
 
-- Task Objective: The goal is to generate verification questions for assessing the quality of task completion by a large language model, ensuring the task meets predetermined criteria.
+- Task Context: The metaprompt aims to encapsulate the human approach to task analysis by identifying the domain of the given task, defining the role responsible for completing the task, and specifying the methodology tailored to the task's complexity and requirements. This process is akin to how humans analyze tasks, first by determining the task's domain, then assigning an appropriate role, and finally selecting a methodology based on the task's nature. An illustrative example is a senior requirement engineer who adjusts their methodology based on the progression of user requirements, from identifying ambiguities in a simplified requirement to employing systematic methodologies in detailed requirement analysis. This dynamic approach highlights the necessity of evolving methodologies in response to the task's complexity, ensuring that the metaprompt generated retains these critical considerations for effective task execution.
 
-- Task Context: When a task is executed by a large language model, it's crucial to evaluate whether the outcome meets the expected quality standards. This evaluation is inherently based on the task's objectives and specific criteria that define its successful completion. Humans intuitively formulate questions to verify task quality, which reflects a deep understanding of the task's goals and the criteria against which its success is measured. This process involves not only recognizing that a task has been completed but also assessing the quality of its execution in alignment with the set objectives.
-
-- Task Inputs: 1) A detailed description of the task executed by the large language model, including its objectives and completion criteria. 2) The outcomes or results produced by the model in response to the task.
-
-- Task Outputs: A set of well-constructed verification questions that are directly aligned with the task's objectives and criteria. These questions are designed to assess whether the task's execution by the large language model has met the expected quality standards, ensuring a comprehensive evaluation of its success.
+- Task Inputs: The given task.
+- Task Outputs: A metaprompt that identifies the task's domain, defines the responsible role, and specifies the methodology to be used, ensuring the approach is tailored to the task's complexity and requirements. This metaprompt will serve as a foundational tool in generating task-centric prompts that accurately reflect the nuanced processes involved in human task analysis and execution.

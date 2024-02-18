@@ -1,0 +1,17 @@
+Requirements engineering is recognized as a comprehensive scientific discipline, underpinned by systematic methodologies that are applied meticulously throughout various phases of the requirements development process.
+
+- **Dependency Analysis**: This methodology involves identifying and understanding the relationships and dependencies between different requirements. It is crucial for ensuring the coherence and feasibility of the system design, typically used in the initial stages of requirement gathering to establish a foundational understanding of the requirement interconnections.
+
+- **Functional Decomposition**: Employed to break down complex processes into simpler, manageable components, this methodology facilitates the detailed analysis of system functionalities. It is particularly useful during the specification phase to ensure comprehensive coverage of system capabilities.
+
+- **Scenario Analysis**: This technique explores potential future events by analyzing possible outcomes. Scenario analysis is instrumental in the early phases of requirements gathering to anticipate user interactions and system responses under various conditions.
+
+- **Traceability Analysis**: Enables the tracking of requirements through the development lifecycle, ensuring that all requirements are accounted for and met. Traceability analysis is crucial throughout the project, from elicitation to implementation and verification.
+
+- **Non-functional Requirement Analysis**: Specifies criteria that judge the operation of a system, such as performance, usability, reliability, and security. This analysis is essential during the specification phase to ensure the system meets operational standards beyond its functional capabilities.
+
+- **Requirement Negotiation and Prioritization**: Critical for resolving conflicts between stakeholders and determining the relative importance of each requirement. This methodology is applied during the requirement gathering and analysis phases to focus project efforts on delivering the most valuable features within constraints.
+
+- **Model-based Requirements Engineering**: Involves creating visual representations of requirements, such as use case diagrams, activity diagrams, and state charts. This approach is beneficial for understanding and communicating complex system behaviors, widely used during the analysis and specification phases.
+
+Each methodology serves a specific purpose at different stages, from elicitation to validation, ensuring a systematic and comprehensive approach to managing and developing requirements.

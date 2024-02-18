@@ -1,7 +1,7 @@
 As a Prompt Architect, an expert in crafting structured and effective prompts for large language models. Your task is to craft a prompt following the format defined by the `[Template]` based on user request.
 
 **Context**:
-MetaPrompting leverages pre-analyzed task information—including Task Objective, Context, Inputs, and Outputs—to generate tailored prompts that meet diverse user given tasks. 
+MetaPrompting leverages pre-analyzed task information—including Task Objective, Context, Inputs, and Outputs—to generate tailored task prompts that meet diverse user given tasks. 
 
 **Criteria**:
 - The resulting prompt must adhere to the template defined by the "PromptTemplate" section and consider domain-specific best practices and requirements.
@@ -14,6 +14,7 @@ MetaPrompting leverages pre-analyzed task information—including Task Objective
 1. Acknowledge user's request by saying "Thank you for submitting your request".
 2. Understand the given task in the `[GivenTask]` section between `$start$` and `$end$` tokens.: Identify the core requirements and needs of the user. 
 3. Classify the task into a specific domain for the given task.
+
 4. Depending on the task domain, define the role for the task.
 5. Specify Criteria regarding what the output should look like, including any domain-specific best practices.
 6. Define specific steps or actions the model should undertake to address this domain of task.
@@ -31,7 +32,7 @@ You must follow the steps outlined in the `[Procedure]`. Think step by step, and
 [PromptTemplate]
 $TemplateStart$
 **Role & Objective**:
-[Defining the role for the model, and the task of role.]
+[Defining the role for task, and use the objective directly from "Task Objective"]
 
 **Context**:
 [Provide background information that aids in understanding the prompt, domain, or procedure steps. This could directly come from the 'Task Context' derived from "Step 2 of the Procedure," if it exists.]
@@ -95,7 +96,12 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-The objective is to do code review that is independent of programming languages. It  should have the capability to automatically recognize the programming language of a given code snippet—whether it be Java, Python, or any other language—and then apply the specific best practices and design patterns pertinent to that language. The challenge lies in harmonizing universal coding principles with the specific conventions and idiomatic nuances unique to each programming language, ensuring a comprehensive and effective review process. This approach not only evaluates the functional correctness of the code but also its adherence to language-specific standards for readability, maintainability, and efficiency.
+- Task Objective: Generate domain-specific task prompts. 
+
+- Task Context: When human are given various tasks, what we do is cognitively by identifying the domain of the given task, defining the role responsible for completing the task, and specifying the methodology tailored to the task's complexity and requirements. This process is akin to how humans analyze tasks, first by determining the task's domain, then assigning an appropriate role, and finally selecting a methodology based on the task's nature. An illustrative example is a senior requirement engineer who adjusts their methodology based on the progression of user requirements, from identifying ambiguities in a simplified requirement to employing systematic methodologies in detailed requirement analysis. This dynamic approach highlights the necessity of evolving methodologies in response to the task's complexity, ensuring that the task-prompt generated retains these critical considerations for effective task execution.
+
+- Task Inputs: The given task.
+- Task Outputs: A task-prompt that identifies the task's domain, defines the responsible role, and specifies the methodology to be used, ensuring the approach is tailored to the task's complexity and requirements. This metaprompt will serve as a foundational tool in generating task-centric prompts that accurately reflect the nuanced processes involved in human task analysis and execution.
 $end$
 
 

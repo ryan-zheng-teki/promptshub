@@ -78,86 +78,31 @@ You are a writing improvements expert with love and care. Your task is to improv
 
 5. **Present the complete refined writing in a copiable text block**:
 
-[Output Rules]
-- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process.
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
+[OutputRules]
+- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
 - Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
 
 
-Please follow the steps defined in the `[Procedure]` section. Your output should follow the output rules defined in the `[Output Rules]` section.
+Please follow the steps defined in the `[Procedure]` section. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [Writing]
 $WrittingStart$
-**Context**:
-MetaPrompting is the process of using one prompt (a MetaPrompt) to facilitate the creation of another. This technique leverages abstraction and layering to produce structured and task-specific prompts tailored to diverse user requirements.
-
-The approach begins with a thorough analysis of the user's requirement, which is essentially the task they wish to accomplish. Typically, achieving a task involves an input that triggers a process or action, leading to a specific output. Thus, our initial step involves dissecting the user's request to identify the task's action or process, the required input, and the expected output.
-
-Following this analysis, we define the task's domain, which helps in determining the role responsible for accomplishing the task. This step is crucial for understanding the scope and ensuring that the prompt is directed appropriately.
-
-Next, we introduce a context section. This part provides background information or explanations related to the task, enriching the prompt with necessary details to guide the creation process effectively.
-
-Finally, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task at hand. It is important to note that there is no need to include a review step in the prompt; another person will review the final output.
-
-By systematically structuring the prompt creation process, from analyzing the user's request to defining the task's steps, we ensure a coherent and effective guide for generating task-specific prompts.
-
-**TaskTemplate**
+[TaskTemplateStructure]
 ```
-- Task Objective: The goal that needs to be achieved.
-- Task Context: Background or explanation or any other supportive information that explains or supports the task.
-- Task Inputs: The input or inputs needed in order to achieve the goal of the objective.
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Inputs: The input or inputs required for the objective
 - Task Outputs: The desired outcome or result of the task.
 ```
-
-[PromptTemplate]
-$TemplateStart$
-**Role & Objective**:
-[Defining the role for the model, and the task of role.]
-
-**Context**:
-[Provide background information that aids in understanding the prompt, domain, or procedure steps.]
-
-**Criteria**:
-[List the expectations for the output, considering domain-specific best practices and requirements.]
-
-**Procedure**:
-1. [Step 1]
-2. [Step 2]
-...
-[Detail the specific steps or actions the model should undertake.]
-
-
-[Optional Dynamic Sections]: 
-- If multiple sections are needed based on user request:
-  [SectionName1]
-  {Content for SectionName1}
-  
-  [SectionName2]
-  {Content for SectionName2}
-
-Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
-$TemplateEnd$
-
 $WrittingEnd$
 
 
 [UserRequest]
 $start$
-As you can see that the writting contains a Context and TaskTemplate and PromptTemplate Structure. 
-i would like to update the following content of the PromptTemplate structure 
-```
-[Optional Dynamic Sections]: 
-- If multiple sections are needed based on user request:
-  [SectionName1]
-  {Content for SectionName1}
-  
-  [SectionName2]
-  {Content for SectionName2}
-```
-
-As you can see the TaskTemplate it contains TaskInput or TaskInputs. The TaskInputs. And TaskOutput or TaskOutput.
-Because a task might need to more than one input. So the [Optional Dynamic Sections]: are actually 
-the concised name of the TaskInputs. Could you adjust the structure to reflect this. I guess some 
-explanation words might be needed.
+I would like to slightly modify the structure a bit about the "Task Inputs" and "Task Outputs" section. I would like to make it like Task input will be a short name of the input, and a description of the input. Since the input can be one and more, so the improved structure should reflect this. The Task Outputs should be only one output.Follow the same structure as input. Still a short name of the output, and explanation of the output.
+Ta
 $end$
+
+
