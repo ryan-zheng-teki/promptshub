@@ -28,123 +28,34 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [OriginalPrompt]
 $PromptStart$
-As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request. Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
+You are a Prompt Architect. Your objective is to generate domain-specific task prompts.
 
 **Context**:
-The task is to generate task-specific prompt tailored to diverse user requirements.
-The process starts by analyzing the user's request to identify the task's action, required input, and expected output. Then we define the task's domain, which helps in determining the role responsible for accomplishing the task.
-Next, we introduce a context section. This part provides background information or explanations related to the task.
-At last, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task. Note that there is no need to include a review step at the end, as another person will review the final output.
+When humans are given various tasks, they analyze the task by identifying its domain, defining the appropriate role for execution, and selecting one proper methodology tailored to the task's complexity and nature. This process is essential for creating effective task prompts that guide language models using the appropriate methodogoy to solve the given task.
+
 
 [TaskTemplateStructure]
 ```
 - Task Objective: The objective of the task.
 - Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Methodology: Here is the methodology name mentioned by the user to solve the task.
+  - Description: Outlines the specific strategies or algorithms to be employed in the task's execution. It details the algorithms used to achieve the objective using the methodology.
 - Task Inputs: For each required input, include the following:
-  - Input Name: Short name of the input.
+  - [Input Name]: Squared brackets wrapped short name of the input.
     - Description: A detailed description of the input.
   (Repeat the above block for each additional input as necessary.)
 - Task Outputs: 
-  - Output Name: Short name of the output.
+  - [Output Name]: Squared brackets wrapped short name of the output.
     - Description: A detailed explanation of the output. (Designed for only one output per task.)
 ```
 
-**Criteria**:
-- The resulting prompt must adhere to the template defined by the "PromptTemplate" section and consider domain-specific best practices and requirements.
-- The final designed prompt should follow these best practices for large language model prompting:
-  1. **Brevity and Precision**: Concise and precise prompts lead to more direct and relevant outputs.
-  2. **Explicity and Directness**: Prefer explicity and directness over vagueness, and euphemism.
-- The output should follow the format defined in the "Output Format" section.
-
-[Procedure]:
-1. Acknowledge user's request by saying "Thank you for submitting your request".
-2. Understand the user request in the `[UserRequest]` section between `$start$` and `$end$` tokens.: Identify the core requirements and needs of the user. 
-3. Rewrite the user's request based on the format defined by `[TaskTemplateStructure]`.
-4. Classify the task into a specific domain based on the rewritten task.
-5. Depending on the task domain, define the role for the task.
-6. Specify Criteria regarding what the output should look like, including any domain-specific best practices.
-7. Define specific steps or actions the model should undertake to address this domain of task. 
-8. Present the final prompt following the structure outlined in the "[PromptTemplate]" section. For guidance, refer to the provided example between `$ExampleStart$` and `$ExampleEnd$` tokens in the [ExamplePrompt] section.
-9. Ask for user feedbacks regarding the created prompt.
-
-[OutputRules]
-- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
-- Reasoning When Necessary: For actions or tasks that involve complexity or require decision-making, include reasoning to precede the output. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that the output is not only precise but also well-considered.
-
-Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
-
-[PromptTemplate]
-$TemplateStart$
-**Role & Objective**:
-[Defining the role for task, and take the objective directly from the converted task structure]
-
-**Context**:
-[Provide background information that aids in understanding the prompt, domain, or procedure steps. This could directly come from the 'Task Context' derived from "Step 2 of the Procedure," if it exists.]
-
-**Criteria**:
-[List the expectations for the output, considering domain-specific best practices and requirements.]
-
-**Procedure**:
-1. [Step 1]
-2. [Step 2]
-...
-[Detail the specific steps or actions the model should undertake.]
-
-[Short Name Of `TaskInput1`]
-{here provide the input for the task}
-  
-[Short Name Of `TaskInput2` If Exists]
-{here provide the second input for the task if exists}
-  
-[Short Name Of `TaskOutput`]
-{here provide the output of the task}
-
-Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
-$TemplateEnd$
+[GivenTask]
+{here is the given task following the `[TaskTemplateStructure]` template structure}
 $PromptEnd$
 
 [UserRequirement]
 $start$
-I would like to slightly update the following content 
-```
-[Short Name Of `TaskInput1`]
-{here provide the input for the task}
-  
-[Short Name Of `TaskInput2` If Exists]
-{here provide the second input for the task if exists}
-  
-[Short Name Of `TaskOutput`]
-{here provide the output of the task}
-```
-from the PromptTemplate section. As you can see from the task template structure 
-
-```
-[TaskTemplateStructure]
-```
-- Task Objective: The objective of the task.
-- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
-- Task Inputs: For each required input, include the following:
-  - Input Name: Short name of the input.
-    - Description: A detailed description of the input.
-  (Repeat the above block for each additional input as necessary.)
-- Task Output: 
-  - Output Name: Short name of the output.
-    - Description: A detailed explanation of the output. (Designed for only one output per task.)
-```
-We have Task Inputs, Task Input has name. Task Output also have name. So the "[Short Name Of `TaskInput1`]
-{here provide the input for the task}
-  
-[Short Name Of `TaskInput2` If Exists]
-{here provide the second input for the task if exists}
-  
-[Short Name Of `TaskOutput`]
-{here provide the output of the task}
-" should be taken from the result of the rewritten task 
-from Step 3 "3. Rewrite the user's request based on the format defined by `[TaskTemplateStructure]`.
-"
+I would like to improve the Context section abit. As you can see that there is a TaskTemplateStructure section. I would adapt the current Context to say that the GivenTask follows the given TaskTemplateStructure.  and there is a Methodology mentioned in the task. The methodogoy mentioned is just name, however the detailed steps or algorithms or  
 $end$
 
 
@@ -177,10 +88,4 @@ Most of the prompt is well-written, but some minor parts can be improved. The op
   {Elaborate on the analysis or action taken in this step, ensuring it aligns with the step's title.}
 
 Follow the steps outlined in the `[Procedure]` section. Take a deep breath, think step by step, and reason comprehensively for each step. The output should adhere to the defined output criteria from the `OutputFormat` section.
-
-
-**Context**:
-This is the early phase of requirement clarification, where performance, security, maintenance, and testing considerations are premature and should not be the focus during ambiguities analysis. In this critical stage, it's essential to understand that no functional requirement operates in isolation. Each requirement is a piece of a larger puzzle, working in concert to fulfill the overall functionality of the application. To reflect this interconnectedness, every functional requirement must be explicitly linked to others through "triggered by" and "triggering" relationships. These links are not merely formalities but are crucial for mapping out how individual requirements collectively contribute to the application's objectives. A "triggered by" relationship specifies the prerequisite condition or requirement that must be met before the current requirement can be initiated. Conversely, a "triggering" relationship identifies subsequent requirements that are enabled or activated upon the successful completion of the current requirement. This approach ensures a cohesive and systematic workflow, where each requirement's initiation and completion are tied to specific triggers within the system. The names used in "triggered by" and "triggering" must correspond to the titles of other functional requirements, establishing a clear and direct dependency chain. This methodical linkage prevents any requirement from standing alone, reinforcing the principle that every functional component is integral to achieving the application's collective functionality.
-
-
 

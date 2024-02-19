@@ -1,0 +1,29 @@
+[TaskTemplateStructure]
+```
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Squared brackets wrapped short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Squared brackets wrapped short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+```
+
+Task Template with methodogoy section:
+[TaskTemplateStructure]
+```
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Methodology: Here is the methodology name mentioned by the user to solve the task.
+  - Description: Outlines the specific strategies or algorithms to be employed in the task's execution. It details the algorithms used to achieve the objective using the methodology.
+  - Example: This section provides a detailed example to demonstrate the application of the described methodology or algorithm. Starting with a specific scenario, such as a set of requirements, the example then applies the methodology to this scenario. For instance, in a dependency analysis algorithm, we begin with a defined set of requirements. The example then demonstrates step-by-step how the dependency analysis algorithm processes these requirements to identify all dependencies among them, detailing the logic and decision-making processes involved. This practical demonstration aims to showcase the effectiveness and application of the methodology in addressing specific aspects of the scenario to achieve the task's objective.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Squared brackets wrapped short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Squared brackets wrapped short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+```

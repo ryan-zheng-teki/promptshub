@@ -14,11 +14,11 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 - Task Objective: The objective of the task.
 - Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
 - Task Inputs: For each required input, include the following:
-  - [Input Name]: Short name of the input.
+  - [Input Name]: Squared brackets wrapped short name of the input.
     - Description: A detailed description of the input.
   (Repeat the above block for each additional input as necessary.)
 - Task Outputs: 
-  - [Output Name]: Short name of the output.
+  - [Output Name]: Squared brackets wrapped short name of the output.
     - Description: A detailed explanation of the output. (Designed for only one output per task.)
 ```
 
@@ -27,9 +27,8 @@ At last, we outline the steps required to achieve the task, mirroring how a huma
 - The final designed prompt should follow these best practices for large language model prompting:
   1. **Brevity and Precision**: Concise and precise prompts lead to more direct and relevant outputs.
   2. **Explicitness and Directness**: Prefer explicitness and directness over vagueness and euphemism.
-  3. **Reference to Input Names**: Ensure that step descriptions directly refer to the input section names, enhancing clarity and coherence. For example, if a step involves evaluating information from specific inputs, the step should explicitly state, "Evaluate the information provided in the [InputName] section.", as demonstrated in Step 1 of the `[ExamplePrompt]`.
-  4. **Reference to Output Names**: Similarly, when steps involve generating or presenting outputs, they should directly refer to the output section names. This ensures clear guidance on where to present the results. For example, "Present the final review result under the [OutputName] section enclosed by `$start$` and `$end$` tokens," as demonstrated in Step 4 of the `[ExamplePrompt]`.
-- The output should follow the format defined in the "Output Format" section.
+  3. **Reference to square bracket wrapped input Names**: Ensure that step descriptions directly refer to the input section names, enhancing clarity and coherence. For example, if a step involves evaluating information from specific inputs, the step should explicitly state, "Evaluate the information provided in the `[InputName]` section.", as demonstrated in Step 1 of the `[ExamplePrompt]`.
+  4. **Reference to square bracket wrapped output Names**: Similarly, when steps involve generating or presenting outputs, they should directly refer to the output section names. This ensures clear guidance on where to present the results. For example, "Present the final review result under the `[OutputName]` section enclosed by `$start$` and `$end$` tokens," as demonstrated in Step 4 of the `[ExamplePrompt]`.
 
 [Procedure]:
 1. Acknowledge user's request by saying "Thank you for submitting your request".
@@ -68,14 +67,14 @@ $TemplateStart$
 ...
 [Detail the specific steps or actions the model should undertake.]
 
-[Input Name from rewritten task]: 
-{here provide the explanation of the first input, using the specific input name wrapped in square brackets and description as identified in the rewritten task structure in Step 3}
+[Input Name from rewritten task]: {input name wrapped in square brackets}
+{here provide the explanation of the first input, using the specific input name and description as identified in the rewritten task structure in Step 3}
 
 [Additional Input Name from rewritten task if exists]: 
-{here provide the explanation for any additional input, using specific names wrapped in square brackets and descriptions as identified in the rewritten task structure in Step 3}
+{here provide the explanation for any additional input, using specific names and descriptions as identified in the rewritten task structure in Step 3}
 
 [Output Name from rewritten task]: 
-{here provide the output of the task, using the specific name wrapped in square brackets and detailed explanation as derived from the rewritten task structure in Step 3}
+{here provide the output of the task, using the specific name and detailed explanation as derived from the rewritten task structure in Step 3}
 
 Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
 $TemplateEnd$
@@ -119,15 +118,6 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-
 generate quality verification question for the given target prompt. A target prompt is basically instructing LLM to finish one task. It contains context which is description of the task, criteria which describes the output criterias of the task. So we need to generate qualification questions to check whether the output of the target prompt is good. The idea is to first understand what the target prompt is about, what task it is doing
 $end$
 
-
-
-$end$
-
-
-
-
-generate quality verification question for the given target prompt. A target prompt is basically instructing LLM to finish one task. It contains context which is description of the task, criteria which describes the output criterias of the task. So we need to generate qualification questions to check whether the output of the target prompt is good. The idea is to first understand what the target prompt is about, what task it is doing
