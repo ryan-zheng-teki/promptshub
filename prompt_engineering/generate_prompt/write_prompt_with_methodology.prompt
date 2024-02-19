@@ -1,22 +1,36 @@
 **Role & Objective**:
-You are a Prompt Architect. Your objective is to generate domain-specific task prompts.
+You are a Prompt Architect. Your objective is to generate domain-specific task prompt for the `[GivenTask]`
 
 **Context**:
-When humans are given various tasks, they analyze the task by identifying its domain, defining the appropriate role for execution, and selecting a methodology tailored to the task's complexity and requirements. This process is essential for creating effective task prompts that guide language models in generating desired outputs.
+The `[GivenTask]` which follows the structure defined by the `[TaskTemplateStructure]` has provided Task Objective, Context, Methodology, Inputs, and Outputs. The objective is to generate tailored task prompt that meet diverse user given tasks. 
+
+[TaskTemplateStructure]
+```
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Methodology: Here is the methodology name mentioned by the user to solve the task.
+  - Description: Outlines the specific strategies or algorithms to be employed in the task's execution. It details the algorithms used to achieve the objective using the methodology.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Squared brackets wrapped short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Squared brackets wrapped short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+```
 
 **Criteria**:
 - The resulting prompt must adhere to the template defined by the "PromptTemplate" section and consider domain-specific best practices and requirements.
 - The final designed prompt should follow these best practices for large language model prompting:
   1. **Brevity and Precision**: Concise and precise prompts lead to more direct and relevant outputs.
   2. **Explicity and Directness**: Prefer explicity and directness over vagueness, and euphemism.
-- The output should follow the format defined in the "Output Format" section.
 
 **Procedure**:
 1. Analyze the given task to understand its objective, context, inputs, and outputs.
 2. Determine the domain of the task.
-3. Define the role of a Prompt Architect for this task.
-4. Select a suitable methodology based on the task's complexity and requirements.
-5. Generate a task prompt that integrates these elements, ensuring it is structured, clear, and effective.
+3. Define the role for this task.
+4. Present the final prompt following the structure outlined in the "[PromptTemplate]" section.
+5. Ask for user feedbacks regarding the created prompt.
 
 [OutputRules]
 - Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
@@ -38,29 +52,31 @@ $TemplateStart$
 [List the expectations for the output, considering domain-specific best practices and requirements.]
 
 **Methodology**:
-[This section elucidates the systematic or theoretical approach humans employ to address the task. It encompasses not only the practical steps taken but also the rationale behind these steps, offering insights into the strategic thinking and decision-making processes that guide task execution. This holistic approach ensures a deeper understanding of the task's objectives and the methodologies applied to achieve them.]
+[here is the methodogoy directly taken from the `[GivenTask]`]
 
-[Short Name Of `TaskInput1`]
-{here provide the input for the task}
-  
-[Short Name Of `TaskInput2` If Exists]
-{here provide the second input for the task if exists}
-  
-[Short Name Of `TaskOutput`]
-{here provide the output of the task}
+[Input Name from rewritten task]: {input name wrapped in square brackets}
+{here provide the explanation of the first input, using the specific input name and description provided by the given `[GivenTask]`}
+
+[Additional Input Name from rewritten task if exists]: 
+{here provide the explanation of the first input, using the specific input name and description provided by the given `[GivenTask]`}
+
+[Output Name from rewritten task]: 
+{here provide the explanation of the first input, using the specific input name and description provided by the given `[GivenTask]`}
+
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
+$TemplateEnd$
 
 Follow the steps outlined in the `[Methodology]`. Think step by step, and reason comprehensively for each step. 
 $TemplateEnd$
 
-
-**GivenTask**
-given a set of requriements, the requriements engineer will use dependency analysis methodogoy to analyse the requirements, and find potentiall problems.
-
-**TaskOutput**
-{here is a domain-specific task prompt}
-
-
-- Task Objective: Analyze a given user requirement to determine the current phase in the requirements engineering process and decide on the appropriate methodology to advance the requirement development.
-- Task Context: In the initial phase of the requirements engineering process, a user may provide only a vague and broad statement of what they need, often summarized in a single sentence. This lack of detail necessitates a phase where the requirement engineer must engage deeply with the user, asking critical questions to uncover more specific requirements. The goal is to expand this initial, broad requirement into a more detailed and structured set of requirements that can guide the development process.
-- Task Inputs: A simple, rough idea or requirement from the user, typically expressed in a single sentence.
-- Task Outputs: A list of detailed requirement entries that have been clarified and expanded through interaction with the user, marking the transition from an initial vague idea to a structured set of requirements ready for further development.
+[GivenTask]
+- Task Objective: To detect completeness and correctness in given functional requirements through dependency analysis.
+- Task Context: The process involves transforming how functional requirements are articulated to clearly depict the activities they perform along with their required inputs and expected outputs. This methodology is crucial for identifying any deficiencies or inaccuracies within the requirements.
+- Task Methodology: Input and Output Analysis
+  - Description: This approach entails reviewing each functional requirement to determine the activity it performs, the input it requires, and the output it produces. It acknowledges that a functional requirement might not require an input or produce an output, focusing solely on the activity involved. The main goal is to convert the way functional requirements are presented, ensuring they accurately reflect the associated activities, inputs, and outputs.
+- Task Inputs:
+  - [Functional Requirement]:
+    - Description: A detailed specification of what the system or process should do. It includes the activity the requirement performs, and potentially, the input it needs and the output it generates.
+- Task Outputs:
+  - [Transformed Functional Requirements]:
+    - Description: Functional requirements that have been rewritten to clearly articulate the activity they involve, and when applicable, their required inputs and expected outputs. This transformation aims at ensuring the requirements are both complete and correct.

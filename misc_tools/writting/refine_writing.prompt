@@ -93,16 +93,49 @@ $WrittingStart$
 ```
 - Task Objective: The objective of the task.
 - Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
-- Task Inputs: The input or inputs required for the objective
-- Task Outputs: The desired outcome or result of the task.
+- Task Methodology: Here is the methodology or algorithm name mentioned by the user to solve the task.
+  - Description: Detailed process of the algorithms or methodogoy used to achieve the objective.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Squared brackets wrapped short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Squared brackets wrapped short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
 ```
 $WrittingEnd$
 
 
 [UserRequest]
 $start$
-I would like to slightly modify the structure a bit about the "Task Inputs" and "Task Outputs" section. I would like to make it like Task input will be a short name of the input, and a description of the input. Since the input can be one and more, so the improved structure should reflect this. The Task Outputs should be only one output.Follow the same structure as input. Still a short name of the output, and explanation of the output.
-Ta
+I would like to add a section called example under the Description of the Task Methodology.
+
+The Example will be about the using one example to  demonstrate the algorithm or the methodogoy.
+Task Methodology:
+  - Description
+  - Example: ...
+
 $end$
+
+
+
+
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Methodology: Here is the methodology or algorithm name mentioned by the user to solve the task.
+  - Description: Detailed process of the algorithms or methodology used to achieve the objective.
+  - Example: This section provides a detailed example to demonstrate the application of the described methodology or algorithm. Starting with a specific scenario, such as a set of requirements, the example then applies the methodology to this scenario. For instance, in a dependency analysis algorithm, we begin with a defined set of requirements. The example then demonstrates step-by-step how the dependency analysis algorithm processes these requirements to identify all dependencies among them, detailing the logic and decision-making processes involved. This practical demonstration aims to showcase the effectiveness and application of the methodology in addressing specific aspects of the scenario to achieve the task's objective.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Squared brackets wrapped short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Squared brackets wrapped short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+
+
+
+
+
 
 
