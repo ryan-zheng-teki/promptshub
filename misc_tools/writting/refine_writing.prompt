@@ -91,48 +91,28 @@ Please follow the steps defined in the `[Procedure]` section. Your output should
 $WrittingStart$
 [TaskTemplateStructure]
 ```
-- Task Objective: The objective of the task.
-- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
-- Task Methodology: Here is the methodology or algorithm name mentioned by the user to solve the task.
-  - Description: Detailed process of the algorithms or methodogoy used to achieve the objective.
-- Task Inputs: For each required input, include the following:
-  - [Input Name]: Squared brackets wrapped short name of the input.
-    - Description: A detailed description of the input.
-  (Repeat the above block for each additional input as necessary.)
-- Task Outputs: 
-  - [Output Name]: Squared brackets wrapped short name of the output.
-    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+- **Task Objective**: The goal is to restructure functional requirements into a specific, clear template format that outlines inputs, processes, and outputs related to those requirements.
+  
+- **Task Context**: This methodology is introduced to standardize the way functional requirements are documented, ensuring clarity and consistency. It's particularly useful for identifying and articulating the specific inputs and outputs associated with each requirement, as well as describing the process or functionality that links them. This approach is vital for requirements that have clear inputs and outputs, but it also accommodates requirements without such elements by noting them as none.
+
+- **Task Methodology**: Input and Output Analysis.
+  - **Description**: This methodology involves transforming each functional requirement into a structured format. This format specifies the inputs required for the requirement, the process or functionality that occurs in response to these inputs, and the outputs or results produced by this process. If a requirement lacks inputs or outputs, these sections are marked as none, ensuring the format remains consistent across all requirements.
+
+- **Task Inputs**:
+  - **[Functional Requirements]**:
+    - **Description**: The set of functional requirements provided by the user. These requirements describe the specific functionalities or behaviors that a system or component must be able to perform.
+
+- **Task Outputs**:
+  - **[Structured Functional Requirements]**:
+    - **Description**: A set of functional requirements restructured into the specified template format. Each requirement will be clearly defined with its inputs, process, and outputs, or marked as none if it lacks inputs or outputs.
 ```
 $WrittingEnd$
 
 
 [UserRequest]
 $start$
-I would like to add a section called example under the Description of the Task Methodology.
-
-The Example will be about the using one example to  demonstrate the algorithm or the methodogoy.
-Task Methodology:
-  - Description
-  - Example: ...
 
 $end$
-
-
-
-
-- Task Objective: The objective of the task.
-- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
-- Task Methodology: Here is the methodology or algorithm name mentioned by the user to solve the task.
-  - Description: Detailed process of the algorithms or methodology used to achieve the objective.
-  - Example: This section provides a detailed example to demonstrate the application of the described methodology or algorithm. Starting with a specific scenario, such as a set of requirements, the example then applies the methodology to this scenario. For instance, in a dependency analysis algorithm, we begin with a defined set of requirements. The example then demonstrates step-by-step how the dependency analysis algorithm processes these requirements to identify all dependencies among them, detailing the logic and decision-making processes involved. This practical demonstration aims to showcase the effectiveness and application of the methodology in addressing specific aspects of the scenario to achieve the task's objective.
-- Task Inputs: For each required input, include the following:
-  - [Input Name]: Squared brackets wrapped short name of the input.
-    - Description: A detailed description of the input.
-  (Repeat the above block for each additional input as necessary.)
-- Task Outputs: 
-  - [Output Name]: Squared brackets wrapped short name of the output.
-    - Description: A detailed explanation of the output. (Designed for only one output per task.)
-
 
 
 

@@ -1,0 +1,13 @@
+version 1. Optimize a prompt is just optimizing the different sections of the prompt.
+Role&Objective,
+
+- Task Objective: Optimize a prompt for large-language models to enhance its effectiveness in directing the model to fulfill a specific task.
+- Task Context: A prompt is a structured set of instructions that guides a large-language model in performing tasks. It includes sections such as role and objective, context, criteria, and procedure. Optimizing a prompt involves refining these sections according to best practices to improve the model's performance.
+- Task Methodology: Prompt-Optimate
+  - Description: The methodology involves analyzing and refining the four main sections of a prompt—row and objective, context, criteria, and procedure. Each section is optimized according to established best practices, such as clarity of instruction, relevance of context, specificity of criteria, and detail of procedure, to make the prompt more effective for large-language models.
+- Task Inputs:
+  - [Current Prompt Structure]:
+    - Description: The existing prompt that needs optimization, including its current row and objective, context, criteria, and procedure sections.
+- Task Outputs:
+  - [Optimized Prompt]:
+    - Description: A revised version of the prompt with enhancements in its structure and content, including clearer objectives, more relevant context, specific criteria, and a detailed procedure to guide the large-language model more effectively.
