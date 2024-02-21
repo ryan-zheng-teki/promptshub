@@ -1,0 +1,23 @@
+Layout Structure:
+- Navigation Selection Box: Positioned at the top, replacing the navigation bar. It includes a dropdown menu to select between EPDs, Vendor Product Routes, and Grades. The current section is displayed prominently in the box, indicating the active view.
+- Main Content Area: Divided into List View and Detail View.
+  - List View: Displays entries with "Edit" and "Add New" buttons.
+  - Detail View: Form for adding or editing entries, with a "View Changes" button.
+- Change Preview Modal: Pops up to show changes or new item details, including emissions, with a "Confirm the Change" button.
+- Footer: Contains application info and support links.
+
+Visual Design:
+- Color Scheme: Primary (deep blue #0052cc), Secondary (soft gray #f4f5f7), Accent (vibrant green #4CAF50), Errors (red #f44336), Warnings (orange #ff9800).
+- Typography: Primary Font 'Roboto', sans-serif; Secondary Font 'Montserrat', sans-serif. Headings 24px to 18px, Body text and inputs 16px.
+- Interactive Elements: Buttons with shadow and transition effects; Input fields highlight on focus; Modal with transparent background.
+
+Interactive Elements and Functionalities:
+- Navigation Selection Box: Allows for easy switching between sections via dropdown, clearly shows the current section.
+- List View: Shows entries, "Edit" loads item for editing, "Add New" for new entries.
+- Detail View: Form for entry details, "View Changes" to preview modifications.
+- Change Preview Modal: Shows before/after for edits or new item details, includes "Confirm the Change" button for finalizing.
+- Responsive Feedback: Immediate visual feedback for user actions.
+- Validation and Error Handling: Inline validation and error feedback in forms.
+- Progressive Disclosure: Reveals additional information as needed.
+- Confirmation and Alerts: Confirms data-changing actions, provides success or error messages.
+

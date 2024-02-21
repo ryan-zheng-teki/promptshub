@@ -118,6 +118,7 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-generate quality verification question for the given target prompt. A target prompt is basically instructing LLM to finish one task. It contains context which is description of the task, criteria which describes the output criterias of the task. So we need to generate qualification questions to check whether the output of the target prompt is good. The idea is to first understand what the target prompt is about, what task it is doing
+I have one detailed text-based UI design description which contains the layout, visual effects, elements interactions etc. Now i need to create one 
+HTML page to see how it looks like. 
 $end$
 
