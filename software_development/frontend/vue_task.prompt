@@ -177,7 +177,6 @@ $start$
 $end$
 
 
-
 In this task, you are the best full-stack developer on earth proficient in Vue3, Python, and TypeScript. Please refer to the requirements provided between the `$start$` and `$end$` tokens in the `[Requirement]` section.
 
 [Criteria]
@@ -213,145 +212,23 @@ src
 
 [Requirement]
 $start$
-I have implemented src/componnents/workflow/WorkflowStepDetails.vue
-```
-<template>
-  <!-- Slide-down Panel for Selected Step Details -->
-  <transition name="slide-fade">
-    <div v-if="selectedStep" class="selected-step-details">
-      <h3>Selected Step: {{ selectedStep.name }}</h3>
-      
-      <!-- Prompt Editor Integration -->
-      <div v-if="selectedStep.prompt_template" class="prompt-editor-section">
-        <h4>Edit Prompt:</h4>
-        <PromptEditor :template="selectedStep.prompt_template" />
-        
-        <!-- Show Search Code Context button based on allow_code_context_building -->
-        <button v-if="showSearchContextButton" @click="searchCodeContext" class="search-context-button">Search Code Context</button>
-        
-        <!-- Show Refine Requirement button based on allow_llm_refinement -->
-        <button v-if="showRefineRequirementButton" class="refine-requirement-button">Refine Requirement</button>
-      </div>
-
-      <!-- Search Results Section -->
-      <div class="search-results-section">
-        <h4>Search Results:</h4>
-        <CodeSearchResult v-for="code_entity in processedSearchData" :key="code_entity.entity.file_path" :snippet="code_entity.entity.docstring" />
-      </div>
-
-      <button @click="startExecution" class="start-execution-button">Start Execution</button>
-      <p data-test-id="execution-status">Execution Status: {{ executionStatus }}</p>
-      
-      <!-- Integration of the ExecutionLogsPanel component -->
-      <ExecutionLogsPanel :logs="executionLogs" />
-    </div>
-  </transition>
-</template>
-  
-<script setup lang="ts">
-import { inject, Ref, ref, computed, watch } from 'vue';
-import PromptEditor from '../prompt/PromptEditor.vue';
-import CodeSearchResult from './CodeSearchResult.vue';
-import ExecutionLogsPanel from './ExecutionLogsPanel.vue';
-import { useQuery } from "@vue/apollo-composable";
-import { SearchCodeEntities } from "../../graphql/queries";
-import type { SearchCodeEntitiesQuery as SearchCodeEntitiesQueryType, SearchCodeEntitiesQueryVariables }  from "../../generated/graphql";
-
-import type { Step } from '../../types/Workflow';
-import type { SearchResult, ScoredEntity, CodeEntity } from '../../types/code_entities';
-import { deserializeSearchResult } from '../../utils/JSONParser';
-
-const selectedStep = inject<Ref<Step | null>>('selectedStep')!;
-const executionStatus = ref('Not Started');
-const executionLogs = ref('');
-
-const processedSearchData = ref<ScoredEntity<CodeEntity>[]>([]);
-
-const { result: rawSearchData, loading: searchLoading, error: searchError } = useQuery<SearchCodeEntitiesQueryType, SearchCodeEntitiesQueryVariables>(
-  SearchCodeEntities, 
-  { query: "dummy_query" }
-);
-
-// Automatically process data once it's fetched
-watch(rawSearchData, () => {
-  console.log("changed Console", rawSearchData)
-  if (rawSearchData.value) {
-    const parsedSearchResult: SearchResult = deserializeSearchResult(rawSearchData.value.searchCodeEntities);
-    console.log("parsed result", parsedSearchResult)
-    processedSearchData.value = parsedSearchResult.entities;
+I have a graphql query
+query GetAllEPDs {
+  getAllEPDs {
+    vendor_id
+    article_id
+    article_family_id
+    source_system
+    pcf_value_kg_kg
+    is_balanced
+    created_at
+    updated_at
+    valid_from
+    valid_until
   }
-});
+}
 
-const searchCodeContext = () => {
-  if (searchError.value) {
-    console.error("Error while searching for code entities:", searchError.value);
-  }
-};
-
-const startExecution = () => {
-  executionStatus.value = 'Running';
-  // ... rest remains unchanged ...
-};
-
-// Computed properties remain unchanged
-const showSearchContextButton = computed(() => {
-  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_code_context_building);
-});
-
-const showRefineRequirementButton = computed(() => {
-  return selectedStep.value?.prompt_template.variables.some(variable => variable.allow_llm_refinement);
-});
-</script>
-```
-The searchCodeContext is only a demo code not implemented yet.
-We have a PromptEditor implemented to allow user to edit the prompt 
-template variable in file src/components/prompt/PromptEditor.vue implemented
-```
-<template>
-  <div class="prompt-editor">
-    <Collapsible>
-      <ResizableTextArea 
-          v-model="entirePrompt" 
-          class="entire-prompt-editor"
-      />
-    </Collapsible>
-
-    <Collapsible>
-      <div 
-          v-for="promptTemplateVariable in promptTemplateVariables" 
-          :key="promptTemplateVariable.name" 
-          class="input-container">
-        <label :for="promptTemplateVariable.name">{{ promptTemplateVariable.name }}</label>
-        <ResizableTextArea 
-            v-model="values[promptTemplateVariable.name]" 
-            :placeholder="promptTemplateVariable.name" 
-            class="placeholder-input"
-        />
-      </div>
-    </Collapsible>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref, computed } from 'vue';
-import Collapsible from '../utils/Collapsible.vue';
-import ResizableTextArea from '../utils/ResizableTextArea.vue';
-import type { PromptTemplate } from '../../types/Workflow';
-
-const props = defineProps<{ template: PromptTemplate }>();
-const entirePrompt = ref(props.template.template);
-const promptTemplateVariables = computed(() => 
-  props.template.variables.filter(variable => variable.source === 'USER_INPUT')
-);
-const values: { [key: string]: string } = ref({});
-
-</script>
-```
-The searchCodeContext button will actually use the value input by the user in the 
-prompt variable editor. There is actually only one prompt variable which supports 
-search code context. 
-
-understanding existing given code thoroughly before addressing requirement.
+Now i need to create a store similar to the following one.
 $end$
 
 
@@ -367,41 +244,3 @@ $end$
 
 
 
-
-
-**Step 1: Component Design and Architecture**
-- Utilize TypeScript to adhere to Vue3 and component design best practices.
-- Organize components for a modular and logical structure.
-- Clearly define data representation for each component, including props, data, and computed properties.
-- Ensure proper communication between components using props, custom events, and the EventBus when needed.
-- Design components for reusability and composability.
-- Configure the application's architecture, including router setup and store initialization (using Vuex or Pinia).
-- Manage routes, navigation guards, and route handling based on the app's needs.
-
-**Step 2: Efficient Data Management and Interaction**
-- Use Vuex, Pinia, or other libraries for optimal data communication and state management between components.
-- Keep components presentation-focused by moving business logic to stores.
-- Utilize reactivity and computed properties for dynamic updates without redundant re-renders.
-- Handle asynchronous actions with async/await and manage API calls in stores or separate service modules.
-- Apply Vue3's Composition API to manage complex logic and side effects.
-- Employ custom hooks or utilities for shared functionality.
-
-**Step 3: Style Implementation and Aesthetics**
-- Ensure a responsive and mobile-friendly design for a seamless user experience across devices.
-- Adhere to a consistent design system, covering typography, color schemes, and spacing.
-- Use modern CSS methodologies like BEM, SMACSS, or CSS Modules for maintainability.
-- Consider CSS preprocessors like SCSS for advanced styling and better management.
-- Add animations and transitions for enhanced user interactions.
-- Optimize style performance with techniques such as flexbox or grid layout.
-
-**Step 4: Testing and Quality Assurance**
-- Cover key components, functions, and modules with unit tests using frameworks like Jest.
-- Ensure component and application integration with tools like Cypress or Vue Test Utils.
-- Conduct end-to-end tests for overall application functionality.
-- Test for accessibility to cater to users with disabilities.
-- Monitor testing suite effectiveness with code coverage tools and refine as necessary.
-- Regularly review the codebase for optimization opportunities and quality improvements.
-
-After completing each step, await further instructions before proceeding. At the beginning of steps 2 onward, review your previous work, understand any unfinished parts, and then proceed with the current step.
-
-Now wait for me to give you the requirement
