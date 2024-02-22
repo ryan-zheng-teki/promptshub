@@ -1,8 +1,8 @@
-Thank you for your submission. I am now executing this step to understand and restructure your provided information into the clear, well-written format you requested, according to the TaskTemplateStructure. Let's begin by breaking down the original voice-generated text to ensure all relevant details are retained and accurately presented.
+Task Template. 
 
 - **Task Objective**: The goal is to restructure functional requirements into a specific, clear template format that outlines inputs, processes, and outputs related to those requirements.
   
-- **Task Context**: This methodology is introduced to standardize the way functional requirements are documented, ensuring clarity and consistency. It's particularly useful for identifying and articulating the specific inputs and outputs associated with each requirement, as well as describing the process or functionality that links them. This approach is vital for requirements that have clear inputs and outputs, but it also accommodates requirements without such elements by noting them as none.
+- **Task Context**: This methodology is introduced to standardize the way functional requirements are documented, ensuring clarity and consistency. It's particularly useful for identifying and articulating the specific inputs and outputs associated with each requirement, as well as describing the process or functionality that links them. This approach is vital for requirements that have clear inputs and outputs but also accommodates requirements without such elements by noting them as none.
 
 - **Task Methodology**: Input and Output Analysis.
   - **Description**: This methodology involves transforming each functional requirement into a structured format. This format specifies the inputs required for the requirement, the process or functionality that occurs in response to these inputs, and the outputs or results produced by this process. If a requirement lacks inputs or outputs, these sections are marked as none, ensuring the format remains consistent across all requirements.
@@ -10,18 +10,44 @@ Thank you for your submission. I am now executing this step to understand and re
 - **Task Inputs**:
   - **[Functional Requirements]**:
     - **Description**: The set of functional requirements provided by the user. These requirements describe the specific functionalities or behaviors that a system or component must be able to perform.
+  - **[Template for Rewriting Functional Requirements]**:
+    - **Description**: The predefined structure or format that will be used to rewrite the functional requirements. This template outlines how to structure the inputs, processes, and outputs for each requirement, ensuring consistency and clarity in the documentation process.
 
 - **Task Outputs**:
   - **[Structured Functional Requirements]**:
     - **Description**: A set of functional requirements restructured into the specified template format. Each requirement will be clearly defined with its inputs, process, and outputs, or marked as none if it lacks inputs or outputs.
 
-This structured approach not only facilitates a better understanding of each functional requirement but also aids in their systematic analysis and implementation. Now, let's proceed to the next step.
+Prompt:
+**Role & Objective**:
+You are a Requirements Engineer. Your task is to transform functional requirements into a structured template format, clearly defining inputs, processes, and outputs.
 
+**Context**:
+This task aims to standardize the documentation of functional requirements to ensure clarity and consistency. It's vital for requirements with distinct inputs and outputs and is adaptable for those without, marking them as none.
 
+**Criteria**:
+1. Clarity and Consistency: Ensure the documentation is clear and follows the specified template.
+2. Completeness: Cover all aspects of each requirement, including inputs, process, and outputs.
+3. Accuracy: Accurately reflect the original functional requirements in the structured format.
+4. Adherence to the Template: Strictly follow the predefined template guidelines.
 
+**Procedure**:
+1. Analyze the provided `[Functional Requirements]`.
+2. Use the `[Template for Rewriting Functional Requirements]` to structure each requirement.
+3. For requirements without clear inputs or outputs, mark these sections as none.
+4. Ensure the `[Structured Functional Requirements]` are documented according to the criteria
 
-3. **Input(s)**: Description of the input(s) required for the requirement, including the source of each input.
+**[Functional Requirements]**
+{A collection of functional requirements specifying the behaviors a system or component must exhibit.}
 
-4. **Process**: Detailed description of the process or functionality that occurs in response to the trigger.
+**[Template for Rewriting Functional Requirements]**
+{A predefined template detailing how to document the inputs, processes, and outputs for each requirement.}
 
-5. **Output**: The expected result or effect produced by the action.
+**[Structured Functional Requirements]**
+{Functional requirements reformatted into the specified template, each clearly outlined with inputs, processes, outputs, or marked as none where applicable.}
+
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
+$TemplateEnd$
+
+**Step 8: Ask for user feedback regarding the created prompt.**
+
+I am now executing this step by asking for your feedback. Could you please provide feedback on the prompt crafted based on your request? This will help ensure it meets your expectations and requirements.
