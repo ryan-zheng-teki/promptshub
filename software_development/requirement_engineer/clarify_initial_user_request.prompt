@@ -78,7 +78,7 @@ Functional Requirements: [Requirement entries]
 ```
 
 [OutputRules]
-- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
+- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. 
 - Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
 - Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
@@ -88,11 +88,28 @@ Follow the steps defined by the `Procedure` section.  The output for each step s
 
 
 [UserRequirement]
- implement a Vue 3 web page using Nuxt.js, which involves specific functionalities for managing three different backend items: EPDs, vendor product routes, and grades. This setup will enable you to display a list of all available entries for each type of item, allowing you to select one item to either edit or add a new one for each category. In addition to these functionalities, after selecting an item to edit, you'll present an edit view where users can make changes. Before submitting these changes, a "view changes" button will allow users to send a trigger to the backend, which in turn will show what has been modified, including a change in view and other parameters like emission changes. This same mechanism applies when adding a new item; the backend will provide an overview of what has been added, including the emissions for the newly added item. After reviewing their changes and the associated emission impacts, users will have the option to confirm their modifications through a "confirm the change" button, finalizing their input.
+Application Type: Python Library
+Application Summary: A Python library that uses RPA to interact with chat UIs provided by different companies, automating the process of entering prompts and retrieving responses.
+Frameworks and Libraries:
+- Playwright Python: Used for automating web browsers to interact with the chat UIs.
+Functional Requirements:
+- The library must simulate human-like interaction with the chat UIs, such as typing prompts into the chat box and clicking buttons to send or retrieve messages.
+- The library must support all basic functionalities of the following chat UIs: ChatGPT, Claudi.ai, and Mistral, such as sending and receiving messages.
+- The library must determine whether a response is completed or not by monitoring the web UI for the presence of a copy button. If the copy button is present, the response is complete; if not, the library should continue monitoring the web UI until the copy button appears.
+- The library must utilize all relevant features of Playwright Python for automating web browsers, such as navigating to URLs, interacting with web elements, and monitoring web events.
+
 
 
 
 Build one RPA to book one train ticket on website https://www.12306.cn/index/
+
+
+
+
+implement a Vue 3 web page using Nuxt.js, which involves specific functionalities for managing three different backend items: EPDs, vendor product routes, and grades. This setup will enable you to display a list of all available entries for each type of item, allowing you to select one item to either edit or add a new one for each category. In addition to these functionalities, after selecting an item to edit, you'll present an edit view where users can make changes. Before submitting these changes, a "view changes" button will allow users to send a trigger to the backend, which in turn will show what has been modified, including a change in view and other parameters like emission changes. This same mechanism applies when adding a new item; the backend will provide an overview of what has been added, including the emissions for the newly added item. After reviewing their changes and the associated emission impacts, users will have the option to confirm their modifications through a "confirm the change" button, finalizing their input.
+
+
+
 
 
 Version 3: With shorter, Context with emphasize that security,testing, balbal should not be the focus of the ambiguities analaysis step.
@@ -164,7 +181,45 @@ Functional Requirements:
 5. Error Handling: Report any errors encountered during the booking process to the user via the command line.
 
 
+Application Type: Python Library
+Application Summary: A Python library that uses RPA to interact with chat UIs provided by different companies, automating the process of entering prompts and retrieving responses.
+Frameworks and Libraries:
+- Playwright Python: Used for automating web browsers to interact with the chat UIs.
+Functional Requirements:
+- The library must be capable of automating the process of entering prompts into the chat box and retrieving responses from the chat UIs provided by different companies.
+- The library must support interaction with the following chat UIs: ChatGPT, Claudi.ai, and Mistral.
+- The library must use Playwright Python for automating web browsers.
 
 
-Here is final presented functioanl requriement. 
-1. Utilize the LLM library to automate the entire train ticket booking process, including selecting the train route, date, time, and seat preferences.
+
+Application Type: Python Library
+Application Summary: A Python library that uses RPA to interact with chat UIs provided by different companies, automating the process of starting new conversations, entering prompts, and retrieving responses using an abstraction layer over Playwright Python.
+Frameworks and Libraries:
+- Playwright Python: Used for automating web browsers to interact with the chat UIs, providing an abstraction layer to simplify tasks across different chat UIs.
+Functional Requirements:
+- The library must automate the process of starting new conversations by interacting with buttons on the web UI, entering prompts into the chat box, and retrieving responses from the chat UIs provided by different companies.
+- The library must support interaction with the following chat UIs: ChatGPT, Claudi.ai, and Mistral, with no current requirement for extensibility to additional chat UIs.
+- The library must use Playwright Python for automating web browsers, and it should provide an abstraction layer to simplify interactions across different chat UIs, making it easier for developers to automate conversations without needing detailed knowledge of each UI's specifics.
+
+
+
+Application Type: Python Library
+Application Summary: A Python library that uses RPA to interact with chat UIs provided by different companies, automating the process of entering prompts and retrieving responses.
+Frameworks and Libraries:
+- Playwright Python: Used for automating web browsers to interact with the chat UIs.
+Functional Requirements:
+- The library must simulate human-like interaction with the chat UIs, such as typing prompts into the chat box and clicking buttons to send or retrieve messages.
+- The library must support all basic functionalities of the following chat UIs: ChatGPT, Claudi.ai, and Mistral, such as sending and receiving messages.
+- The library must determine whether a response is completed or not by monitoring the web UI for the presence of a copy button. If the copy button is present, the response is complete; if not, the library should continue monitoring the web UI until the copy button appears.
+- The library must utilize all relevant features of Playwright Python for automating web browsers, such as navigating to URLs, interacting with web elements, and monitoring web events.
+
+
+Application Type: Python Library
+Application Summary: A Python library that uses RPA to interact with chat UIs provided by different companies, automating the process of entering prompts and retrieving responses.
+Frameworks and Libraries:
+- Playwright Python: Used for automating web browsers to interact with the chat UIs.
+Functional Requirements:
+- The library must simulate human-like interaction by mimicking the way a human user would interact with the chat UI. This includes typing text into the input box at a human-like speed, pausing between keystrokes, and clicking the send button instead of triggering the message sending event directly.
+- The library must support the core features of the following chat UIs: ChatGPT, Claudi.ai, and Mistral. These features include typing and sending messages, receiving and displaying responses, and possibly other common features like attaching files or images.
+- The library must determine whether a response is completed or not by monitoring the web UI for the presence of a copy button. If the copy button is present, the response is complete; if not, the library should continue monitoring the web UI until the copy button appears.
+- The library must utilize the necessary features of Playwright Python for automating web browsers. This includes navigating to URLs, clicking buttons, typing into input fields, and monitoring web events.

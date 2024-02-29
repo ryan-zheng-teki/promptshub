@@ -132,6 +132,5 @@ $start$
 - **Task Outputs**:
   - **[Structured Functional Requirements]**:
     - **Description**: A set of functional requirements restructured into the specified template format. Each requirement will be clearly defined with its inputs, process, and outputs, or marked as none if it lacks inputs or outputs.
-
 $end$
 

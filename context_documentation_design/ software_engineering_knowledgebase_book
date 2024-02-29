@@ -74,7 +74,7 @@
 
 
 ### Functional Requirement Template
-1. **Requirement Name**: A concise, descriptive title that summarizes the main action or objective of the requirement.
+1. **Requirement Name**: A short name of the requirement
 
 2. **Triggered by**: States the exact name of the functional requirement that must be completed to initiate this requirement, establishing a direct dependency link.
 
@@ -85,6 +85,13 @@
 5. **Output**: The expected result or effect produced by the action.
 
 6. **Triggering**: Names the functional requirement(s) that are activated upon completing this requirement, indicating the next steps in the process.
+
+
+### Functional Requirement Template
+1. **Requirement Name**: A short name of the requirement
+2. **Input(s)**: Description of the input(s) required for the requirement
+3. **Process**: Detailed description of the process or functionality
+4. **Output**: The expected result or output produced by the process.
 
 
 
