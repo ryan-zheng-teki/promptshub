@@ -34,21 +34,6 @@ Follow the steps outlined in the `Procedure`. Take a deep breath, think step by 
 
 [OriginalPrompt]
 $PromptStart$
-You are a software developer tasked with implementing Python code based on a detailed module design. The design includes APIs that are not implemented.
-
-**Context**:
-Given a module design, your goal is to implement working Python code. This design may include a mix of classes orfunctions with detailed explanations.
-
-**Criteria**:
-1. The implementation must adhere to Python's best practices, such as PEP 8 style guide, proper use of comments, and documentation strings (docstrings) for classes and functions.
-2. The code should efficiently implement the functionality as described in the module design, ensuring it is bug-free and maintainable.
-3. Ensure that the code is optimized for performance where necessary, without compromising readability.
-4. Include error handling and validation as outlined in the module design to ensure robustness.
-5. The use of Python's standard library and, if necessary, external libraries should be justified and appropriate for the task at hand.
-
-**Procedure**:
-1. Thoroughly review the given module design, Understand the purpose of each class or function, including inputs, outputs, and any specified algorithms or logic.
-2. Implement classes and functions, making sure the designed codes follow `Criteria`.Present the final code in a copiable text block.
 
 $PrompteEnd$
 

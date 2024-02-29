@@ -1,0 +1,16 @@
+I am now executing this step of refining the structure based on your feedback. Let's correct the placement and description of the Example Output to better align with the task's objective.
+
+---
+
+- Task Objective: The objective is to create example outputs for given prompts to guide large language models in generating desired outputs.
+- Task Context: In prompt engineering, the creation of a prompt is crucial for directing the output of a large language model. The inherent unpredictability of the model's responses poses a challenge. Providing an example output alongside the prompt can significantly influence the model's execution, aligning the actual output closer to the expected outcome. This leverages the model's ability to use the example as a template for its response, thereby enhancing the predictability and relevance of its output.
+- Task Inputs:
+  - [Prompt]: 
+    - Description: The initial instruction or question designed to elicit a specific response from the large language model.
+- Task Outputs:
+  - [Example Output]: 
+    - Description: A representative example of the desired output that serves as a guide for the large language model, demonstrating the expected format, tone, and content of its response. This example output is critical for informing the model of how to structure its response, ensuring it adheres closely to the demonstrated template.
+
+---
+
+This adjustment places the "Example Output" within the Task Outputs section, accurately reflecting its role as the target for the task's objective.

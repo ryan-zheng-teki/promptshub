@@ -63,10 +63,10 @@ $TemplateStart$
 [Output Name from rewritten task]: 
 {here provide the explanation of the first input, using the specific input name and description provided by the given `[GivenTask]`}
 
-Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
+Follow the algorithm or methodogoy described in the `[Methodology]` section. 
 $TemplateEnd$
 
-Follow the steps outlined in the `[Methodology]`. Think step by step, and reason comprehensively for each step. 
+Follow the algorithm or methodogoy described in the `[Methodology]` section. 
 $TemplateEnd$
 
 [GivenTask]
