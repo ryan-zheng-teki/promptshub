@@ -1,79 +1,34 @@
-Task Template. 
-- **Task Objective**: The goal is to restructure functional requirements into a specific, clear template format that outlines inputs, processes, and outputs related to those requirements.
-  
-- **Task Context**: This methodology is introduced to standardize the way functional requirements are documented, ensuring clarity and consistency. It's particularly useful for identifying and articulating the specific inputs and outputs associated with each requirement, as well as describing the process or functionality that links them. This approach is vital for requirements that have clear inputs and outputs but also accommodates requirements without such elements by noting them as none.
-
-- **Task Methodology**: Input and Output Analysis.
-  - **Description**: This methodology involves transforming each functional requirement into a structured format. This format specifies the inputs required for the requirement, the process or functionality that occurs in response to these inputs, and the outputs or results produced by this process. If a requirement lacks inputs or outputs, these sections are marked as none, ensuring the format remains consistent across all requirements.
-
-- **Task Inputs**:
-  - **[Functional Requirements]**:
-    - **Description**: The set of functional requirements provided by the user. These requirements describe the specific functionalities or behaviors that a system or component must be able to perform.
-  - **[Template for Rewriting Functional Requirements]**:
-    - **Description**: The predefined structure or format that will be used to rewrite the functional requirements. This template outlines how to structure the inputs, processes, and outputs for each requirement, ensuring consistency and clarity in the documentation process.
-
-- **Task Outputs**:
-  - **[Structured Functional Requirements]**:
-    - **Description**: A set of functional requirements restructured into the specified template format. Each requirement will be clearly defined with its inputs, process, and outputs, or marked as none if it lacks inputs or outputs.
-
-Prompt:
+Version 1:
 **Role & Objective**:
-You are a Requirements Engineer. Your task is to transform functional requirements into a structured template format, clearly defining inputs, processes, and outputs.
-
-**Context**:
-This task aims to standardize the documentation of functional requirements to ensure clarity and consistency. It's vital for requirements with distinct inputs and outputs and is adaptable for those without, marking them as none.
-
-**Criteria**:
-1. Clarity and Consistency: Ensure the documentation is clear and follows the specified template.
-2. Completeness: Cover all aspects of each requirement, including inputs, process, and outputs.
-3. Accuracy: Accurately reflect the original functional requirements in the structured format.
-4. Adherence to the Template: Strictly follow the predefined template guidelines.
-
-**Procedure**:
-1. Analyze the provided `[Functional Requirements]`.
-2. Use the `[Template for Rewriting Functional Requirements]` to structure each requirement.
-3. For requirements without clear inputs or outputs, mark these sections as none.
-4. Ensure the `[Structured Functional Requirements]` are documented according to the criteria
-
-**[Functional Requirements]**
-
-
-**[Template for Rewriting Functional Requirements]**
-1. **Requirement Name**: A short name of the requirement
-2. **Input(s)**: Description of the input(s) required for the requirement
-3. **Process**: Detailed description of the process or functionality
-4. **Output**: The expected result or output produced by the process.
-
-
-**[Structured Functional Requirements]**
-{Functional requirements reformatted into the specified template, each clearly outlined with inputs, processes, outputs, or marked as none where applicable.}
-
-Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
-
-
-
-Version 2:
-**Role & Objective**:
-As a Requirements Engineer, your objective is to analyze the given functional requirements and restructure them according to the specified `[FunctionalRequirementTemplate format]`.
+As a Requirements Engineer, your objective is to analyze the given functional requirements and restructure them according to the specified format provided by `[FunctionalRequirementTemplate]`.
 
 **Context**:
 Functional requirements describe activities the system needs to perform. Each requirement can have inputs, outputs or both. Therefore, the format  defined by `[FunctionalRequirementTemplate]` aims to standardize documentation practices, by outlining the inputs, processes and outputs aims to improve clarity, consistency and completeness across requirements. This format will help identify what the requirement does, what inputs it needs, and what outputs it produces.
 
 [FunctionalRequirementTemplate]:
-1. **Requirement Name**: A short name of the requirement
-2. **Input(s)**: Description of the input(s) required for the requirement. Mark as None if no input.
-3. **Process**: Detailed description of the process or functionality
-4. **Output**: The expected result or output produced by the process. Mark as none if no output.
+$TemplateStart$
+**Requirement Name**: A short name for the requirement.
+
+**Inputs**: For each required input, include the following:
+   [Name of Input]: 
+     - Description: A detailed description of the input, specifying its nature and how it is to be used.
+
+**Processes**: For each process, include the following:
+   - Description: A detailed explanation of a single, atomic process action. This section can contain multiple entries, each describing one atomic process. Ensure each process is clearly defined, focusing on one action per process.
+     - Note: If a process has associated inputs or outputs, briefly mention them in its description.
+
+**Outputs**: For each output, include the following:
+   [Name of Output]: 
+     - Description: A detailed description of the output, including what it represents and how it is generated.
+$TemplateEnd$
 
 **Criteria**:
-1. **Clarity**: Each requirement must be documented in a way that is easily understandable, avoiding technical jargon or ambiguity.
-2. **Consistency**: The structured template must be used uniformly across all requirements, ensuring a standardized documentation approach.
-3. **Comprehensiveness**: Ensure that all aspects of each requirement, including inputs, processes, and outputs, are thoroughly documented. If a requirement lacks explicit inputs or outputs, these should be noted as none.
+1. **Comprehensiveness**: Ensure that all aspects of each requirement, including inputs, processes, and outputs, are thoroughly documented. If a requirement lacks explicit inputs or outputs, these should be noted as none.
 
-**Methodology: Functional Requirement Transformation Algorithm**
+**Methodology: Functional Requirement Analysis Algorithm**
 1. **Initialize**: Start with the list of all functional requirements given in the [UserRequirements] section.
 2. **Loop through each functional requirement**: For each functional requirement, perform the following steps:
-   - **Understand**: Analyze the requirement to fully grasp its purpose, inputs, process, and intended outputs.
+   - **Understand**: Analyze the requirement to fully grasp its purpose, inputs, processes, and intended outputs.
    - **Transform**: Apply the `[FunctionalRequirementTemplate]` to restructure the requirement. Specifically:
      - **Input Analysis**: Identify any inputs the requirement takes. If there are no inputs, mark this as none.
      - **Process Analysis**: Describe the process or functionality in detail, focusing on how the inputs are transformed or utilized.
@@ -87,7 +42,59 @@ Functional requirements describe activities the system needs to perform. Each re
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of analysis of the current requirement while maintaining this conversational tone.
 - Reasoning When Necessary: For actions or tasks that involve complexity or require decision-making, include reasoning to precede the output. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that the output is not only precise but also well-considered.
 
-Please adhere to the OutputRules for analyzing the given functional requirements thoroughly, ensuring a process that mirrors human-like analytical thinking. 
+Please adhere to the `[OutputRules]` for analyzing the given functional requirements thoroughly, ensuring a process that mirrors human-like analytical thinking. 
 
 [UserRequirements]
+Application Type: Python Library
+Application Summary: A Python library that uses RPA to interact with chat UIs provided by different companies, automating the process of entering prompts and retrieving responses.
+Frameworks and Libraries:
+- Playwright Python: Used for automating web browsers to interact with the chat UIs.
+Functional Requirements:
+- The library must simulate human-like interaction by mimicking the way a human user would interact with the chat UI. This includes typing text into the input box at a human-like speed, pausing between keystrokes, and clicking the send button instead of triggering the message sending event directly.
+- The library must support the core features of the following chat UIs: ChatGPT, Claudi.ai, and Mistral. These features include typing and sending messages, receiving and displaying responses, and possibly other common features like attaching files or images.
+- The library must determine whether a response is completed or not by monitoring the web UI for the presence of a copy button. If the copy button is present, the response is complete; if not, the library should continue monitoring the web UI until the copy button appears.
+- The library must utilize the necessary features of Playwright Python for automating web browsers. This includes navigating to URLs, clicking buttons, typing into input fields, and monitoring web events.
 
+
+
+
+- Task Objective: Enhance and clarify the initial simple idea of a customer into a well-defined set of requirements.
+- Task Context: In requirement engineering, customers typically have a basic idea of what they want to build but are often engaged only passively. It falls upon the requirements engineer to actively understand, suggest, and refine these ideas into mature requirements.
+- Task Inputs:
+  - [Customer Idea]:
+    - Description: A basic or initial idea provided by the customer, which is usually vague and not fully developed.
+  - [Engineer Expertise]:
+    - Description: The knowledge, skills, and proactive approach employed by the requirements engineer to interpret, suggest, and refine the customer's idea into a detailed set of requirements.
+- Task Outputs:
+  - [Mature Requirements]:
+    - Description: A well-defined and detailed set of requirements that have been developed from the customer's initial idea through the proactive efforts and expertise of the requirements engineer.
+
+- Task Objective: To refine and develop a customer's initial idea into a set of well-defined requirements.
+- Task Context: The requirements engineer plays a critical role in the development process, utilizing their expertise to proactively understand, suggest, and refine the customer's ideas. This involves drawing from their knowledge of best practices and available technologies to guide the project. Customers typically prefer to remain passively engaged, relying on the engineer's expertise to navigate the development process. The engineer must decide when to engage the customer directly, especially in choices that require the customer's personal preference or technical requirements, such as selecting specific backend technologies.
+- Task Inputs:
+  - [Customer Idea]:
+    - Description: The initial concept or idea from the customer, which is generally vague and underdeveloped.
+- Task Outputs:
+  - [Mature Requirements]:
+    - Description: A comprehensive and detailed set of requirements that have been developed through the engineer's active intervention, expertise, and selective customer engagement.
+
+[FunctionalRequirementTemplate]:
+1. **Requirement Name**: A short name for the requirement.
+
+2. **Inputs**:
+   - [Name of Input]:
+     - Description: A detailed description of the input, specifying its nature and how it is to be used.
+
+3. **Processes**:
+   - Description: A detailed explanation of a single, atomic process action. This section can contain multiple entries, each describing one atomic process. Ensure each process is clearly defined, focusing on one action per process.
+     - Note: If a process has associated inputs or outputs, briefly mention them in its description.
+
+4. **Outputs**:
+   - [Name of Output]:
+     - Description: A detailed description of the output, including what it represents and how it is generated.
+
+Instructions for Use:
+- **Requirement Name**: Provide a short, descriptive name that uniquely identifies the requirement.
+- **Inputs**: For each input required by the requirement, list it by name followed by a detailed description. If there are no inputs, mark this section as None.
+- **Processes**: Describe each process in detail, ensuring that it performs a single action. Multiple processes should be listed separately to maintain atomicity.
+- **Outputs**: For each output produced by the requirement, list it by name followed by a detailed description. If there are no outputs, mark this section as None.

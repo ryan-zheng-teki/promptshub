@@ -15,3 +15,24 @@ Requirements engineering is recognized as a comprehensive scientific discipline,
 - **Model-based Requirements Engineering**: Involves creating visual representations of requirements, such as use case diagrams, activity diagrams, and state charts. This approach is beneficial for understanding and communicating complex system behaviors, widely used during the analysis and specification phases.
 
 Each methodology serves a specific purpose at different stages, from elicitation to validation, ensuring a systematic and comprehensive approach to managing and developing requirements.
+
+From what to how?
+This is the same as API design. The API design takes the requirements, and convert it to APIs. (From one form of information, to another form of information. It's not a sudden jump, but it is able to achieve the tranformation smoothly.)
+The requirements expresses what, but API design expresses how. There is one 
+information gap.
+
+
+Use case design:
+
+
+Functional Requirements design:
+
+
+Functional Requirements analysis: From what to how(industry knowledge, best practice, this is the design phase. Functional requirement breakdown)
+
+
+Final documented functional requirements:
+input: input name
+process: the process
+output: output name
+
