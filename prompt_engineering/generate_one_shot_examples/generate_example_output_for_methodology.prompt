@@ -8,14 +8,14 @@ To enable the large language model (LLM) to effectively grasp and apply the meth
 1. The Algorithm Execution Process Demonstration Section must be clear, concise, and richly detailed, focusing on the execution process.
 2. It should include at least one example that is directly related to the task's objective and methodology, with a step-by-step walkthrough of the execution process.
 3. The section should vividly illustrate the execution process, offering a window into the algorithm's application as if one is following the thought process of a human executing the algorithm.
-4. The Algorithm Execution Demonstration Template must be designed to emphasize the execution steps and thought process, ensuring a comprehensive understanding of how the results are derived.
+4. The Algorithm Execution Process Demonstration Template must be designed to emphasize the execution steps and thought process, ensuring a comprehensive understanding of how the results are derived.
 
-[Algorithm Execution Process Demonstration Template]
+[AlgorithmExecutionProcessDemonstrationTemplate]
 $TemplateStart$
 1. Designed Examples:
-   - Description: Designed examples that is directly related to the task domain and objective.
+   { Here list the  designed examples that is directly related to the task domain and objective.}
 2. Algorithm Execution Process Demonstration:
-   - Description: Detail the meticulous, continuous flow of thinking similar to the human analytical thinking process that occurs in the brain when a human performs the algorithmic task. This section should articulate the step-by-step thought process and decision-making involved in the execution, mirroring the analytical rigor and adaptability of human cognition.
+   { Here is the details of the meticulous, continuous flow of thinking similar to the human analytical thinking process that occurs in the brain when a human performs the algorithmic task. This section should articulate the step-by-step thought process and decision-making involved in the execution, mirroring the analytical rigor and adaptability of human cognition.}
 $TemplateEnd$
 
 **Procedure**:
@@ -36,21 +36,19 @@ Follow the steps defined by the `Procedure` section.  The output for each step s
 
 [TaskPrompt]
 $PromptStart$
-As a Requirements Engineer, your objective is to analyze the given functional requirements and restructure them according to the specified `[FunctionalRequirementTemplate]`.
+As a Requirements Engineer, your objective is to analyze the given functional requirements and restructure them according to the specified format provided by `[FunctionalRequirementTemplate]`.
 
 **Context**:
 Functional requirements describe activities the system needs to perform. Each requirement can have inputs, outputs or both. Therefore, the format  defined by `[FunctionalRequirementTemplate]` aims to standardize documentation practices, by outlining the inputs, processes and outputs aims to improve clarity, consistency and completeness across requirements. This format will help identify what the requirement does, what inputs it needs, and what outputs it produces.
 
 [FunctionalRequirementTemplate]:
 1. **Requirement Name**: A short name of the requirement
-2. **Input(s)**: Description of the input(s) required for the requirement. Mark as None if no input.
+2. **Input(s)**: Name and description of the input(s) required for the requirement. Mark as None if no input.
 3. **Process**: Detailed description of the process or functionality
-4. **Output**: The expected result or output produced by the process. Mark as none if no output.
+4. **Outputs**: Name and description of outputs produced by the process. Mark as none if no output.
 
 **Criteria**:
-1. **Clarity**: Each requirement must be documented in a way that is easily understandable, avoiding technical jargon or ambiguity.
-2. **Consistency**: The structured template must be used uniformly across all requirements, ensuring a standardized documentation approach.
-3. **Comprehensiveness**: Ensure that all aspects of each requirement, including inputs, processes, and outputs, are thoroughly documented. If a requirement lacks explicit inputs or outputs, these should be noted as none.
+1. **Comprehensiveness**: Ensure that all aspects of each requirement, including inputs, processes, and outputs, are thoroughly documented. If a requirement lacks explicit inputs or outputs, these should be noted as none.
 
 **Methodology: Functional Requirement Transformation Algorithm**
 1. **Initialize**: Start with the list of all functional requirements given in the [UserRequirements] section.

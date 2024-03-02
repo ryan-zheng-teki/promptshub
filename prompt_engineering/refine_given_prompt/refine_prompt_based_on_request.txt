@@ -28,51 +28,41 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 [OriginalPrompt]
 $PromptStart$
-As a Requirements Engineer, your objective is to analyze the given functional requirements and restructure them according to the specified `[FunctionalRequirementTemplate format]`.
+Role&Objective
+As a Text Transformer, you will understand and rewrite colloquial, voice-generated text into a clear, well-written structure following given format.
 
 **Context**:
-Functional requirements describe activities the system needs to perform. Each requirement can have inputs, outputs or both. Therefore, the format  defined by `[FunctionalRequirementTemplate]` aims to standardize documentation practices, by outlining the inputs, processes and outputs aims to improve clarity, consistency and completeness across requirements. This format will help identify what the requirement does, what inputs it needs, and what outputs it produces.
+The voice-generated texts you receive will contain a specific task that need to be accomplished. However, the text is submitted as voice-texts. So it could contain colloquial and filler words, and it might not be well-structured as well. So you need to fullly understand it, and rewrite using the following given `[TaskTemplateStructure]`.
 
-[FunctionalRequirementTemplate]:
-### Functional Requirement Template
-1. **Requirement Name**: A short name of the requirement
-2. **Input(s)**: Description of the input(s) required for the requirement. Mark as None if no input.
-3. **Process**: Detailed description of the process or functionality
-4. **Output**: The expected result or output produced by the process. Mark as none if no output.
+[TaskTemplateStructure]
+```
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Methodology: Here is the methodology name mentioned by the user to solve the task.
+  - Description: Outlines the specific strategies or algorithms to be employed in the task's execution. It details the algorithms used to achieve the objective using the methodology.
+  - Example: This section provides a detailed example to demonstrate the application of the described methodology or algorithm. Starting with a specific scenario, such as a set of requirements, the example then applies the methodology to this scenario. For instance, in a dependency analysis algorithm, we begin with a defined set of requirements. The example then demonstrates step-by-step how the dependency analysis algorithm processes these requirements to identify all dependencies among them, detailing the logic and decision-making processes involved. This practical demonstration aims to showcase the effectiveness and application of the methodology in addressing specific aspects of the scenario to achieve the task's objective.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Squared brackets wrapped short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Squared brackets wrapped short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+```
 
 **Criteria**:
-1. **Clarity**: Each requirement must be documented in a way that is easily understandable, avoiding technical jargon or ambiguity.
-2. **Consistency**: The structured template must be used uniformly across all requirements, ensuring a standardized documentation approach.
-3. **Comprehensiveness**: Ensure that all aspects of each requirement, including inputs, processes, and outputs, are thoroughly documented. If a requirement lacks explicit inputs or outputs, these should be noted as none.
-
-**Methodology: Functional Requirement Transformation Algorithm**
-1. **Initialize**: Start with the list of all functional requirements given in the [UserRequirements] section.
-2. **Loop through each functional requirement**: For each functional requirement, perform the following steps:
-   - **Understand**: Analyze the requirement to fully grasp its purpose, inputs, process, and intended outputs.
-   - **Transform**: Apply the `[FunctionalRequirementTemplate]` to restructure the requirement. Specifically:
-     - **Input Analysis**: Identify any inputs the requirement takes. If there are no inputs, mark this as none.
-     - **Process Analysis**: Describe the process or functionality in detail, focusing on how the inputs are transformed or utilized.
-     - **Output Analysis**: Determine the expected output(s) of the process. If there are no outputs, mark this as none.
-3. **Repeat**: Continue until all functional requirements have been analyzed and documented according to the template.
-
-[OutputRules]
-- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
-- Begin each analysis with: "I am analyzing the requirement...", to simulate the algorithmic thought process in an iterative manner. This highlights the recursive nature of analyzing each functional requirement individually.
-
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each functional requirement is fully analyzed.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of analysis of the current requirement while maintaining this conversational tone.
-- Reasoning When Necessary: For actions or tasks that involve complexity or require decision-making, include reasoning to precede the output. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that the output is not only precise but also well-considered.
-
-Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
-
+- Retain all relevant details from the original message to maintain its informational value, especially in the Task Context, to ensure no loss of detail from the original user's description.
+- Use objective, factual language.
+- The final rewritten texts should follow the given `Template Structure`
 $PromptEnd$
 
 [UserRequirement]
 $start$
-The OutputRules should be slightly updated. The OutputRules was designed for executing steps of procedure. Now it should be updated to reflect algorithm execution from the Methodology section. I believe the update will be minor.
-$end$
+As you can see in the prompt, it uses the fixed structure to rewrite this task. However, even though a majority of time, this fixed structure fits. But there are some cases where this fixed structure fall shorts. So i think it's better adjust this prompt 
+instead of using this fixed structure, but use this structure as just one example demonstration. And note in the prompt that we need to design a task structure. A task structure should be similar to the given one, but dynamic sections should be added or sections should be removed based on the given texts. 
 
+In this sense, i think we need to first adjust the Role&Objective. Then adjust the Context. After that we adjust the Procedure section.
+$end$
 
 Version 8: With System 1, and System 2 thinking.
 You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[OriginalPrompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
@@ -112,3 +102,16 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 
 [OutputRules]
+
+
+$TemplateStart$
+1. Functional Requirement: 
+   { here is the designed requirement example}
+
+2. Human-Like Requirement Analysis Cognitive Thinking Process:
+   - Introduction: "I am analyzing the requirement: `{Insert original requirement here}`."
+   - Input Analysis: Describe the nature and format of the inputs required for the process, emphasizing their importance for initiating the process.
+   - Process Analysis: Outline potential internal workings or steps needed to achieve the goal, based on knowledge and best practices, even if not originally specified.
+   - Output Analysis: Detail the expected outputs, their format, and content, highlighting how they meet the original requirement.
+
+$TemplateEnd$

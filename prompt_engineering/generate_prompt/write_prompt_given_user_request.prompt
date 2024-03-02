@@ -1,12 +1,10 @@
 
 Version 1: 
-
 As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request. Please Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
 **Context**:
 The task is to generate task-specific prompt tailored to diverse user requirements.
-The process starts by analyzing the user's request to identify the task's action, required input, and expected output. Then we define the task's domain, which helps in determining the role responsible for accomplishing the task.
-Next, we introduce a context section. This part provides background information or explanations related to the task.
+The process starts by analyzing the user's request to identify the task's objective, context, required input, and expected output. Then rewrite the request using the formt defined by `[TaskTemplateStructure]`. After this, we define the task's domain, which helps in determining the role responsible for accomplishing the task.
 At last, we outline the steps required to achieve the task, mirroring how a human would approach it. This involves detailing the sequence of actions a human would take to complete the task. Note that there is no need to include a review step at the end, as another person will review the final output.
 
 [TaskTemplateStructure]
@@ -67,7 +65,7 @@ $TemplateStart$
 ...
 [Detail the specific steps or actions the model should undertake.]
 
-[Input Name from rewritten task]: {input name wrapped in square brackets}
+[Input Name from rewritten task]: 
 {here provide the explanation of the first input, using the specific input name and description as identified in the rewritten task structure in Step 3}
 
 [Additional Input Name from rewritten task if exists]: 
@@ -118,19 +116,11 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-- **Task Objective**: The goal is to restructure functional requirements into a specific, clear template format that outlines inputs, processes, and outputs related to those requirements.
-  
-- **Task Context**: This methodology is introduced to standardize the way functional requirements are documented, ensuring clarity and consistency. It's particularly useful for identifying and articulating the specific inputs and outputs associated with each requirement, as well as describing the process or functionality that links them. This approach is vital for requirements that have clear inputs and outputs, but it also accommodates requirements without such elements by noting them as none.
-
-- **Task Methodology**: Input and Output Analysis.
-  - **Description**: This methodology involves transforming each functional requirement into a structured format. This format specifies the inputs required for the requirement, the process or functionality that occurs in response to these inputs, and the outputs or results produced by this process. If a requirement lacks inputs or outputs, these sections are marked as none, ensuring the format remains consistent across all requirements.
-
-- **Task Inputs**:
-  - **[Functional Requirements]**:
-    - **Description**: The set of functional requirements provided by the user. These requirements describe the specific functionalities or behaviors that a system or component must be able to perform.
-
-- **Task Outputs**:
-  - **[Structured Functional Requirements]**:
-    - **Description**: A set of functional requirements restructured into the specified template format. Each requirement will be clearly defined with its inputs, process, and outputs, or marked as none if it lacks inputs or outputs.
+an human-like AI agent execute any given user tasks. The AI agent has to do the following things. 
+1. understand the task 
+2. define the domain
+3. find out the correct cognitive process which is appropriate for this task.
+4. define the detailed for the picked process for address the task.
+5. execute the defined detailed stategies to address the task.  
 $end$
 

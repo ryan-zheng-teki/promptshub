@@ -89,33 +89,49 @@ Please follow the steps defined in the `[Procedure]` section. Your output should
 
 [Writing]
 $WrittingStart$
-- Task Objective: Add an Algorithm Demonstration Output section to a given task prompt.
-- Task Context: To enable the large language model (LLM) to effectively grasp and apply the methodology behind the task, it is essential to first design examples that are inherently related to the task itself. Following this, we must showcase the execution process of the algorithm based on these examples. This approach ensures that the LLM learns how to perform the execution process of the algorithm detailed in the Methodology of the target prompt.
-- Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology which details the algorithm for achieving the task.
-- Task Outputs:
-  - [Algorithm Demonstration Output Section]:
-    - Description: A meticulously crafted section that demonstrates the expected outcome of the task when executed according to the methodology outlined in the prompt, based on designed examples. This section serves as a practical guide for the large language model, illustrating both the method of execution and the anticipated results.
-  - [Algorithm Demonstration Output Template]:
-    - Description: A format guide for presenting designed examples followed by their algorithmic outputs that the `Algorithm Demonstration Output Section` must adhere to.
-
-
-Algorithm Execution Demonstration Template:
-
-1. Designed Examples:
-   - Description: Designed examples that is directly related to the task domain and objective.
-
-2. Algorithm Execution Process Demonstration:
-   - Description: Detail the meticulous, continuous flow of thinking similar to the human analytical thinking process that occurs in the brain when a human performs the algorithmic task. This section should articulate the step-by-step thought process and decision-making involved in the execution, mirroring the analytical rigor and adaptability of human cognition.
-
+[FunctionalRequirementTemplate]:
+1. **Requirement Name**: A short name of the requirement
+2. **Input(s)**: Name and description of the input(s) required for the requirement. Mark as None if no input.
+3. **Processes**: Detailed description of the process or functionality. There is at least one processes.
+4. **Outputs**: Name and description of outputs produced by the process. Mark as none if no output.
 $WrittingEnd$
 
 
 [UserRequest]
 $start$
-could you please update the Algorithm Demonstration Template. The description needs to be updated because its outdated.
+I actually think the FunctionalRequirementTemplate format could be adjusted to the similar formlat 
+like the TaskTemplateStructure. What i meant is 
+that as you can see, the Inputs:  name and description for the requirement. We could make it like 
+
+Inputs:
+  [Name Of Input:]
+    - Description: description of the input.
+The same for output. 
+
+For processes: Since its not easy to use name for processes, then its better just use description for processes.
+
+like 
+Processes:
+  - description of processe
+there could be more than one processes. 
+
+However, each process should be atomic. Atomic means that it should perform only one process(action).
+
+It should not be more than one. Each process can either have input or outputs.
 $end$
+
+
+[TaskStructureFormat]
+- Task Objective: Add an example output section to a given task prompt.
+- Task Context: To enable the large language model (LLM) to grasp the methodology behind the task and apply it effectively to generate similar outcomes, it is crucial to demonstrate the algorithm's execution concretely. Therefore, we need to incorporate an example output section. This approach is designed to teach the LLM the principles behind the task, fostering adaptive application rather than exact replication. The example output section serves as a guide, illustrating not just how the task should be performed, but also what results are expected, thereby promoting a deeper understanding of the task's objectives and execution.
+- Task Inputs:
+  - [Task Prompt]:
+    - Description: The task prompt which contains the objective and methodology details for achieving the task.
+- Task Outputs:
+  - [Example Output Section]:
+    - Description: A meticulously crafted section that demonstrates the expected outcome of the task when executed according to the methodology outlined in the prompt. This section serves as a guide for the large language model, illustrating how the task should be performed and what results are expected.
+
+
 
 
 
@@ -184,5 +200,4 @@ $end$
     - Description: A format guide for presenting designed examples followed by their algorithmic outputs that the `Algorithm Demonstration Output Section` must adhere to.
 
 
-
-
+This template is designed to ensure clarity and precision in documenting functional requirements, promoting a structured approach to capturing essential details.

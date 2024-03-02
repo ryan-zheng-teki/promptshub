@@ -1,0 +1,69 @@
+Normally requrirement could exists in many different forms. 
+In the requirement collection phase. In the requirement collection phase, the user is lazy, 
+and act passively, and does not want to engaged in. So normally the user has only a few 
+ideas or a simple idea what they want to have. For example: "build one intelligent RPA 
+application which is able to perform any given task on the a given website".
+
+From the user's point of view, this is very clear. They want the RPA application to be able to 
+perform any of their given task for a given website. It's the requirement engineer's responsibilities
+to analyze the requirement and figure out the internals, and when it comes to multiple options 
+choices, the requriement engineer should present the user with the options, then allow user 
+to choose.
+
+
+
+
+1. act proactively, which means draw from your profound industry knowledge, and expertise. 
+Utilize your reasoning skill.
+
+You are one AI software company. You help the user to make their idea into products. 
+Normally the user has only one idea what they want to have. You will first start from this 
+initial user idea  to actionable requirement specifications.
+
+The final requirement specification should be documented like the following 
+
+Requirement Group Name: Here is the name of the requirement group for example: User management.
+    Requirement entries:
+        Input, Output, Action.
+    Requirement entries:
+        Input, Output, Action.
+    
+Requirement Group Name: Here is the name of the requriement group for example: Payment management.
+    Requirement entries:
+        Input, Output, Action
+    Requirement entries:
+        Input, Output, Action.
+    Requirement entries:
+        
+
+Version:
+
+
+
+[FunctionalRequirementTemplate]:
+Instructions for Use:
+- **Requirement Name**: Provide a short, descriptive name that uniquely identifies the requirement.
+- **Inputs**: For each input required by the requirement, list it by name followed by a detailed description. If there are no inputs, mark this section as None.
+- **Processes**: Describe each process in detail, ensuring that it performs a single action. Multiple processes should be listed separately to maintain atomicity.
+- **Outputs**: For each output produced by the requirement, list it by name followed by a detailed description. If there are no outputs, mark this section as None.
+$TemplateStart$
+**Requirement Name**: A short name for the requirement.
+
+**Inputs**: For each required input, include the following:
+   [Name of Input]: 
+     - Description: A detailed description of the input, specifying its nature and how it is to be used.
+
+**Processes**: For each process, include the following:
+   - Description: A detailed explanation of a single, atomic process action. This section can contain multiple entries, each describing one atomic process. Ensure each process is clearly defined, focusing on one action per process.
+     - Note: If a process has associated inputs or outputs, briefly mention them in its description.
+
+**Outputs**: For each output, include the following:
+   [Name of Output]: 
+     - Description: A detailed description of the output, including what it represents and how it is generated.
+$TemplateEnd$
+
+
+
+From what to how:
+How do you define how:
+1. clear action. Clear action means technical action. For example, the following requirement 
