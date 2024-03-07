@@ -28,7 +28,7 @@ $TemplateEnd$
 **Methodology: Functional Requirement Analysis Algorithm**
 1. **Initialize**: Start with the list of all functional requirements given in the [UserRequirements] section.
 2. **Loop through each functional requirement**: For each functional requirement, perform the following steps:
-   - **Understand**: Analyze the requirement to fully grasp its purpose, inputs, processes, and intended outputs.
+   - **Understand**: Analyze the requirement to fully grasp its purpose, inputs, processes, and intended outputs. Here you should utilize your strong language dissection skill to first dissect the language.
    - **Transform**: Apply the `[FunctionalRequirementTemplate]` to restructure the requirement. Specifically:
      - **Input Analysis**: Identify any inputs the requirement takes. If there are no inputs, mark this as none.
      - **Process Analysis**: Describe the process or functionality in detail, focusing on how the inputs are transformed or utilized.
@@ -36,11 +36,11 @@ $TemplateEnd$
 3. **Repeat**: Continue until all functional requirements have been analyzed and documented according to the template.
 
 [OutputRules]
-- Begin each analysis output with: "I am analyzing the requirement...", to mimic the human thought process. After completing the current requirement, move on to the next requirement automatically without pausing. This emphasizes the recursive
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each functional requirement is fully analyzed.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of analysis of the current requirement while maintaining this conversational tone.
-- Reasoning When Necessary: For actions or tasks that involve complexity or require decision-making, include reasoning to precede the output. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that the output is not only precise but also well-considered.
+- Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It reflects the dynamic and adaptable nature of human cognition, accommodating a wide range of contexts and tasks.
+- Continuous Logical Flow: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. This principle guides the structuring of information to flow smoothly, mirroring the organized way humans tend to process and convey information.
+- Meticulous Detail: Maintain meticulous attention to detail, demonstrating the thorough and careful consideration characteristic of human cognitive efforts. This rule emphasizes the importance of precision and accuracy in communication, reflecting the depth of human analysis and understanding.
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
+- Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
 
 Please adhere to the `[OutputRules]` for analyzing the given functional requirements thoroughly, ensuring a process that mirrors human-like analytical thinking. 
 

@@ -71,12 +71,3 @@ This format is designed to meticulously outline the inputs, processes, and outpu
 
 
 
-**Methodology: Functional Requirement Transformation Algorithm**
-1. **Initialize**: Start with the list of all functional requirements given in the [UsreRequirements] section.
-2. **Loop through each functional requirement**: For each functional requirement, perform the following steps:
-   - **Understand**: Analyze the requirement to fully grasp its purpose, inputs, process, and intended outputs.
-   - **Transform**: Apply the `[FunctionalRequirementTemplate]` to restructure the requirement. Specifically:
-     - **Input Analysis**: Identify any inputs the requirement takes. If there are no inputs, mark this as none.
-     - **Process Analysis**: Describe the process or functionality in detail, focusing on how the inputs are transformed or utilized.
-     - **Output Analysis**: Determine the expected output(s) of the process. If there are no outputs, mark this as none.
-3. **Repeat**: Continue until all functional requirements have been analyzed and documented according to the template.

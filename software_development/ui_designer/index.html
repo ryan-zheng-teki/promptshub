@@ -3,180 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UI Design Visualization</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Montserrat:400,700&display=swap" rel="stylesheet">
+    <title>UI Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
     <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
             color: #333;
             background-color: #f4f5f7;
         }
 
-        /* Color Scheme */
-        :root {
-            --primary-color: #0052cc;
-            --secondary-color: #f4f5f7;
-            --accent-color: #4CAF50;
-            --error-color: #f44336;
-            --warning-color: #ff9800;
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* Navigation */
+        h1 {
+            font-size: 24px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
         .navigation-selection-box {
-            background-color: var(--primary-color);
+            background-color: #0052cc;
             padding: 20px;
-            color: white;
-            text-align: center;
+            color: #fff;
         }
 
-        /* Main Content */
-        .main-content {
-            display: flex;
-            margin: 20px;
+        .navigation-selection-box select {
+            padding: 8px;
+            font-size: 16px;
         }
 
-        .list-view, .detail-view {
-            flex: 1;
-            padding: 20px;
+        .current-section {
+            font-weight: bold;
+            margin-left: 10px;
         }
 
-        .button {
-            background-color: var(--accent-color);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: darken(var(--accent-color), 10%);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--secondary-color);
-            color: #333;
-            text-align: center;
-            padding: 20px;
+        .list-view {
             margin-top: 20px;
         }
 
-        /* Modal */
-        .modal-background {
+        .list-view ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .list-view li {
+            margin-bottom: 10px;
+        }
+
+        .edit-btn, .add-new-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .edit-btn:hover, .add-new-btn:hover {
+            background-color: #45a049;
+        }
+
+        .detail-view {
+            margin-top: 20px;
+        }
+
+        .detail-view form {
+            display: grid;
+            grid-gap: 10px;
+        }
+
+        .detail-view label {
+            font-weight: bold;
+        }
+
+        .detail-view input, .detail-view textarea {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+        }
+
+        .view-changes-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view-changes-btn:hover {
+            background-color: #45a049;
+        }
+
+        .modal {
+            display: none;
             position: fixed;
-            top: 0;
+            z-index: 1;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
         }
 
         .modal-content {
-            background-color: white;
+            background-color: #fff;
+            margin: 15% auto;
             padding: 20px;
-            border-radius: 5px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .confirm-change-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .confirm-change-btn:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f4f5f7;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-
-<div class="navigation-selection-box">
-    <label for="navigationSelect" style="color: white;">Select View: </label>
-    <select id="navigationSelect" name="navigationSelect" onchange="changeView(this.value)">
-        <option value="epds">EPDs</option>
-        <option value="vendorProductRoutes">Vendor Product Routes</option>
-        <option value="grades">Grades</option>
-    </select>
-</div>
-
-<div class="main-content">
-    <div class="list-view">
-        <h2>EPD Entries</h2>
-        <div class="entry">
-            <p>Vendor ID: 1, Article ID: 101</p>
-            <button class="button edit-button">Edit</button>
+    <header>
+        <div class="navigation-selection-box">
+            <select>
+                <option value="epds">EPDs</option>
+                <option value="vendor-product-routes">Vendor Product Routes</option>
+                <option value="grades">Grades</option>
+            </select>
+            <span class="current-section">Current Section</span>
         </div>
-        <button class="button add-new-button">Add New</button>
+    </header>
+
+    <main>
+        <div class="list-view">
+            <ul>
+                <li>Entry 1 <button class="edit-btn">Edit</button></li>
+                <li>Entry 2 <button class="edit-btn">Edit</button></li>
+                <!-- More entries -->
+            </ul>
+            <button class="add-new-btn">Add New</button>
+        </div>
+
+        <div class="detail-view">
+            <form>
+                <label for="field1">Field 1:</label>
+                <input type="text" id="field1" name="field1">
+
+                <label for="field2">Field 2:</label>
+                <textarea id="field2" name="field2"></textarea>
+
+                <!-- More form fields -->
+
+                <button class="view-changes-btn">View Changes</button>
+            </form>
+        </div>
+    </main>
+
+    <div class="modal change-preview-modal">
+        <div class="modal-content">
+            <h2>Change Preview</h2>
+            <p>Change details...</p>
+            <p>Emissions: ...</p>
+            <button class="confirm-change-btn">Confirm the Change</button>
+        </div>
     </div>
-    
-    <div class="detail-view">
-        <h2>EPD Details</h2>
-        <form id="epdForm">
-            <div class="form-group">
-                <label for="vendor_id">Vendor ID</label>
-                <input type="text" id="vendor_id" name="vendor_id" required>
-            </div>
-            <div class="form-group">
-                <label for="article_id">Article ID</label>
-                <input type="text" id="article_id" name="article_id" required>
-            </div>
-            <div class="form-group">
-                <label for="article_family_id">Article Family ID</label>
-                <input type="text" id="article_family_id" name="article_family_id" required>
-            </div>
-            <div class="form-group">
-                <label for="source_system">Source System</label>
-                <input type="text" id="source_system" name="source_system" required>
-            </div>
-            <div class="form-group">
-                <label for="pcf_value_kg_kg">PCF Value (kg/kg)</label>
-                <input type="number" step="0.01" id="pcf_value_kg_kg" name="pcf_value_kg_kg" required>
-            </div>
-            <div class="form-group">
-                <label for="is_balanced">Is Balanced</label>
-                <select id="is_balanced" name="is_balanced">
-                    <option value="true">True</option>
-                    <option value="false">False</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="created_at">Created At</label>
-                <input type="datetime-local" id="created_at" name="created_at" required>
-            </div>
-            <div class="form-group">
-                <label for="updated_at">Updated At</label>
-                <input type="datetime-local" id="updated_at" name="updated_at" required>
-            </div>
-            <div class="form-group">
-                <label for="valid_from">Valid From</label>
-                <input type="datetime-local" id="valid_from" name="valid_from" required>
-            </div>
-            <div class="form-group">
-                <label for="valid_until">Valid Until</label>
-                <input type="datetime-local" id="valid_until" name="valid_until" required>
-            </div>
-            <button type="submit" class="button">Save Changes</button>
-        </form>
-    </div>
-    
-</div>
 
-<div class="modal-background" id="changePreviewModal">
-    <div class="modal-content">
-        <h3>Preview Changes</h3>
-        <p><strong>Vendor ID:</strong> 1 (No Change)</p>
-        <p><strong>PCF Value (kg/kg):</strong> 0.5 -> 0.45</p>
-        <!-- Additional fields to show changes -->
-        <button class="button" onclick="confirmChange()">Confirm the Change</button>
-    </div>
-</div>
+    <footer>
+        <div class="app-info">
+            Application Info
+        </div>
+        <div class="support-links">
+            Support Links
+        </div>
+    </footer>
 
-
-<footer>
-    <!-- Footer Content -->
-</footer>
-
+    <script>
+        // JavaScript for interactivity and functionality would be added here
+    </script>
 </body>
 </html>

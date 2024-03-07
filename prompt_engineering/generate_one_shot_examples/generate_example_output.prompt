@@ -1,16 +1,35 @@
-I am now executing this step of refining the structure based on your feedback. Let's correct the placement and description of the Example Output to better align with the task's objective.
-
----
-
-- Task Objective: The objective is to create example outputs for given prompts to guide large language models in generating desired outputs.
-- Task Context: In prompt engineering, the creation of a prompt is crucial for directing the output of a large language model. The inherent unpredictability of the model's responses poses a challenge. Providing an example output alongside the prompt can significantly influence the model's execution, aligning the actual output closer to the expected outcome. This leverages the model's ability to use the example as a template for its response, thereby enhancing the predictability and relevance of its output.
+- Task Objective: Create a Demonstration Blueprint section for a prompt intended for execution by a large language model.
+- Task Context: A prompt for a large language model typically encompasses sections outlining the input, process/methodology, and output. Enhancing the prompt with a demonstration blueprint section is crucial for illustrating the task's execution and the anticipated output in a clear manner. This addition aids in improving the model's performance by offering a simulated execution example, including the process and the output. The demonstration includes 
+the example, the simulated execution process, then the desired outputs after the execution process.
 - Task Inputs:
   - [Prompt]: 
-    - Description: The initial instruction or question designed to elicit a specific response from the large language model.
-- Task Outputs:
-  - [Example Output]: 
-    - Description: A representative example of the desired output that serves as a guide for the large language model, demonstrating the expected format, tone, and content of its response. This example output is critical for informing the model of how to structure its response, ensuring it adheres closely to the demonstrated template.
+    - Description: The specific task assigned to the large language model, incorporating any distinct instructions, methodologies, or algorithms for executing the task.
+- Task Outputs: 
+  - [Demonstration Blueprint]:
+  Description: A meticulously crafted section that not only demonstrates the creation of an example directly related to the task but also delineates the execution process in detail and presents the expected output. This blueprint serves as a vital instructional and guiding component for the large language model, ensuring clarity in task execution and outcome expectations.
 
----
+Version 1:
+Thank you for submitting your request.
 
-This adjustment places the "Example Output" within the Task Outputs section, accurately reflecting its role as the target for the task's objective.
+**Role & Objective**:
+As a Prompt Architect, your task is to create a Demonstration Blueprint section for a task prompt intended for execution by a large language model.
+
+**Context**:
+This blueprint aims to illustrate the task's execution and the anticipated output in a structured manner, enhancing the model's performance by providing clear guidance on process and outcome expectations.
+
+**Criteria**:
+The Demonstration Blueprint should be clear, concise, and comprehensive, including a simulated example related to the task, a detailed execution process, and the expected output. It should adhere to instructional design best practices, using straightforward language and logical structuring.
+
+**Procedure**:
+1. Identify a suitable example that aligns with the task.
+2. Outline the execution process in a detailed, step-by-step manner.
+3. Specify the expected output, ensuring clarity in how it meets the task's objectives.
+
+[Prompt]
+{here provide the specific task assigned to the large language model}
+
+[Demonstration Blueprint]
+{here provide the demonstration blueprint, including the example, execution process, and expected output}
+
+$TemplateEnd$
+

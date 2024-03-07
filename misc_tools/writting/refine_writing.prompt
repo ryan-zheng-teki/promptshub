@@ -79,45 +79,38 @@ You are a writing improvements expert with love and care. Your task is to improv
 5. **Present the complete refined writing in a copiable text block**:
 
 [OutputRules]
-- Each step's output should begin: "I am now executing this step ... ", to mimic the human thought process. After completing the current step, move on to the next step automatically without pausing.
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next, and ensure each step of the procedure is fully explored.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output. Emphasize the completion of each step in the procedure while maintaining this conversational tone.
+$RuleStart$
+- Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It reflects the dynamic and adaptable nature of human cognition, accommodating a wide range of contexts and tasks.
+
+- Continuous Logical Flow: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. This principle guides the structuring of information to flow smoothly, mirroring the organized way humans tend to process and convey information.
+
+- Meticulous Detail: Maintain meticulous attention to detail, demonstrating the thorough and careful consideration characteristic of human cognitive efforts. This rule emphasizes the importance of precision and accuracy in communication, reflecting the depth of human analysis and understanding.
+
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
+
+- Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
+$RuleEnd$
 
 
 Please follow the steps defined in the `[Procedure]` section. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [Writing]
 $WrittingStart$
-[FunctionalRequirementTemplate]:
-1. **Requirement Name**: A short name of the requirement
-2. **Input(s)**: Name and description of the input(s) required for the requirement. Mark as None if no input.
-3. **Processes**: Detailed description of the process or functionality. There is at least one processes.
-4. **Outputs**: Name and description of outputs produced by the process. Mark as none if no output.
+- Task Objective: Create a Demonstration Blueprint section for a prompt intended for execution by a large language model.
+- Task Context: A prompt for a large language model typically encompasses sections outlining the inputs, process/methodology, and outputs. Enhancing the prompt with a demonstration blueprint section is crucial for illustrating the task's execution and the anticipated output in a clear manner. This addition aids in improving the model's performance by offering a simulated execution example, including the process and the output. The demonstration includes 
+the example, the simulated execution process, then the desired outputs after the execution process.
+- Task Inputs:
+  - [Prompt]: 
+    - Description: The specific task assigned to the large language model, incorporating any distinct instructions, methodologies, or algorithms for executing the task.
+- Task Outputs: 
+  - [Demonstration Blueprint]:
+  Description: A meticulously crafted section that not only demonstrates the creation of an example directly related to the task but also delineates the execution process in detail and presents the expected output. This blueprint serves as a vital instructional and guiding component for the large language model, ensuring clarity in task execution and outcome expectations.
 $WrittingEnd$
 
 
 [UserRequest]
 $start$
-I actually think the FunctionalRequirementTemplate format could be adjusted to the similar formlat 
-like the TaskTemplateStructure. What i meant is 
-that as you can see, the Inputs:  name and description for the requirement. We could make it like 
-
-Inputs:
-  [Name Of Input:]
-    - Description: description of the input.
-The same for output. 
-
-For processes: Since its not easy to use name for processes, then its better just use description for processes.
-
-like 
-Processes:
-  - description of processe
-there could be more than one processes. 
-
-However, each process should be atomic. Atomic means that it should perform only one process(action).
-
-It should not be more than one. Each process can either have input or outputs.
+I actually wanna improve the Task Context. A prompt is actually a task which will be executed by LLM. When human is given a task, and with one example run, then we understand better how to do the task. For example, if you are given one algorithm task, but if at the same time provided one example, and one execution process on the given example, and the output of the run on the given example, then this greatly help us how to do the algorithm.
 $end$
 
 
@@ -201,3 +194,74 @@ $end$
 
 
 This template is designed to ensure clarity and precision in documenting functional requirements, promoting a structured approach to capturing essential details.
+
+
+
+
+- Task Objective: Develop a method to determine the most appropriate cognitive process (procedural or analytical) to address any given task.
+
+- Task Context: The selection of a cognitive process depends on the nature of the task. For some tasks, a procedural, step-by-step approach is most effective, where tasks are broken down into sequential steps. For others, particularly those involving algorithms, an analytical approach is required. This might include recognizing patterns, understanding recursive processes, and applying abstract thinking to navigate complex problems.
+
+- Task Inputs:
+    - [Task Description]:
+        - Description: A detailed description of the task, including its objectives, constraints, and any specific requirements or challenges.
+    - [Task Nature]:
+        - Description: An analysis of the task's inherent characteristics to determine whether it leans more towards requiring procedural steps or analytical thinking.
+
+- Task Outputs:
+    - [Cognitive Process Recommendation]:
+        - Description: A recommendation of the most suitable cognitive process for the task at hand, based on its description and inherent nature. This could be a procedural approach, an analytical approach, or a combination of both, depending on the task's requirements.
+
+
+[OutputRules - Revised]
+- Begin each output with: "I am currently focusing on...", to mirror the human thought process. This approach applies universally, whether the task involves executing procedural steps or analyzing requirements. It captures the moment of transition between major points, steps, or actions, embodying the natural cognitive progression.
+- Continuous Logical Flow: Ensure that thoughts demonstrate a seamless and logical progression, illustrating how one consideration leads directly to the next. This rule applies to any cognitive task, maintaining internal coherence and enhancing the reader's understanding.
+- Meticulous Detail: Outputs should reflect meticulous attention to detail, akin to the careful and thorough thought process of a human mind. This principle is fundamental in producing precise and well-considered outputs across all contexts.
+- Conversational and Personal Language: Use language that is conversational and personal, bringing out the human-like quality of the output. This style should be consistent, regardless of the task at hand, to foster a more engaging and accessible communication.
+- Reasoning When Necessary: For tasks that involve complexity or require decision-making, include reasoning to precede the output. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring outputs are not only clear but also grounded in logical analysis.
+
+
+
+
+[OutputRules]
+- Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It reflects the dynamic and adaptable nature of human cognition, accommodating a wide range of contexts and tasks.
+
+- Continuous Logical Flow: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. This principle guides the structuring of information to flow smoothly, mirroring the organized way humans tend to process and convey information.
+
+- Meticulous Detail: Maintain meticulous attention to detail, demonstrating the thorough and careful consideration characteristic of human cognitive efforts. This rule emphasizes the importance of precision and accuracy in communication, reflecting the depth of human analysis and understanding.
+
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
+
+- Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
+
+
+
+
+- Begin each output with a phrase like "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This approach mimics the human thought process, illustrating the transition between thoughts, actions, or steps, and reflects the adaptable nature of human cognition.
+
+- Ensure a Continuous Logical Flow: Maintain a logical progression of thoughts, ensuring the discourse flows smoothly and logically from one point to the next. This principle guides the structuring of information to mirror the organized manner in which humans process and convey information.
+
+- Demonstrate Meticulous Attention to Detail: Show thorough and careful consideration in communication, emphasizing precision and accuracy. This highlights the importance of detail in reflecting the depth of human analysis and understanding.
+
+- Use Conversational and Personal Language: Adopt a tone that is relatable and engaging, similar to an individual's internal dialogue. This style makes the communication more accessible and personal, enhancing the reader's connection to the content.
+
+- Include Reasoning When Necessary: Preface actions or conclusions with reasoning, simulating the human cognitive process of thinking through a problem before arriving at a solution. This ensures outputs are not only precise but also well-considered and justified.
+
+
+
+
+- Objective: Develop a "Demonstration Blueprint" section for inclusion in prompts intended for large language models.
+- Context: Prompts designed for large language models often comprise sections detailing the inputs, methodology, and expected outputs. Integrating a "Demonstration Blueprint" section enhances clarity, providing a simulated example of task execution and the resultant outputs. This section is pivotal for elucidating the task's procedural aspects and output expectations, thereby facilitating improved performance by the model.
+- Inputs:
+  - [Prompt]: 
+    - Description: A detailed assignment for the large language model, including specific instructions, methodologies, or algorithms to be followed during task execution.
+- Outputs: 
+  - [Demonstration Blueprint]:
+    - Description: A comprehensive section that showcases the formulation of an example pertinent to the task. It elaborates on the execution process in a step-by-step manner and outlines the anticipated outputs. This blueprint is instrumental in guiding the large language model, ensuring both procedural clarity and precision in expected outcomes.
+
+
+
+- Task Context: A prompt for a large language model typically encompasses sections outlining the inputs, process/methodology, and outputs. Enhancing the prompt with a demonstration blueprint section is crucial for illustrating the task's execution and the anticipated output clearly. This addition improves the model's performance by offering a simulated execution example, including the process and the output. The demonstration includes the example, the simulated execution process, and the desired outputs after the execution process.
+
+
+- Task Context: A standard prompt for a large language model typically includes sections detailing the inputs, methodology, and expected outputs. The inclusion of a "Demonstration Blueprint" section is essential for explicitly showcasing how the task should be executed and what outputs are anticipated. This addition significantly enhances the model's understanding and performance by providing a detailed example of the execution process and the expected results. The demonstration should comprehensively cover the example provided, the steps of the simulated execution process, and the outputs expected after these steps.
