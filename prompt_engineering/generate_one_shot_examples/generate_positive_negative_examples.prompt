@@ -22,7 +22,7 @@ Negative Example:
 **Procedure**:
 1. Understand the domain, objectives of the original prompt in the `[TargetPrompt]` section.
 2. Understand the criterias from `Criteria` section of the `[TargetPrompt]`.
-2. Based on previous analysis, think and design positive or negative examples relevant on the objective, and criteria. 
+2. Based on previous analysis, think and design positive or negative examples relevant to the objective, and criteria. 
 4. Present the final complete updated prompt in a copiable text block.
 
 [OutputRules]
@@ -76,10 +76,7 @@ Functional Requirements: [Requirement entries]
 Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
 
-[UserRequirement]
-Build one RPA to book one train ticket on website https://www.12306.cn/index/
-$PromptEnd$
-
+[TargetPrompt]
 
 
 

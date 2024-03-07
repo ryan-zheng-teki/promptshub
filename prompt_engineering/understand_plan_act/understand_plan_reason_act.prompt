@@ -1,0 +1,14 @@
+1. Understand => Understand.
+2. Reason => 
+3. Plan =>
+4. Act =>
+
+
+- Task Objective: Analyze the customer's initial simple idea for what they want to build and design appropriate use cases.
+- Task Context: Customers often present with a basic concept of their desired software solution without specifying the technology or methodology. The requirement engineer'- Task Context: Customers often approach with a basic concept of what they want to build, without specifying the technology or methodology, such as an RPA system or any other software solution. The requirement engineer's responsibility is to proactively understand these ideas, analyze the requirements, and design initial use cases with minimal customer engagement, leveraging their expertise and industry best practices.
+- Task Inputs:
+  - [Customer Idea]: 
+    - Description: A broad and initial concept from the customer about what they want to build, not limited to any specific technology or solution.
+- Task Outputs:
+  - [Use Cases]:
+    - Description: A set of designed use cases based on the customer's initial idea, refined by the requirement engineer's insights, expertise, and best practices, awaiting customer confirmation.

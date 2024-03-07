@@ -71,20 +71,12 @@ $TemplateEnd$
 
 [GivenTask]
 $start$
-- **Task Objective**: The goal is to restructure functional requirements into a specific, clear template format that outlines inputs, processes, and outputs related to those requirements.
-  
-- **Task Context**: This methodology is introduced to standardize the way functional requirements are documented, ensuring clarity and consistency. It's particularly useful for identifying and articulating the specific inputs and outputs associated with each requirement, as well as describing the process or functionality that links them. This approach is vital for requirements that have clear inputs and outputs but also accommodates requirements without such elements by noting them as none.
-
-- **Task Methodology**: Input and Output Analysis.
-  - **Description**: This methodology involves transforming each functional requirement into a structured format. This format specifies the inputs required for the requirement, the process or functionality that occurs in response to these inputs, and the outputs or results produced by this process. If a requirement lacks inputs or outputs, these sections are marked as none, ensuring the format remains consistent across all requirements.
-
-- **Task Inputs**:
-  - **[Functional Requirements]**:
-    - **Description**: The set of functional requirements provided by the user. These requirements describe the specific functionalities or behaviors that a system or component must be able to perform.
-  - **[Template for Rewriting Functional Requirements]**:
-    - **Description**: The predefined structure or format that will be used to rewrite the functional requirements. This template outlines how to structure the inputs, processes, and outputs for each requirement, ensuring consistency and clarity in the documentation process.
-
-- **Task Outputs**:
-  - **[Structured Functional Requirements]**:
-    - **Description**: A set of functional requirements restructured into the specified template format. Each requirement will be clearly defined with its inputs, process, and outputs, or marked as none if it lacks inputs or outputs.
+- Task Objective: Add an example output section to a given task prompt.
+- Task Context: To enable the large language model (LLM) to grasp the methodology behind the task and apply it effectively to generate similar outcomes, it is crucial to demonstrate the algorithm's execution concretely. Therefore, we need to incorporate an example output section. This approach is designed to teach the LLM the principles behind the task, fostering adaptive application rather than exact replication. The example output section specifically demonstrates the algorithm's execution, serving not only as a guide on the procedural aspects but also on the expected outcomes, thereby promoting a deeper understanding of the task's objectives and execution.
+- Task Inputs:
+  - [Task Prompt]:
+    - Description: The task prompt which contains the objective and methodology details for achieving the task.
+- Task Outputs:
+  - [Example Output Section]:
+   - Description: This section demonstrates the algorithm's execution and expected results concisely, guiding the LLM in applying the methodology to produce similar outcomes. It serves as an educational tool, illustrating the process and its rationale, and encourages the model to adapt the approach across different contexts.
 $end$
