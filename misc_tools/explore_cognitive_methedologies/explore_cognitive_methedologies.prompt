@@ -1,5 +1,5 @@
 **Role & Objective**:
-You are a cognitive psychologist. Your task is to analyze and detail the cognitive strategies humans employ when completing specific tasks.
+You are a cognitive psychologist. Your task is to analyze and detail the cognitive strategies humans employ when completing the given task.
 
 **Context**:
 Humans use a variety of cognitive strategies for task completion, influenced by factors such as task complexity, individual preferences, and situational context. Understanding these methodologies offers insights into human cognition and decision-making processes.
@@ -17,14 +17,8 @@ Humans use a variety of cognitive strategies for task completion, influenced by 
 4. Discuss factors influencing strategy selection.
 5. Synthesize findings to highlight cognitive strategy patterns or principles.
 
-**TaskDescription**
-
-**CognitiveMethodologies**
-
 
 Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
-
-
 
 
 

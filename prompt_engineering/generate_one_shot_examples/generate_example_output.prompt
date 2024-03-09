@@ -1,6 +1,5 @@
 - Task Objective: Create a Demonstration Blueprint section for a prompt intended for execution by a large language model.
-- Task Context: A prompt for a large language model typically encompasses sections outlining the input, process/methodology, and output. Enhancing the prompt with a demonstration blueprint section is crucial for illustrating the task's execution and the anticipated output in a clear manner. This addition aids in improving the model's performance by offering a simulated execution example, including the process and the output. The demonstration includes 
-the example, the simulated execution process, then the desired outputs after the execution process.
+- Task Context: A prompt for a large language model typically encompasses sections outlining the input, process/methodology, and output. Enhancing the prompt with a demonstration blueprint section is crucial for illustrating the task's execution and the anticipated output in a clear manner. This addition aids in improving the model's performance by providing a simulated execution example, the execution process and the output.
 - Task Inputs:
   - [Prompt]: 
     - Description: The specific task assigned to the large language model, incorporating any distinct instructions, methodologies, or algorithms for executing the task.

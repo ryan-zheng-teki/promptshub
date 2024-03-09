@@ -40,4 +40,6 @@ The voice-generated texts you receive will contain a specific task that need to 
 Please follow the steps defined by the `Procedure` section.  Think step by step to achieve the task. The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
 [VoiceText]
-I have a prompt, and basically the prompt is used to be executed by a large-language model and to achieve a certain task. Basically when humans are trying to achieve a task after they have finished the task, and then we have to ask whether this task is fulfilled with a good quantity. Because the task is finished well or not. So in order to just verify whether the task is finished well, so we basically unconsciously in our consciousness or intuitively, we have thought about what question to ask based on the tasks, what the task is trying to achieve or tasks criteria. Because when you finish the task, you somehow have some kind of criteria for the task itself. Then we somehow unconsciously have created some, let's say, quality verification questions. Because the prompt will be executed by a large-language model, it makes very sense that we also, based on the given prompt, and then ask verification questions based on what the prompt is trying to achieve and the task of the prompt is trying to achieve and also the criteria of the prompt.
+$VoiceTextStart$
+
+$VoiceTextEnd$
