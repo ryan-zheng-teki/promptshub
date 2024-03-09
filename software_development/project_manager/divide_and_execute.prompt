@@ -97,9 +97,9 @@ Follow the algorithm or methodogoy described in the `[Methodology]` section to p
 
 [Large Complex Task]
 $start$
-create a python library that uses llamaindex(it is a middleware which enable to talk to LLM) to automatically finish any user given task given any website.
+I need to create one Medium technical article for implementing cursor-based pagination using Strawberry graphql, Relay, and SQLAlchemy. 
 
-The eventual result is the complete working python library code, including documentations for the architecture design. By the way, you should search on the internet when neccessary.
+Here is the code we have implemented. So first understand the code, then create this article for me. Remember 
 $end
 
 
