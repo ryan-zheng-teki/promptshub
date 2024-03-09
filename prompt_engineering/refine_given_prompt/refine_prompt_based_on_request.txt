@@ -13,8 +13,8 @@ The optimized prompt will be used by a large language model like ChatGPT. So it 
 [Procedure]
 1. Understand the objectives and intent of the task prompt in the `[TaskPrompt]` section.
 2. Identify the domain or subject of the prompt.
-3. Analyse user's requirements and intentions regarding the target prompt.
-4. Think and plan changes in line with the user's requirements, ensuring clarity, and explicitness, at the same time, make sure the natural flow, and coherence of the modified content.
+3. Understand user's requirements and intentions regarding the target prompt.
+4. Think logically about how to improve while in line with the user's requirements, ensuring clarity, and explicitness, at the same time, make sure the natural flow, and coherence of the modified content.
 5. Present the complete refined version in a format in a copiable text block.
 
 
@@ -60,17 +60,19 @@ The Task Decomposition and Role Assumption methodology involves the following st
 3. Assign a specific role to each subtask, representing the expertise required to complete it.
 4. Assume the appropriate role for each subtask and actively execute it:
    a. Conduct research, analyze data, make decisions, and generate the required output based on the findings.
-   b. Ensure that the subtasks are actively executed, not just planned. For example, if a subtask involves market research, the actual research should be conducted and the findings should be the output of that subtask.
+   b. Ensure that the subtasks are actively executed, not just planned. For example, if a subtask involves creating python script, then the final result of the subtask should be the script itself.
 5. Utilize the output from completed subtasks as input for subsequent tasks.
 6. Continuously monitor the progress and quality of the subtask execution, making adjustments as necessary to ensure the successful completion of the entire task.
 
-By following this methodology, thoroughly evaluating the size and complexity of each subtask, defining specific execution steps, and ensuring that each subtask is actively executed, you can effectively tackle the entire task, ensuring that the final outcome is of high quality and usable for its intended purpose.
-$end$
+Example:
+Let's consider the task of organizing a large-scale charity event. Using the Task Decomposition and Role Assumption methodology, we can break it down into the following subtasks:
 $PromptEnd$
 
 [UserRequirement]
 $start$
-If you look at the output, you will see that indeed the task is broken down into subtask. But it does not evaludate the size of each subtask. It also didn't design steps for each subtask. I think we have to add demonstration or example in the Methodology to improve clarity.
+I think we have to improve the Methodology. The Methodology still does not reflect very well how human does things. What we did is that we somehow have setup some criterias for each task. It does not matter whether its subtask or task, or step. So i think the task scheduling or task division should be improved to reflect the real human cognition. 
+
+What do you think.
 $end$
 
 [Output]
