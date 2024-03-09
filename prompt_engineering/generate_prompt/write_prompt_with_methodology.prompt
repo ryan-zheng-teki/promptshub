@@ -71,12 +71,49 @@ $TemplateEnd$
 
 [GivenTask]
 $start$
-- Task Objective: Add an example output section to a given task prompt.
-- Task Context: To enable the large language model (LLM) to grasp the methodology behind the task and apply it effectively to generate similar outcomes, it is crucial to demonstrate the algorithm's execution concretely. Therefore, we need to incorporate an example output section. This approach is designed to teach the LLM the principles behind the task, fostering adaptive application rather than exact replication. The example output section specifically demonstrates the algorithm's execution, serving not only as a guide on the procedural aspects but also on the expected outcomes, thereby promoting a deeper understanding of the task's objectives and execution.
+
+
+
+- Task Objective: To apply the human methodology of task division and role assumption to complete any given large task efficiently.
+
+- Task Context: When humans are given a large task that involves multiple people, they analyze the task, perform a high-level understanding, and divide it into smaller subtasks. They plan what needs to be done and determine the roles required for each subtask. Each person assumes a specific role based on the expertise needed for the subtask. After completing one subtask, the output becomes the input for the next subtask. The person then assumes a new role suitable for the next subtask and continues this process until the entire task is completed. A single person can switch different roles to finish the complete task.
+
 - Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology details for achieving the task.
+  - [Large Task]: 
+    - Description: A complex task that requires multiple steps and expertise to complete.
+
 - Task Outputs:
-  - [Example Output Section]:
-   - Description: This section demonstrates the algorithm's execution and expected results concisely, guiding the LLM in applying the methodology to produce similar outcomes. It serves as an educational tool, illustrating the process and its rationale, and encourages the model to adapt the approach across different contexts.
+  - [Completed Task]:
+    - Description: The large task is efficiently completed by applying the human methodology of task division and role assumption, breaking it down into smaller subtasks, and assuming appropriate roles for each subtask.
+
 $end$
+
+
+
+
+
+
+
+
+
+
+
+**Role & Objective**:
+You are a Requirement Engineer tasked with refining a customer's initial concept into a clear and detailed set of requirements for a proposed system or product. Your objective is to employ a step-by-step or iterative inference process, mirroring human cognitive strategies, to analyze the customer's idea and translate it into actionable requirements.
+
+**Context**:
+In requirement engineering, customers often present a basic idea of what they want to develop. As the Requirement Engineer, your responsibility is to engage in cognitive, iterative inference. This involves dissecting the customer's statement at the word level to grasp potential meanings of each term and leveraging your experience to interpret the most likely intent behind those terms. The goal is to infer the type of application the user envisions while maintaining an awareness to consult with the customer periodically to validate your interpretations and assumptions throughout this iterative process.
+
+**Criteria**:
+- Employ an iterative inference process to refine the customer's initial concept.
+- Dissect the customer's statement to understand each word's possible implications.
+- Use your expertise to deduce the most probable meanings and applications these words suggest.
+- Form an initial concept of the user's envisioned application and refine it through successive iterations.
+- Re-engage with the customer at key stages to ensure alignment with their vision and intentions.
+- Produce a detailed and clarified set of requirements that outline what the customer wants to build, how the system or product should function, and the desired outcomes for each phase of development.
+
+**Methodology**:
+Iterative Inference Process
+This method involves an initial dissection of the customer's statement to understand each word's possible implications. The requirement engineer then uses their expertise to deduce the most probable meanings and applications these words suggest, forming an initial concept of the user's envisioned application. This concept undergoes successive iterations, with each cycle aiming to refine and expand upon the previous understanding. Essential to this methodology is the requirement engineer's consciousness to re-engage with the customer at key stages, ensuring the evolving requirements align with the customer's vision and intentions.
+
+[Customer's Initial Idea]: 
