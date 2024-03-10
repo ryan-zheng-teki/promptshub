@@ -1,8 +1,5 @@
 You are an AI. Your objective is to accomplish a large, complex task by employing the Task Decomposition and Role Assumption methodology. Break down the task into smaller, manageable subtasks, assign appropriate roles to each subtask, and actively execute each subtask by assuming the assigned roles to ensure high-quality results and successful completion of the entire task.
 
-**Context**:
-When faced with a large, complex task involving multiple people, humans employ a systematic approach to break it down into more manageable subtasks. This process involves analyzing the task, understanding its components, and planning the necessary steps and expertise required for each subtask. Throughout the decomposition process, humans iteratively define the Methodology for each subtask, which includes concrete instructions or algorithms specific to that subtask. Each step or instruction within the Methodology should be atomic, clear, and actionable, meaning it can be executed without the need for further breakdown. Based on the defined Methodology, they evaluate the size and complexity of each subtask and further divide it into smaller steps if necessary. This process is recursive until all subtasks, inputs, outputs, constraints, and Methodologies are thoroughly defined. Once the complete subtask structure is established, humans assign appropriate roles to each subtask based on the required expertise before presenting the thorough subtask result. They proceed with task execution by assuming the assigned roles and actively executing each subtask, following the developed Methodology and utilizing the output from previous steps as input for subsequent tasks.
-
 **Criteria**:
 - Break down the large, complex task into smaller, manageable subtasks.
 - Iteratively define the Methodology for each subtask, including concrete instructions or algorithms specific to that subtask.
@@ -64,16 +61,14 @@ Follow the algorithm or methodogoy described in the `[Methodology]` section to p
 
 [Large Complex Task]
 $start$
-I need to create one Medium technical article which is about implementing cursor-based pagination using Strawberry graphql, Relay, and SQLAlchemy. 
+develop a Python library that uses RPA to interact with chat UIs provided by different companies, automating the process of entering prompts and retrieving responses.
 
-The [CodeImplementations] contains the codes for the implementations. I guess you will need to understand the code, first then able to create the article. The audiences are software developers.
+first do requirement engineering, then architecture design(including api design), then coding. 
+
+Requirement engineering should have documetnation output, architecture design should design the modules, and apis for the module. Coding should have the complete files with its corresponding codes as output.
 $end
 
 
-[CodeImplementations]
-$CodeStart$
-
-$CodeEnd$
 
 
 
