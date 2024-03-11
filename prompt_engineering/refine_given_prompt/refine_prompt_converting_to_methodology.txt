@@ -86,11 +86,3 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 
 Version 3: Convert the procedure to methodogoy
-
-
-
-
-
-
-
-
