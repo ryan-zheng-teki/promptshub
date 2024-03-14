@@ -80,7 +80,7 @@ $RuleStart$
 - Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
 $RuleEnd$
 
-Please use the Methodology in the `[Methodology]` section to perform the task, and the output should adhere to the `[OutputRules]`, ensuring a process that mirrors human-like cognitive analysing, thining and inference process.
+Please use the Methodology in the `[Methodology]` section to perform the task, and the output should adhere to the `[OutputRules]`, ensuring a process that mirrors human-like thinking process.
 
 
 [Customer's Initial Idea]:
