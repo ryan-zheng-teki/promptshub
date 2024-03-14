@@ -35,21 +35,68 @@ Follow the methodology outlined in the `[Methodology]` section, ensuring that yo
 
 [OriginalPrompt]
 $PromptStart$
+As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request.
+
+**Context**:
+The task is to generate task-specific prompts tailored to diverse user requirements. The process starts by analyzing the user's request to identify the task's objective, context, required input, and expected output. Then rewrite the request using the format defined by `[TaskTemplateStructure]`. After this, we define the task's domain, which helps in determining the role responsible for accomplishing the task. Finally, we outline the methodology required to achieve the task, mirroring how a human would approach it. This involves detailing the actions a human would take to complete the task, referring to the `[MethodologyDesignGuidance]` section for examples and guidance on different types of methodologies. Note that there is no need to include a review step at the end, as another person will review the final output.
+
+
+**TaskTemplateStructure**:
+```
+- Task Objective: The objective of the task.
+- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
+- Task Inputs: For each required input, include the following:
+  - [Input Name]: Squared brackets wrapped short name of the input.
+    - Description: A detailed description of the input.
+  (Repeat the above block for each additional input as necessary.)
+- Task Outputs: 
+  - [Output Name]: Squared brackets wrapped short name of the output.
+    - Description: A detailed explanation of the output. (Designed for only one output per task.)
+```
+
+**MethodologyDesignGuidance**:
+<start>
+*Design Best Practices:*
+When crafting methodologies, adhere to the following best practices:
+1. Clarity: Ensure that each step description is clear, concise, and easy to understand. Avoid ambiguity and redundancy.
+2. Task Alignment: Ensure that the methodology aligns with the task objectives and addresses the specific requirements.
+3. Logical Flow: Maintain a logical flow and coherence between steps, ensuring a natural progression towards the desired output.
+4. Specificity: Provide specific guidance and instructions relevant to the task at hand, avoiding generic or overly broad statements.
+
+The methodology could be sequential steps, recursive or iterative processes. Ensure that the methodology provides concrete instructions or algorithms specific to the task itself.
+
+Sequential Steps Example:
+1. [Step 1]
+2. [Step 2]
+...
+[Detail the specific sequential steps the model should undertake to complete the task.]
 
 $PromptEnd$
 
 [UserRequirement]
 $start$
-I would like to convert the Procedure section to Methodology to make it more adaptable. The reason is that if i use Methodology, then under methodogoy i could put step by step methodogoy, i can also put the non step-by-step algorithms, or other types of analytical processes. 
+As you can see the sequential example is not really one real example in the MethodologyDesignGuidance section. 
 
-Similar to the following Methodology
-**Methodology**:
-The methodology outlines the steps for converting and analyzing the functional requirements:
-1. Start with the first functional requirement, converting it into the predefined format.
-2. Accurately document the "triggered by", "triggering", inputs, process, and outputs for each requirement.
-3. Proceed through the requirements sequentially, ensuring to fill in "triggering" and "triggered by" fields as connections are identified.
-4. After analyzing all requirements, review the documentation to ensure each is fully integrated into the dependency chain.
-5. Identify requirements lacking clear dependency links or integration as problematic.
+By the way, you can use the following given example.
+
+1. Politely acknowledge the user by saying "Thank you for your submission ..."
+2. Understand the user's intent and the information conveyed in the voice-generated input.  
+3. Identify the methodogoy user mentioned. Draw from your profound knowledge and articulate how the algorithm of the methodogoy works. 
+4. Create a practical example to demonstrate the application of the described methodology or algorithm.
+5. Present the final restructured task in a copiable text block, aligned with the specified `Criteria`.
+6. Wait for user's feedback regarding the final restructured content.
+
+This example is about convert user's voice message into task format. I think when you are giving example, you at least need to give some example description, like 
+
+Sequential Steps Example: 
+this example is about blabla, so one sequential steps fits here. 
+...
+
+Iterative or Recursive Example:
+this example is blabla, it requires iterative or recursive processs. 
+...
+
+But i believe you have a very good sentence of creating the most reasonable structure to deliver clarity.
 $end$
 
 
@@ -86,11 +133,5 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 
 Version 3: Convert the procedure to methodogoy
-
-
-
-
-
-
 
 

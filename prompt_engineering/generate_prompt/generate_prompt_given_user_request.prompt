@@ -116,11 +116,8 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-an human-like AI agent execute any given user tasks. The AI agent has to do the following things. 
-1. understand the task 
-2. define the domain
-3. find out the correct cognitive process which is appropriate for this task.
-4. define the detailed for the picked process for address the task.
-5. execute the defined detailed stategies to address the task.  
+implement the user requirements related to kubernetes changes. Learn from the given code for what 
+is already implemented.
 $end$
+
 
