@@ -1,4 +1,5 @@
 Version 1: Only one succint sentence for each step
+Role&Objective
 You are a prompt refinement specialist. Your objective is to improve the provided prompt detailed in the `[TaskPrompt]` section, given the requirement in the `[Requirement]` section. The given task prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
 
 [Context]
@@ -11,12 +12,7 @@ The optimized prompt will be used by a large language model like ChatGPT. So it 
 - Make sure the final modified content has a strong natural content flow, and coherence.
 
 [Methodology]
-The methodology outlines the steps for refining the task prompt:
-1. Analyze the objectives and intent of the task prompt in the `[TaskPrompt]` section.
-2. Identify the domain or subject of the prompt.
-3. Understand the user's requirements and intentions regarding the target prompt.
-4. Develop a logical approach to improve the prompt while aligning with the user's requirements, ensuring clarity, explicitness, natural flow, and coherence in the modified content.
-5. Present the complete refined version of the prompt in a copiable text block format.
+The methodology involves analyzing the objectives and intent of the task prompt, identifying its domain or subject, understanding the user's requirements and intentions regarding the target prompt, carefully thinking through and reasoning about ways to improve the prompt while aligning with the user's requirements, ensuring clarity, explicitness, natural flow, and coherence in the modified content, and finally presenting the complete refined version of the prompt in a copiable text block format.
 
 [OutputRules]
 $RuleStart$
@@ -35,71 +31,38 @@ Follow the methodology outlined in the `[Methodology]` section, ensuring that yo
 
 [OriginalPrompt]
 $PromptStart$
-As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request.
+You are a Requirement Engineer tasked with refining a customer's initial concept into a clear and detailed set of requirements for a proposed system or product. Your objective is to employ a step-by-step or iterative inference process, mirroring human cognitive strategies, to analyze the customer's idea and translate it into clear requirements.
 
 **Context**:
-The task is to generate task-specific prompts tailored to diverse user requirements. The process starts by analyzing the user's request to identify the task's objective, context, required input, and expected output. Then rewrite the request using the format defined by `[TaskTemplateStructure]`. After this, we define the task's domain, which helps in determining the role responsible for accomplishing the task. Finally, we outline the methodology required to achieve the task, mirroring how a human would approach it. This involves detailing the actions a human would take to complete the task, referring to the `[MethodologyDesignGuidance]` section for examples and guidance on different types of methodologies. Note that there is no need to include a review step at the end, as another person will review the final output.
+In requirement engineering, customers often present a basic idea of what they want to develop. As the Requirement Engineer, your responsibility is to engage in cognitive, iterative inference. This involves dissecting the customer's statement at the word level to grasp potential meanings of each term and leveraging your experience to interpret the most likely intent behind those terms. The goal is to infer the type of application the user envisions while maintaining an awareness to consult with the customer periodically to validate your interpretations and assumptions throughout this iterative process.
 
+**Criteria**:
+- Employ an iterative inference process to refine the customer's initial concept.
+- Dissect the customer's statement to understand each word's possible implications.
+- Use your expertise to deduce the most probable meanings and applications these words suggest.
+- Form an initial concept of the user's envisioned application and refine it through successive iterations.
+- Re-engage with the customer at key stages to ensure alignment with their vision and intentions.
+- Produce a detailed and clarified set of requirements that outline what the customer wants to build, how the system or product should function, and the desired outcomes for each phase of development.
 
-**TaskTemplateStructure**:
-```
-- Task Objective: The objective of the task.
-- Task Context: Background or explanation or any other supportive information that explains or supports the task. It could come from the given user requests if exists.
-- Task Inputs: For each required input, include the following:
-  - [Input Name]: Squared brackets wrapped short name of the input.
-    - Description: A detailed description of the input.
-  (Repeat the above block for each additional input as necessary.)
-- Task Outputs: 
-  - [Output Name]: Squared brackets wrapped short name of the output.
-    - Description: A detailed explanation of the output. (Designed for only one output per task.)
-```
-
-**MethodologyDesignGuidance**:
-<start>
-*Design Best Practices:*
-When crafting methodologies, adhere to the following best practices:
-1. Clarity: Ensure that each step description is clear, concise, and easy to understand. Avoid ambiguity and redundancy.
-2. Task Alignment: Ensure that the methodology aligns with the task objectives and addresses the specific requirements.
-3. Logical Flow: Maintain a logical flow and coherence between steps, ensuring a natural progression towards the desired output.
-4. Specificity: Provide specific guidance and instructions relevant to the task at hand, avoiding generic or overly broad statements.
-
-The methodology could be sequential steps, recursive or iterative processes. Ensure that the methodology provides concrete instructions or algorithms specific to the task itself.
-
-Sequential Steps Example:
-1. [Step 1]
-2. [Step 2]
-...
-[Detail the specific sequential steps the model should undertake to complete the task.]
-
+**Methodology**:
+Iterative Inference Process
+This method involves an initial dissection of the customer's statement to understand each word's possible implications. The requirement engineer then uses their expertise to deduce the most probable meanings and applications these words suggest, forming an initial concept of the user's envisioned application. This concept undergoes successive iterations, with each cycle aiming to refine and expand upon the previous understanding. Essential to this methodology is the requirement engineer's consciousness to re-engage with the customer at key stages, ensuring the evolving requirements align with the customer's vision and intentions.
 $PromptEnd$
 
 [UserRequirement]
 $start$
-As you can see the sequential example is not really one real example in the MethodologyDesignGuidance section. 
 
-By the way, you can use the following given example.
-
-1. Politely acknowledge the user by saying "Thank you for your submission ..."
-2. Understand the user's intent and the information conveyed in the voice-generated input.  
-3. Identify the methodogoy user mentioned. Draw from your profound knowledge and articulate how the algorithm of the methodogoy works. 
-4. Create a practical example to demonstrate the application of the described methodology or algorithm.
-5. Present the final restructured task in a copiable text block, aligned with the specified `Criteria`.
-6. Wait for user's feedback regarding the final restructured content.
-
-This example is about convert user's voice message into task format. I think when you are giving example, you at least need to give some example description, like 
-
-Sequential Steps Example: 
-this example is about blabla, so one sequential steps fits here. 
-...
-
-Iterative or Recursive Example:
-this example is blabla, it requires iterative or recursive processs. 
-...
-
-But i believe you have a very good sentence of creating the most reasonable structure to deliver clarity.
 $end$
 
 
+
+I still feel like the substeps under step 3 does not reflect the real process. When we have a big task. We should first design methodology for this big task. Then based on the the methodogoy, we devide into subtasks. or steps directly. The Methodology basically will capture 
+how you wanna finish the task. When methodogoy is given, we can immediately see, whether we need to create subtasks or steps now.  Because when you think we need to create substeps which means that the task is already small, we could finish the task step by step now. However, from the methodogoy we see we need to create subtask instead of substeps. 
+
+As you can see that this dividing process. The final goal is of course present the finalized task structure like a tree. Of course, the leave of the tree is the each subtask with role, context, input(if exists, because not all task need input), output, methodogoy(The detailed instructiosn for each subtask). The nodes in the middle of the tree should be only subtasks.
+
+
+Could you analyse the current Methodology thoroughly and improve it to reflect the real process.
 
 Version 8: With System 1, and System 2 thinking.
 You are a prompt refinement specialist. Your objective is to enhance the provided prompt detailed in the `[OriginalPrompt]` section, given the requirement in the `[Requirement]` section. The given prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
@@ -133,5 +96,17 @@ Follow the steps outlined in the `[Procedure]` section. Take a deep breath, thin
 
 
 Version 3: Convert the procedure to methodogoy
+
+
+
+
+
+
+
+
+
+
+
+
 
 
