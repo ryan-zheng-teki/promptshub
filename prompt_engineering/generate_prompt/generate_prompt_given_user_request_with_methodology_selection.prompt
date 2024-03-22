@@ -2,7 +2,7 @@
 As a Prompt Architect, an expert in crafting structured and effective prompts for large language models, your task is to craft a prompt following the format defined by the `[PromptTemplate]` based on the given user request.
 
 **Context**:
-The task is to generate task-specific prompts tailored to diverse user requirements. The process starts by analyzing the user's request to identify the task's objective, context, required input, and expected output. Then rewrite the request using the format defined by `[TaskTemplateStructure]`. After this, we define the task's domain, which helps in determining the role responsible for accomplishing the task. Finally, we outline the methodology required to achieve the task, mirroring how a human would approach it. This involves detailing the actions a human would take to complete the task, referring to the `[MethodologyDesignGuidance]` section for examples and guidance on different types of methodologies. Note that there is no need to include a review step at the end, as another person will review the final output.
+The task is to generate task-specific prompts tailored to diverse user requirements. The process starts by analyzing the user's request to identify the task's objective, context, required input, and expected output. Then rewrite the request using the format defined by `[TaskTemplateStructure]`. After this, we define the task's domain, which helps in determining the role responsible for accomplishing the task. Finally, we outline the methodology required to achieve the task, mirroring how a human would approach it. This involves detailing the actions a human would take to complete the task, referring to the `[MethodologyDesignGuidance]` section for examples and guidance on different types of methodologies.
 
 
 **TaskTemplateStructure**:
@@ -157,70 +157,16 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-update the existing given python code for the new user requirements.
+conver the given pyppeteer python script to use playwright. 
+
+playwright is actively maintained, but pyppeteer is not maintained many years ago. Which means 
+some implementation in pyppeteer maybe be adjusted or simplified. This is not just converting. Also 
+playwright usage is also different. 
+
+Learn from the given user playwright script about how to start playwright using the external exectuable, and 
+predefined profile.
 $end$
 
 
 
 
-
-1. Code Review:
-   - Thoroughly review the [ExistingCode] to gain a deep understanding of its structure, functionality, and dependencies.
-   - Identify the specific areas of the code that are impacted by the [NewRequirements].
-
-2. Requirement Analysis:
-   - Carefully analyze the [NewRequirements] to understand the desired changes and additional functionalities.
-   - Break down the requirements into smaller, manageable tasks.
-
-3. Code Modification:
-   - Implement the necessary code changes in the identified areas of the [ExistingCode] to accommodate the [NewRequirements].
-   - Ensure that the modifications align with the existing codebase's structure and style.
-   - Follow Python best practices and conventions throughout the modification process.
-
-4. Integration and Testing:
-   - Integrate the modified code with the existing codebase, ensuring seamless compatibility.
-   - Conduct thorough testing to verify that the [UpdatedCode] meets the [NewRequirements] and functions as expected.
-   - Perform regression testing to ensure that the modifications do not introduce any bugs or errors in the existing functionality.
-
-5. Documentation and Code Review:
-   - Update the relevant documentation, including code comments, README files, and user guides, to reflect the changes made based on the [NewRequirements].
-   - Conduct a code review to ensure the [UpdatedCode] is clean, maintainable, and follows the specified coding standards.
-
-I am now presenting the final prompt based on the [PromptTemplate]:
-
-**Role & Objective**:
-As a Python Developer, your objective is to update the existing Python code to meet the new user requirements specified in the [NewRequirements] input.
-
-**Context**:
-The task involves modifying an existing Python codebase to incorporate changes based on updated user requirements. The changes aim to align the code with the latest specifications and functionalities desired by the users.
-
-**Criteria**:
-- The updated code should fully incorporate the new user requirements outlined in the [NewRequirements] input.
-- The modifications should maintain the integrity and functionality of the existing codebase.
-- The code should follow Python best practices and conventions, ensuring readability, maintainability, and efficiency.
-- The updated code should be thoroughly tested to ensure it meets the new requirements and does not introduce any bugs or errors.
-
-**Methodology**:
-The following steps outline a sequential process for updating the existing Python code based on new user requirements:
-
-1. Code Review:
-   - Thoroughly review the [ExistingCode] to gain a deep understanding of its structure, functionality, and dependencies.
-   - Identify the specific areas of the code that are impacted by the [NewRequirements].
-
-2. Requirement Analysis:
-   - Carefully analyze the [NewRequirements] to understand the desired changes and additional functionalities.
-   - Break down the requirements into smaller, manageable tasks.
-
-3. Code Modification:
-   - Implement the necessary code changes in the identified areas of the [ExistingCode] to accommodate the [NewRequirements].
-   - Ensure that the modifications align with the existing codebase's structure and style.
-   - Follow Python best practices and conventions throughout the modification process.
-
-4. Integration and Testing:
-   - Integrate the modified code with the existing codebase, ensuring seamless compatibility.
-   - Conduct thorough testing to verify that the [UpdatedCode] meets the [NewRequirements] and functions as expected.
-   - Perform regression testing to ensure that the modifications do not introduce any bugs or errors in the existing functionality.
-
-5. Documentation and Code Review:
-   - Update the relevant documentation, including code comments, README files, and user guides, to reflect the changes made based on the [NewRequirements].
-   - Conduct a code review to ensure the [UpdatedCode] is clean, maintainable, and follows the specified coding standards.
