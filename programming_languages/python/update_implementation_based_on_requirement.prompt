@@ -22,83 +22,113 @@ $RuleStart$
 $RuleEnd$
 
 Follow the algorithm or methodogoy described in the `[Methodology]` section to perform the task, and the output should adhere to the `[OutputRules]`, ensuring a process that mirrors human-like cognitive process.
+
 [ExistingCode]
-from abc import ABC, abstractmethod
+# termin_buchen_page.py
 import asyncio
 import logging
+from playwright.async_api import Page
+
+from exception import SessionTimeout
+
 
 logger = logging.getLogger(__name__)
 
-class AjaxHandlingStrategy(ABC):
-    @abstractmethod
-    async def wait_for_ajax_call(self, url):
-        pass
-
-class WaitForAjaxCallStrategy(AjaxHandlingStrategy):
-    def __init__(self, page):
+class TerminBuchenPage:
+    def __init__(self, page: Page, web_navigator):
         self.page = page
-        self.expected_url = None
-        self.response_event = asyncio.Event()
-        self.page.on('response', lambda resp: asyncio.ensure_future(self.response_handler(resp)))
+        self.web_navigator = web_navigator
 
-    async def response_handler(self, response):
-        if self.expected_url and self.expected_url in response.url:
-            logger.info(f"Response received for URL {response.url}")
-            self.response_event.set()
+    async def click_termin_buchen_button(self) -> None:
+        try:
+            await self.page.wait_for_selector("a.button.arrow-right[href*='/ams/TerminBuchen/wizardng?sprachauswahl=de']", state="visible")
+            await self.page.click("a.button.arrow-right[href*='/ams/TerminBuchen/wizardng?sprachauswahl=de']")
+            await self.page.wait_for_load_state('networkidle')  # Wait for network to become idle
+        except Exception as e:
+            logger.error(f"Error clicking 'Termin Buchen' button: {str(e)}")
+            raise
 
-    async def wait_for_ajax_call(self, url):
-        self.expected_url = url
-        self.response_event.clear()  # Reset the event for the new AJAX call
-        logger.info(f"Waiting for AJAX call to URL: {url}")
-        
-        await self.response_event.wait()
-        logger.info(f"AJAX call completed for URL: {url}")
-        # Consider adding logic to remove the response handler if no longer needed
+    async def accept_terms_information_tab(self) -> None:
+        try:
+            await self.page.wait_for_selector('#xi-cb-1', state="visible")
+            await self.page.click('#xi-cb-1')
+            await self.page.click('#applicationForm\\:managedForm\\:proceed')
+            await self.page.wait_for_load_state('networkidle')  # Wait for network to become idle
+        except Exception as e:
+            logger.error(f"Error accepting terms and proceeding: {str(e)}")
+            raise
 
+    async def click_book_termin_button_until_session_timeout(self, selector: str) -> None:
+        attempt_count = 0
+        while True:
+            try:
+                if self.web_navigator.are_we_on_logout_page():
+                    logger.info("At the logout page, restart from beginning")
+                    break
+                if await self.web_navigator.is_tab_active("Servicewahl"):
+                    logger.info("On Servicewahl, going to click the continue button")
+                elif await self.web_navigator.is_tab_active("Terminauswahl"):
+                    logger.info("Terminwahl is active, good job")
+                    self.web_navigator.appoint_checker.notify_user_success()
+                    self.web_navigator.hand_over_control_to_user()
+                else:
+                    await self.web_navigator.appoint_checker.play_error_sound()
+                    logger.error("both servicewahl and terminwahl not active, internal error")
+                    raise ValueError(f"both servicewahl and terminwahl not active, internal error, start from beginning")
+                
+                await self.page.wait_for_selector(selector, state="visible")
+                await self.page.click(selector)
+                await self.page.wait_for_load_state('networkidle')  # Wait for network to become idle
+
+                attempt_count += 1
+                if await self.web_navigator.is_tab_active("Servicewahl"):
+                    logger.info("After clicking the continue button, still in the Servicewahl tab")                    
+                elif await self.web_navigator.is_tab_active("Terminauswahl"):
+                    logger.info("Terminwahl is active, good job")
+                    self.web_navigator.appoint_checker.notify_user_success()
+                    self.web_navigator.hand_over_control_to_user()
+                else:
+                    await self.web_navigator.appoint_checker.play_error_sound()
+                    logger.error("both servicewahl and terminwahl not active, internal error")
+                    raise ValueError(f"both servicewahl and terminwahl not active, internal error, start from beginning")
+
+                if attempt_count == 20:
+                    await self.web_navigator.appoint_checker.play_tried_many_times()
+                    await asyncio.sleep(10)
+                    attempt_count = 0
+
+                if self.web_navigator.are_we_on_logout_page():
+                    await self.web_navigator.appoint_checker.play_session_ended_sound()
+                    raise SessionTimeout("We are on the logout page")
+                
+            except Exception as e:
+                logger.error(f"click_book_termin_button_until_session_timeout: {str(e)}")
+                await self.web_navigator.appoint_checker.play_error_sound()
+                
+                if self.web_navigator.are_we_on_logout_page():
+                    await self.web_navigator.appoint_checker.play_session_ended_sound()
+                    raise SessionTimeout("We are on the logout page")
+                else: 
+                    if await self.web_navigator.is_tab_active("Servicewahl"):
+                        logger.info("Strange error happened, but in Servicewahl tab, continue again")
+                        continue
+                    elif await self.web_navigator.is_tab_active("Terminauswahl"):
+                        logger.info("Terminwahl is active, good job")
+                        self.web_navigator.appoint_checker.notify_user_success()
+                        self.web_navigator.hand_over_control_to_user()
+                    else:
+                        await self.web_navigator.appoint_checker.play_error_sound()
+                        logger.error("both servicewahl and terminwahl not active, internal error")
+                        raise ValueError(f"both servicewahl and terminwahl not active, internal error, start from beginning")
+                    
 
 
 
 [NewRequirements]
-Implement a wait_until_no_more_requests function. If there are no more requests in 3 seconds, then 
-we need to timeout.
-no_more_requests_prompt = asyncio.ensure_future(
-                    self.wait_ajax_call_strategy.wait_until_no_more_requests()
-                )
-do something here ...
-await no_more_requests_prompt
+what i have seen is that even though we are on the Terminauswahl. But there is actually error message on the page. I have copied the error message element here.
+        <div id="messagesBox">
+        <ul class="messagesBox"><li class="errorMessage">Für die gewählte Dienstleistung sind aktuell keine Termine frei! Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.</li></ul></div>
+
+So i think even though we are on the Terminauswahl tab, we should also check whether the error message box exists or not. If exists, then we need to refresh the current page.
 
 
-
-Version 4:
-**Role & Objective**:
-You are a senior Python developer tasked with updating an existing python script for the new user requirements.
-
-**Criteria**:
-2. Follow PEP8 best practices
-3. Follow clean code best practices
-
-**Procedure**:
-1. Analyze the existing Python script to understand its current functionality and structure.
-2. Analyse the new user requirements against the given script.
-3. Articulate your detailed thinking of how you plan to implement the new requirements.
-4. Modify the script to concrete the changes, and present the final updated script.
-
-[OutputRules]
-- Reflective Thinking: Each step's output should begin with a reflective statement, like "I am now executing this step ... ", to mimic the human thought process.
-- Continuous Logical Flow: Demonstrate a continuous and logical flow of thoughts, showing how one consideration leads to the next.
-- Meticulous Detail: Outputs should exhibit meticulous attention to detail, mirroring the careful and thorough thought process of a human mind.
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue, to bring out the human-like quality of the output.
-
-Please follow the steps defined by the `Procedure` section, think step by step to address the task. Your output should follow the output rules defined in the `[OutputRules]` section.
-
-[ExistingScript]
-
-
-[NewRequirements]
-<li class="antcl_active"><div class="antcl_circle">3</div><span>Terminauswahl</span></li>
-
-
-
-
-
-<li class="antcl_active"><div class="antcl_circle">2</div><span>Servicewahl</span></li>
