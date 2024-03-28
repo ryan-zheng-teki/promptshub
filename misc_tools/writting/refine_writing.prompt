@@ -91,131 +91,12 @@ $RuleStart$
 - Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
 $RuleEnd$
 
-
 Please follow the steps defined in the `[Procedure]` section. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [Writing]
 $WrittingStart$
-
-$WrittingEnd$
-
-
-[UserRequest]
-$start$
-I actually wanna improve the Task Context. A prompt is actually a task which will be executed by LLM. When human is given a task, and with one example run, then we understand better how to do the task. For example, if you are given one algorithm task, but if at the same time provided one example, and one execution process on the given example, and the output of the run on the given example, then this greatly help us how to do the algorithm.
-$end$
-
-
-[TaskStructureFormat]
-- Task Objective: Add an example output section to a given task prompt.
-- Task Context: To enable the large language model (LLM) to grasp the methodology behind the task and apply it effectively to generate similar outcomes, it is crucial to demonstrate the algorithm's execution concretely. Therefore, we need to incorporate an example output section. This approach is designed to teach the LLM the principles behind the task, fostering adaptive application rather than exact replication. The example output section serves as a guide, illustrating not just how the task should be performed, but also what results are expected, thereby promoting a deeper understanding of the task's objectives and execution.
-- Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology details for achieving the task.
-- Task Outputs:
-  - [Example Output Section]:
-    - Description: A meticulously crafted section that demonstrates the expected outcome of the task when executed according to the methodology outlined in the prompt. This section serves as a guide for the large language model, illustrating how the task should be performed and what results are expected.
-
-
-
-
-
-
-
-
-- Task Objective: Add an example output section to a given task prompt.
-- Task Context: The task prompt is designed for execution by a large language model and includes a methodology section that details the algorithms to approach the task. Creating an example output section aims to demonstrate the algorithm's execution concretely, enabling the LLM to grasp the methodology and apply it to generate similar outcomes. This approach teaches the LLM to understand the principles behind the task, promoting adaptive application rather than exact replication of the example. This serves as a guide for the large language model, illustrating how the task should be performed and what results are expected.
-- Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology details for achieving the task.
-- Task Outputs:
-  - [Example Output Section]:
-    - Description: A meticulously crafted section that demonstrates the expected outcome of the task when executed according to the methodology outlined in the prompt. This section serves as a guide for the large language model, illustrating how the task should be performed and what results are expected.
-
-
-
-- Task Objective: Add an example output section to a given task prompt.
-- Task Context: To enable the large language model (LLM) to grasp the methodology behind the task and apply it effectively to generate similar outcomes, it is crucial to demonstrate the algorithm's execution concretely. Therefore, we need to incorporate an example output section. This approach is designed to teach the LLM the principles behind the task, fostering adaptive application rather than exact replication. The example output section serves as a guide, illustrating not just how the task should be performed, but also what results are expected, thereby promoting a deeper understanding of the task's objectives and execution.
-- Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology details for achieving the task.
-- Task Outputs:
-  - [Example Output Section]:
-    - Description: A meticulously crafted section that demonstrates the expected outcome of the task when executed according to the methodology outlined in the prompt. This section serves as a guide for the large language model, illustrating how the task should be performed and what results are expected.
-
-
-
-
-- Task Objective: Add a demonstrative algorithm execution section to a given task prompt.
-- Task Context: To enable the large language model (LLM) to grasp the methodology behind the task and apply it effectively to generate similar outcomes, it is crucial to demonstrate the algorithm's execution concretely. Therefore, we need to incorporate a demonstrative algorithm execution section. This approach is designed to teach the LLM the principles behind the task, fostering adaptive application rather than exact replication. The demonstrative algorithm execution section specifically demonstrates the algorithm's execution, serving not only as a guide on the procedural aspects but also on the expected outcomes, thereby promoting a deeper understanding of the task's objectives and execution.
-- Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology details for achieving the task.
-- Task Outputs:
-  - [Demonstrative Algorithm Execution]:
-   - Description: This section demonstrates the algorithm's execution and expected results concisely, guiding the LLM in applying the methodology to produce similar outcomes. It serves as an educational tool, illustrating the process and its rationale, and encourages the model to adapt the approach across different contexts.
-
-
-
-
-
-
-
-- Task Objective: Add an Algorithm Demonstration section to a given task prompt.
-- Task Context: To enable the large language model (LLM) to effectively grasp and apply the methodology behind the task, it is essential to first design examples that are inherently related to the task itself. Following this, we must showcase the execution output of the algorithm based on these examples. This approach ensures that the LLM learns the principles behind the task, facilitating adaptive application rather than mere replication. The Algorithm Demonstration section acts as a practical guide, illustrating not just how the task should be performed, but also providing a concrete example of the expected results. This method promotes a deeper understanding of the task's objectives and the execution process.
-- Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology details for achieving the task.
-- Task Outputs:
-  - [Algorithm Demonstration Template]:
-    - Description: This template provides a structured format for the Algorithm Demonstration Output, guiding users on how to present their designed examples and the demonstrative outputs effectively. It should start with the designed examples that are inherent to the task, followed by the demonstrative output for running the algorithm on these examples. This template aims to ensure consistency and clarity in demonstrating how the algorithm applies to specific scenarios.
-  - [Algorithm Demonstration Output]:
-    - Description: A meticulously crafted section that demonstrates the expected outcome of the task when executed according to the methodology outlined in the prompt, based on designed examples. This section serves as a practical guide for the large language model, illustrating both the method of execution and the anticipated results.
-
-
-- Task Objective: Add an Algorithm Demonstration Output section to a given task prompt.
-- Task Context: To enable the large language model (LLM) to effectively grasp and apply the methodology behind the task, it is essential to first design examples that are inherently related to the task itself. Following this, we must showcase the execution output of the algorithm based on these examples. This approach ensures that the LLM learns the principles behind the task, facilitating adaptive application rather than mere replication. The Algorithm Demonstration Output section acts as a practical guide, illustrating not just how the task should be performed, but also providing a concrete example of the expected results. This method promotes a deeper understanding of the task's objectives and the execution process.
-- Task Inputs:
-  - [Task Prompt]:
-    - Description: The task prompt which contains the objective and methodology which details the algorithm for achieving the task.
-- Task Outputs:
-  - [Algorithm Demonstration Output Section]:
-    - Description: A meticulously crafted section that demonstrates the expected outcome of the task when executed according to the methodology outlined in the prompt, based on designed examples. This section serves as a practical guide for the large language model, illustrating both the method of execution and the anticipated results.
-  - [Algorithm Demonstration Output Template]:
-    - Description: A format guide for presenting designed examples followed by their algorithmic outputs that the `Algorithm Demonstration Output Section` must adhere to.
-
-
-This template is designed to ensure clarity and precision in documenting functional requirements, promoting a structured approach to capturing essential details.
-
-
-
-
-- Task Objective: Develop a method to determine the most appropriate cognitive process (procedural or analytical) to address any given task.
-
-- Task Context: The selection of a cognitive process depends on the nature of the task. For some tasks, a procedural, step-by-step approach is most effective, where tasks are broken down into sequential steps. For others, particularly those involving algorithms, an analytical approach is required. This might include recognizing patterns, understanding recursive processes, and applying abstract thinking to navigate complex problems.
-
-- Task Inputs:
-    - [Task Description]:
-        - Description: A detailed description of the task, including its objectives, constraints, and any specific requirements or challenges.
-    - [Task Nature]:
-        - Description: An analysis of the task's inherent characteristics to determine whether it leans more towards requiring procedural steps or analytical thinking.
-
-- Task Outputs:
-    - [Cognitive Process Recommendation]:
-        - Description: A recommendation of the most suitable cognitive process for the task at hand, based on its description and inherent nature. This could be a procedural approach, an analytical approach, or a combination of both, depending on the task's requirements.
-
-
-[OutputRules - Revised]
-- Begin each output with: "I am currently focusing on...", to mirror the human thought process. This approach applies universally, whether the task involves executing procedural steps or analyzing requirements. It captures the moment of transition between major points, steps, or actions, embodying the natural cognitive progression.
-- Continuous Logical Flow: Ensure that thoughts demonstrate a seamless and logical progression, illustrating how one consideration leads directly to the next. This rule applies to any cognitive task, maintaining internal coherence and enhancing the reader's understanding.
-- Meticulous Detail: Outputs should reflect meticulous attention to detail, akin to the careful and thorough thought process of a human mind. This principle is fundamental in producing precise and well-considered outputs across all contexts.
-- Conversational and Personal Language: Use language that is conversational and personal, bringing out the human-like quality of the output. This style should be consistent, regardless of the task at hand, to foster a more engaging and accessible communication.
-- Reasoning When Necessary: For tasks that involve complexity or require decision-making, include reasoning to precede the output. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring outputs are not only clear but also grounded in logical analysis.
-
-
-
-
 [OutputRules]
+$RuleStart$
 - Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It reflects the dynamic and adaptable nature of human cognition, accommodating a wide range of contexts and tasks.
 
 - Continuous Logical Flow: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. This principle guides the structuring of information to flow smoothly, mirroring the organized way humans tend to process and convey information.
@@ -224,32 +105,32 @@ This template is designed to ensure clarity and precision in documenting functio
 
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
 
-- Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
+- Reasoning: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
+$RuleEnd$
+$WrittingEnd$
 
 
+[UserRequest]
+$start$
+I think the output rules are not complete. The purpose is to output  what is happening in  human cognitive thinking when we are executing tasks. However, if you look at the Output. It output the action name. However, it does not contain the output for actually executing the action.. 
+
+What happens with human is that, we have thoughts like "i need to do blabla, then followed by the action executions thinking in our brain".
+
+Could you please improve the OutputRules.
+$end$
 
 
-- Begin each output with a phrase like "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This approach mimics the human thought process, illustrating the transition between thoughts, actions, or steps, and reflects the adaptable nature of human cognition.
+[Output]
+$start$
+I am currently analyzing the provided HTML to gain a deep understanding of its structure and identify the relevant elements for targeting the copy button based on the user's requirements.
 
-- Ensure a Continuous Logical Flow: Maintain a logical progression of thoughts, ensuring the discourse flows smoothly and logically from one point to the next. This principle guides the structuring of information to mirror the organized manner in which humans process and convey information.
+I am carefully reviewing the user's requirements to determine precisely which elements need to be targeted. The key points are:
 
-- Demonstrate Meticulous Attention to Detail: Show thorough and careful consideration in communication, emphasizing precision and accuracy. This highlights the importance of detail in reflecting the depth of human analysis and understanding.
-
-- Use Conversational and Personal Language: Adopt a tone that is relatable and engaging, similar to an individual's internal dialogue. This style makes the communication more accessible and personal, enhancing the reader's connection to the content.
-
-- Include Reasoning When Necessary: Preface actions or conclusions with reasoning, simulating the human cognitive process of thinking through a problem before arriving at a solution. This ensures outputs are not only precise but also well-considered and justified.
-
-
-
-
-- Objective: Develop a "Demonstration Blueprint" section for inclusion in prompts intended for large language models.
-- Context: Prompts designed for large language models often comprise sections detailing the inputs, methodology, and expected outputs. Integrating a "Demonstration Blueprint" section enhances clarity, providing a simulated example of task execution and the resultant outputs. This section is pivotal for elucidating the task's procedural aspects and output expectations, thereby facilitating improved performance by the model.
-- Inputs:
-  - [Prompt]: 
-    - Description: A detailed assignment for the large language model, including specific instructions, methodologies, or algorithms to be followed during task execution.
-- Outputs: 
-  - [Demonstration Blueprint]:
-    - Description: A comprehensive section that showcases the formulation of an example pertinent to the task. It elaborates on the execution process in a step-by-step manner and outlines the anticipated outputs. This blueprint is instrumental in guiding the large language model, ensuring both procedural clarity and precision in expected outcomes.
+The copy button is the second button among four consecutive buttons
+The button is identified by an SVG image inside it
+The button does not have a very identifiable class or ID
+I am now constructing the CSS selector to accurately target the copy button while ensuring it is specific enough to avoid unintended styling of other elements.
+$end$
 
 
 
