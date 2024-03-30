@@ -116,8 +116,8 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-implement the user requirements related to kubernetes changes. Learn from the given code for what 
-is already implemented.
+analyze the the given html, and create css selector based on the user given requirement. 
+Consider additional user input before creating the css selector for the user requirement.
 $end$
 
 

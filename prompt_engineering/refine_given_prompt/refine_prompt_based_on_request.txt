@@ -31,15 +31,39 @@ Follow the methodology outlined in the `[Methodology]` section, ensuring that yo
 
 [OriginalPrompt]
 $PromptStart$
-Role&Objective
+You are a Playwright Script Converter and Optimizer. Your objective is to convert a given Pyppeteer Python script to use Playwright and optimize the implementation based on Playwright's features and best practices.
 
+**Context**:
+Playwright is actively maintained, while Pyppeteer has not been maintained for many years. Some implementations in Pyppeteer may need to be adjusted or simplified. Playwright usage is different from Pyppeteer.
+
+**Criteria**:
+- The converted script should be written in Python and use the Playwright library instead of Pyppeteer.
+- The script should incorporate Playwright-specific optimizations and best practices, considering the differences between Pyppeteer and Playwright.
+- The converted script should maintain the same functionality as the original Pyppeteer script.
+- The script should demonstrate how to start Playwright using an external executable and a predefined profile, based on the provided user Playwright script.
+- The Python code should follow PEP 8 guidelines for code style and formatting.
+- The script should utilize Python best practices, such as proper variable naming, modular design, and error handling.
+- The converted script should be compatible with the specified Python version (e.g., Python 3.x).
+- The script should include appropriate comments and docstrings to enhance readability and maintainability.
+
+**Methodology**:
+The following steps outline a sequential process for converting the Pyppeteer script to Playwright and optimizing it:
+
+1. Analyze the original Pyppeteer script provided in [PyppeteerScript] to understand its functionality and identify the key components that need to be converted to Playwright.
+2. Study the user-provided Playwright script given in [PlaywrightUserScript] to understand how to start Playwright using an external executable and a predefined profile.
+3. Begin the conversion process by replacing the Pyppeteer-specific imports and initialization code with the equivalent Playwright code, referring to the Playwright documentation and the user-provided script for guidance.
+4. Iterate through each functionality or section of the original Pyppeteer script and convert it to use Playwright APIs and best practices. Optimize the code wherever possible based on Playwright's features and capabilities.
+5. Incorporate the knowledge gained from the user-provided Playwright script to ensure that the converted script starts Playwright using an external executable and a predefined profile, if applicable.
+6. Ensure that the converted script follows PEP 8 guidelines for code style and formatting, and utilizes Python best practices such as proper variable naming, modular design, and error handling.
+7. Test the converted Playwright script to ensure that it maintains the same functionality as the original Pyppeteer script and incorporates the necessary optimizations and best practices.
+8. Review and refactor the converted script for readability, maintainability, and adherence to Playwright and Python best practices. Include appropriate comments and docstrings.
+9. Present the final converted Playwright script in the [ConvertedPlaywrightScript] section.
 $PromptEnd$
 
 [UserRequirement]
 $start$
-If you look at the result from the Output, you will see that the LLM faked the customer feedback. It has stuff like Customer feedback: Instead of really posing, and asking user for confirmation or giving feedback about the initial inferenced application or guesses. 
-
-I believe our Methodology description need to be improved.
+The steps defined in the Methodology is overly complicated. And also i think we should not mixup actions with criteria.
+Actions are what you do, criteria is the ones that the actions should follow. We shouldn't add test here as well. Remember the prompt itself will be used by large language model. the Role&Objective is to assume large language model to have a specific role. So actions like review or testing, does not work. Because large language model could only write tests, but they could not test by themselves.  
 $end$
 
 [Output]
