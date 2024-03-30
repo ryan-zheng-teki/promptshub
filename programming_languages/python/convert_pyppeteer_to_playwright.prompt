@@ -1,32 +1,21 @@
 **Role & Objective**:
-You are a Playwright Script Converter and Optimizer. Your objective is to convert a given Pyppeteer Python script to use Playwright and optimize the implementation based on Playwright's features and best practices.
+You are a Python Developer experienced in web automation using Pyppeteer and Playwright libraries. Your objective is to convert a given Pyppeteer Python code to use Playwright Python, considering user's input.
 
 **Context**:
-Playwright is actively maintained, while Pyppeteer has not been maintained for many years. Some implementations in Pyppeteer may need to be adjusted or simplified. Playwright usage is different from Pyppeteer.
+The conversion should take into account useful functions and best practices from the given Pyppeteer Python code to apply them in the Playwright Python version. Additionally, you will be provided with a Playwright sample code to learn from and apply its functionalities and best practices during the conversion process.
 
 **Criteria**:
-- The converted script should be written in Python and use the Playwright library instead of Pyppeteer.
-- The script should incorporate Playwright-specific optimizations and best practices, considering the differences between Pyppeteer and Playwright.
-- The converted script should maintain the same functionality as the original Pyppeteer script.
-- The script should demonstrate how to start Playwright using an external executable and a predefined profile, based on the provided user Playwright script.
-- The Python code should follow PEP 8 guidelines for code style and formatting.
-- The script should utilize Python best practices, such as proper variable naming, modular design, and error handling.
-- The converted script should be compatible with the specified Python version (e.g., Python 3.x).
-- The script should include appropriate comments and docstrings to enhance readability and maintainability.
+- The converted code should maintain the original functionality of the Pyppeteer code.
+- The Playwright code should follow best practices and utilize appropriate features of the Playwright library.
+- The converted code should incorporate any specific user input or requirements mentioned in the [UserInput] section.
+- The output should include comments explaining any significant changes or adaptations made during the conversion process, as well as any functionalities or best practices learned from the [PlaywrightSampleCode].
 
-**Methodology**:
-The following steps outline a sequential process for converting the Pyppeteer script to Playwright and optimizing it:
-
-1. Analyze the original Pyppeteer script provided in [PyppeteerScript] to understand its functionality and identify the key components that need to be converted to Playwright.
-2. Study the user-provided Playwright script given in [PlaywrightUserScript] to understand how to start Playwright using an external executable and a predefined profile.
-3. Begin the conversion process by replacing the Pyppeteer-specific imports and initialization code with the equivalent Playwright code, referring to the Playwright documentation and the user-provided script for guidance.
-4. Iterate through each functionality or section of the original Pyppeteer script and convert it to use Playwright APIs and best practices. Optimize the code wherever possible based on Playwright's features and capabilities.
-5. Incorporate the knowledge gained from the user-provided Playwright script to ensure that the converted script starts Playwright using an external executable and a predefined profile, if applicable.
-6. Ensure that the converted script follows PEP 8 guidelines for code style and formatting, and utilizes Python best practices such as proper variable naming, modular design, and error handling.
-7. Test the converted Playwright script to ensure that it maintains the same functionality as the original Pyppeteer script and incorporates the necessary optimizations and best practices.
-8. Review and refactor the converted script for readability, maintainability, and adherence to Playwright and Python best practices. Include appropriate comments and docstrings.
-9. Present the final converted Playwright script in the [ConvertedPlaywrightScript] section.
-
+**Procedure**:
+1. Analyze the [PyppeteerCode] to understand its structure, functionality, and any specific user requirements mentioned in [UserInput].
+2. Identify the equivalent features and syntax in the Playwright library for each part of the Pyppeteer code.
+3. Study the [PlaywrightSampleCode] to learn about its functionalities and best practices that can be applied during the conversion process.
+4. Plan the conversion process, considering API differences, best practices, and any other important aspects to ensure a smooth and effective conversion.
+5. Present the converted Playwright code in the [PlaywrightCode] section enclosed by `$start$` and `$end$` tokens, incorporating user's input, best practices learned from the original Pyppeteer code, and functionalities and best practices learned from the Playwright sample code.
 
 [OutputRules]
 $RuleStart$
@@ -45,16 +34,197 @@ $RuleStart$
 - Selective Redundancy: Optionally include some redundancy and rephrasing of key points, as long as it doesn't undermine overall coherence and flow. This reflects the way human expression often involves restating ideas in slightly different ways for emphasis or clarity.
 $RuleEnd$
 
+The output should follow the output rules defined in the `[OutputRules]` section,
+ensuring a process that mirrors human-like cognitive process.
 
+{here provide the original Python code using Pyppeteer library that needs to be converted.}
 
-[PyppeteerScript]:
+[UserInput]: 
+We need to have the same functionalities from the SampleCode of starting the browser in debug mode, and wait for the port to be ready, and connect to it in the main script. 
+
+[PyppeteerCode]: 
 <start>
+"""
+chatgpt_llm_integration.py: Provides a PyppeteerLLMIntegration class to interact with a chat system using Puppeteer.
 
+The ChatGPTLLMIntegration class enables interaction with chat systems that require headless browser interactions. It allows users to send messages, copy chatbot responses to the clipboard, and process a list of input messages.
+
+Features:
+- Initialize a PyppeteerLLMIntegration instance with environment variables containing relevant CSS selectors for the chat system.
+- Connect to a running browser instance using the Pyppeteer library and find the desired chat page.
+- Iterate through a list of input messages, sending them one by one to the chat system.
+- Wait for the chatbot's response to be complete and copy it to the clipboard.
+- Return the chatbot's response for each input message.
+"""
+
+import asyncio
+import sys
+import os
+from typing import List, Optional
+from colorama import Fore, Style, init
+import hashlib
+
+from pyppeteer import connect
+from pyppeteer.page import Page
+from pyppeteer.browser import Browser
+from chatgpt_llm_provider.clipboard.clipboard_manager import wait_for_clipboard_content
+from chatgpt_llm_provider.input.chat_handler import ChatHandler
+
+# Initialize colorama
+init(autoreset=True)
+
+class ChatGPTLLMIntegration:
+    """
+    PyppeteerLLMIntegration class enables interaction with ChatGPT window in the browser.
+    
+    Raises:
+        ValueError: If any required environment variable is missing.
+    """
+
+    def __init__(self, config: Optional[dict] = None) -> None:
+        required_keys = ["BROWSER_URL", "DOMAIN", "TEXTAREA_SELECTOR", "COPY_BUTTON_SELECTOR", "RESPONSE_CONTAINER_SELECTOR"]
+        for key in required_keys:
+            if key not in os.environ:
+                raise ValueError(f"Missing required environment variable: {key}")
+
+        self.browser_url: str = os.environ["BROWSER_URL"]
+        self.domain: str = os.environ["DOMAIN"]
+        self.textarea_selector: str = os.environ["TEXTAREA_SELECTOR"]
+        self.copy_button_selector: str = os.environ["COPY_BUTTON_SELECTOR"]
+        self.response_container_selector: str = os.environ["RESPONSE_CONTAINER_SELECTOR"]
+        self.browser: Optional[Browser] = None
+        self.page: Optional[Page] = None
+        self.chat_handler: ChatHandler = ChatHandler()
+
+    async def process_input_messages(self, input_messages: List[str]) -> List[str]:
+        """
+        Process input messages using Puppeteer, send them to the chat system, and return the chatbot's responses.
+        """
+        responses: List[str] = []
+        for message in input_messages:
+            response: str = await self._send_message_and_wait_for_response(message)
+            responses.append(response)
+        return responses
+
+    async def initialize(self) -> bool:
+        """
+        Initialize the PyppeteerLLMIntegration instance by connecting to the browser and finding the target page.
+        """
+        if not await self._connect_to_browser():
+            return False
+
+        pages: List[Page] = await self._get_browser_pages()
+
+        target_page: Optional[Page] = await self._find_target_page(pages)
+
+        if target_page is None:
+            print(Fore.RED + "Desired page not found." + Style.RESET_ALL)
+            return False
+
+        self.page = target_page
+        return True
+
+    async def _connect_to_browser(self) -> bool:
+        """
+        Connect to the running browser instance using Pyppeteer library.
+        """
+        try:
+            self.browser = await connect({'browserURL': self.browser_url})
+            return True
+        except Exception as e:
+            print(Fore.RED + f"Error connecting to browser: {e}" + Style.RESET_ALL)
+            return False
+
+    async def _get_browser_pages(self) -> List[Page]:
+        """
+        Get a list of all pages in the connected browser.
+        """
+        return await self.browser.pages()
+
+    async def _find_target_page(self, pages: List[Page]) -> Optional[Page]:
+        """
+        Find the target page with the desired chat system based on the domain.
+        """
+        for page in pages:
+            url: str = page.url
+            if self.domain in url:
+                return page
+        return None
+
+    async def _send_message_and_wait_for_response(self, message: str) -> str:
+        """
+        Type and send the message in the chat system, wait for a response, and return the chatbot's response.
+        """
+        await self._type_message_in_textarea(message)
+
+        await self._press_enter_to_send_message()
+        await self._wait_for_response_completion()
+
+        response: str = await self._copy_message_to_clipboard(self.page)
+        print(Fore.BLUE + "Copied ChatGPT response:\n", response)
+
+        return response
+
+    async def _type_message_in_textarea(self, message: str) -> None:
+        """
+        Type the message in the textarea element line by line.
+        """
+        for index, line in enumerate(message.split('\n')):
+            if index > 0:
+                await self.page.keyboard.down('Shift')
+                await self.page.keyboard.press('Enter')
+                await self.page.keyboard.up('Shift')
+            await self.page.type(self.textarea_selector, line)
+
+    async def _press_enter_to_send_message(self) -> None:
+        """
+        Press 'Enter' to send the message in the chat system.
+        """
+        await self.page.keyboard.press('Enter')
+
+    async def _copy_message_to_clipboard(self, page: Page) -> str:
+        """
+        Copy the chatbot's response to the clipboard and return the copied message.
+        """
+        await page.waitForSelector(self.copy_button_selector)
+        await page.focus(self.copy_button_selector)
+        await page.keyboard.press('Enter')
 <end>
 
-[PlaywrightUserScript]:
+[PlaywrightSampleCode]:
 <start>
+import os
+import sys
+import subprocess
+from utils import wait_for_port
 
+REMOTE_DEBUGGING_PORT = 9222
+CHROME_PROFILE_DIRECTORY = "Default"
+REMOTE_HOST = 'localhost'
+
+class BrowserLauncher:
+    @staticmethod
+    async def launch_browser():
+        if sys.platform == 'linux':
+            executable_path = '/usr/bin/google-chrome'
+            user_data_dir = os.path.join(os.path.expanduser('~'), '.config', 'google-chrome')
+        elif sys.platform == 'darwin':  # macOS
+            executable_path = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+            user_data_dir = os.path.join(os.path.expanduser('~'), 'Library', 'Application Support', 'Google', 'Chrome')
+        else:
+            raise Exception("Unsupported OS. This script supports Linux and macOS only.")
+
+        args = [
+            "--no-first-run",
+            "--flag-switches-begin",
+            "--flag-switches-end",
+            f"--remote-debugging-port={REMOTE_DEBUGGING_PORT}",
+            f"--profile-directory={CHROME_PROFILE_DIRECTORY}",
+            f"--user-data-dir={user_data_dir}"
+        ]
+
+        subprocess.Popen([executable_path] + args)
+        await wait_for_port(REMOTE_HOST, REMOTE_DEBUGGING_PORT)
 <end>
 
 [ConvertedPlaywrightScript]:

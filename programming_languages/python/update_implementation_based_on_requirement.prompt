@@ -23,112 +23,115 @@ $RuleEnd$
 
 Follow the algorithm or methodogoy described in the `[Methodology]` section to perform the task, and the output should adhere to the `[OutputRules]`, ensuring a process that mirrors human-like cognitive process.
 
-[ExistingCode]
-# termin_buchen_page.py
+[ExistingCode]"""
+chatgpt_llm_integration.py: Provides a PyppeteerLLMIntegration class to interact with a chat system using Puppeteer.
+
+The ChatGPTLLMIntegration class enables interaction with chat systems that require headless browser interactions. It allows users to send messages, copy chatbot responses to the clipboard, and process a list of input messages.
+
+Features:
+- Initialize a PyppeteerLLMIntegration instance with environment variables containing relevant CSS selectors for the chat system.
+- Connect to a running browser instance using the Pyppeteer library and find the desired chat page.
+- Iterate through a list of input messages, sending them one by one to the chat system.
+- Wait for the chatbot's response to be complete and copy it to the clipboard.
+- Return the chatbot's response for each input message.
+"""
+
 import asyncio
-import logging
+from logging import Logger
+import sys
+import os
+from typing import List, Optional
+from colorama import Fore, Style, init
+import hashlib
+from playwright.async_api import async_playwright
+from playwright.async_api import Browser
 from playwright.async_api import Page
 
-from exception import SessionTimeout
+from chatgpt_llm_provider.browser_launcher import REMOTE_DEBUGGING_PORT, BrowserLauncher
+from clipboard.clipboard_manager import wait_for_clipboard_content
 
+# Initialize coloram
+init(autoreset=True)
 
-logger = logging.getLogger(__name__)
+class ChatGPTLLMIntegration:
+    """
+    PyppeteerLLMIntegration class enables interaction with ChatGPT window in the browser.
+    
+    Raises:
+        ValueError: If any required environment variable is missing.
+    """
 
-class TerminBuchenPage:
-    def __init__(self, page: Page, web_navigator):
-        self.page = page
-        self.web_navigator = web_navigator
+    def __init__(self, config: Optional[dict] = None) -> None:
+        required_keys = ["BROWSER_URL", "DOMAIN", "SELECTORS_TEXTAREA_SELECTOR", "SELECTORS_COPY_BUTTON_SELECTOR", "SELECTORS_MESSAGE_CONTAINER_SELECTOR"]
+        for key in required_keys:
+            if key not in os.environ:
+                raise ValueError(f"Missing required environment variable: {key}")
 
-    async def click_termin_buchen_button(self) -> None:
+        self.browser_url: str = os.environ["BROWSER_URL"]
+        self.domain: str = os.environ["DOMAIN"]
+        self.textarea_selector: str = os.environ["SELECTORS_TEXTAREA_SELECTOR"]
+        self.copy_button_selector: str = os.environ["SELECTORS_COPY_BUTTON_SELECTOR"]
+        self.response_container_selector: str = os.environ["SELECTORS_MESSAGE_CONTAINER_SELECTOR"]
+        self.browser: Optional[Browser] = None
+        self.page: Optional[Page] = None
+
+    async def process_input_messages(self, input_messages: List[str]) -> List[str]:
+        """
+        Process input messages using Puppeteer, send them to the chat system, and return the chatbot's responses.
+        """
+        responses: List[str] = []
+        for message in input_messages:
+            response: str = await self._send_message_and_wait_for_response(message)
+            responses.append(response)
+        return responses
+
+    async def initialize(self) -> bool:
+        """
+        Initialize the PyppeteerLLMIntegration instance by connecting to the browser and finding the target page.
+        """
         try:
-            await self.page.wait_for_selector("a.button.arrow-right[href*='/ams/TerminBuchen/wizardng?sprachauswahl=de']", state="visible")
-            await self.page.click("a.button.arrow-right[href*='/ams/TerminBuchen/wizardng?sprachauswahl=de']")
-            await self.page.wait_for_load_state('networkidle')  # Wait for network to become idle
+            await BrowserLauncher.launch_browser()
+            async with async_playwright() as playwright:
+                endpoint_url = f"http://localhost:{REMOTE_DEBUGGING_PORT}"
+                # Assuming 'self.playwright' typo was meant to be 'playwright' in your original code
+                self.browser = await playwright.chromium.connect_over_cdp(endpoint_url)
+                # Assuming you want the first context and its first page, otherwise adjust accordingly
+                self.context = self.browser.contexts[0]
+                self.page = self.context.pages[0]
+                await self.perform_booking_navigations()
         except Exception as e:
-            logger.error(f"Error clicking 'Termin Buchen' button: {str(e)}")
+            Logger.error(f"Error navigating to site: {str(e)}")
+            # No need for explicit cleanup here; context manager handles it
             raise
 
-    async def accept_terms_information_tab(self) -> None:
-        try:
-            await self.page.wait_for_selector('#xi-cb-1', state="visible")
-            await self.page.click('#xi-cb-1')
-            await self.page.click('#applicationForm\\:managedForm\\:proceed')
-            await self.page.wait_for_load_state('networkidle')  # Wait for network to become idle
-        except Exception as e:
-            logger.error(f"Error accepting terms and proceeding: {str(e)}")
-            raise
+        pages: List[Page] = await self._get_browser_pages()
 
-    async def click_book_termin_button_until_session_timeout(self, selector: str) -> None:
-        attempt_count = 0
-        while True:
-            try:
-                if self.web_navigator.are_we_on_logout_page():
-                    logger.info("At the logout page, restart from beginning")
-                    break
-                if await self.web_navigator.is_tab_active("Servicewahl"):
-                    logger.info("On Servicewahl, going to click the continue button")
-                elif await self.web_navigator.is_tab_active("Terminauswahl"):
-                    logger.info("Terminwahl is active, good job")
-                    self.web_navigator.appoint_checker.notify_user_success()
-                    self.web_navigator.hand_over_control_to_user()
-                else:
-                    await self.web_navigator.appoint_checker.play_error_sound()
-                    logger.error("both servicewahl and terminwahl not active, internal error")
-                    raise ValueError(f"both servicewahl and terminwahl not active, internal error, start from beginning")
-                
-                await self.page.wait_for_selector(selector, state="visible")
-                await self.page.click(selector)
-                await self.page.wait_for_load_state('networkidle')  # Wait for network to become idle
+        target_page: Optional[Page] = await self._find_target_page(pages)
 
-                attempt_count += 1
-                if await self.web_navigator.is_tab_active("Servicewahl"):
-                    logger.info("After clicking the continue button, still in the Servicewahl tab")                    
-                elif await self.web_navigator.is_tab_active("Terminauswahl"):
-                    logger.info("Terminwahl is active, good job")
-                    self.web_navigator.appoint_checker.notify_user_success()
-                    self.web_navigator.hand_over_control_to_user()
-                else:
-                    await self.web_navigator.appoint_checker.play_error_sound()
-                    logger.error("both servicewahl and terminwahl not active, internal error")
-                    raise ValueError(f"both servicewahl and terminwahl not active, internal error, start from beginning")
+        if target_page is None:
+            print(Fore.RED + "Desired page not found." + Style.RESET_ALL)
+            return False
 
-                if attempt_count == 20:
-                    await self.web_navigator.appoint_checker.play_tried_many_times()
-                    await asyncio.sleep(10)
-                    attempt_count = 0
+        self.page = target_page
+        return True
 
-                if self.web_navigator.are_we_on_logout_page():
-                    await self.web_navigator.appoint_checker.play_session_ended_sound()
-                    raise SessionTimeout("We are on the logout page")
-                
-            except Exception as e:
-                logger.error(f"click_book_termin_button_until_session_timeout: {str(e)}")
-                await self.web_navigator.appoint_checker.play_error_sound()
-                
-                if self.web_navigator.are_we_on_logout_page():
-                    await self.web_navigator.appoint_checker.play_session_ended_sound()
-                    raise SessionTimeout("We are on the logout page")
-                else: 
-                    if await self.web_navigator.is_tab_active("Servicewahl"):
-                        logger.info("Strange error happened, but in Servicewahl tab, continue again")
-                        continue
-                    elif await self.web_navigator.is_tab_active("Terminauswahl"):
-                        logger.info("Terminwahl is active, good job")
-                        self.web_navigator.appoint_checker.notify_user_success()
-                        self.web_navigator.hand_over_control_to_user()
-                    else:
-                        await self.web_navigator.appoint_checker.play_error_sound()
-                        logger.error("both servicewahl and terminwahl not active, internal error")
-                        raise ValueError(f"both servicewahl and terminwahl not active, internal error, start from beginning")
-                    
+    async def _get_browser_pages(self) -> List[Page]:
+        """
+        Get a list of all pages in the connected browser.
+        """
+        return await self.browser.pages()
+
+    async def _find_target_page(self, pages: List[Page]) -> Optional[Page]:
+        """
+        Find the target page with the desired chat system based on the domain.
+        """
+        for page in pages:
+            url: str = page.url
+            if self.domain in url:
+                return page
+        return None
 
 
 
 [NewRequirements]
-what i have seen is that even though we are on the Terminauswahl. But there is actually error message on the page. I have copied the error message element here.
-        <div id="messagesBox">
-        <ul class="messagesBox"><li class="errorMessage">Für die gewählte Dienstleistung sind aktuell keine Termine frei! Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut.</li></ul></div>
-
-So i think even though we are on the Terminauswahl tab, we should also check whether the error message box exists or not. If exists, then we need to refresh the current page.
-
-
+Instead of looking for the target page, let's go to page which is specified by the domain.
