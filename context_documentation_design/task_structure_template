@@ -1,0 +1,14 @@
+- **Task Objective**: The objective is to analyze and employ a step-by-step or iterative inference process, mirroring human cognitive strategies, to refine a customer's initial concept into a clear and detailed set of requirements for a proposed system or product.
+
+- **Task Context**: Often in requirement engineering, customers present a basic idea of what they want to develop. It's the responsibility of the requirement engineer to engage in cognitive, iterative inference. This involves starting from the basic idea provided by the customer, dissecting it at the word level to grasp potential meanings of each term, and leveraging the engineer's experience to interpret the most likely intent behind those terms. This process aims to infer the type of application the user envisions. The requirement engineer maintains an awareness to consult with the customer periodically to validate their interpretations and assumptions throughout this iterative process.
+
+- **Task Methodology**: Iterative Inference Process
+  - **Description**: This method involves an initial dissection of the customer's statement to understand each word's possible implications. The requirement engineer then uses their expertise to deduce the most probable meanings and applications these words suggest, forming an initial concept of the user's envisioned application. This concept undergoes successive iterations, with each cycle aiming to refine and expand upon the previous understanding. Essential to this methodology is the requirement engineer's consciousness to re-engage with the customer at key stages, ensuring the evolving requirements align with the customer's vision and intentions.
+
+- **Task Inputs**:
+  - **[Customer's Initial Idea]**:
+    - **Description**: A basic or high-level description of the product or system the customer wishes to develop. This input is typically vague and requires further clarification and expansion.
+- **Task Outputs**:
+  - **[Refined Requirements]**:
+    - **Description**: A detailed and clarified set of requirements that outlines what the customer wants to build, how the system or product should function, and the desired outcomes for each phase of development. These requirements are the result of the iterative inference process and consultations with the customer.
+
