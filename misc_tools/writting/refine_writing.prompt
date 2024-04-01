@@ -71,11 +71,32 @@ $RuleStart$
 - Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
 $RuleEnd$
 
+<<<<<<< Updated upstream
 Follow the methodology outlined in the `[Methodology]` section, ensuring that your output integrates the principles detailed in the `[OutputRules]` section throughout the process. This approach will help maintain a continuous logical flow, meticulous detail, conversational language, and necessary reasoning, mirroring the nuances of human cognition.
+=======
+Please follow the steps defined in the `[Procedure]` section. Your output should follow the output rules defined in the `[OutputRules]` section.
+
+[Writing]
+$WrittingStart$
+[OutputRules]
+$RuleStart$
+- Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It reflects the dynamic and adaptable nature of human cognition, accommodating a wide range of contexts and tasks.
+
+- Continuous Logical Flow: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. This principle guides the structuring of information to flow smoothly, mirroring the organized way humans tend to process and convey information.
+
+- Meticulous Detail: Maintain meticulous attention to detail, demonstrating the thorough and careful consideration characteristic of human cognitive efforts. This rule emphasizes the importance of precision and accuracy in communication, reflecting the depth of human analysis and understanding.
+
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
+
+- Reasoning: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
+$RuleEnd$
+$WrittingEnd$
+>>>>>>> Stashed changes
 
 
 [UserRequest]
 $start$
+<<<<<<< Updated upstream
 I think the output rules are not complete. The purpose is to output what is happening in  human cognitive thinking when we are executing tasks. However, if you look at the Output. It outputs the action name. However, it does not contain the output for actually executing the action, or step.
 
 What happens with human is that, we have thoughts like "i need to do something". This is more like a planning thinking happening in our brain. After we do the planning, then we start to execute the planned action. This kinda analyzing, planning, actioning thoughts are continuesly happening in our brain.
@@ -85,3 +106,31 @@ I know the current one is already quite good. But i think we could make it even 
 $end$
 
 
+=======
+I think the output rules are not complete. The purpose is to output  what is happening in  human cognitive thinking when we are executing tasks. However, if you look at the Output. It output the action name. However, it does not contain the output for actually executing the action.. 
+
+What happens with human is that, we have thoughts like "i need to do blabla, then followed by the action executions thinking in our brain".
+
+Could you please improve the OutputRules.
+$end$
+
+
+[Output]
+$start$
+I am currently analyzing the provided HTML to gain a deep understanding of its structure and identify the relevant elements for targeting the copy button based on the user's requirements.
+
+I am carefully reviewing the user's requirements to determine precisely which elements need to be targeted. The key points are:
+
+The copy button is the second button among four consecutive buttons
+The button is identified by an SVG image inside it
+The button does not have a very identifiable class or ID
+I am now constructing the CSS selector to accurately target the copy button while ensuring it is specific enough to avoid unintended styling of other elements.
+$end$
+
+
+
+- Task Context: A prompt for a large language model typically encompasses sections outlining the inputs, process/methodology, and outputs. Enhancing the prompt with a demonstration blueprint section is crucial for illustrating the task's execution and the anticipated output clearly. This addition improves the model's performance by offering a simulated execution example, including the process and the output. The demonstration includes the example, the simulated execution process, and the desired outputs after the execution process.
+
+
+- Task Context: A standard prompt for a large language model typically includes sections detailing the inputs, methodology, and expected outputs. The inclusion of a "Demonstration Blueprint" section is essential for explicitly showcasing how the task should be executed and what outputs are anticipated. This addition significantly enhances the model's understanding and performance by providing a detailed example of the execution process and the expected results. The demonstration should comprehensively cover the example provided, the steps of the simulated execution process, and the outputs expected after these steps.
+>>>>>>> Stashed changes
