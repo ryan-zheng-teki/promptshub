@@ -64,19 +64,7 @@ Follow the algorithm or methodogoy described in the `[Methodology]` section to p
 
 [Large Complex Task]
 $start$
-I need to write project exexperiences. I am applying for the job in Athropic. Here is the description
 
-```
-Please describe the most complex and interesting thing you have done with prompt engineering on LLMs so far, including a description of the specific task your prompts accomplished and the challenges you faced along the way.
-```
-
-The initial draft i have is put in [Draft] section. Please improve it. Its better to have section name, content after section structure. 
-
-Section name:
-{here is the content after section}
-
-
-Since its for interview, no need to be fancy. Keep the original writting styles. But make it more coherent, and with a good structure and has a natural content flow. Eventually, one improved one is given in a copiable text block.
 $end
 
 
