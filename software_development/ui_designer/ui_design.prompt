@@ -24,7 +24,8 @@ Follow the steps defined by the `Procedure` section.  The output for each step s
 
 [User Specifications]
 $start$
-implement a Vue 3 web page using Nuxt.js, which involves specific functionalities for managing three different backend items: EPDs, vendor product routes, and grades. This setup will enable you to display a list of all available entries for each type of item, allowing you to select one item to either edit or add a new one for each category. In addition to these functionalities, after selecting an item to edit, you'll present an edit view where users can make changes. Before submitting these changes, a "view changes" button will allow users to send a trigger to the backend, which in turn will show what has been modified, including a change in view and other parameters like emission changes. This same mechanism applies when adding a new item; the backend will provide an overview of what has been added, including the emissions for the newly added item. After reviewing their changes and the associated emission impacts, users will have the option to confirm their modifications through a "confirm the change" button, finalizing their input.
+Create a page which contains cooking recipie. The cooking recipe is a picture. And it contains instructions about how to create this recipe.
+It also contains ingredients packages. And also links to where you can buy those ingredients. It should also contain a video about how to make this recipe.
 $end$
 
 
