@@ -20,7 +20,7 @@ $start$
 The Task Decomposition and Role Assumption methodology involves the following two phases:
 
 Phase 1: Task Decomposition
-1. Analyze the large, complex task and identify its components, objectives, and constraints.
+1. Analyze the large, complex task and identify its components, objectives.
 2. Break down the task into smaller, more manageable subtasks.
 3. For each subtask, iteratively:
    a. Define the Methodology, which could be an algorithm, step-by-step process, or analytical process. Ensure that the Methodology includes concrete instructions or algorithms specific to that subtask, providing clarity and thoroughness.
