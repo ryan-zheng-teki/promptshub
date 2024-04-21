@@ -72,8 +72,11 @@ $RuleStart$
 $RuleEnd$
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 Follow the methodology outlined in the `[Methodology]` section, ensuring that your output integrates the principles detailed in the `[OutputRules]` section throughout the process. This approach will help maintain a continuous logical flow, meticulous detail, conversational language, and necessary reasoning, mirroring the nuances of human cognition.
 =======
+=======
+>>>>>>> Stashed changes
 Please follow the steps defined in the `[Procedure]` section. Your output should follow the output rules defined in the `[OutputRules]` section.
 
 [Writing]
@@ -91,6 +94,7 @@ $RuleStart$
 - Reasoning: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
 $RuleEnd$
 $WrittingEnd$
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 
 
@@ -107,6 +111,12 @@ $end$
 
 
 =======
+=======
+
+
+[UserRequest]
+$start$
+>>>>>>> Stashed changes
 I think the output rules are not complete. The purpose is to output  what is happening in  human cognitive thinking when we are executing tasks. However, if you look at the Output. It output the action name. However, it does not contain the output for actually executing the action.. 
 
 What happens with human is that, we have thoughts like "i need to do blabla, then followed by the action executions thinking in our brain".
