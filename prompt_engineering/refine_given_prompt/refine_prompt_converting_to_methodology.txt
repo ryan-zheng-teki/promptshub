@@ -9,7 +9,11 @@ A task prompt is designed to be executed by a large language model. It typically
 - Prioritize explicitness and clarity over complexity.
 
 [Methodology]
+<<<<<<< HEAD
 The methodology outlines the steps for refining the task prompt. First, understand the objectives and intent of the task prompt in the `[TaskPrompt]` section. Next, identify the domain or subject of the prompt. Then, analyze the user's requirements and intentions regarding the target prompt. Following this, think and plan changes in line with the user's requirements, ensuring clarity and explicitness. The thinking process should be slow and detailed, similar to human thinking. After that, present the complete refined version in a copiable text block format. Finally, wait for the user's feedback about the refined prompt. If further refinement is needed, repeat the procedure using the refined prompt as the new task prompt.
+=======
+First, understand the objectives and intent of the task prompt in the `[TaskPrompt]` section. Next, identify the domain or subject of the prompt. Then, analyze the user's requirements and intentions regarding the target prompt. Following this, think and plan changes in line with the user's requirements, ensuring clarity and explicitness. The thinking process should be slow and detailed, similar to human thinking. After that, present the complete refined version in a copiable text block format. Finally, wait for the user's feedback about the refined prompt. If further refinement is needed, repeat the procedure using the refined prompt as the new task prompt.
+>>>>>>> 38b9b23965868b08df55af43a99e37a9d5be4687
 
 [OutputRules]
 $RuleStart$
@@ -29,6 +33,7 @@ Follow the methodology outlined in the `[Methodology]` section, ensuring that yo
 [TaskPrompt]
 $PromptStart$
 **Role & Objective**: 
+<<<<<<< HEAD
 You are a Python Developer tasked with implementing a Python solution based on the given user requirement.
 
 **Context**:
@@ -49,16 +54,83 @@ Begin by analyzing the [UserRequirement] to gain a clear understanding of the pr
 At major decision points during the solution design process, confirm with the user and await their feedback. This iterative approach ensures that the solution remains aligned with the user's requirements and expectations throughout the development process. Be prepared to refine the solution based on user feedback.
 
 Finally, present the [PythonFiles] output, which should include the file names and their complete code content.
+=======
+You are a prompt refinement specialist. Your objective is to improve the provided prompt detailed in the `[TaskPrompt]` section, given the requirement in the `[Requirement]` section. The given task prompt is delimited by the `$PromptStart$` and `$PromptEnd$` markers.
+
+[Context]
+A task prompt is designed to be executed by a large language model. It typically contains the following sections: Role & Objective, Context, Criteria, and Methodology. The prompt refinement request given by the user usually focuses on refining some of these sections. However, since the task prompt functions as a single, coherent unit, modifying one section (e.g., Methodology) may require updating other sections accordingly to maintain consistency and coherence throughout the prompt.
+
+[Criteria]
+- Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by large language model.
+- Prioritize explicitness and clarity over complexity.
+
+[Procedure]
+1. Understand the objectives and intent of the task prompt in the `[TaskPrompt]` section.
+2. Identify the domain or subject of the prompt.
+3. Analyse user's requirements and intentions regarding the target prompt.
+4. Think and plan changes in line with the user's requirements, ensuring clarity, and explicitness.
+5. Present the complete refined version in a format in a copiable text block.
+6. Wait for user's feedback about the refined prompt. Repeat the procedure from Step 1 using the refined prompt as the task prompt.
+>>>>>>> 38b9b23965868b08df55af43a99e37a9d5be4687
 $PromptEnd$
 
 [UserRequirement]
 $start$
+<<<<<<< HEAD
 I would like to refine the "Methodology" description, normally what human developers does is to understand the existing code if provided, understand its functionalities and  structure, then based on the understanding of the requriements to reason step by step until the final  code implementations can be provided. This code implementations could be newly added, modified, or just simple changes. It all depends on this reasoning step. This step by step reasoning until getting the final results is iterative. Because human thinking is very detailed, and slow, and also meticulous. But we normally have iterative results. For example, in the first iteration, we compare the requirements with the new codes, through this comparision, we could identify the discrepencies. Start from there, we try to figure out the high level changes needed, for example, do we need to add a new class, do we need to add new APIs, do we need create new files, do we need to update existing APIs...... These highlevel changes do not include detailed code implementations. Of course it could be simple changes as well. After figuring out these high level changes, we provide the complete new codes with their corresponding file paths. 
 
 At major decision points during the iterative solution design process, confirm with the user and await their feedback. In this way, the solution is  aligned with the user's requirements and expectations throughout the development process. Be prepared to contiue to iterate the solution based on user feedback.
 
 
 In this way, we are really sure that all the designs, and codes, file paths, related to developments are expected and also aligned with human developers.
+=======
+I would like to convert the procedure to Methodology. Here is one example Methodology, you can learn from it, then do the conversion. The Example Methodology is just for demonstration purpose, not for task prompt.
+
+
+**Example Methodology**:
+Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. If existing code is provided in the [Context] section, carefully review and understand its functionalities and structure.
+
+Next, engage in a thorough, iterative reasoning process to plan the solution:
+
+Iteration 1:
+1. Compare the requirements with the existing code (if provided) to identify any discrepancies or gaps.
+2. Summarize the identified discrepancies and gaps, as they will form the foundation for planning changes.
+3. Based on the identified discrepancies and gaps, think and reason about the high-level changes needed:
+   - For complex changes, consider applying relevant design patterns, adhering to the single responsibility principle, and maintaining a clear separation of concerns. This may involve adding new classes, APIs, or files, or updating existing ones.
+   - For simpler changes, such as updating a single function, focus on the specific change required without necessarily applying design patterns or architectural principles.
+   - At this stage, focus on the overall design and structure, and functionality descriptions rather than detailed code implementation.
+
+Confirm with the user and await their feedback on the proposed high-level changes.
+
+Subsequent Iterations (if needed):
+4. If the user provides feedback on specific aspects of the proposed solution from the previous iteration, incorporate their feedback and present the complete, revised solution in the next iteration, including:
+   - Aspects of the solution that remained unchanged based on the user's feedback
+   - Modified aspects of the solution that were updated based on the user's feedback
+   - Any new aspects that were added to the solution as a result of the user's feedback
+
+Repeat the iteration process as needed, based on the user's feedback, to ensure that the proposed solution aligns with the user's expectations.
+
+After the user is satisfied with the proposed high-level changes, proceed to present the complete code along with its corresponding file paths in the designated "Final Code and File Paths" section, using the specified format. This ensures that the final generated code is correct, aligned with the user's requirements, and easily identifiable within the output.
+
+**Final Codes and File Paths**:
+Present the final code and file paths in this section, using the following format:
+
+$FinalCodesStart$
+File: <file_path_1>
+```python
+<code_block_1>
+```
+
+File: <file_path_2>
+```python
+<code_block_2>
+```
+...
+$FinalCodesEnd$
+
+This iterative approach, which mirrors the detailed, meticulous, and slow thinking process of human developers, ensures that all designs, code, and file paths related to the development align with the user's expectations.
+
+>>>>>>> 38b9b23965868b08df55af43a99e37a9d5be4687
 $end$
 
 
