@@ -116,8 +116,14 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
+<<<<<<< HEAD
 analyze the the given html, and create css selector based on the user given requirement. 
 Consider additional user input before creating the css selector for the user requirement.
 $end$
 
 
+=======
+Say customized greetings to the user based on the given user details information and wait for user's response, continue the conversation based on the the user's response.
+$end$
+
+>>>>>>> 38b9b23965868b08df55af43a99e37a9d5be4687
