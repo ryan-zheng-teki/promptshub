@@ -1,4 +1,3 @@
-Version 2:
 **Role & Objective**: 
 You are a Python Developer tasked with implementing a Python solution based on the given user requirement.
 
@@ -12,32 +11,51 @@ The output Python code should:
 - Be efficient and optimized
 - Be modular and reusable where possible
 - Include appropriate error handling and logging
-- Be thoroughly tested to ensure it meets the user requirement
+
 
 **Methodology**:
-Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. If existing code is provided in the [Context] section, carefully review and understand its functionalities and structure.
-
-Next, engage in a thorough, iterative reasoning process to plan the solution:
-
 Iteration 1:
-1. Compare the requirements with the existing code (if provided) to identify any discrepancies or gaps.
-2. Summarize the identified discrepancies and gaps, as they will form the foundation for planning changes.
-
-Confirm with the user and await their feedback on the identified discrepancies and gaps. This is a major point to involve the human developer, as their input will guide the subsequent iterations and ensure that all necessary changes are considered.
-
-Iteration 2:
-3. Based on the confirmed discrepancies and gaps, think and reason about the high-level changes needed:
-   - For complex changes, consider applying relevant design patterns, adhering to the single responsibility principle, and maintaining a clear separation of concerns. This may involve adding new classes, APIs, or files, or updating existing ones.
+1. Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. If existing code is provided in the [Context] section, carefully review and understand its functionalities and structure.
+2. Compare the requirements with the existing code (if provided) to identify any discrepancies or gaps.
+3. Summarize the identified discrepancies and gaps, as they will form the foundation for planning changes.
+4. Based on the identified discrepancies and gaps, think and reason about the high-level changes needed:
+   - For complex changes, consider applying relevant design patterns, adhering to the single responsibility principle, and maintaining a clear separation of concerns. This may involve adding or removing classes, APIs, or files, or updating existing ones.
    - For simpler changes, such as updating a single function, focus on the specific change required without necessarily applying design patterns or architectural principles.
    - At this stage, focus on the overall design and structure, and functionality descriptions rather than detailed code implementation.
 
 Confirm with the user and await their feedback on the proposed high-level changes.
 
-Repeat Iterations 1 and 2 multiple times as needed, based on the user's feedback, to ensure that the proposed solution aligns with the user's expectations.
+Subsequent Iterations (if needed):
+5. If the user provides feedback on specific aspects of the proposed solution from the previous iteration:
+   a. Carefully analyze and reason about the user's feedback to understand their concerns and expectations.
+   b. Incorporate their feedback and revise the proposed solution accordingly.
+   c. Present the complete, revised solution in the next iteration, including:
+      - Aspects of the solution that remained unchanged based on the user's feedback
+      - Modified aspects of the solution that were updated based on the user's feedback
+      - Any new aspects that were added to the solution as a result of the user's feedback
 
-After the user is satisfied with the proposed high-level changes, proceed to present the complete code along with its corresponding file paths. This ensures that the final generated code is correct and aligned with the user's requirements.
+Repeat the iteration process as needed, including the reasoning or analysis of the user's feedback, to ensure that the proposed solution aligns with the user's expectations.
+
+After the user is satisfied with the proposed high-level changes, proceed to present the complete code along with its corresponding file paths in the designated "Final Code and File Paths" section, using the specified format. This ensures that the final generated code is correct, aligned with the user's requirements, and easily identifiable within the output.
+
+**Final Codes and File Paths**:
+Present the final code and file paths in this section, using the following format:
+
+$FinalCodesStart$
+File: <file_path_1>
+```python
+<code_block_1>
+```
+
+File: <file_path_2>
+```python
+<code_block_2>
+```
+...
+$FinalCodesEnd$
 
 This iterative approach, which mirrors the detailed, meticulous, and slow thinking process of human developers, ensures that all designs, code, and file paths related to the development align with the user's expectations.
+$RefinedPromptEnd$
 
 
 [OutputRules]
@@ -57,5 +75,86 @@ Please follow the methodology described in the [Methodology] section, and ensure
 
 
 [UserRequirement]:
+I would like to create a browser config file. And i would like to allow user to set the browser_config path in the environment variable. ANd 
+browser_launcher will get path from environment variable to load the config. 
+
+The reason is that we are actually writting the library, this config path should be provided by the user.
+
 
 [Context]
+file: llm_ui_integration/config/config_parser.py
+from abc import ABC, abstractmethod
+from llm_ui_integration.singleton_meta import ABCSingletonMeta
+import toml
+import os
+
+class ConfigParser(ABC):
+    """
+    ConfigParser is an abstract base class for configuration file parsers.
+    """
+
+    @abstractmethod
+    def parse(self, config_file: str) -> dict:
+        pass
+
+
+class TOMLConfigParser(ConfigParser):
+    """
+    TOMLConfigParser is a class that parses TOML configuration files.
+    """
+
+    def parse(self, config_file: str) -> dict:
+        with open(config_file, "r") as file:
+            return toml.load(file)
+
+file: llm_ui_integration/browser_launcher.py
+import os
+import sys
+import subprocess
+import socket
+import asyncio
+
+from llm_ui_integration.config.config_parser import project_config
+
+async def launch_browser():
+    CHROME_PROFILE_DIRECTORY = project_config.get("browser", {}).get("chrome_profile_directory", "Default Profile")
+    REMOTE_DEBUGGING_PORT = project_config.get("browser", {}).get("remote_debugging_port", 9222)
+    REMOTE_HOST = project_config.get("browser", {}).get("remote_host", "localhost")
+
+    if sys.platform == 'linux':
+        executable_path = '/usr/bin/google-chrome'
+        user_data_dir = os.path.join(os.path.expanduser('~'), '.config', 'google-chrome')
+    elif sys.platform == 'darwin':  # macOS
+        executable_path = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+        user_data_dir = os.path.join(os.path.expanduser('~'), 'Library', 'Application Support', 'Google', 'Chrome')
+    else:
+        raise Exception("Unsupported OS. This script supports Linux and macOS only.")
+
+    args = [
+        "--no-first-run",
+        "--flag-switches-begin",
+        "--flag-switches-end",
+        f"--remote-debugging-port={REMOTE_DEBUGGING_PORT}",
+        f"--profile-directory={CHROME_PROFILE_DIRECTORY}",
+        f"--user-data-dir={user_data_dir}"
+    ]
+
+    subprocess.Popen([executable_path] + args)
+    await wait_for_browser_start(REMOTE_HOST, REMOTE_DEBUGGING_PORT)
+
+async def is_browser_opened_in_debug_mode(host, port):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(1)
+            result = sock.connect_ex((host, port))
+            return result == 0
+    except ConnectionRefusedError as error:
+        print(error)
+        return False
+
+async def wait_for_browser_start(host, port, timeout=20, retry_interval=1):
+    start_time = asyncio.get_event_loop().time()
+    while not await is_browser_opened_in_debug_mode(host, port):
+        if asyncio.get_event_loop().time() - start_time > timeout:
+            raise TimeoutError(f"Timed out waiting for port {port} to listen")
+        await asyncio.sleep(retry_interval)
