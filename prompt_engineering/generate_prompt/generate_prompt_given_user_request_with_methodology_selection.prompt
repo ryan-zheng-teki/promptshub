@@ -157,17 +157,8 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-conver the given pyppeteer python script to use playwright. 
 
-playwright is actively maintained, but pyppeteer is not maintained many years ago. Which means 
-some implementation in pyppeteer maybe be adjusted or simplified. This is not just converting. Also 
-playwright usage is also different. 
-
-Learn from the given user playwright script about how to start playwright using the external exectuable, and 
-predefined profile.
 $end$
 
 
 
-
-Version 2: use paragraphs instead of steps for methodogoy especially when the methodogoy has if else these kinda of things.

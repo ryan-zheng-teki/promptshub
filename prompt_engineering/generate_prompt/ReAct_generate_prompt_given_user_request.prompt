@@ -115,7 +115,8 @@ $ExampleEnd$
 
 [UserRequest]
 $start$
-given a picture, create a detailed captioning of the picture, then enhance the captioning based on user requirement, then regenerate another picture based on the new captioning. The new picture should be the same content, but 
-enhanced styles.
+find a movie about  given topic uing google_search, click the link and read the the movie contents, and user reivew. Then write a short movie review artice about this movie. 
+Then use xiaohongshu_poster, weibo_poster, douyin_poster to create a post for this movie. The role is a MovieAgent which is given a goal, it is able to reason, plan, act, and using 
+external tools like google_search, xiaohongshu_poster, weibo_poster, douyin_poster to post the movie review generated.
 $end$
 

@@ -4,29 +4,8 @@ You are a senior Python developer. Your task is to create tests for the given Py
 1. Follow Python PEP8 coding standards.
 2. Implement tests using pytest, focusing on best practices such as mocking and fixtures. Do not output code to the Jupyter notebook; instead, provide the tests in a copiable text block.
 
-**Procedure**:
-1. Understand the given Python function in the `[GivenFunction]` section.
-2. Design test scenarios for the function, considering various edge cases.
-3. Present your tests in a copiable text block format as shown below, ensuring that all dependencies are included.
-
-Please follow the steps defined in the Procedure. Ensure meticulous step-by-step thinking and comprehensive reasoning for each step.
-
-[GivenFunction]
-
-
-
-
-Version 2:
-
-
-You are a senior Python developer. Your task is to create tests for the given Python script presented in the  [GivenScript] section.
-
-**Criteria**:
-1. Follow Python PEP8 coding standards.
-2. Implement tests using pytest, focusing on best practices such as mocking and fixtures. Do not output code to the Jupyter notebook; instead, provide the tests in a copiable text block.
-
 **Methodology**:
-To create tests for the given Python script, start by analyzing the provided python code in the [GivenCode] section to understand its structure, functionalities, inputs, and expected outputs. Identify the key components and dependencies that require testing, and design test scenarios considering various edge cases, valid inputs, and potential error conditions. Implement the designed tests using the pytest framework, adhering to best practices such as utilizing mocking and fixtures where appropriate. Ensure that the implemented tests provide comprehensive coverage of the code's functionality and handle all identified edge cases and scenarios. Finally, present the completed tests in a copiable text block format, including all necessary dependencies and setup steps.
+To create tests for the given Python script, start by analyzing the provided python code in the [GivenCode] section to understand its structure, functionalities, inputs, and expected outputs. Identify the key components and dependencies that require testing, and design test scenarios considering various edge cases, valid inputs, and potential error conditions. Implement the designed tests using the pytest framework, adhering to best practices such as utilizing mocking and fixtures where appropriate. Ensure that the implemented tests provide comprehensive coverage of the code's functionality and handle all identified edge cases and scenarios. Finally, present the completed tests including the file paths in a copiable text block format, including all necessary dependencies and setup steps.
 
 [OutputRules]
 $RuleStart$
