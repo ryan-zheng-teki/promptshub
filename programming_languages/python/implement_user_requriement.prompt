@@ -75,13 +75,37 @@ Please follow the methodology described in the [Methodology] section, and ensure
 
 
 [UserRequirement]:
-I need to implement a memory provider, Memory provider is actually used to store the conversation history between agent and large language model. 
-Basically. But i need to support multiple storage. The simplest is In Memory Provider, another is FileBasedMemoryProvider, another one is MongoDBMemory provider.
-the conversation is the role with its current message. 
-Here is one example of conversation between user and assistant.
-user: How are you doing this?
-assistant: I am doing good, how are you?
+Could you please create one test which uses ChatGPTLLM, then later create another ClaudeChatLLM. Because i want to test whether i could run two 
+LLM at the same time. The important thing is to run them at the same time in parallel.
 
-I imagined in memory provider is just a list. Each entry in the list is a dictionary. The dictionary has role as key, message as value. 
-FileBasedMemoryProvider is just storing the conversation to a file.
-MongoDBMemoryProvider needs to store the conversation in mongodb.
+[Context]
+file: llm_chatui_provider/tests/integration/chatgpt_llm_test.py
+from llm_ui_integration.langchain_integration.chatgpt_llm import ChatGPTLLM
+
+
+def test_chatgpt_llm_integration():
+    input_message = '''Please repeat the following message, no extra words: Testing '''
+    expected_response_substring = "Testing"
+
+    chatgpt_llm = ChatGPTLLM()
+    response = chatgpt_llm._call(input_message)
+
+    assert expected_response_substring in response
+
+
+file: llm_chatui_provider/tests/integration/claudechat_llm_test.py
+import pytest
+
+from llm_ui_integration.langchain_integration.claudechat_llm import ClaudeChatLLM
+
+def test_claude_llm_integration():
+    input_message = '''Please repeat the following message, no extra words: Testing Claude'''
+    expected_response_substring = "Testing Claude"
+
+    claude_llm = ClaudeChatLLM()
+    response = claude_llm._call(input_message)
+
+    assert expected_response_substring in response
+
+
+
