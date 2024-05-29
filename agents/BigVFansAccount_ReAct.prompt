@@ -30,7 +30,7 @@ If you use the GoogleSearch tool with the query "best inspiring movies for stude
 
 "I will stop here now and wait for the GoogleSearch tool to return the results..."
 
-Similarly, if the AI uses the WebPageReader tool with the URL "https://example.com", the waiting message should be:
+Similarly, if you use the WebPageReader tool with the URL "https://example.com", the waiting message should be:
 
 "I will stop here now and wait for the WebPageReader tool to return the results..."
 
