@@ -1,0 +1,188 @@
+**Role & Objective**: 
+You are a Python Developer tasked with implementing a Python solution based on the given user requirement.
+
+**Context**:
+If additional context is provided, consider it while reasoning through the problem and planning the solution. This will help ensure the developed Python code is appropriate and effective for the intended use case.
+
+**Criteria**:
+The output Python code should:
+- Be clean, readable, and well-commented
+- Follow Python best practices and conventions (e.g., PEP 8)
+- Be efficient and optimized
+- Be modular and reusable where possible
+- Include appropriate error handling and logging
+
+
+**Methodology**:
+$MethodologyStart$
+Iteration 1:
+1. Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. If existing code is provided in the [Context] section, carefully review and understand its functionalities and structure.
+2. Compare the requirements with the existing code (if provided) to identify any discrepancies or gaps.
+3. Summarize the identified discrepancies and gaps, as they will form the foundation for planning changes.
+4. Based on the identified discrepancies and gaps, think and reason about the high-level changes needed:
+   - For complex changes, consider applying relevant design patterns, adhering to the single responsibility principle, and maintaining a clear separation of concerns. This may involve adding or removing classes, APIs, or files, or updating existing ones.
+   - For simpler changes, such as updating a single function, focus on the specific change required without necessarily applying design patterns or architectural principles.
+   - At this stage, focus on the overall design and structure, and functionality descriptions rather than detailed code implementation.
+
+Confirm with the user and await their feedback on the proposed high-level changes.
+
+Subsequent Iterations (if needed):
+5. If the user provides feedback on specific aspects of the proposed solution from the previous iteration:
+   a. Carefully analyze and reason about the user's feedback to understand their concerns and expectations.
+   b. Incorporate their feedback and revise the proposed solution accordingly.
+   c. Present the complete, revised solution in the next iteration, including:
+      - Aspects of the solution that remained unchanged based on the user's feedback
+      - Modified aspects of the solution that were updated based on the user's feedback
+      - Any new aspects that were added to the solution as a result of the user's feedback
+
+Repeat the iteration process as needed, including the reasoning or analysis of the user's feedback, to ensure that the proposed solution aligns with the user's expectations.
+
+After the user is satisfied with the proposed high-level changes, proceed to present the complete code along with its corresponding file paths in the designated "Final Code and File Paths" section, using the specified format. This ensures that the final generated code is correct, aligned with the user's requirements, and easily identifiable within the output.
+
+**Final Codes and File Paths**:
+Present the final code and file paths in this section, using the following format:
+
+
+$FinalCodesStart$
+File: <file_path_1>
+```python
+<code_block_1>
+```
+
+File: <file_path_2>
+```python
+<code_block_2>
+```
+...
+$FinalCodesEnd$
+
+This iterative approach, which mirrors the detailed, meticulous, and slow thinking process of human developers, ensures that all designs, code, and file paths related to the development align with the user's expectations.
+$MethodologyEnd$
+
+[ExistingCode]
+file: llm_ui_integration/ui_integrators/mistralchat_ui_integrator/mistral_ui_integrator.py
+import asyncio
+import logging
+from typing import Optional
+from playwright.async_api import async_playwright, Page
+from llm_ui_integration.config.config_parser import TOMLConfigParser
+from llm_ui_integration.clipboard.clipboard_manager import wait_for_clipboard_content
+from llm_ui_integration.ui_integrators.llm_chatui_integrator import LLMChatUIIntegrator
+
+logger = logging.getLogger(__name__)
+
+class MistralUIIntegrator(LLMChatUIIntegrator):
+    """
+    MistralUIIntegrator class enables interaction with the Mistral chat window in the browser.
+    """
+
+    def __init__(self, config: dict) -> None:
+        super().__init__()
+        self.initialized = False
+        self.config = config
+        self.browser_url: str = config.get("browser", {}).get("domain_url")
+        self.textarea_selector: str = config.get("selectors", {}).get("textarea_selector")
+        self.copy_button_selector: str = config.get("selectors", {}).get("copy_button_selector")
+
+        if not all([self.browser_url, self.textarea_selector, self.copy_button_selector]):
+            raise ValueError("Missing required configuration keys")
+
+        self.page: Optional[Page] = None
+
+    async def start_new_conversation(self):
+        """
+        Starts a new conversation by navigating to the chat page.
+        """
+        try:
+            await self.initialize()
+            await self.page.goto(self.browser_url)
+            self.initialized = True
+        except Exception as e:
+            logger.error(f"Error in starting a new conversation: {e}")
+            raise
+
+    async def send_user_message(self, user_message: str, message_index: int = None) -> str:
+        """
+        Send a user message using Playwright, send it to the chat system, and return the chatbot's response.
+
+        Parameters:
+            user_message (str): The input message to be sent to the chat system.
+
+        Returns:
+            str: The chatbot's response to the input message.
+        """
+        if not self.initialized:
+            await self.start_new_conversation()
+        response = await self._send_user_message_and_wait_for_response(user_message, message_index)
+        return response
+
+    async def _send_user_message_and_wait_for_response(self, message: str, message_index: int) -> str:
+        """
+        Type and send the message in the chat system, wait for a response, and return the chatbot's response.
+        """
+        await self._type_message_in_textarea(message)
+        await self._press_enter_to_send_message()
+        response: str = await self._wait_and_get_response(message_index)
+        logger.info(f"Copied Mistral response:\n{response}")
+        return response
+
+    async def _type_message_in_textarea(self, message: str) -> None:
+        """
+        Type the message in the textarea element line by line.
+        """
+        for index, line in enumerate(message.split('\n')):
+            if index > 0:
+                await self.page.keyboard.down('Shift')
+                await self.page.keyboard.press('Enter')
+                await self.page.keyboard.up('Shift')
+            await self.page.type(self.textarea_selector, line)
+
+    async def _press_enter_to_send_message(self) -> None:
+        """
+        Press 'Enter' to send the message in the chat system.
+        """
+        await self.page.keyboard.press('Enter')
+
+    async def _wait_and_get_response(self, message_index) -> str:
+        """
+        Wait for the response container to be available and click the copy button to retrieve the response.
+        """
+        # Use a unique selector or identifier to wait for the response container
+        response_container_selector = f"your_response_container_selector_{message_index}"
+        await self.page.wait_for_selector(response_container_selector)
+
+        # Click the copy button to copy the response to the clipboard
+        copy_button = self.page.locator(self.copy_button_selector)
+        await copy_button.click()
+
+        return await wait_for_clipboard_content()
+
+file: llm_ui_integration/clipboard/clipboard_manager.py
+import pyperclip
+import asyncio
+
+async def wait_for_clipboard_content():
+    """
+    Wait for the clipboard content to change and return the new content.
+    
+    :return: The new clipboard content as a string
+    """
+    initial_clipboard = pyperclip.paste()
+    if initial_clipboard != '':
+        return initial_clipboard
+
+    while True:
+        await asyncio.sleep(0.1)
+        new_clipboard = pyperclip.paste()
+        if new_clipboard != initial_clipboard:
+            pyperclip.copy('')
+            return new_clipboard
+
+[UserRequirement]
+$start$
+Unfortunately after investigating where is no way to target the response_container_selector for Mistral UI. 
+However, we are able to target the copy button. But the copy button appears even when the response container 
+does not contain the full response. Even when the server is still streaming the result to client. My suggestion is 
+is there a way to check there are no more network traffic? If no such way, i would suppose use since we have clipboard copy and paste 
+, we could every 2 second copy and paste using clipboard, then compare the string size of the contents.
+$end$
