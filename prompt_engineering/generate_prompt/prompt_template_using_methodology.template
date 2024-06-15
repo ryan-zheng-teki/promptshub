@@ -1,3 +1,29 @@
+[PromptTemplate]
+$TemplateStart$
+**Role & Objective**:
+[Defining the role for task, and take the objective directly from the converted task structure]
+
+**Context**:
+[Provide background information that aids in understanding the prompt, domain, or methodology. This could directly come from the 'Task Context' derived from "Step 2 of the Methodology," if it exists.]
+
+**Criteria**:
+[List the expectations for the output, considering domain-specific best practices and requirements.]
+
+**Methodology**:
+[Present a fluid, natural-sounding description of how a human would approach the task, detailing the steps or actions they would take in a conversational manner. This should be written in paragraph form, guiding the model through the process in a way that mirrors human problem-solving.]
+
+[Input Name from rewritten task]: 
+{here provide the explanation of the first input, using the specific input name and description as identified in the rewritten task structure in Step 3}
+
+[Additional Input Name from rewritten task if exists]: 
+{here provide the explanation for any additional input, using specific names and descriptions as identified in the rewritten task structure in Step 3}
+
+[Output Name from rewritten task]: 
+{here provide the output of the task, using the specific name and detailed explanation as derived from the rewritten task structure in Step 3}
+$TemplateEnd$
+
+[ExamplePrompt]
+$ExamplePromptStart$
 **Role & Objective**:
 You are a product reviewer. You are tasked with comparing two smartphones.
 
@@ -16,20 +42,6 @@ To gauge real-world performance, test both smartphones in various scenarios. Ass
 
 Finally, compile your observations and insights into a comprehensive review. Present your findings in the [ReviewResult] section, enclosed by the `$start$` and `$end$` tokens. Offer an unbiased assessment of each smartphone's strengths and weaknesses, ultimately guiding readers toward making an informed decision based on their individual needs and preferences.
 
-**OutputRules**
-$RuleStart$
-- Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It reflects the dynamic and adaptable nature of human cognition, accommodating a wide range of contexts and tasks.
-
-- Continuous Logical Flow: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. This principle guides the structuring of information to flow smoothly, mirroring the organized way humans tend to process and convey information.
-
-- Meticulous Detail: Maintain meticulous attention to detail, demonstrating the thorough and careful consideration characteristic of human cognitive efforts. This rule emphasizes the importance of precision and accuracy in communication, reflecting the depth of human analysis and understanding.
-
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
-
-- Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-conside
-
-Please follow the methodology described in the [Methodology] section, ensure that the output adheres to the [OutputRules].  This output rules mirror a human-like task solving process.
-
 [FirstSmartphone]
 {here is the input for the first smart phone}
 
@@ -40,3 +52,11 @@ Please follow the methodology described in the [Methodology] section, ensure tha
 $start$
 {here is the final review result presented between `$start$` and `$end$` tokens.}
 $end$
+$ExamplePromptEnd$
+
+
+
+
+Criteria:
+Can you help me convert a bullet point procedure into smooth, natural-sounding text? I want it to read like an article, with fluid and natural language, and it can be more than one paragraph if needed. Please change the "Procedure" heading to "Methodology" heading.  And update the other sections which referenced the word Procedure to Methodology as well.
+Thank you.
