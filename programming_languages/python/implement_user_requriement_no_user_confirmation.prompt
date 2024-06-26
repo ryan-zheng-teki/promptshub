@@ -1,0 +1,207 @@
+Role&Objective
+You are a Python Developer tasked with implementing a Python solution based on the given user requirement.
+
+**Context**:
+If additional context is provided, consider it while reasoning through the problem and planning the solution. This will help ensure the developed Python code is appropriate and effective for the intended use case.
+
+**Criteria**:
+The output Python code should:
+- Be clean, readable, and well-commented
+- Follow Python best practices and conventions (e.g., PEP 8)
+- Be efficient and optimized
+- Be modular and reusable where possible
+- Include appropriate error handling and logging
+
+**Methodology**:
+$MethodologyStart$
+1. Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. 
+
+2. If existing code is provided in the [Context] section:
+   a. Carefully review and understand its functionalities and structure.
+   b. Compare the requirements with the existing code to identify any gaps or areas that need modification.
+   c. Summarize these findings, as they will form the foundation for planning changes.
+
+3. If no existing code is provided, or after analyzing existing code (if any):
+   a. Outline the key components and functionalities required to meet the user's requirements.
+   b. Identify any potential challenges or considerations in implementing these requirements.
+
+4. Based on the analysis from steps 2 and 3, think and reason about the necessary changes or new implementations:
+   - For complex requirements, consider applying relevant design patterns, adhering to the single responsibility principle, and maintaining a clear separation of concerns. This may involve designing new classes, APIs, or files, or updating existing ones if applicable.
+   - For simpler requirements, focus on the specific functionality needed without necessarily applying complex design patterns or architectural principles.
+   - At this stage, focus on the overall design, structure, and functionality descriptions.
+
+5. Develop the complete Python solution based on the analysis and planning:
+   - Implement the necessary code changes or new code, ensuring adherence to the criteria outlined earlier.
+   - Include appropriate comments and docstrings to explain the code's functionality.
+   - Implement error handling and logging as needed.
+   - Ensure the code is optimized and follows best practices.
+
+6. Present the complete code along with its corresponding file paths in the designated "Final Code and File Paths" section, using the specified format.
+
+7. After presenting the complete solution, ask for the user's feedback or opinion on the implemented code.
+
+8. If the user provides feedback:
+   a. Carefully analyze and reason about the user's feedback to understand their concerns and expectations.
+   b. Incorporate their feedback and revise the solution accordingly.
+   c. Present the revised solution, including:
+      - Aspects of the solution that remained unchanged based on the user's feedback
+      - Modified aspects of the solution that were updated based on the user's feedback
+      - Any new aspects that were added to the solution as a result of the user's feedback
+
+9. Repeat steps 7-8 as needed until the user is satisfied with the final solution.
+
+**Final Codes and File Paths**:
+Present the final code and file paths in this section, using the following format:
+
+[OutputRules]
+$RuleStart$
+- Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It accommodates a wide range of contexts and tasks.
+
+- Execution and Implementation: When an action or step has been planned, follow through with outputting the process of executing or implementing it. This can include describing the specific steps taken, any challenges encountered, and the results achieved. By including the execution phase immediately after the initial output statement, the OutputRules more closely mirror the human cognitive process of transitioning from thought to action.
+
+- Continuous Logical Flow and Iterative Process: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. Reflect the iterative nature of human cognition by occasionally revisiting previous thoughts, refining ideas, or making adjustments as new information or insights come to light. This demonstrates the adaptability and continuous learning characteristic of human thinking, mirroring the organized way humans tend to process and convey information.
+
+- Reasoning and Meticulous Detail: Before executing an action or reaching a conclusion, engage in thorough reasoning, simulating the human cognitive process of thinking through a problem before arriving at a solution. Maintain meticulous attention to detail throughout the process, demonstrating the careful consideration characteristic of human cognitive efforts. This ensures that outputs are not only precise but also well-justified, reflecting the depth of human analysis and understanding.
+
+- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
+$RuleEnd$
+
+Please follow the methodology described in the [Methodology] section, and ensure that the output adheres to the [OutputRules].
+
+$FinalCodesStart$
+File: <file_path_1>
+```
+<code_block_1>
+```
+
+File: <file_path_2>
+```
+<code_block_2>
+```
+...
+$FinalCodesEnd$
+
+[Context]
+file: aufenthaltstitel_termin.py
+import asyncio
+import os
+import logging
+from llm_ui_integration.ui_integrator import UIIntegrator
+from llm_ui_integration.config.config_parser import TOMLConfigParser
+from playwright._impl._errors import TargetClosedError
+
+from service_wahl_tab import ServiceWahlTab
+from information_tab import InformationTab
+from terminauswahl_tab import TerminauswahlTab
+from utils.audio_notifier import AudioNotifier
+from utils.page_utils import hand_over_control_to_user, save_page_html
+
+
+logger = logging.getLogger(__name__)
+
+class AufenthaltstitelTermin(UIIntegrator):
+    def __init__(self) -> None:
+        super().__init__()
+        self.initialized = False
+
+        # Determine the path to the TOML configuration file
+        current_dir = os.path.dirname(__file__)
+        config_path = os.path.join(current_dir, "config.toml")
+
+        # Use TOMLConfigParser to parse the configuration file
+        parser = TOMLConfigParser()
+        self.config = parser.parse(config_path)
+
+        # Extract and validate required configuration keys
+        self.root_url: str = self.config.get("urls", {}).get("root_url")
+        self.logout_url: str = self.config.get("urls", {}).get("logout_url")
+        self.selectors = self.config.get("selectors", {})
+
+        if not all([self.root_url, self.logout_url, self.selectors]):
+            raise ValueError("Missing required configuration keys")
+        self.audio_notifier = AudioNotifier()
+
+    async def start_booking(self):
+        try:
+            await self.initialize()
+            await self.start_booking_loop()
+        except Exception as e:
+            logger.error(f"Error navigating to site: {str(e)}")
+            # No need for explicit cleanup here; context manager handles it
+            raise
+
+    async def start_booking_loop(self):
+        while True:
+            try:
+                await self.page.goto(self.root_url, wait_until='networkidle')
+                await self.click_termin_buchen_button()
+
+                information_tab = InformationTab(self.page, self.config)
+                await information_tab.accept_terms_information_tab()
+
+                service_wahl_tab = ServiceWahlTab(self.page, self.config, self)
+                await service_wahl_tab.fill_in_personal_info()
+                await service_wahl_tab.select_residence_permit_purpose()
+                await service_wahl_tab.click_book_termin_button_until_session_timeout(self.config['selectors']['proceed_button'])
+
+                terminauswahl_tab = TerminauswahlTab(self.page, self.config)
+                await terminauswahl_tab.select_first_available_date()
+                await terminauswahl_tab.select_first_available_time()
+
+                hand_over_control_to_user()
+                # Additional logic for booking confirmation and handling
+                await self.handle_booking_confirmation()
+
+            except asyncio.TimeoutError as e:
+                logger.error(f"Timeout error: {str(e)}")
+            except TargetClosedError as e:
+                # The page has entered some problems, The page needs to be closed and then restart a new page.
+                # In the UIIntegrator, we need to have the possibility of reopen_page.
+                # reopen_page will close the current page and then reopen the page.
+                logger.error(f"Error in initial steps: {str(e)}")
+                raise
+            except Exception as e:
+                logger.error(f"Error in initial steps: {str(e)}")
+
+    async def click_termin_buchen_button(self) -> None:
+        try:
+            selector = self.config['selectors']['termin_buchen_button']
+            await self.page.wait_for_selector(selector, state="visible")
+            await self.page.click(selector)
+            await self.page.wait_for_load_state('networkidle')
+        except Exception as e:
+            logger.error(f"Error clicking 'Termin Buchen' button: {str(e)}")
+            raise
+
+    async def handle_booking_confirmation(self):
+        # Implement the logic for handling the booking confirmation
+        # This may include checking for success messages, error messages, or further actions
+        # based on the booking confirmation page
+        pass
+
+    def are_we_on_logout_page(self):
+        current_url = self.page.url
+        logout_url = self.config['urls']['logout_url']
+        return current_url == logout_url
+
+    async def is_tab_active(self, tab_name):
+        xpath_expression = self.config['selectors'][f'tab_{tab_name.lower()}']
+        try:
+            await self.page.wait_for_selector(xpath_expression, state='visible', timeout=10000)
+            return True
+        except Exception as e:
+            logger.error(f"Error in tab checking or '{tab_name}' tab is not active: {str(e)}")
+            return False
+
+    async def successfully_landed_on_terminwahl(self):
+        if not await self.is_tab_active("Servicewahl"):
+            logger.info("Checking Servicewahl not found")
+            if await self.is_tab_active("Terminauswahl"):
+                logger.info("Terminwahl is active, good job")
+                return True
+        return False
+
+[UserRequirement]
+After the TargetClosedError is thrown, we should call self.reopen_page(), after reopen page, call the start_booking_loop. 
+Because when the page has error, the reopen_page from parent class will close the page, and open a new page. This means 
+we should call the start_booking_loop again. I guess this should be a loop again?

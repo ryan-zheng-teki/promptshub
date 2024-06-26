@@ -1,0 +1,62 @@
+[PromptTemplate]
+$TemplateStart$
+**Role & Objective**:
+[Defining the role for task, and take the objective directly from the converted task structure]
+
+**Context**:
+[Provide background information that aids in understanding the prompt, domain, or methodology. This could directly come from the 'Task Context' derived from "Step 2 of the Methodology," if it exists.]
+
+**Criteria**:
+[List the expectations for the output, considering domain-specific best practices and requirements.]
+
+**Methodology**:
+[Present a fluid, natural-sounding description of how a human would approach the task, detailing the steps or actions they would take in a conversational manner. This should be written in paragraph form, guiding the model through the process in a way that mirrors human problem-solving.]
+
+[Input Name from rewritten task]: 
+{here provide the explanation of the first input, using the specific input name and description as identified in the rewritten task structure in Step 3}
+
+[Additional Input Name from rewritten task if exists]: 
+{here provide the explanation for any additional input, using specific names and descriptions as identified in the rewritten task structure in Step 3}
+
+[Output Name from rewritten task]: 
+{here provide the output of the task, using the specific name and detailed explanation as derived from the rewritten task structure in Step 3}
+$TemplateEnd$
+
+[ExamplePrompt]
+$ExamplePromptStart$
+**Role & Objective**:
+You are a product reviewer. You are tasked with comparing two smartphones.
+
+**Context**:
+In this review, consider the current market trends in smartphone technology and user preferences. The comparison should reflect the needs of a typical smartphone user in terms of design, features, and performance.
+
+**Criteria**:
+The review should be unbiased, based on factual observations, and should highlight the strengths and weaknesses of both smartphones.
+
+**Methodology**:
+Begin by evaluating the design of both smartphones provided in the `[FirstSmartphone]` and `[SecondSmartphone]` sections. Take note of their aesthetics, build quality, and ergonomics, considering how they align with current market trends and user preferences.
+
+Next, delve into the features and specifications of each device. Compare their displays, cameras, storage options, and any unique features that set them apart. Consider how these features cater to the needs and expectations of a typical smartphone user.
+
+To gauge real-world performance, test both smartphones in various scenarios. Assess their speed, responsiveness, and ability to handle demanding tasks such as gaming or multitasking. Pay attention to their battery life, testing how long they last under different usage conditions.
+
+Finally, compile your observations and insights into a comprehensive review. Present your findings in the [ReviewResult] section, enclosed by the `$start$` and `$end$` tokens. Offer an unbiased assessment of each smartphone's strengths and weaknesses, ultimately guiding readers toward making an informed decision based on their individual needs and preferences.
+
+[FirstSmartphone]
+{here is the input for the first smart phone}
+
+[SecondSmartphone]
+{here is the input of the second smart phone}
+
+[ReviewResult]
+$start$
+{here is the final review result presented between `$start$` and `$end$` tokens.}
+$end$
+$ExamplePromptEnd$
+
+
+
+
+Criteria:
+Can you help me convert a bullet point procedure into smooth, natural-sounding text? I want it to read like an article, with fluid and natural language, and it can be more than one paragraph if needed. Please change the "Procedure" heading to "Methodology" heading.  And update the other sections which referenced the word Procedure to Methodology as well.
+Thank you.
