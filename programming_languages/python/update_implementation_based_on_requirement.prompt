@@ -1,16 +1,17 @@
 **Role & Objective**:
-You are a senior Python developer tasked with updating existing Python code to meet new user requirements.
+You are a senior Python developer tasked with updating existing Python code or creating new Python code files to meet new user requirements.
 
 **Criteria**:
 1. Follow PEP8 best practices
 2. Follow clean code best practices.
+3. Make sure all Python documentations are updated.
 
 **Methodology**:
-The methodology outlines the steps for updating the existing Python code:
+The methodology outlines the steps for addressing the requirements:
 1. Analyze the given Python code to understand its current functionality, structure, best practices, frameworks, and other relevant aspects.
 2. Analyze the new user requirements against the existing Python code.
 3. Engage in an iterative reasoning process, considering multiple perspectives and potential solutions, to identify the necessary changes to achieve the new requirements. Draw upon your intuition and experience as a developer to guide your reasoning, and anticipate potential consequences and implications of the changes. Refine your thoughts as needed to ensure the changes align with best practices and maintain code quality.
-4. Implement the identified changes, ensuring the code functions as expected, and present the final updated code in a copiable text block.
+4. Implement the identified changes, ensuring the code functions as expected, and present each file path with its complete codes in a copiable text block.
 
 [OutputRules]
 $RuleStart$
@@ -24,73 +25,189 @@ $RuleEnd$
 Follow the algorithm or methodogoy described in the `[Methodology]` section to perform the task, and the output should adhere to the `[OutputRules]`, ensuring a process that mirrors human-like cognitive process.
 
 [ExistingCode]
-# pcf/src/db/models/vendor_production_route.py
+file: llm_ui_integration/llm_ui_integration/ui_integrators/chatgpt_ui_integrator/chatgpt_ui_integrator.py
+"""
+chatgpt_ui_integrator.py: Provides a ChatGPTUIIntegrator class for interacting with a chat system using Playwright.
 
-# -*- coding: utf-8 -*-
-"""Models for handling the persistence of vendor and production data."""
-from sqlalchemy import (
-    Enum,
-    UniqueConstraint,
-)
-from sqlalchemy.sql.schema import (
-    Column,
-)
-from sqlalchemy.sql.sqltypes import (
-    Float,
-    Integer,
-    String,
-)
+The ChatGPTUIIntegrator class enables interaction with chat systems that require headless browser automation. It allows users to send messages, retrieve chatbot responses, and process input messages.
 
-from src.db.models.base import (
-    Base,
-)
-from src.engine.utils.data_structures import (
-    EcoinventRegions,
-    ProductionRoute,
-    SourceSystem,
-    VendorType,
-)
+The class reads configuration settings from a TOML file, including CSS selectors for the chat system's UI elements and browser settings. It uses the Playwright library to connect to a running browser instance, navigate to the chat page, and simulate user interactions.
 
+Key functionality:
+- Initialize the ChatGPTUIIntegrator with settings from a TOML configuration file.
+- Connect to a browser instance and navigate to the chat page.
+- Process input messages by sending them to the chat system and retrieving the chatbot's response.
+- Simulate user input by typing messages in the textarea element and pressing 'Enter' to send.
+- Copy the chatbot's response to the clipboard and return the copied message.
+"""
 
-class VendorProductionRouteModel(Base):
-    """A model to represent vendor and production data.
+import asyncio
+import logging
+import os
+from typing import Optional
+from colorama import Fore, Style, init
+from playwright.async_api import async_playwright
+from playwright.async_api import Browser
+from playwright.async_api import Page
+from llm_ui_integration.config.config_parser import TOMLConfigParser
 
-    This model includes information such as vendor ID, name, type,
-    article family ID, source system, transport details, production
-    route, and material quantities.
+from llm_ui_integration.clipboard.clipboard_manager import wait_for_clipboard_content
+from llm_ui_integration.ui_integrators.llm_chatui_integrator import LLMChatUIIntegrator
+
+# Initialize coloram
+init(autoreset=True)
+
+logger = logging.getLogger(__name__)
+class ChatGPTUIIntegrator(LLMChatUIIntegrator):
+    """
+    ChatGPTUIIntegrator class enables interaction with ChatGPT window in the browser.
+    
+    Raises:
+        ValueError: If any required configuration key is missing.
     """
 
-    __tablename__ = "vendor_production_route"
+    def __init__(self, model: str) -> None:
+        super().__init__()
+        self.initialized = False
+        self.model = model
 
-    id = Column(Integer, primary_key=True)
-    source_system = Column(Enum(SourceSystem), nullable=False)
-    vendor_id = Column(String, nullable=False)
-    vendor_name = Column(String, nullable=False)
-    vendor_type = Column(Enum(VendorType), nullable=False)
-    article_family_id = Column(Integer, nullable=False)
-    transport_to_vendor_address = Column(Float, nullable=True)
-    total_transports = Column(Float, nullable=True)
-    production_route_default = Column(String, nullable=False)
-    region = Column(Enum(EcoinventRegions), nullable=False)
-    weight = Column(Float, nullable=False)
-    production_route = Column(Enum(ProductionRoute), nullable=False)
-    scrap = Column(Float, nullable=False)
-    pig_iron = Column(Float, nullable=False)
-    dri = Column(Float, nullable=False)
+        # Determine the path to the TOML configuration file
+        current_dir = os.path.dirname(__file__)
+        config_path = os.path.join(current_dir, "config.toml")
 
-    __table_args__ = (
-        UniqueConstraint(
-            "source_system",
-            "vendor_id",
-            "article_family_id",
-            "region",
-            "production_route",
-            name="uix_vendor_article_family_source",
-        ),
-    )
+        # Use TOMLConfigParser to parse the configuration file
+        parser = TOMLConfigParser()
+        self.config = parser.parse(config_path)
+
+        # Assuming your TOML file has a flat structure or you know the structure and how to access it
+        self.browser_url: str = self.config.get("browser", {}).get("domain_url")
+        selectors = self.config.get("selectors", {})
+        self.response_container_selector: str = selectors.get("response_container_selector")
+        self.textarea_selector: str = selectors.get("textarea_selector")
+        self.copy_button_selector: str = selectors.get("copy_button_selector")
+
+        if not all([self.browser_url, self.textarea_selector, self.copy_button_selector]):
+            raise ValueError("Missing required configuration keys")
+
+        self.browser: Optional[Browser] = None
+        self.page: Optional[Page] = None
+
+    async def start_new_conversation(self):
+        """
+        Starts a new conversation after navigating to the chat page, opens the model selection menu,
+        and selects the specified model based on the class attribute self.model.
+        
+        Raises:
+            Exception: If there's an error in navigating or interacting with the page elements.
+        """
+        try:
+            await self.initialize()
+            await self.page.goto(self.browser_url)
+
+            # Start a new conversation
+            new_conversation_button = self.page.locator('a[href="/"]')
+            await new_conversation_button.click()
+
+            # Open the models menu
+            open_models_menu = self.page.locator(self.config.get('selectors', {}).get('open_models_menu_selector'))
+            await open_models_menu.click()
+
+            # Select the specific model from the menu
+            model_selector = self.config.get('models_selectors', {}).get(self.model)
+            if not model_selector:
+                raise ValueError(f"Model selector for {self.model} is not defined in the configuration.")
+            
+            select_model = self.page.locator(model_selector)
+            await select_model.click()
+            await asyncio.sleep(1)  # Adding a slight delay to ensure UI updates
+            self.initialized = True
+
+        except Exception as e:
+            logger.error(f"Error in starting a new conversation with model selection: {e}")
+            raise
+
+    async def send_user_message(self, user_message: str, message_index: int = None) -> str:
+        """
+        Send an user message using Playwright, send it to the chat system, and return the chatbot's response.
+
+        Parameters:
+            user_message (str): The input message to be sent to the chat system.
+
+        Returns:
+            str: The chatbot's response to the input message.
+        """
+        if not self.initialized:
+            await self.start_new_conversation()
+        response = await self._send_user_message_and_wait_for_response(user_message, message_index)
+        return response
+
+    async def _send_user_message_and_wait_for_response(self, message: str, message_index: int) -> str:
+        """
+        Type and send the message in the chat system, wait for a response, and return the chatbot's response.
+        """
+        await self._type_message_in_textarea(message)
+
+        await self._press_enter_to_send_message()
+
+        response: str = await self._wait_and_get_response(message_index)
+        logger.info(Fore.BLUE + "Copied ChatGPT response:\n", response)
+
+        return response
+
+    async def _type_message_in_textarea(self, message: str) -> None:
+        """
+        Type the message in the textarea element line by line.
+        """
+        for index, line in enumerate(message.split('\n')):
+            if index > 0:
+                await self.page.keyboard.down('Shift')
+                await self.page.keyboard.press('Enter')
+                await self.page.keyboard.up('Shift')
+            await self.page.type(self.textarea_selector, line)
+
+    async def _press_enter_to_send_message(self) -> None:
+        """
+        Press 'Enter' to send the message in the chat system.
+        """
+        await self.page.keyboard.press('Enter')
+
+    async def _wait_and_get_response(self, message_index) -> str:
+        # Use the selector with the index included, we have to use message_index+2, because the message_index is the number of the next \
+        # user message. In ChatGPT, the response_container is the assistant message.
+        nth_child_selector = self.response_container_selector.format(index=message_index+2)
+
+        # Wait for the nth child to be available
+        await self.page.wait_for_selector(nth_child_selector)
+
+        nth_copy_button_selector = self.copy_button_selector.format(index=message_index+2)
+        copy_button = self.page.locator(nth_copy_button_selector)   
+        await copy_button.click()
+
+        return await wait_for_clipboard_content()
+
+file: llm_ui_integration/llm_ui_integration/ui_integrators/chatgpt_ui_integrator/config.toml
+[browser]
+domain_url = "https://chat.openai.com"
+
+[selectors]
+copy_button_selector = 'div[data-testid="conversation-turn-{index}"] div.agent-turn  div > span:nth-of-type(2) > button'
+response_container_selector = 'div[data-testid^="conversation-turn-{index}"] [data-message-author-role="assistant"]'
+textarea_selector = 'textarea#prompt-textarea'
+open_models_menu_selector = 'div[type="button"][aria-haspopup="menu"]'
+
+[models_selectors]
+GPT-3.5 = 'div[role="menu"] > div[role="menuitem"]:nth-child(5)'
+GPT-4 = 'div[role="menu"] > div[role="menuitem"]:nth-child(3)'
+GPT-4o = 'div[role="menu"] > div[role="menuitem"]:nth-child(4)'
+
 
 
 [NewRequirements]
-Could you please create a model called RawVendorProductionRouteModel which contains the following columns. Thanks.
+I need to implement ui integrator for mistral chat ui. The domain url is https://chat.mistral.ai/chat.
+The textarea html is 
+<textarea placeholder="Ask anything!" class="flex w-full rounded-md border-input px-3 py-2 ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-none m-0 h-10 min-h-0 resize-none border-0 bg-transparent pl-2 text-base focus-visible:outline-none focus-visible:outline-0 focus-visible:ring-0 focus-visible:ring-offset-0 sm:text-base" style="transform: translateZ(0px);"></textarea>
 
-Vendor_ID 	KCO_System_Origin 	Vendor_Name 	Vendor_type 	ZIP 	City 	Country 	Transport to vendor address 	Total transport distance 	Artikelgruppe 	KCO_AF 	Product Family 	Default_Route 	Route_exception 	To_discuss 	BF-BOF_% 	EAF_% 	BF-BOF_Europe_% 	BF-BOF_USA_% 	BF-BOF_China_% 	BF-BOF_India_% 	BF-BOF_RoW_% 	EAF_Europe_% 	EAF_USA_% 	EAF_China_% 	EAF_India_% 	EAF_RoW_% 	BF-BOF_scrap_% 	BF-BOF_pig_iron_% 	BF-BOF_DRI_% 	EAF_scrap_% 	EAF_pig_iron_% 	EAF_DRI_% 	Alu_CC_% 	Volume 
+The copy button html is 
+<button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-auto disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-6 w-6 rounded-full p-0 text-muted-foreground" aria-label="Copy to clipboard" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard h-4 w-4"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path></svg></button>
+
+But the button is in the html document, but it only appears when the mouse is hovered over it. But i think its still can be clicked.
