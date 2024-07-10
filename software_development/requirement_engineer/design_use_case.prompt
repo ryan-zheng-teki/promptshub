@@ -16,7 +16,40 @@ In requirement engineering, customers often present a basic idea of what they wa
 - Present the final use cases and requirements in a standardized, professional format using the provided use case template.
 
 **Methodology**: Iterative Inference Process
+<<<<<<< Updated upstream
 This method involves an initial dissection of the customer's statement to understand each word's possible implications. The requirement engineer then uses their domain knowledge and expertise to deduce the most probable meanings and applications these words suggest, forming an initial concept of the user's envisioned application. This concept undergoes successive iterations of forward inference, with each cycle aiming to refine and expand upon the results of the previous iteration. The requirement engineer builds upon the use cases developed in the prior iteration, gradually progressing from a simple, high-level understanding to more detailed and mature use cases. Essential to this process is the requirement engineer's consciousness to engage with the customer at key stages, such as presenting an initial version of the application for confirmation, ensuring the evolving use cases and requirements align with the customer's vision and intentions. At the end of the process, the final use cases and requirements are organized and presented in a standardized, professional manner.
+=======
+This method involves an initial dissection of the customer's statement to understand each word's possible implications. The requirement engineer then uses their domain knowledge and expertise to deduce the most probable meanings and applications these words suggest, forming an initial concept of the user's envisioned application. This concept undergoes successive iterations of forward inference, with each cycle aiming to refine and expand upon the results of the previous iteration. The requirement engineer builds upon the use cases developed in the prior iteration, gradually progressing from a simple, high-level understanding to more detailed and concrete use cases. Essential to this process is the requirement engineer's consciousness to engage with the customer at key stages, such as presenting an initial version of the application for confirmation, ensuring the evolving use cases and requirements align with the customer's vision and intentions. At the end of the process, the final use cases and requirements are organized and presented in a standardized, professional manner using the provided use case template.
+
+**Use Case Template**:
+$TemplateStart$
+**Use Case ID**: [Unique identifier for the use case]
+**Use Case Name**: [Descriptive name for the use case]
+**Actor(s)**: [User roles or external systems that interact with the system]
+**Description**: [Brief description of the use case]
+**Preconditions**: [Conditions that must be met before the use case can be executed]
+**Postconditions**: [Conditions that must be met after the use case is executed]
+**Normal Flow**:
+1. [Step 1]
+2. [Step 2]
+3. [...]
+**Alternative Flows**:
+- [Alternative Flow 1]
+- [Alternative Flow 2]
+- [...]
+**Exceptions**:
+- [Exception 1]
+- [Exception 2]
+- [...]
+**Includes**: [Other use cases that are included within this use case]
+**Extends**: [Other use cases that extend the functionality of this use case]
+**Frequency of Use**: [How often the use case is expected to be executed]
+**Business Rules**: [Any business rules or constraints that apply to the use case]
+**Special Requirements**: [Non-functional requirements, such as performance, security, or usability]
+**Assumptions**: [Any assumptions made about the use case or its execution]
+**Notes**: [Additional information or clarifications about the use case]
+$TemplateEnd$
+>>>>>>> Stashed changes
 
 [OutputRules]
 $RuleStart$

@@ -4,7 +4,27 @@ import argparse
 
 def print_file_contents(folder_path, file_extensions=None, exclude_folders=None):
     if exclude_folders is None:
-        exclude_folders = ['.git', 'node_modules']  # Default folders to exclude
+        # Default folders to exclude
+        exclude_folders = [
+            '.git',
+            'node_modules',
+            '__pycache__',
+            'venv',
+            'env',
+            '.venv',
+            '.env',
+            'dist',
+            'build',
+            'logs',
+            '.pytest_cache',
+            '.mypy_cache',
+            '.tox',
+            '.eggs',
+            '*.egg-info',
+            '.virtualenvs',
+            '.idea',
+            '.vscode',
+        ]
 
     if file_extensions is None:
         file_extensions = []  # If no extensions are specified, all files will be processed
