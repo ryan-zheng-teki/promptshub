@@ -71,88 +71,63 @@ $RuleStart$
 - Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
 $RuleEnd$
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 Follow the methodology outlined in the `[Methodology]` section, ensuring that your output integrates the principles detailed in the `[OutputRules]` section throughout the process. This approach will help maintain a continuous logical flow, meticulous detail, conversational language, and necessary reasoning, mirroring the nuances of human cognition.
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-Please follow the steps defined in the `[Procedure]` section. Your output should follow the output rules defined in the `[OutputRules]` section.
+
 
 [Writing]
 $WrittingStart$
-[OutputRules]
-$RuleStart$
-- Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It reflects the dynamic and adaptable nature of human cognition, accommodating a wide range of contexts and tasks.
+[PromptTemplate]
+$TemplateStart$
+**Role & Objective**:
+[Defining the role for task, and take the objective directly from the converted task structure]
 
-- Continuous Logical Flow: Ensure a continuous and logical progression of thoughts, maintaining coherence throughout the discourse. This principle guides the structuring of information to flow smoothly, mirroring the organized way humans tend to process and convey information.
+**Context**:
+[Provide background information that aids in understanding the prompt, domain, or procedure steps. This could directly come from the 'Task Context' derived from "Step 2 of the Procedure," if it exists.]
 
-- Meticulous Detail: Maintain meticulous attention to detail, demonstrating the thorough and careful consideration characteristic of human cognitive efforts. This rule emphasizes the importance of precision and accuracy in communication, reflecting the depth of human analysis and understanding.
+**Criteria**:
+[List the expectations for the output, considering domain-specific best practices and requirements.]
 
-- Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
+**Procedure**:
+1. [Step 1]
+2. [Step 2]
+...
+[Detail the specific steps or actions the model should undertake.]
 
-- Reasoning: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
-$RuleEnd$
+[Input Name from rewritten task]: 
+{here provide the explanation of the first input, using the specific input name and description as identified in the rewritten task structure in Step 3}
+
+[Additional Input Name from rewritten task if exists]: 
+{here provide the explanation for any additional input, using specific names and descriptions as identified in the rewritten task structure in Step 3}
+
+[Output Name from rewritten task]: 
+{here provide the output of the task, using the specific name and detailed explanation as derived from the rewritten task structure in Step 3}
+
+Follow the steps outlined in the `[Procedure]`. Think step by step, and reason comprehensively for each step. 
+$TemplateEnd$
 $WrittingEnd$
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
 
 
-[UserRequest]
-$start$
-<<<<<<< Updated upstream
-I think the output rules are not complete. The purpose is to output what is happening in  human cognitive thinking when we are executing tasks. However, if you look at the Output. It outputs the action name. However, it does not contain the output for actually executing the action, or step.
+[ExamplePrompt]
+[ExampleStart]
+**Role & Objective**:
+You are a product reviewer. You are tasked with comparing two smartphones.
 
-What happens with human is that, we have thoughts like "i need to do something". This is more like a planning thinking happening in our brain. After we do the planning, then we start to execute the planned action. This kinda analyzing, planning, actioning thoughts are continuesly happening in our brain.
-Could you please improve the OutputRules to reflect more of the facts thats happening in human brain when we are addressing certain tasks.
+**Context**:
+In this review, consider the current market trends in smartphone technology and user preferences. The comparison should reflect the needs of a typical smartphone user in terms of design, features, and performance.
 
-I know the current one is already quite good. But i think we could make it even more truely reflecting human cognition
-$end$
+**Criteria**:
+The review should be unbiased, based on factual observations, and should highlight the strengths and weaknesses of both smartphones.
 
+**Methodology**:
+Begin by evaluating the design of both smartphones provided in the `[FirstSmartphone]` and `[SecondSmartphone]` sections. Take note of their aesthetics, build quality, and ergonomics, considering how they align with current market trends and user preferences.
 
-=======
-=======
+Next, delve into the features and specifications of each device. Compare their displays, cameras, storage options, and any unique features that set them apart. Consider how these features cater to the needs and expectations of a typical smartphone user.
 
+To gauge real-world performance, test both smartphones in various scenarios. Assess their speed, responsiveness, and ability to handle demanding tasks such as gaming or multitasking. Pay attention to their battery life, testing how long they last under different usage conditions.
 
-[UserRequest]
-$start$
->>>>>>> Stashed changes
-I think the output rules are not complete. The purpose is to output  what is happening in  human cognitive thinking when we are executing tasks. However, if you look at the Output. It output the action name. However, it does not contain the output for actually executing the action.. 
-
-=======
-
+Finally, compile your observations and insights into a comprehensive review. Present your findings in the [ReviewResult] section, enclosed by the `$start$` and `$end$` tokens. Offer an unbiased assessment of each smartphone's strengths and weaknesses, ultimately guiding readers toward making an informed decision based on their individual needs and preferences.
+[ExampleEnd]
 
 [UserRequest]
-$start$
-I think the output rules are not complete. The purpose is to output  what is happening in  human cognitive thinking when we are executing tasks. However, if you look at the Output. It output the action name. However, it does not contain the output for actually executing the action.. 
-
->>>>>>> Stashed changes
-What happens with human is that, we have thoughts like "i need to do blabla, then followed by the action executions thinking in our brain".
-
-Could you please improve the OutputRules.
-$end$
-
-
-[Output]
-$start$
-I am currently analyzing the provided HTML to gain a deep understanding of its structure and identify the relevant elements for targeting the copy button based on the user's requirements.
-
-I am carefully reviewing the user's requirements to determine precisely which elements need to be targeted. The key points are:
-
-The copy button is the second button among four consecutive buttons
-The button is identified by an SVG image inside it
-The button does not have a very identifiable class or ID
-I am now constructing the CSS selector to accurately target the copy button while ensuring it is specific enough to avoid unintended styling of other elements.
-$end$
-
-
-
-- Task Context: A prompt for a large language model typically encompasses sections outlining the inputs, process/methodology, and outputs. Enhancing the prompt with a demonstration blueprint section is crucial for illustrating the task's execution and the anticipated output clearly. This addition improves the model's performance by offering a simulated execution example, including the process and the output. The demonstration includes the example, the simulated execution process, and the desired outputs after the execution process.
-
-
-- Task Context: A standard prompt for a large language model typically includes sections detailing the inputs, methodology, and expected outputs. The inclusion of a "Demonstration Blueprint" section is essential for explicitly showcasing how the task should be executed and what outputs are anticipated. This addition significantly enhances the model's understanding and performance by providing a detailed example of the execution process and the expected results. The demonstration should comprehensively cover the example provided, the steps of the simulated execution process, and the outputs expected after these steps.
->>>>>>> Stashed changes
+The prompt template used for creating prompts has various sections, such as role&objective, criteria, context, and procedure. However, the procedure section has been replaced by methodology in the example prompt using the new template. The template needs to be updated to reflect this change and ensure the description matches the new methodology section. Additionally, it is necessary to check for other references to the procedure within the template and update those accordingly.

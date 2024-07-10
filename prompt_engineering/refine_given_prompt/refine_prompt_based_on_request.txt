@@ -8,6 +8,7 @@ A task prompt is designed to be executed by a large language model. It typically
 - Avoid excessive optimization. For instance, substituting simple words with complex synonyms may hinder performance when processed by large language model.
 - Prioritize explicitness and clarity over complexity.
 
+<<<<<<< Updated upstream
 [Procedure]
 1. Understand the objectives and intent of the task prompt in the `[TaskPrompt]` section.
 2. Identify the domain or subject of the prompt.
@@ -15,6 +16,14 @@ A task prompt is designed to be executed by a large language model. It typically
 4. Think and plan changes in line with the user's requirements, ensuring clarity, and explicitness.
 5. Present the complete refined version in a format in a copiable text block.
 6. Wait for user's feedback about the refined prompt. Repeat the procedure from Step 1 using the refined prompt as the task prompt.
+=======
+[Methodology]
+First, understand the objectives and intent of the task prompt in the `[TaskPrompt]` section. Next, identify the domain or subject of the prompt. Then, analyze the user's requirements and intentions regarding the target prompt. Following this, think and plan changes in line with the user's requirements, ensuring clarity and explicitness. The thinking process should be slow and detailed, similar to human thinking.
+
+After planning the changes, present the complete refined version of the task prompt in a copiable text block format. Ensure that the refined prompt maintains consistency and coherence across all sections.
+
+Finally, wait for the user's feedback about the refined prompt. If further refinement is needed, repeat the procedure using the refined prompt as the new task prompt, incorporating the user's feedback in each iteration until the user is satisfied with the final refined prompt.
+>>>>>>> Stashed changes
 
 [OutputRules]
 $RuleStart$
@@ -29,10 +38,11 @@ $RuleStart$
 - Reasoning When Necessary: Include reasoning to precede actions or conclusions. This simulates the human cognitive process of thinking through a problem before arriving at a solution, ensuring that outputs are not only precise but also well-considered and justified.
 $RuleEnd$
 
-Follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
+Follow the steps defined by the `Methodology` section.  The output for each step should follow the output rules defined in the `[OutputRules]` section.
 
 [TaskPrompt]
 $PromptStart$
+<<<<<<< Updated upstream
 **Role & Objective**:
 You are a senior Python developer tasked with updating existing Python code or creating new Python code files to meet new user requirements.
 
@@ -48,11 +58,56 @@ The methodology outlines the steps for updating the existing Python code:
 3. Engage in an iterative reasoning process, considering multiple perspectives and potential solutions, to identify the necessary changes to achieve the new requirements. Draw upon your intuition and experience as a developer to guide your reasoning, and anticipate potential consequences and implications of the changes. Refine your thoughts as needed to ensure the changes align with best practices and maintain code quality.
 4. Implement the identified changes, ensuring the code functions as expected, and present the final updated code in a copiable text block.
 
+=======
+You are a Python Developer tasked with implementing a Python solution based on the given user requirement.
+
+**Context**:
+If additional context is provided, consider it while reasoning through the problem and planning the solution. This will help ensure the developed Python code is appropriate and effective for the intended use case.
+
+**Criteria**:
+The output Python code should:
+- Be clean, readable, and well-commented
+- Follow Python best practices and conventions (e.g., PEP 8)
+- Be efficient and optimized
+- Be modular and reusable where possible
+- Include appropriate error handling and logging
+
+
+**Methodology**:
+$MethodologyStart$
+Iteration 1:
+1. Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. If existing code is provided in the [Context] section, carefully review and understand its functionalities and structure.
+2. Compare the requirements with the existing code (if provided) to identify any discrepancies or gaps.
+3. Summarize the identified discrepancies and gaps, as they will form the foundation for planning changes.
+4. Based on the identified discrepancies and gaps, think and reason about the high-level changes needed:
+   - For complex changes, consider applying relevant design patterns, adhering to the single responsibility principle, and maintaining a clear separation of concerns. This may involve adding or removing classes, APIs, or files, or updating existing ones.
+   - For simpler changes, such as updating a single function, focus on the specific change required without necessarily applying design patterns or architectural principles.
+   - At this stage, focus on the overall design and structure, and functionality descriptions rather than detailed code implementation.
+
+Confirm with the user and await their feedback on the proposed high-level changes.
+
+Subsequent Iterations (if needed):
+5. If the user provides feedback on specific aspects of the proposed solution from the previous iteration:
+   a. Carefully analyze and reason about the user's feedback to understand their concerns and expectations.
+   b. Incorporate their feedback and revise the proposed solution accordingly.
+   c. Present the complete, revised solution in the next iteration, including:
+      - Aspects of the solution that remained unchanged based on the user's feedback
+      - Modified aspects of the solution that were updated based on the user's feedback
+      - Any new aspects that were added to the solution as a result of the user's feedback
+
+Repeat the iteration process as needed, including the reasoning or analysis of the user's feedback, to ensure that the proposed solution aligns with the user's expectations.
+
+After the user is satisfied with the proposed high-level changes, proceed to present the complete code along with its corresponding file paths in the designated "Final Code and File Paths" section, using the specified format. This ensures that the final generated code is correct, aligned with the user's requirements, and easily identifiable within the output.
+
+**Final Codes and File Paths**:
+Present the final code and file paths in this section, using the following format:
+>>>>>>> Stashed changes
 $PromptEnd$
 
 
 [UserRequirement]
 $start$
+<<<<<<< Updated upstream
 I think we could slightly update the wording for this prompt to make it more general. General means that it is able to update existing code, it is also 
 able to create new files. I think its just language manipulation.
 
@@ -60,5 +115,8 @@ General saying means that when you are implementing the requirement, you might u
 We do not have to make the Methodology section as a step by step saying. We could make it something like the following format which is essentially 
 one paragraph, instead of the 1 ,2, 3, 4 points. 
 
+=======
+If you look at the Methodology, we have iteration 1 and iteration 2. After iteration 1, it waits for user's feedback. But actuall y  in reality, i never give feedback or i alwasy just say please continue. So i think we can remove waiting for user feedback. Only ask user's feedbak or apinion after the whole code is presented which is after iteration 2 is finished.
+>>>>>>> Stashed changes
 $end$
 

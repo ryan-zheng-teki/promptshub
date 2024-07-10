@@ -47,6 +47,154 @@ Please follow the steps defined in the Procedure. Ensure meticulous step-by-step
 
 
 
+You're absolutely right! When writing an article on Medium, it's important to use the appropriate formatting to display code snippets properly. Medium supports the use of triple backticks (```) to enclose code snippets and specify the programming language for syntax highlighting.
 
+Here's the updated article with the code snippets formatted for Medium:
 
+Title: Implementing Cursor-Based Pagination with Strawberry GraphQL and SQLAlchemy
 
+Introduction:
+In this article, we will explore how to implement cursor-based pagination in a GraphQL API using Strawberry GraphQL and SQLAlchemy. Pagination is a crucial aspect of API design, especially when dealing with large datasets. Cursor-based pagination provides an efficient and reliable way to retrieve a subset of results, allowing clients to navigate through the data in a scalable manner.
+
+Understanding Cursor-Based Pagination:
+Cursor-based pagination relies on a unique identifier (cursor) to determine the starting point for the next set of results. Instead of using page numbers, the server returns a limited number of results along with a cursor that points to the next page of data. This approach ensures consistent and reliable pagination, even when the dataset is large or frequently changing.
+
+Strawberry GraphQL:
+Strawberry is a Python library for building GraphQL APIs. It provides a simple and intuitive way to define GraphQL schemas using Python classes and functions. With Strawberry, you can define your GraphQL types, queries, mutations, and subscriptions using familiar Python syntax. It leverages Python's type hints for type safety and provides decorators to define resolvers for your GraphQL fields.
+
+Relay-style Pagination in Strawberry GraphQL:
+Strawberry GraphQL provides support for Relay-style pagination, which is a specification for implementing efficient pagination in GraphQL APIs. Relay-style pagination defines a standard way to structure connections and edges in the GraphQL schema, allowing clients to query paginated results using a cursor-based approach.
+
+In the provided code, the `relay` module from Strawberry GraphQL is used to define the connection types and implement pagination. The `@relay.connection` decorator is used to specify the connection type for the paginated query, and the `ListConnection` class is used to define the structure of the paginated results.
+
+SQLAlchemy:
+SQLAlchemy is a popular Python library for working with relational databases. It provides a set of tools for defining database models, querying data, and performing database operations. With SQLAlchemy, you can define your database models using Python classes and use an object-relational mapping (ORM) to interact with the database. It offers a powerful query API for expressing complex database queries using Python code.
+
+Implementing Cursor-Based Pagination:
+To implement cursor-based pagination in a GraphQL API using Strawberry GraphQL and SQLAlchemy, follow these steps:
+
+1. Define your database models using SQLAlchemy. Create a `BookModel` class that represents the structure of the book table in the database.
+
+```python
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class BookModel(Base):
+    __tablename__ = "books"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String)
+    author = Column(String)
+```
+
+2. Create a base repository class (`BaseRepository`) that provides basic database operations and a `get_all_lazy` method that returns a `LazyQuery` object.
+
+```python
+from typing import Generic, TypeVar
+from sqlalchemy.orm import Query, Session
+
+ModelType = TypeVar("ModelType")
+
+class LazyQuery(Generic[ModelType]):
+    def __init__(self, query: Query):
+        self.query: Query = query
+
+    def __getitem__(self, key: slice) -> Query:
+        if isinstance(key, slice):
+            return self.query.slice(key.start, key.stop)
+        raise TypeError("LazyQuery only supports slicing.")
+
+class BaseRepository(Generic[ModelType]):
+    model = None
+
+    @property
+    def db(self) -> Session:
+        return request_scoped_db_session.get()
+
+    def lazy_query(self, *criterion) -> LazyQuery[ModelType]:
+        query: Query = self.db.query(self.model)
+        if criterion:
+            query = query.filter(*criterion)
+        return LazyQuery(query)
+
+    def get_all_lazy(self) -> LazyQuery[ModelType]:
+        return self.lazy_query()
+```
+
+3. Define a converter function (`model_to_book_graphql`) that converts a `BookModel` instance to a `book` GraphQL type.
+
+```python
+from src.api.grapqhl.types.book_types import book
+
+def model_to_book_graphql(book_model: BookModel) -> book:
+    return book(
+        id=strawberry.ID(str(book_model.id)),
+        title=book_model.title,
+        author=book_model.author,
+    )
+```
+
+4. Define your GraphQL schema using Strawberry GraphQL. Create types for your data objects (e.g., `book` and `bookInput`) and a connection type (`bookListConnection`) that represents the paginated results.
+
+```python
+import strawberry
+from strawberry import relay
+
+@strawberry.type
+class book:
+    id: strawberry.ID
+    title: str
+    author: str
+
+@strawberry.input
+class bookInput:
+    title: str
+    author: str
+
+@strawberry.type
+class bookListConnection(relay.ListConnection[book]):
+    @classmethod
+    def resolve_node(cls, node: BookModel, *, info: Info, **kwargs) -> book:
+        return model_to_book_graphql(node)
+```
+
+5. Implement a resolver function for the paginated query (e.g., `get_all_books`). This function should use the `LazyQuery` object to retrieve the data from the database and return it as a Relay connection.
+
+```python
+from typing import Iterable
+from strawberry.types import Info
+from src.api.grapqhl.converters.book_converters import model_to_book_graphql
+from src.db.repositories.book_repository import bookRepository
+
+book_repository = bookRepository()
+
+@strawberry.type
+class Query:
+    @relay.connection(bookListConnection)
+    def get_all_books(self, info) -> Iterable[book]:
+        books = book_repository.get_all_lazy()
+        return books
+```
+
+6. Use the `@relay.connection` decorator to specify the connection type for the paginated query. This decorator handles the pagination arguments and returns the data in the format expected by Relay-style pagination.
+
+7. In the resolver function, call the `get_all_lazy` method from the base repository to obtain a `LazyQuery` object representing the query to fetch all data from the database.
+
+8. The `ListConnection` class from Strawberry GraphQL takes care of slicing the `LazyQuery` object based on the pagination arguments provided by the client.
+
+9. The sliced `LazyQuery` is executed, and the corresponding subset of data is retrieved from the database using SQLAlchemy.
+
+10. The retrieved `BookModel` instances are converted to the appropriate GraphQL types using the `model_to_book_graphql` function in the `resolve_node` method of the connection class.
+
+11. The paginated results are returned to the client, along with the necessary pagination information (e.g., `edges`, `pageInfo`) as defined by Relay-style pagination.
+
+Conclusion:
+Implementing cursor-based pagination in a GraphQL API using Strawberry GraphQL and SQLAlchemy provides a powerful and efficient way to handle large datasets. By leveraging the strengths of each technology, you can create a scalable and performant API that allows clients to retrieve paginated results seamlessly.
+
+Strawberry GraphQL simplifies the process of defining the GraphQL schema and resolvers while providing support for Relay-style pagination. SQLAlchemy offers a robust ORM for interacting with the database and performing efficient queries.
+
+By following the steps outlined in this article and utilizing the provided code examples, you can successfully implement cursor-based pagination in your GraphQL API, enhancing its usability and performance. The complete code implementation demonstrates how all the components work together to achieve efficient pagination of book results.
+
+Feel free to copy and experiment with the code provided in this article to gain a hands-on understanding of cursor-based pagination in a GraphQL API using Strawberry GraphQL and SQLAlchemy.

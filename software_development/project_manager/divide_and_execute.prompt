@@ -62,11 +62,476 @@ $RuleEnd$
 
 Follow the algorithm or methodogoy described in the `[Methodology]` section to perform the task, and the output should adhere to the `[OutputRules]`, ensuring a process that mirrors human-like cognitive process.
 
+[LargeComplexTask]
+$start$
+I need to create one Medium technical article which is about implementing implementing Repository Pattern in fastAPI application. The goal is to 
+hide session management in the service layer. Because i see many applications have passing sessions around and around. It also includes transaction management. 
+We create one session for each request using middleware in fastapi.
+
+In our test, we create_all tables and delete all tables, and run on transaciton to create one outer transaction which will eventually rollback. So even if 
+in the service layer we have transaction_scope which commits the transaction. But the outter transaction is determining is the session status.
+
+
+The [CodeImplementations] contains the codes for the implementations. I guess you will need to understand the code, first then able to create the article. The audiences are software developers.
+Please remove those uneeded imports as well, because i just copy pasted the code, some codes are not neccessary. We wanna be professional.
+
+
+[CodeImplementations]
+file: base_repository.py
+# -*- coding: utf-8 -*-
+import logging
+import os
+import threading
+from typing import (
+    Generic,
+    List,
+    Optional,
+    TypeVar,
+)
+
+from sqlalchemy import (
+    func,
+)
+from sqlalchemy.dialects.postgresql import (
+    insert,
+)
+from sqlalchemy.exc import (
+    OperationalError,
+)
+from sqlalchemy.orm import (
+    Query,
+    Session,
+)
+
+from src.db.session_context import (
+    request_scoped_db_session,
+)
+from src.db.transaction_management import (
+    is_transaction_active,
+)
+
+
+logger = logging.getLogger(__name__)
+
+# Define a type variable for the model
+ModelType = TypeVar("ModelType")
+
+
+class LazyQuery(Generic[ModelType]):
+    def __init__(self, query: Query):
+        self.query: Query = query
+
+    def __getitem__(self, key: slice) -> Query:
+        if isinstance(key, slice):
+            return self.query.slice(key.start, key.stop)
+        raise TypeError("LazyQuery only supports slicing.")
+
+
+class BaseRepository(Generic[ModelType]):
+    # Subclasses should set this to the concrete model class
+    model = None
+
+    @property
+    def db(self) -> Session:
+        return request_scoped_db_session.get()
+
+    def log_db_info(self, operation_name: str):
+        logger.info(
+            f"[{operation_name}] Process ID: {os.getpid()}, Thread ID: {threading.get_ident()}, DB Session ID: {id(self.db)}"
+        )
+
+    def lazy_query(self, *criterion) -> LazyQuery[ModelType]:
+        query: Query = self.db.query(self.model)
+        if criterion:
+            query = query.filter(*criterion)
+        return LazyQuery(query)
+
+    def create(self, obj: ModelType) -> ModelType:
+        self.log_db_info("create")
+
+        try:
+            self.db.add(obj)
+            self.db.flush()
+            if not is_transaction_active():
+                self.db.commit()
+            self.db.refresh(obj)
+            return obj
+        except Exception as e:
+            self.handle_db_error("create", e)
+
+    def bulk_create(self, objects: List[ModelType]) -> List[ModelType]:
+        self.log_db_info("bulk_create")
+
+        try:
+            # Using bulk_save_objects for efficient bulk operations
+            self.db.bulk_save_objects(objects)
+            self.db.flush()
+            # Committing the transaction if there's no ongoing transaction
+            if not is_transaction_active():
+                self.db.commit()
+            return objects
+        except Exception as e:
+            self.handle_db_error("bulk_create", e)
+
+    def bulk_create_using_loop(self, objects: List[ModelType]) -> tuple:
+        self.log_db_info("bulk_create_using_loop")
+
+        created_count = 0
+        skipped_count = 0
+        for obj in objects:
+            try:
+                self.create(obj)
+                created_count += 1
+            except Exception:
+                logger.error("Failed bulk_create_with_loop")
+                skipped_count += 1
+        logger.info(f"Created: {created_count}, Skipped: {skipped_count}")
+        return created_count, skipped_count
+
+    def get(self, id: int) -> ModelType:
+        self.log_db_info("get")
+
+        return self.db.query(self.model).filter_by(id=id).first()
+
+    def get_all(self) -> List[ModelType]:
+        self.log_db_info("get_all")
+
+        return self.db.query(self.model).all()
+
+    def get_all_sorted(self, order_by_field: Optional[str] = None) -> List[ModelType]:
+        self.log_db_info("get_all_sorted")
+
+        query = self.db.query(self.model)
+        if order_by_field:
+            query = query.order_by(order_by_field)
+        return query.all()
+
+    def get_all_lazy(self) -> LazyQuery:
+        self.log_db_info("get_all_lazy")
+
+        return self.lazy_query()
+
+    def first(self, order_by_field: str = "updated_at") -> Optional[ModelType]:
+        self.log_db_info("first")
+
+        return (
+            self.db.query(self.model)
+            .order_by(getattr(self.model, order_by_field))
+            .first()
+        )
+
+    def last(self, order_by_field: str = "updated_at") -> Optional[ModelType]:
+        self.log_db_info("last")
+
+        return (
+            self.db.query(self.model)
+            .order_by(getattr(self.model, order_by_field).desc())
+            .first()
+        )
+
+    def count(self) -> int:
+        self.log_db_info("count")
+
+        return self.db.query(self.model).count()
+
+    def fetch_page(self, offset: int = 0, limit: int = 10) -> List[ModelType]:
+        """Generic pagination method applicable to any model. offset-limit
+        based.
+
+        :param offset: The number of records to skip.
+        :param limit: The maximum number of items to return.
+        :return: A list of model instances.
+        """
+        return (
+            self.db.query(self.model)
+            .order_by(self.model.id)
+            .offset(offset)
+            .limit(limit)
+            .all()
+        )
+
+    def upsert(self, obj: ModelType) -> int | None:
+        """Insert or update a record based on unique constraints.
+
+        :param obj: The model instance to upsert.
+        :return: The ID of the upserted model instance.
+        """
+        self.log_db_info("upsert")
+
+        table = self.model.__table__
+        insert_dict = {
+            c.name: getattr(obj, c.name)
+            for c in table.columns
+            if c.name in obj.__dict__
+        }
+
+        # Ensure that created_at and updated_at are not overwritten during update
+        update_dict = {
+            c.name: getattr(obj, c.name)
+            for c in table.columns
+            if not c.primary_key and c.name != "created_at"
+        }
+        update_dict["updated_at"] = (
+            func.now()
+        )  # Ensure updated_at is set correctly during updates
+
+        stmt = (
+            insert(table)
+            .values(insert_dict)
+            .on_conflict_do_update(
+                index_elements=self.model.UPSERT_COLUMNS, set_=update_dict
+            )
+            .returning(table.c.id)
+        )  # Return only the ID of the upserted record
+
+        try:
+            result = self.db.execute(stmt)
+            self.db.commit()
+
+            # Get the id of the inserted/updated record
+            row = result.fetchone()
+            obj_id = row[0] if row else None
+
+            return obj_id
+        except Exception as e:
+            logger.error("base_repository upsert error: %s", e)
+            self.db.rollback()
+            raise OperationalError(
+                statement="base_repository upsert error", params={}, orig=e
+            )
+
+    def delete(self, obj: ModelType) -> None:
+        self.log_db_info("delete")
+
+        try:
+            self.db.delete(obj)
+            self.db.flush()
+            if not is_transaction_active():
+                self.db.commit()
+        except Exception as e:
+            self.handle_db_error("delete", e)
+
+    def bulk_delete(self, objects: List[ModelType]) -> None:
+        self.log_db_info("bulk_delete")
+
+        try:
+            for obj in objects:
+                self.db.delete(obj)
+            self.db.flush()
+            if not is_transaction_active():
+                self.db.commit()
+        except Exception as e:
+            self.handle_db_error("bulk_delete", e)
+
+    def update(self, obj: ModelType) -> ModelType:
+        self.log_db_info("update")
+
+        obj.updated_at = func.now()
+        try:
+            self.db.merge(obj)  # Use merge to update and add the object in one step
+            self.db.flush()
+            if not is_transaction_active():
+                self.db.commit()
+            self.db.refresh(obj)
+            return obj
+        except Exception as e:
+            self.handle_db_error("update", e)
+
+    def handle_db_error(self, operation_name: str, error: Exception) -> None:
+        logger.error(f"base_repository {operation_name} error: {error}")
+        self.log_db_info(f"error: {operation_name}")
+
+        try:
+            if not is_transaction_active():
+                self.db.rollback()
+        except Exception as rollback_error:
+            logger.error(
+                f"Failed to rollback after error in {operation_name}: {rollback_error}"
+            )
+            raise OperationalError(
+                statement=f"base_repository {operation_name} rollback error",
+                params={},
+                orig=rollback_error,
+            )
+        raise OperationalError(
+            statement=f"base_repository {operation_name} error", params={}, orig=error
+        )
+
+file: db_connection.py
+# -*- coding: utf-8 -*-
+from contextlib import (
+    contextmanager,
+)
+from logging import (
+    getLogger,
+)
+
+from sqlalchemy import (
+    create_engine,
+)
+from sqlalchemy.orm import (
+    scoped_session,
+    sessionmaker,
+)
+
+from src.db.session_context import (
+    request_scoped_db_session,
+)
+from src.settings import (
+    settings,
+)
+
+
+is_postgres_available = False
+logger = getLogger(__name__)
+
+# Create the engine
+engine = create_engine(
+    url=str(settings.database.postgres_url),
+    pool_pre_ping=True,
+    pool_size=10,
+    max_overflow=20,
+)
+
+# Create a configured "Session" class
+SessionFactory = sessionmaker(bind=engine)
+
+def get_session():
+    """
+    scoped_session object internally contains a threading.local() object. The threading.local() object 
+    in theory should be used as a global object. Every time when the scoped_session.query or scoped_session.add
+    is being used, it creates one session for the current thread. scoped_session.remove will close the session 
+    bounded to the current thread. In this get_session(), we are creating a scoped_session object during runtime, this 
+    means each scoped_session object will create one threading.local() object. This works to separate the session 
+    for each request.
+    """
+    return SessionFactory()
+
+@contextmanager
+def db_session_context():
+    """Yields the DB session."""
+    thread_local_session = get_session()
+    request_scoped_db_session.set(thread_local_session)
+
+    yield thread_local_session
+    
+    # for scoped_session we remove it from the registry, the orm.Session.close is called internally be the remove funciton.
+    request_scoped_db_session.set(None)
+
+
+def check_postgres_availability():
+    try:
+        conn = engine.connect()
+        conn.close()
+
+        global is_postgres_available
+        is_postgres_available = True
+
+        logger.info("PostgreSQL is available.")
+    except Exception as e:
+        logger.critical("PostgreSQL is not available.", e)
+
+file: db_session_middleware.py
+# -*- coding: utf-8 -*-
+
+import logging
+
+from src.db.db_connection import (
+    get_session,
+)
+from src.db.session_context import (
+    request_scoped_db_session,
+)
+
+
+logger = logging.getLogger(__name__)
+
+
+class DBSessionMiddleware:
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        # Create a new SQLAlchemy session for each request only for /scope_3_upstream_emissions
+        if scope["type"] == "http":
+            # Set the session in the context variable
+            session = get_session()
+            request_scoped_db_session.set(session)
+
+            try:
+                await self.app(scope, receive, send)
+            except Exception as exc:
+                raise exc
+            finally:
+                try:
+                    request_scoped_db_session.set(None)
+                except Exception as e:
+                    logger.exception("session.remove() error", e)
+
+        # Pass all other requests through unchanged
+        else:
+            await self.app(scope, receive, send)
+
+
+file: transaction_management.py
+# -*- coding: utf-8 -*-
+
+import logging
+from contextlib import contextmanager
+from sqlalchemy.orm import Session
+
+from src.db.session_context import request_scoped_db_session
+
+logger = logging.getLogger(__name__)
+
+@contextmanager
+def transaction_scope():
+    """Provide a transactional scope around a series of operations using the
+    existing request-scoped session."""
+    db_session = request_scoped_db_session.get()
+    if db_session is None:
+        raise ValueError("No database session found in the current context.")
+
+    # Check if there's already an active transaction
+    is_nested = db_session.in_transaction()
+
+    try:
+        if is_nested:
+            # Start a nested transaction (savepoint)
+            with db_session.begin_nested():
+                logger.debug("Starting nested transaction")
+                yield db_session
+        else:
+            # Start a new transaction
+            with db_session.begin():
+                logger.debug("Starting new transaction")
+                yield db_session
+        
+        db_session.commit()  # Commit only if no exceptions
+        logger.debug("Transaction committed")
+    except Exception as e:
+        logger.exception("Exception occurred during transaction, rolling back", exc_info=e)
+        db_session.rollback()  # Roll back to the savepoint
+        raise
+    finally:
+        # Note: Do not close the session here; it is closed in the db_session_middleware.py
+        pass
+
+def is_transaction_active(session: Session) -> bool:
+    return session.in_transaction()
+
 [Large Complex Task]
 $start$
-find a movie about  given topic uing google_search, click the link and read the the movie contents, and user reivew. Then write a short movie review artice about this movie. 
-Then use xiaohongshu_poster, weibo_poster, douyin_poster to create a post for this movie. The role is a MovieAgent which is given a goal, it is able to reason, plan, act, and using 
-external tools like google_search, xiaohongshu_poster, weibo_poster, douyin_poster to post the movie review generated.
+I need to create one Medium technical article which is about implementing implementing Repository Pattern in fastAPI application. The goal is to 
+hide session management in the service layer. Because i see many applications have passing sessions around and around. It also includes transaction management. 
+We create one session for each request using middleware in fastapi.
+
+In our test, we create_all tables and delete all tables, and run on transaciton to create one outer transaction which will eventually rollback. So even if 
+in the service layer we have transaction_scope which commits the transaction. But the outter transaction is determining is the session status.
+
+
+The [CodeImplementations] contains the codes for the implementations. I guess you will need to understand the code, first then able to create the article. The audiences are software developers.
+Please remove those uneeded imports as well, because i just copy pasted the code, some codes are not neccessary. We wanna be professional.
 $end
 
 

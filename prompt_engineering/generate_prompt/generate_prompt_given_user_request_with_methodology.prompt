@@ -104,5 +104,5 @@ $end$
 $ExamplePromptEnd$
 
 [UserRequest]
-create image description based on the given image description standards
-
+given source code file, create a description for this source code file. The reason i want to have the description is that i want to create 
+one embedding based on this source code. So i could later search via embedding

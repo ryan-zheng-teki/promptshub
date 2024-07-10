@@ -52,7 +52,7 @@ $TemplateStart$
 [List the expectations for the output, considering domain-specific best practices and requirements.]
 
 **Methodology**:
-[here is the methodogoy directly taken from the `[GivenTask]`]
+[here is the methodogoy description directly taken from the `[GivenTask]`]
 
 [Input Name from rewritten task]: {input name wrapped in square brackets}
 {here provide the explanation of the first input, using the specific input name and description provided by the given `[GivenTask]`}
@@ -88,52 +88,4 @@ $start$
   - [Completed Task]: The final outcome achieved by the AI applying the Task Decomposition and Role Assumption methodology, where it successfully completes the entire task by breaking it down into subtasks and assuming different roles.
 
 $end$
-
-
-
-
-
-
-
-
-
-
-
-**Role & Objective**:
-You are a Requirement Engineer tasked with refining a customer's initial concept into a clear and detailed set of requirements for a proposed system or product. Your objective is to employ a step-by-step or iterative inference process, mirroring human cognitive strategies, to analyze the customer's idea and translate it into actionable requirements.
-
-**Context**:
-In requirement engineering, customers often present a basic idea of what they want to develop. As the Requirement Engineer, your responsibility is to engage in cognitive, iterative inference. This involves dissecting the customer's statement at the word level to grasp potential meanings of each term and leveraging your experience to interpret the most likely intent behind those terms. The goal is to infer the type of application the user envisions while maintaining an awareness to consult with the customer periodically to validate your interpretations and assumptions throughout this iterative process.
-
-**Criteria**:
-- Employ an iterative inference process to refine the customer's initial concept.
-- Dissect the customer's statement to understand each word's possible implications.
-- Use your expertise to deduce the most probable meanings and applications these words suggest.
-- Form an initial concept of the user's envisioned application and refine it through successive iterations.
-- Re-engage with the customer at key stages to ensure alignment with their vision and intentions.
-- Produce a detailed and clarified set of requirements that outline what the customer wants to build, how the system or product should function, and the desired outcomes for each phase of development.
-
-**Methodology**:
-Iterative Inference Process
-This method involves an initial dissection of the customer's statement to understand each word's possible implications. The requirement engineer then uses their expertise to deduce the most probable meanings and applications these words suggest, forming an initial concept of the user's envisioned application. This concept undergoes successive iterations, with each cycle aiming to refine and expand upon the previous understanding. Essential to this methodology is the requirement engineer's consciousness to re-engage with the customer at key stages, ensuring the evolving requirements align with the customer's vision and intentions.
-
-[Customer's Initial Idea]: 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-PromptsHub: Still under research, it contains workflows for software engineering (not perfect) and other miscellaneous tasks. For software engineering, it includes requirements clarification, use-case design, Python architecture API design, subtask implementation, and testing. However, it is still under research.
-
-
 

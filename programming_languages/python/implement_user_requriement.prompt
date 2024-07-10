@@ -14,6 +14,7 @@ The output Python code should:
 
 
 **Methodology**:
+$MethodologyStart$
 Iteration 1:
 1. Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. If existing code is provided in the [Context] section, carefully review and understand its functionalities and structure.
 2. Compare the requirements with the existing code (if provided) to identify any discrepancies or gaps.
@@ -41,6 +42,7 @@ After the user is satisfied with the proposed high-level changes, proceed to pre
 **Final Codes and File Paths**:
 Present the final code and file paths in this section, using the following format:
 
+
 $FinalCodesStart$
 File: <file_path_1>
 ```python
@@ -55,8 +57,7 @@ File: <file_path_2>
 $FinalCodesEnd$
 
 This iterative approach, which mirrors the detailed, meticulous, and slow thinking process of human developers, ensures that all designs, code, and file paths related to the development align with the user's expectations.
-$RefinedPromptEnd$
-
+$MethodologyEnd$
 
 [OutputRules]
 $RuleStart$
@@ -73,39 +74,362 @@ $RuleEnd$
 
 Please follow the methodology described in the [Methodology] section, and ensure that the output adheres to the [OutputRules]. When engaging with the customer for feedback, explicitly state that you are waiting for their input and do not proceed until the user provides their actual response. This process should mirror a human-like thinking process, as outlined in the methodology.
 
+[Context]
+file: celery_worker.py
+from pathlib import Path
+import sys
+from celery import Celery
+import time
+from celery.utils.log import get_task_logger
+import os
+
+
+base_path = Path(__file__).resolve().parent.parent.parent.parent
+sys.path.append(str(base_path))
+
+from src.db.db_connection import get_session
+from src.db.session_context import request_scoped_db_session
+
+# Redis configuration
+REDIS_HOST = 'localhost'  # or your Redis server address
+REDIS_PORT = 6379  # default Redis port
+REDIS_DB = 0  # Redis database number
+
+# Create a Celery app instance with Redis as broker
+app = Celery('tasks', broker=f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}')
+
+# Get a logger for this module
+logger = get_task_logger(__name__)
+
+# Define a task
+@app.task
+def my_task(param):
+    pid = os.getpid()
+    logger.info(f"Processing task with parameter: {param} (PID: {pid})")
+    time.sleep(2)  # Simulating some work
+    logger.info(f"Task completed (PID: {pid})")
+
+# Function to print all registered tasks
+def print_registered_tasks():
+    logger.info("Registered tasks:")
+    for task_name in app.tasks:
+        logger.info(f"- {task_name}")
+
+# Start the Celery worker
+if __name__ == '__main__':
+    # Configure the worker
+    app.conf.update(
+        worker_prefetch_multiplier=1,
+        task_acks_late=True,
+        task_create_missing_queues=True,
+        worker_redirect_stdouts=True,
+        worker_redirect_stdouts_level='INFO'
+    )
+
+    # Print registered tasks
+    print_registered_tasks()
+
+    # Start the worker
+    app.worker_main(['worker', '--loglevel=info', '-Ofair', '--concurrency=4'])
+
+
+file: pcf/import_scripts/csv_import/vendor_production_route/import_vendor_product_route.py
+# -*- coding: utf-8 -*-
+# %%
+import sys
+from pathlib import Path
+import pandas as pd
+import numpy as np
+
+from src.db.db_connection import db_session_context
+
+
+base_path = Path(__file__).resolve().parent.parent.parent.parent
+sys.path.append(str(base_path))
+
+import logging
+from logging import getLogger
+
+# Configure logging
+log_file = "statistics.log"
+logger = logging.getLogger(__name__)
+
+# Remove any existing handlers
+for handler in logger.handlers[:]:
+    logger.removeHandler(handler)
+
+# Set logging level
+logger.setLevel(logging.INFO)
+
+# Create file handler which logs even debug messages
+fh = logging.FileHandler(log_file)
+fh.setLevel(logging.INFO)
+
+# Create console handler with the same log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+
+# Create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+
+# Add the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+from src.api.utils.settings import get_input_data
+from src.db.models.vendor_article_family import VendorArticleFamilyModel
+from src.db.models.vendor_production_route_detail import VendorProductionRouteDetailModel
+from src.db.repositories.vendor_article_family_repository import vendor_article_family_repository
+from src.db.repositories.vendor_production_route_detail_repository import vendor_production_route_detail_repository
+from src.engine.utils.data_structures import EcoinventRegions, ProductionRoute, SourceSystem, VendorType
+from src.utils.constants import (
+    VENDOR_PRODUCTION_ROUTE_MAPPING,
+    ARTICLE_FAMILY_COL,
+    CITY_COL,
+    COUNTRY_COL,
+    PRODUCTION_ROUTE_DEFAULT_COL,
+    SOURCE_SYSTEM_COL,
+    TOTAL_TRANSPORT_COL,
+    TRANSPORT_TO_VENDOR_ADDRESS_COL,
+    VENDOR_COL,
+    VENDOR_NAME_COL,
+    VENDOR_TYPE_COL,
+    ZIP_COL,
+)
+from src.utils.country import get_country_alpha_2
+
+def process_vendor_article_family_data(input_file, sheet_name, header_col, source_system):
+    column_translations = {
+        "Vendor_ID": VENDOR_COL,
+        "Vendor_Name": VENDOR_NAME_COL,
+        "KCO_AF": ARTICLE_FAMILY_COL,
+        "Transport to vendor address": TRANSPORT_TO_VENDOR_ADDRESS_COL,
+        "Total transport distance": TOTAL_TRANSPORT_COL,
+        "Vendor_type": VENDOR_TYPE_COL,
+        "Country": COUNTRY_COL,
+        "City": CITY_COL,
+        "ZIP": ZIP_COL,
+        "Default_Route": PRODUCTION_ROUTE_DEFAULT_COL,
+    }
+
+    input_data = pd.read_excel(
+        input_file, sheet_name=sheet_name, header=header_col, dtype={"Vendor_ID": str}
+    )
+
+    input_data.rename(columns=column_translations, inplace=True)
+    input_data[COUNTRY_COL] = input_data[COUNTRY_COL].apply(get_country_alpha_2)
+    input_data[SOURCE_SYSTEM_COL] = source_system.value
+
+    # Remove ".0" from the entries in VENDOR_COL
+    input_data[VENDOR_COL] = input_data[VENDOR_COL].str.replace(r"\.0$", "", regex=True)
+    input_data = input_data.replace({np.nan: None})
+
+    return input_data
+
+# Read and process VendorArticleFamily data from Excel sheets
+excel_sheets = [
+    {"file": "./input/version_5_4_x/vendor_production_route_sp3.xlsx", "sheet_name": "SP-3 countries (main output)", "header_col": 4, "source_system": SourceSystem.sp3},
+    {"file": "./input/version_5_4_x/vendor_production_route_us.xlsx", "sheet_name": "USA vendors (main output)", "header_col": 4, "source_system": SourceSystem.usa},
+    {"file": "./input/version_5_4_x/vendor_production_route_becker.xlsx", "sheet_name": "Becker (main output)", "header_col": 4, "source_system": SourceSystem.becker},
+]
+total_vendor_article_family_source_system = 0
+for sheet_info in excel_sheets:
+    vendor_article_family_data = process_vendor_article_family_data(
+        input_file=sheet_info["file"],
+        sheet_name=sheet_info["sheet_name"],
+        header_col=sheet_info["header_col"],
+        source_system=sheet_info["source_system"],
+    )
+
+    # Create VendorArticleFamilyModel instances
+    for _, row in vendor_article_family_data.iterrows():
+        existing_vendor_article_family = vendor_article_family_repository.find_by_unique_combination(
+            vendor_id=row[VENDOR_COL],
+            article_family_id=row[ARTICLE_FAMILY_COL],
+            source_system=SourceSystem.from_value(row[SOURCE_SYSTEM_COL]),
+        )
+
+        # Create VendorArticleFamilyModel instances
+        for _, row in vendor_article_family_data.iterrows():
+            existing_vendor_article_family = vendor_article_family_repository.find_by_unique_combination(
+                vendor_id=row[VENDOR_COL],
+                article_family_id=row[ARTICLE_FAMILY_COL],
+                source_system=SourceSystem.from_value(row[SOURCE_SYSTEM_COL]),
+            )
+
+            if existing_vendor_article_family:
+                logger.warning(
+                    "Duplicate VendorArticleFamily found for vendor_id: %s, article_family_id: %s, source_system: %s. Skipping creation.",
+                    row[VENDOR_COL],
+                    row[ARTICLE_FAMILY_COL],
+                    row[SOURCE_SYSTEM_COL],
+                )
+                continue
+
+            try:
+                vendor_article_family = VendorArticleFamilyModel(
+                    source_system=SourceSystem.from_value(row[SOURCE_SYSTEM_COL]),
+                    vendor_id=row[VENDOR_COL],
+                    vendor_name=row[VENDOR_NAME_COL],
+                    vendor_type=VendorType.from_value(row[VENDOR_TYPE_COL]),
+                    article_family_id=row[ARTICLE_FAMILY_COL],
+                    to_discuss=row['To_discuss'],
+                    product_family=row['Product Family'],
+                    country=row[COUNTRY_COL],
+                    city=row[CITY_COL],
+                    zip_code=row[ZIP_COL],
+                    transport_to_vendor_address=row[TRANSPORT_TO_VENDOR_ADDRESS_COL],
+                    total_transports=row[TOTAL_TRANSPORT_COL],
+                    production_route_default=row[PRODUCTION_ROUTE_DEFAULT_COL],
+                    bf_bof_percent=row["BF-BOF_%"] or 0,
+                    eaf_percent=row["EAF_%"] or 0,
+                    bf_bof_europe_percent=row["BF-BOF_Europe_%"] or 0,
+                    bf_bof_usa_percent=row["BF-BOF_USA_%"] or 0,
+                    bf_bof_china_percent=row["BF-BOF_China_%"] or 0,
+                    bf_bof_india_percent=row["BF-BOF_India_%"] or 0,
+                    bf_bof_row_percent=row["BF-BOF_RoW_%"] or 0,
+                    eaf_europe_percent=row["EAF_Europe_%"] or 0,
+                    eaf_usa_percent=row["EAF_USA_%"] or 0,
+                    eaf_china_percent=row["EAF_China_%"] or 0,
+                    eaf_india_percent=row["EAF_India_%"] or 0,
+                    eaf_row_percent=row["EAF_RoW_%"] or 0,
+                    bf_bof_scrap_percent=row["BF-BOF_scrap_%"] or 0,
+                    bf_bof_pig_iron_percent=row["BF-BOF_pig_iron_%"] or 0,
+                    bf_bof_dri_percent=row["BF-BOF_DRI_%"] or 0,
+                    eaf_scrap_percent=row["EAF_scrap_%"] or 0,
+                    eaf_pig_iron_percent=row["EAF_pig_iron_%"] or 0,
+                    eaf_dri_percent=row["EAF_DRI_%"] or 0,
+                    alu_cc_percent=row["Alu_CC_%"],
+                    volume=row["Volume"],
+                )
+                vendor_article_family_repository.create(vendor_article_family)
+                logger.info("VendorArticleFamily created: %s", vendor_article_family)
+                total_vendor_article_family_source_system += 1
+            except Exception as e:
+                logger.error(
+                    "Error creating VendorArticleFamily for row: %s. Error: %s",
+                    row.to_dict(),
+                    str(e),
+                )
+    total_vendor_article_family_source_system_details = 0
+    # Existing code to create VendorProductionRouteDetailModel instances
+    input_data = get_input_data()
+    vendor_production_routes = input_data[VENDOR_PRODUCTION_ROUTE_MAPPING]
+    for _, vpr in vendor_production_routes.iterrows():
+        logger.info("Processing VendorProductionRoute: %s", vpr)
+        try:
+
+            # Search for existing VendorArticleFamilyModel
+            vendor_article_family = vendor_article_family_repository.find_by_unique_combination(
+                vendor_id=vpr["vendor_id"],
+                article_family_id=vpr["article_family_id"],
+                source_system=SourceSystem.from_value(vpr["source_system"]),
+            )
+
+            # Check if vendor_article_family is None
+            if vendor_article_family is None:
+                logger.error(
+                    "VendorArticleFamilyModel not found for vendor_id: %s, article_family_id: %s, source_system: %s",
+                    vpr["vendor_id"], vpr["article_family_id"], vpr["source_system"]
+                )
+            else:
+                # Create VendorProductionRouteDetailModel instances
+                detail = VendorProductionRouteDetailModel(
+                    vendor_article_family_id=vendor_article_family.id,
+                    region=EcoinventRegions.from_value(vpr["region"]),
+                    weight=vpr["weight"],
+                    production_route=ProductionRoute.from_value(vpr["production_route"]),
+                    scrap=vpr["scrap"],
+                    pig_iron=vpr["pig_iron"],
+                    dri=vpr["DRI"],
+                )
+
+            vendor_production_route_detail_repository.create(detail)
+            logger.info("VendorProductionRouteDetail created: %s", detail)
+            total_vendor_article_family_source_system_details += 1
+        except Exception as e:
+            logger.error("Error processing VendorProductionRoute: %s", e)
+
+    logger.info(f"total number of vendor article family is %s, total number of product route detail is %s", total_vendor_article_family_source_system, total_vendor_article_family_source_system_details)
+# %%
+
+file: pcf/src/db/db_connection.py
+# -*- coding: utf-8 -*-
+from contextlib import (
+    contextmanager,
+)
+from logging import (
+    getLogger,
+)
+
+from sqlalchemy import (
+    create_engine,
+)
+from sqlalchemy.orm import (
+    scoped_session,
+    sessionmaker,
+)
+
+from src.db.session_context import (
+    request_scoped_db_session,
+)
+from src.settings import (
+    settings,
+)
+
+
+is_postgres_available = False
+logger = getLogger(__name__)
+
+# Create the engine
+engine = create_engine(
+    url=str(settings.database.postgres_url),
+    pool_pre_ping=True,
+    pool_size=10,
+    max_overflow=20,
+)
+
+# Create a configured "Session" class
+SessionFactory = sessionmaker(bind=engine)
+
+def get_session():
+    """
+    scoped_session object internally contains a threading.local() object. The threading.local() object 
+    in theory should be used as a global object. Every time when the scoped_session.query or scoped_session.add
+    is being used, it creates one session for the current thread. scoped_session.remove will close the session 
+    bounded to the current thread. In this get_session(), we are creating a scoped_session object during runtime, this 
+    means each scoped_session object will create one threading.local() object. This works to separate the session 
+    for each request.
+    """
+    return SessionFactory()
+
+@contextmanager
+def db_session_context():
+    """Yields the DB session."""
+    thread_local_session = get_session()
+    request_scoped_db_session.set(thread_local_session)
+
+    yield thread_local_session
+    
+    # for scoped_session we remove it from the registry, the orm.Session.close is called internally be the remove funciton.
+    request_scoped_db_session.set(None)
+
+
+def check_postgres_availability():
+    try:
+        conn = engine.connect()
+        conn.close()
+
+        global is_postgres_available
+        is_postgres_available = True
+
+        logger.info("PostgreSQL is available.")
+    except Exception as e:
+        logger.critical("PostgreSQL is not available.", e)
+
 
 [UserRequirement]:
-Could you please create one test which uses ChatGPTLLM, then later create another ClaudeChatLLM. Because i want to test whether i could run two 
-LLM at the same time. The important thing is to run them at the same time in parallel.
-
-[Context]
-file: llm_chatui_provider/tests/integration/chatgpt_llm_test.py
-from llm_ui_integration.langchain_integration.chatgpt_llm import ChatGPTLLM
-
-
-def test_chatgpt_llm_integration():
-    input_message = '''Please repeat the following message, no extra words: Testing '''
-    expected_response_substring = "Testing"
-
-    chatgpt_llm = ChatGPTLLM()
-    response = chatgpt_llm._call(input_message)
-
-    assert expected_response_substring in response
-
-
-file: llm_chatui_provider/tests/integration/claudechat_llm_test.py
-import pytest
-
-from llm_ui_integration.langchain_integration.claudechat_llm import ClaudeChatLLM
-
-def test_claude_llm_integration():
-    input_message = '''Please repeat the following message, no extra words: Testing Claude'''
-    expected_response_substring = "Testing Claude"
-
-    claude_llm = ClaudeChatLLM()
-    response = claude_llm._call(input_message)
-
-    assert expected_response_substring in response
-
-
-
+I wanna create a custom Celary task class. In the __call__ method i would like to use the db_session_context for setting up the sesion. The task will do the import. You have to possibly learn how import is done from the import script. Of course, you are not 
+simply merging different files, you are creating clean code with good designs.
