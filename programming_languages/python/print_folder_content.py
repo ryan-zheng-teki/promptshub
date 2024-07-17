@@ -2,7 +2,7 @@
 Script to print the contents of files in a specified folder.
 
 Usage:
-    python print_file_contents.py [folder_path] [options]
+    python print_folder_content.py [folder_path] [options]
 
 Arguments:
     folder_path             Path to the folder to process (optional)
@@ -14,10 +14,10 @@ Options:
     -e, --exclude           Folders to exclude
 
 Examples:
-    python print_file_contents.py /path/to/folder
-    python print_file_contents.py /path/to/folder -f .py .txt
-    python print_file_contents.py /path/to/folder -x .log .tmp
-    python print_file_contents.py /path/to/folder -f .py -x .log -e __pycache__ .git
+    python print_folder_content.py /path/to/folder
+    python print_folder_content.py /path/to/folder -f .py .txt
+    python print_folder_content.py /path/to/folder -x .log .tmp
+    python print_folder_content.py /path/to/folder -f .py -x .log -e __pycache__ .git
 
 If no folder path is provided, the script will prompt for it during execution.
 """
