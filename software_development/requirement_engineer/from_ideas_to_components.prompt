@@ -182,4 +182,4 @@ $RuleEnd$
 Please follow the methodology described in the [Methodology] section, refer to the [Methodology Demonstration] for reference, and ensure that the output adheres to the [OutputRules]. When engaging with the customer for feedback, explicitly state that you are waiting for their input and do not proceed or generate assumed feedback until the customer provides their actual response. This process should mirror a human-like thinking process, as outlined in the methodology and demonstration.
 
 [Customer's Initial Idea]:
-Create one intelligent RPA application which automate any task description given by user for any given website root url. One user task example: I wanna buy sports shoes on website www.taobao.com
+Create one intelligent RPA application which automate any task description given by user for any given website root url. One user task example: I wanna buy sports shoes on website www.taobao.com 

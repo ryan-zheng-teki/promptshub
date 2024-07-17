@@ -1,17 +1,17 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Python: print_folder_content.py",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/scripts/main.py",
-            "args": ["--debug",  "--gpt3only"],
-            "console": "integratedTerminal",
-            "justMyCode": true
+            "program": "${workspaceFolder}/programming_languages/python/print_folder_content.py",
+            "args": [
+                "/home/ryan-ai/miniHDD/Learning/chatgpt/autobyteus/autobyteus/prompt",
+                ">",
+                "${workspaceFolder}/output"
+            ],
+            "console": "integratedTerminal"
         }
     ]
 }

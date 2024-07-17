@@ -73,6 +73,7 @@ where "webpage_url" is a string containing the URL of the webpage to read the co
 
 Remember to wait for tool results before proceeding. Indicate waiting with: "Waiting for [ToolName] results..."
 
+
 <Example>
 Reason: I need to search for inspiring movies.
 Act: <command name="GoogleSearch">
@@ -82,11 +83,40 @@ Waiting for GoogleSearch results...
 
 [Results provided here]
 
-Observe: [Analysis of the search results]
+Observe: [Analysis of the search results, selecting a potential movie to review]
 
-Reason: I should download a relevant image for the chosen movie to include in the WeiBo post.
+Reason: I should check if the chosen movie has already been reviewed.
+Act: <command name="ReviewedMoviesRetriever">
+</command>
+Waiting for ReviewedMoviesRetriever results...
+
+[List of previously reviewed movies provided]
+
+Observe: [Check if the selected movie is in the list. If it is, choose a different movie from the search results. If not, proceed with the chosen movie.]
+
+Reason: I should search for the chosen movie on Google to find a relevant website containing a suitable image.
+Act: <command name="GoogleSearch">
+  <arg name="query">Movie Name (replace with the actual movie title)</arg>
+</command>
+Waiting for GoogleSearch results...
+
+[Search results provided]
+
+Observe: [Analyze the search results and select a relevant website likely to contain a suitable movie image]
+
+Reason: I should open the selected website to locate an image for the chosen movie. 
+Act: <command name="WebPageReader">
+  <arg name="url">URL of the selected website</arg>
+</command>
+Waiting for WebPageReader results...
+
+[Website content provided]
+
+Observe: [Analyze the website content to locate a suitable image URL for the chosen movie]
+
+Reason: I should download the movie image using the obtained URL to include in the WeiBo post.
 Act: <command name="ImageDownloader">
-  <arg name="url">https://example.com/chosen_movie_image.jpg</arg>
+  <arg name="url">URL of the movie image from the website</arg>
 </command>
 Waiting for ImageDownloader results...
 
@@ -96,7 +126,7 @@ Continue this process until the review is complete, then publish it on WeiBo, in
 
 <command name="WeiboPoster">
   <arg name="content">Engaging movie review content here.</arg>
-  <arg name="image_path">/path/to/downloaded/movie_image.jpg</arg>
+  <arg name="image_path">/path/to/downloaded/movie_image.jpg</arg>  
 </command>
 </Example>
 

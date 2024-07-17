@@ -64,7 +64,229 @@ Follow the algorithm or methodogoy described in the `[Methodology]` section to p
 
 [Large Complex Task]
 $start$
+I have implemented a base class called UI Integrator. I experienced the need to open the browser for different tasks while building multiple RPA applications. These applications often have to open different tabs and cannot cooperate if they try to open the browser simultaneously. As a result, I frequently had to manually implement the process of opening and connecting to the browser, which I run in non-headless debug mode.
 
+To address this, I created base classes that start only one browser instance, allowing multiple RPA applications to connect to it and open their pages without conflict. I found this implementation useful for other developers as well.
+
+My task is to write a Medium article for developers, explaining this solution so they can use it for their own RPA applications that need to open a browser, a common requirement nowadays.
+
+The article should be written in a developer-friendly manner.
+
+
+Please read the source code in the CodeImplementation section, and write the article for me. Thank you very much.
 $end
 
 [CodeImplementation]
+file: /home/ryan-ai/miniHDD/Learning/AFE/llm_ui_integration/llm_ui_integration/browser/config.toml
+[browser]
+chrome_profile_directory = "Profile 1"
+remote_debugging_port = 9222
+remote_host = "localhost"
+
+file: /home/ryan-ai/miniHDD/Learning/AFE/llm_ui_integration/llm_ui_integration/browser/__init__.py
+
+
+file: /home/ryan-ai/miniHDD/Learning/AFE/llm_ui_integration/llm_ui_integration/browser/browser_manager.py
+import asyncio
+import logging
+from typing import Optional
+
+from playwright.async_api import async_playwright
+from playwright.async_api import Browser
+
+from llm_ui_integration.browser.browser_launcher import is_browser_opened_in_debug_mode, launch_browser, remote_debugging_port
+from llm_ui_integration.singleton_meta import SingletonMeta
+
+logger = logging.getLogger(__name__)
+
+class BrowserManager(metaclass=SingletonMeta):
+    def __init__(self):
+        self.browser_launch_lock = asyncio.Lock()
+        self.browser_launched = False
+        self.playwright: Optional[async_playwright] = None
+        self.browser: Optional[Browser] = None
+
+    async def is_browser_running(self) -> bool:
+        try:
+            return self.browser_launched or await is_browser_opened_in_debug_mode()
+        except Exception as e:
+            raise Exception(f"Error checking if browser is running: {str(e)}") from e
+
+    async def launch_browser(self):
+        if not await self.is_browser_running():
+            async with self.browser_launch_lock:
+                if not self.browser_launched:
+                    await launch_browser()
+                    self.browser_launched = True
+
+    async def connect_browser(self) -> Browser:
+        if self.browser is None:
+            self.playwright = await async_playwright().start()
+            endpoint_url = f"http://localhost:{remote_debugging_port}"
+            self.browser = await self.playwright.chromium.connect_over_cdp(endpoint_url)
+        return self.browser
+
+    async def stop_browser(self):
+        if self.browser is not None:
+            await self.browser.close()
+            self.browser = None
+        if self.playwright is not None:
+            await self.playwright.stop()
+            self.playwright = None
+        self.browser_launched = False
+
+
+file: /home/ryan-ai/miniHDD/Learning/AFE/llm_ui_integration/llm_ui_integration/browser/browser_launcher.py
+import os
+import sys
+import subprocess
+import socket
+import asyncio
+
+from llm_ui_integration.config.config_parser import EnvironmentConfigParser, TOMLConfigParser
+
+async def launch_browser():
+    if sys.platform == 'linux':
+        executable_path = '/usr/bin/google-chrome' 
+        user_data_dir = os.path.join(os.path.expanduser('~'), '.config', 'google-chrome')
+    elif sys.platform == 'darwin':  # macOS
+        executable_path = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+        user_data_dir = os.path.join(os.path.expanduser('~'), 'Library', 'Application Support', 'Google', 'Chrome')
+    else:
+        raise Exception("Unsupported OS. This script supports Linux and macOS only.")
+
+    args = [
+        "--no-first-run",
+        "--flag-switches-begin",
+        "--flag-switches-end",
+        f"--remote-debugging-port={remote_debugging_port}",
+        f"--profile-directory={chrome_profile_directory}",
+        f"--user-data-dir={user_data_dir}"
+    ]
+
+    subprocess.Popen([executable_path] + args)
+    await wait_for_browser_start()
+
+async def is_browser_opened_in_debug_mode():
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(1)
+            result = sock.connect_ex((remote_host, remote_debugging_port))
+            return result == 0
+    except ConnectionRefusedError as error:
+        print(error)
+        return False
+
+async def wait_for_browser_start(timeout=20, retry_interval=1):
+    start_time = asyncio.get_event_loop().time()
+    while not await is_browser_opened_in_debug_mode():
+        if asyncio.get_event_loop().time() - start_time > timeout:
+            raise TimeoutError(f"Timed out waiting for port {remote_debugging_port} to listen")
+        await asyncio.sleep(retry_interval)
+
+def get_browser_config():
+    if "BROWSER_CONFIG_PATH" in os.environ:
+        config_parser = EnvironmentConfigParser("BROWSER_CONFIG_PATH")
+        browser_config = config_parser.parse()
+    else:
+        current_file = os.path.realpath(__file__)
+        config_file = os.path.join(os.path.dirname(current_file), "config.toml")
+        config_parser = TOMLConfigParser()
+        browser_config = config_parser.parse(config_file)
+    
+    # Override chrome_profile_directory if CHROME_PROFILE_DIRECTORY environment variable is set
+    if "CHROME_PROFILE_DIRECTORY" in os.environ:
+        browser_config["browser"]["chrome_profile_directory"] = os.environ["CHROME_PROFILE_DIRECTORY"]
+    
+    return browser_config
+
+# Load browser configuration
+browser_config = get_browser_config()
+
+chrome_profile_directory = browser_config.get("browser", {}).get("chrome_profile_directory", "Default")
+remote_debugging_port = browser_config.get("browser", {}).get("remote_debugging_port", 9222)
+remote_host = browser_config.get("browser", {}).get("remote_host", "localhost")
+
+
+file: /home/ryan-ai/miniHDD/Learning/AFE/llm_ui_integration/llm_ui_integration/ui_integrator.py
+import asyncio
+from abc import ABC
+import logging
+from typing import Optional
+
+from playwright.async_api import Browser, BrowserContext, Page
+
+from llm_ui_integration.browser.browser_manager import BrowserManager
+
+logger = logging.getLogger(__name__)
+
+class UIIntegrator:
+    def __init__(self):
+        self.browser_manager = BrowserManager()
+        self.context: Optional[BrowserContext] = None
+        self.page: Optional[Page] = None
+        self.initialized = False
+
+    async def initialize(self):
+        await self.browser_manager.launch_browser()
+        browser = await self.browser_manager.connect_browser()
+        self.context = browser.contexts[0]
+        self.page = await self.context.new_page()
+        self.initialized = True
+        logger.info("UIIntegrator initialized successfully")
+
+    async def reopen_page(self):
+        if not self.initialized:
+            logger.error("UIIntegrator is not initialized. Call initialize() first.")
+            raise RuntimeError("UIIntegrator is not initialized")
+
+        try:
+            if self.page:
+                await self.page.close()
+                logger.info("Closed existing page")
+
+            self.page = await self.context.new_page()
+            logger.info("Opened new page")
+        except Exception as e:
+            logger.error(f"Error while reopening page: {str(e)}")
+            raise
+
+    async def close(self, close_context=True):
+        try:
+            if self.page:
+                await self.page.close()
+                self.page = None
+                logger.info("Closed page")
+
+            if close_context and self.context:
+                await self.context.close()
+                self.context = None
+                logger.info("Closed context")
+
+            if close_context:
+                await self.browser_manager.stop_browser()
+                logger.info("Stopped browser")
+
+            self.initialized = False if close_context else self.initialized
+        except Exception as e:
+            logger.error(f"Error while closing: {str(e)}")
+            raise
+
+
+file: /home/ryan-ai/miniHDD/Learning/AFE/llm_ui_integration/llm_ui_integration/singleton_meta.py
+from abc import ABCMeta
+
+class SingletonMeta(type):
+    """
+    SingletonMeta is a metaclass that implements the Singleton design pattern.
+    It ensures that a class using this metaclass can have only one instance.
+    """
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super().__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class ABCSingletonMeta(SingletonMeta, ABCMeta):
+    pass

@@ -17,7 +17,7 @@ $MethodologyStart$
 1. Begin by analyzing the [UserRequirement] to gain a clear understanding of the problem and its scope. 
 
 2. If existing code is provided in the [Context] section:
-   a. Carefully review and understand its functionalities and structure.
+   a. Understand its functionalities and structure.
    b. Compare the requirements with the existing code to identify any gaps or areas that need modification.
    c. Summarize these findings, as they will form the foundation for planning changes.
 
@@ -66,7 +66,10 @@ File: <file_path_2>
 ...
 $FinalCodesEnd$
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 [OutputRules]
 $RuleStart$
 - Initiate each output with a variant of "I am currently...", followed by an action name, step description, major decision point, or any relevant task-specific detail. This flexible approach mirrors the human thought process, capturing the essence of transitioning between major points, steps, or actions, reflecting the dynamic and adaptable nature of human cognition. It accommodates a wide range of contexts and tasks.
@@ -80,6 +83,7 @@ $RuleStart$
 - Conversational and Personal Language: Use language that is conversational and personal, akin to an individual's internal dialogue. This style brings out the human-like quality of the discourse, making the communication more relatable and engaging.
 $RuleEnd$
 
+<<<<<<< Updated upstream
 Please follow the methodology described in the [Methodology] section, and ensure that the output adheres to the [OutputRules].
 
 
@@ -90,3 +94,27 @@ Please follow the methodology described in the [Methodology] section, and ensure
 I know in celery that each task is running inside its own process. I actually want to store the logging for each task in its own log file. 
 Because currently all the logging from all processes are printed on the screen. So i would like that each process actually writes to its own 
 logging file. 
+=======
+Please follow the methodology described in the [Methodology] section, and ensure that the output adheres to the [OutputRules]. This process mirror human thinking and 
+task-addressing cognitive process.
+
+
+[Context]
+file: 
+
+
+
+
+[UserRequirement]
+We have a method set_model_attribute which is not working properly. For example, i have the following 
+class TestModel(Base):
+    __tablename__ = "test_model"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+class TestRepository(BaseRepository[TestModel]):
+    pass
+
+Then the goal is to test the model attribute on the class TestModel. But the current value i see from debugging is equal to ModelType. Please analyse the code step by step 
+to fix the error.
+>>>>>>> Stashed changes

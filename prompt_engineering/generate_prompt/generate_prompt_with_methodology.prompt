@@ -72,20 +72,14 @@ $TemplateEnd$
 [GivenTask]
 $start$
 
-- Task Objective: The objective is for an AI to utilize the Task Decomposition and Role Assumption methodology to accomplish a large, complex task by breaking it down into smaller subtasks and assuming different roles suitable for each subtask.
-
-- Task Context: When humans are faced with a large, complex task that involves multiple people, they employ a systematic approach to break it down into more manageable subtasks. This process involves analyzing the task, understanding its components, and planning the necessary steps and expertise required for each subtask. Throughout the decomposition process, humans ensure that each subtask is of a manageable size and complexity to yield high-quality results. As they progress through the subtasks, humans assume specific roles aligned with the required expertise, utilizing the output from previous steps as input for subsequent tasks. For a detailed description of this methodology, please refer to the Task Methodology section.
-
-- Task Methodology: Task Decomposition and Role Assumption
-  - Description: The Task Decomposition and Role Assumption methodology involves breaking down a large, complex task into smaller, more manageable subtasks. Throughout the process, humans remain conscious of the size and complexity of each subtask. If a subtask is deemed too large or complex, it is further divided into even smaller tasks to ensure that each subtask execution produces high-quality results that can be effectively utilized in the next step. This iterative decomposition process continues until all subtasks are of a manageable size and complexity.
-
-    Each subtask is then assigned a specific role, representing the expertise required to complete it. The AI working on the task assumes the appropriate role for each subtask and utilizes the output from previous subtasks as input. By seamlessly switching between different roles and leveraging the output from completed subtasks, the AI can effectively tackle the entire task, ensuring that the final outcome is of high quality and usable for its intended purpose.
-
-- Task Inputs:
-  - [Large Complex Task]: The initial, extensive task that needs to be accomplished, which may involve multiple subtasks and various roles.
-
-- Task Outputs:
-  - [Completed Task]: The final outcome achieved by the AI applying the Task Decomposition and Role Assumption methodology, where it successfully completes the entire task by breaking it down into subtasks and assuming different roles.
-
 $end$
 
+<<<<<<< Updated upstream
+=======
+
+
+
+
+
+
+>>>>>>> Stashed changes
