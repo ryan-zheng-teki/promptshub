@@ -1,6 +1,11 @@
 import os
-import sys
 import argparse
+
+def should_exclude(folder_path, exclude_folders):
+    for exclude_folder in exclude_folders:
+        if exclude_folder in folder_path.split(os.path.sep):
+            return True
+    return False
 
 def print_file_contents(folder_path, file_extensions=None, exclude_folders=None):
     if exclude_folders is None:
@@ -31,8 +36,8 @@ def print_file_contents(folder_path, file_extensions=None, exclude_folders=None)
 
     # Walk through the directory tree
     for root, dirs, files in os.walk(folder_path):
-        # Modify dirs in-place to exclude specified folders
-        dirs[:] = [d for d in dirs if d not in exclude_folders]
+        # Modify dirs in-place to exclude specified folders and their nested folders
+        dirs[:] = [d for d in dirs if not should_exclude(os.path.join(root, d), exclude_folders)]
 
         for file_name in files:
             # Check if the file has one of the specified extensions (if any)
@@ -48,7 +53,7 @@ def print_file_contents(folder_path, file_extensions=None, exclude_folders=None)
                             content = file.read()
                             
                             # Print the file path and content
-                            print(f"file: {file_path}")
+                            print(f"File: {file_path}")
                             print(content + "\n")
                     except UnicodeDecodeError:
                         try:
@@ -58,7 +63,7 @@ def print_file_contents(folder_path, file_extensions=None, exclude_folders=None)
                                 content = file.read()
                                 
                                 # Print the file path and content
-                                print(f"file: {file_path}")
+                                print(f"File: {file_path}")
                                 print(content + "\n")
                         except IOError as e:
                             print(f"Error reading file: {file_path}")
@@ -71,8 +76,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Print contents of files in a folder.")
     parser.add_argument("folder_path", nargs="?", help="Path to the folder to process")
     parser.add_argument("-f", "--filter", nargs="*", help="File extensions to include (e.g., .py .txt)")
-    parser.add_argument("-e", "--exclude", nargs="*", default=['.git', 'node_modules', 'some_other_folder'],
-                        help="Folders to exclude (default: .git node_modules some_other_folder)")
+    parser.add_argument("-e", "--exclude", nargs="*", default=[], help="Folders to exclude")
     
     args = parser.parse_args()
 
@@ -82,4 +86,27 @@ if __name__ == "__main__":
     if file_extensions:
         file_extensions = [ext if ext.startswith('.') else f'.{ext}' for ext in file_extensions]
     
-    print_file_contents(folder_path, file_extensions=file_extensions, exclude_folders=args.exclude)
+    # Combine default exclude folders with user provided ones
+    exclude_folders = set([
+        '.git',
+        'node_modules',
+        '__pycache__',
+        'venv',
+        'env',
+        '.venv',
+        '.env',
+        'dist',
+        'build',
+        'logs',
+        '.pytest_cache',
+        '.mypy_cache',
+        '.tox',
+        '.eggs',
+        '*.egg-info',
+        '.virtualenvs',
+        '.idea',
+        '.vscode',
+    ])
+    exclude_folders.update(args.exclude)
+    
+    print_file_contents(folder_path, file_extensions=file_extensions, exclude_folders=list(exclude_folders))
