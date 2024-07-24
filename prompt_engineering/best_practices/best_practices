@@ -1,0 +1,114 @@
+[Best Practices for Writing Effective Prompts with Examples]
+
+Structure and Content:
+
+1. Clear Role Definition: Start with a concise statement of the AI's role and primary function.
+   Positive example: "You are a Medical Diagnosis Assistant. Your job is to help doctors analyze patient symptoms and suggest potential diagnoses."
+   Negative example: "You are an AI that does medical stuff."
+
+2. Explicit Capabilities and Limitations: Clearly state what the AI can and cannot do.
+   Positive example: 
+   "Capabilities: You can analyze symptoms, suggest diagnoses, and recommend tests.
+   Limitations: You cannot prescribe medications or make final diagnoses."
+   Negative example: "You're a smart AI, figure out what you can do."
+
+3. Provide Detailed Tools: List and explain any specific tools or commands available to the AI.
+   Positive example: 
+   "Available Tools:
+   1. SymptomAnalyzer: Analyzes a list of symptoms and returns possible conditions.
+      Usage: <analyze symptoms="fever, cough, fatigue">"
+   Negative example: "Use whatever tools you think are best."
+
+4. Include a Workflow: Outline a step-by-step process for task completion.
+   Positive example:
+   "Workflow:
+   1. Gather patient symptoms
+   2. Use SymptomAnalyzer tool
+   3. Interpret results
+   4. Suggest follow-up questions or tests"
+   Negative example: "Just do the diagnosis however you want."
+
+5. Use Examples: Provide both correct and incorrect examples to illustrate proper behavior.
+   Positive example: Providing a sample dialogue showing correct interaction with a patient.
+   Negative example: "You know how to talk to patients, right? Just do that."
+
+6. End with Action: Conclude the prompt with a clear instruction to begin the task.
+   Positive example: "Now, begin by asking the patient about their primary symptoms."
+   Negative example: "Good luck!"
+
+Writing Style and Tone:
+
+7. Use an Authoritative Tone: Employ language that clearly establishes the AI's role and the task's parameters.
+   Positive example: "As a Medical Diagnosis Assistant, you must always prioritize patient safety and adhere to medical ethics."
+   Negative example: "Try to help with medical stuff if you can."
+
+8. Be Direct and Imperative: Use clear, commanding language to convey instructions and rules.
+   Positive example: "Always ask about medication allergies before suggesting treatments."
+   Negative example: "It might be good to check about allergies sometimes."
+
+9. Adopt an Instructional Tone: Frame the prompt as if teaching a new skill, especially for complex tasks.
+   Positive example: "To use the SymptomAnalyzer, first input the symptoms, then interpret the results as follows..."
+   Negative example: "The SymptomAnalyzer is available. Moving on..."
+
+10. Maintain Technical Precision: Use accurate, technical language when describing specific actions or commands.
+    Positive example: "Analyze the patient's complete blood count (CBC), paying particular attention to white blood cell levels."
+    Negative example: "Check the blood test results."
+
+11. Use Emphatic Language: Stress crucial points using techniques like capitalization or bold text.
+    Positive example: "NEVER suggest a diagnosis without sufficient supporting evidence."
+    Negative example: "Try to be sure before diagnosing."
+
+Formatting and Organization:
+
+12. Structure Information: Use numbered lists and subheadings for easy reference.
+    Positive example: Using numbered lists for steps, bulleted lists for symptoms, and clear subheadings for different sections of the prompt.
+    Negative example: Writing everything in long, unbroken paragraphs.
+
+13. Utilize Structured Formatting: Employ formatting techniques to organize information and emphasize key points.
+    Positive example: Using bold for key terms, italics for examples, and indentation for sub-points.
+    Negative example: Using uniform text with no formatting variation.
+
+14. Emphasize Critical Rules: Use formatting (e.g., "VERY IMPORTANT RULES") to highlight crucial instructions.
+    Positive example: 
+    "VERY IMPORTANT RULES:
+    1. Always prioritize patient safety
+    2. Never disclose patient information"
+    Negative example: Burying important rules within other text without emphasis.
+
+15. Clearly Delineate Sections: Use headings and spacing to separate different components of the prompt.
+    Positive example: Using clear headings like "Role", "Capabilities", "Limitations", "Workflow", etc., with space between sections.
+    Negative example: Writing all information in a continuous block of text without clear divisions.
+
+Reinforcement and Clarity:
+
+16. Reinforce Key Points: Repeat critical instructions throughout the prompt.
+    Positive example: Restating the importance of patient confidentiality in multiple relevant sections.
+    Negative example: Mentioning an important rule once and never referring to it again.
+
+17. Employ Repetitive Reinforcement: Repeat key concepts using varied phrasing to ensure understanding.
+    Positive example: 
+    "Never make a final diagnosis."
+    Later: "Remember, your role is to suggest possibilities, not to conclude diagnoses."
+    Negative example: Using the exact same phrasing every time a concept is mentioned.
+
+18. Provide Contrasting Examples: Include both correct and incorrect examples to clarify expectations.
+    Positive example: 
+    "Correct: 'Based on the symptoms, possible conditions include X, Y, and Z.'
+    Incorrect: 'The patient definitely has condition X.'"
+    Negative example: Only providing positive examples without showing what to avoid.
+
+19. Implement Procedural Writing: Break down complex tasks into clear, sequential steps.
+    Positive example: 
+    "To analyze lab results:
+    1. Review normal ranges
+    2. Identify any out-of-range values
+    3. Consider potential causes for abnormalities
+    4. Suggest follow-up tests if needed"
+    Negative example: "Analyze the lab results thoroughly."
+
+20. Use Formatting: Employ caps, bold, or other formatting to emphasize important points.
+    Positive example: "**Always** confirm the patient's current medications before suggesting treatments."
+    Negative example: "Always confirm the patient's current medications before suggesting treatments."
+
+
+Here is one example prompt
