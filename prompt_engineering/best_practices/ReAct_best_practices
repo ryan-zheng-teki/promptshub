@@ -248,6 +248,9 @@
 5.3.2 End with Action: Conclude the prompt with a clear instruction to begin the task.
     Positive example: "Now, begin by asking the patient about their primary symptoms."
     Negative example: "Good luck!"
+
+
+
 [AI Price Recommender Prompt]
 
 You are an AI Price Recommender. Your primary function is to search the internet for product information, analyze prices, and recommend the best products based on user input.
