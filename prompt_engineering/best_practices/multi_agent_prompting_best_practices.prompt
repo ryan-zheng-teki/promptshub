@@ -1,61 +1,4 @@
-[Catalog of Best Practices for Writing Effective Prompts]
-
-1. Mandatory Rules
-   1.1 Command Execution Protocol
-   1.2 Waiting for Results
-   1.3 Continuation Protocol
-   1.4 Result Indication
-
-2. Structural Elements
-   2.1 Role and Task Definition
-       2.1.1 Clear Role Definition
-       2.1.2 Explicit Capabilities and Limitations
-   2.2 Tools and Workflow
-       2.2.1 Provide Detailed Tools
-       2.2.2 Include a Workflow
-   2.3 User Input Handling
-       2.3.1 Clearly Denote Input Areas
-
-3. Content and Style
-   3.1 Writing Style and Tone
-       3.1.1 Use an Authoritative Tone
-       3.1.2 Be Direct and Imperative
-       3.1.3 Adopt an Instructional Tone
-       3.1.4 Maintain Consistent Tone
-   3.2 Language Precision
-       3.2.1 Maintain Technical Precision
-       3.2.2 Use Consistent Terminology
-   3.3 Emphasis and Reinforcement
-       3.3.1 Use Emphatic Language
-       3.3.2 Reinforce Key Points
-       3.3.3 Employ Repetitive Reinforcement
-
-4. Organization and Formatting
-   4.1 Information Structure
-       4.1.1 Structure Information
-       4.1.2 Clearly Delineate Sections
-       4.1.3 Maintain Logical Flow
-   4.2 Formatting Techniques
-       4.2.1 Utilize Structured Formatting
-       4.2.2 Emphasize Critical Rules
-       4.2.3 Use Consistent Formatting
-
-5. Clarity and Comprehensiveness
-   5.1 Examples and Illustrations
-       5.1.1 Use Examples
-       5.1.2 Provide Contrasting Examples
-       5.1.3 Align Examples with Instructions
-   5.2 Comprehensiveness and Coherence
-       5.2.1 Ensure Completeness
-       5.2.2 Ensure Coherence and Consistency
-       5.2.3 Use Section References Accurately
-       5.2.4 Provide Clear Cross-References
-   5.3 Task Completion
-       5.3.1 Implement Procedural Writing
-       5.3.2 End with Action
-
-[Detailed Best Practices for Writing Effective Prompts with Examples]
-
+<Prompt Engineering Best Practices>
 1. Mandatory Rules
 
 1.1 Command Execution Protocol: Specify that the AI can ONLY interact using provided commands.
@@ -78,13 +21,13 @@
 
 2.1 Role and Task Definition
 
-2.1.1 Clear Role Definition: Start with a concise statement of the AI's role and primary function.
-   Positive example: "You are a Medical Diagnosis Assistant. Your job is to help doctors analyze patient symptoms and suggest potential diagnoses."
+2.1.1 Clear Role Definition: Start with a concise statement of the AI's role and primary function, then clearly state the role_id separately.
+   Positive example: "You are a Medical Diagnosis Assistant. Your role_id is MedicalAssistant-001. Your job is to help doctors analyze patient symptoms and suggest potential diagnoses."
    Negative example: "You are an AI that does medical stuff."
 
-2.1.2 Explicit Capabilities and Limitations: Clearly state what the AI can and cannot do.
+2.1.2 Explicit Capabilities and Limitations: Clearly state what the AI can and cannot do, including its ability to use role_ids.
    Positive example: 
-   "Capabilities: You can analyze symptoms, suggest diagnoses, and recommend tests.
+   "Capabilities: You can analyze symptoms, suggest diagnoses, recommend tests, and use and understand role_ids for precise communication with other agents.
    Limitations: You cannot prescribe medications or make final diagnoses."
    Negative example: "You're a smart AI, figure out what you can do."
 
@@ -93,12 +36,15 @@
 2.2.1 Provide Detailed Tools: List and explain any specific tools or commands available to the AI, using a consistent and clear format.
    Positive example: 
    "Available Tools:
-   1. SymptomAnalyzer: Analyzes a list of symptoms and returns possible conditions.
+   1. SendMessageTo: Sends a message to another agent.
       Usage: 
-      <command name="SymptomAnalyzer">
-        <arg name="symptoms">fever, cough, fatigue</arg>
+      <command name="SendMessageTo">
+        <arg name="to_role">GeneralRoleName or SpecificRoleId</arg>
+        <arg name="content">Your message here</arg>
+        <arg name="message_type">TASK_ASSIGNMENT|TASK_COMPLETED|QUESTION|ERROR</arg>
+        <arg name="from_role">YourRoleId</arg>
       </command>"
-   Negative example: "Use SymptomAnalyzer(symptoms) to analyze symptoms."
+   Negative example: "Use SendMessageTo(recipient, message) to send messages."
 
 2.2.2 Include a Workflow: Outline a step-by-step process for task completion.
    Positive example:
@@ -111,20 +57,25 @@
 
 2.3 User Input Handling
 
-2.3.1 Clearly Denote Input Areas: Provide clear, designated areas for user input within the prompt.
+2.3.1 Clearly Denote Input Areas: Provide clear, designated areas for user input within the prompt using variables or placeholders that can be dynamically replaced.
    Positive example: 
    "<UserInput>
      <ProductCategory>{product_category}</ProductCategory>
      <PriceRange>{price_range}</PriceRange>
-   </UserInput>"
+   </UserInput>
+   
+   In this example, {product_category} and {price_range} are placeholders that will be replaced with actual user input when the prompt is used. This allows for dynamic customization of the prompt based on specific user requirements."
+   
    Negative example: "Tell me what product you want and how much you want to spend."
+   
+   Explanation: Using clearly defined placeholders or variables (like {product_category} and {price_range}) allows for easy identification of where user input should be inserted. This approach facilitates automated processing and ensures that user-specific information is correctly incorporated into the prompt. It also makes the prompt more versatile and reusable for different user inputs.
 
 3. Content and Style
 
 3.1 Writing Style and Tone
 
 3.1.1 Use an Authoritative Tone: Employ language that clearly establishes the AI's role and the task's parameters.
-   Positive example: "As a Medical Diagnosis Assistant, you must always prioritize patient safety and adhere to medical ethics."
+   Positive example: "As Medical Diagnosis Assistant MedicalAssistant-001, you must always prioritize patient safety and adhere to medical ethics when communicating with other medical professionals or specialized agents."
    Negative example: "Try to help with medical stuff if you can."
 
 3.1.2 Be Direct and Imperative: Use clear, commanding language to convey instructions and rules.
@@ -146,8 +97,8 @@
     Negative example: "Check the blood test results."
 
 3.2.2 Use Consistent Terminology: Stick to the same terms for key concepts throughout the prompt.
-    Positive example: Consistently using "user input" to refer to information provided by the user.
-    Negative example: Alternating between "user input," "customer data," and "client information" for the same concept.
+    Positive example: Consistently use 'role_id' when referring to the full identifier (e.g., SearchAgent-001) and 'general role name' when referring to the non-numeric part (e.g., SearchAgent).
+    Negative example: Alternating between "role_id," "agent identifier," and "AI name" for the same concept.
 
 3.3 Emphasis and Reinforcement
 
@@ -195,7 +146,7 @@
     Negative example: Burying important rules within other text without emphasis.
 
 4.2.3 Use Consistent Formatting: Apply the same formatting styles for similar elements throughout the prompt.
-    Positive example: Using the same XML-style tags for all user inputs and command structures.
+    Positive example: Always format role_ids as [GeneralRoleName]-[ThreeDigitNumber], e.g., SearchAgent-001, AnalysisAgent-042.
     Negative example: Using different styles of input placeholders or command structures in different parts of the prompt.
 
 5. Clarity and Comprehensiveness
@@ -249,135 +200,112 @@
     Positive example: "Now, begin by asking the patient about their primary symptoms."
     Negative example: "Good luck!"
 
+6. Multi-Agent Systems and Communication
 
+6.1 System Structure and Agent Representation
 
-[AI Price Recommender Prompt]
+6.1.1 Use a clear and consistent format to list available specialist agents:
+   Positive example:
+   "AVAILABLE SPECIALIST AGENTS:
+   1. SearchAgent
+   2. AnalysisAgent
+   3. SummarizationAgent"
+   Negative example: "We have agents that can search, analyze, and summarize."
 
-You are an AI Price Recommender. Your primary function is to search the internet for product information, analyze prices, and recommend the best products based on user input.
+6.1.2 Provide detailed capabilities for each agent:
+   Positive example:
+   "SearchAgent
+   Capabilities:
+   - Perform web searches on given topics
+   - Filter results based on relevance and recency
+   - Return specified number of top results with URLs"
+   Negative example: "SearchAgent can do web searches."
 
-CRITICAL RULES:
-1. You can ONLY interact with web pages using the provided text commands.
-2. After using a command, you MUST STOP and WAIT for the results.
-3. You MUST NOT continue until you receive the command results.
-4. You MUST indicate that you are waiting by saying "Waiting for [CommandName] results..."
+6.1.3 Implement a clear hierarchy in the information structure:
+   Positive example:
+   "1. AgentName
+      1.1 Capabilities
+          - Capability 1
+          - Capability 2
+      1.2 Limitations
+          - Limitation 1
+          - Limitation 2"
+   Negative example: "AgentName can do this and that but can't do some other things."
 
-These rules are MANDATORY and must be followed WITHOUT EXCEPTION for every command used.
+6.1.4 Describe agent capabilities in specific, actionable terms:
+   Positive example: "Generate summaries of 100-500 words from academic papers"
+   Negative example: "Can summarize text"
 
-<UserInput>
-  <ProductCategory>{product_category}</ProductCategory>
-  <PriceRange>{price_range}</PriceRange>
-  <AdditionalRequirements>{additional_requirements}</AdditionalRequirements>
-</UserInput>
+6.1.5 Design the agent list structure to allow easy addition of new agents:
+   Positive example: Using a numbered list or clearly separated sections for each agent, allowing new agents to be inserted without disrupting the overall structure.
+   Negative example: Using a format that makes it difficult to add new agents without reorganizing the entire list.
 
-Capabilities:
-- Search the internet for product information
-- Scrape and analyze product data from various websites
-- Compare prices and features across multiple products
-- Provide reasoned recommendations based on user criteria
+6.2 Communication Protocol
 
-Limitations:
-- You cannot make purchases on behalf of users
-- You cannot access user personal or financial information
-- You cannot guarantee real-time price accuracy due to potential website updates
+6.2.1 Define a clear protocol for inter-agent communication:
+   Positive example: 
+   "SendMessageTo Command Usage:
+   - Initial communication: Use general role name in the 'to_role' argument.
+   - Subsequent communications: Use full role_id in the 'to_role' argument if known.
+   - Always use your full role_id in the 'from_role' argument."
+   Negative example: "Agents can communicate however they want."
 
-Available Text Commands:
-1. TakeScreenshot: Loads the web page and takes a screenshot.
-   <command name="TakeScreenshot">
-     <arg name="url">webpage_url</arg>
-   </command>
+6.2.2 Specify message types and their appropriate usage:
+   Positive example: "Use TASK_ASSIGNMENT for assigning tasks, TASK_COMPLETED for reporting completion, QUESTION for queries, and ERROR for error situations."
+   Negative example: "Use any message type that seems appropriate."
 
-2. ReadPageSource: Reads the HTML source of the current web page.
-   <command name="ReadPageSource">
-   </command>
+6.2.3 Provide a standardized command format for communication:
+   Positive example: 
+   "<command name="SendMessageTo">
+     <arg name="to_role">{target_role}</arg>
+     <arg name="content">{Your message here}</arg>
+     <arg name="message_type">TASK_ASSIGNMENT|TASK_COMPLETED|QUESTION|ERROR</arg>
+     <arg name="from_role">{Your role_id}</arg>
+   </command>"
+   Negative example: "Send messages in any format that gets the point across."
 
-3. TriggerElement: Interacts with an element on the web page.
-   <command name="TriggerElement">
-     <arg name="selector">css_selector</arg>
-     <arg name="action">action_to_perform</arg>
-   </command>
+6.3 Role Identification System
 
-4. AskUserInput: Asks the user for specific information.
-   <command name="AskUserInput">
-     <arg name="prompt">prompt_for_user</arg>
-   </command>
+6.3.1 Implement a clear role identification system:
+   Positive example: "Each agent has a role_id consisting of a general role name and a 3-digit number (e.g., SearchAgent-001)."
+   Negative example: "Agents are numbered randomly."
 
-Remember: After EVERY command, you MUST STOP and WAIT for results before proceeding.
+6.3.2 Specify the use of general role names for initial communication:
+   Positive example: "When initiating communication, use only the general role name (e.g., SearchAgent)."
+   Negative example: "Always use the full role_id for all communications."
 
-WORKFLOW: Follow these steps for EVERY action:
-1. Think: Decide what to do next. Consider which command is most appropriate for your current goal.
-2. Act: Use a text command. Make sure you're using the right command for the task.
-3. Wait: Say "Waiting for [CommandName] results..." and STOP. This is crucial for maintaining the correct order of operations.
-4. Observe: Analyze the results when provided. Look for important information that will guide your next action.
-5. Repeat: Go back to step 1 until the task is complete.
+6.3.3 Explain how and when specific role_ids are learned and used:
+   Positive example: "The specific role_id of a recipient is learned only after they respond. In subsequent communications, use the full role_id if known."
+   Negative example: "Figure out the role_ids of other agents as you go along."
 
-CORRECT EXAMPLE:
-User Input:
-<UserInput>
-  <ProductCategory>laptop</ProductCategory>
-  <PriceRange>300-500</PriceRange>
-  <AdditionalRequirements>for basic office work and web browsing</AdditionalRequirements>
-</UserInput>
+6.4 Error Handling and Edge Cases
 
-AI: I understand that you're looking for a laptop in the $300-500 range for basic office work and web browsing. I'll start by searching for suitable options.
+6.4.1 Provide guidelines for handling communication errors:
+   Positive example: "If a message fails to reach its intended recipient, retry once with the general role name before reporting an error."
+   Negative example: "Keep trying indefinitely if a message doesn't go through."
 
-Think: I need to load a search engine page first.
-Act: <command name="TakeScreenshot">
-       <arg name="url">https://www.google.com</arg>
-     </command>
-Wait: Waiting for TakeScreenshot results...
+6.4.2 Address potential edge cases in communication:
+   Positive example: "If multiple agents with the same general role name respond, prioritize based on the order of response and note the ambiguity in your next communication."
+   Negative example: "Assume there will never be conflicts in agent responses."
 
-[Results provided here]
+6.5 Maintaining Communication History
 
-Observe: The search engine page has loaded. I can see the search box.
-Think: I need to enter the search query for budget laptops.
-Act: <command name="TriggerElement">
-       <arg name="selector">input[name='q']</arg>
-       <arg name="action">fill:budget laptops $300-$500 for office work and web browsing</arg>
-     </command>
-Wait: Waiting for TriggerElement results...
+6.5.1 Instruct agents to keep track of their communication history:
+   Positive example: "Maintain a log of all sent and received messages, including the role_ids of communication partners."
+   Negative example: "Don't worry about keeping track of who you've talked to."
 
-[Results provided here]
+6.5.2 Use communication history for context and efficiency:
+   Positive example: "Refer to previous communications when relevant to avoid redundant requests or to provide context for new tasks."
+   Negative example: "Treat each communication as if it's the first time you're interacting with an agent."
 
-Observe: The search query has been entered. I need to click the search button.
-Think: I can now click the search button.
-Act: <command name="TriggerElement">
-       <arg name="selector">input[name='btnK']</arg>
-       <arg name="action">click</arg>
-     </command>
-Wait: Waiting for TriggerElement results...
+6.6 Clear and Concise Communication
 
-[Results provided here]
+6.6.1 Emphasize the importance of clear and concise messages:
+   Positive example: "Craft messages that are specific, actionable, and relevant to the recipient's role and capabilities."
+   Negative example: "Send long, detailed messages explaining everything about the task to every agent."
 
-... [The example continues with the AI analyzing search results, always waiting for results after each command]
-
-INCORRECT EXAMPLE:
-User Input:
-<UserInput>
-  <ProductCategory>laptop</ProductCategory>
-  <PriceRange>300-500</PriceRange>
-  <AdditionalRequirements>for basic office work and web browsing</AdditionalRequirements>
-</UserInput>
-
-AI: I'll search for budget laptops that meet your criteria.
-
-Think: I need to load a search engine and perform a search.
-Act: <command name="TakeScreenshot">
-       <arg name="url">https://www.google.com</arg>
-     </command>
-Act: <command name="TriggerElement">
-       <arg name="selector">input[name='q']</arg>
-       <arg name="action">fill:budget laptops $300-$500 for office work and web browsing</arg>
-     </command>
-Act: <command name="TriggerElement">
-       <arg name="selector">input[name='btnK']</arg>
-       <arg name="action">click</arg>
-     </command>
-
-This is incorrect because:
-- It violates CRITICAL RULES 2, 3, and 4: The AI did not stop and wait for results after each command.
-- It did not indicate waiting for results by saying "Waiting for [CommandName] results..."
-- It proceeded to use multiple commands without waiting for or analyzing the results of each one.
-
-Remember: You MUST ALWAYS wait for the results of each command before proceeding to the next action. This is CRITICAL for maintaining the correct sequence of operations and ensuring accurate task execution.
-
-Now, please provide your product category, price range, and any additional requirements using the <UserInput> format, and I'll begin the search and comparison process to find the best product for you.
+6.6.2 Encourage the use of structured message content:
+   Positive example: "Use consistent formatting for message content, such as clearly separating instructions, data, and queries."
+   Negative example: "Write messages in any format that gets the point across."
+   
+</Prompt Engineering Best Practices>
