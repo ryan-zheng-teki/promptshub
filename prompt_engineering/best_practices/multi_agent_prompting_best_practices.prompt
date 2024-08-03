@@ -21,13 +21,13 @@
 
 2.1 Role and Task Definition
 
-2.1.1 Clear Role Definition: Start with a concise statement of the AI's role and primary function, then clearly state the role_id separately.
-   Positive example: "You are a Medical Diagnosis Assistant. Your role_id is MedicalAssistant-001. Your job is to help doctors analyze patient symptoms and suggest potential diagnoses."
+2.1.1 Clear Role Definition: Start with a concise statement of the AI's role and primary function, then clearly state the agent_id separately.
+   Positive example: "You are a Medical Diagnosis Assistant. Your agent_id is MedicalAssistant-001. Your job is to help doctors analyze patient symptoms and suggest potential diagnoses."
    Negative example: "You are an AI that does medical stuff."
 
-2.1.2 Explicit Capabilities and Limitations: Clearly state what the AI can and cannot do, including its ability to use role_ids.
+2.1.2 Explicit Capabilities and Limitations: Clearly state what the AI can and cannot do, including its ability to use agent_ids.
    Positive example: 
-   "Capabilities: You can analyze symptoms, suggest diagnoses, recommend tests, and use and understand role_ids for precise communication with other agents.
+   "Capabilities: You can analyze symptoms, suggest diagnoses, recommend tests, and use and understand agent_ids for precise communication with other agents.
    Limitations: You cannot prescribe medications or make final diagnoses."
    Negative example: "You're a smart AI, figure out what you can do."
 
@@ -39,10 +39,11 @@
    1. SendMessageTo: Sends a message to another agent.
       Usage: 
       <command name="SendMessageTo">
-        <arg name="to_role">GeneralRoleName or SpecificRoleId</arg>
+        <arg name="to_role">GeneralRoleName</arg>
+        <arg name="to_agent_id">SpecificAgentId or "unknown"</arg>
         <arg name="content">Your message here</arg>
         <arg name="message_type">TASK_ASSIGNMENT|TASK_COMPLETED|QUESTION|ERROR</arg>
-        <arg name="from_role">YourRoleId</arg>
+        <arg name="from_agent_id">YourSpecificAgentId</arg>
       </command>"
    Negative example: "Use SendMessageTo(recipient, message) to send messages."
 
@@ -240,43 +241,45 @@
    Positive example: Using a numbered list or clearly separated sections for each agent, allowing new agents to be inserted without disrupting the overall structure.
    Negative example: Using a format that makes it difficult to add new agents without reorganizing the entire list.
 
+
 6.2 Communication Protocol
 
 6.2.1 Define a clear protocol for inter-agent communication:
    Positive example: 
    "SendMessageTo Command Usage:
-   - Initial communication: Use general role name in the 'to_role' argument.
-   - Subsequent communications: Use full role_id in the 'to_role' argument if known.
-   - Always use your full role_id in the 'from_role' argument."
+   - Use 'recipient_role' for the general role name of the recipient.
+   - Use 'recipient_agent_id' for the specific agent_id if known, otherwise use 'unknown'.
+   - Always use your specific agent_id in the 'sender_agent_id' argument."
    Negative example: "Agents can communicate however they want."
 
-6.2.2 Specify message types and their appropriate usage:
-   Positive example: "Use TASK_ASSIGNMENT for assigning tasks, TASK_COMPLETED for reporting completion, QUESTION for queries, and ERROR for error situations."
-   Negative example: "Use any message type that seems appropriate."
+6.2.2 Specify how to handle unknown agent_ids:
+   Positive example: "When the specific agent_id is not known, use 'unknown' in the 'recipient_agent_id' argument. Update this to the specific agent_id once it's learned from the agent's response."
+   Negative example: "Guess the agent_id if you don't know it."
 
 6.2.3 Provide a standardized command format for communication:
    Positive example: 
    "<command name="SendMessageTo">
-     <arg name="to_role">{target_role}</arg>
-     <arg name="content">{Your message here}</arg>
-     <arg name="message_type">TASK_ASSIGNMENT|TASK_COMPLETED|QUESTION|ERROR</arg>
-     <arg name="from_role">{Your role_id}</arg>
+     <arg name="recipient_role">GeneralRoleName</arg>
+     <arg name="recipient_agent_id">SpecificAgentId or "unknown"</arg>
+     <arg name="content">Your message here</arg>
+     <arg name="message_type">TASK_ASSIGNMENT|TASK_RESULT|TASK_COMPLETED|QUESTION|ERROR</arg>
+     <arg name="sender_agent_id">YourSpecificAgentId</arg>
    </command>"
    Negative example: "Send messages in any format that gets the point across."
 
-6.3 Role Identification System
+6.3 Agent Identification System
 
-6.3.1 Implement a clear role identification system:
-   Positive example: "Each agent has a role_id consisting of a general role name and a 3-digit number (e.g., SearchAgent-001)."
+6.3.1 Implement a clear agent identification system:
+   Positive example: "Each agent has an agent_id consisting of its role name and a 3-digit number (e.g., SearchAgent-001)."
    Negative example: "Agents are numbered randomly."
 
 6.3.2 Specify the use of general role names for initial communication:
-   Positive example: "When initiating communication, use only the general role name (e.g., SearchAgent)."
-   Negative example: "Always use the full role_id for all communications."
+   Positive example: "When initiating communication, use only the general role name (e.g., SearchAgent) in the 'recipient_role' argument."
+   Negative example: "Always use the full agent_id for all communications."
 
-6.3.3 Explain how and when specific role_ids are learned and used:
-   Positive example: "The specific role_id of a recipient is learned only after they respond. In subsequent communications, use the full role_id if known."
-   Negative example: "Figure out the role_ids of other agents as you go along."
+6.3.3 Explain how and when specific agent_ids are learned and used:
+   Positive example: "The specific agent_id of a recipient is learned only after they respond. In subsequent communications, use the full agent_id in the 'recipient_agent_id' argument if known."
+   Negative example: "Figure out the agent_ids of other agents as you go along."
 
 6.4 Error Handling and Edge Cases
 
@@ -307,5 +310,56 @@
 6.6.2 Encourage the use of structured message content:
    Positive example: "Use consistent formatting for message content, such as clearly separating instructions, data, and queries."
    Negative example: "Write messages in any format that gets the point across."
-   
-</Prompt Engineering Best Practices>
+
+7. Consistent Thought Process Representation
+
+7.1 Mandatory Thought Process Output
+
+7.1.1 Require the output of thought processes for every step:
+   Positive example: 
+   "For EVERY step of your process, you MUST begin by outputting your thought process using the format:
+   THOUGHT: [Detailed explanation of your reasoning for this step]"
+   Negative example: "Share your thoughts when you think it's important."
+
+7.1.2 Emphasize the universality of this requirement:
+   Positive example: "This rule applies regardless of the specific action you're taking or the stage of the workflow you're in."
+   Negative example: "Use thought labels for major decisions."
+
+7.2 Flexible Action and Waiting Labeling
+
+7.2.1 Provide a consistent format for labeling actions:
+   Positive example: 
+   "When taking a specific action, label it as follows:
+   ACTION: [Description or command for the action you're taking]"
+   Negative example: "Describe your actions however you like."
+
+7.2.2 Establish a clear way to indicate waiting for results:
+   Positive example:
+   "If you need to wait for results after an action, indicate this as follows:
+   WAITING: Waiting for [description of what you're waiting for]"
+   Negative example: "Let us know if you're waiting for something."
+
+7.3 Adaptation to Various Workflows
+
+7.3.1 Design output structures that can accommodate different workflows:
+   Positive example: "Use THOUGHT:, ACTION:, and WAITING: labels as appropriate for each step, regardless of the specific workflow being followed."
+   Negative example: "Follow this exact sequence of steps: Think, Act, Observe."
+
+7.3.2 Emphasize consistency in thought process representation across workflows:
+   Positive example: "No matter what type of task or workflow you're engaged in, always begin each step by explaining your thought process with a THOUGHT: label."
+   Negative example: "Adapt your output format to each unique workflow."
+
+7.4 Exemplify Correct Usage in Various Scenarios
+
+7.4.1 Provide examples of correctly labeled output for different types of steps:
+   Positive example:
+   "THOUGHT: The user has asked for information about Project X. I need to search for this information.
+   ACTION: [Insert appropriate search command here]
+   WAITING: Waiting for search results
+
+   THOUGHT: I have received the search results. The top result seems most relevant to the user's query.
+   ACTION: [Insert command to analyze top search result]
+   WAITING: Waiting for analysis results"
+   Negative example: Providing an example that only shows one type of step or doesn't include all necessary labels.
+
+</PromptEngineeringBestPractices>

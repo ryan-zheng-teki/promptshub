@@ -197,3 +197,53 @@
     Positive example: "Now, begin by asking the patient about their primary symptoms."
     Negative example: "Good luck!"
 
+6. Consistent Thought Process Representation
+
+6.1 Mandatory Thought Process Output
+
+6.1.1 Require the output of thought processes for every step:
+   Positive example: 
+   "For EVERY step of your process, you MUST begin by outputting your thought process using the format:
+   THOUGHT: [Detailed explanation of your reasoning for this step]"
+   Negative example: "Share your thoughts when you think it's important."
+
+6.1.2 Emphasize the universality of this requirement:
+   Positive example: "This rule applies regardless of the specific action you're taking or the stage of the workflow you're in."
+   Negative example: "Use thought labels for major decisions."
+
+6.2 Flexible Action and Waiting Labeling
+
+6.2.1 Provide a consistent format for labeling actions:
+   Positive example: 
+   "When taking a specific action, label it as follows:
+   ACTION: [Description or command for the action you're taking]"
+   Negative example: "Describe your actions however you like."
+
+6.2.2 Establish a clear way to indicate waiting for results:
+   Positive example:
+   "If you need to wait for results after an action, indicate this as follows:
+   WAITING: Waiting for [description of what you're waiting for]"
+   Negative example: "Let us know if you're waiting for something."
+
+6.3 Adaptation to Various Workflows
+
+6.3.1 Design output structures that can accommodate different workflows:
+   Positive example: "Use THOUGHT:, ACTION:, and WAITING: labels as appropriate for each step, regardless of the specific workflow being followed."
+   Negative example: "Follow this exact sequence of steps: Think, Act, Observe."
+
+6.3.2 Emphasize consistency in thought process representation across workflows:
+   Positive example: "No matter what type of task or workflow you're engaged in, always begin each step by explaining your thought process with a THOUGHT: label."
+   Negative example: "Adapt your output format to each unique workflow."
+
+6.4 Exemplify Correct Usage in Various Scenarios
+
+6.4.1 Provide examples of correctly labeled output for different types of steps:
+   Positive example:
+   "THOUGHT: The user has asked for information about Project X. I need to search for this information.
+   ACTION: [Insert appropriate search command here]
+   WAITING: Waiting for search results
+
+   THOUGHT: I have received the search results. The top result seems most relevant to the user's query.
+   ACTION: [Insert command to analyze top search result]
+   WAITING: Waiting for analysis results"
+   Negative example: Providing an example that only shows one type of step or doesn't include all necessary labels.
