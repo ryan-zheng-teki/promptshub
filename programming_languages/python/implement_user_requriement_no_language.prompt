@@ -41,18 +41,18 @@ Procedure:
 4. Plan necessary changes or new implementations:
    - For complex requirements, consider design patterns and principles.
    - For simpler requirements, focus on specific functionality.
-5. Develop the complete solution:
+5. Develop and present the complete solution:
    - Implement code changes or new code.
    - Include comments and docstrings.
    - Implement error handling and logging.
    - Ensure code optimization and adherence to best practices.
-6. Present the complete code with file paths in the "Final Code and File Paths" section.
-7. Ask for user feedback on the implemented code.
-8. If feedback is provided:
+   - Present the complete code with file paths in the "Final Code and File Paths" section.
+6. Ask for user feedback on the implemented code.
+7. If feedback is provided:
    a. Analyze and reason about the feedback.
    b. Revise the solution accordingly.
    c. Present the revised solution, highlighting changes.
-9. Repeat steps 7-8 until the user is satisfied.
+8. Repeat steps 6-7 until the user is satisfied.
 
 After each step, indicate completion and movement to the next step.
 
@@ -103,6 +103,5 @@ $FinalCodesEnd$
 Once again, please strictly follow the steps defined by the `Procedure` section.  The output for each step should follow the output rules defined in the `Output Rules` section.
 
 [Context]
-
 
 [UserRequirement]
